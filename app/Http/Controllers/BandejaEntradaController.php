@@ -101,5 +101,4 @@ class BandejaEntradaController extends Controller
         }
     }
 
-    //
 }
