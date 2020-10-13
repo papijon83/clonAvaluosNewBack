@@ -23,6 +23,11 @@ $router->group(['prefix' => 'api'], function () use ($router) {
         $router->group(['prefix' => 'bandeja-entrada'], function () use ($router) {
             $router->get('avaluos', 'BandejaEntradaController@avaluos');
             $router->get('isai', 'BandejaEntradaController@isai');
+            $router->get('modificarestadoavaluo', 'BandejaEntradaController@ModificarEstadoAvaluo');
+            $router->get('avaluosProximos', 'BandejaEntradaController@avaluosProximos');
+            $router->get('buscaNotario', 'BandejaEntradaController@buscaNotario');
+            $router->get('asignaNotarioAvaluo', 'BandejaEntradaController@asignaNotarioAvaluo');
+            $router->post('descomprimirCualquierFormato', 'BandejaEntradaController@descomprimirCualquierFormato');
         });
     });
 });
