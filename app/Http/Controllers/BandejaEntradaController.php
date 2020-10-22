@@ -256,9 +256,9 @@ class BandejaEntradaController extends Controller
         }
     }
     
-    function descomprimirCualquierFormato(Request $request){
+    function descomprimirCualquierFormato($archivo){
         //var_dump($request);
-        $archivo = $request->file('files');        
+        //$archivo = $request->file('files');        
         
         if($this->validarTamanioFichero(filesize($archivo)) == FALSE){
             $res = response()->json(['mensaje' => 'El tamaño del fichero es muy grande.'], 500);
@@ -279,7 +279,10 @@ class BandejaEntradaController extends Controller
                     $arrDes = explode("\n",trim($cadenaDes));                    
                     $nombreDes = trim($arrDes[0]);
                     shell_exec("unzip $archivo -d $rutaArchivos");
-                    $res = response()->json(simplexml_load_file($rutaArchivos."/".$nombreDes), 200);
+                    $myfile = fopen($rutaArchivos."/".$nombreDes, "r");
+                    $res = fread($myfile, filesize($rutaArchivos."/".$nombreDes));
+                    //$res = simplexml_load_file($rutaArchivos."/".$nombreDes);
+                    fclose($myfile);
                     shell_exec("rm -f ".$rutaArchivos."/".str_replace(" ","\ ",$nombreDes));
                 }else{
                     $res = response()->json(['mensaje' => 'El fichero debe contener un único archivo.'], 500);
@@ -293,7 +296,10 @@ class BandejaEntradaController extends Controller
                 if(count($arrCadenas) < 3){
                     $nombreDes = explode("\n",trim($arrCadenas[1]));                    
                     shell_exec("gunzip $archivo");
-                    $res = response()->json(simplexml_load_file($rutaArchivos."/".$nombreDes), 200);
+                    $myfile = fopen($rutaArchivos."/".$nombreDes, "r");
+                    $res = fread($myfile, filesize($rutaArchivos."/".$nombreDes));
+                    //$res = simplexml_load_file($rutaArchivos."/".$nombreDes);
+                    fclose($myfile);                   
                     shell_exec("rm -f ".$rutaArchivos."/".str_replace(" ","\ ",$nombreDes));
                 }else{
                     $res = response()->json(['mensaje' => 'El fichero debe contener un único archivo.'], 500);
@@ -309,7 +315,10 @@ class BandejaEntradaController extends Controller
                     $arrNombreDes = explode(":",$arrDes[6]);
                     $nombreDes = trim($arrNombreDes[1]);
                     shell_exec("unrar x $archivo $rutaArchivos");
-                    $res = response()->json(simplexml_load_file($rutaArchivos."/".$nombreDes), 200);
+                    $myfile = fopen($rutaArchivos."/".$nombreDes, "r");
+                    $res = fread($myfile, filesize($rutaArchivos."/".$nombreDes));
+                    //$res = simplexml_load_file($rutaArchivos."/".$nombreDes);
+                    fclose($myfile);
                     shell_exec("rm -f ".$rutaArchivos."/".str_replace(" ","\ ",$nombreDes));
                 }else{
                     $res = response()->json(['mensaje' => 'El fichero debe contener un único archivo.'], 500);
@@ -329,14 +338,489 @@ class BandejaEntradaController extends Controller
         }
     }
     
-    function esValidoAvaluo($docXml){
-        $xml = new DOMDocument();
-        $xml->load($docXml);
-
-        if (!$xml->schemaValidate('EsquemaAvaluo.xsd')) {
-            print '<b>DOMDocument::schemaValidate() Generated Errors!</b>';
-            libxml_display_errors();
+    function esValidoAvaluo(Request $request){
+        $file = $request->file('files');
+        $contents = $this->descomprimirCualquierFormato($file);
+        $this->doc = new \DOMDocument('1.0', 'utf-8');        
+        //$xsd = 'EsquemaAvaluo.xsd';
+        //$xsd = 'Prueba.xsd';
+        $xsd = 'EsquemaAvaluomiodos.xsd';
+        if (!file_exists($xsd)) {
+            echo "Archivo <b>$xsd</b> no existe.";
+            return false;
         }
+        //Habilita/Deshabilita errores libxml y permite al usuario extraer 
+        //información de errores según sea necesario
+        libxml_use_internal_errors(true);       
+        //echo $contents; exit();
+        $this->doc->loadXML($contents, LIBXML_NOBLANKS);
+        /*$myfilexsd = fopen('EsquemaAvaluo.xsd', "r");
+        $resxsd = fread($myfilexsd, filesize('EsquemaAvaluo.xsd'));    
+        fclose($myfilexsd); */
+        //var_dump($resxsd); exit();        
+        $this->doc->schemaValidate($xsd);
+        //echo "EL ERROR ";
+        $this->errors = libxml_get_errors();
+        $msg = '';
+        foreach ($this->errors as $error) {
+            switch ($error->level) {
+                case LIBXML_ERR_WARNING:
+                    $nivel = 'Warning';
+                    break;
+                case LIBXML_ERR_ERROR :
+                    $nivel = 'Error_1';
+                    break;
+                case LIBXML_ERR_FATAL:
+                    $nivel = 'Fatal Error_1';
+                    break;
+            }
+            echo $msg .= "<b>Error $error->code [$nivel]:</b><br>"
+                    . str_repeat('&nbsp;', 6) . "Linea: $error->line<br>"
+                    . str_repeat('&nbsp;', 6) . "Mensaje: $error->message<br>";
+        }
+        //fclose($myfile);
+        // Valida un documento basado en un esquema
+        if (!$this->doc->schemaValidate($xsd)) {
+            echo "AQUI SI LLEGO "; exit();
+            //Recupera un array de errores
+            $this->errors = libxml_get_errors();
+            return false;
+        }
+
+        
+        //Limpia el buffer de errores de libxml
+        libxml_clear_errors();
+        echo "LLEGUE HASTA ACA  "; exit();
+        return true;
+    }
+
+    function guardarAvaluo(Request $request){
+        $idPersona = 1;
+        $file = $request->file('files');
+        $contents = $this->descomprimirCualquierFormato($file);        
+        $xml = new \SimpleXMLElement($contents);        
+        $elementoFecha = $xml->xpath('//Comercial//Identificacion//FechaAvaluo[@id="a.2"]');
+        $fechaAvaluo = $elementoFecha[0];
+
+        $esComercial = $xml->xpath('//Comercial');
+        if(count($esComercial) > 0){
+            $esComercial = true;
+            $tipoTramite = 1;            
+        }else{
+            $esComercial = false;
+            $tipoTramite = 2;            
+        }
+        //$camposFexavaAvaluo = $this->camposFexAva();
+        $camposFexavaAvaluo = array();
+        $camposFexavaAvaluo['CODESTADOAVALUO'] =  1; //CODESTADOAVALUO (Recibido)
+        $fecha_hoy = new Carbon(date('Y-m-d'));
+        $fecha_presentacion = $fecha_hoy->format('Y-m-d');
+        $camposFexavaAvaluo['FECHA_PRESENTACION'] = $fecha_presentacion;
+        $camposFexavaAvaluo['CODTIPOTRAMITE'] = $tipoTramite;
+
+        $infoXmlIdentificacion = $xml->xpath('//Comercial//Identificacion[@id="a"]');
+        $camposFexavaAvaluo = $this->guardarAvaluoIdentificacion($infoXmlIdentificacion, $camposFexavaAvaluo, $idPersona);
+        $camposFexavaAvaluo['Antecedentes'] = array();
+        $camposFexavaAvaluo = $this->guardarAvaluoAntecedentes($xml, $camposFexavaAvaluo, $idPersona);
+        //$camposFexavaAvaluo['CaracteristicasUrbanas'] = array();
+        $camposFexavaAvaluo = $this->guardarAvaluoCaracteristicasUrbanas($xml, $camposFexavaAvaluo, $idPersona);
+        echo "LA INFO "; print_r($camposFexavaAvaluo); exit();
+        /*$this->doc = new \DOMDocument('1.0', 'utf-8');
+        libxml_use_internal_errors(true);    
+        $this->doc->loadXML($contents, LIBXML_NOBLANKS);*/
+    }
+
+    public function camposFexAva()
+    {
+        try {
+           $camposFexavaAvaluo = DB::select("SELECT column_name FROM all_tab_columns WHERE table_name = 'FEXAVA_AVALUO'");
+           //print_r($camposFexavaAvaluo); exit();
+           $arrCamposFexavaAvaluo = array();
+           foreach($camposFexavaAvaluo as $elemento){
+               $arrCamposFexavaAvaluo[$elemento->column_name] = '';
+           }           
+           return $arrCamposFexavaAvaluo;
+           
+        } catch (\Throwable $th) {
+            //Log::info($th);
+            error_log($th);
+            return response()->json(['mensaje' => 'Error en el servidor'], 500);
+        }
+    }
+
+    public function guardarAvaluoIdentificacion($infoXmlIdentificacion, $camposFexavaAvaluo, $idPersona){
+        $arrIdentificacion = array();
+        foreach($infoXmlIdentificacion[0] as $llave => $elemento){
+            $arrIdentificacion[$llave] = (String)($elemento);
+        }                 
+        if($arrIdentificacion['NumeroDeAvaluo'] != ''){            
+            $camposFexavaAvaluo['NUMEROAVALUO'] = $arrIdentificacion['NumeroDeAvaluo'];
+        } 
+        if($arrIdentificacion['FechaAvaluo'] != ''){            
+            $camposFexavaAvaluo['FECHAAVALUO'] = $arrIdentificacion['FechaAvaluo'];
+        }
+        if($arrIdentificacion['ClaveValuador'] != ''){            
+            $registroPerito = $arrIdentificacion['ClaveValuador'];
+            $camposFexavaAvaluo['IDPERSONAPERITO'] = $idPersona;
+        }
+        if($arrIdentificacion['ClaveSociedad'] != ''){            
+            $registroSoci = $arrIdentificacion['ClaveSociedad'];
+            $camposFexavaAvaluo['IDPERSONAPERITO'] = '';//aqui se usa IdPeritoSociedadByRegistro(registroPerito, string.Empty, true);
+            $camposFexavaAvaluo['IDPERSONASOCIEDAD'] = '';//aqui se usa IdPeritoSociedadByRegistro(registroPerito, registroSoci, false);
+        }
+        
+        if($camposFexavaAvaluo['CODTIPOTRAMITE'] == 2){
+            $tipo = "CAT";
+        }else if($camposFexavaAvaluo['CODTIPOTRAMITE'] == 1){
+            $tipo = "COM";
+        }
+        $camposFexavaAvaluo['CODTIPOTRAMITE'] = $this->obtenerNumUnicoAv($tipo);      
+        return $camposFexavaAvaluo;
+    }
+
+    public function guardarAvaluoAntecedentes($infoXmlAntecedentes, $camposFexavaAvaluo){
+        $infoXmlSolicitante = $infoXmlAntecedentes->xpath('//Comercial//Antecedentes[@id="b"]//Solicitante[@id="b.1"]');
+        $camposFexavaAvaluo['Antecedentes']['Solicitante'] = array();
+        foreach($infoXmlSolicitante[0] as $llave => $elemento){
+            $arrSolicitante[$llave] = (String)($elemento);
+        }
+
+        if(trim($arrSolicitante['A.Paterno']) != ''){
+            $camposFexavaAvaluo['Antecedentes']['Solicitante']['APELLIDOPATERNO'] = $arrSolicitante['A.Paterno'];
+        }
+        if(trim($arrSolicitante['A.Materno']) != ''){
+        $camposFexavaAvaluo['Antecedentes']['Solicitante']['APELLIDOMATERNO'] = $arrSolicitante['A.Materno'];
+        }
+        if(trim($arrSolicitante['Nombre']) != ''){
+        $camposFexavaAvaluo['Antecedentes']['Solicitante']['NOMBRE'] = $arrSolicitante['Nombre'];
+        }
+        if(trim($arrSolicitante['Calle']) != ''){
+        $camposFexavaAvaluo['Antecedentes']['Solicitante']['CALLE'] = $arrSolicitante['Calle'];
+        }
+        if(trim($arrSolicitante['NumeroInterior']) != ''){
+        $camposFexavaAvaluo['Antecedentes']['Solicitante']['NUMEROINTERIOR'] = $arrSolicitante['NumeroInterior'];
+        }
+        if(trim($arrSolicitante['NumeroExterior']) != ''){
+        $camposFexavaAvaluo['Antecedentes']['Solicitante']['NUMEROEXTERIOR'] = $arrSolicitante['NumeroExterior'];
+        }
+        if(trim($arrSolicitante['CodigoPostal']) != ''){
+        $camposFexavaAvaluo['Antecedentes']['Solicitante']['CODIGOPOSTAL'] = $arrSolicitante['CodigoPostal'];
+        }
+        if(is_int($arrSolicitante['Delegacion'])){
+            $camposFexavaAvaluo['Antecedentes']['Solicitante']['IDDELEGACION'] = $arrSolicitante['Delegacion'];
+            $camposFexavaAvaluo['Antecedentes']['Solicitante']['NOMBREDELEGACION'] = '';
+        }else{
+            //aqui se obtendria el iddelegacion por el nombre
+            $idDelegacion = "ObtenerIdDelegacionPorNombre()";
+            if($idDelegacion != -1){
+                $camposFexavaAvaluo['Antecedentes']['Solicitante']['IDDELEGACION'] = $idDelegacion;
+                $camposFexavaAvaluo['Antecedentes']['Solicitante']['NOMBREDELEGACION'] = $arrSolicitante['Delegacion'];
+            }
+        }
+        if(trim($arrSolicitante['Colonia']) != ''){
+            //aqui se obtendria el idColonia por el nombre
+            $idColonia = "ObtenerIdColoniaPorNombreyDelegacion()";
+            if($idColonia != -1){
+                $camposFexavaAvaluo['Antecedentes']['Solicitante']['IDCOLONIA'] = $idColonia;
+                $camposFexavaAvaluo['Antecedentes']['Solicitante']['NOMBRECOLONIA'] = $arrSolicitante['Colonia'];
+            }
+        }
+
+        if(trim($arrSolicitante['TipoPersona']) != ''){
+            $camposFexavaAvaluo['Antecedentes']['Solicitante']['TIPOPERSONA'] = $arrSolicitante['TipoPersona'];
+        }
+
+        $camposFexavaAvaluo['Antecedentes']['Solicitante']['CODTIPOFUNCION'] = "S";
+
+        /************************************************************/
+
+        $infoXmlPropietario = $infoXmlAntecedentes->xpath('//Comercial//Antecedentes[@id="b"]//Propietario[@id="b.2"]');
+        $camposFexavaAvaluo['Antecedentes']['Propietario'] = array();
+        foreach($infoXmlPropietario[0] as $llave => $elemento){
+            $arrPropietario[$llave] = (String)($elemento);
+        }
+        if(trim($arrPropietario['A.Paterno']) != ''){
+            $camposFexavaAvaluo['Antecedentes']['Propietario']['APELLIDOPATERNO'] = $arrPropietario['A.Paterno'];
+        }
+        if(trim($arrPropietario['A.Materno']) != ''){
+        $camposFexavaAvaluo['Antecedentes']['Propietario']['APELLIDOMATERNO'] = $arrPropietario['A.Materno'];
+        }
+        if(trim($arrPropietario['Nombre']) != ''){
+        $camposFexavaAvaluo['Antecedentes']['Propietario']['NOMBRE'] = $arrPropietario['Nombre'];
+        }
+        if(trim($arrPropietario['Calle']) != ''){
+        $camposFexavaAvaluo['Antecedentes']['Propietario']['CALLE'] = $arrPropietario['Calle'];
+        }
+        if(trim($arrPropietario['NumeroInterior']) != ''){
+        $camposFexavaAvaluo['Antecedentes']['Propietario']['NUMEROINTERIOR'] = $arrPropietario['NumeroInterior'];
+        }
+        if(trim($arrPropietario['NumeroExterior']) != ''){
+        $camposFexavaAvaluo['Antecedentes']['Propietario']['NUMEROEXTERIOR'] = $arrPropietario['NumeroExterior'];
+        }
+        if(trim($arrPropietario['CodigoPostal']) != ''){
+        $camposFexavaAvaluo['Antecedentes']['Propietario']['CODIGOPOSTAL'] = $arrPropietario['CodigoPostal'];
+        }
+        if(is_int($arrPropietario['Delegacion'])){
+            $camposFexavaAvaluo['Antecedentes']['Propietario']['IDDELEGACION'] = $arrPropietario['Delegacion'];
+            $camposFexavaAvaluo['Antecedentes']['Propietario']['NOMBREDELEGACION'] = '';
+        }else{
+            //aqui se obtendria el iddelegacion por el nombre
+            $idDelegacion = "ObtenerIdDelegacionPorNombre()";
+            if($idDelegacion != -1){
+                $camposFexavaAvaluo['Antecedentes']['Propietario']['IDDELEGACION'] = $idDelegacion;
+                $camposFexavaAvaluo['Antecedentes']['Propietario']['NOMBREDELEGACION'] = $arrPropietario['Delegacion'];
+            }
+        }
+        if(trim($arrPropietario['Colonia']) != ''){
+            //aqui se obtendria el idColonia por el nombre
+            $idColonia = "ObtenerIdColoniaPorNombreyDelegacion()";
+            if($idColonia != -1){
+                $camposFexavaAvaluo['Antecedentes']['Propietario']['IDCOLONIA'] = $idColonia;
+                $camposFexavaAvaluo['Antecedentes']['Propietario']['NOMBRECOLONIA'] = $arrPropietario['Colonia'];
+            }
+        }
+
+        if(trim($arrPropietario['TipoPersona']) != ''){
+            $camposFexavaAvaluo['Antecedentes']['Propietario']['TIPOPERSONA'] = $arrPropietario['TipoPersona'];
+        }
+        
+        $camposFexavaAvaluo['Antecedentes']['Propietario']['PERSONA_PROPIETARIO'] = "P";
+
+        /************************************************************/
+
+        $infoXmlCuentaCatastral = $infoXmlAntecedentes->xpath('//Comercial//Antecedentes[@id="b"]//InmuebleQueSeValua[@id="b.3"]//CuentaCatastral[@id="b.3.10"]');
+        $camposFexavaAvaluo['Antecedentes']['CuentaCatastral'] = array();
+        foreach($infoXmlCuentaCatastral[0] as $llave => $elemento){
+            $arrCuentaCatastral[$llave] = (String)($elemento);
+        }
+        
+        if(trim($arrCuentaCatastral['Region'] != '')){
+            $camposFexavaAvaluo['Antecedentes']['CuentaCatastral']['REGION'] = $arrCuentaCatastral['Region'];
+        }
+
+        if(trim($arrCuentaCatastral['Manzana'] != '')){
+            $camposFexavaAvaluo['Antecedentes']['CuentaCatastral']['MANZANA'] = $arrCuentaCatastral['Manzana'];
+        }
+
+        if(trim($arrCuentaCatastral['Lote'] != '')){
+            $camposFexavaAvaluo['Antecedentes']['CuentaCatastral']['LOTE'] = $arrCuentaCatastral['Lote'];
+        }
+
+        if(trim($arrCuentaCatastral['Localidad'] != '')){
+            $camposFexavaAvaluo['Antecedentes']['CuentaCatastral']['UNIDADPRIVATIVA'] = $arrCuentaCatastral['Localidad'];
+        }
+
+        if(trim($arrCuentaCatastral['DigitoVerificador'] != '')){
+            $camposFexavaAvaluo['Antecedentes']['CuentaCatastral']['DIGITOVERIFICADOR'] = $arrCuentaCatastral['DigitoVerificador'];
+        }
+
+        /************************************************************/
+
+        $infoXmlPropositoDelAvaluo = $infoXmlAntecedentes->xpath('//Comercial//Antecedentes[@id="b"]//PropositoDelAvaluo[@id="b.4"]');
+        $camposFexavaAvaluo['Antecedentes']['PROPOSITO'] = (String)($infoXmlPropositoDelAvaluo[0]);
+
+        /************************************************************/
+
+        $infoXmlObjetoDelAvaluo = $infoXmlAntecedentes->xpath('//Comercial//Antecedentes[@id="b"]//ObjetoDelAvaluo[@id="b.5"]');
+        $camposFexavaAvaluo['Antecedentes']['OBJETO'] = (String)($infoXmlObjetoDelAvaluo[0]);
+
+        
+
+        return $camposFexavaAvaluo;
+    }
+
+    public function guardarAvaluoCaracteristicasUrbanas($infoXmlCaracteristicas, $camposFexavaAvaluo){
+        $infoXmlCaracteristicasUrbanas = $infoXmlCaracteristicas->xpath('//Comercial//CaracteristicasUrbanas[@id="c"]');
+        //$camposFexavaAvaluo['CaracteristicasUrbanas'] = array();
+        foreach($infoXmlCaracteristicasUrbanas[0] as $llave => $elemento){
+            $arrCaracteristicasUrbanas[$llave] = (String)($elemento);
+        }
+        if(trim($arrCaracteristicasUrbanas['ClasificacionDeLaZona']) != ''){
+            $camposFexavaAvaluo['CUCODCLASIFICACIONZONA'] = $arrCaracteristicasUrbanas['ClasificacionDeLaZona'];
+        }
+
+        if(trim($arrCaracteristicasUrbanas['IndiceDeSaturacionDeLaZona']) != ''){
+            $camposFexavaAvaluo['CUINDICESATURACIONZONA'] = $arrCaracteristicasUrbanas['IndiceDeSaturacionDeLaZona'];
+        }
+
+        $fechaAvaluo = $camposFexavaAvaluo['FECHAAVALUO'];
+        if(trim($arrCaracteristicasUrbanas['ClaseGeneralDeInmueblesDeLaZona']) != ''){
+            $codClase = $arrCaracteristicasUrbanas['ClaseGeneralDeInmueblesDeLaZona'];
+            $idClaseEjercicio = "SolicitarObtenerIdClasesByCodeAndAno(fechaAvaluo, codClase)";
+            $camposFexavaAvaluo['CUCODCLASESCONSTRUCCION'] = $idClaseEjercicio;
+        }
+
+        if(trim($arrCaracteristicasUrbanas['DensidadDePoblacion']) != ''){
+            $camposFexavaAvaluo['CUCODDENSIDADPOBLACION'] = $arrCaracteristicasUrbanas['DensidadDePoblacion'];
+        }
+
+        if(trim($arrCaracteristicasUrbanas['NivelSocioeconomicoDeLaZona']) != ''){
+            $camposFexavaAvaluo['CUCODNIVELSOCIOECONOMICO'] = $arrCaracteristicasUrbanas['NivelSocioeconomicoDeLaZona'];
+        }
+
+        /********************************Uso del Suelo**********************************/
+        $infoXmlUsoDelSuelo = $infoXmlCaracteristicas->xpath('//Comercial//CaracteristicasUrbanas[@id="c"]//UsoDelSuelo[@id="c.6"]');        
+        foreach($infoXmlUsoDelSuelo[0] as $llave => $elemento){
+            $arrUsoDelSuelos[$llave] = (String)($elemento);
+        }
+
+        if(trim($arrUsoDelSuelos['UsoDelSuelo']) != ''){
+            $camposFexavaAvaluo['CUUSO'] = $arrUsoDelSuelos['UsoDelSuelo'];
+        }
+
+        if(trim($arrUsoDelSuelos['AreaLibreObligatoria']) != ''){
+            $camposFexavaAvaluo['CUAREALIBREOBLIGATORIO'] = $arrUsoDelSuelos['AreaLibreObligatoria'];
+        }
+
+        if(trim($arrUsoDelSuelos['NumeroMaximoDeNivelesAConstruir']) != ''){
+            $camposFexavaAvaluo['CUNUMMAXNIVELESACONSTRUIR'] = $arrUsoDelSuelos['NumeroMaximoDeNivelesAConstruir'];
+        }
+
+        if(trim($arrUsoDelSuelos['CoeficienteDeUsoDelSuelo']) != ''){
+            $camposFexavaAvaluo['CUCOEFICIENTE'] = $arrUsoDelSuelos['CoeficienteDeUsoDelSuelo'];
+        }
+
+        /***************************************Servicios públicos y equipamiento urbano*************/
+
+        $infoXmlServiciosPublicosYEquipamientoUrbano = $infoXmlCaracteristicas->xpath('//Comercial//CaracteristicasUrbanas[@id="c"]//ServiciosPublicosYEquipamientoUrbano[@id="c.8"]');        
+        foreach($infoXmlServiciosPublicosYEquipamientoUrbano[0] as $llave => $elemento){
+            $arrServiciosPublicosYEquipamientoUrbanos[$llave] = (String)($elemento);
+        }
+        //print_r($arrServiciosPublicosYEquipamientoUrbanos); exit();
+        if(trim($arrServiciosPublicosYEquipamientoUrbanos['RedDeDistribucionAguaPotable']) != ''){
+            $camposFexavaAvaluo['CUCODAGUAPOTABLE'] = $arrServiciosPublicosYEquipamientoUrbanos['RedDeDistribucionAguaPotable'];
+        }
+
+        if(trim($arrServiciosPublicosYEquipamientoUrbanos['RedDeRecoleccionDeAguasResiduales']) != ''){
+            $camposFexavaAvaluo['CUCODAGUAPOTABLERESIDUAL'] = $arrServiciosPublicosYEquipamientoUrbanos['RedDeRecoleccionDeAguasResiduales'];
+        }
+
+        if(trim($arrServiciosPublicosYEquipamientoUrbanos['RedDeDrenajeDeAguasPluvialesEnLaCalle']) != ''){
+            $camposFexavaAvaluo['CUCODDRENAJEPLUVIALCALLE'] = $arrServiciosPublicosYEquipamientoUrbanos['RedDeDrenajeDeAguasPluvialesEnLaCalle'];
+        }
+
+        if(trim($arrServiciosPublicosYEquipamientoUrbanos['RedDeDrenajeDeAguasPluvialesEnLaZona']) != ''){
+            $camposFexavaAvaluo['CUCODDRENAJEPLUVIALZONA'] = $arrServiciosPublicosYEquipamientoUrbanos['RedDeDrenajeDeAguasPluvialesEnLaZona'];
+        }
+
+        if(trim($arrServiciosPublicosYEquipamientoUrbanos['SistemaMixto']) != ''){
+            $camposFexavaAvaluo['CUCODDRENAJEINMUEBLE'] = $arrServiciosPublicosYEquipamientoUrbanos['SistemaMixto'];
+        }
+
+        if(trim($arrServiciosPublicosYEquipamientoUrbanos['SuministroElectrico']) != ''){
+            $camposFexavaAvaluo['CUCODSUMINISTROELECTRICO'] = $arrServiciosPublicosYEquipamientoUrbanos['SuministroElectrico'];
+        }
+
+        if(trim($arrServiciosPublicosYEquipamientoUrbanos['AcometidaAlInmueble']) != ''){
+            $camposFexavaAvaluo['CUCODACOMETIDAINMUEBLE'] = $arrServiciosPublicosYEquipamientoUrbanos['AcometidaAlInmueble'];
+        }
+
+        if(trim($arrServiciosPublicosYEquipamientoUrbanos['AlumbradoPublico']) != ''){
+            $camposFexavaAvaluo['CUCODALUMBRADOPUBLICO'] = $arrServiciosPublicosYEquipamientoUrbanos['AlumbradoPublico'];
+        }
+
+        if(trim($arrServiciosPublicosYEquipamientoUrbanos['Vialidades']) != ''){
+            $camposFexavaAvaluo['CUCODVIALIDADES'] = $arrServiciosPublicosYEquipamientoUrbanos['Vialidades'];
+        }
+
+        if(trim($arrServiciosPublicosYEquipamientoUrbanos['Banquetas']) != ''){
+            $camposFexavaAvaluo['CUCODBANQUETAS'] = $arrServiciosPublicosYEquipamientoUrbanos['Banquetas'];
+        }
+
+        if(trim($arrServiciosPublicosYEquipamientoUrbanos['Guarniciones']) != ''){
+            $camposFexavaAvaluo['CUCODGUARNICIONES'] = $arrServiciosPublicosYEquipamientoUrbanos['Guarniciones'];
+        }
+
+        if(trim($arrServiciosPublicosYEquipamientoUrbanos['NivelDeInfraestructuraEnLaZona']) != ''){
+            $camposFexavaAvaluo['CUPORCENTAJEINFRAESTRUCTURA'] = $arrServiciosPublicosYEquipamientoUrbanos['NivelDeInfraestructuraEnLaZona'];
+        }
+
+        if(trim($arrServiciosPublicosYEquipamientoUrbanos['GasNatural']) != ''){
+            $camposFexavaAvaluo['CUCODGASNATURAL'] = $arrServiciosPublicosYEquipamientoUrbanos['GasNatural'];
+        }
+
+        if(trim($arrServiciosPublicosYEquipamientoUrbanos['TelefonosSuministro']) != ''){
+            $camposFexavaAvaluo['CUCODSUMINISTROTELEFONICA'] = $arrServiciosPublicosYEquipamientoUrbanos['TelefonosSuministro'];
+        }
+
+        if(trim($arrServiciosPublicosYEquipamientoUrbanos['AcometidaAlInmuebleTel']) != ''){
+            $camposFexavaAvaluo['CUCODACOMETIDAINMUEBLETEL'] = $arrServiciosPublicosYEquipamientoUrbanos['AcometidaAlInmuebleTel'];
+        }
+
+        if(trim($arrServiciosPublicosYEquipamientoUrbanos['SennalizacionDeVias']) != ''){
+            $camposFexavaAvaluo['CUCODSENALIZACIONVIAS'] = $arrServiciosPublicosYEquipamientoUrbanos['SennalizacionDeVias'];
+        }
+
+        if(trim($arrServiciosPublicosYEquipamientoUrbanos['NomenclaturaDeCalles']) != ''){
+            $camposFexavaAvaluo['CUCODNOMENCLATURACALLE'] = $arrServiciosPublicosYEquipamientoUrbanos['NomenclaturaDeCalles'];
+        }
+
+        if(trim($arrServiciosPublicosYEquipamientoUrbanos['DistanciaTranporteUrbano']) != ''){
+            $camposFexavaAvaluo['CUDISTANCIATRANSPORTEURBANO'] = $arrServiciosPublicosYEquipamientoUrbanos['DistanciaTranporteUrbano'];
+        }
+
+        if(trim($arrServiciosPublicosYEquipamientoUrbanos['FrecuenciaTransporteUrbano']) != ''){
+            $camposFexavaAvaluo['CUFRECUENCIATRANSPORTEURBANO'] = $arrServiciosPublicosYEquipamientoUrbanos['FrecuenciaTransporteUrbano'];
+        }
+
+        if(trim($arrServiciosPublicosYEquipamientoUrbanos['DistanciaTransporteSuburbano']) != ''){
+            $camposFexavaAvaluo['CUDISTANCIATRANSPORTESUBURB'] = $arrServiciosPublicosYEquipamientoUrbanos['DistanciaTransporteSuburbano'];
+        }
+
+        if(trim($arrServiciosPublicosYEquipamientoUrbanos['FrecuenciaTransporteSuburbano']) != ''){
+            $camposFexavaAvaluo['CUFRECUENCIATRANSPORTESUBURB'] = $arrServiciosPublicosYEquipamientoUrbanos['FrecuenciaTransporteSuburbano'];
+        }
+
+        if(trim($arrServiciosPublicosYEquipamientoUrbanos['Vigilancia']) != ''){
+            $camposFexavaAvaluo['CUCODVIGILANCIAZONA'] = $arrServiciosPublicosYEquipamientoUrbanos['Vigilancia'];
+        }
+
+        if(trim($arrServiciosPublicosYEquipamientoUrbanos['RecoleccionDeBasura']) != ''){
+            $camposFexavaAvaluo['CUCODRECOLECCIONBASURA'] = $arrServiciosPublicosYEquipamientoUrbanos['RecoleccionDeBasura'];
+        }
+
+        if(trim($arrServiciosPublicosYEquipamientoUrbanos['Templo']) != ''){
+            $camposFexavaAvaluo['CUEXISTEIGLESIA'] = $arrServiciosPublicosYEquipamientoUrbanos['Templo'];
+        }
+
+        if(trim($arrServiciosPublicosYEquipamientoUrbanos['Mercados']) != ''){
+            $camposFexavaAvaluo['CUEXISTEMERCADOS'] = $arrServiciosPublicosYEquipamientoUrbanos['Mercados'];
+        }
+
+        if(trim($arrServiciosPublicosYEquipamientoUrbanos['PlazasPublicas']) != ''){
+            $camposFexavaAvaluo['CUEXISTEPLAZASPUBLICOS'] = $arrServiciosPublicosYEquipamientoUrbanos['PlazasPublicas'];
+        }
+
+        if(trim($arrServiciosPublicosYEquipamientoUrbanos['ParquesYJardines']) != ''){
+            $camposFexavaAvaluo['CUEXISTEPARQUESJARDINES'] = $arrServiciosPublicosYEquipamientoUrbanos['ParquesYJardines'];
+        }
+
+        if(trim($arrServiciosPublicosYEquipamientoUrbanos['Escuelas']) != ''){
+            $camposFexavaAvaluo['CUEXISTEESCUELAS'] = $arrServiciosPublicosYEquipamientoUrbanos['Escuelas'];
+        }
+
+        if(trim($arrServiciosPublicosYEquipamientoUrbanos['Hospitales']) != ''){
+            $camposFexavaAvaluo['CUEXISTEHOSPITALES'] = $arrServiciosPublicosYEquipamientoUrbanos['Hospitales'];
+        }
+
+        if(trim($arrServiciosPublicosYEquipamientoUrbanos['Bancos']) != ''){
+            $camposFexavaAvaluo['CUEXISTEBANCOS'] = $arrServiciosPublicosYEquipamientoUrbanos['Bancos'];
+        }
+
+        if(trim($arrServiciosPublicosYEquipamientoUrbanos['EstacionDeTransporte']) != ''){
+            $camposFexavaAvaluo['CUEXISTEESTACIONTRANSPORTE'] = $arrServiciosPublicosYEquipamientoUrbanos['EstacionDeTransporte'];
+        }
+
+        return $camposFexavaAvaluo;
+    }
+
+    public function guardarAvaluoTerreno(){
+        
+    }
+
+    public function obtenerNumUnicoAv($tipo){
+        $anio = date('Y');
+        return "A-".$tipo."-".$anio."-";
     }
 
 }

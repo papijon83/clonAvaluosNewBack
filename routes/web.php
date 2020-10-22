@@ -27,7 +27,8 @@ $router->group(['prefix' => 'api'], function () use ($router) {
             $router->get('avaluosProximos', 'BandejaEntradaController@avaluosProximos');
             $router->get('buscaNotario', 'BandejaEntradaController@buscaNotario');
             $router->get('asignaNotarioAvaluo', 'BandejaEntradaController@asignaNotarioAvaluo');
-            $router->post('descomprimirCualquierFormato', 'BandejaEntradaController@descomprimirCualquierFormato');
+            $router->post('esValidoAvaluo', 'BandejaEntradaController@esValidoAvaluo');
+            $router->post('guardarAvaluo', 'BandejaEntradaController@guardarAvaluo');
         });
     });
 });
