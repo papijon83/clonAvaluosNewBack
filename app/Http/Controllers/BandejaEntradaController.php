@@ -311,22 +311,12 @@ class BandejaEntradaController extends Controller
             return response()->json(['mensaje' => 'Error en el servidor'], 500);
         }
     }
-<<<<<<< HEAD
     
     function descomprimirCualquierFormato($archivo){
         //var_dump($request);
         //$archivo = $request->file('files');        
         
         if($this->validarTamanioFichero(filesize($archivo)) == FALSE){
-=======
-
-    function descomprimirCualquierFormato(Request $request)
-    {
-        //var_dump($request);
-        $archivo = $request->file('files');
-
-        if ($this->validarTamanioFichero(filesize($archivo)) == FALSE) {
->>>>>>> 41fe191a9f3b68ea366a71bfc94f97dacf3e4bc8
             $res = response()->json(['mensaje' => 'El tamaño del fichero es muy grande.'], 500);
             return $res;
         }
@@ -345,18 +335,12 @@ class BandejaEntradaController extends Controller
                     $arrDes = explode("\n", trim($cadenaDes));
                     $nombreDes = trim($arrDes[0]);
                     shell_exec("unzip $archivo -d $rutaArchivos");
-<<<<<<< HEAD
                     $myfile = fopen($rutaArchivos."/".$nombreDes, "r");
                     $res = fread($myfile, filesize($rutaArchivos."/".$nombreDes));
                     //$res = simplexml_load_file($rutaArchivos."/".$nombreDes);
                     fclose($myfile);
                     shell_exec("rm -f ".$rutaArchivos."/".str_replace(" ","\ ",$nombreDes));
                 }else{
-=======
-                    $res = response()->json(simplexml_load_file($rutaArchivos . "/" . $nombreDes), 200);
-                    shell_exec("rm -f " . $rutaArchivos . "/" . str_replace(" ", "\ ", $nombreDes));
-                } else {
->>>>>>> 41fe191a9f3b68ea366a71bfc94f97dacf3e4bc8
                     $res = response()->json(['mensaje' => 'El fichero debe contener un único archivo.'], 500);
                 }
 
@@ -368,18 +352,12 @@ class BandejaEntradaController extends Controller
                 if (count($arrCadenas) < 3) {
                     $nombreDes = explode("\n", trim($arrCadenas[1]));
                     shell_exec("gunzip $archivo");
-<<<<<<< HEAD
                     $myfile = fopen($rutaArchivos."/".$nombreDes, "r");
                     $res = fread($myfile, filesize($rutaArchivos."/".$nombreDes));
                     //$res = simplexml_load_file($rutaArchivos."/".$nombreDes);
                     fclose($myfile);                   
                     shell_exec("rm -f ".$rutaArchivos."/".str_replace(" ","\ ",$nombreDes));
                 }else{
-=======
-                    $res = response()->json(simplexml_load_file($rutaArchivos . "/" . $nombreDes), 200);
-                    shell_exec("rm -f " . $rutaArchivos . "/" . str_replace(" ", "\ ", $nombreDes));
-                } else {
->>>>>>> 41fe191a9f3b68ea366a71bfc94f97dacf3e4bc8
                     $res = response()->json(['mensaje' => 'El fichero debe contener un único archivo.'], 500);
                 }
 
@@ -393,18 +371,12 @@ class BandejaEntradaController extends Controller
                     $arrNombreDes = explode(":", $arrDes[6]);
                     $nombreDes = trim($arrNombreDes[1]);
                     shell_exec("unrar x $archivo $rutaArchivos");
-<<<<<<< HEAD
                     $myfile = fopen($rutaArchivos."/".$nombreDes, "r");
                     $res = fread($myfile, filesize($rutaArchivos."/".$nombreDes));
                     //$res = simplexml_load_file($rutaArchivos."/".$nombreDes);
                     fclose($myfile);
                     shell_exec("rm -f ".$rutaArchivos."/".str_replace(" ","\ ",$nombreDes));
                 }else{
-=======
-                    $res = response()->json(simplexml_load_file($rutaArchivos . "/" . $nombreDes), 200);
-                    shell_exec("rm -f " . $rutaArchivos . "/" . str_replace(" ", "\ ", $nombreDes));
-                } else {
->>>>>>> 41fe191a9f3b68ea366a71bfc94f97dacf3e4bc8
                     $res = response()->json(['mensaje' => 'El fichero debe contener un único archivo.'], 500);
                 }
                 break;
@@ -422,7 +394,6 @@ class BandejaEntradaController extends Controller
             return TRUE;
         }
     }
-<<<<<<< HEAD
     
     function esValidoAvaluo(Request $request){
         $file = $request->file('files');
@@ -507,9 +478,14 @@ class BandejaEntradaController extends Controller
         $infoXmlIdentificacion = $xml->xpath('//Comercial//Identificacion[@id="a"]');
         $camposFexavaAvaluo = $this->guardarAvaluoIdentificacion($infoXmlIdentificacion, $camposFexavaAvaluo, $idPersona);
         $camposFexavaAvaluo['Antecedentes'] = array();
-        $camposFexavaAvaluo = $this->guardarAvaluoAntecedentes($xml, $camposFexavaAvaluo, $idPersona);
+        $camposFexavaAvaluo = $this->guardarAvaluoAntecedentes($xml, $camposFexavaAvaluo);
         //$camposFexavaAvaluo['CaracteristicasUrbanas'] = array();
-        $camposFexavaAvaluo = $this->guardarAvaluoCaracteristicasUrbanas($xml, $camposFexavaAvaluo, $idPersona);
+        $camposFexavaAvaluo = $this->guardarAvaluoCaracteristicasUrbanas($xml, $camposFexavaAvaluo);
+
+        $camposFexavaAvaluo = $this->guardarAvaluoTerreno($xml, $camposFexavaAvaluo);
+
+        $camposFexavaAvaluo = $this->guardarAvaluoDescripcionImueble($xml, $camposFexavaAvaluo);
+
         echo "LA INFO "; print_r($camposFexavaAvaluo); exit();
         /*$this->doc = new \DOMDocument('1.0', 'utf-8');
         libxml_use_internal_errors(true);    
@@ -611,13 +587,6 @@ class BandejaEntradaController extends Controller
                 $camposFexavaAvaluo['Antecedentes']['Solicitante']['NOMBRECOLONIA'] = $arrSolicitante['Colonia'];
             }
         }
-=======
-
-    function esValidoAvaluo($docXml)
-    {
-        $xml = new DOMDocument();
-        $xml->load($docXml);
->>>>>>> 41fe191a9f3b68ea366a71bfc94f97dacf3e4bc8
 
         if(trim($arrSolicitante['TipoPersona']) != ''){
             $camposFexavaAvaluo['Antecedentes']['Solicitante']['TIPOPERSONA'] = $arrSolicitante['TipoPersona'];
@@ -907,8 +876,334 @@ class BandejaEntradaController extends Controller
         return $camposFexavaAvaluo;
     }
 
-    public function guardarAvaluoTerreno(){
+    public function guardarAvaluoTerreno($infoXmlTerreno, $camposFexavaAvaluo){        
+        $infoXmlCallesTransversalesLimitrofesYOrientacion = $infoXmlTerreno->xpath('//Comercial//Terreno[@id="d"]//CallesTransversalesLimitrofesYOrientacion[@id="d.1"]');        
+        $query = (String)($infoXmlCallesTransversalesLimitrofesYOrientacion[0]);
+
+        $infoXmlCroquisMicroLocalizacion = $infoXmlTerreno->xpath('//Comercial//Terreno[@id="d"]//CroquisMicroLocalizacion[@id="d.2"]');        
+        $queryMicro = (String)($infoXmlCroquisMicroLocalizacion[0]);
         
+        $infoXmlCroquisMacroLocalizacion = $infoXmlTerreno->xpath('//Comercial//Terreno[@id="d"]//CroquisMacroLocalizacion[@id="d.3"]');        
+        $queryMacro = (String)($infoXmlCroquisMacroLocalizacion[0]);
+
+        //AQUI FALTA GUARDAR LAS FOTOS Y CAMBIAR LO QUE TRAIA DE INFORMACION EN EL XML POR LOS ID OBTENIDOS Tran_InsertFichero
+
+        $infoXmlEscritura = $infoXmlTerreno->xpath('//Comercial//Terreno[@id="d"]//MedidasYColindancias[@id="d.4"]//FuenteDeInformacionLegal[@id="d.4.1"]//Escritura[@id="d.4.1.1"]');
+        $arrEscritura = array();
+        $controlElemntos = 0;
+        foreach($infoXmlEscritura[0] as $llave => $elemento){
+            $arrEscritura[$llave] =(String)($elemento);
+            if(trim($arrEscritura[$llave]) != ''){
+                $controlElemntos = $controlElemntos+1;
+            }
+        } //print_r($infoXmlEscritura); echo "SOY controlElemntos ".$controlElemntos; exit();
+        if($controlElemntos > 0){
+            $camposFexavaAvaluo['FEXAVA_FUENTEINFORMACIONLEG'] = array();
+            $camposFexavaAvaluo['FEXAVA_FUENTEINFORMACIONLEG']['CODTIPOFUENTEINFORMACION'] = '1';
+
+            if(trim($arrEscritura['FechaEscritura']) != ''){
+                $camposFexavaAvaluo['FEXAVA_FUENTEINFORMACIONLEG']['FECHA'] = $arrEscritura['FechaEscritura'];
+            }
+
+            $camposFexavaAvaluo['FEXAVA_ESCRITURA'] = array();
+            if(trim($arrEscritura['NumeroDeEscritura']) != ''){
+                $camposFexavaAvaluo['FEXAVA_ESCRITURA']['NUMESCRITURA'] =  $arrEscritura['NumeroDeEscritura'];
+            }
+
+            if(trim($arrEscritura['NumeroDeVolumen']) != ''){
+                $camposFexavaAvaluo['FEXAVA_ESCRITURA']['NUMVOLUMEN'] =  $arrEscritura['NumeroDeVolumen'];
+            }
+
+            if(trim($arrEscritura['NumeroNotaria']) != ''){
+                $camposFexavaAvaluo['FEXAVA_ESCRITURA']['NUMNOTARIO'] =  $arrEscritura['NumeroNotaria'];
+            }
+
+            if(trim($arrEscritura['NombreDelNotario']) != ''){
+                $camposFexavaAvaluo['FEXAVA_ESCRITURA']['NOMBRENOTARIO'] =  $arrEscritura['NombreDelNotario'];
+            }
+
+            if(trim($arrEscritura['DistritoJudicialNotario']) != ''){
+                $camposFexavaAvaluo['FEXAVA_ESCRITURA']['DISTRITOJUDICIALNOTARIO'] =  $arrEscritura['DistritoJudicialNotario'];
+            }
+        }
+        /***********************************************************Sentencia**********************************************************************/
+        
+        $arrPrincipalFuente = $infoXmlTerreno->xpath('//Comercial//Terreno[@id="d"]//MedidasYColindancias[@id="d.4"]//FuenteDeInformacionLegal[@id="d.4.1"]');
+        $arrIdsFuenteDeInformacionLegal = array();
+        $arrFuenteDeInformacionLegal = array();
+        foreach($arrPrincipalFuente[0] as $llave => $elemento){
+            $arrIdsFuenteDeInformacionLegal[(String)($elemento['id'])] = $llave;
+            $arrFuenteDeInformacionLegal[$llave] = $elemento;
+        }
+        
+        if(isset($arrIdsFuenteDeInformacionLegal['d.4.1.2'])){
+            $etiqueta = $arrIdsFuenteDeInformacionLegal['d.4.1.2'];
+            $camposFexavaAvaluo['FEXAVA_FUENTEINFORMACIONLEG'] = array();
+            $infoXmlSentencia = $infoXmlTerreno->xpath('//Comercial//Terreno[@id="d"]//MedidasYColindancias[@id="d.4"]//FuenteDeInformacionLegal[@id="d.4.1"]//'.$etiqueta.'[@id="d.4.1.2"]');
+            $arrIdsSentencia = array();
+            $arrSentencia = array();            
+            foreach($infoXmlSentencia[0] as $llave => $elemento){
+                $arrIdsSentencia[(String)($elemento['id'])] = $llave;
+                $arrSentencia[$llave] =(String)($elemento);                
+            }
+
+            $camposFexavaAvaluo['FEXAVA_FUENTEINFORMACIONLEG']['CODTIPOFUENTEINFORMACION'] = '2';            
+
+            if(isset($arrIdsSentencia['d.4.1.2.2']) and trim($arrSentencia[$arrIdsSentencia['d.4.1.2.2']]) != ''){
+                $camposFexavaAvaluo['FEXAVA_FUENTEINFORMACIONLEG']['FECHA'] = $arrSentencia[$arrIdsSentencia['d.4.1.2.2']];
+            }
+
+            $camposFexavaAvaluo['FEXAVA_SENTENCIA'] = array();
+
+            if(isset($arrIdsSentencia['d.4.1.2.1']) and trim($arrSentencia[$arrIdsSentencia['d.4.1.2.1']]) != ''){
+                $camposFexavaAvaluo['FEXAVA_SENTENCIA']['JUZGADO'] = $arrSentencia[$arrIdsSentencia['d.4.1.2.1']];
+            }
+
+            if(isset($arrIdsSentencia['d.4.1.2.3']) and trim($arrSentencia[$arrIdsSentencia['d.4.1.2.3']]) != ''){
+                $camposFexavaAvaluo['FEXAVA_SENTENCIA']['NUMEXPEDIENTE'] = $arrSentencia[$arrIdsSentencia['d.4.1.2.3']];
+            }
+        }
+
+            /***********************************************************Contrato Privado**********************************************************************/
+
+            if(isset($arrIdsFuenteDeInformacionLegal['d.4.1.3'])){
+                $etiqueta = $arrIdsFuenteDeInformacionLegal['d.4.1.3'];
+                $camposFexavaAvaluo['FEXAVA_FUENTEINFORMACIONLEG'] = array();
+                $infoXmlContratoPrivado = $infoXmlTerreno->xpath('//Comercial//Terreno[@id="d"]//MedidasYColindancias[@id="d.4"]//FuenteDeInformacionLegal[@id="d.4.1"]//'.$etiqueta.'[@id="d.4.1.3"]');
+                $arrIdsContratoPrivado = array();
+                $arrContratoPrivado = array();            
+                foreach($infoXmlContratoPrivado[0] as $llave => $elemento){
+                    $arrIdsContratoPrivado[(String)($elemento['id'])] = $llave;
+                    $arrContratoPrivado[$llave] =(String)($elemento);                
+                }
+    
+                $camposFexavaAvaluo['FEXAVA_FUENTEINFORMACIONLEG']['CODTIPOFUENTEINFORMACION'] = '3';                
+    
+                if(isset($arrIdsContratoPrivado['d.4.1.3.1']) and trim($arrContratoPrivado[$arrIdsContratoPrivado['d.4.1.3.1']]) != ''){
+                    $camposFexavaAvaluo['FEXAVA_FUENTEINFORMACIONLEG']['FECHA'] = $arrContratoPrivado[$arrIdsContratoPrivado['d.4.1.3.1']];
+                }
+    
+                $camposFexavaAvaluo['FEXAVA_CONTRATOPRIVADO'] = array();
+    
+                if(isset($arrIdsContratoPrivado['d.4.1.3.2']) and trim($arrContratoPrivado[$arrIdsContratoPrivado['d.4.1.3.2']]) != ''){
+                    $camposFexavaAvaluo['FEXAVA_CONTRATOPRIVADO']['NOMBREADQUIRIENTE'] = $arrSentencia[$arrIdsContratoPrivado['d.4.1.3.2']];
+                }
+    
+                if(isset($arrIdsContratoPrivado['d.4.1.2.3']) and trim($arrContratoPrivado[$arrIdsContratoPrivado['d.4.1.2.3']]) != ''){
+                    $camposFexavaAvaluo['FEXAVA_CONTRATOPRIVADO']['APELLIDOPATERNOADQUIRIENTE'] = $arrContratoPrivado[$arrIdsContratoPrivado['d.4.1.2.3']];
+                }
+
+                if(isset($arrIdsContratoPrivado['d.4.1.3.4']) and trim($arrContratoPrivado[$arrIdsContratoPrivado['d.4.1.3.4']]) != ''){
+                    $camposFexavaAvaluo['FEXAVA_CONTRATOPRIVADO']['APELLIDOMATERNOADQUIRIENTE'] = $arrContratoPrivado[$arrIdsContratoPrivado['d.4.1.3.4']];
+                }
+
+                if(isset($arrIdsContratoPrivado['d.4.1.3.5']) and trim($arrContratoPrivado[$arrIdsContratoPrivado['d.4.1.3.5']]) != ''){
+                    $camposFexavaAvaluo['FEXAVA_CONTRATOPRIVADO']['NOMBREENAJENANTE'] = $arrContratoPrivado[$arrIdsContratoPrivado['d.4.1.3.5']];
+                }
+
+                if(isset($arrIdsContratoPrivado['d.4.1.3.6']) and trim($arrContratoPrivado[$arrIdsContratoPrivado['d.4.1.3.6']]) != ''){
+                    $camposFexavaAvaluo['FEXAVA_CONTRATOPRIVADO']['APELLIDOPATERNOENAJENANTE'] = $arrContratoPrivado[$arrIdsContratoPrivado['d.4.1.3.6']];
+                }
+
+                if(isset($arrIdsContratoPrivado['d.4.1.3.7']) and trim($arrContratoPrivado[$arrIdsContratoPrivado['d.4.1.3.7']]) != ''){
+                    $camposFexavaAvaluo['FEXAVA_CONTRATOPRIVADO']['APELLIDOMATERNOENAJENANTE'] = $arrContratoPrivado[$arrIdsContratoPrivado['d.4.1.3.7']];
+                }
+
+        }
+
+        /***********************************************************Alineamiento y numero oficial**********************************************************************/
+
+        if(isset($arrIdsFuenteDeInformacionLegal['d.4.1.4'])){
+            $etiqueta = $arrIdsFuenteDeInformacionLegal['d.4.1.4'];
+            $camposFexavaAvaluo['FEXAVA_FUENTEINFORMACIONLEG'] = array();
+            $infoXmlAlineamiento = $infoXmlTerreno->xpath('//Comercial//Terreno[@id="d"]//MedidasYColindancias[@id="d.4"]//FuenteDeInformacionLegal[@id="d.4.1"]//'.$etiqueta.'[@id="d.4.1.4"]');
+            $arrIdsAlineamiento = array();
+            $arrAlineamiento = array();            
+            foreach($infoXmlAlineamiento[0] as $llave => $elemento){
+                $arrIdsAlineamiento[(String)($elemento['id'])] = $llave;
+                $arrAlineamiento[$llave] =(String)($elemento);                
+            }
+
+            $camposFexavaAvaluo['FEXAVA_FUENTEINFORMACIONLEG']['CODTIPOFUENTEINFORMACION'] = '4';                
+
+            if(isset($arrIdsAlineamiento['d.4.1.4.1']) and trim($arrAlineamiento[$arrIdsAlineamiento['d.4.1.4.1']]) != ''){
+                $camposFexavaAvaluo['FEXAVA_FUENTEINFORMACIONLEG']['FECHA'] = $arrAlineamiento[$arrIdsAlineamiento['d.4.1.4.1']];
+            }
+
+            $camposFexavaAvaluo['FEXAVA_ALINEAMIENTONUMOFI'] = array();
+            if(isset($arrIdsAlineamiento['d.4.1.4.2']) and trim($arrAlineamiento[$arrIdsAlineamiento['d.4.1.4.2']]) != ''){
+                $camposFexavaAvaluo['FEXAVA_ALINEAMIENTONUMOFI']['NUMFOLIO'] = $arrAlineamiento[$arrIdsAlineamiento['d.4.1.4.2']];
+            }
+            
+
+        }        
+
+        /**********************************************Superficie del terreno (Privativas)*****************************************/
+
+        $arrPrincipalSuperficie = $infoXmlTerreno->xpath('//Comercial//Terreno[@id="d"]//SuperficieDelTerreno[@id="d.5"]');
+        $arrIdsSuperficieDelTerreno = array();
+        $arrSuperficieDelTerreno = array();
+        foreach($arrPrincipalSuperficie[0] as $llave => $elemento){
+            $arrIdsSuperficieDelTerreno[(String)($elemento['id'])] = $llave;
+            $SuperficieDelTerreno[$llave] = $elemento;
+        }
+        
+        if(isset($arrIdsSuperficieDelTerreno['d.5.1'])){
+            $etiqueta = $arrIdsFuenteDeInformacionLegal['d.5.1'];
+            $camposFexavaAvaluo['FEXAVA_SUPERFICIE'] = array();
+            $infoXmlSuperficieDelTerreno = $infoXmlTerreno->xpath('//Comercial//Terreno[@id="d"]//SuperficieDelTerreno[@id="d.5"]//'.$etiqueta.'[@id="d.5.1"]');
+            $arrIdsSuperficieDelTerreno = array();
+            $arrSuperficieDelTerreno = array();
+            foreach($infoXmlSuperficieDelTerreno[0] as $llave => $elemento){
+                $arrIdsSuperficieDelTerreno[(String)($elemento['id'])] = $llave;
+                $arrSuperficieDelTerreno[$llave] =(String)($elemento);
+            }
+
+            if(isset($arrIdsSuperficieDelTerreno['d.5.1.n.1']) and trim($arrSuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.1.n.1']]) != ''){
+                $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['IDENTIFICADORFRACCION'] = $arrSuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.1.n.1']];
+            }
+
+            if(isset($arrIdsSuperficieDelTerreno['d.5.1.n.2']) and trim($arrSuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.1.n.2']]) != ''){
+                $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['SUPERFICIEFRACCION'] = $arrSuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.1.n.2']];
+            }
+
+            if(isset($arrIdsSuperficieDelTerreno['d.5.1.n.3']) and trim($arrSuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.1.n.3']]) != ''){
+                $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['FZO'] = $arrSuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.1.n.3']];
+            }
+
+            if(isset($arrIdsSuperficieDelTerreno['d.5.1.n.4']) and trim($arrSuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.1.n.4']]) != ''){
+                $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['FUB'] = $arrSuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.1.n.4']];
+            }
+
+            if(isset($arrIdsSuperficieDelTerreno['d.5.1.n.5']) and trim($arrSuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.1.n.5']]) != ''){
+                $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['FFR'] = $arrSuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.1.n.5']];
+            }
+
+            if(isset($arrIdsSuperficieDelTerreno['d.5.1.n.6']) and trim($arrSuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.1.n.6']]) != ''){
+                $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['FFO'] = $arrSuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.1.n.6']];
+            }
+
+            if(isset($arrIdsSuperficieDelTerreno['d.5.1.n.7']) and trim($arrSuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.1.n.7']]) != ''){
+                $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['FSU'] = $arrSuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.1.n.7']];
+            }
+
+            if(isset($arrIdsSuperficieDelTerreno['d.5.1.n.9.1']) and trim($arrSuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.1.n.9.1']]) != ''){
+                $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['FOTVALOR'] = $arrSuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.1.n.9.1']];
+            }
+
+            if(isset($arrIdsSuperficieDelTerreno['d.5.1.n.9.2']) and trim($arrSuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.1.n.9.2']]) != ''){
+                $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['FOTDESCRIPCION'] = $arrSuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.1.n.9.2']];
+            }
+
+            if(isset($arrIdsSuperficieDelTerreno['d.5.1.n.12']) and trim($arrSuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.1.n.12']]) != ''){
+                $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['VALCATASTRALTIERRA'] = $arrSuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.1.n.12']];
+            }
+            $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['CODTIPO'] = "P";
+        }
+
+        /**********************************************Superficie del terreno (Comunes)*****************************************/
+            
+        if(isset($arrIdsSuperficieDelTerreno['d.5.2'])){
+            $etiqueta = $arrIdsFuenteDeInformacionLegal['d.5.2'];
+            $camposFexavaAvaluo['FEXAVA_SUPERFICIE'] = array();
+            $infoXmlSuperficieDelTerrenoComun = $infoXmlTerreno->xpath('//Comercial//Terreno[@id="d"]//SuperficieDelTerreno[@id="d.5"]//'.$etiqueta.'[@id="d.5.2"]');
+            $arrIdsSuperficieDelTerrenoComun = array();
+            $arrSuperficieDelTerrenoComun = array();
+            foreach($infoXmlSuperficieDelTerrenoComun[0] as $llave => $elemento){
+                $arrIdsSuperficieDelTerrenoComun[(String)($elemento['id'])] = $llave;
+                $arrSuperficieDelTerrenoComun[$llave] =(String)($elemento);
+            }
+
+            if(isset($arrIdsSuperficieDelTerrenoComun['d.5.2.n.1']) and trim($arrSuperficieDelTerrenoComun[$arrIdsSuperficieDelTerrenoComun['d.5.2.n.1']]) != ''){
+                $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['IDENTIFICADORFRACCION'] = $arrSuperficieDelTerrenoComun[$arrIdsSuperficieDelTerrenoComun['d.5.2.n.1']];
+            }
+
+            if(isset($arrIdsSuperficieDelTerrenoComun['d.5.2.n.2']) and trim($arrSuperficieDelTerrenoComun[$arrIdsSuperficieDelTerrenoComun['d.5.2.n.2']]) != ''){
+                $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['SUPERFICIEFRACCION'] = $arrSuperficieDelTerrenoComun[$arrIdsSuperficieDelTerrenoComun['d.5.2.n.2']];
+            }
+
+            if(isset($arrIdsSuperficieDelTerrenoComun['d.5.2.n.3']) and trim($arrSuperficieDelTerrenoComun[$arrIdsSuperficieDelTerrenoComun['d.5.2.n.3']]) != ''){
+                $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['FZO'] = $arrSuperficieDelTerrenoComun[$arrIdsSuperficieDelTerrenoComun['d.5.2.n.3']];
+            }
+
+            if(isset($arrIdsSuperficieDelTerrenoComun['d.5.2.n.4']) and trim($arrSuperficieDelTerrenoComun[$arrIdsSuperficieDelTerrenoComun['d.5.2.n.4']]) != ''){
+                $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['FUB'] = $arrSuperficieDelTerrenoComun[$arrIdsSuperficieDelTerrenoComun['d.5.2.n.4']];
+            }
+
+            if(isset($arrIdsSuperficieDelTerrenoComun['d.5.2.n.5']) and trim($arrSuperficieDelTerrenoComun[$arrIdsSuperficieDelTerrenoComun['d.5.2.n.5']]) != ''){
+                $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['FFR'] = $arrSuperficieDelTerrenoComun[$arrIdsSuperficieDelTerrenoComun['d.5.2.n.5']];
+            }
+
+            if(isset($arrIdsSuperficieDelTerrenoComun['d.5.2.n.6']) and trim($arrSuperficieDelTerrenoComun[$arrIdsSuperficieDelTerrenoComun['d.5.2.n.6']]) != ''){
+                $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['FFO'] = $arrSuperficieDelTerrenoComun[$arrIdsSuperficieDelTerrenoComun['d.5.2.n.6']];
+            }
+
+            if(isset($arrIdsSuperficieDelTerrenoComun['d.5.2.n.7']) and trim($arrSuperficieDelTerrenoComun[$arrIdsSuperficieDelTerrenoComun['d.5.2.n.7']]) != ''){
+                $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['FSU'] = $arrSuperficieDelTerrenoComun[$arrIdsSuperficieDelTerrenoComun['d.5.2.n.7']];
+            }
+
+            if(isset($arrIdsSuperficieDelTerrenoComun['d.5.2.n.9.1']) and trim($arrSuperficieDelTerrenoComun[$arrIdsSuperficieDelTerrenoComun['d.5.2.n.9.1']]) != ''){
+                $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['FOTVALOR'] = $arrSuperficieDelTerrenoComun[$arrIdsSuperficieDelTerrenoComun['d.5.2.n.9.1']];
+            }
+
+            if(isset($arrIdsSuperficieDelTerrenoComun['d.5.2.n.9.2']) and trim($arrSuperficieDelTerrenoComun[$arrIdsSuperficieDelTerrenoComun['d.5.2.n.9.2']]) != ''){
+                $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['FOTDESCRIPCION'] = $arrSuperficieDelTerrenoComun[$arrIdsSuperficieDelTerrenoComun['d.5.2.n.9.2']];
+            }
+
+            if(isset($arrIdsSuperficieDelTerrenoComun['d.5.2.n.12']) and trim($arrSuperficieDelTerrenoComun[$arrIdsSuperficieDelTerrenoComun['d.5.2.n.12']]) != ''){
+                $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['VALCATASTRALTIERRA'] = $arrSuperficieDelTerrenoComun[$arrIdsSuperficieDelTerrenoComun['d.5.2.n.12']];
+            }
+            $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['CODTIPO'] = "C";
+        }
+
+        /**************************************************************************************************************************/
+
+        $arrPrincipalIndiviso = $infoXmlTerreno->xpath('//Comercial//Terreno[@id="d"]//Indiviso[@id="d.6"]');        
+        if(trim((String)($arrPrincipalIndiviso[0])) != ''){
+            $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['TEINDIVISO'] = (String)($arrPrincipalIndiviso[0]);
+        }
+
+        $arrPrincipalTopografiaYConfiguracion = $infoXmlTerreno->xpath('//Comercial//Terreno[@id="d"]//TopografiaYConfiguracion[@id="d.7"]');
+        if(trim((String)($arrPrincipalTopografiaYConfiguracion[0])) != ''){
+            $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['CUCODTOPOGRAFIA'] = (String)($arrPrincipalTopografiaYConfiguracion[0]);
+        }
+
+        $arrPrincipalCaracteristicasPanoramicas = $infoXmlTerreno->xpath('//Comercial//Terreno[@id="d"]//CaracteristicasPanoramicas[@id="d.8"]');
+        if(trim((String)($arrPrincipalCaracteristicasPanoramicas[0])) != ''){
+            $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['TECARACTERISTICASPARONAMICAS'] = (String)($arrPrincipalCaracteristicasPanoramicas[0]);
+        }
+
+        $arrPrincipalDensidadHabitacional = $infoXmlTerreno->xpath('//Comercial//Terreno[@id="d"]//DensidadHabitacional[@id="d.9"]');
+        if(trim((String)($arrPrincipalDensidadHabitacional[0])) != ''){
+            $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['TECODDENSIDADHABITACIONAL'] = (String)($arrPrincipalDensidadHabitacional[0]);
+        }
+
+        $arrPrincipalServidumbresORestricciones  = $infoXmlTerreno->xpath('//Comercial//Terreno[@id="d"]//ServidumbresORestricciones[@id="d.10"]');
+        if(trim((String)($arrPrincipalServidumbresORestricciones[0])) != ''){
+            $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['TESERVIDUMBRESORESTRICCIONES'] = (String)($arrPrincipalServidumbresORestricciones[0]);
+        }       
+
+        return $camposFexavaAvaluo;
+    }
+
+    public function guardarAvaluoDescripcionImueble($infoXmlTerreno, $camposFexavaAvaluo){
+
+        $arrPrincipalUsoActual = $infoXmlTerreno->xpath('//Comercial//DescripcionDelInmueble[@id="e"]//UsoActual[@id="e.1"]');        
+        if(trim((String)($arrPrincipalUsoActual[0])) != ''){
+            $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['DIUSOACTUAL'] = (String)($arrPrincipalUsoActual[0]);
+        }
+
+        $arrPrincipalDescripcionDelInmueble = $infoXmlTerreno->xpath('//Comercial//DescripcionDelInmueble[@id="e"]');        
+        $arrIdsDescripcionDelInmueble = array();
+        $arrDescripcionDelInmueble = array();
+        foreach($arrPrincipalDescripcionDelInmueble[0] as $llave => $elemento){
+            $arrIdsDescripcionDelInmueble[(String)($elemento['id'])] = $llave;
+            $arrDescripcionDelInmueble[$llave] = $elemento;
+        }        
+        
+
+        return $camposFexavaAvaluo;
+
     }
 
     public function obtenerNumUnicoAv($tipo){
