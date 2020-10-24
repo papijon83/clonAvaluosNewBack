@@ -486,6 +486,8 @@ class BandejaEntradaController extends Controller
 
         $camposFexavaAvaluo = $this->guardarAvaluoDescripcionImueble($xml, $camposFexavaAvaluo);
 
+        $camposFexavaAvaluo = $this->guardarAvaluoElementosConstruccion($xml, $camposFexavaAvaluo);
+
         echo "LA INFO "; print_r($camposFexavaAvaluo); exit();
         /*$this->doc = new \DOMDocument('1.0', 'utf-8');
         libxml_use_internal_errors(true);    
@@ -1188,22 +1190,454 @@ class BandejaEntradaController extends Controller
 
     public function guardarAvaluoDescripcionImueble($infoXmlTerreno, $camposFexavaAvaluo){
 
+        $fechaAvaluo = $camposFexavaAvaluo['FECHAAVALUO'];
+
         $arrPrincipalUsoActual = $infoXmlTerreno->xpath('//Comercial//DescripcionDelInmueble[@id="e"]//UsoActual[@id="e.1"]');        
         if(trim((String)($arrPrincipalUsoActual[0])) != ''){
             $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['DIUSOACTUAL'] = (String)($arrPrincipalUsoActual[0]);
         }
-
+                    
+        
+        /**********************************************Tipos de Construccion*********************************************/
         $arrPrincipalDescripcionDelInmueble = $infoXmlTerreno->xpath('//Comercial//DescripcionDelInmueble[@id="e"]');        
         $arrIdsDescripcionDelInmueble = array();
         $arrDescripcionDelInmueble = array();
         foreach($arrPrincipalDescripcionDelInmueble[0] as $llave => $elemento){
             $arrIdsDescripcionDelInmueble[(String)($elemento['id'])] = $llave;
             $arrDescripcionDelInmueble[$llave] = $elemento;
-        }        
+        }
+        
+
+        /**********************************************Construcciones Privativas*****************************************/
+        if(isset($arrIdsDescripcionDelInmueble['e.2'])){
+            $usoActual = $infoXmlTerreno->xpath('//Comercial//DescripcionDelInmueble[@id="e"]//TiposDeConstruccion[@id="e.2"]');
+            $arrPrincipalUsoActual = $this->obtenElementosPrincipal($usoActual);                        
+            $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'] = array();
+            
+            if(isset($arrPrincipalUsoActual['arrIds']['e.2.1'])){                
+               $construccionesPrivativas = $infoXmlTerreno->xpath('//Comercial//DescripcionDelInmueble[@id="e"]//TiposDeConstruccion[@id="e.2"]//'.$arrPrincipalUsoActual['arrIds']['e.2.1'].'[@id="e.2.1"]');
+               $arrConstruccionesPrivativas = $this->obtenElementos($construccionesPrivativas);
+              
+                for($i=0;$i<count($construccionesPrivativas);$i++){
+
+                    $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i] = array();
+
+                    if(isset($arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.1'])){
+                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['DESCRIPCION'] = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.1']]);
+                       }
+        
+                       if(isset($arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.2'])){
+                        //Aqui usar SolicitarObtenerIdUsosByCodeAndAno();
+                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['IDUSOSEJERCICIO'] = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.2']]);
+                       }
+        
+                       if(isset($arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.3'])){
+                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['NUMNIVELES'] = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.3']]);
+                       }
+        
+                       if(isset($arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.4'])){
+                           //Aqui usar SolicitarObtenerIdRangoNivelesByCodeAndAno(fechaAvaluo, codRangoNiveles)
+                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['IDRANGONIVELESEJERCICIO'] = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.4']]);
+                       }
+        
+                       if(isset($arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.5'])){                
+                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['PUNTAJECLASIFICACION'] = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.5']]);
+                       }
+        
+                       if(isset($arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.6'])){
+                        $codClase = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.6']]);
+                           //Aqui usar SolicitarObtenerIdClasesByCodeAndAno(fechaAvaluo, codClase)               
+                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['IDCLASESEJERCICIO'] = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.6']]);
+                       }
+        
+                       if(isset($arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.7'])){                               
+                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['EDAD'] = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.7']]);
+                       }
+        
+                       if(isset($arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.8'])){
+                        $idUsoEjercicio = $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['IDUSOSEJERCICIO'];
+                        $idClaseEjercicio = $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['IDCLASESEJERCICIO'];
+                        if($codClase != 'U'){
+                            //•	En el caso de clase única (U), no se debe validar el campo e.2.1.n.8 - Vida útil total del tipo y  por tanto no existe la relación clase uso en la tabla fexava_usoClase
+                            // AQUI USAR $catdt = ObtenerClaseUsoByIdUsoIdClase(idUsoEjercicio, idClaseEjercicio);
+                            //if(count($catdt) > 0){
+                                $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['IDUSOCLASEEJERCICIO'] = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.8']]);
+                            //}                    
+                        }                               
+                        
+                       }
+        
+                       if(isset($arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.9'])){                               
+                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['VIDAUTILREMANENTE'] = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.9']]);
+                       }
+        
+                       if(isset($arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.10'])){                               
+                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['CODESTADOCONSERVACION'] = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.10']]);
+                       }
+        
+                       if(isset($arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.11'])){                               
+                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['SUPERFICIE'] = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.11']]);
+                       }
+        
+                       if(isset($arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.12'])){                               
+                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['VALORUNITARIOREPNUEVO'] = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.12']]);
+                       }
+        
+                       $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['CODTIPO'] = "P";
+                }
+
+
+            }
+
+            /**********************************************Construcciones Comunes*****************************************/
+
+            if(isset($arrPrincipalUsoActual['arrIds']['e.2.5'])){
+                $construccionesComunes = $infoXmlTerreno->xpath('//Comercial//DescripcionDelInmueble[@id="e"]//TiposDeConstruccion[@id="e.2"]//'.$arrPrincipalUsoActual['arrIds']['e.2.5'].'[@id="e.2.5"]');
+                $arrConstruccionesComunes = $this->obtenElementos($construccionesComunes);                       
+                $controlElemento = count($camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION']) - 1;
+                for($i=0;$i<count($construccionesComunes);$i++){
+                    $controlElemento = $controlElemento + 1;
+                    $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento] = array();
+
+                    if(isset($arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.1'])){
+                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento]['DESCRIPCION'] = (String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.1']] );
+                    }
+
+                    if(isset($arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.2'])){
+                        $codUso = (String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.2']]);
+                        //Aqui usar SolicitarObtenerIdUsosByCodeAndAno(fechaAvaluo, codUso);
+                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento]['IDUSOSEJERCICIO'] = (String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.2']]);
+                    }
+
+                    if(isset($arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.3'])){
+                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento]['NUMNIVELES'] = (String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.3']]);
+                    }
+
+                    if(isset($arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.4'])){
+                        $codRangoNiveles = (String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.4']]);
+                        //Aqui usar SolicitarObtenerIdRangoNivelesByCodeAndAno(fechaAvaluo, codRangoNiveles);
+                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento]['IDRANGONIVELESEJERCICIO'] = (String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.4']]);
+                    }
+
+                    if(isset($arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.5'])){
+                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento]['PUNTAJECLASIFICACION'] = (String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.5']]);
+                    }
+
+                    if(isset($arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.6'])){
+                        $codClase = (String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.6']]);
+                        //Aqui usar SolicitarObtenerIdClasesByCodeAndAno(fechaAvaluo, codClase);
+                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento]['IDCLASESEJERCICIO'] = (String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.6']]);
+                    }
+                    
+                    if(isset($arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.7'])){
+                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento]['EDAD'] = (String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.7']]);
+                    }
+                    
+                    if(isset($arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.8'])){                    
+                        $idUsoEjercicio = $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento]['IDUSOSEJERCICIO'];
+                        $idClaseEjercicio = $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento]['IDCLASESEJERCICIO'];
+                        if($codClase != 'U'){
+                            //•	En el caso de clase única (U), no se debe validar el campo e.2.1.n.8 - Vida útil total del tipo y  por tanto no existe la relación clase uso en la tabla fexava_usoClase
+                            //AQUI USAR $catdt = ObtenerClaseUsoByIdUsoIdClase(idUsoEjercicio, idClaseEjercicio);
+                            //if(count($catdt) > 0){
+                                $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento]['IDUSOCLASEEJERCICIO'] = (String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.8']]);
+                            //}
+                        }
+                    }
+                    if(isset($arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.9'])){
+                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento]['VIDAUTILREMANENTE'] = (String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.9']]);
+                    }
+
+                    if(isset($arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.10'])){
+                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento]['CODESTADOCONSERVACION'] = (String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.10']]);
+                    }
+
+                    if(isset($arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.11'])){
+                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento]['SUPERFICIE'] = (String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.11']]);
+                    }
+
+                    if(isset($arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.12'])){
+                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento]['VALORUNITARIOREPNUEVO'] = (String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.12']]);
+                    }
+
+                    if(isset($arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.18'])){
+                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento]['TEINDIVISO'] = (String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.12']]);
+                    }
+
+                    $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento]['CODTIPO'] = "C";
+                }                
+
+            }
+
+            /*********************************************************************************************************************/
+
+            if(isset($arrPrincipalUsoActual['arrIds']['e.2.3'])){
+                $valorTotalDeConstruccionesPrivativas = $infoXmlTerreno->xpath('//Comercial//DescripcionDelInmueble[@id="e"]//ValorTotalDeConstruccionesPrivativas[@id="e.2.3"]');
+                if(trim($valorTotalDeConstruccionesPrivativas[0]) != ''){
+                    $camposFexavaAvaluo['DIVALORTOTALCONSPRIVATIVAS'] = (String)($valorTotalDeConstruccionesPrivativas[0]);
+                }
+            }
+
+            if(isset($arrPrincipalUsoActual['arrIds']['e.2.7'])){
+                $valorTotalDeConstruccionesComunes = $infoXmlTerreno->xpath('//Comercial//DescripcionDelInmueble[@id="e"]//ValorTotalDeConstruccionesComunes[@id="e.2.7"]');
+                if(trim($valorTotalDeConstruccionesComunes[0]) != ''){
+                    $camposFexavaAvaluo['DIVALORTOTALCONSTCOMUNES'] = (String)($valorTotalDeConstruccionesComunes[0]);
+                }
+            }        
+        }
+
+        if(isset($arrIdsDescripcionDelInmueble['e.3'])){
+            $vidaUtilTotalPonderadaDelInmueble = $infoXmlTerreno->xpath('//Comercial//DescripcionDelInmueble[@id="e"]//VidaUtilTotalPonderadaDelInmueble[@id="e.3"]');
+
+            if(trim($vidaUtilTotalPonderadaDelInmueble[0]) != ''){
+                $camposFexavaAvaluo['DIVIDAUTILPONDERADA'] = (String)($vidaUtilTotalPonderadaDelInmueble[0]);
+            }
+        }
+
+        if(isset($arrIdsDescripcionDelInmueble['e.4'])){
+            $edadPonderadaDelInmueble = $infoXmlTerreno->xpath('//Comercial//DescripcionDelInmueble[@id="e"]//EdadPonderadaDelInmueble[@id="e.4"]');
+            
+            if(trim($edadPonderadaDelInmueble[0]) != ''){
+                $camposFexavaAvaluo['DIEDADPONDERADA'] = (String)($edadPonderadaDelInmueble[0]);
+            }
+        }
+
+        if(isset($arrIdsDescripcionDelInmueble['e.5'])){
+            $vidaUtilRemanentePonderadaDelInmueble = $infoXmlTerreno->xpath('//Comercial//DescripcionDelInmueble[@id="e"]//VidaUtilRemanentePonderadaDelInmueble[@id="e.5"]');
+            
+            if(trim($vidaUtilRemanentePonderadaDelInmueble[0]) != ''){
+                $camposFexavaAvaluo['DIVIDAUTILREMANENTEPONDERADA'] = (String)($vidaUtilRemanentePonderadaDelInmueble[0]);
+            }
+        }
+
+        if(isset($arrIdsDescripcionDelInmueble['e.6'])){
+            $porcentSuperfUltimNivelRespectoAnterior = $infoXmlTerreno->xpath('//Comercial//DescripcionDelInmueble[@id="e"]//PorcentSuperfUltimNivelRespectoAnterior[@id="e.6"]');
+            
+            if(trim($porcentSuperfUltimNivelRespectoAnterior[0]) != ''){
+                $camposFexavaAvaluo['DIPORCENTAJESUPULTNIVEL'] = (String)($porcentSuperfUltimNivelRespectoAnterior[0]);
+            }
+        }
+
+        return $camposFexavaAvaluo;
+
+    }
+
+    public function guardarAvaluoElementosConstruccion($infoXmlElementosConst, $camposFexavaAvaluo){
+
+        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST'] = array();
+
+        $elementosConst = $infoXmlElementosConst->xpath('//Comercial//ElementosDeLaConstruccion[@id="f"]');
+        $arrPrincipalElementosConst = $this->obtenElementosPrincipal($elementosConst);       
+
+        if(isset($arrPrincipalElementosConst['arrIds']['f.1']) && count($arrPrincipalElementosConst['arrElementos'][$arrPrincipalElementosConst['arrIds']['f.1']]) > 0){
+            $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_OBRANEGRA'] = array();
+            $obraNegra = $infoXmlElementosConst->xpath('//Comercial//ElementosDeLaConstruccion[@id="f"]//'.$arrPrincipalElementosConst['arrIds']['f.1'].'[@id="f.1"]');
+            $arrObraNegra = $this->obtenElementosPrincipal($obraNegra);
+            //print_r($arrObraNegra); exit();
+            if(isset($arrObraNegra['arrIds']['f.1.1'])){
+                $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_OBRANEGRA']['CIMENTACION'] = (String)($arrObraNegra['arrElementos'][$arrObraNegra['arrIds']['f.1.1']]);
+            }
+
+            if(isset($arrObraNegra['arrIds']['f.1.2'])){
+                $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_OBRANEGRA']['ESTRUCTURA'] = (String)($arrObraNegra['arrElementos'][$arrObraNegra['arrIds']['f.1.2']]);
+            }
+
+            if(isset($arrObraNegra['arrIds']['f.1.3'])){
+                $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_OBRANEGRA']['MUROS'] = (String)($arrObraNegra['arrElementos'][$arrObraNegra['arrIds']['f.1.3']]);
+            }
+
+            if(isset($arrObraNegra['arrIds']['f.1.4'])){
+                $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_OBRANEGRA']['ENTREPISOS'] = (String)($arrObraNegra['arrElementos'][$arrObraNegra['arrIds']['f.1.4']]);
+            }
+
+            if(isset($arrObraNegra['arrIds']['f.1.5'])){
+                $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_OBRANEGRA']['TECHOS'] = (String)($arrObraNegra['arrElementos'][$arrObraNegra['arrIds']['f.1.5']]);
+            }
+
+            if(isset($arrObraNegra['arrIds']['f.1.6'])){
+                $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_OBRANEGRA']['AZOTEAS'] = (String)($arrObraNegra['arrElementos'][$arrObraNegra['arrIds']['f.1.6']]);
+            }
+
+            if(isset($arrObraNegra['arrIds']['f.1.7'])){
+                $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_OBRANEGRA']['BARDAS'] = (String)($arrObraNegra['arrElementos'][$arrObraNegra['arrIds']['f.1.7']]);
+            }
+        }
+
+        /*************************************************************Revestimientos***************************************************************/
+
+        if(isset($arrPrincipalElementosConst['arrIds']['f.2']) && count($arrPrincipalElementosConst['arrElementos'][$arrPrincipalElementosConst['arrIds']['f.2']]) > 0){
+            $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_REVESTIMIENTOACABADO'] = array();
+            $obraRevestimientos = $infoXmlElementosConst->xpath('//Comercial//ElementosDeLaConstruccion[@id="f"]//'.$arrPrincipalElementosConst['arrIds']['f.2'].'[@id="f.2"]');
+            $arrRevestimientos = $this->obtenElementosPrincipal($obraRevestimientos);
+
+            if(isset($arrRevestimientos['arrIds']['f.2.1'])){
+                $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_REVESTIMIENTOACABADO']['APLANADOS'] = (String)($arrRevestimientos['arrElementos'][$arrRevestimientos['arrIds']['f.2.1']]);
+            }
+
+            if(isset($arrRevestimientos['arrIds']['f.2.2'])){
+                $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_REVESTIMIENTOACABADO']['PLAFONES'] = (String)($arrRevestimientos['arrElementos'][$arrRevestimientos['arrIds']['f.2.2']]);
+            }
+
+            if(isset($arrRevestimientos['arrIds']['f.2.3'])){
+                $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_REVESTIMIENTOACABADO']['LAMBRINES'] = (String)($arrRevestimientos['arrElementos'][$arrRevestimientos['arrIds']['f.2.3']]);
+            }
+
+            if(isset($arrRevestimientos['arrIds']['f.2.4'])){
+                $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_REVESTIMIENTOACABADO']['PISOS'] = (String)($arrRevestimientos['arrElementos'][$arrRevestimientos['arrIds']['f.2.4']]);
+            }
+
+            if(isset($arrRevestimientos['arrIds']['f.2.5'])){
+                $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_REVESTIMIENTOACABADO']['ZOCLOS'] = (String)($arrRevestimientos['arrElementos'][$arrRevestimientos['arrIds']['f.2.5']]);
+            }
+
+            if(isset($arrRevestimientos['arrIds']['f.2.6'])){
+                $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_REVESTIMIENTOACABADO']['ESCALERAS'] = (String)($arrRevestimientos['arrElementos'][$arrRevestimientos['arrIds']['f.2.6']]);
+            }
+
+            if(isset($arrRevestimientos['arrIds']['f.2.7'])){
+                $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_REVESTIMIENTOACABADO']['PINTURA'] = (String)($arrRevestimientos['arrElementos'][$arrRevestimientos['arrIds']['f.2.7']]);
+            }
+
+            if(isset($arrRevestimientos['arrIds']['f.2.8'])){
+                $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_REVESTIMIENTOACABADO']['RECUBRIMIENTOSESPECIALES'] = (String)($arrRevestimientos['arrElementos'][$arrRevestimientos['arrIds']['f.2.8']]);
+            }
+        }
+
+        /*************************************************************Carpinteria***************************************************************/
+
+        if(isset($arrPrincipalElementosConst['arrIds']['f.3']) && count($arrPrincipalElementosConst['arrElementos'][$arrPrincipalElementosConst['arrIds']['f.3']]) > 0){
+                $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_CARPINTERIA'] = array();
+                $carpinteria = $infoXmlElementosConst->xpath('//Comercial//ElementosDeLaConstruccion[@id="f"]//'.$arrPrincipalElementosConst['arrIds']['f.3'].'[@id="f.3"]');
+                $arrCarpinteria = $this->obtenElementosPrincipal($carpinteria);
+
+            if(isset($arrCarpinteria['arrIds']['f.3.1'])){
+                $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_CARPINTERIA']['PUERTASINTERIORES'] = (String)($arrCarpinteria['arrElementos'][$arrCarpinteria['arrIds']['f.3.1']]);
+            }
+
+            if(isset($arrCarpinteria['arrIds']['f.3.2'])){
+                $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_CARPINTERIA']['GUARDAROPAS'] = (String)($arrCarpinteria['arrElementos'][$arrCarpinteria['arrIds']['f.3.2']]);
+            }
+
+            if(isset($arrCarpinteria['arrIds']['f.3.3'])){
+                $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_CARPINTERIA']['MUEBLESEMPOTRADOSFIJOS'] = (String)($arrCarpinteria['arrElementos'][$arrCarpinteria['arrIds']['f.3.3']]);
+            }
+
+        }
+
+        /************************************************************Instalaciones hidráulicas y sanitrias***************************************************************/
+            
+        if(isset($arrPrincipalElementosConst['arrIds']['f.4']) && count($arrPrincipalElementosConst['arrElementos'][$arrPrincipalElementosConst['arrIds']['f.4']]) > 0){
+            $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_INSTALACIONHIDSAN'] = array();
+            $hidraulicos = $infoXmlElementosConst->xpath('//Comercial//ElementosDeLaConstruccion[@id="f"]//'.$arrPrincipalElementosConst['arrIds']['f.4'].'[@id="f.4"]');
+            $arrHidraulicos = $this->obtenElementosPrincipal($hidraulicos);
+
+            if(isset($arrHidraulicos['arrIds']['f.4.1'])){
+                $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_INSTALACIONHIDSAN']['MUEBLESBANO'] = (String)($arrHidraulicos['arrElementos'][$arrHidraulicos['arrIds']['f.4.1']]);
+            }
+
+            if(isset($arrHidraulicos['arrIds']['f.4.2'])){
+                $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_INSTALACIONHIDSAN']['RAMALEOSHIDRAULICOS'] = (String)($arrHidraulicos['arrElementos'][$arrHidraulicos['arrIds']['f.4.2']]);
+            }
+
+            if(isset($arrHidraulicos['arrIds']['f.4.3'])){
+                $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_INSTALACIONHIDSAN']['RAMALEOSSANITARIOS'] = (String)($arrHidraulicos['arrElementos'][$arrHidraulicos['arrIds']['f.4.3']]);
+            }
+
+        }
+
+        /*********************************************Instalaciones Especiales y alumbrado**********************************************************************/
+    
+        if(isset($arrPrincipalElementosConst['arrIds']['f.16'])){
+            $electricas = $infoXmlElementosConst->xpath('//Comercial//ElementosDeLaConstruccion[@id="f"]//InstalacionesElectricasYAlumbrado[@id="f.16"]');    
+            $camposFexavaAvaluo['IEYALUMBRADO'] = (String)($electricas[0]);
+        }
+
+        /*********************************************Puertas y ventanería metálica**********************************************************************/
+
+        if(isset($arrPrincipalElementosConst['arrIds']['f.5']) && count($arrPrincipalElementosConst['arrElementos'][$arrPrincipalElementosConst['arrIds']['f.5']]) > 0){
+            $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_PUERTASYVENTANERIA'] = array();
+            $puertasYVentanas = $infoXmlElementosConst->xpath('//Comercial//ElementosDeLaConstruccion[@id="f"]//'.$arrPrincipalElementosConst['arrIds']['f.5'].'[@id="f.5"]');
+            $arrPuertasYVentanas = $this->obtenElementosPrincipal($puertasYVentanas);
+
+            if(isset($arrPuertasYVentanas['arrIds']['f.5.1'])){
+                $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_PUERTASYVENTANERIA']['HERRERIA'] = (String)($arrPuertasYVentanas['arrElementos'][$arrPuertasYVentanas['arrIds']['f.5.1']]);
+            }
+
+            if(isset($arrPuertasYVentanas['arrIds']['f.5.2'])){
+                $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_PUERTASYVENTANERIA']['VENTANERIA'] = (String)($arrPuertasYVentanas['arrElementos'][$arrPuertasYVentanas['arrIds']['f.5.2']]);
+            }    
+
+        }
+
+        /**********************************************************************************************************************************************************/
+
+        if(isset($arrPrincipalElementosConst['arrIds']['f.6'])){
+            $electricas = $infoXmlElementosConst->xpath('//Comercial//ElementosDeLaConstruccion[@id="f"]//Vidreria[@id="f.6"]');    
+            $camposFexavaAvaluo['VIDRERIA'] = (String)($electricas[0]);
+        }
+
+        if(isset($arrPrincipalElementosConst['arrIds']['f.7'])){
+            $cerrajeria = $infoXmlElementosConst->xpath('//Comercial//ElementosDeLaConstruccion[@id="f"]//Cerrajeria[@id="f.7"]');    
+            $camposFexavaAvaluo['CERRAJERIA'] = (String)($cerrajeria[0]);
+        }
+
+        if(isset($arrPrincipalElementosConst['arrIds']['f.8'])){
+            $fachadas = $infoXmlElementosConst->xpath('//Comercial//ElementosDeLaConstruccion[@id="f"]//Fachadas[@id="f.8"]');    
+            $camposFexavaAvaluo['FACHADAS'] = (String)($fachadas[0]);
+        }
+
+        /********************************************************Instalaciones Especiales. Privativas******************************************************************/
+
         
 
         return $camposFexavaAvaluo;
 
+    }
+    
+    public function obtenElementosPrincipal($arrPrincipal){
+        $arrIds = array();
+        $arrElementos = array();
+        $arrRes = array();
+
+            foreach($arrPrincipal[0] as $llave => $elemento){
+                $arrIds[(String)($elemento['id'])] = $llave;
+                $arrElementos[$llave] = $elemento;
+            }
+            $arrRes['arrIds'] = $arrIds;
+            $arrRes['arrElementos'] = $arrElementos;        
+        
+        return $arrRes;
+    }
+
+    public function obtenElementos($arrPrincipal){
+        $arrIds = array();
+        $arrElementos = array();
+        $arrRes = array();
+
+        //if(count($arrPrincipal) > 1){
+            for($i=0;$i<count($arrPrincipal);$i++){
+
+                foreach($arrPrincipal[$i] as $llave => $elemento){
+                    $arrIds[(String)($elemento['id'])] = $llave;
+                    $arrElementos[$llave] = $elemento;                    
+                }
+
+                $arrRes['arrIds'][$i] = $arrIds;
+                $arrRes['arrElementos'][$i] = $arrElementos;               
+            }     
+
+        /*}else{
+
+            foreach($arrPrincipal[0] as $llave => $elemento){
+                $arrIds[(String)($elemento['id'])] = $llave;
+                $arrElementos[$llave] = $elemento;
+            }
+            $arrRes['arrIds'] = $arrIds;
+            $arrRes['arrElementos'] = $arrElementos;
+
+        }*/
+        
+        return $arrRes;
     }
 
     public function obtenerNumUnicoAv($tipo){
