@@ -485,8 +485,9 @@ class BandejaEntradaController extends Controller
         $camposFexavaAvaluo = $this->guardarAvaluoTerreno($xml, $camposFexavaAvaluo);
 
         $camposFexavaAvaluo = $this->guardarAvaluoDescripcionImueble($xml, $camposFexavaAvaluo);
-
+        $camposFexavaAvaluo['IDAVALUO'] = 0;
         $camposFexavaAvaluo = $this->guardarAvaluoElementosConstruccion($xml, $camposFexavaAvaluo);
+        $camposFexavaAvaluo = $this->guardarAvaluoEnfoqueMercado($xml, $camposFexavaAvaluo);
 
         echo "LA INFO "; print_r($camposFexavaAvaluo); exit();
         /*$this->doc = new \DOMDocument('1.0', 'utf-8');
@@ -1293,10 +1294,15 @@ class BandejaEntradaController extends Controller
 
             if(isset($arrPrincipalUsoActual['arrIds']['e.2.5'])){
                 $construccionesComunes = $infoXmlTerreno->xpath('//Comercial//DescripcionDelInmueble[@id="e"]//TiposDeConstruccion[@id="e.2"]//'.$arrPrincipalUsoActual['arrIds']['e.2.5'].'[@id="e.2.5"]');
-                $arrConstruccionesComunes = $this->obtenElementos($construccionesComunes);                       
-                $controlElemento = count($camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION']) - 1;
+                $arrConstruccionesComunes = $this->obtenElementos($construccionesComunes);
+                if(count($camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION']) == 0){
+                    $controlElemento = count($camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION']);
+                }else{
+                    $controlElemento = count($camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION']) - 1;
+                }                       
+                
                 for($i=0;$i<count($construccionesComunes);$i++){
-                    $controlElemento = $controlElemento + 1;
+                    
                     $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento] = array();
 
                     if(isset($arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.1'])){
@@ -1365,6 +1371,7 @@ class BandejaEntradaController extends Controller
                     }
 
                     $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento]['CODTIPO'] = "C";
+                    $controlElemento = $controlElemento + 1;
                 }                
 
             }
@@ -1586,12 +1593,609 @@ class BandejaEntradaController extends Controller
             $camposFexavaAvaluo['FACHADAS'] = (String)($fachadas[0]);
         }
 
-        /********************************************************Instalaciones Especiales. Privativas******************************************************************/
-
         
+        if(isset($arrPrincipalElementosConst['arrIds']['f.9']) && count($arrPrincipalElementosConst['arrElementos'][$arrPrincipalElementosConst['arrIds']['f.9']]) > 0){
+            $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'] = array();
+            $elementosExtra = $infoXmlElementosConst->xpath('//Comercial//ElementosDeLaConstruccion[@id="f"]//'.$arrPrincipalElementosConst['arrIds']['f.9'].'[@id="f.9"]');
+            $arrPrincipalElementosExtra = $this->obtenElementosPrincipal($elementosExtra);
+            //print_r($camposFexavaAvaluo); exit();
+            /********************************************************Instalaciones Especiales. Privativas******************************************************************/
+            if(isset($arrPrincipalElementosExtra['arrIds']['f.9.1'])){
+
+                $instalacionesEspeciales = $infoXmlElementosConst->xpath('//Comercial//ElementosDeLaConstruccion[@id="f"]//InstalacionesEspeciales[@id="f.9"]//'.$arrPrincipalElementosExtra['arrIds']['f.9.1'].'[@id="f.9.1"]');
+                $arrInstalacionesEspeciales = $this->obtenElementos($instalacionesEspeciales);
+                //print_r($arrInstalacionesEspeciales); exit();                           
+                
+                for($i=0;$i<count($instalacionesEspeciales);$i++){
+                    $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$i] = array();
+                    //print_r($arrInstalacionesEspeciales); exit();
+                    if(isset($arrInstalacionesEspeciales['arrIds'][$i]['f.9.1.n.1'])){
+                        $claveInstEsp = (String)($arrInstalacionesEspeciales['arrElementos'][$i][$arrInstalacionesEspeciales['arrIds'][$i]['f.9.1.n.1']]);
+                        //AQUI UTILIZAR codInstEsp = CatastralUtils.ObtenerInstEspecialByClave(claveInstEsp).CODINSTESPECIALES;
+                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$i]['CODINSTALACIONESESPECIALES'] = (String)($arrInstalacionesEspeciales['arrElementos'][$i][$arrInstalacionesEspeciales['arrIds'][$i]['f.9.1.n.1']]);
+                    }
+
+                    if(isset($arrInstalacionesEspeciales['arrIds'][$i]['f.9.1.n.3'])){
+                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$i]['UNIDAD'] = (String)($arrInstalacionesEspeciales['arrElementos'][$i][$arrInstalacionesEspeciales['arrIds'][$i]['f.9.1.n.3']]);
+                    }
+
+                    if(isset($arrInstalacionesEspeciales['arrIds'][$i]['f.9.1.n.4'])){
+                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$i]['CANTIDAD'] = (String)($arrInstalacionesEspeciales['arrElementos'][$i][$arrInstalacionesEspeciales['arrIds'][$i]['f.9.1.n.4']]);
+                    }
+
+                    if(isset($arrInstalacionesEspeciales['arrIds'][$i]['f.9.1.n.5'])){
+                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$i]['EDAD'] = (String)($arrInstalacionesEspeciales['arrElementos'][$i][$arrInstalacionesEspeciales['arrIds'][$i]['f.9.1.n.5']]);
+                    }
+
+                    if(isset($arrInstalacionesEspeciales['arrIds'][$i]['f.9.1.n.7'])){
+                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$i]['VALORUNITARIO'] = (String)($arrInstalacionesEspeciales['arrElementos'][$i][$arrInstalacionesEspeciales['arrIds'][$i]['f.9.1.n.7']]);
+                    }
+
+                    $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$i]['CODTIPO'] = "C";
+                    $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$i]['IDAVALUO'] = $camposFexavaAvaluo['IDAVALUO'];
+                }                
+            }
+
+            /********************************************************Instalaciones Especiales. Comunes******************************************************************/
+
+            if(isset($arrPrincipalElementosExtra['arrIds']['f.9.2'])){
+                $instalacionesEspecialesComunes = $infoXmlElementosConst->xpath('//Comercial//ElementosDeLaConstruccion[@id="f"]//InstalacionesEspeciales[@id="f.9"]//'.$arrPrincipalElementosExtra['arrIds']['f.9.2'].'[@id="f.9.2"]');
+                $arrInstalacionesEspecialesComunes = $this->obtenElementos($instalacionesEspecialesComunes);
+                //print_r($arrInstalacionesEspecialesComunes); exit();
+
+                    $controlElemento = count($camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA']) - 1;                         
+                
+                for($i=0;$i<count($instalacionesEspecialesComunes);$i++){
+                    $controlElemento = $controlElemento+1;
+                    $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento] = array();
+                    //print_r($arrInstalacionesEspecialesComunes); exit();
+                    if(isset($arrInstalacionesEspecialesComunes['arrIds'][$i]['f.9.2.n.1'])){
+                        $claveInstEsp = (String)($arrInstalacionesEspecialesComunes['arrElementos'][$i][$arrInstalacionesEspecialesComunes['arrIds'][$i]['f.9.2.n.1']]);
+                        //AQUI UTILIZAR codInstEsp = CatastralUtils.ObtenerInstEspecialByClave(claveInstEsp).CODINSTESPECIALES;
+                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['CODINSTALACIONESESPECIALES'] = (String)($arrInstalacionesEspecialesComunes['arrElementos'][$i][$arrInstalacionesEspecialesComunes['arrIds'][$i]['f.9.2.n.1']]);
+                    }
+
+                    if(isset($arrInstalacionesEspecialesComunes['arrIds'][$i]['f.9.2.n.3'])){
+                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['UNIDAD'] = (String)($arrInstalacionesEspecialesComunes['arrElementos'][$i][$arrInstalacionesEspecialesComunes['arrIds'][$i]['f.9.2.n.3']]);
+                    }
+
+                    if(isset($arrInstalacionesEspecialesComunes['arrIds'][$i]['f.9.2.n.4'])){
+                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['CANTIDAD'] = (String)($arrInstalacionesEspecialesComunes['arrElementos'][$i][$arrInstalacionesEspecialesComunes['arrIds'][$i]['f.9.2.n.4']]);
+                    }
+
+                    if(isset($arrInstalacionesEspecialesComunes['arrIds'][$i]['f.9.2.n.5'])){
+                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['EDAD'] = (String)($arrInstalacionesEspecialesComunes['arrElementos'][$i][$arrInstalacionesEspecialesComunes['arrIds'][$i]['f.9.2.n.5']]);
+                    }
+
+                    if(isset($arrInstalacionesEspecialesComunes['arrIds'][$i]['f.9.2.n.7'])){
+                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['VALORUNITARIO'] = (String)($arrInstalacionesEspecialesComunes['arrElementos'][$i][$arrInstalacionesEspecialesComunes['arrIds'][$i]['f.9.2.n.7']]);
+                    }
+
+                    if(isset($arrInstalacionesEspecialesComunes['arrIds'][$i]['f.9.2.n.10'])){
+                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['TEINDIVISO'] = (String)($arrInstalacionesEspecialesComunes['arrElementos'][$i][$arrInstalacionesEspecialesComunes['arrIds'][$i]['f.9.2.n.10']]);
+                    }
+
+                    $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['CODTIPO'] = "P";
+                    $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['IDAVALUO'] = $camposFexavaAvaluo['IDAVALUO'];
+                    
+                }               
+            }
+        }     
+                           
+
+        if(isset($arrPrincipalElementosConst['arrIds']['f.10']) && count($arrPrincipalElementosConst['arrElementos'][$arrPrincipalElementosConst['arrIds']['f.10']]) > 0){
+            /********************************************************Elementos Accesorios. Privativas******************************************************************/
+            if(!isset($camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'])){
+                $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'] = array();
+            }
+
+            $elementosExtra = $infoXmlElementosConst->xpath('//Comercial//ElementosDeLaConstruccion[@id="f"]//'.$arrPrincipalElementosConst['arrIds']['f.10'].'[@id="f.10"]');
+            $arrPrincipalElementosExtra = $this->obtenElementosPrincipal($elementosExtra);
+            //print_r($arrPrincipalElementosExtra); exit();
+            if(isset($arrPrincipalElementosExtra['arrIds']['f.10.1'])){
+
+                $accesoriosPrivativas = $infoXmlElementosConst->xpath('//Comercial//ElementosDeLaConstruccion[@id="f"]//'.$arrPrincipalElementosConst['arrIds']['f.10'].'[@id="f.10"]//'.$arrPrincipalElementosExtra['arrIds']['f.10.1'].'[@id="f.10.1"]');
+                $arrAccesoriosPrivativas = $this->obtenElementos($accesoriosPrivativas);                                   
+                $controlElemento = count($camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA']) - 1;                                          
+                
+                for($i=0;$i<count($accesoriosPrivativas);$i++){
+                    $controlElemento = $controlElemento+1;
+                    $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento] = array();
+                    //print_r($arrAccesoriosPrivativas); exit();
+                    if(isset($arrAccesoriosPrivativas['arrIds'][$i]['f.10.1.n.1'])){
+                        $claveInstEsp = (String)($arrAccesoriosPrivativas['arrElementos'][$i][$arrAccesoriosPrivativas['arrIds'][$i]['f.10.1.n.1']]);
+                        //AQUI UTILIZAR codInstEsp = CatastralUtils.ObtenerInstEspecialByClave(claveInstEsp).CODINSTESPECIALES;
+                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['CODINSTALACIONESESPECIALES'] = (String)($arrAccesoriosPrivativas['arrElementos'][$i][$arrAccesoriosPrivativas['arrIds'][$i]['f.10.1.n.1']]);
+                    }
+
+                    if(isset($arrAccesoriosPrivativas['arrIds'][$i]['f.10.1.n.3'])){
+                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['UNIDAD'] = (String)($arrAccesoriosPrivativas['arrElementos'][$i][$arrAccesoriosPrivativas['arrIds'][$i]['f.10.1.n.3']]);
+                    }
+
+                    if(isset($arrAccesoriosPrivativas['arrIds'][$i]['f.10.1.n.4'])){
+                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['CANTIDAD'] = (String)($arrAccesoriosPrivativas['arrElementos'][$i][$arrAccesoriosPrivativas['arrIds'][$i]['f.10.1.n.4']]);
+                    }
+
+                    if(isset($arrAccesoriosPrivativas['arrIds'][$i]['f.10.1.n.5'])){
+                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['EDAD'] = (String)($arrAccesoriosPrivativas['arrElementos'][$i][$arrAccesoriosPrivativas['arrIds'][$i]['f.10.1.n.5']]);
+                    }
+
+                    if(isset($arrAccesoriosPrivativas['arrIds'][$i]['f.10.1.n.7'])){
+                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['VALORUNITARIO'] = (String)($arrAccesoriosPrivativas['arrElementos'][$i][$arrAccesoriosPrivativas['arrIds'][$i]['f.10.1.n.7']]);
+                    }
+
+                    $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['CODTIPO'] = "P";
+                    $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['IDAVALUO'] = $camposFexavaAvaluo['IDAVALUO'];
+                }                
+            }
+
+            /********************************************************Elementos Accesorios. Comunes******************************************************************/
+
+            if(isset($arrPrincipalElementosExtra['arrIds']['f.10.2'])){                
+                $accesoriosComunes = $infoXmlElementosConst->xpath('//Comercial//ElementosDeLaConstruccion[@id="f"]//'.$arrPrincipalElementosConst['arrIds']['f.10'].'[@id="f.10"]//'.$arrPrincipalElementosExtra['arrIds']['f.10.2'].'[@id="f.10.2"]');
+                $arrAccesoriosComunes = $this->obtenElementos($accesoriosComunes);                
+                $controlElemento = count($camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA']) - 1;                                      
+                
+                for($i=0;$i<count($accesoriosComunes);$i++){
+                    $controlElemento = $controlElemento+1;
+                    $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento] = array();
+                    //print_r($arrAccesoriosComunes); exit();
+                    if(isset($arrAccesoriosComunes['arrIds'][$i]['f.10.2.n.1'])){
+                        $claveInstEsp = (String)($arrAccesoriosComunes['arrElementos'][$i][$arrAccesoriosComunes['arrIds'][$i]['f.10.2.n.1']]);
+                        //AQUI UTILIZAR codInstEsp = CatastralUtils.ObtenerInstEspecialByClave(claveInstEsp).CODINSTESPECIALES;
+                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['CODINSTALACIONESESPECIALES'] = (String)($arrAccesoriosComunes['arrElementos'][$i][$arrAccesoriosComunes['arrIds'][$i]['f.10.2.n.1']]);
+                    }
+
+                    if(isset($arrAccesoriosComunes['arrIds'][$i]['f.10.2.n.3'])){
+                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['UNIDAD'] = (String)($arrAccesoriosComunes['arrElementos'][$i][$arrAccesoriosComunes['arrIds'][$i]['f.10.2.n.3']]);
+                    }
+
+                    if(isset($arrAccesoriosComunes['arrIds'][$i]['f.10.2.n.4'])){
+                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['CANTIDAD'] = (String)($arrAccesoriosComunes['arrElementos'][$i][$arrAccesoriosComunes['arrIds'][$i]['f.10.2.n.4']]);
+                    }
+
+                    if(isset($arrAccesoriosComunes['arrIds'][$i]['f.10.2.n.5'])){
+                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['EDAD'] = (String)($arrAccesoriosComunes['arrElementos'][$i][$arrAccesoriosComunes['arrIds'][$i]['f.10.2.n.5']]);
+                    }
+
+                    if(isset($arrAccesoriosComunes['arrIds'][$i]['f.10.2.n.7'])){
+                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['VALORUNITARIO'] = (String)($arrAccesoriosComunes['arrElementos'][$i][$arrAccesoriosComunes['arrIds'][$i]['f.10.2.n.7']]);
+                    }
+
+                    if(isset($arrAccesoriosComunes['arrIds'][$i]['f.10.2.n.10'])){
+                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['TEINDIVISO'] = (String)($arrAccesoriosComunes['arrElementos'][$i][$arrAccesoriosComunes['arrIds'][$i]['f.10.2.n.10']]);
+                    }
+
+                    $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['CODTIPO'] = "C";
+                    $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['IDAVALUO'] = $camposFexavaAvaluo['IDAVALUO'];                    
+                }               
+            }
+        }
+
+        if(isset($arrPrincipalElementosConst['arrIds']['f.11']) && count($arrPrincipalElementosConst['arrElementos'][$arrPrincipalElementosConst['arrIds']['f.11']]) > 0){
+            /********************************************************Obras Complementarias. Privativas******************************************************************/
+            if(!isset($camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'])){
+                $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'] = array();
+            }
+            $elementosExtra = $infoXmlElementosConst->xpath('//Comercial//ElementosDeLaConstruccion[@id="f"]//'.$arrPrincipalElementosConst['arrIds']['f.11'].'[@id="f.11"]');
+            $arrPrincipalElementosExtra = $this->obtenElementosPrincipal($elementosExtra);
+            //print_r($arrPrincipalElementosExtra); exit();
+            if(isset($arrPrincipalElementosExtra['arrIds']['f.11.1'])){
+
+                $obrasComplementariasPrivativas = $infoXmlElementosConst->xpath('//Comercial//ElementosDeLaConstruccion[@id="f"]//'.$arrPrincipalElementosConst['arrIds']['f.11'].'[@id="f.11"]//'.$arrPrincipalElementosExtra['arrIds']['f.11.1'].'[@id="f.11.1"]');
+                $arrObrasComplementariasPrivativas = $this->obtenElementos($obrasComplementariasPrivativas);
+                                   
+                    $controlElemento = count($camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA']) - 1;                                          
+                
+                for($i=0;$i<count($accesoriosPrivativas);$i++){
+                    $controlElemento = $controlElemento+1;
+                    $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento] = array();
+                    //print_r($arrObrasComplementariasPrivativas); exit();
+                    if(isset($arrObrasComplementariasPrivativas['arrIds'][$i]['f.11.1.n.1'])){
+                        $claveInstEsp = (String)($arrObrasComplementariasPrivativas['arrElementos'][$i][$arrObrasComplementariasPrivativas['arrIds'][$i]['f.11.1.n.1']]);
+                        //AQUI UTILIZAR codInstEsp = CatastralUtils.ObtenerInstEspecialByClave(claveInstEsp).CODINSTESPECIALES;
+                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['CODINSTALACIONESESPECIALES'] = (String)($arrObrasComplementariasPrivativas['arrElementos'][$i][$arrObrasComplementariasPrivativas['arrIds'][$i]['f.11.1.n.1']]);
+                    }
+
+                    if(isset($arrObrasComplementariasPrivativas['arrIds'][$i]['f.11.1.n.3'])){
+                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['UNIDAD'] = (String)($arrObrasComplementariasPrivativas['arrElementos'][$i][$arrObrasComplementariasPrivativas['arrIds'][$i]['f.11.1.n.3']]);
+                    }
+
+                    if(isset($arrObrasComplementariasPrivativas['arrIds'][$i]['f.11.1.n.4'])){
+                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['CANTIDAD'] = (String)($arrObrasComplementariasPrivativas['arrElementos'][$i][$arrObrasComplementariasPrivativas['arrIds'][$i]['f.11.1.n.4']]);
+                    }
+
+                    if(isset($arrObrasComplementariasPrivativas['arrIds'][$i]['f.11.1.n.5'])){
+                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['EDAD'] = (String)($arrObrasComplementariasPrivativas['arrElementos'][$i][$arrObrasComplementariasPrivativas['arrIds'][$i]['f.11.1.n.5']]);
+                    }
+
+                    if(isset($arrObrasComplementariasPrivativas['arrIds'][$i]['f.11.1.n.7'])){
+                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['VALORUNITARIO'] = (String)($arrObrasComplementariasPrivativas['arrElementos'][$i][$arrObrasComplementariasPrivativas['arrIds'][$i]['f.11.1.n.7']]);
+                    }
+
+                    $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['CODTIPO'] = "P";
+                    $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['IDAVALUO'] = $camposFexavaAvaluo['IDAVALUO'];
+                }                
+            }
+
+            /********************************************************Obras Complementarias. Comunes******************************************************************/
+
+            if(isset($arrPrincipalElementosExtra['arrIds']['f.11.2'])){
+
+                $obrasComplementariasComunes = $infoXmlElementosConst->xpath('//Comercial//ElementosDeLaConstruccion[@id="f"]//'.$arrPrincipalElementosConst['arrIds']['f.11'].'[@id="f.11"]//'.$arrPrincipalElementosExtra['arrIds']['f.11.2'].'[@id="f.11.2"]');
+                $arrObrasComplementariasComunes = $this->obtenElementos($obrasComplementariasComunes);
+                //print_r($arrObrasComplementariasComunes); exit();                   
+                $controlElemento = count($camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA']) - 1;                                          
+                
+                for($i=0;$i<count($obrasComplementariasComunes);$i++){
+                    $controlElemento = $controlElemento+1;
+                    $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento] = array();                    
+                    if(isset($arrObrasComplementariasComunes ['arrIds'][$i]['f.11.2.n.1'])){
+                        $claveInstEsp = (String)($arrObrasComplementariasComunes ['arrElementos'][$i][$arrObrasComplementariasComunes ['arrIds'][$i]['f.11.2.n.1']]);
+                        //AQUI UTILIZAR codInstEsp = CatastralUtils.ObtenerInstEspecialByClave(claveInstEsp).CODINSTESPECIALES;
+                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['CODINSTALACIONESESPECIALES'] = (String)($arrObrasComplementariasComunes ['arrElementos'][$i][$arrObrasComplementariasComunes ['arrIds'][$i]['f.11.2.n.1']]);
+                    }
+
+                    if(isset($arrObrasComplementariasComunes ['arrIds'][$i]['f.11.2.n.3'])){
+                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['UNIDAD'] = (String)($arrObrasComplementariasComunes ['arrElementos'][$i][$arrObrasComplementariasComunes ['arrIds'][$i]['f.11.2.n.3']]);
+                    }
+
+                    if(isset($arrObrasComplementariasComunes ['arrIds'][$i]['f.11.2.n.4'])){
+                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['CANTIDAD'] = (String)($arrObrasComplementariasComunes ['arrElementos'][$i][$arrObrasComplementariasComunes ['arrIds'][$i]['f.11.2.n.4']]);
+                    }
+
+                    if(isset($arrObrasComplementariasComunes ['arrIds'][$i]['f.11.2.n.5'])){
+                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['EDAD'] = (String)($arrObrasComplementariasComunes ['arrElementos'][$i][$arrObrasComplementariasComunes ['arrIds'][$i]['f.11.2.n.5']]);
+                    }
+
+                    if(isset($arrObrasComplementariasComunes ['arrIds'][$i]['f.11.2.n.7'])){
+                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['VALORUNITARIO'] = (String)($arrObrasComplementariasComunes ['arrElementos'][$i][$arrObrasComplementariasComunes ['arrIds'][$i]['f.11.2.n.7']]);
+                    }
+
+                    if(isset($arrObrasComplementariasComunes ['arrIds'][$i]['f.11.2.n.10'])){
+                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['TEINDIVISO'] = (String)($arrObrasComplementariasComunes ['arrElementos'][$i][$arrObrasComplementariasComunes ['arrIds'][$i]['f.11.2.n.10']]);
+                    }
+
+                    $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['CODTIPO'] = "C";
+                    $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['IDAVALUO'] = $camposFexavaAvaluo['IDAVALUO'];
+                }                
+            }
+
+
+        }        
+
 
         return $camposFexavaAvaluo;
 
+    }
+
+    public function guardarAvaluoEnfoqueMercado($infoXmlElementosConst, $camposFexavaAvaluo){
+        $camposFexavaAvaluo['FEXAVA_TERRENOMERCADO'] = array();
+
+        $enfoqueDeMercado = $infoXmlElementosConst->xpath('//Comercial//EnfoqueDeMercado[@id="h"]');
+        $arrPrincipalEnfoqueDeMercado = $this->obtenElementosPrincipal($enfoqueDeMercado);
+        //print_r($arrPrincipalEnfoqueDeMercado); exit();
+        if(isset($arrPrincipalEnfoqueDeMercado['arrIds']['h.1']) && count($arrPrincipalEnfoqueDeMercado['arrElementos'][$arrPrincipalEnfoqueDeMercado['arrIds']['h.1']]) > 0){           
+            $terrenos = $infoXmlElementosConst->xpath('//Comercial//EnfoqueDeMercado[@id="h"]//'.$arrPrincipalEnfoqueDeMercado['arrIds']['h.1'].'[@id="h.1"]');
+            $arrTerrenos = $this->obtenElementosPrincipal($terrenos);
+            /********************************************************Conclusiones homologación terrenos******************************************************************/
+            if(isset($arrTerrenos['arrIds']['h.1.2'])){
+                $camposFexavaAvaluo['FEXAVA_TERRENOMERCADO'] = array();
+                $conclusionesHomologacionTerreno = $infoXmlElementosConst->xpath('//Comercial//EnfoqueDeMercado[@id="h"]//'.$arrPrincipalEnfoqueDeMercado['arrIds']['h.1'].'[@id="h.1"]//'.$arrTerrenos['arrIds']['h.1.2'].'[@id="h.1.2"]');
+                $arrConclusionesHomologacionTerreno = $this->obtenElementosPrincipal($conclusionesHomologacionTerreno);
+                //print_r($arrConclusionesHomologacionTerreno); exit();
+
+                if(isset($arrConclusionesHomologacionTerreno['arrIds']['h.1.2.2'])){
+                    $camposFexavaAvaluo['FEXAVA_TERRENOMERCADO']['VALORUNITARIOTIERRAPROMEDIO'] = (String)($arrConclusionesHomologacionTerreno ['arrElementos'][$arrConclusionesHomologacionTerreno ['arrIds']['h.1.2.2']]);
+                }
+
+                if(isset($arrConclusionesHomologacionTerreno['arrIds']['h.1.2.2'])){
+                    $camposFexavaAvaluo['FEXAVA_TERRENOMERCADO']['VALORUNITARIOTIERRAHOMOLOGADO'] = (String)($arrConclusionesHomologacionTerreno ['arrElementos'][$arrConclusionesHomologacionTerreno ['arrIds']['h.1.2.2']]);
+                }
+
+                $camposFexavaAvaluo['FEXAVA_TERRENOMERCADO']['CODTIPOTERRENO'] = 'D';
+            }
+
+            /********************************************************Terrenos Directos******************************************************************/
+
+            if(isset($arrTerrenos['arrIds']['h.1.1'])){
+                $camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'] = array();
+                $terrenosDirectos = $infoXmlElementosConst->xpath('//Comercial//EnfoqueDeMercado[@id="h"]//'.$arrPrincipalEnfoqueDeMercado['arrIds']['h.1'].'[@id="h.1"]//'.$arrTerrenos['arrIds']['h.1.1'].'[@id="h.1.1"]');
+                $arrTerrenosDirectos = $this->obtenElementos($terrenosDirectos);
+                //print_r($arrTerrenosDirectos); exit();
+                $controlElemento = count($camposFexavaAvaluo['FEXAVA_DATOSTERRENOS']) - 1;
+
+                for($i=0;$i < count($terrenosDirectos); $i++){
+                    $controlElemento = $controlElemento + 1;
+                    if(isset($arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.1'])){
+                        $camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'][$controlElemento]['CALLE'] = (String)($arrTerrenosDirectos['arrElementos'][$i][$arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.1']]);
+                    }
+    
+                    if(isset($arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.3'])){
+                        $codDelegacion = (String)($arrTerrenosDirectos['arrElementos'][$i][$arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.3']]);
+                        //AQUI USAR datosTerrenosRow.IDDELEGACION = CatastralUtils.ObtenerIdDelegacionPorClave(codDelegacion);
+                        $camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'][$controlElemento]['IDDELEGACION'] = (String)($arrTerrenosDirectos['arrElementos'][$i][$arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.3']]);
+                        if(isset($arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.2'])){
+                            //Aqui usar CatastralUtils.ObtenerIdColoniaPorNombreyDelegacion(queryn.ToStringXElement(), codDelegacion);
+                            $camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'][$controlElemento]['IDCOLONIA'] = (String)($arrTerrenosDirectos['arrElementos'][$i][$arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.2']]);
+                        }
+    
+                    }
+    
+                    if(isset($arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.4'])){
+                        $camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'][$controlElemento]['CODIGOPOSTAL'] = (String)($arrTerrenosDirectos['arrElementos'][$i][$arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.2']]);
+                    }
+    
+                    if(isset($arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.5']) && count($arrTerrenosDirectos['arrElementos'][$i][$arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.5']]) > 0){
+                        //print_r($arrTerrenosDirectos['arrElementos'][$i][$arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.5']]); exit();
+                        $subarreglo = $arrTerrenosDirectos['arrElementos'][$i][$arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.5']];
+                        $camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'][$controlElemento]['TELEFONO'] = (String)($subarreglo->Telefono);
+                        $camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'][$controlElemento]['INFORMANTE'] = (String)($subarreglo->Informante); 
+                    }
+
+                    if(isset($arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.6'])){
+                        $camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'][$controlElemento]['DESCRIPCION'] = (String)($arrTerrenosDirectos['arrElementos'][$i][$arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.6']]);
+                    }
+
+                    if(isset($arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.7'])){
+                        $camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'][$controlElemento]['USOSUELO'] = (String)($arrTerrenosDirectos['arrElementos'][$i][$arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.7']]);
+                    }
+
+                    if(isset($arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.8'])){
+                        $camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'][$controlElemento]['CUS'] = (String)($arrTerrenosDirectos['arrElementos'][$i][$arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.8']]);
+                    }
+
+                    if(isset($arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.9'])){
+                        $camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'][$controlElemento]['SUPERFICIE'] = (String)($arrTerrenosDirectos['arrElementos'][$i][$arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.9']]);
+                    }
+
+                    if(isset($arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.10'])){
+                        $camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'][$controlElemento]['FZO'] = (String)($arrTerrenosDirectos['arrElementos'][$i][$arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.10']]);
+                    }
+
+                    if(isset($arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.11'])){
+                        $camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'][$controlElemento]['FUB'] = (String)($arrTerrenosDirectos['arrElementos'][$i][$arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.11']]);
+                    }
+
+                    if(isset($arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.12'])){
+                        $camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'][$controlElemento]['FFR'] = (String)($arrTerrenosDirectos['arrElementos'][$i][$arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.12']]);
+                    }
+
+                    if(isset($arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.13'])){
+                        $camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'][$controlElemento]['FFO'] = (String)($arrTerrenosDirectos['arrElementos'][$i][$arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.13']]);
+                    }
+
+                    if(isset($arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.14'])){
+                        $camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'][$controlElemento]['FSU'] = (String)($arrTerrenosDirectos['arrElementos'][$i][$arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.14']]);
+                    }
+
+                    if(isset($arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.18']) && count($arrTerrenosDirectos['arrElementos'][$i][$arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.18']]) > 0){
+                        $fot = $infoXmlElementosConst->xpath('//Comercial//EnfoqueDeMercado[@id="h"]//'.$arrPrincipalEnfoqueDeMercado['arrIds']['h.1'].'[@id="h.1"]//'.$arrTerrenos['arrIds']['h.1.1'].'[@id="h.1.1"]//'.$arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.18'].'[@id="h.1.1.n.18"]');
+                        $arrFot = $this->obtenElementosPrincipal($fot);
+                        if(isset($arrTerrenosDirectos['arrIds']['h.1.1.n.18.1'])){
+                            $camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'][$controlElemento]['FOTVALOR'] = (String)($arrFot['arrElementos'][$arrTerrenosDirectos['arrIds']['h.1.1.n.18.1']]);
+                        }
+                        if(isset($arrTerrenosDirectos['arrIds']['h.1.1.n.18.2'])){
+                            $camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'][$controlElemento]['FOTDESCRIPCION'] = (String)($arrFot['arrElementos'][$arrTerrenosDirectos['arrIds']['h.1.1.n.18.2']]);
+                        }
+                        
+                    }
+
+                    if(isset($arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.15'])){
+                        $camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'][$controlElemento]['PRECIOSOLICITADO'] = (String)($arrTerrenosDirectos['arrElementos'][$i][$arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.15']]);
+                    }
+                    
+                }
+                
+            }
+
+            if(isset($arrTerrenos['arrIds']['h.1.3'])){
+                $camposFexavaAvaluo['FEXAVA_TERRENOMERCADO'] = array();
+                $conclusionesHomologacionTerreno = $infoXmlElementosConst->xpath('//Comercial//EnfoqueDeMercado[@id="h"]//'.$arrPrincipalEnfoqueDeMercado['arrIds']['h.1'].'[@id="h.1"]//'.$arrTerrenos['arrIds']['h.1.3'].'[@id="h.1.3"]');
+                $arrConclusionesHomologacionTerreno = $this->obtenElementosPrincipal($conclusionesHomologacionTerreno);
+                //print_r($arrConclusionesHomologacionTerreno); exit();
+
+                /********************************************************Conclusiones homologación comp. Residuales******************************************************************/
+                if(isset($arrConclusionesHomologacionTerreno['arrIds']['h.1.3.5'])){
+                    $conclusionesHomologacionResiduales = $infoXmlElementosConst->xpath('//Comercial//EnfoqueDeMercado[@id="h"]//'.$arrPrincipalEnfoqueDeMercado['arrIds']['h.1'].'[@id="h.1"]//'.$arrTerrenos['arrIds']['h.1.3'].'[@id="h.1.3"]//'.$arrConclusionesHomologacionTerreno['arrIds']['h.1.3.5'].'[@id="h.1.3.5"]');
+                    $arrConclusionesHomologacionResiduales = $this->obtenElementosPrincipal($conclusionesHomologacionResiduales);
+
+                    if(isset($arrConclusionesHomologacionResiduales['arrIds']['h.1.3.5.1'])){
+                        $camposFexavaAvaluo['FEXAVA_TERRENOMERCADO']['VALORUNITARIOTIERRAPROMEDIO'] = (String)($arrConclusionesHomologacionResiduales['arrElementos'][$arrConclusionesHomologacionResiduales['arrIds']['h.1.3.5.1']]);
+                    }
+
+                    if(isset($arrConclusionesHomologacionResiduales['arrIds']['h.1.3.5.2'])){
+                        $camposFexavaAvaluo['FEXAVA_TERRENOMERCADO']['VALORUNITARIOTIERRAHOMOLOGADO'] = (String)($arrConclusionesHomologacionResiduales['arrElementos'][$arrConclusionesHomologacionResiduales['arrIds']['h.1.3.5.2']]);
+                    }
+                    
+                }
+
+                if(isset($arrConclusionesHomologacionTerreno['arrIds']['h.1.3.6'])){
+                    $conclusionesHomologacionResiduales = $infoXmlElementosConst->xpath('//Comercial//EnfoqueDeMercado[@id="h"]//'.$arrPrincipalEnfoqueDeMercado['arrIds']['h.1'].'[@id="h.1"]//'.$arrTerrenos['arrIds']['h.1.3'].'[@id="h.1.3"]//'.$arrConclusionesHomologacionTerreno['arrIds']['h.1.3.6'].'[@id="h.1.3.6"]');
+                    $arrConclusionesHomologacionResiduales = $this->obtenElementosPrincipal($conclusionesHomologacionResiduales);
+
+                    if(isset($arrConclusionesHomologacionResiduales['arrIds']['h.1.3.6.4'])){
+                        $camposFexavaAvaluo['FEXAVA_TERRENOMERCADO']['VALORUNITARIORESIDUAL'] = (String)($arrConclusionesHomologacionResiduales['arrElementos'][$arrConclusionesHomologacionResiduales['arrIds']['h.1.3.6.4']]);
+                    }
+                }
+
+                $camposFexavaAvaluo['FEXAVA_TERRENOMERCADO']['CODTIPOTERRENO'] = 'R';
+
+                /********************************************************Investigación productos comparables******************************************************************/
+
+                if(isset($arrConclusionesHomologacionTerreno['arrIds']['h.1.3.4'])){
+                    $productosComparables = $infoXmlElementosConst->xpath('//Comercial//EnfoqueDeMercado[@id="h"]//'.$arrPrincipalEnfoqueDeMercado['arrIds']['h.1'].'[@id="h.1"]//'.$arrTerrenos['arrIds']['h.1.3'].'[@id="h.1.3"]//'.$arrConclusionesHomologacionTerreno['arrIds']['h.1.3.4'].'[@id="h.1.3.4"]');
+                    $arrProductosComparables = $this->obtenElementos($productosComparables);
+                    if(!isset($camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'])){
+                        $camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'] = array();
+                    }                    
+                    $controlElemento = count($camposFexavaAvaluo['FEXAVA_DATOSTERRENOS']) - 1;
+                    for($i=0;$i < count($productosComparables);$i++){
+                        $controlElemento = $controlElemento + 1;
+
+                        if(isset($arrProductosComparables['arrIds'][$i]['h.1.3.4.n.1'])){
+                            $camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'][$controlElemento]['CALLE'] = (String)($arrProductosComparables['arrElementos'][$i][$arrProductosComparables['arrIds'][$i]['h.1.3.4.n.1']]);
+                        }
+
+                        if(isset($arrProductosComparables['arrIds'][$i]['h.1.3.4.n.3'])){
+                            $codDelegacion = (String)($arrProductosComparables['arrElementos'][$i][$arrProductosComparables['arrIds'][$i]['h.1.3.4.n.3']]);
+                            //AQUI USAR datosTerrenosRow.IDDELEGACION = CatastralUtils.ObtenerIdDelegacionPorClave(codDelegacion);
+                            $camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'][$controlElemento]['IDDELEGACION'] = (String)($arrProductosComparables['arrElementos'][$i][$arrProductosComparables['arrIds'][$i]['h.1.3.4.n.3']]);
+                            if(isset($arrProductosComparables['arrIds'][$i]['h.1.3.4.n.2'])){
+                                //AQUI USAR datosTerrenosRow.IDCOLONIA = CatastralUtils.ObtenerIdColoniaPorNombreyDelegacion(queryn.ToStringXElement(), codDelegacion);
+                                $camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'][$controlElemento]['IDCOLONIA'] = (String)($arrProductosComparables['arrElementos'][$i][$arrProductosComparables['arrIds'][$i]['h.1.3.4.n.2']]);
+                            }
+                        }
+
+                        if(isset($arrProductosComparables['arrIds'][$i]['h.1.3.4.n.4'])){
+                            $camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'][$controlElemento]['CODIGOPOSTAL'] = (String)($arrProductosComparables['arrElementos'][$i][$arrProductosComparables['arrIds'][$i]['h.1.3.4.n.4']]);
+                        }
+
+                        if(isset($arrProductosComparables['arrIds'][$i]['h.1.3.4.n.5']) && count($arrProductosComparables['arrElementos'][$i][$arrProductosComparables['arrIds'][$i]['h.1.3.4.n.5']]) > 0){
+                            $fot = $infoXmlElementosConst->xpath('//Comercial//EnfoqueDeMercado[@id="h"]//'.$arrPrincipalEnfoqueDeMercado['arrIds']['h.1'].'[@id="h.1"]//'.$arrTerrenos['arrIds']['h.1.1'].'[@id="h.1.1"]//'.$arrProductosComparables['arrIds'][$i]['h.1.3.4.n.5'].'[@id="h.1.3.4.n.5"]');
+                            $arrFot = $this->obtenElementosPrincipal($fot);
+                            if(isset($arrProductosComparables['arrIds']['h.1.3.4.n.5.1'])){
+                                $camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'][$controlElemento]['TELEFONO'] = (String)($arrFot['arrElementos'][$arrFot['arrIds']['h.1.3.4.n.5.1']]);
+                            }
+                            if(isset($arrProductosComparables['arrIds']['h.1.3.4.n.5.2'])){
+                                $camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'][$controlElemento]['INFORMANTE'] = (String)($arrFot['arrElementos'][$arrFot['arrIds']['h.1.3.4.n.5.2']]);
+                            }
+                            
+                        }
+
+                        if(isset($arrProductosComparables['arrIds'][$i]['h.1.3.4.n.6'])){
+                            $camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'][$controlElemento]['DESCRIPCION'] = (String)($arrProductosComparables['arrElementos'][$i][$arrProductosComparables['arrIds'][$i]['h.1.3.4.n.6']]);
+                        }
+
+                        if(isset($arrProductosComparables['arrIds'][$i]['h.1.3.4.n.7'])){
+                            $camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'][$controlElemento]['SUPERFICIE'] = (String)($arrProductosComparables['arrElementos'][$i][$arrProductosComparables['arrIds'][$i]['h.1.3.4.n.7']]);
+                        }
+
+                        if(isset($arrProductosComparables['arrIds'][$i]['h.1.3.4.n.8'])){
+                            $camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'][$controlElemento]['PRECIOSOLICITADO'] = (String)($arrProductosComparables['arrElementos'][$i][$arrProductosComparables['arrIds'][$i]['h.1.3.4.n.8']]);
+                        }
+
+                        
+                    }
+                }
+            }
+
+            if(isset($arrTerrenos['arrIds']['h.1.4'])){
+                $valorUnitarioDeTierraAplicableAlAvaluo = $infoXmlElementosConst->xpath('//Comercial//EnfoqueDeMercado[@id="h"]//'.$arrPrincipalEnfoqueDeMercado['arrIds']['h.1'].'[@id="h.1"]//'.$arrTerrenos['arrIds']['h.1.4'].'[@id="h.1.4"]');
+                $arrValorUnitarioDeTierraAplicableAlAvaluo = $this->obtenElementosPrincipal($valorUnitarioDeTierraAplicableAlAvaluo);
+                
+                $camposFexavaAvaluo['VALORUNITARIOTIERRAAVALUO'] = (String)($valorUnitarioDeTierraAplicableAlAvaluo[0]);
+            }
+
+        }
+
+        /*********************************************************************** Conclusiones homologación construcciones en venta*********************************************************/
+
+        if(isset($arrPrincipalEnfoqueDeMercado['arrIds']['h.2']) && count($arrPrincipalEnfoqueDeMercado['arrElementos'][$arrPrincipalEnfoqueDeMercado['arrIds']['h.2']]) > 0){
+            $construccionesEnVenta = $infoXmlElementosConst->xpath('//Comercial//EnfoqueDeMercado[@id="h"]//'.$arrPrincipalEnfoqueDeMercado['arrIds']['h.2'].'[@id="h.2"]');
+            $arrConstruccionesEnVenta = $this->obtenElementosPrincipal($construccionesEnVenta);
+            
+            if(isset($arrConstruccionesEnVenta['arrIds']['h.2.2'])){
+                $camposFexavaAvaluo['FEXAVA_CONSTRUCCIONESMER'] = array();                
+                $conclusionesHomologacionConstruccionesEnVenta = $infoXmlElementosConst->xpath('//Comercial//EnfoqueDeMercado[@id="h"]//'.$arrPrincipalEnfoqueDeMercado['arrIds']['h.2'].'[@id="h.2"]//'.$arrConstruccionesEnVenta['arrIds']['h.2.2'].'[@id="h.2.2"]');
+                $arrConclusionesHomologacionConstruccionesEnVenta = $this->obtenElementosPrincipal($conclusionesHomologacionConstruccionesEnVenta);
+
+                //print_r($arrConclusionesHomologacionConstruccionesEnVenta); exit();
+                $camposFexavaAvaluo['FEXAVA_CONSTRUCCIONESMER']['IDMODOCONSTRUCCION'] = 'V';
+                if(isset($arrConclusionesHomologacionConstruccionesEnVenta['arrIds']['h.2.2.1'])){
+                    $camposFexavaAvaluo['FEXAVA_CONSTRUCCIONESMER']['VALORUNITARIOPROMEDIO'] = (String)($arrConclusionesHomologacionConstruccionesEnVenta['arrElementos'][$arrConclusionesHomologacionConstruccionesEnVenta['arrIds']['h.2.2.1']]);
+                }
+
+                if(isset($arrConclusionesHomologacionConstruccionesEnVenta['arrIds']['h.2.2.2'])){
+                    $camposFexavaAvaluo['FEXAVA_CONSTRUCCIONESMER']['VALORUNITARIOHOMOLOGADO'] = (String)($arrConclusionesHomologacionConstruccionesEnVenta['arrElementos'][$arrConclusionesHomologacionConstruccionesEnVenta['arrIds']['h.2.2.2']]);
+                }
+
+                if(isset($arrConclusionesHomologacionConstruccionesEnVenta['arrIds']['h.2.2.7'])){
+                    $camposFexavaAvaluo['FEXAVA_CONSTRUCCIONESMER']['VALORUNITARIOAPLICABLE'] = (String)($arrConclusionesHomologacionConstruccionesEnVenta['arrElementos'][$arrConclusionesHomologacionConstruccionesEnVenta['arrIds']['h.2.2.7']]);
+                }
+                
+            }
+
+            if(isset($arrConstruccionesEnVenta['arrIds']['h.2.1'])){
+                $camposFexavaAvaluo['FEXAVA_INVESTPRODUCTOSCOMP'] = array();
+                $investigacionProductosComparables = $infoXmlElementosConst->xpath('//Comercial//EnfoqueDeMercado[@id="h"]//'.$arrPrincipalEnfoqueDeMercado['arrIds']['h.2'].'[@id="h.2"]//'.$arrConstruccionesEnVenta['arrIds']['h.2.1'].'[@id="h.2.1"]');
+                $arrInvestigacionProductosComparables = $this->obtenElementos($investigacionProductosComparables);
+
+                $controlElemento = count($camposFexavaAvaluo['FEXAVA_INVESTPRODUCTOSCOMP']) - 1;
+                
+                for($i=0;$i < count($investigacionProductosComparables); $i++){
+                    $controlElemento = $controlElemento + 1;
+
+                    if(isset($arrInvestigacionProductosComparables['arrIds'][$i]['h.2.1.n.1'])){
+                        $camposFexavaAvaluo['FEXAVA_INVESTPRODUCTOSCOMP'][$controlElemento]['CALLE'] = (String)($arrInvestigacionProductosComparables['arrElementos'][$i][$arrInvestigacionProductosComparables['arrIds'][$i]['h.2.1.n.1']]);
+                    }
+
+                    if(isset($arrInvestigacionProductosComparables['arrIds'][$i]['h.2.1.n.3'])){
+                        $codDelegacion = (String)($arrInvestigacionProductosComparables['arrElementos'][$i][$arrInvestigacionProductosComparables['arrIds'][$i]['h.2.1.n.3']]);
+                        //AQUI USAR investigacionProductosComparablesRow.IDDELEGACION = CatastralUtils.ObtenerIdDelegacionPorClave(codDelegacion)
+                        $camposFexavaAvaluo['FEXAVA_INVESTPRODUCTOSCOMP'][$controlElemento]['IDDELEGACION'] = (String)($arrInvestigacionProductosComparables['arrElementos'][$i][$arrInvestigacionProductosComparables['arrIds'][$i]['h.2.1.n.3']]);
+                        if(isset($arrInvestigacionProductosComparables['arrIds'][$i]['h.2.1.n.2'])){
+                            //Aqui usar CatastralUtils.ObtenerIdColoniaPorNombreyDelegacion(queryn.ToStringXElement(), codDelegacion);
+                            $camposFexavaAvaluo['FEXAVA_INVESTPRODUCTOSCOMP'][$controlElemento]['IDCOLONIA'] = (String)($arrInvestigacionProductosComparables['arrElementos'][$i][$arrInvestigacionProductosComparables['arrIds'][$i]['h.2.1.n.2']]);                            
+                        }
+                    }
+
+                    if(isset($arrInvestigacionProductosComparables['arrIds'][$i]['h.2.1.n.4'])){
+                        $camposFexavaAvaluo['FEXAVA_INVESTPRODUCTOSCOMP'][$controlElemento]['CODIGOPOSTAL'] = (String)($arrInvestigacionProductosComparables['arrElementos'][$i][$arrInvestigacionProductosComparables['arrIds'][$i]['h.2.1.n.4']]);
+                    }
+
+                    if(isset($arrInvestigacionProductosComparables['arrIds'][$i]['h.2.1.n.5']) && count($arrInvestigacionProductosComparables['arrElementos'][$i][$arrInvestigacionProductosComparables['arrIds'][$i]['h.2.1.n.5']]) > 0){
+                        $fuenteDeInformacion = $infoXmlElementosConst->xpath('//Comercial//EnfoqueDeMercado[@id="h"]//'.$arrPrincipalEnfoqueDeMercado['arrIds']['h.2'].'[@id="h.2"]//'.$arrConstruccionesEnVenta['arrIds']['h.2.1'].'[@id="h.2.1"]//'.$arrInvestigacionProductosComparables['arrIds'][$i]['h.2.1.n.5'].'[@id="h.2.1.n.5"]');
+                        $arrFuenteDeInformacion = $this->obtenElementosPrincipal($fuenteDeInformacion);
+                        if(isset($arrFuenteDeInformacion['arrIds']['h.2.1.n.5.1'])){
+                            $camposFexavaAvaluo['FEXAVA_INVESTPRODUCTOSCOMP'][$controlElemento]['TELEFONO'] = (String)($arrFuenteDeInformacion['arrElementos'][$arrFuenteDeInformacion['arrIds']['h.2.1.n.5.1']]);
+                        }
+                        if(isset($arrFuenteDeInformacion['arrIds']['h.2.1.n.5.2'])){
+                            $camposFexavaAvaluo['FEXAVA_INVESTPRODUCTOSCOMP'][$controlElemento]['INFORMANTE'] = (String)($arrFuenteDeInformacion['arrElementos'][$arrFuenteDeInformacion['arrIds']['h.2.1.n.5.2']]);
+                        }
+                        
+                    }
+
+                    if(isset($arrInvestigacionProductosComparables['arrIds'][$i]['h.2.1.n.6'])){
+                        $camposFexavaAvaluo['FEXAVA_INVESTPRODUCTOSCOMP'][$controlElemento]['DESCRIPCION'] = (String)($arrInvestigacionProductosComparables['arrElementos'][$i][$arrInvestigacionProductosComparables['arrIds'][$i]['h.2.1.n.6']]);
+                    }
+
+                    if(isset($arrInvestigacionProductosComparables['arrIds'][$i]['h.2.1.n.7'])){
+                        $camposFexavaAvaluo['FEXAVA_INVESTPRODUCTOSCOMP'][$controlElemento]['SUPERFICIEVENDIBLEPORUNIDAD'] = (String)($arrInvestigacionProductosComparables['arrElementos'][$i][$arrInvestigacionProductosComparables['arrIds'][$i]['h.2.1.n.7']]);
+                    }
+
+                    if(isset($arrInvestigacionProductosComparables['arrIds'][$i]['h.2.1.n.8'])){
+                        $camposFexavaAvaluo['FEXAVA_INVESTPRODUCTOSCOMP'][$controlElemento]['PRECIOSOLICITADO'] = (String)($arrInvestigacionProductosComparables['arrElementos'][$i][$arrInvestigacionProductosComparables['arrIds'][$i]['h.2.1.n.8']]);
+                    }
+
+                    if(isset($arrInvestigacionProductosComparables['arrIds'][$i]['h.2.1.n.10']) && count($arrInvestigacionProductosComparables['arrElementos'][$i][$arrInvestigacionProductosComparables['arrIds'][$i]['h.2.1.n.10']]) > 0){
+                        $cuentaCatastral = $infoXmlElementosConst->xpath('//Comercial//EnfoqueDeMercado[@id="h"]//'.$arrPrincipalEnfoqueDeMercado['arrIds']['h.2'].'[@id="h.2"]//'.$arrConstruccionesEnVenta['arrIds']['h.2.1'].'[@id="h.2.1"]//'.$arrInvestigacionProductosComparables['arrIds'][$i]['h.2.1.n.10'].'[@id="h.2.1.n.10"]');
+                        $arrFuenteDeInformacion = $this->obtenElementosPrincipal($cuentaCatastral);
+                        if(isset($arrFuenteDeInformacion['arrIds']['h.2.1.n.10.1'])){
+                            $camposFexavaAvaluo['FEXAVA_INVESTPRODUCTOSCOMP'][$controlElemento]['REGION'] = (String)($arrFuenteDeInformacion['arrElementos'][$arrFuenteDeInformacion['arrIds']['h.2.1.n.10.1']]);
+                        }
+                        if(isset($arrFuenteDeInformacion['arrIds']['h.2.1.n.10.2'])){
+                            $camposFexavaAvaluo['FEXAVA_INVESTPRODUCTOSCOMP'][$controlElemento]['MANZANA'] = (String)($arrFuenteDeInformacion['arrElementos'][$arrFuenteDeInformacion['arrIds']['h.2.1.n.10.2']]);
+                        }
+                        if(isset($arrFuenteDeInformacion['arrIds']['h.2.1.n.10.3'])){
+                            $camposFexavaAvaluo['FEXAVA_INVESTPRODUCTOSCOMP'][$controlElemento]['LOTE'] = (String)($arrFuenteDeInformacion['arrElementos'][$arrFuenteDeInformacion['arrIds']['h.2.1.n.10.3']]);
+                        }
+                        if(isset($arrFuenteDeInformacion['arrIds']['h.2.1.n.10.4'])){
+                            $camposFexavaAvaluo['FEXAVA_INVESTPRODUCTOSCOMP'][$controlElemento]['UNIDADPRIVATIVA'] = (String)($arrFuenteDeInformacion['arrElementos'][$arrFuenteDeInformacion['arrIds']['h.2.1.n.10.4']]);
+                        }
+                        
+                    }
+
+                }
+            }
+        }
+
+        if(isset($arrPrincipalEnfoqueDeMercado['arrIds']['h.3']) && count($arrPrincipalEnfoqueDeMercado['arrElementos'][$arrPrincipalEnfoqueDeMercado['arrIds']['h.3']]) > 0){
+        
+        }
+
+        return $camposFexavaAvaluo;
+        
     }
     
     public function obtenElementosPrincipal($arrPrincipal){
