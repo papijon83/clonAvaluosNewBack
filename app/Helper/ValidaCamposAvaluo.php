@@ -1,5 +1,6 @@
 <?php
 use Illuminate\Support\Facades\DB;
+use PhpParser\Node\Stmt\TryCatch;
 
 function convierte_a_arreglo($data){    
     return json_decode( json_encode($data), true );
@@ -17,6 +18,9 @@ function define_validacion($tipo_validacion, $valor){
                 case 'string':
                     return val_longitud($valor, $arrValidaciones[1]);
                 break;
+                case 'decimalPositivo':
+                    return val_decimal_positivo_tipo($valor, $arrValidaciones[1]);
+                break;                
                 
             }
         }
@@ -65,7 +69,144 @@ function define_validacion($tipo_validacion, $valor){
             case 'catClasificacionZona':
                 return val_cat_clasificacion_zona($valor);
             break;
+
+            case 'decimalPositivo':
+                return val_decimal_positivo($valor);
+            break;
+
+            case 'catClasesConstruccion':
+                return val_cat_clases_construccion($valor);
+            break;
+
+            case 'catDensidadPoblacion':
+                return val_cat_densidad_poblacion($valor);
+            break;
+            case 'catNivelSocioeconomico':
+                return val_cat_nivel_socioeconomico($valor);
+            break;
+
+            case 'nonEmptyString':
+                return val_vacio($valor);
+            break;
+
+            case 'catAguaPotable':
+                return val_cat_agua_potable($valor);
+            break;
+
+            case 'catDrenaje':
+                return val_cat_drenaje($valor);
+            break;
+
+            case 'catDrenajePluvial':
+                return val_cat_drenaje_pluvial($valor);
+            break;
+
+            case 'catSuministroElectrico':
+                return val_cat_suministro_electrico($valor);
+            break;
+
+            case 'catAcometidaInmueble':
+                return val_cat_acometida_inmueble($valor);
+            break;
+
+            case 'catAlumbradoPublico':
+                return val_cat_alumbrado_publico($valor);
+            break;
+
+            case 'catVialidades':
+                return val_cat_vialidades($valor);
+            break;
+
+            case 'catBanquetas':
+                return val_cat_banquetas($valor);
+            break;
+
+            case 'catGuarniciones':
+                return val_cat_guarniciones($valor);
+            break;
             
+            case 'catGasNatural':
+                return val_cat_gas_natural($valor);
+            break;
+
+            case 'catSuministroTelefonico':
+                return val_cat_suministro_telefonico($valor);
+            break;
+
+            case 'catSenalizacionVias':
+                return val_cat_senalizacion_vias($valor);
+            break;
+
+            case 'catNomenclaturaCalles':
+                return val_cat_nomenclatura_calles($valor);
+            break;
+
+            case 'catVigilanciaZona':
+                return val_cat_vigilancia_zona($valor);
+            break;
+
+            case 'catRecoleccionBasura':
+                return val_cat_recoleccion_basura($valor);
+            break;
+            case 'boolean':
+                return val_boolean($valor);
+            break;
+            case 'decimal':
+                return val_decimal($valor);
+            break;
+            case 'base64Binary':
+                return val_base64_binary($valor);
+            break;
+            case 'SUB-Indiviso':
+                return val_decimal_positivo_tipo($valor, '98');                
+            break;
+
+            case 'catTopografia':
+                return val_cat_topografia($valor);
+            break;
+
+            case 'catDensidadHabitacional':
+                return val_cat_densidad_habitacional($valor);
+            break;
+
+            case 'SUB-IdentificadorFraccionN1Priv':
+                return val_decimal_positivo($valor);
+            break;
+
+            case 'SUB-SuperficieFraccionN1Priv':
+                return val_decimal_positivo_tipo($valor, '222');
+            break;
+
+            case 'SUB-FzoPriv':
+                return val_decimal_positivo_tipo($valor, '32');
+            break;
+            case 'SUB-FubPriv':
+                return val_decimal_positivo_tipo($valor, '32');
+            break;
+
+            case 'SUB-FFrPriv':
+                return val_decimal_positivo_tipo($valor, '32');
+            break;
+
+            case 'SUB-FfoPriv':
+                return val_decimal_positivo_tipo($valor, '32');
+            break;
+
+            case 'SUB-FsuPriv':
+                return val_decimal_positivo_tipo($valor, '32');
+            break;
+
+            case 'SUB-ClaveDeAreaDeValorPriv':
+                return val_vacio($valor);
+            break;
+
+            case 'SUB-FrePriv':
+                return val_decimal_positivo($valor);
+            break;
+
+            case 'SUB-ValorDeLaFraccionNPriv':
+                return val_decimal_positivo($valor);
+            break;
         }
 
     }
@@ -107,12 +248,11 @@ function val_date($fecha){
 
 function val_longitud($valor, $longitud){
     $estado = "correcto";
-    
+   
     if(is_array($valor)){
         if(isset($valor['@attributes'])){
             unset($valor['@attributes']);
-        }
-        
+        }        
         if(count($valor) == 1){
             $valor = $valor[0];
         }else{
@@ -245,7 +385,7 @@ function val_cat_clasificacion_zona($valor){
     $estado = 'correcto';
     $res = val_nonNegativeInteger($valor);
     if($res == 'correcto'){
-        $idClasificacionZona = convierte_a_arreglo(DB::select("SELECT CODCLASIFICACIONZONA FROM FEXAVA_CATCLASIFICACIONZONA WHERE CODCLASIFICACIONZONA = '$valor'"));    
+        $idClasificacionZona = convierte_a_arreglo(DB::select("SELECT CODCLASIFICACIONZONA FROM FEXAVA_CATCLASIFICACIONZONA WHERE CODCLASIFICACIONZONA = '$valor'"));           
         if(count($idClasificacionZona) == 0){            
             return "el codigo de clasificacion de zona ".$valor." no existe en el catalogo de clasificacion zona";
         }
@@ -255,6 +395,501 @@ function val_cat_clasificacion_zona($valor){
     }
 }
 
+function val_decimal_positivo($valor){
+    $estado = 'correcto';
+    $res = val_decimal($valor);
+    if($res == 'correcto'){
+        if($valor < 0){
+            return "contiene un valor negativo";
+        }else{
+            return $estado;
+        }
+    }else{
+        return $res;
+    }    
+    
+}
+
+function val_cat_clases_construccion($valor){
+    $estado = 'correcto';
+    $idClaseConstruccion = convierte_a_arreglo(DB::select("SELECT IDCLASES FROM FIS.FIS_CATCLASES WHERE CODCLASE = '$valor'"));        
+    if(count($idClaseConstruccion) == 0){            
+        return "el codigo de clase de construccion ".$valor." no existe en el catalogo de clases";
+    }
+    return $estado;
+    
+}
+
+function val_cat_densidad_poblacion($valor){
+    $estado = 'correcto';
+    $res = val_nonNegativeInteger($valor);
+    if($res == 'correcto'){
+        $idDensidadPoblacion = convierte_a_arreglo(DB::select("SELECT CODDENSIDADPOBLACION FROM FEXAVA_CATDENSIDADPOB WHERE CODDENSIDADPOBLACION = '$valor'"));            
+        if(count($idDensidadPoblacion) == 0){            
+            return "el codigo de densidad de poblacion ".$valor." no existe en el catalogo de densidad de población";
+        }
+        return $estado;
+    }else{
+        return $res;
+    }
+}
+
+function val_cat_nivel_socioeconomico($valor){
+    $estado = 'correcto';
+    $res = val_nonNegativeInteger($valor);
+    if($res == 'correcto'){
+        $idNivelSocioeconomico = convierte_a_arreglo(DB::select("SELECT CODNIVELSOCIOECONOMICO FROM FEXAVA_CATNIVELSOCIOECON WHERE CODNIVELSOCIOECONOMICO = '$valor'"));          
+        if(count($idNivelSocioeconomico) == 0){            
+            return "el codigo de nivel socioeconomico ".$valor." no existe en el catalogo de nivel socioeconomico";
+        }
+        return $estado;
+    }else{
+        return $res;
+    }
+}
+
+function val_decimal_positivo_tipo($valor, $tipo){
+    $estado = 'correcto';
+    $pos = strpos($valor, '.');
+    
+    if($tipo == '30'){
+        $res = val_decimal_positivo($valor);
+        if($res == 'correcto'){
+            $patron = '/\d{1,3}/';
+            if (!preg_match($patron, $valor)) {
+                return "no corresponde a un formato valido para este campo";
+            }else{
+                if($valor > 999){
+                    return "contiene un valor mayor a 999";
+                }else{
+                    return $estado;
+                }
+            }
+        }
+        
+    }
+
+    if($tipo == '32'){
+        if($valor > 10){
+            return "contiene un valor mayor a 10";
+        }
+        $res = val_decimal_positivo($valor);
+        if($res == 'correcto'){
+            if($pos === TRUE || $pos === 1){
+                $elementosCantidad = explode('.',$valor);
+                if((strlen($elementosCantidad[0])+strlen($elementosCantidad[1])) > 3){
+                    return " contiene mas de 3 digitos";
+                }
+                $patron = '/\d{1}+.\d{1,2}/';
+                if (!preg_match($patron, $valor)) {
+                    return "no corresponde a un formato valido para este campo";
+                }                    
+                return $estado;                   
+            }else{    
+                return $estado;
+            }                
+        }else{
+            return $res;
+        }            
+    }
+
+        if($tipo == '52'){
+            if($valor > 100){
+                return "contiene un valor mayor a 100";
+            }
+            $res = val_decimal_positivo($valor);
+            if($res == 'correcto'){
+                if($pos === TRUE || $pos === 1){
+                    $elementosCantidad = explode('.',$valor);
+                    if((strlen($elementosCantidad[0])+strlen($elementosCantidad[1])) > 5){
+                        return " contiene mas de 5 digitos";
+                    }
+                    $patron = '/\d{1,3}+.\d{1,2}/';
+                    if (!preg_match($patron, $valor)) {
+                        return "no corresponde a un formato valido para este campo";
+                    }                    
+                    return $estado;                   
+                }else{    
+                    return $estado;
+                }                
+            }else{
+                return $res;
+            }            
+        }
+
+        if($tipo == '54'){
+            if($valor > 10){
+                return "contiene un valor mayor a 10";
+            }    
+            $res = val_decimal_positivo($valor);
+            if($res == 'correcto'){
+                if($pos === TRUE || $pos === 1){
+                    $elementosCantidad = explode('.',$valor);
+                    if((strlen($elementosCantidad[0])+strlen($elementosCantidad[1])) > 5){
+                        return " contiene mas de 5 digitos";
+                    }
+                    $patron = '/\d{1}+.\d{1,4}/';
+                    if (!preg_match($patron, $valor)) {
+                        return "no corresponde a un formato valido para este campo";
+                    }        
+                    return $estado;  
+                    
+                }else{
+                    return $estado;
+                }            
+            }else{
+                return $res;
+            }            
+        }
+
+        if($tipo == '98'){                        
+            if($valor > 10){
+                return "contiene un valor mayor a 10";
+            }                          
+            $res = val_decimal_positivo($valor);
+            if($res == 'correcto'){                                             
+                if($pos === TRUE || $pos === 1){                    
+                    $elementosCantidad = explode('.',$valor);
+                    if((strlen($elementosCantidad[0])+strlen($elementosCantidad[1])) > 9){
+                        return " contiene mas de 9 digitos";
+                    }                   
+                    $patron = '/\d{1}+.\d{1,8}/';
+                    if (!preg_match($patron, $valor)) {
+                        return "no corresponde a un formato valido para este campo";
+                    }                          
+                    return $estado;  
+                    
+                }else{
+                    return $estado;
+                }            
+            }else{
+                return $res;
+            }            
+        }
+
+        if($tipo == '223'){                        
+            if($valor > 9999999999999999999){
+                return "contiene un valor mayor a 9999999999999999999";
+            }                          
+            $res = val_decimal_positivo($valor);
+            if($res == 'correcto'){                                             
+                if($pos === TRUE || $pos === 1){                    
+                    $elementosCantidad = explode('.',$valor);
+                    if((strlen($elementosCantidad[0])+strlen($elementosCantidad[1])) > 22){
+                        return " contiene mas de 22 digitos";
+                    }                   
+                    $patron = '/\d{1,19}+.\d{1,3}/';
+                    if (!preg_match($patron, $valor)) {
+                        return "no corresponde a un formato valido para este campo";
+                    }                          
+                    return $estado;  
+                    
+                }else{
+                    return $estado;
+                }            
+            }else{
+                return $res;
+            }            
+        }
+
+        if($tipo == '222'){                        
+            if($valor > 99999999999999999999){
+                return "contiene un valor mayor a 99999999999999999999";
+            }                          
+            $res = val_decimal_positivo($valor);
+            if($res == 'correcto'){                                             
+                if($pos === TRUE || $pos === 1){                    
+                    $elementosCantidad = explode('.',$valor);
+                    if((strlen($elementosCantidad[0])+strlen($elementosCantidad[1])) > 22){
+                        return " contiene mas de 22 digitos";
+                    }                   
+                    $patron = '/\d{1,20}+.\d{1,2}/';
+                    if (!preg_match($patron, $valor)) {
+                        return "no corresponde a un formato valido para este campo";
+                    }                          
+                    return $estado;  
+                    
+                }else{
+                    return $estado;
+                }            
+            }else{
+                return $res;
+            }            
+        }
+
+    
+}
+
+function val_vacio($valor){
+    $estado = 'correcto';
+    if(trim($valor) == ''){
+        return "no puede estar vacio";
+    }
+    return $estado;
+}
+
+function val_cat_agua_potable($valor){
+    $estado = 'correcto';
+    $idAguaPotable = convierte_a_arreglo(DB::select("SELECT CODAGUAPOTABLE FROM FEXAVA_CATAGUAPOTABLE WHERE CODAGUAPOTABLE = '$valor'"));    
+    if(count($idAguaPotable) == 0){            
+        return "el codigo de agua potable ".$valor." no existe en el catalogo de agua potable";
+    }
+    return $estado;    
+}
+
+function val_cat_drenaje($valor){
+    $estado = 'correcto';
+    $idDrenajeInmueble = convierte_a_arreglo(DB::select("SELECT CODDRENAJEINMUEBLE FROM FEXAVA_CATDRENAJEINMUEBLE WHERE CODDRENAJEINMUEBLE = '$valor'"));    
+    if(count($idDrenajeInmueble) == 0){            
+        return "el codigo de drenaje ".$valor." no existe en el catalogo de drenaje inmueble";
+    }
+    return $estado;
+}
+
+function val_cat_drenaje_pluvial($valor){
+    $estado = 'correcto';
+    $res = val_nonNegativeInteger($valor);
+    if($res == 'correcto'){
+        $idDrenajePluvial = convierte_a_arreglo(DB::select("SELECT CODDRENAJEPLUVIAL FROM FEXAVA_CATDRENAJEPLUVIAL WHERE CODDRENAJEPLUVIAL = '$valor'"));    
+        if(count($idDrenajePluvial) == 0){            
+            return "el codigo de drenaje pluvial ".$valor." no existe en el catalogo de drenaje pluvial";
+        }
+        return $estado;
+    }else{
+        return $res;
+    }
+}
+
+function val_cat_suministro_electrico($valor){
+    $estado = 'correcto';
+    $res = val_nonNegativeInteger($valor);
+    if($res == 'correcto'){
+        $idSuministroElectrico = convierte_a_arreglo(DB::select("SELECT CODSUMINISTROELECTRICO FROM FEXAVA_CATSUMINISTROELEC WHERE CODSUMINISTROELECTRICO = '$valor'"));    
+        if(count($idSuministroElectrico) == 0){            
+            return "el codigo de suministro electrico ".$valor." no existe en el catalogo de suministro electrico";
+        }
+        return $estado;
+    }else{
+        return $res;
+    }
+}
+
+function val_cat_acometida_inmueble($valor){
+    $estado = 'correcto';
+    $res = val_nonNegativeInteger($valor);
+    if($res == 'correcto'){
+        $idAcometidaInmueble = convierte_a_arreglo(DB::select("SELECT CODACOMETIDAINMUEBLE FROM FEXAVA_CATACOMETIDAINM WHERE CODACOMETIDAINMUEBLE = '$valor'"));    
+        if(count($idAcometidaInmueble) == 0){            
+            return "el codigo de acometida inmueble ".$valor." no existe en el catalogo de acometida inmueble";
+        }
+        return $estado;
+    }else{
+        return $res;
+    }
+}
+
+function val_cat_alumbrado_publico($valor){
+    $estado = 'correcto';
+    $res = val_nonNegativeInteger($valor);
+    if($res == 'correcto'){
+        $idAlumbradoPublico = convierte_a_arreglo(DB::select("SELECT CODALUMBRADOPUBLICO FROM FEXAVA_CATALUMBRADOPUBLICO WHERE CODALUMBRADOPUBLICO = '$valor'"));    
+        if(count($idAlumbradoPublico) == 0){            
+            return "el codigo de alumbrado publico ".$valor." no existe en el catalogo de alumbrado publico";
+        }
+        return $estado;
+    }else{
+        return $res;
+    }
+}
+
+function val_cat_vialidades($valor){
+    $estado = 'correcto';
+    $res = val_nonNegativeInteger($valor);
+    if($res == 'correcto'){
+        $idVialidad = convierte_a_arreglo(DB::select("SELECT CODVIALIDADES FROM FEXAVA_CATVIALIDADES WHERE CODVIALIDADES = '$valor'"));    
+        if(count($idVialidad) == 0){            
+            return "el codigo de vialidad ".$valor." no existe en el catalogo de vialidad";
+        }
+        return $estado;
+    }else{
+        return $res;
+    }
+}
+
+function val_cat_banquetas($valor){
+    $estado = 'correcto';
+    $res = val_nonNegativeInteger($valor);
+    if($res == 'correcto'){
+        $idBanquetas = convierte_a_arreglo(DB::select("SELECT CODBANQUETAS FROM FEXAVA_CATBANQUETAS WHERE CODBANQUETAS = '$valor'"));    
+        if(count($idBanquetas) == 0){            
+            return "el codigo de banqueta ".$valor." no existe en el catalogo de banqueta";
+        }
+        return $estado;
+    }else{
+        return $res;
+    }
+}
+
+function val_cat_guarniciones($valor){
+    $estado = 'correcto';
+    $res = val_nonNegativeInteger($valor);
+    if($res == 'correcto'){
+        $idGuarniciones = convierte_a_arreglo(DB::select("SELECT CODGUARNICIONES FROM FEXAVA_CATGUARNICIONES WHERE CODGUARNICIONES = '$valor'"));    
+        if(count($idGuarniciones) == 0){            
+            return "el codigo de guarnicion ".$valor." no existe en el catalogo de guarnicion";
+        }
+        return $estado;
+    }else{
+        return $res;
+    }
+}
+
+function val_cat_gas_natural($valor){
+    $estado = 'correcto';
+    $res = val_nonNegativeInteger($valor);
+    if($res == 'correcto'){
+        $idGasNatural = convierte_a_arreglo(DB::select("SELECT CODGASNATURAL FROM FEXAVA_CATGASNATURAL WHERE CODGASNATURAL = '$valor'"));    
+        if(count($idGasNatural) == 0){            
+            return "el codigo de gas natural ".$valor." no existe en el catalogo de gas natural";
+        }
+        return $estado;
+    }else{
+        return $res;
+    }
+}
+
+function val_cat_suministro_telefonico($valor){
+    $estado = 'correcto';
+    $res = val_nonNegativeInteger($valor);
+    if($res == 'correcto'){
+        $idSuministroTelefonico = convierte_a_arreglo(DB::select("SELECT CODSUMINISTROTELEFONICA FROM FEXAVA_CATSUMINISTROTEL WHERE CODSUMINISTROTELEFONICA = '$valor'"));    
+        if(count($idSuministroTelefonico) == 0){            
+            return "el codigo de suministro telefonico ".$valor." no existe en el catalogo de suministro telefonico";
+        }
+        return $estado;
+    }else{
+        return $res;
+    }
+}
+
+function val_cat_senalizacion_vias($valor){
+    $estado = 'correcto';
+    $res = val_nonNegativeInteger($valor);
+    if($res == 'correcto'){
+        $idSenalizacionVias = convierte_a_arreglo(DB::select("SELECT CODSENALIZACIONVIAS FROM FEXAVA_CATSENALIZACIONVIAS WHERE CODSENALIZACIONVIAS = '$valor'"));    
+        if(count($idSenalizacionVias) == 0){            
+            return "el codigo de señalizacion ".$valor." no existe en el catalogo de señalizacion vias";
+        }
+        return $estado;
+    }else{
+        return $res;
+    }
+}
+
+function val_cat_nomenclatura_calles($valor){
+    $estado = 'correcto';
+    $res = val_nonNegativeInteger($valor);
+    if($res == 'correcto'){
+        $idNomenclaturaCalle = convierte_a_arreglo(DB::select("SELECT CODNOMENCLATURACALLE FROM FEXAVA_CATNOMENCLATURACALLE WHERE CODNOMENCLATURACALLE = '$valor'"));    
+        if(count($idNomenclaturaCalle) == 0){            
+            return "el codigo de nomenclatura calle ".$valor." no existe en el catalogo de nomenclatura calle";
+        }
+        return $estado;
+    }else{
+        return $res;
+    }
+}
+
+function val_cat_vigilancia_zona($valor){
+    $estado = 'correcto';
+    $res = val_nonNegativeInteger($valor);
+    if($res == 'correcto'){
+        $idVigilanciaZona = convierte_a_arreglo(DB::select("SELECT CODVIGILANCIAZONA FROM FEXAVA_CATVIGILANCIAZONA WHERE CODVIGILANCIAZONA = '$valor'"));    
+        if(count($idVigilanciaZona) == 0){            
+            return "el codigo de vigilancia ".$valor." no existe en el catalogo de vigilancia zona";
+        }
+        return $estado;
+    }else{
+        return $res;
+    }
+}
+
+function val_cat_recoleccion_basura($valor){
+    $estado = 'correcto';
+    $res = val_nonNegativeInteger($valor);
+    if($res == 'correcto'){
+        $idRecoleccionBasura = convierte_a_arreglo(DB::select("SELECT CODRECOLECCIONBASURA FROM FEXAVA_CATRECOLECCIONBASURA WHERE CODRECOLECCIONBASURA = '$valor'"));    
+        if(count($idRecoleccionBasura) == 0){            
+            return "el codigo de recoleccion basura ".$valor." no existe en el catalogo de Recoleccion Basura";
+        }
+        return $estado;
+    }else{
+        return $res;
+    }
+}
+
+function val_boolean($valor){    
+    $estado = 'correcto';    
+    if(boolval($valor) || $valor == '0' || $valor == '1'){    
+        return $estado;
+    }else{
+        return "no es un valor booleano";
+    }
+}
+
+function val_decimal($valor){
+    $estado = 'correcto';
+    if(is_numeric($valor)){
+        return $estado;
+    }else{
+        return "contiene un valor que no es decimal";
+    }        
+}
+
+function val_base64_binary($valor){
+    $estado = 'correcto';
+    try {
+
+        if(base64_encode(base64_decode($valor, true)) === $valor){
+            return $estado;
+        }else{
+            return "no contiene un base64";
+        }
+       
+    } catch (\Throwable $th) {
+        return "no contiene un base64";
+    }
+    
+}
+
+function val_cat_topografia($valor){
+    $estado = 'correcto';
+    $res = val_nonNegativeInteger($valor);
+    if($res == 'correcto'){
+        $idTopografia = convierte_a_arreglo(DB::select("SELECT CODTOPOGRAFIA FROM FEXAVA_CATTOPOGRAFIA WHERE CODTOPOGRAFIA = '$valor'"));    
+        if(count($idTopografia) == 0){            
+            return "el codigo de topografia ".$valor." no existe en el catalogo de Topografia";
+        }
+        return $estado;
+    }else{
+        return $res;
+    }
+    
+}
+
+function val_cat_densidad_habitacional($valor){
+    $estado = 'correcto';
+    $res = val_nonNegativeInteger($valor);
+    if($res == 'correcto'){
+        $idDensidadHabit = convierte_a_arreglo(DB::select("SELECT CODDENSIDADHABITACIONAL FROM FEXAVA_CATDENSIDADHAB WHERE CODDENSIDADHABITACIONAL = '$valor'"));    
+        if(count($idDensidadHabit) == 0){            
+            return "el codigo de densidad habitacional ".$valor." no existe en el catalogo de densidad habitacional";
+        }
+        return $estado;
+    }else{
+        return $res;
+    }
+}
 
 /**************************************************************************************************************************************************************************/
 
@@ -373,11 +1008,13 @@ function valida_AvaluoAntecedentes($data, $elementoPrincipal){
 }
 
 function valida_AvaluoCaracteristicasUrbanas($data){    
-    $validacionesc = array('ContaminacionAmbientalEnLaZona' => 'string_250','ClasificacionDeLaZona' => 'catClasificacionZona','IndiceDeSaturacionDeLaZona' => 'DecimalPositivo','IndiceDeSaturacionDeLaZona' => 'DecimalPositivo','ClaseGeneralDeInmueblesDeLaZona' => 'catClasesConstruccion', 'DensidadDePoblacion' => 'catDensidadPoblacion', 'NivelSocioeconomicoDeLaZona' => 'catNivelSocioeconomico');
+    $validacionesc = array('ContaminacionAmbientalEnLaZona' => 'string_250','ClasificacionDeLaZona' => 'catClasificacionZona','IndiceDeSaturacionDeLaZona' => 'decimalPositivo','ClaseGeneralDeInmueblesDeLaZona' => 'catClasesConstruccion', 'DensidadDePoblacion' => 'catDensidadPoblacion', 'NivelSocioeconomicoDeLaZona' => 'catNivelSocioeconomico');
+    $validacionesc6 = array('UsoDelSuelo' => 'nonEmptyString_50', 'AreaLibreObligatoria' => 'decimalPositivo_52', 'NumeroMaximoDeNivelesAConstruir' => 'decimalPositivo_30', 'CoeficienteDeUsoDelSuelo' => 'decimalPositivo');
+    $validacionesc7 = array('ViasDeAccesoEImportancia' => 'nonEmptyString');
+    $validacionesc8 = array('RedDeDistribucionAguaPotable' => 'catAguaPotable', 'RedDeRecoleccionDeAguasResiduales' => 'catDrenaje', 'RedDeDrenajeDeAguasPluvialesEnLaCalle' => 'catDrenajePluvial', 'RedDeDrenajeDeAguasPluvialesEnLaZona' => 'catDrenajePluvial', 'SistemaMixto' => 'catDrenaje', 'SuministroElectrico' => 'catSuministroElectrico', 'AcometidaAlInmueble' => 'catAcometidaInmueble', 'AlumbradoPublico' => 'catAlumbradoPublico', 'Vialidades' => 'catVialidades', 'Banquetas' => 'catBanquetas', 'Guarniciones' => 'catGuarniciones', 'NivelDeInfraestructuraEnLaZona' => 'decimalPositivo_54', 'GasNatural' => 'catGasNatural', 'TelefonosSuministro' => 'catSuministroTelefonico', 'AcometidaAlInmuebleTel' => 'catAcometidaInmueble', 'SennalizacionDeVias' => 'catSenalizacionVias', 'NomenclaturaDeCalles' => 'catNomenclaturaCalles', 'DistanciaTranporteUrbano' => 'decimalPositivo', 'FrecuenciaTransporteUrbano' => 'decimalPositivo', 'DistanciaTransporteSuburbano' => 'decimalPositivo', 'FrecuenciaTransporteSuburbano' => 'decimalPositivo', 'Vigilancia' => 'catVigilanciaZona', 'RecoleccionDeBasura' => 'catRecoleccionBasura', 'Templo' => 'boolean', 'Mercados' => 'boolean', 'PlazasPublicas' => 'boolean', 'ParquesYJardines' => 'boolean', 'Escuelas' => 'boolean', 'Hospitales' => 'boolean', 'Bancos' => 'boolean', 'EstacionDeTransporte' => 'boolean', 'NivelDeEquipamientoUrbano' => 'decimal');
     $errores = array();
-    $data = array_map("convierte_a_arreglo",$data);
-    print_r($data); exit();
-    $numeroCaracteristicasUrbanas = count($data);
+    $data = array_map("convierte_a_arreglo",$data);    
+    $numeroCaracteristicasUrbanas = count($data);    
     if ($numeroCaracteristicasUrbanas > 1) {
         $errores[] = "El XML cuenta con mas de una seccion de Caracteristicas Urbanas";
     }else{
@@ -385,13 +1022,162 @@ function valida_AvaluoCaracteristicasUrbanas($data){
             if(!isset($data[0][$etiqueta])){
                 $errores[] = "Falta ".$etiqueta." en Antecedentes (Solicitante)";
             }else{
+                $resValidacion = define_validacion($validacion, $data[0][$etiqueta]);                             
+                if($resValidacion != 'correcto'){
+                    $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                }
+            }
+        }
+        
+        foreach($validacionesc6 as $etiqueta => $validacion){
+            if(!isset($data[0]['UsoDelSuelo'][$etiqueta])){
+                $errores[] = "Falta ".$etiqueta." en CaracteristicasUrbanas (UsoDelSuelo)";
+            }else{
+                $resValidacion = define_validacion($validacion, $data[0]['UsoDelSuelo'][$etiqueta]);                
+                if($resValidacion != 'correcto'){
+                    $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                }
+            
+            }
+        }
+
+        foreach($validacionesc7 as $etiqueta => $validacion){
+            if(!isset($data[0][$etiqueta])){
+                $errores[] = "Falta ".$etiqueta." en CaracteristicasUrbanas";
+            }else{
                 $resValidacion = define_validacion($validacion, $data[0][$etiqueta]);                
                 if($resValidacion != 'correcto'){
                     $errores[] = "El campo ".$etiqueta." ".$resValidacion;
                 }
             }
         }
+
+        foreach($validacionesc8 as $etiqueta => $validacion){
+            if(!isset($data[0]['ServiciosPublicosYEquipamientoUrbano'][$etiqueta])){
+                $errores[] = "Falta ".$etiqueta." en CaracteristicasUrbanas";
+            }else{
+                $resValidacion = define_validacion($validacion, $data[0]['ServiciosPublicosYEquipamientoUrbano'][$etiqueta]);                
+                if($resValidacion != 'correcto'){
+                    $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                }                
+            }
+        }
     }
+    return $errores;
+}
+
+function valida_AvaluoTerreno($data){
+    $validacionesd = array('CallesTransversalesLimitrofesYOrientacion' => 'nonEmptyString', 'CroquisMicroLocalizacion' => 'base64Binary', 'CroquisMacroLocalizacion' => 'base64Binary', 'Indiviso' => 'SUB-Indiviso', 'TopografiaYConfiguracion' => 'catTopografia', 'CaracteristicasPanoramicas' => 'nonEmptyString_250', 'DensidadHabitacional' => 'catDensidadHabitacional', 'ServidumbresORestricciones' => 'nonEmptyString_250', 'SuperficieTotalDelTerreno' => 'decimalPositivo', 'ValorTotalDelTerreno' => 'decimalPositivo', 'ValorTotalDelTerrenoProporcional' => 'decimalPositivo');
+    $validacionesd411 = array('NumeroDeEscritura' => 'decimalPositivo', 'NumeroDeVolumen' => 'nonEmptyString_7', 'FechaEscritura' => 'date', 'NumeroNotaria' => 'decimalPositivo', 'NombreDelNotario' => 'nonEmptyString_50', 'DistritoJudicialNotario' => 'nonEmptyString_50');
+    $validacionesd412 = array('Juzgado' => 'nonEmptyString_50', 'Fecha' => 'date', 'NumeroExpediente' => 'nonEmptyString_16');
+    $validacionesd413 = array('Fecha' => 'date', 'NombreAdquirente' => 'nonEmptyString_50', 'Apellido1Adquirente' => 'nonEmptyString_100', 'Apellido2Adquirente' => 'nonEmptyString_50', 'NombreEnajenante' => 'nonEmptyString_50', 'Apellido1Enajenante' => 'nonEmptyString_100', 'Apellido2Enajenante' => 'nonEmptyString_50');
+    $validacionesd414 = array('Fecha' => 'date', 'NumeroFolio' => 'nonEmptyString_20');
+    $validacionesd42 = array('Orientacion' => 'nonEmptyString', 'MedidaEnMetros' => 'decimalPositivo_223', 'DescripcionColindante' => 'nonEmptyString');
+    $validacionesd5P = array('IdentificadorFraccionN1' => 'SUB-IdentificadorFraccionN1Priv', 'SuperficieFraccionN1' => 'SUB-SuperficieFraccionN1Priv', 'Fzo' => 'SUB-FzoPriv', 'Fub' => 'SUB-FubPriv', 'FFr' => 'SUB-FFrPriv', 'Ffo' => 'SUB-FfoPriv', 'Fsu' => 'SUB-FsuPriv', 'ClaveDeAreaDeValor' => 'SUB-ClaveDeAreaDeValorPriv', 'Fre' => 'SUB-FrePriv', 'ValorDeLaFraccionN' => 'SUB-ValorDeLaFraccionNPriv');
+    $validacionesd5C = array('IdentificadorFraccionN1' => 'SUB-IdentificadorFraccionN1Com', 'SuperficieFraccionN1' => 'SUB-SuperficieFraccionN1Com', 'Fzo' => 'SUB-FzoCom', 'Fub' => 'SUB-FubCom', 'FFr' => 'SUB-FFrCom', 'Ffo' => 'SUB-FfoCom', 'Fsu' => 'SUB-FsuCom', 'ClaveDeAreaDeValor' => 'SUB-ClaveDeAreaDeValorCom', 'Fre' => 'SUB-FreCom', 'ValorDeLaFraccionN' => 'SUB-ValorDeLaFraccionNCom');
+    $errores = array();
+    $data = array_map("convierte_a_arreglo",$data);
+
+    $numeroTerrenos = count($data);    
+    if ($numeroTerrenos > 1) {
+        $errores[] = "El XML cuenta con mas de una seccion de Terreno";
+    }else{
+        foreach($validacionesd as $etiqueta => $validacion){
+            if(!isset($data[0][$etiqueta])){
+                $errores[] = "Falta ".$etiqueta." en MedidasYColindancias";
+            }else{
+                $resValidacion = define_validacion($validacion, $data[0][$etiqueta]);                             
+                if($resValidacion != 'correcto'){
+                    $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                }
+            }
+        }
+        
+        
+        foreach($validacionesd411 as $etiqueta => $validacion){
+            if(!isset($data[0]['MedidasYColindancias']['FuenteDeInformacionLegal']['Escritura'][$etiqueta])){
+                $errores[] = "Falta ".$etiqueta." en MedidasYColindancias (Escritura)";
+            }else{
+                $resValidacion = define_validacion($validacion, $data[0]['MedidasYColindancias']['FuenteDeInformacionLegal']['Escritura'][$etiqueta]);                             
+                if($resValidacion != 'correcto'){
+                    $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                }
+            }
+        }
+
+        if(isset($data[0]['MedidasYColindancias']['FuenteDeInformacionLegal']['Sentencia'])){
+            foreach($validacionesd412 as $etiqueta => $validacion){
+                if(!isset($data[0]['MedidasYColindancias']['FuenteDeInformacionLegal']['Sentencia'][$etiqueta])){
+                    $errores[] = "Falta ".$etiqueta." en FuenteDeInformacionLegal (Sentencia)";
+                }else{
+                    $resValidacion = define_validacion($validacion, $data[0]['MedidasYColindancias']['FuenteDeInformacionLegal']['Sentencia'][$etiqueta]);                             
+                    if($resValidacion != 'correcto'){
+                        $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                    }
+                }
+            }
+        }
+        
+        if(isset($data[0]['MedidasYColindancias']['FuenteDeInformacionLegal']['ContratoPrivado'])){
+            foreach($validacionesd413 as $etiqueta => $validacion){
+                if(!isset($data[0]['MedidasYColindancias']['FuenteDeInformacionLegal']['ContratoPrivado'][$etiqueta])){
+                    $errores[] = "Falta ".$etiqueta." en FuenteDeInformacionLegal (ContratoPrivado)";
+                }else{
+                    $resValidacion = define_validacion($validacion, $data[0]['MedidasYColindancias']['FuenteDeInformacionLegal']['ContratoPrivado'][$etiqueta]);                             
+                    if($resValidacion != 'correcto'){
+                        $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                    }
+                }
+            }
+        }
+        
+        if(isset($data[0]['MedidasYColindancias']['FuenteDeInformacionLegal']['AlineamientoYNumeroOficial'])){
+            foreach($validacionesd414 as $etiqueta => $validacion){
+                if(!isset($data[0]['MedidasYColindancias']['FuenteDeInformacionLegal']['AlineamientoYNumeroOficial'][$etiqueta])){
+                    $errores[] = "Falta ".$etiqueta." en FuenteDeInformacionLegal (AlineamientoYNumeroOficial)";
+                }else{
+                    $resValidacion = define_validacion($validacion, $data[0]['MedidasYColindancias']['FuenteDeInformacionLegal']['AlineamientoYNumeroOficial'][$etiqueta]);                             
+                    if($resValidacion != 'correcto'){
+                        $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                    }
+                }
+            }
+        }
+
+        $numeroColindancias = 0;
+        $numeroColindancias = count($data[0]['MedidasYColindancias']['Colindancias']);      
+
+        if($numeroColindancias == 0){
+            $errores[] = "El XML no cuenta con la seccion de Colindancias";
+        }else{
+            foreach($data[0]['MedidasYColindancias']['Colindancias'] as $colindancia){
+                foreach($validacionesd42 as $etiqueta => $validacion){
+                    if(!isset($colindancia[$etiqueta])){
+                        $errores[] = "Falta ".$etiqueta." en Colindancias";
+                    }else{
+                        $resValidacion = define_validacion($validacion, $colindancia[$etiqueta]);                             
+                        if($resValidacion != 'correcto'){
+                            $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                        }
+                    }
+                }
+            }
+        }
+        
+        foreach($validacionesd5P as $etiqueta => $validacion){
+            if(!isset($data[0]['SuperficieDelTerreno'][$etiqueta])){
+                $errores[] = "Falta ".$etiqueta." en SuperficieDelTerreno";
+            }else{
+                $resValidacion = define_validacion($validacion, $data[0]['SuperficieDelTerreno'][$etiqueta]);                             
+                if($resValidacion != 'correcto'){
+                    $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                }
+            }
+        }
+        
+    }
+
+    return $errores;    
 }
 
 ?>

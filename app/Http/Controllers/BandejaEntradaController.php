@@ -714,7 +714,7 @@ class BandejaEntradaController extends Controller
     public function guardarAvaluoCaracteristicasUrbanas($infoXmlCaracteristicas, $camposFexavaAvaluo,$elementoPrincipal){
         $infoXmlCaracteristicasUrbanas = $infoXmlCaracteristicas->xpath($elementoPrincipal.'//CaracteristicasUrbanas[@id="c"]');
 
-        $errores = valida_AvaluoCaracteristicasUrbanas($infoXmlCaracteristicasUrbanas);
+        $errores = valida_AvaluoCaracteristicasUrbanas($infoXmlCaracteristicasUrbanas);   
         if(count($errores) > 0){
             return array('ERROR' => $errores);
         }
@@ -901,7 +901,11 @@ class BandejaEntradaController extends Controller
         return $camposFexavaAvaluo;
     }
 
-    public function guardarAvaluoTerreno($infoXmlTerreno, $camposFexavaAvaluo,$elementoPrincipal){        
+    public function guardarAvaluoTerreno($infoXmlTerreno, $camposFexavaAvaluo,$elementoPrincipal){
+        $errores = valida_AvaluoTerreno($infoXmlTerreno->xpath($elementoPrincipal.'//Terreno[@id="d"]'));
+        if(count($errores) > 0){
+            return array('ERROR' => $errores);
+        }       
         $infoXmlCallesTransversalesLimitrofesYOrientacion = $infoXmlTerreno->xpath($elementoPrincipal.'//Terreno[@id="d"]//CallesTransversalesLimitrofesYOrientacion[@id="d.1"]');        
         $query = (String)($infoXmlCallesTransversalesLimitrofesYOrientacion[0]);
 
