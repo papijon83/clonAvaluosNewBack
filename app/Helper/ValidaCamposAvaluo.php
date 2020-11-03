@@ -1446,7 +1446,9 @@ function valida_AvaluoDescripcionImueble($data, $elementoPrincipal){
 
 
 function valida_AvaluoElementosDeLaConstruccion($data, $elementoPrincipal){
+    $errores = array();
 
+    return $errores;
 }
 
 ?>
