@@ -902,10 +902,10 @@ class BandejaEntradaController extends Controller
     }
 
     public function guardarAvaluoTerreno($infoXmlTerreno, $camposFexavaAvaluo,$elementoPrincipal){
-        $errores = valida_AvaluoTerreno($infoXmlTerreno->xpath($elementoPrincipal.'//Terreno[@id="d"]'));
+        $errores = valida_AvaluoTerreno($infoXmlTerreno->xpath($elementoPrincipal.'//Terreno[@id="d"]'), $elementoPrincipal);    
         if(count($errores) > 0){
             return array('ERROR' => $errores);
-        }       
+        }                       
         $infoXmlCallesTransversalesLimitrofesYOrientacion = $infoXmlTerreno->xpath($elementoPrincipal.'//Terreno[@id="d"]//CallesTransversalesLimitrofesYOrientacion[@id="d.1"]');        
         $query = (String)($infoXmlCallesTransversalesLimitrofesYOrientacion[0]);
 
@@ -1216,7 +1216,10 @@ class BandejaEntradaController extends Controller
     }
 
     public function guardarAvaluoDescripcionImueble($infoXmlTerreno, $camposFexavaAvaluo,$elementoPrincipal){
-
+        $errores = valida_AvaluoDescripcionImueble($infoXmlTerreno->xpath($elementoPrincipal.'//DescripcionDelInmueble[@id="e"]'), $elementoPrincipal);    
+        if(count($errores) > 0){
+            return array('ERROR' => $errores);
+        }
         $fechaAvaluo = $camposFexavaAvaluo['FECHAAVALUO'];
 
         $arrPrincipalUsoActual = $infoXmlTerreno->xpath($elementoPrincipal.'//DescripcionDelInmueble[@id="e"]//UsoActual[@id="e.1"]');        
@@ -1460,6 +1463,10 @@ class BandejaEntradaController extends Controller
         $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST'] = array();
 
         $elementosConst = $infoXmlElementosConst->xpath($elementoPrincipal.'//ElementosDeLaConstruccion[@id="f"]');
+        $errores = valida_AvaluoElementosDeLaConstruccion($elementosConst, $elementoPrincipal);    
+        if(count($errores) > 0){
+            return array('ERROR' => $errores);
+        }
         $arrPrincipalElementosConst = $this->obtenElementosPrincipal($elementosConst);       
 
         if(isset($arrPrincipalElementosConst['arrIds']['f.1']) && count($arrPrincipalElementosConst['arrElementos'][$arrPrincipalElementosConst['arrIds']['f.1']]) > 0){

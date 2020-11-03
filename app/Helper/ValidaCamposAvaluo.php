@@ -207,6 +207,84 @@ function define_validacion($tipo_validacion, $valor){
             case 'SUB-ValorDeLaFraccionNPriv':
                 return val_decimal_positivo($valor);
             break;
+
+            case 'SUB-ValorCatastralDeTierraAplicableALaFraccionPriv':
+                return val_decimal_positivo($valor);
+            break;
+
+            case 'nullableDecimalPositivo':            
+                return val_nullable_decimal_positivo($valor);
+            break;
+
+            case 'SUB-SuperficieTotalDeConstruccionesPrivativas':
+            case 'SUB-ValorTotalDeConstruccionesPrivativas':
+            case 'SUB-ValorTotalDeLasConstruccionesProIndiviso':
+            case 'SUB-SuperficieTotalDeConstruccionesComunes':
+            case 'SUB-ValorTotalDeConstruccionesComunes':
+            case 'SUB-ValorTotalDeLasConstruccionesProIndivisoComunes':
+                return val_nullable_decimal_positivo($valor);
+            break;
+
+            case 'SUB-Descripcion':
+            case 'SUB-DescripcionComunes':
+                return val_longitud($valor, 50);
+            break;
+
+            case 'SUB-ClaveUso':
+            case 'SUB-ClaveUsoComunes':
+                return val_usos_construcciones($valor);
+            break;
+
+            case 'SUB-NumeroDeNivelesDelTipo':
+            case 'SUB-NumeroDeNivelesDelTipoComunes':
+                return val_nullable_decimal_positivo_tipo($valor, '30');
+            break;
+
+            case 'SUB-ClaveRangoDeNiveles':
+            case 'SUB-ClaveRangoDeNivelesComunes':
+                return val_nullable_cat_rango_nivel_tgdf($valor);
+            break;
+
+            case 'SUB-PuntajeDeClasificacion':
+            case 'SUB-PuntajeDeClasificacionComunes':
+                return val_nullable_decimal_positivo($valor);
+            break;
+
+            case 'SUB-ClaveClase':
+            case 'SUB-ClaveClaseComunes':
+                return val_cat_clases_construccion($valor);
+            break;
+
+            case 'SUB-Edad':
+            case 'SUB-EdadComunes':
+            case 'SUB-VidaUtilTipo':
+            case 'SUB-VidaUtilTipoComunes':
+            case 'SUB-VidaUtilRemanente':
+            case 'SUB-VidaUtilRemanenteComunes':
+                return val_nullable_decimal_positivo($valor);
+            break;
+
+            case 'SUB-ClaveConservacion':
+            case 'SUB-ClaveConservacionComunes':
+                return val_nullable_cat_estado_conservacion($valor);
+            break;
+
+            case 'SUB-Superficie':
+            case 'SUB-SuperficieComunes':
+                return val_nullable_decimal_positivo_tipo($valor, '222');
+            break;
+
+            case 'SUB-ValorunitariodereposicionNuevo':
+            case 'SUB-ValorunitariodereposicionNuevoComunes':
+            case 'SUB-FactorDeEdad':
+            case 'SUB-FactorDeEdadComunes':
+            case 'SUB-FactorResultante':
+            case 'SUB-FactorResultanteComunes':
+            case 'SUB-ValorDeLaFraccionNDescInmueble':
+            case 'SUB-ValorDeLaFraccionNDescInmuebleComunes':
+            case 'SUB-PorcentajeIndivisoComunes':
+                return val_nullable_decimal_positivo($valor);
+            break;
         }
 
     }
@@ -891,6 +969,78 @@ function val_cat_densidad_habitacional($valor){
     }
 }
 
+function val_nullable_decimal_positivo($valor){
+    $estado = 'correcto';    
+
+    if(val_null_string($valor) == 'correcto'){
+        return $estado;
+    }elseif(val_decimal_positivo($valor) == 'correcto'){
+        return $estado;
+    }else{
+        return "no corresponde a un formato valido para este campo";
+    }
+}
+function val_nullable_decimal_positivo_tipo($valor, $tipo){
+    $estado = 'correcto';
+    if(val_null_string($valor) == 'correcto'){
+        return $estado;
+    }elseif(val_decimal_positivo_tipo($valor, $tipo) == 'correcto'){
+        return $estado;
+    }else{
+        return "no corresponde a un formato valido para este campo";
+    }
+}
+
+function val_null_string($valor){
+    if($valor === ''){
+        return 'correcto';
+    }
+}
+
+function val_usos_construcciones($valor){
+    $estado = 'correcto';  
+    $idUsos = convierte_a_arreglo(DB::select("SELECT IDUSOS FROM FIS.FIS_CATUSOS WHERE CODUSO = '$valor'"));    
+    if(count($idUsos) == 0){            
+        return "el codigo de uso construccion ".$valor." no existe en el catalogo de usos";
+    }
+    return $estado;    
+}
+
+function val_nullable_cat_rango_nivel_tgdf($valor){
+    $estado = 'correcto';
+    if(val_null_string($valor) == 'correcto'){
+        return $estado;
+    }elseif(val_cat_rango_nivel_tgdf($valor) == 'correcto'){
+        return $estado;
+    }else{
+        return "no corresponde a un formato valido para este campo";
+    }
+}
+
+function val_cat_rango_nivel_tgdf($valor){
+    $estado = 'correcto';
+    $arrRangos = array('01','02','05','10','15','20','99','RU');   
+    if(in_array($valor,$arrRangos)){
+        return $estado;
+    }else{
+        return "el codigo de nivel ".$valor." no existe en el catalogo de nivel";
+    }        
+}
+
+function val_nullable_cat_estado_conservacion($valor){
+    $estado = 'correcto';
+    $res = val_nonNegativeInteger($valor);
+    if($res == 'correcto'){
+        $idEstadoConservacion = convierte_a_arreglo(DB::select("SELECT CODESTADOCONSERVACION FROM FEXAVA_CATESTADOCONSERV WHERE CODESTADOCONSERVACION = '$valor'"));    
+        if(count($idEstadoConservacion) == 0){            
+            return "el codigo de estado conservacion".$valor." no existe en el catalogo de estado conservacion";
+        }
+        return $estado;
+    }else{
+        return $res;
+    }
+}
+
 /**************************************************************************************************************************************************************************/
 
 function valida_AvaluoIdentificacion($data){    
@@ -920,7 +1070,7 @@ function valida_AvaluoIdentificacion($data){
 }
 
 function valida_AvaluoAntecedentes($data, $elementoPrincipal){
-    if($elementoPrincipal == 'Comercial'){
+    if($elementoPrincipal == '//Comercial'){
         $validacionesb = array('PropositoDelAvaluo' => 'nonEmptyString_50', 'ObjetoDelAvaluo' => 'nonEmptyString_50', 'RegimenDePropiedad' => 'catRegimen');    
         $validacionesb1 = array('A.Paterno' => 'string_35','A.Materno' => 'string_35','Nombre' => 'nonEmptyString_50','Calle' => 'nonEmptyString_50','NumeroInterior' => 'nonEmptyString_30', 'NumeroExterior' => 'nonEmptyString_25','Colonia' =>'catColonia', 'CodigoPostal' => 'nonEmptyString_5', 'Delegacion' => 'catDelegacion','TipoPersona' => 'subTipoPersona');
         $validacionesb2 = array('A.Paterno' => 'string_35','A.Materno' => 'string_35','Nombre' => 'nonEmptyString_50','Calle' => 'nonEmptyString_50','NumeroInterior' => 'nonEmptyString_30', 'NumeroExterior' => 'nonEmptyString_25','Colonia' =>'catColonia', 'CodigoPostal' => 'nonEmptyString_5', 'Delegacion' => 'catDelegacion','TipoPersona' => 'subTipoPersona');
@@ -1066,15 +1216,27 @@ function valida_AvaluoCaracteristicasUrbanas($data){
     return $errores;
 }
 
-function valida_AvaluoTerreno($data){
-    $validacionesd = array('CallesTransversalesLimitrofesYOrientacion' => 'nonEmptyString', 'CroquisMicroLocalizacion' => 'base64Binary', 'CroquisMacroLocalizacion' => 'base64Binary', 'Indiviso' => 'SUB-Indiviso', 'TopografiaYConfiguracion' => 'catTopografia', 'CaracteristicasPanoramicas' => 'nonEmptyString_250', 'DensidadHabitacional' => 'catDensidadHabitacional', 'ServidumbresORestricciones' => 'nonEmptyString_250', 'SuperficieTotalDelTerreno' => 'decimalPositivo', 'ValorTotalDelTerreno' => 'decimalPositivo', 'ValorTotalDelTerrenoProporcional' => 'decimalPositivo');
-    $validacionesd411 = array('NumeroDeEscritura' => 'decimalPositivo', 'NumeroDeVolumen' => 'nonEmptyString_7', 'FechaEscritura' => 'date', 'NumeroNotaria' => 'decimalPositivo', 'NombreDelNotario' => 'nonEmptyString_50', 'DistritoJudicialNotario' => 'nonEmptyString_50');
-    $validacionesd412 = array('Juzgado' => 'nonEmptyString_50', 'Fecha' => 'date', 'NumeroExpediente' => 'nonEmptyString_16');
-    $validacionesd413 = array('Fecha' => 'date', 'NombreAdquirente' => 'nonEmptyString_50', 'Apellido1Adquirente' => 'nonEmptyString_100', 'Apellido2Adquirente' => 'nonEmptyString_50', 'NombreEnajenante' => 'nonEmptyString_50', 'Apellido1Enajenante' => 'nonEmptyString_100', 'Apellido2Enajenante' => 'nonEmptyString_50');
-    $validacionesd414 = array('Fecha' => 'date', 'NumeroFolio' => 'nonEmptyString_20');
-    $validacionesd42 = array('Orientacion' => 'nonEmptyString', 'MedidaEnMetros' => 'decimalPositivo_223', 'DescripcionColindante' => 'nonEmptyString');
-    $validacionesd5P = array('IdentificadorFraccionN1' => 'SUB-IdentificadorFraccionN1Priv', 'SuperficieFraccionN1' => 'SUB-SuperficieFraccionN1Priv', 'Fzo' => 'SUB-FzoPriv', 'Fub' => 'SUB-FubPriv', 'FFr' => 'SUB-FFrPriv', 'Ffo' => 'SUB-FfoPriv', 'Fsu' => 'SUB-FsuPriv', 'ClaveDeAreaDeValor' => 'SUB-ClaveDeAreaDeValorPriv', 'Fre' => 'SUB-FrePriv', 'ValorDeLaFraccionN' => 'SUB-ValorDeLaFraccionNPriv');
-    $validacionesd5C = array('IdentificadorFraccionN1' => 'SUB-IdentificadorFraccionN1Com', 'SuperficieFraccionN1' => 'SUB-SuperficieFraccionN1Com', 'Fzo' => 'SUB-FzoCom', 'Fub' => 'SUB-FubCom', 'FFr' => 'SUB-FFrCom', 'Ffo' => 'SUB-FfoCom', 'Fsu' => 'SUB-FsuCom', 'ClaveDeAreaDeValor' => 'SUB-ClaveDeAreaDeValorCom', 'Fre' => 'SUB-FreCom', 'ValorDeLaFraccionN' => 'SUB-ValorDeLaFraccionNCom');
+function valida_AvaluoTerreno($data, $elementoPrincipal){   
+    if($elementoPrincipal == '//Comercial'){
+        $validacionesd = array('CallesTransversalesLimitrofesYOrientacion' => 'nonEmptyString', 'CroquisMicroLocalizacion' => 'base64Binary', 'CroquisMacroLocalizacion' => 'base64Binary', 'Indiviso' => 'SUB-Indiviso', 'TopografiaYConfiguracion' => 'catTopografia', 'CaracteristicasPanoramicas' => 'nonEmptyString_250', 'DensidadHabitacional' => 'catDensidadHabitacional', 'ServidumbresORestricciones' => 'nonEmptyString_250', 'SuperficieTotalDelTerreno' => 'decimalPositivo', 'ValorTotalDelTerreno' => 'decimalPositivo', 'ValorTotalDelTerrenoProporcional' => 'decimalPositivo');
+        $validacionesd411 = array('NumeroDeEscritura' => 'decimalPositivo', 'NumeroDeVolumen' => 'nonEmptyString_7', 'FechaEscritura' => 'date', 'NumeroNotaria' => 'decimalPositivo', 'NombreDelNotario' => 'nonEmptyString_50', 'DistritoJudicialNotario' => 'nonEmptyString_50');
+        $validacionesd412 = array('Juzgado' => 'nonEmptyString_50', 'Fecha' => 'date', 'NumeroExpediente' => 'nonEmptyString_16');
+        $validacionesd413 = array('Fecha' => 'date', 'NombreAdquirente' => 'nonEmptyString_50', 'Apellido1Adquirente' => 'nonEmptyString_100', 'Apellido2Adquirente' => 'nonEmptyString_50', 'NombreEnajenante' => 'nonEmptyString_50', 'Apellido1Enajenante' => 'nonEmptyString_100', 'Apellido2Enajenante' => 'nonEmptyString_50');
+        $validacionesd414 = array('Fecha' => 'date', 'NumeroFolio' => 'nonEmptyString_20');
+        $validacionesd42 = array('Orientacion' => 'nonEmptyString', 'MedidaEnMetros' => 'decimalPositivo_223', 'DescripcionColindante' => 'nonEmptyString');
+        $validacionesd5P = array('IdentificadorFraccionN1' => 'SUB-IdentificadorFraccionN1Priv', 'SuperficieFraccionN1' => 'SUB-SuperficieFraccionN1Priv', 'Fzo' => 'SUB-FzoPriv', 'Fub' => 'SUB-FubPriv', 'FFr' => 'SUB-FFrPriv', 'Ffo' => 'SUB-FfoPriv', 'Fsu' => 'SUB-FsuPriv', 'ClaveDeAreaDeValor' => 'SUB-ClaveDeAreaDeValorPriv', 'Fre' => 'SUB-FrePriv', 'ValorDeLaFraccionN' => 'SUB-ValorDeLaFraccionNPriv');
+        $validacionesd5C = array('IdentificadorFraccionN1' => 'SUB-IdentificadorFraccionN1Com', 'SuperficieFraccionN1' => 'SUB-SuperficieFraccionN1Com', 'Fzo' => 'SUB-FzoCom', 'Fub' => 'SUB-FubCom', 'FFr' => 'SUB-FFrCom', 'Ffo' => 'SUB-FfoCom', 'Fsu' => 'SUB-FsuCom', 'ClaveDeAreaDeValor' => 'SUB-ClaveDeAreaDeValorCom', 'Fre' => 'SUB-FreCom', 'ValorDeLaFraccionN' => 'SUB-ValorDeLaFraccionNCom');       
+    }else{
+        $validacionesd = array('CallesTransversalesLimitrofesYOrientacion' => 'nonEmptyString', 'CroquisMicroLocalizacion' => 'base64Binary', 'CroquisMacroLocalizacion' => 'base64Binary','Indiviso' => 'SUB-Indiviso', 'TopografiaYConfiguracion' => 'catTopografia', 'CaracteristicasPanoramicas' => 'nonEmptyString_250', 'DensidadHabitacional' => 'catDensidadHabitacional', 'ServidumbresORestricciones' => 'nonEmptyString_250', 'SuperficieTotalDelTerreno' => 'decimalPositivo', 'ValorTotalDelTerreno' => 'decimalPositivo', 'ValorTotalDelTerrenoProporcional' => 'decimalPositivo');
+        $validacionesd411 = array('NumeroDeEscritura' => 'decimalPositivo', 'NumeroDeVolumen' => 'nonEmptyString_7', 'FechaEscritura' => 'date', 'NumeroNotaria' => 'decimalPositivo', 'NombreDelNotario' => 'nonEmptyString_50', 'DistritoJudicialNotario' => 'nonEmptyString_50');
+        $validacionesd412 = array('Juzgado' => 'nonEmptyString_50', 'Fecha' => 'date', 'NumeroExpediente' => 'nonEmptyString_16');
+        $validacionesd413 = array('Fecha' => 'date', 'NombreAdquirente' => 'nonEmptyString_50', 'Apellido1Adquirente' => 'nonEmptyString_100', 'Apellido2Adquirente' => 'nonEmptyString_50', 'NombreEnajenante' => 'nonEmptyString_50', 'Apellido1Enajenante' => 'nonEmptyString_100', 'Apellido2Enajenante' => 'nonEmptyString_50');
+        $validacionesd414 = array('Fecha' => 'date', 'NumeroFolio' => 'nonEmptyString_20');
+        $validacionesd42 = array('Orientacion' => 'nonEmptyString', 'MedidaEnMetros' => 'decimalPositivo_223', 'DescripcionColindante' => 'nonEmptyString');
+        $validacionesd5P = array('IdentificadorFraccionN1' => 'SUB-IdentificadorFraccionN1Priv', 'SuperficieFraccionN1' => 'SUB-SuperficieFraccionN1Priv', 'ClaveDeAreaDeValor' => 'SUB-ClaveDeAreaDeValorPriv', 'ValorCatastralDeTierraAplicableALaFraccion' => 'SUB-ValorCatastralDeTierraAplicableALaFraccionPriv');
+        $validacionesd5P = array('IdentificadorFraccionN1' => 'SUB-IdentificadorFraccionN1Com', 'SuperficieFraccionN1' => 'SUB-SuperficieFraccionN1Com', 'ClaveDeAreaDeValor' => 'SUB-ClaveDeAreaDeValorCom', 'ValorCatastralDeTierraAplicableALaFraccion' => 'SUB-ValorCatastralDeTierraAplicableALaFraccionCom');
+    }
+    
     $errores = array();
     $data = array_map("convierte_a_arreglo",$data);
 
@@ -1178,6 +1340,113 @@ function valida_AvaluoTerreno($data){
     }
 
     return $errores;    
+}
+
+function valida_AvaluoDescripcionImueble($data, $elementoPrincipal){
+    if($elementoPrincipal == '//Comercial'){
+        $validacionese = array('UsoActual' => 'nonEmptyString_2000', 'VidaUtilTotalPonderadaDelInmueble' => 'nullableDecimalPositivo', 'EdadPonderadaDelInmueble' => 'nullableDecimalPositivo', 'VidaUtilRemanentePonderadaDelInmueble' => 'nullableDecimalPositivo', 'PorcentSuperfUltimNivelRespectoAnterior' => 'decimalPositivo_54');
+        $validacionese2 = array('SuperficieTotalDeConstruccionesPrivativas' => 'SUB-SuperficieTotalDeConstruccionesPrivativas', 'ValorTotalDeConstruccionesPrivativas' => 'SUB-ValorTotalDeConstruccionesPrivativas', 'ValorTotalDeLasConstruccionesProIndiviso' => 'SUB-ValorTotalDeLasConstruccionesProIndiviso', 'SuperficieTotalDeConstruccionesComunes' => 'SUB-SuperficieTotalDeConstruccionesComunes', 'ValorTotalDeConstruccionesComunes' => 'SUB-ValorTotalDeConstruccionesComunes', 'ValorTotalDeLasConstruccionesComunesProIndiviso' => 'SUB-ValorTotalDeLasConstruccionesProIndivisoComunes');
+        $validacionese21 = array('Descripcion' => 'SUB-Descripcion', 'ClaveUso' => 'SUB-ClaveUso', 'NumeroDeNivelesDelTipo' => 'SUB-NumeroDeNivelesDelTipo', 'ClaveRangoDeNiveles' => 'SUB-ClaveRangoDeNiveles', 'PuntajeDeClasificacion' => 'SUB-PuntajeDeClasificacion', 'ClaveClase' => 'SUB-ClaveClase', 'Edad' => 'SUB-Edad', 'VidaUtilTotalDelTipo' => 'SUB-VidaUtilTipo', 'VidaUtilRemanente' => 'SUB-VidaUtilRemanente', 'ClaveConservacion' => 'SUB-ClaveConservacion', 'Superficie' => 'SUB-Superficie', 'ValorunitariodereposicionNuevo' => 'SUB-ValorunitariodereposicionNuevo', 'FactorDeEdad' => 'SUB-FactorDeEdad', 'FactorResultante' => 'SUB-FactorResultante', 'ValorDeLaFraccionN' => 'SUB-ValorDeLaFraccionNDescInmueble');
+
+        $validacionese25 = array('Descripcion' => 'SUB-DescripcionComunes', 'ClaveUso' => 'SUB-ClaveUsoComunes', 'NumeroDeNivelesDelTipo' => 'SUB-NumeroDeNivelesDelTipoComunes', 'ClaveRangoDeNiveles' => 'SUB-ClaveRangoDeNivelesComunes', 'PuntajeDeClasificacion' => 'SUB-PuntajeDeClasificacionComunes', 'ClaveClase' => 'SUB-ClaveClaseComunes', 'Edad' => 'SUB-EdadComunes', 'VidaUtilTotalDelTipo' => 'SUB-VidaUtilTipoComunes', 'VidaUtilRemanente' => 'SUB-VidaUtilRemanenteComunes', 'ClaveConservacion' => 'SUB-ClaveConservacionComunes', 'Superficie' => 'SUB-SuperficieComunes', 'ValorunitariodereposicionNuevo' => 'SUB-ValorunitariodereposicionNuevoComunes', 'FactorDeEdad' => 'SUB-FactorDeEdadComunes', 'FactorResultante' => 'SUB-FactorResultanteComunes', 'ValorDeLaFraccionN' => 'SUB-ValorDeLaFraccionNDescInmuebleComunes','PorcentajeIndivisoComunes' => 'SUB-PorcentajeIndivisoComunes');
+    }else{
+
+    }
+
+    $errores = array();
+    $data = array_map("convierte_a_arreglo",$data);
+    //print_r($data[0]['TiposDeConstruccion']['SuperficieTotalDeConstruccionesPrivativas']); exit();
+    foreach($validacionese as $etiqueta => $validacion){
+        if(!isset($data[0][$etiqueta])){
+            $errores[] = "Falta ".$etiqueta." en DescripcionDelInmueble";
+        }else{
+            $resValidacion = define_validacion($validacion, $data[0][$etiqueta]);                
+            if($resValidacion != 'correcto'){
+                $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+            }                
+        }
+    }
+    //print_r($data[0]['TiposDeConstruccion']['ValorTotalDeLasConstruccionesComunesProIndiviso']); exit();
+    foreach($validacionese2 as $etiqueta => $validacion){
+        if(!isset($data[0]['TiposDeConstruccion'][$etiqueta])){
+            $errores[] = "Falta ".$etiqueta." en TiposDeConstruccion";
+        }else{
+            //echo  $etiqueta." ".$data[0]['TiposDeConstruccion'][$etiqueta]."\n";
+            $resValidacion = define_validacion($validacion, $data[0]['TiposDeConstruccion'][$etiqueta]);                
+            if($resValidacion != 'correcto'){
+                $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+            }                
+        }
+    }
+    
+    if(isset($data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['@attributes']) && $data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['@attributes']['id'] == 'e.2.1'){
+        foreach($validacionese21 as $etiqueta => $validacion){
+            if(!isset($data[0]['TiposDeConstruccion']['ConstruccionesPrivativas'][$etiqueta])){
+                $errores[] = "Falta ".$etiqueta." en ConstruccionesPrivativas";
+            }else{
+                $resValidacion = define_validacion($validacion, $data[0]['TiposDeConstruccion']['ConstruccionesPrivativas'][$etiqueta]);                
+                if($resValidacion != 'correcto'){
+                    $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                }                
+            }
+        }
+    } 
+
+    if(isset($data[0]['TiposDeConstruccion']['ConstruccionesPrivativas'][0]['@attributes']) && $data[0]['TiposDeConstruccion']['ConstruccionesPrivativas'][0]['@attributes']['id'] == 'e.2.1'){
+        foreach($data[0]['TiposDeConstruccion']['ConstruccionesPrivativas'] as $llavePrincipal => $elementoPrincipal){            
+            //if(is_array($elementoPrincipal) && $elementoPrincipal['id'] != 'e.2.1'){
+                    foreach($validacionese21 as $etiqueta => $validacion){
+                        if(!isset($elementoPrincipal[$etiqueta])){
+                            $errores[] = "Falta ".$etiqueta." en ConstruccionesPrivativas";
+                        }else{
+                            $resValidacion = define_validacion($validacion, $elementoPrincipal[$etiqueta]);                
+                            if($resValidacion != 'correcto'){
+                                $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                            }                
+                        }
+                    }
+            //}
+           
+        }
+    }
+
+
+    if(isset($data[0]['TiposDeConstruccion']['ConstruccionesComunes']['@attributes']) && $data[0]['TiposDeConstruccion']['ConstruccionesComunes']['@attributes']['id'] == 'e.2.5'){
+        foreach($validacionese21 as $etiqueta => $validacion){
+            if(!isset($data[0]['TiposDeConstruccion']['ConstruccionesComunes'][$etiqueta])){
+                $errores[] = "Falta ".$etiqueta." en ConstruccionesComunes";
+            }else{
+                $resValidacion = define_validacion($validacion, $data[0]['TiposDeConstruccion']['ConstruccionesComunes'][$etiqueta]);                
+                if($resValidacion != 'correcto'){
+                    $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                }                
+            }
+        }
+    } 
+
+    if(isset($data[0]['TiposDeConstruccion']['ConstruccionesComunes'][0]['@attributes']) && $data[0]['TiposDeConstruccion']['ConstruccionesComunes'][0]['@attributes']['id'] == 'e.2.5'){
+        foreach($data[0]['TiposDeConstruccion']['ConstruccionesComunes'] as $llavePrincipal => $elementoPrincipal){            
+            //if(is_array($elementoPrincipal) && $elementoPrincipal['id'] != 'e.2.1'){
+                    foreach($validacionese25 as $etiqueta => $validacion){
+                        if(!isset($elementoPrincipal[$etiqueta])){
+                            $errores[] = "Falta ".$etiqueta." en ConstruccionesComunes";
+                        }else{
+                            $resValidacion = define_validacion($validacion, $elementoPrincipal[$etiqueta]);                
+                            if($resValidacion != 'correcto'){
+                                $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                            }                
+                        }
+                    }
+            //}            
+        }
+    }       
+
+    return $errores;
+}
+
+
+function valida_AvaluoElementosDeLaConstruccion($data, $elementoPrincipal){
+
 }
 
 ?>
