@@ -1463,10 +1463,12 @@ class BandejaEntradaController extends Controller
         $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST'] = array();
 
         $elementosConst = $infoXmlElementosConst->xpath($elementoPrincipal.'//ElementosDeLaConstruccion[@id="f"]');
+        
         $errores = valida_AvaluoElementosDeLaConstruccion($elementosConst, $elementoPrincipal);    
         if(count($errores) > 0){
             return array('ERROR' => $errores);
         }
+        
         $arrPrincipalElementosConst = $this->obtenElementosPrincipal($elementosConst);       
 
         if(isset($arrPrincipalElementosConst['arrIds']['f.1']) && count($arrPrincipalElementosConst['arrElementos'][$arrPrincipalElementosConst['arrIds']['f.1']]) > 0){
@@ -1906,6 +1908,10 @@ class BandejaEntradaController extends Controller
         $camposFexavaAvaluo['FEXAVA_TERRENOMERCADO'] = array();
 
         $enfoqueDeMercado = $infoXmlElementosConst->xpath($elementoPrincipal.'//EnfoqueDeMercado[@id="h"]');
+        $errores = valida_AvaluoEnfoqueMercado($enfoqueDeMercado, $elementoPrincipal);    
+        if(count($errores) > 0){
+            return array('ERROR' => $errores);
+        }
         $arrPrincipalEnfoqueDeMercado = $this->obtenElementosPrincipal($enfoqueDeMercado);
         //print_r($arrPrincipalEnfoqueDeMercado); exit();
         if(isset($arrPrincipalEnfoqueDeMercado['arrIds']['h.1']) && count($arrPrincipalEnfoqueDeMercado['arrElementos'][$arrPrincipalEnfoqueDeMercado['arrIds']['h.1']]) > 0){           
@@ -2363,6 +2369,10 @@ class BandejaEntradaController extends Controller
         /// comerciales.</param>
         
     public function guardarAvaluoEnfoqueCostosComercial($xmlEnfoqueDeCostos, $camposFexavaAvaluo,$elementoPrincipal){
+        $errores = valida_AvaluoEnfoqueCostosComercial($xmlEnfoqueDeCostos->xpath($elementoPrincipal.'//EnfoqueDeCostos[@id="i"]'), $elementoPrincipal);    
+        if(count($errores) > 0){
+            return array('ERROR' => $errores);
+        }
         $enfoqueDeCostos = $xmlEnfoqueDeCostos->xpath($elementoPrincipal.'//EnfoqueDeCostos[@id="i"]//ImporteTotalDelEnfoqueDeCostos[@id="i.6"]');        
         $camposFexavaAvaluo['IMPORTETOTALENFCOSTOS'] = (String)($enfoqueDeCostos[0]);
         return $camposFexavaAvaluo;
@@ -2375,11 +2385,18 @@ class BandejaEntradaController extends Controller
         /// <param name="enfoqueCostosCatastral">Elemento xml con los datos de enfoque de costos
         /// catastrales.</param>
     public function guardarAvaluoEnfoqueCostosCatastral($xmlEnfoqueDeCostos, $camposFexavaAvaluo,$elementoPrincipal){
+        
         $camposFexavaAvaluo['FEXAVA_ENFOQUECOSTESCAT'] = array();
         $general = $xmlEnfoqueDeCostos->xpath($elementoPrincipal);        
         $arrGeneral = $this->obtenElementosPrincipal($general);        
         //print_r($arrGeneral['arrIds']); exit();
         if(isset(($arrGeneral['arrIds']['j']))){
+
+            $errores = valida_AvaluoEnfoqueCostosCatastral($xmlEnfoqueDeCostos->xpath($elementoPrincipal.'//EnfoqueDeCostos[@id="j"]'), $elementoPrincipal);    
+            if(count($errores) > 0){
+                return array('ERROR' => $errores);
+            }
+
             $instalacionesEsp = $xmlEnfoqueDeCostos->xpath($elementoPrincipal.'//'.$arrGeneral['arrIds']['j'].'[@id="j"]');
             $arrInstalacionesEsp = $this->obtenElementosPrincipal($instalacionesEsp);
             if(isset($arrInstalacionesEsp['arrIds']['j.4'])){
@@ -2410,6 +2427,12 @@ class BandejaEntradaController extends Controller
         if($this->esTerrenoValdio($xmlEnfoqueDeIngresos, $elementoPrincipal) == TRUE){
 
             $enfoqueDeIngresos = $xmlEnfoqueDeIngresos->xpath($elementoPrincipal.'//EnfoqueDeIngresos[@id="k"]');
+
+            $errores = valida_AvaluoEnfoqueIngresos($enfoqueDeIngresos, $elementoPrincipal);    
+            if(count($errores) > 0){
+                return array('ERROR' => $errores);
+            }
+
             $arrEnfoqueDeIngresos = $this->obtenElementosPrincipal($enfoqueDeIngresos);
             
             if(isset($arrEnfoqueDeIngresos['arrIds']['k.1'])){
@@ -2439,13 +2462,22 @@ class BandejaEntradaController extends Controller
         /// <param name="conclusionAvaluo">Elemento xml con los datos de la conclusion del avaluo.</param>
     public function guardarAvaluoResumenConclusionAvaluo($xmlConclusionAvaluo, $camposFexavaAvaluo, $elementoPrincipal){
         $conclusionAvaluo = $xmlConclusionAvaluo->xpath($elementoPrincipal.'//ConclusionDelAvaluo[@id="o"]');
+        
         $arrConclusionAvaluo = $this->obtenElementosPrincipal($conclusionAvaluo);
 
         if(isset($arrConclusionAvaluo['arrIds']['o.1'])){
+            $errores = valida_AvaluoConclusionDelAvaluoComercial($conclusionAvaluo, $elementoPrincipal);    
+            if(count($errores) > 0){
+                return array('ERROR' => $errores);
+            }
             $camposFexavaAvaluo['VALORCOMERCIAL'] = (String)($arrConclusionAvaluo['arrElementos'][$arrConclusionAvaluo['arrIds']['o.1']]);
         }
 
         if(isset($arrConclusionAvaluo['arrIds']['o.2'])){
+            $errores = valida_AvaluoConclusionDelAvaluoCatastral($conclusionAvaluo, $elementoPrincipal);    
+            if(count($errores) > 0){
+                return array('ERROR' => $errores);
+            }
             $camposFexavaAvaluo['VALORCATASTRAL'] = (String)($arrConclusionAvaluo['arrElementos'][$arrConclusionAvaluo['arrIds']['o.2']]);
         }
         return $camposFexavaAvaluo;
@@ -2458,6 +2490,12 @@ class BandejaEntradaController extends Controller
         /// <param name="valorReferido">Elemento xml con los datos del valor referido del avaluo.</param>
     public function guardarAvaluoValorReferido($xmlValorReferido, $camposFexavaAvaluo, $elementoPrincipal){
         $valorReferido = $xmlValorReferido->xpath($elementoPrincipal.'//ValorReferido[@id="p"]');
+
+        $errores = valida_AvaluoValorReferido($valorReferido, $elementoPrincipal);    
+            if(count($errores) > 0){
+                return array('ERROR' => $errores);
+            }
+
         $arrValorReferido = $this->obtenElementosPrincipal($valorReferido);
 
         if(isset($arrValorReferido['arrIds']['p.1'])){
@@ -2480,6 +2518,12 @@ class BandejaEntradaController extends Controller
         $cuentaCatastralStr = '';
         $indiceCuentaCatastral = '1';
         $anexoFotografico = $xmlAnexoFotografico->xpath($elementoPrincipal.'//AnexoFotografico[@id="q"]');
+
+        $errores = valida_AvaluoAnexoFotografico($anexoFotografico, $elementoPrincipal);    
+            if(count($errores) > 0){
+                return array('ERROR' => $errores);
+            }
+
         $arrAnexoFotografico = $this->obtenElementosPrincipal($anexoFotografico);
         if(isset($arrAnexoFotografico['arrIds']['q.1'])){
             $cuentaCatastral = $xmlAnexoFotografico->xpath($elementoPrincipal.'//AnexoFotografico[@id="q"]//'.$arrAnexoFotografico['arrIds']['q.1'].'[@id="q.1"]//CuentaCatastral[@id="q.1.1"]');            
