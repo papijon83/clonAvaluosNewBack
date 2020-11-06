@@ -2793,4 +2793,17 @@ class BandejaEntradaController extends Controller
                 break;
         }
     }
+
+
+
+
+
+
+
+
+    private function IdPeritoSociedadByRegistro($registroPerito, $registroSoci, $esPerito)
+    {
+        $dsePeritosSociedades = GetRelacionPeritoSociedad($registroPerito, null);  //Creo que es de un ws
+        return $dsePeritosSociedades;   
+    }
 }
