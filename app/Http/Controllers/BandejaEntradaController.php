@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PeritoSociedad;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -13,6 +14,7 @@ class BandejaEntradaController extends Controller
      *
      * @return void
      */
+    protected $modelPeritoSociedad;
     public function __construct()
     {
         //
@@ -451,8 +453,9 @@ class BandejaEntradaController extends Controller
         return true;
     }
 
-    function guardarAvaluo(Request $request){        
-        $idPersona = 1;
+    function guardarAvaluo(Request $request){
+        $this->modelPeritoSociedad = new PeritoSociedad();        
+        $idPersona = 318;
         $file = $request->file('files');
         $contents = $this->descomprimirCualquierFormato($file);        
         $xml = new \SimpleXMLElement($contents);        
@@ -543,8 +546,8 @@ class BandejaEntradaController extends Controller
         }
         if($arrIdentificacion['ClaveSociedad'] != ''){            
             $registroSoci = $arrIdentificacion['ClaveSociedad'];
-            $camposFexavaAvaluo['IDPERSONAPERITO'] = '';//aqui se usa IdPeritoSociedadByRegistro(registroPerito, string.Empty, true);
-            $camposFexavaAvaluo['IDPERSONASOCIEDAD'] = '';//aqui se usa IdPeritoSociedadByRegistro(registroPerito, registroSoci, false);
+            $camposFexavaAvaluo['IDPERSONAPERITO'] = $this->IdPeritoSociedadByRegistro($idPersona, true);//aqui se usa IdPeritoSociedadByRegistro(registroPerito, string.Empty, true);
+            $camposFexavaAvaluo['IDPERSONASOCIEDAD'] = $this->IdPeritoSociedadByRegistro($idPersona, false);//aqui se usa IdPeritoSociedadByRegistro(registroPerito, registroSoci, false);
         }
         
         if($camposFexavaAvaluo['CODTIPOTRAMITE'] == 2){
@@ -552,7 +555,7 @@ class BandejaEntradaController extends Controller
         }else if($camposFexavaAvaluo['CODTIPOTRAMITE'] == 1){
             $tipo = "COM";
         }
-        $camposFexavaAvaluo['CODTIPOTRAMITE'] = $this->obtenerNumUnicoAv($tipo);      
+        $camposFexavaAvaluo['NUMEROUNICO'] = $this->obtenerNumUnicoAv($tipo);      
         return $camposFexavaAvaluo;
     }
 
@@ -593,19 +596,19 @@ class BandejaEntradaController extends Controller
             $camposFexavaAvaluo['FEXAVA_DATOSPERSONAS']['Solicitante']['NOMBREDELEGACION'] = '';
         }else{
             //aqui se obtendria el iddelegacion por el nombre
-            $idDelegacion = "ObtenerIdDelegacionPorNombre()";
+            $idDelegacion = $this->ObtenerIdDelegacionPorNombre($arrSolicitante['Delegacion']);
             if($idDelegacion != -1){
                 $camposFexavaAvaluo['FEXAVA_DATOSPERSONAS']['Solicitante']['IDDELEGACION'] = $idDelegacion;
-                $camposFexavaAvaluo['FEXAVA_DATOSPERSONAS']['Solicitante']['NOMBREDELEGACION'] = $arrSolicitante['Delegacion'];
             }
+            $camposFexavaAvaluo['FEXAVA_DATOSPERSONAS']['Solicitante']['NOMBREDELEGACION'] = $arrSolicitante['Delegacion'];
         }
         if(trim($arrSolicitante['Colonia']) != ''){
             //aqui se obtendria el idColonia por el nombre
-            $idColonia = "ObtenerIdColoniaPorNombreyDelegacion()";
+            $idColonia = $this->ObtenerIdColoniaPorNombreyDelegacion(trim($arrSolicitante['Colonia']), $arrSolicitante['Delegacion']);
             if($idColonia != -1){
                 $camposFexavaAvaluo['FEXAVA_DATOSPERSONAS']['Solicitante']['IDCOLONIA'] = $idColonia;
-                $camposFexavaAvaluo['FEXAVA_DATOSPERSONAS']['Solicitante']['NOMBRECOLONIA'] = $arrSolicitante['Colonia'];
             }
+            $camposFexavaAvaluo['FEXAVA_DATOSPERSONAS']['Solicitante']['NOMBRECOLONIA'] = $arrSolicitante['Colonia'];
         }
 
         if(trim($arrSolicitante['TipoPersona']) != ''){
@@ -2794,16 +2797,76 @@ class BandejaEntradaController extends Controller
         }
     }
 
-
-
-
-
-
-
-
-    private function IdPeritoSociedadByRegistro($registroPerito, $registroSoci, $esPerito)
+    private function IdPeritoSociedadByRegistro($registroPerito, $esPerito)
     {
-        $dsePeritosSociedades = GetRelacionPeritoSociedad($registroPerito, null);  //Creo que es de un ws
-        return $dsePeritosSociedades;   
+        $dsePeritosSociedades = array();
+
+        if ($esPerito)
+        { 
+            $dsePeritosSociedades = $this->modelPeritoSociedad->getPeritoById($registroPerito);
+
+            if (count($dsePeritosSociedades) > 0)
+            {
+                return $dsePeritosSociedades;
+            }
+        }
+        else
+        {
+            $dsePeritosSociedades = $this->modelPeritoSociedad->getSociedadByIdPerito($registroPerito);
+
+            if (count($dsePeritosSociedades) > 0)
+            {
+                return $dsePeritosSociedades;
+            }
+        }
+
+        return -1;
+    }
+
+    public function ObtenerIdDelegacionPorNombre($nombreDelegacion)
+    {
+        $nombreDelegacion = strtoupper($nombreDelegacion);
+        
+        $rowsDelegaciones = DB::select("SELECT * FROM CAS.CAS_DELEGACION WHERE NOMBRE = '$nombreDelegacion'");
+
+        if (count($rowsDelegaciones) > 0)
+        {
+            $idDelegacion = $rowsDelegaciones[0]->iddelegacion;
+        }
+        else
+        {
+            return -1;
+        }
+
+        return $idDelegacion;
+    }
+
+    public function ObtenerIdColoniaPorNombreyDelegacion($nombreColonia, $codDelegacion)
+    {
+        $nombreColonia = strtoupper($nombreColonia);
+
+        $rowsDelegaciones = DB::select("SELECT * FROM CAS.CAS_DELEGACION WHERE CLAVE = '$codDelegacion'");
+
+        if (count($rowsDelegaciones) > 0)
+        {
+            $idDelegacion = $rowsDelegaciones[0]->iddelegacion;
+        }
+        else
+        {
+            return -1;
+        }
+
+        $rowsColonias = DB::select("SELECT * FROM CAS.CAS_COLONIA WHERE NOMBRE = '$nombreColonia' AND IDDELEGACION = '$idDelegacion'");
+
+        if (count($rowsColonias) > 0)
+        {
+            $idColonia = $rowsColonias[0]->idcolonia;
+        }
+        else
+        {
+            return -1;
+        }
+
+        return $idColonia;
     }
 }
