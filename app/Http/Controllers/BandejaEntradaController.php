@@ -650,19 +650,19 @@ class BandejaEntradaController extends Controller
             $camposFexavaAvaluo['FEXAVA_DATOSPERSONAS']['Propietario']['NOMBREDELEGACION'] = '';
         }else{
             //aqui se obtendria el iddelegacion por el nombre
-            $idDelegacion = "ObtenerIdDelegacionPorNombre()";
+            $idDelegacion = $this->ObtenerIdDelegacionPorNombre($arrSolicitante['Delegacion']);
             if($idDelegacion != -1){
                 $camposFexavaAvaluo['FEXAVA_DATOSPERSONAS']['Propietario']['IDDELEGACION'] = $idDelegacion;
-                $camposFexavaAvaluo['FEXAVA_DATOSPERSONAS']['Propietario']['NOMBREDELEGACION'] = $arrPropietario['Delegacion'];
             }
+            $camposFexavaAvaluo['FEXAVA_DATOSPERSONAS']['Propietario']['NOMBREDELEGACION'] = $arrPropietario['Delegacion'];
         }
         if(trim($arrPropietario['Colonia']) != ''){
             //aqui se obtendria el idColonia por el nombre
-            $idColonia = "ObtenerIdColoniaPorNombreyDelegacion()";
+            $idColonia = $this->ObtenerIdColoniaPorNombreyDelegacion(trim($arrSolicitante['Colonia']), $arrSolicitante['Delegacion']);
             if($idColonia != -1){
                 $camposFexavaAvaluo['FEXAVA_DATOSPERSONAS']['Propietario']['IDCOLONIA'] = $idColonia;
-                $camposFexavaAvaluo['FEXAVA_DATOSPERSONAS']['Propietario']['NOMBRECOLONIA'] = $arrPropietario['Colonia'];
             }
+            $camposFexavaAvaluo['FEXAVA_DATOSPERSONAS']['Propietario']['NOMBRECOLONIA'] = $arrPropietario['Colonia'];
         }
 
         if(trim($arrPropietario['TipoPersona']) != ''){
