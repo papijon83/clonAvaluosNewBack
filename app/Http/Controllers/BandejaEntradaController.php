@@ -2869,4 +2869,18 @@ class BandejaEntradaController extends Controller
 
         return $idColonia;
     }
+
+    public function SolicitarObtenerIdClasesByCodeAndAno($fecha, $codClase)
+    {
+        /*AdministracionClient clienteFIS = new AdministracionClient();
+
+        try
+        {
+            return clienteFIS.SolicitarObtenerIdClasesByCodeAndAno(fecha, codClase);
+        }
+        finally
+        {
+            clienteFIS.Disconnect();
+        }*/
+    }
 }
