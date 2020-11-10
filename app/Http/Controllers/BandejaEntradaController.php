@@ -736,7 +736,7 @@ class BandejaEntradaController extends Controller
         $fechaAvaluo = $camposFexavaAvaluo['FECHAAVALUO'];
         if(trim($arrCaracteristicasUrbanas['ClaseGeneralDeInmueblesDeLaZona']) != ''){
             $codClase = $arrCaracteristicasUrbanas['ClaseGeneralDeInmueblesDeLaZona'];
-            $idClaseEjercicio = "SolicitarObtenerIdClasesByCodeAndAno(fechaAvaluo, codClase)";
+            $idClaseEjercicio = $this->SolicitarObtenerIdClasesByCodeAndAno($fechaAvaluo, $codClase); //No se si el query sea el correcto ya que obtiene por fecha pero no hay fecha en la tabla
             $camposFexavaAvaluo['CUCODCLASESCONSTRUCCION'] = $idClaseEjercicio;
         }
 
@@ -2823,7 +2823,7 @@ class BandejaEntradaController extends Controller
         return -1;
     }
 
-    public function ObtenerIdDelegacionPorNombre($nombreDelegacion)
+    private function ObtenerIdDelegacionPorNombre($nombreDelegacion)
     {
         $nombreDelegacion = strtoupper($nombreDelegacion);
         
@@ -2841,7 +2841,7 @@ class BandejaEntradaController extends Controller
         return $idDelegacion;
     }
 
-    public function ObtenerIdColoniaPorNombreyDelegacion($nombreColonia, $codDelegacion)
+    private function ObtenerIdColoniaPorNombreyDelegacion($nombreColonia, $codDelegacion)
     {
         $nombreColonia = strtoupper($nombreColonia);
 
@@ -2870,17 +2870,51 @@ class BandejaEntradaController extends Controller
         return $idColonia;
     }
 
-    public function SolicitarObtenerIdClasesByCodeAndAno($fecha, $codClase)
+    private function SolicitarObtenerIdClasesByCodeAndAno($fecha, $codClase)
     {
-        /*AdministracionClient clienteFIS = new AdministracionClient();
+        //FIS_CLASESEJERCICIO
+        $c_filtro = DB::select("SELECT * FROM FIS.FIS_CATCLASES WHERE CODCLASE = '$codClase'");
 
-        try
-        {
-            return clienteFIS.SolicitarObtenerIdClasesByCodeAndAno(fecha, codClase);
+        if(count($c_filtro) == 0){            
+            return "el codigo de clase ".$codClase." no existe en el catalogo de clases";
+        }else{
+            return $c_filtro[0]->idclases;
         }
-        finally
-        {
-            clienteFIS.Disconnect();
-        }*/
+    }
+
+    private function SolicitarObtenerIdUsosByCodeAndAno($fecha, $codUso)
+    {
+        //FIS_USOSEJERCICIO
+        $c_filtro = DB::select("SELECT * FROM FIS.FIS_CATUSOS WHERE CODUSO = '$codUso'");
+
+        if(count($c_filtro) == 0){            
+            return "el codigo de uso ".$codUso." no existe en el catalogo de usos";
+        }else{
+            return $c_filtro[0]->idusos;
+        }
+    }
+
+    private function SolicitarObtenerIdRangoNivelesByCodeAndAno($fecha, $codRangoNiveles)
+    {
+        //FIS_RANGONIVELESEJERCICIO
+        $c_filtro = DB::select("SELECT * FROM FIS.FIS_RANGONIVELESEJERCICIO");
+
+        if(count($c_filtro) == 0){            
+            return "el codigo de rango ".$codRangoNiveles." no existe en el catalogo de rangos";
+        }else{
+            return $c_filtro;
+        }
+    }
+
+    private function ObtenerClaseUsoByIdUsoIdClase($idUsoEjercicio, $idClaseEjercicio)
+    {
+        //FEXAVA_CATCLASEUSO
+        $c_claseUso = DB::select("SELECT * FROM FEXAVA_CATCLASEUSO");
+        
+        if(count($c_claseUso) == 0){
+            return "la clase uso ".$idClaseEjercicio." no existe en el catalogo de clases uso";
+        }else{
+            return $c_claseUso;
+        }
     }
 }
