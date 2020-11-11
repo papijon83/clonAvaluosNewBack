@@ -29,7 +29,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
             $router->post('esValidoAvaluo', 'BandejaEntradaController@esValidoAvaluo');
             $router->post('guardarAvaluo', 'BandejaEntradaController@guardarAvaluo');
 
-            $router->get('pruebaDoc', 'PruebaDoc@pruebaElementosConstruccion');
+            $router->post('pruebaDoc', 'PruebaDoc@pruebaGuardadoDB');
         });
     });
 });
