@@ -19,7 +19,7 @@ class PruebaDoc extends Controller
     public function __construct()
     {
         $this->modelDocumentos = new Documentos();
-        $this->modelElementosConstruccion = new ElementosConstruccion();
+        $this->modelElementosConstruccion = new ElementosConstruccion();        
     }
 
     public function pruebaInserta(){    
@@ -47,4 +47,5 @@ class PruebaDoc extends Controller
         $resElementosConstruccion = $this->modelElementosConstruccion->obtenerInstEspecialByClave($claveInstalEsp);
         print_r($resElementosConstruccion);
     }
+    
 }
