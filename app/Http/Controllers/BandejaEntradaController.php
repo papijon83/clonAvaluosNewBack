@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\PeritoSociedad;
 use App\Models\DatosExtrasAvaluo;
+use App\Models\Documentos;
+use App\Models\ElementosConstruccion;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -17,6 +19,9 @@ class BandejaEntradaController extends Controller
      */
     protected $modelPeritoSociedad;
     protected $modelDatosExtrasAvaluo;
+    protected $modelDocumentos;
+    protected $modelElementosConstruccion;
+
     public function __construct()
     {
         //
@@ -457,7 +462,9 @@ class BandejaEntradaController extends Controller
 
     function guardarAvaluo(Request $request){
         $this->modelPeritoSociedad = new PeritoSociedad();
-        $this->modelDatosExtrasAvaluo = new DatosExtrasAvaluo();        
+        $this->modelDatosExtrasAvaluo = new DatosExtrasAvaluo();
+        $this->modelDocumentos = new Documentos();
+        $this->modelElementosConstruccion = new ElementosConstruccion();      
         $idPersona = 318;
         $file = $request->file('files');
         $contents = $this->descomprimirCualquierFormato($file);        
