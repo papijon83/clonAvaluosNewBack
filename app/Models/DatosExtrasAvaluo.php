@@ -121,8 +121,9 @@ class DatosExtrasAvaluo
 
     public function SolicitarObtenerIdRangoNivelesByCodeAndAno($fecha, $codRangoNiveles)
     {
-        //FIS_RANGONIVELESEJERCICIO
-        $c_filtro = DB::select("SELECT * FROM FIS.FIS_RANGONIVELESEJERCICIO");
+        //FIS_RANGONIVELESEJERCICIO - ORA-01031: privilegios insuficientes
+        //$c_filtro = DB::select("SELECT * FROM FIS.FIS_RANGONIVELESEJERCICIO");
+        $c_filtro = DB::select("SELECT * FROM FIS.FIS_CATUSOS WHERE CODUSO = '$codRangoNiveles'");
 
         if(count($c_filtro) == 0){            
             return "el codigo de rango ".$codRangoNiveles." no existe en el catalogo de rangos";
@@ -133,13 +134,9 @@ class DatosExtrasAvaluo
 
     public function ObtenerClaseUsoByIdUsoIdClase($idUsoEjercicio, $idClaseEjercicio)
     {
-        //FEXAVA_CATCLASEUSO
-        $c_claseUso = DB::select("SELECT * FROM FEXAVA_CATCLASEUSO");
-        
-        if(count($c_claseUso) == 0){
-            return "la clase uso ".$idClaseEjercicio." no existe en el catalogo de clases uso";
-        }else{
-            return $c_claseUso;
-        }
+        //FEXAVA_CATCLASEUSO - ORA-00942: la tabla o vista no existe
+        //$c_claseUso = DB::select("SELECT * FROM FEXAVA_CATCLASEUSO");
+        $c_claseUso = DB::select("SELECT * FROM FIS.FIS_CATUSOS WHERE CODUSO = '$idUsoEjercicio'");
+        return $c_claseUso;
     }
 }

@@ -1270,8 +1270,8 @@ class BandejaEntradaController extends Controller
                        }
         
                        if(isset($arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.2'])){
-                        //Aqui usar SolicitarObtenerIdUsosByCodeAndAno();
-                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['IDUSOSEJERCICIO'] = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.2']]);
+                        $codUso = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.2']]);
+                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['IDUSOSEJERCICIO'] = $this->modelDatosExtrasAvaluo->SolicitarObtenerIdUsosByCodeAndAno('fechaAvaluo', $codUso);
                        }
         
                        if(isset($arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.3'])){
@@ -1279,8 +1279,8 @@ class BandejaEntradaController extends Controller
                        }
         
                        if(isset($arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.4'])){
-                           //Aqui usar SolicitarObtenerIdRangoNivelesByCodeAndAno(fechaAvaluo, codRangoNiveles)
-                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['IDRANGONIVELESEJERCICIO'] = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.4']]);
+                        $codRangoNiveles = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.4']]);
+                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['IDRANGONIVELESEJERCICIO'] = $this->modelDatosExtrasAvaluo->SolicitarObtenerIdRangoNivelesByCodeAndAno('fechaAvaluo', $codRangoNiveles);
                        }
         
                        if(isset($arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.5'])){                
@@ -1289,8 +1289,7 @@ class BandejaEntradaController extends Controller
         
                        if(isset($arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.6'])){
                         $codClase = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.6']]);
-                           //Aqui usar SolicitarObtenerIdClasesByCodeAndAno(fechaAvaluo, codClase)               
-                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['IDCLASESEJERCICIO'] = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.6']]);
+                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['IDCLASESEJERCICIO'] = $this->modelDatosExtrasAvaluo->SolicitarObtenerIdClasesByCodeAndAno('fechaAvaluo', $codClase);
                        }
         
                        if(isset($arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.7'])){                               
@@ -1302,10 +1301,10 @@ class BandejaEntradaController extends Controller
                         $idClaseEjercicio = $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['IDCLASESEJERCICIO'];
                         if($codClase != 'U'){
                             //•	En el caso de clase única (U), no se debe validar el campo e.2.1.n.8 - Vida útil total del tipo y  por tanto no existe la relación clase uso en la tabla fexava_usoClase
-                            // AQUI USAR $catdt = ObtenerClaseUsoByIdUsoIdClase(idUsoEjercicio, idClaseEjercicio);
-                            //if(count($catdt) > 0){
+                            $catdt = $this->modelDatosExtrasAvaluo->ObtenerClaseUsoByIdUsoIdClase($idUsoEjercicio, $idClaseEjercicio);
+                            if(count($catdt) > 0){
                                 $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['IDUSOCLASEEJERCICIO'] = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.8']]);
-                            //}                    
+                            }                    
                         }                               
                         
                        }
@@ -1353,8 +1352,7 @@ class BandejaEntradaController extends Controller
 
                     if(isset($arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.2'])){
                         $codUso = (String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.2']]);
-                        //Aqui usar SolicitarObtenerIdUsosByCodeAndAno(fechaAvaluo, codUso);
-                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento]['IDUSOSEJERCICIO'] = (String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.2']]);
+                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento]['IDUSOSEJERCICIO'] = $this->modelDatosExtrasAvaluo->SolicitarObtenerIdUsosByCodeAndAno('fechaAvaluo', $codUso);
                     }
 
                     if(isset($arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.3'])){
@@ -1363,8 +1361,7 @@ class BandejaEntradaController extends Controller
 
                     if(isset($arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.4'])){
                         $codRangoNiveles = (String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.4']]);
-                        //Aqui usar SolicitarObtenerIdRangoNivelesByCodeAndAno(fechaAvaluo, codRangoNiveles);
-                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento]['IDRANGONIVELESEJERCICIO'] = (String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.4']]);
+                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento]['IDRANGONIVELESEJERCICIO'] = $this->modelDatosExtrasAvaluo->SolicitarObtenerIdRangoNivelesByCodeAndAno('fechaAvaluo', $codRangoNiveles);
                     }
 
                     if(isset($arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.5'])){
@@ -1373,8 +1370,7 @@ class BandejaEntradaController extends Controller
 
                     if(isset($arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.6'])){
                         $codClase = (String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.6']]);
-                        //Aqui usar SolicitarObtenerIdClasesByCodeAndAno(fechaAvaluo, codClase);
-                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento]['IDCLASESEJERCICIO'] = (String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.6']]);
+                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento]['IDCLASESEJERCICIO'] = $this->modelDatosExtrasAvaluo->SolicitarObtenerIdClasesByCodeAndAno('fechaAvaluo', $codClase);
                     }
                     
                     if(isset($arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.7'])){
@@ -1386,10 +1382,10 @@ class BandejaEntradaController extends Controller
                         $idClaseEjercicio = $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento]['IDCLASESEJERCICIO'];
                         if($codClase != 'U'){
                             //•	En el caso de clase única (U), no se debe validar el campo e.2.1.n.8 - Vida útil total del tipo y  por tanto no existe la relación clase uso en la tabla fexava_usoClase
-                            //AQUI USAR $catdt = ObtenerClaseUsoByIdUsoIdClase(idUsoEjercicio, idClaseEjercicio);
-                            //if(count($catdt) > 0){
+                            $catdt = $this->modelDatosExtrasAvaluo->ObtenerClaseUsoByIdUsoIdClase($idUsoEjercicio, $idClaseEjercicio);
+                            if(count($catdt) > 0){
                                 $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento]['IDUSOCLASEEJERCICIO'] = (String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.8']]);
-                            //}
+                            }
                         }
                     }
                     if(isset($arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.9'])){
@@ -1699,8 +1695,8 @@ class BandejaEntradaController extends Controller
                     //print_r($arrInstalacionesEspecialesComunes); exit();
                     if(isset($arrInstalacionesEspecialesComunes['arrIds'][$i]['f.9.2.n.1'])){
                         $claveInstEsp = (String)($arrInstalacionesEspecialesComunes['arrElementos'][$i][$arrInstalacionesEspecialesComunes['arrIds'][$i]['f.9.2.n.1']]);
-                        //AQUI UTILIZAR codInstEsp = CatastralUtils.ObtenerInstEspecialByClave(claveInstEsp).CODINSTESPECIALES;
-                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['CODINSTALACIONESESPECIALES'] = (String)($arrInstalacionesEspecialesComunes['arrElementos'][$i][$arrInstalacionesEspecialesComunes['arrIds'][$i]['f.9.2.n.1']]);
+                        $codInstEsp = $this->modelElementosConstruccion->obtenerInstEspecialByClave($claveInstEsp);
+                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['CODINSTALACIONESESPECIALES'] = $codInstEsp['CODINSTESPECIALES'];
                     }
 
                     if(isset($arrInstalacionesEspecialesComunes['arrIds'][$i]['f.9.2.n.3'])){
@@ -1752,8 +1748,8 @@ class BandejaEntradaController extends Controller
                     //print_r($arrAccesoriosPrivativas); exit();
                     if(isset($arrAccesoriosPrivativas['arrIds'][$i]['f.10.1.n.1'])){
                         $claveInstEsp = (String)($arrAccesoriosPrivativas['arrElementos'][$i][$arrAccesoriosPrivativas['arrIds'][$i]['f.10.1.n.1']]);
-                        //AQUI UTILIZAR codInstEsp = CatastralUtils.ObtenerInstEspecialByClave(claveInstEsp).CODINSTESPECIALES;
-                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['CODINSTALACIONESESPECIALES'] = (String)($arrAccesoriosPrivativas['arrElementos'][$i][$arrAccesoriosPrivativas['arrIds'][$i]['f.10.1.n.1']]);
+                        $codInstEsp = $this->modelElementosConstruccion->obtenerInstEspecialByClave($claveInstEsp);
+                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['CODINSTALACIONESESPECIALES'] = $codInstEsp['CODINSTESPECIALES'];
                     }
 
                     if(isset($arrAccesoriosPrivativas['arrIds'][$i]['f.10.1.n.3'])){
@@ -1790,8 +1786,8 @@ class BandejaEntradaController extends Controller
                     //print_r($arrAccesoriosComunes); exit();
                     if(isset($arrAccesoriosComunes['arrIds'][$i]['f.10.2.n.1'])){
                         $claveInstEsp = (String)($arrAccesoriosComunes['arrElementos'][$i][$arrAccesoriosComunes['arrIds'][$i]['f.10.2.n.1']]);
-                        //AQUI UTILIZAR codInstEsp = CatastralUtils.ObtenerInstEspecialByClave(claveInstEsp).CODINSTESPECIALES;
-                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['CODINSTALACIONESESPECIALES'] = (String)($arrAccesoriosComunes['arrElementos'][$i][$arrAccesoriosComunes['arrIds'][$i]['f.10.2.n.1']]);
+                        $codInstEsp = $this->modelElementosConstruccion->obtenerInstEspecialByClave($claveInstEsp);
+                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['CODINSTALACIONESESPECIALES'] = $codInstEsp['CODINSTESPECIALES'];
                     }
 
                     if(isset($arrAccesoriosComunes['arrIds'][$i]['f.10.2.n.3'])){
@@ -1841,8 +1837,8 @@ class BandejaEntradaController extends Controller
                     //print_r($arrObrasComplementariasPrivativas); exit();
                     if(isset($arrObrasComplementariasPrivativas['arrIds'][$i]['f.11.1.n.1'])){
                         $claveInstEsp = (String)($arrObrasComplementariasPrivativas['arrElementos'][$i][$arrObrasComplementariasPrivativas['arrIds'][$i]['f.11.1.n.1']]);
-                        //AQUI UTILIZAR codInstEsp = CatastralUtils.ObtenerInstEspecialByClave(claveInstEsp).CODINSTESPECIALES;
-                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['CODINSTALACIONESESPECIALES'] = (String)($arrObrasComplementariasPrivativas['arrElementos'][$i][$arrObrasComplementariasPrivativas['arrIds'][$i]['f.11.1.n.1']]);
+                        $codInstEsp = $this->modelElementosConstruccion->obtenerInstEspecialByClave($claveInstEsp);
+                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['CODINSTALACIONESESPECIALES'] = $codInstEsp['CODINSTESPECIALES'];
                     }
 
                     if(isset($arrObrasComplementariasPrivativas['arrIds'][$i]['f.11.1.n.3'])){
@@ -1880,8 +1876,8 @@ class BandejaEntradaController extends Controller
                     $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento] = array();                    
                     if(isset($arrObrasComplementariasComunes ['arrIds'][$i]['f.11.2.n.1'])){
                         $claveInstEsp = (String)($arrObrasComplementariasComunes ['arrElementos'][$i][$arrObrasComplementariasComunes ['arrIds'][$i]['f.11.2.n.1']]);
-                        //AQUI UTILIZAR codInstEsp = CatastralUtils.ObtenerInstEspecialByClave(claveInstEsp).CODINSTESPECIALES;
-                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['CODINSTALACIONESESPECIALES'] = (String)($arrObrasComplementariasComunes ['arrElementos'][$i][$arrObrasComplementariasComunes ['arrIds'][$i]['f.11.2.n.1']]);
+                        $codInstEsp = $this->modelElementosConstruccion->obtenerInstEspecialByClave($claveInstEsp);
+                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento]['CODINSTALACIONESESPECIALES'] = $codInstEsp['CODINSTESPECIALES'];
                     }
 
                     if(isset($arrObrasComplementariasComunes ['arrIds'][$i]['f.11.2.n.3'])){
@@ -1965,11 +1961,9 @@ class BandejaEntradaController extends Controller
     
                     if(isset($arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.3'])){
                         $codDelegacion = (String)($arrTerrenosDirectos['arrElementos'][$i][$arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.3']]);
-                        //AQUI USAR datosTerrenosRow.IDDELEGACION = CatastralUtils.ObtenerIdDelegacionPorClave(codDelegacion);
-                        $camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'][$controlElemento]['IDDELEGACION'] = (String)($arrTerrenosDirectos['arrElementos'][$i][$arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.3']]);
+                        $camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'][$controlElemento]['IDDELEGACION'] = $this->modelDatosExtrasAvaluo->ObtenerIdDelegacionPorClave($codDelegacion);
                         if(isset($arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.2'])){
-                            //Aqui usar CatastralUtils.ObtenerIdColoniaPorNombreyDelegacion(queryn.ToStringXElement(), codDelegacion);
-                            $camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'][$controlElemento]['IDCOLONIA'] = (String)($arrTerrenosDirectos['arrElementos'][$i][$arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.2']]);
+                            $camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'][$controlElemento]['IDCOLONIA'] = $this->modelDatosExtrasAvaluo->ObtenerIdColoniaPorNombreyDelegacion((String)($arrTerrenosDirectos['arrElementos'][$i][$arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.2']]), $codDelegacion);
                         }
     
                     }
@@ -2091,11 +2085,9 @@ class BandejaEntradaController extends Controller
 
                         if(isset($arrProductosComparables['arrIds'][$i]['h.1.3.4.n.3'])){
                             $codDelegacion = (String)($arrProductosComparables['arrElementos'][$i][$arrProductosComparables['arrIds'][$i]['h.1.3.4.n.3']]);
-                            //AQUI USAR datosTerrenosRow.IDDELEGACION = CatastralUtils.ObtenerIdDelegacionPorClave(codDelegacion);
-                            $camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'][$controlElemento]['IDDELEGACION'] = (String)($arrProductosComparables['arrElementos'][$i][$arrProductosComparables['arrIds'][$i]['h.1.3.4.n.3']]);
+                            $camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'][$controlElemento]['IDDELEGACION'] = $this->modelDatosExtrasAvaluo->ObtenerIdDelegacionPorClave($codDelegacion);
                             if(isset($arrProductosComparables['arrIds'][$i]['h.1.3.4.n.2'])){
-                                //AQUI USAR datosTerrenosRow.IDCOLONIA = CatastralUtils.ObtenerIdColoniaPorNombreyDelegacion(queryn.ToStringXElement(), codDelegacion);
-                                $camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'][$controlElemento]['IDCOLONIA'] = (String)($arrProductosComparables['arrElementos'][$i][$arrProductosComparables['arrIds'][$i]['h.1.3.4.n.2']]);
+                                $camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'][$controlElemento]['IDCOLONIA'] = $this->modelDatosExtrasAvaluo->ObtenerIdColoniaPorNombreyDelegacion((String)($arrProductosComparables['arrElementos'][$i][$arrProductosComparables['arrIds'][$i]['h.1.3.4.n.2']]), $codDelegacion);
                             }
                         }
 
@@ -2186,11 +2178,9 @@ class BandejaEntradaController extends Controller
 
                     if(isset($arrInvestigacionProductosComparables['arrIds'][$i]['h.2.1.n.3'])){
                         $codDelegacion = (String)($arrInvestigacionProductosComparables['arrElementos'][$i][$arrInvestigacionProductosComparables['arrIds'][$i]['h.2.1.n.3']]);
-                        //AQUI USAR investigacionProductosComparablesRow.IDDELEGACION = CatastralUtils.ObtenerIdDelegacionPorClave(codDelegacion)
-                        $camposFexavaAvaluo['FEXAVA_INVESTPRODUCTOSCOMP'][$controlElemento]['IDDELEGACION'] = (String)($arrInvestigacionProductosComparables['arrElementos'][$i][$arrInvestigacionProductosComparables['arrIds'][$i]['h.2.1.n.3']]);
+                        $camposFexavaAvaluo['FEXAVA_INVESTPRODUCTOSCOMP'][$controlElemento]['IDDELEGACION'] = $this->modelDatosExtrasAvaluo->ObtenerIdDelegacionPorClave($codDelegacion);
                         if(isset($arrInvestigacionProductosComparables['arrIds'][$i]['h.2.1.n.2'])){
-                            //Aqui usar CatastralUtils.ObtenerIdColoniaPorNombreyDelegacion(queryn.ToStringXElement(), codDelegacion);
-                            $camposFexavaAvaluo['FEXAVA_INVESTPRODUCTOSCOMP'][$controlElemento]['IDCOLONIA'] = (String)($arrInvestigacionProductosComparables['arrElementos'][$i][$arrInvestigacionProductosComparables['arrIds'][$i]['h.2.1.n.2']]);                            
+                            $camposFexavaAvaluo['FEXAVA_INVESTPRODUCTOSCOMP'][$controlElemento]['IDCOLONIA'] = $this->modelDatosExtrasAvaluo->ObtenerIdColoniaPorNombreyDelegacion((String)($arrInvestigacionProductosComparables['arrElementos'][$i][$arrInvestigacionProductosComparables['arrIds'][$i]['h.2.1.n.2']]), $codDelegacion);                            
                         }
                     }
 
@@ -2308,11 +2298,9 @@ class BandejaEntradaController extends Controller
     
                         if(isset($arrInvestigacionProductoscomparables['arrIds'][$i]['h.4.1.n.3'])){
                             $codDelegacion = (String)($arrInvestigacionProductoscomparables['arrElementos'][$i][$arrInvestigacionProductoscomparables['arrIds'][$i]['h.4.1.n.3']]);
-                            //Aqui usar investigacionProductosComparablesRow.IDDELEGACION = CatastralUtils.ObtenerIdDelegacionPorClave(codDelegacion);
-                            $camposFexavaAvaluo['FEXAVA_INVESTPRODUCTOSCOMP'][$controlElemento]['IDDELEGACION'] = (String)($arrInvestigacionProductoscomparables['arrElementos'][$i][$arrInvestigacionProductoscomparables['arrIds'][$i]['h.4.1.n.3']]);
+                            $camposFexavaAvaluo['FEXAVA_INVESTPRODUCTOSCOMP'][$controlElemento]['IDDELEGACION'] = $this->modelDatosExtrasAvaluo->ObtenerIdDelegacionPorClave($codDelegacion);
                             if(isset($arrInvestigacionProductoscomparables['arrIds'][$controlElemento]['h.4.1.n.2'])){
-                                //Aqui usar investigacionProductosComparablesRow.IDCOLONIA = CatastralUtils.ObtenerIdColoniaPorNombreyDelegacion(queryn.ToStringXElement(), codDelegacion);
-                                $camposFexavaAvaluo['FEXAVA_INVESTPRODUCTOSCOMP'][$controlElemento]['IDCOLONIA'] = (String)($arrInvestigacionProductoscomparables['arrElementos'][$i][$arrInvestigacionProductoscomparables['arrIds'][$i]['h.4.1.n.2']]);
+                                $camposFexavaAvaluo['FEXAVA_INVESTPRODUCTOSCOMP'][$controlElemento]['IDCOLONIA'] = $this->modelDatosExtrasAvaluo->ObtenerIdColoniaPorNombreyDelegacion((String)($arrInvestigacionProductoscomparables['arrElementos'][$i][$arrInvestigacionProductoscomparables['arrIds'][$i]['h.4.1.n.2']]), $codDelegacion);
                             }
                         }
     
