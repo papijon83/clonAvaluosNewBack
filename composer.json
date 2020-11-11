@@ -21,8 +21,7 @@
             "Database\\Seeders\\": "database/seeders/"
         },
         "files": [
-            "app/Helper/ValidaCamposAvaluo.php",
-            "app/Helper/GetDatosExternosAvaluo.php"
+            "app/Helper/ValidaCamposAvaluo.php"
         ]
     },
     "autoload-dev": {
