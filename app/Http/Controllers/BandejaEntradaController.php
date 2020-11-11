@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\PeritoSociedad;
+use App\Models\DatosExtrasAvaluo;
+use App\Models\Documentos;
+use App\Models\ElementosConstruccion;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -15,6 +18,10 @@ class BandejaEntradaController extends Controller
      * @return void
      */
     protected $modelPeritoSociedad;
+    protected $modelDatosExtrasAvaluo;
+    protected $modelDocumentos;
+    protected $modelElementosConstruccion;
+
     public function __construct()
     {
         //
@@ -454,7 +461,10 @@ class BandejaEntradaController extends Controller
     }
 
     function guardarAvaluo(Request $request){
-        $this->modelPeritoSociedad = new PeritoSociedad();        
+        $this->modelPeritoSociedad = new PeritoSociedad();
+        $this->modelDatosExtrasAvaluo = new DatosExtrasAvaluo();
+        $this->modelDocumentos = new Documentos();
+        $this->modelElementosConstruccion = new ElementosConstruccion();      
         $idPersona = 318;
         $file = $request->file('files');
         $contents = $this->descomprimirCualquierFormato($file);        
@@ -546,8 +556,8 @@ class BandejaEntradaController extends Controller
         }
         if($arrIdentificacion['ClaveSociedad'] != ''){            
             $registroSoci = $arrIdentificacion['ClaveSociedad'];
-            $camposFexavaAvaluo['IDPERSONAPERITO'] = $this->IdPeritoSociedadByRegistro($idPersona, true);//aqui se usa IdPeritoSociedadByRegistro(registroPerito, string.Empty, true);
-            $camposFexavaAvaluo['IDPERSONASOCIEDAD'] = $this->IdPeritoSociedadByRegistro($idPersona, false);//aqui se usa IdPeritoSociedadByRegistro(registroPerito, registroSoci, false);
+            $camposFexavaAvaluo['IDPERSONAPERITO'] = $this->modelDatosExtrasAvaluo->IdPeritoSociedadByRegistro($idPersona, true);//aqui se usa IdPeritoSociedadByRegistro(registroPerito, string.Empty, true);
+            $camposFexavaAvaluo['IDPERSONASOCIEDAD'] = $this->modelDatosExtrasAvaluo->IdPeritoSociedadByRegistro($idPersona, false);//aqui se usa IdPeritoSociedadByRegistro(registroPerito, registroSoci, false);
         }
         
         if($camposFexavaAvaluo['CODTIPOTRAMITE'] == 2){
@@ -596,7 +606,7 @@ class BandejaEntradaController extends Controller
             $camposFexavaAvaluo['FEXAVA_DATOSPERSONAS']['Solicitante']['NOMBREDELEGACION'] = '';
         }else{
             //aqui se obtendria el iddelegacion por el nombre
-            $idDelegacion = $this->ObtenerIdDelegacionPorNombre($arrSolicitante['Delegacion']);
+            $idDelegacion = $this->modelDatosExtrasAvaluo->ObtenerIdDelegacionPorNombre($arrSolicitante['Delegacion']);
             if($idDelegacion != -1){
                 $camposFexavaAvaluo['FEXAVA_DATOSPERSONAS']['Solicitante']['IDDELEGACION'] = $idDelegacion;
             }
@@ -604,7 +614,7 @@ class BandejaEntradaController extends Controller
         }
         if(trim($arrSolicitante['Colonia']) != ''){
             //aqui se obtendria el idColonia por el nombre
-            $idColonia = $this->ObtenerIdColoniaPorNombreyDelegacion(trim($arrSolicitante['Colonia']), $arrSolicitante['Delegacion']);
+            $idColonia = $this->modelDatosExtrasAvaluo->ObtenerIdColoniaPorNombreyDelegacion(trim($arrSolicitante['Colonia']), $arrSolicitante['Delegacion']);
             if($idColonia != -1){
                 $camposFexavaAvaluo['FEXAVA_DATOSPERSONAS']['Solicitante']['IDCOLONIA'] = $idColonia;
             }
@@ -650,7 +660,7 @@ class BandejaEntradaController extends Controller
             $camposFexavaAvaluo['FEXAVA_DATOSPERSONAS']['Propietario']['NOMBREDELEGACION'] = '';
         }else{
             //aqui se obtendria el iddelegacion por el nombre
-            $idDelegacion = $this->ObtenerIdDelegacionPorNombre($arrSolicitante['Delegacion']);
+            $idDelegacion = $this->modelDatosExtrasAvaluo->ObtenerIdDelegacionPorNombre($arrSolicitante['Delegacion']);
             if($idDelegacion != -1){
                 $camposFexavaAvaluo['FEXAVA_DATOSPERSONAS']['Propietario']['IDDELEGACION'] = $idDelegacion;
             }
@@ -658,7 +668,7 @@ class BandejaEntradaController extends Controller
         }
         if(trim($arrPropietario['Colonia']) != ''){
             //aqui se obtendria el idColonia por el nombre
-            $idColonia = $this->ObtenerIdColoniaPorNombreyDelegacion(trim($arrSolicitante['Colonia']), $arrSolicitante['Delegacion']);
+            $idColonia = $this->modelDatosExtrasAvaluo->ObtenerIdColoniaPorNombreyDelegacion(trim($arrSolicitante['Colonia']), $arrSolicitante['Delegacion']);
             if($idColonia != -1){
                 $camposFexavaAvaluo['FEXAVA_DATOSPERSONAS']['Propietario']['IDCOLONIA'] = $idColonia;
             }
@@ -736,7 +746,7 @@ class BandejaEntradaController extends Controller
         $fechaAvaluo = $camposFexavaAvaluo['FECHAAVALUO'];
         if(trim($arrCaracteristicasUrbanas['ClaseGeneralDeInmueblesDeLaZona']) != ''){
             $codClase = $arrCaracteristicasUrbanas['ClaseGeneralDeInmueblesDeLaZona'];
-            $idClaseEjercicio = $this->SolicitarObtenerIdClasesByCodeAndAno($fechaAvaluo, $codClase); //No se si el query sea el correcto ya que obtiene por fecha pero no hay fecha en la tabla
+            $idClaseEjercicio = $this->modelDatosExtrasAvaluo->SolicitarObtenerIdClasesByCodeAndAno($fechaAvaluo, $codClase); //No se si el query sea el correcto ya que obtiene por fecha pero no hay fecha en la tabla
             $camposFexavaAvaluo['CUCODCLASESCONSTRUCCION'] = $idClaseEjercicio;
         }
 
@@ -2794,143 +2804,6 @@ class BandejaEntradaController extends Controller
             default:
                 return 'F';
                 break;
-        }
-    }
-
-    private function IdPeritoSociedadByRegistro($registroPerito, $esPerito)
-    {
-        $dsePeritosSociedades = array();
-
-        if ($esPerito)
-        { 
-            $dsePeritosSociedades = $this->modelPeritoSociedad->getPeritoById($registroPerito);
-
-            if (count($dsePeritosSociedades) > 0)
-            {
-                return $dsePeritosSociedades;
-            }
-        }
-        else
-        {
-            $dsePeritosSociedades = $this->modelPeritoSociedad->getSociedadByIdPerito($registroPerito);
-
-            if (count($dsePeritosSociedades) > 0)
-            {
-                return $dsePeritosSociedades;
-            }
-        }
-
-        return -1;
-    }
-
-    private function ObtenerIdDelegacionPorNombre($nombreDelegacion)
-    {
-        $nombreDelegacion = strtoupper($nombreDelegacion);
-        
-        $rowsDelegaciones = DB::select("SELECT * FROM CAS.CAS_DELEGACION WHERE NOMBRE = '$nombreDelegacion'");
-
-        if (count($rowsDelegaciones) > 0)
-        {
-            $idDelegacion = $rowsDelegaciones[0]->iddelegacion;
-        }
-        else
-        {
-            return -1;
-        }
-
-        return $idDelegacion;
-    }
-
-    private function ObtenerIdDelegacionPorClave($codDelegacion)
-    {        
-        $rowsDelegaciones = DB::select("SELECT * FROM CAS.CAS_DELEGACION WHERE CLAVE = '$codDelegacion'");
-
-        if (count($rowsDelegaciones) > 0)
-        {
-            $idDelegacion = $rowsDelegaciones[0]->iddelegacion;
-        }
-        else
-        {
-            return -1;
-        }
-
-        return $idDelegacion;
-    }
-
-    private function ObtenerIdColoniaPorNombreyDelegacion($nombreColonia, $codDelegacion)
-    {
-        $nombreColonia = strtoupper($nombreColonia);
-
-        $rowsDelegaciones = DB::select("SELECT * FROM CAS.CAS_DELEGACION WHERE CLAVE = '$codDelegacion'");
-
-        if (count($rowsDelegaciones) > 0)
-        {
-            $idDelegacion = $rowsDelegaciones[0]->iddelegacion;
-        }
-        else
-        {
-            return -1;
-        }
-
-        $rowsColonias = DB::select("SELECT * FROM CAS.CAS_COLONIA WHERE NOMBRE = '$nombreColonia' AND IDDELEGACION = '$idDelegacion'");
-
-        if (count($rowsColonias) > 0)
-        {
-            $idColonia = $rowsColonias[0]->idcolonia;
-        }
-        else
-        {
-            return -1;
-        }
-
-        return $idColonia;
-    }
-
-    private function SolicitarObtenerIdClasesByCodeAndAno($fecha, $codClase)
-    {
-        //FIS_CLASESEJERCICIO
-        $c_filtro = DB::select("SELECT * FROM FIS.FIS_CATCLASES WHERE CODCLASE = '$codClase'");
-
-        if(count($c_filtro) == 0){            
-            return "el codigo de clase ".$codClase." no existe en el catalogo de clases";
-        }else{
-            return $c_filtro[0]->idclases;
-        }
-    }
-
-    private function SolicitarObtenerIdUsosByCodeAndAno($fecha, $codUso)
-    {
-        //FIS_USOSEJERCICIO
-        $c_filtro = DB::select("SELECT * FROM FIS.FIS_CATUSOS WHERE CODUSO = '$codUso'");
-
-        if(count($c_filtro) == 0){            
-            return "el codigo de uso ".$codUso." no existe en el catalogo de usos";
-        }else{
-            return $c_filtro[0]->idusos;
-        }
-    }
-
-    private function SolicitarObtenerIdRangoNivelesByCodeAndAno($fecha, $codRangoNiveles)
-    {
-        //FIS_RANGONIVELESEJERCICIO
-        $c_filtro = DB::select("SELECT * FROM FIS.FIS_RANGONIVELESEJERCICIO");
-
-        if(count($c_filtro) == 0){            
-            return "el codigo de rango ".$codRangoNiveles." no existe en el catalogo de rangos";
-        }else{
-            return $c_filtro;
-        }
-    }
-
-    private function ObtenerClaseUsoByIdUsoIdClase($idUsoEjercicio, $idClaseEjercicio)
-    {
-        //FEXAVA_CATCLASEUSO
-        $c_claseUso = DB::select("SELECT * FROM FEXAVA_CATCLASEUSO");
-        
-        if(count($c_claseUso) == 0){
-            return "la clase uso ".$idClaseEjercicio." no existe en el catalogo de clases uso";
-        }else{
-            return $c_claseUso;
         }
     }
 }
