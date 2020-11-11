@@ -929,6 +929,24 @@ class BandejaEntradaController extends Controller
         $queryMacro = (String)($infoXmlCroquisMacroLocalizacion[0]);
 
         //AQUI FALTA GUARDAR LAS FOTOS Y CAMBIAR LO QUE TRAIA DE INFORMACION EN EL XML POR LOS ID OBTENIDOS Tran_InsertFichero
+        $listaIdFicheros = array();
+        $idFichero = 0;
+
+        $cuentaCatastral = $camposFexavaAvaluo['FEXAVA_DATOSPERSONAS']['CuentaCatastral']['REGION'].'-'.
+                           $camposFexavaAvaluo['FEXAVA_DATOSPERSONAS']['CuentaCatastral']['MANZANA'].'-'.
+                           $camposFexavaAvaluo['FEXAVA_DATOSPERSONAS']['CuentaCatastral']['LOTE'].'-'.
+                           $camposFexavaAvaluo['FEXAVA_DATOSPERSONAS']['CuentaCatastral']['UNIDADPRIVATIVA'];
+        $tipoDocumentoDigital = 13;
+        $idUsuario = $camposFexavaAvaluo['IDPERSONAPERITO'];
+        $idDocumentoDigital = $this->modelDocumentos->insertDocumentoDigital($cuentaCatastral, $tipoDocumentoDigital, $idUsuario);
+
+        $fotoMicro = $queryMicro;
+        $idFichero = $this->modelDocumentos->tran_InsertFichero($idDocumentoDigital, 'CroquisMicroLocalizacion', 'CroquisMicroLocalizacion', $fotoMicro);
+        $listaIdFicheros[] = $idFichero;
+
+        $fotoMacro = $queryMacro;
+        $idFichero = $this->modelDocumentos->tran_InsertFichero($idDocumentoDigital, 'CroquisMacroLocalizacion', 'CroquisMacroLocalizacion', $fotoMacro);
+        $listaIdFicheros[] = $idFichero;
 
         $infoXmlEscritura = $infoXmlTerreno->xpath($elementoPrincipal.'//Terreno[@id="d"]//MedidasYColindancias[@id="d.4"]//FuenteDeInformacionLegal[@id="d.4.1"]//Escritura[@id="d.4.1.1"]');
         $arrEscritura = array();
