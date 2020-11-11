@@ -2841,6 +2841,22 @@ class BandejaEntradaController extends Controller
         return $idDelegacion;
     }
 
+    private function ObtenerIdDelegacionPorClave($codDelegacion)
+    {        
+        $rowsDelegaciones = DB::select("SELECT * FROM CAS.CAS_DELEGACION WHERE CLAVE = '$codDelegacion'");
+
+        if (count($rowsDelegaciones) > 0)
+        {
+            $idDelegacion = $rowsDelegaciones[0]->iddelegacion;
+        }
+        else
+        {
+            return -1;
+        }
+
+        return $idDelegacion;
+    }
+
     private function ObtenerIdColoniaPorNombreyDelegacion($nombreColonia, $codDelegacion)
     {
         $nombreColonia = strtoupper($nombreColonia);
