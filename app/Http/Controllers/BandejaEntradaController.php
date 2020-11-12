@@ -1673,8 +1673,8 @@ class BandejaEntradaController extends Controller
                     //print_r($arrInstalacionesEspeciales); exit();
                     if(isset($arrInstalacionesEspeciales['arrIds'][$i]['f.9.1.n.1'])){
                         $claveInstEsp = (String)($arrInstalacionesEspeciales['arrElementos'][$i][$arrInstalacionesEspeciales['arrIds'][$i]['f.9.1.n.1']]);
-                        //AQUI UTILIZAR codInstEsp = CatastralUtils.ObtenerInstEspecialByClave(claveInstEsp).CODINSTESPECIALES;
-                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$i]['CODINSTALACIONESESPECIALES'] = (String)($arrInstalacionesEspeciales['arrElementos'][$i][$arrInstalacionesEspeciales['arrIds'][$i]['f.9.1.n.1']]);
+                        $codInstEsp = $this->modelElementosConstruccion->obtenerInstEspecialByClave($claveInstEsp);
+                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$i]['CODINSTALACIONESESPECIALES'] = $codInstEsp['CODINSTESPECIALES'];
                     }
 
                     if(isset($arrInstalacionesEspeciales['arrIds'][$i]['f.9.1.n.3'])){
