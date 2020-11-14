@@ -145,7 +145,7 @@ class GuardaenBD
                                 $arrElementosConstruccionesMer[$id] = $elementos;
                             }                            
                         }
-                        print_r($arrElementosConstruccionesMer); exit();
+                        //print_r($arrElementosConstruccionesMer); exit();
                         $idconstruccionesmercado = $this->insertConstruccionesMer($arrElementosConstruccionesMer,$arrAvaluo['IDAVALUO']);
                             if(strpos($idconstruccionesmercado, 'Error') != FALSE){
                                 return $idconstruccionesmercado;
