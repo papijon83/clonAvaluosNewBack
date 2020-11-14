@@ -929,6 +929,24 @@ class BandejaEntradaController extends Controller
         $queryMacro = (String)($infoXmlCroquisMacroLocalizacion[0]);
 
         //AQUI FALTA GUARDAR LAS FOTOS Y CAMBIAR LO QUE TRAIA DE INFORMACION EN EL XML POR LOS ID OBTENIDOS Tran_InsertFichero
+        $listaIdFicheros = array();
+        $idFichero = 0;
+
+        $cuentaCatastral = $camposFexavaAvaluo['FEXAVA_DATOSPERSONAS']['CuentaCatastral']['REGION'].'-'.
+                           $camposFexavaAvaluo['FEXAVA_DATOSPERSONAS']['CuentaCatastral']['MANZANA'].'-'.
+                           $camposFexavaAvaluo['FEXAVA_DATOSPERSONAS']['CuentaCatastral']['LOTE'].'-'.
+                           $camposFexavaAvaluo['FEXAVA_DATOSPERSONAS']['CuentaCatastral']['UNIDADPRIVATIVA'];
+        $tipoDocumentoDigital = 13;
+        $idUsuario = $camposFexavaAvaluo['IDPERSONAPERITO'];
+        $idDocumentoDigital = $this->modelDocumentos->insertDocumentoDigital($cuentaCatastral, $tipoDocumentoDigital, $idUsuario);
+
+        $fotoMicro = $queryMicro;
+        $idFichero = $this->modelDocumentos->tran_InsertFichero($idDocumentoDigital, 'CroquisMicroLocalizacion', 'CroquisMicroLocalizacion', $fotoMicro);
+        $listaIdFicheros[] = $idFichero;
+
+        $fotoMacro = $queryMacro;
+        $idFichero = $this->modelDocumentos->tran_InsertFichero($idDocumentoDigital, 'CroquisMacroLocalizacion', 'CroquisMacroLocalizacion', $fotoMacro);
+        $listaIdFicheros[] = $idFichero;
 
         $infoXmlEscritura = $infoXmlTerreno->xpath($elementoPrincipal.'//Terreno[@id="d"]//MedidasYColindancias[@id="d.4"]//FuenteDeInformacionLegal[@id="d.4.1"]//Escritura[@id="d.4.1.1"]');
         $arrEscritura = array();
@@ -1655,8 +1673,8 @@ class BandejaEntradaController extends Controller
                     //print_r($arrInstalacionesEspeciales); exit();
                     if(isset($arrInstalacionesEspeciales['arrIds'][$i]['f.9.1.n.1'])){
                         $claveInstEsp = (String)($arrInstalacionesEspeciales['arrElementos'][$i][$arrInstalacionesEspeciales['arrIds'][$i]['f.9.1.n.1']]);
-                        //AQUI UTILIZAR codInstEsp = CatastralUtils.ObtenerInstEspecialByClave(claveInstEsp).CODINSTESPECIALES;
-                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$i]['CODINSTALACIONESESPECIALES'] = (String)($arrInstalacionesEspeciales['arrElementos'][$i][$arrInstalacionesEspeciales['arrIds'][$i]['f.9.1.n.1']]);
+                        $codInstEsp = $this->modelElementosConstruccion->obtenerInstEspecialByClave($claveInstEsp);
+                        $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$i]['CODINSTALACIONESESPECIALES'] = $codInstEsp['CODINSTESPECIALES'];
                     }
 
                     if(isset($arrInstalacionesEspeciales['arrIds'][$i]['f.9.1.n.3'])){
@@ -2558,15 +2576,11 @@ class BandejaEntradaController extends Controller
                 if(isset($arrFotosInmuebleAvaluo['arrIds'][$i]['q.1.2.n.1'])){
                     $idFoto = 0;
                     $nombreFoto = $indiceCuentaCatastral."_".$cuentaCatastralStr.".jpg";
-
-                    //Aqui se inserta el docto 
-                    /*idFoto = doc_trans.Tran_InsertFotoInmueble(
-                        transactionHelper,
-                        Convert.FromBase64String(queryn.ToStringXElement()),
-                        nombreFoto,
-                        Constantes.NOMBRE_FOTOS_PREFIJO + nombreFoto,
-                        dseAvaluos.FEXAVA_AVALUO[0].FECHAAVALUO,
-                        tipoFoto, null).Value;*/
+                    $fichero = (String)($arrFotosInmuebleAvaluo['arrElementos'][$i][$arrFotosInmuebleAvaluo['arrIds'][$i]['q.1.2.n.1']]);
+                    $fechaAvaluo = $camposFexavaAvaluo['FECHAAVALUO'];
+                    $idUsuario = $camposFexavaAvaluo['IDPERSONAPERITO'];
+                    
+                    $idFoto = $this->modelDocumentos->tran_InsertFotoInmueble($fichero, $nombreFoto, $fechaAvaluo, $tipoFoto, $idUsuario);
                 }
                 $indiceCuentaCatastral = $indiceCuentaCatastral +1;
                 /****Pendiente******/
@@ -2611,34 +2625,30 @@ class BandejaEntradaController extends Controller
                         }
 
                         if(isset($arrFotosInmuebleAvaluo['arrIds'][$e]['q.2.n.2.n.1'])){
+                            $idFoto = 0;
                             $nombreFoto = $indiceCuentaCatastral."_".".jpg";
+                            $fichero = (String)($arrFotosInmuebleAvaluo['arrElementos'][$e][$arrFotosInmuebleAvaluo['arrIds'][$e]['q.2.n.2.n.1']]);
+                            $fechaAvaluo = $camposFexavaAvaluo['FECHAAVALUO'];
+                            $idUsuario = $camposFexavaAvaluo['IDPERSONAPERITO'];
+                    
+                            $idFoto = $this->modelDocumentos->tran_InsertFotoInmueble($fichero, $nombreFoto, $fechaAvaluo, $tipoFoto, $idUsuario);
                             
-                            //Insertamos en Documental. Nos devuelve el id de la foto.
-                            //AQUI USAMOS 
-                            /*decimal idFoto = doc_trans.Tran_InsertFotoInmueble(
-                                transactionHelper,
-                                Convert.FromBase64String(querynn.ToStringXElement()),
-                                nombreFoto,
-                                Constantes.NOMBRE_FOTOS_PREFIJO + nombreFoto,
-                                dseAvaluos.FEXAVA_AVALUO[0].FECHAAVALUO,
-                                tipoFoto, null).Value; */
+                            $indiceCuentaCatastral = $indiceCuentaCatastral + 1;
 
-                                $indiceCuentaCatastral = $indiceCuentaCatastral + 1;
+                            //Reemplazar en el XML del avaluo, la foto por el id obtenido de documental.
 
-                                //Reemplazar en el XML del avaluo, la foto por el id obtenido de documental.
-
-                                if(count($listCuentaCatastral) == 4){
-                                    $cadenaSelect = "REGION = '".$listCuentaCatastral[0]."' AND MANZANA = '".$listCuentaCatastral[1]."' AND LOTE = '".$listCuentaCatastral[2]."' AND UNIDADPRIVATIVA = '".$listCuentaCatastral[3]."' AND ROWNUM = 1";
-                                    $investProductosCompRow = DB::select("SELECT * FROM FEXAVA_INVESTPRODUCTOSCOMP WHERE ".$cadenaSelect);
-                                    //print_r($investProductosCompRow);
-                                    $arrInvestProductosCompRow = array();
-                                    foreach($investProductosCompRow[0] as $llaveRenglon => $elementoRenglon){
-                                        $arrInvestProductosCompRow[$llaveRenglon] = $elementoRenglon;
-                                    }
-                                    $camposFexavaAvaluo['FEXAVA_FOTOCOMPARABLE'][$e]['FEXAVA_INVESTPRODUCTOSCOMP'] = $arrInvestProductosCompRow;
-                                    $camposFexavaAvaluo['FEXAVA_FOTOCOMPARABLE'][$e]['IDDOCUMENTOFOTO'] = $idFoto;
-                                    
+                            if(count($listCuentaCatastral) == 4){
+                                $cadenaSelect = "REGION = '".$listCuentaCatastral[0]."' AND MANZANA = '".$listCuentaCatastral[1]."' AND LOTE = '".$listCuentaCatastral[2]."' AND UNIDADPRIVATIVA = '".$listCuentaCatastral[3]."' AND ROWNUM = 1";
+                                $investProductosCompRow = DB::select("SELECT * FROM FEXAVA_INVESTPRODUCTOSCOMP WHERE ".$cadenaSelect);
+                                //print_r($investProductosCompRow);
+                                $arrInvestProductosCompRow = array();
+                                foreach($investProductosCompRow[0] as $llaveRenglon => $elementoRenglon){
+                                    $arrInvestProductosCompRow[$llaveRenglon] = $elementoRenglon;
                                 }
+                                $camposFexavaAvaluo['FEXAVA_FOTOCOMPARABLE'][$e]['FEXAVA_INVESTPRODUCTOSCOMP'] = $arrInvestProductosCompRow;
+                                $camposFexavaAvaluo['FEXAVA_FOTOCOMPARABLE'][$e]['IDDOCUMENTOFOTO'] = $idFoto;
+                                
+                            }
                         }
                     }
                     
@@ -2685,17 +2695,13 @@ class BandejaEntradaController extends Controller
                             }
 
                             if(isset($arrFotosInmuebleAvaluoVentas['arrIds'][$e]['q.3.n.2.n.1'])){
+                                $idFoto = 0;
                                 $nombreFoto = $indiceCuentaCatastral."_".$cuentaCatastralStr.".jpg";
-
-                                //Insertamos en Documental. Nos devuelve el id de la foto.
-                                //AQUI USAMOS 
-                                /*decimal idFoto = doc_trans.Tran_InsertFotoInmueble(
-                                transactionHelper,
-                                Convert.FromBase64String(querynn.ToStringXElement()),
-                                nombreFoto,
-                                Constantes.NOMBRE_FOTOS_PREFIJO + nombreFoto,
-                                dseAvaluos.FEXAVA_AVALUO[0].FECHAAVALUO,
-                                tipoFoto, null).Value; */
+                                $fichero = (String)($arrFotosInmuebleAvaluoVentas['arrElementos'][$e][$arrFotosInmuebleAvaluoVentas['arrIds'][$e]['q.3.n.2.n.1']]);
+                                $fechaAvaluo = $camposFexavaAvaluo['FECHAAVALUO'];
+                                $idUsuario = $camposFexavaAvaluo['IDPERSONAPERITO'];
+                        
+                                $idFoto = $this->modelDocumentos->tran_InsertFotoInmueble($fichero, $nombreFoto, $fechaAvaluo, $tipoFoto, $idUsuario);
 
                                 $indiceCuentaCatastral = $indiceCuentaCatastral + 1;
 

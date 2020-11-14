@@ -121,14 +121,18 @@ class DatosExtrasAvaluo
 
     public function SolicitarObtenerIdRangoNivelesByCodeAndAno($fecha, $codRangoNiveles)
     {
-        //FIS_RANGONIVELESEJERCICIO - ORA-01031: privilegios insuficientes
-        //$c_filtro = DB::select("SELECT * FROM FIS.FIS_RANGONIVELESEJERCICIO");
-        $c_filtro = DB::select("SELECT * FROM FIS.FIS_CATUSOS WHERE CODUSO = '$codRangoNiveles'");
+        $conn = oci_connect("FIS", env("DB_PASSWORD"), env("DB_TNS"));        
+        $sqlcadena = oci_parse($conn, "SELECT * FROM FIS.FIS_RANGONIVELESEJERCICIO WHERE IDRANGONIVELESEJERCICIO  = '$codRangoNiveles'");
+        oci_execute($sqlcadena);
 
-        if(count($c_filtro) == 0){            
+        $fila = oci_fetch_array($sqlcadena, OCI_ASSOC+OCI_RETURN_NULLS);
+        oci_free_statement($sqlcadena);
+        oci_close($conn);
+
+        if(count($fila) == 0){            
             return "el codigo de rango ".$codRangoNiveles." no existe en el catalogo de rangos";
         }else{
-            return $c_filtro;
+            return $fila['IDRANGONIVELESEJERCICIO'];
         }
     }
 

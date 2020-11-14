@@ -29,8 +29,12 @@ $router->group(['prefix' => 'api'], function () use ($router) {
             $router->post('esValidoAvaluo', 'BandejaEntradaController@esValidoAvaluo');
             $router->post('guardarAvaluo', 'BandejaEntradaController@guardarAvaluo');
 
+<<<<<<< HEAD
             $router->post('pruebaDoc', 'PruebaDoc@pruebaGuardadoDB');
             $router->get('pruebaEjecuta', 'PruebaDoc@pruebaEjecutaProcedure');
+=======
+            $router->post('pruebaDoc', 'PruebaDoc@pruebaInserta');
+>>>>>>> 23260d0d0c2d1f035855f7ced04cca6f8efa8360
         });
     });
 });
