@@ -123,6 +123,6 @@ class Documentos
         $idDocumentoDigital = $this->insertDocumentoDigitalFoto($descripcion,3,$fechaAvaluo,$idUsuario);
         $idficherodoc = $this->tran_InsertFichero($idDocumentoDigital,$nombreFoto,$nombreFoto,$fichero);
         $this->InsertFotoInmueble($idDocumentoDigital, $tipoFoto);
-
+        return $idDocumentoDigital ? $idDocumentoDigital : 0;
     }
 }

@@ -37,7 +37,7 @@ class GuardaenBD
        foreach($arrTablas as $tabla){        
                  
         switch ($tabla) {
-            case 'FEXAVA_DATOSPERSONAS':               
+           case 'FEXAVA_DATOSPERSONAS':               
                 if(isset($arrAvaluo[$tabla])){
                     foreach($arrAvaluo[$tabla] as $idTabla => $elementosTabla){
                         if($idTabla != 'CuentaCatastral' && $idTabla != 'PROPOSITO' && $idTabla != 'OBJETO'){
@@ -227,7 +227,7 @@ class GuardaenBD
         $campos = substr($campos,0,strlen($campos) - 1);
         $valores = substr($valores,0,strlen($valores) - 1);
         $query = $iniQuery.$campos.") VALUES ".$valores.")";
-        //echo $query."\n\n"; 
+        //echo $query."\n\n";  exit();
         return $this->ejecutaQuery($query,$tabla);
     }
 
@@ -365,7 +365,7 @@ class GuardaenBD
 
     public function insertTerrenoMercado($arrElementos,$idAvaluo){
         try{
-            $valNull = null;
+            $valNull = NULL;
             $procedure = 'BEGIN
             FEXAVA.FEXAVA_DATOSESTADISTICOS_PKG.FEXAVA_INSERT_TERRENOMERCADO_P(
                 :PAR_VALORUNITARIOTIERRAPROMED,
@@ -401,7 +401,7 @@ class GuardaenBD
 
     public function insertConstruccionesMer($arrElementos,$idAvaluo){
         try {
-            $valNull = null;
+            $valNull = NULL;
             $procedure = 'BEGIN
             FEXAVA.FEXAVA_DATOSESTADISTICOS_PKG.FEXAVA_INSERT_CONSTRUCMER_P(
                 :PAR_VALORUNITARIOPROMEDIO,
@@ -417,7 +417,7 @@ class GuardaenBD
             oci_bind_by_name($stmt, ':PAR_VALORUNITARIOPROMEDIO',$arrElementos['VALORUNITARIOTIERRAPROMEDIO']);
             oci_bind_by_name($stmt, ':PAR_VALORUNITARIOHOMOLOGADO',$arrElementos['VALORUNITARIOTIERRAHOMOLOGADO']);
             oci_bind_by_name($stmt, ':PAR_VALORUNITARIOAPLICABLE',$arrElementos['CODTIPOTERRENO']);
-            oci_bind_by_name($stmt, ':PAR_IDMODOCONSTRUCCION',$valNull);        
+            oci_bind_by_name($stmt, ':PAR_IDMODOCONSTRUCCION',$arrElementos['IDMODOCONSTRUCCION']);        
             oci_bind_by_name($stmt, ':PAR_IDAVALUO',$idAvaluo);   
             $cursor = oci_new_cursor($conn);
             oci_bind_by_name($stmt, ":C_AVALUO", $cursor, -1, OCI_B_CURSOR);
@@ -438,6 +438,7 @@ class GuardaenBD
     private function ejecutaQuery($query, $tabla){
         try{
             DB::insert($query);
+            DB::commit();
             return TRUE;
         }catch (\Throwable $th) {
             error_log($th);
