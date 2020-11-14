@@ -513,7 +513,7 @@ class BandejaEntradaController extends Controller
         $camposFexavaAvaluo = $this->guardarAvaluoValorReferido($xml, $camposFexavaAvaluo,$elementoPrincipal);
         $camposFexavaAvaluo = $this->guardarAvaluoAnexoFotografico($xml, $camposFexavaAvaluo,$elementoPrincipal);
         
-        //$this->modelGuardaenBD->insertAvaluo($camposFexavaAvaluo);
+        $this->modelGuardaenBD->insertAvaluo($camposFexavaAvaluo);
         echo "LA INFO "; print_r($camposFexavaAvaluo); exit();
         /*$this->doc = new \DOMDocument('1.0', 'utf-8');
         libxml_use_internal_errors(true);    

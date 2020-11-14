@@ -137,22 +137,35 @@ class GuardaenBD
 
             case 'FEXAVA_CONSTRUCCIONESMER':
                 if(isset($arrAvaluo[$tabla])){
-                    $arrElementosConstruccionesMer = array();
+                    
                     foreach($arrAvaluo[$tabla] as $idTabla => $elementosTabla){
-                        if(!is_array($elementosTabla)){
-                            $arrElementosConstruccionesMer[$idTabla] = $elementosTabla;
+                        $arrElementosConstruccionesMer = array();
+                        foreach($elementosTabla as $id => $elementos){
+                            if(!is_array($elementos)){
+                                $arrElementosConstruccionesMer[$id] = $elementos;
+                            }                            
                         }
+                        print_r($arrElementosConstruccionesMer); exit();
                         $idconstruccionesmercado = $this->insertConstruccionesMer($arrElementosConstruccionesMer,$arrAvaluo['IDAVALUO']);
-                        if(strpos($idconstruccionesmercado, 'Error') != FALSE){
-                            return $idconstruccionesmercado;
-                        }
-                        //$this->insertDatos($tabla,$elementosTabla,$arrAvaluo['IDAVALUO']);
-                        foreach($elementosTabla['FEXAVA_INVESTPRODUCTOSCOMP'] as $idProducto => $elementosProducto){
-                            $resInsert = $this->insertDatosProductos('FEXAVA_INVESTPRODUCTOSCOMP',$elementosProducto,$idconstruccionesmercado);
-                            if(strpos($resInsert, 'Error') != FALSE){
-                                return $resInsert;
+                            if(strpos($idconstruccionesmercado, 'Error') != FALSE){
+                                return $idconstruccionesmercado;
                             }
-                        }                        
+                        
+                        foreach($elementosTabla as $id => $elementos){
+                            if(is_array($elementos)){
+                                $resInsert = $this->insertDatosProductos('FEXAVA_INVESTPRODUCTOSCOMP',$elementosProducto,$idconstruccionesmercado);
+                                if(strpos($resInsert, 'Error') != FALSE){
+                                    return $resInsert;
+                                }
+                            }                            
+                        }
+                            //$this->insertDatos($tabla,$elementosTabla,$arrAvaluo['IDAVALUO']);
+                            /*foreach($elementos['FEXAVA_INVESTPRODUCTOSCOMP'] as $idProducto => $elementosProducto){
+                                $resInsert = $this->insertDatosProductos('FEXAVA_INVESTPRODUCTOSCOMP',$elementosProducto,$idconstruccionesmercado);
+                                if(strpos($resInsert, 'Error') != FALSE){
+                                    return $resInsert;
+                                }
+                            }*/
                     }                    
                 }
             break;
@@ -169,7 +182,7 @@ class GuardaenBD
             case 'FEXAVA_FOTOAVALUO':
                 if(isset($arrAvaluo[$tabla])){
                     foreach($arrAvaluo[$tabla] as $idTabla => $elementosTabla){                        
-                        $resInsert = $this->insertDatos($tabla,$elementosTabla,$arrAvaluo['IDAVALUO']);
+                        $resInsert = $this->insertFexavaFotoAvaluo($tabla,$elementosTabla,$arrAvaluo['IDAVALUO']);
                         if(strpos($resInsert, 'Error') != FALSE){
                             return $resInsert;
                         }                        
@@ -331,6 +344,37 @@ class GuardaenBD
             return 'Error al insertar en la tabla insertFexavaInvestProductosComp';
         }
     }
+
+    public function insertFexavaFotoAvaluo($arrElementos,$idAvaluo){
+        try{
+            //print_r($arrFexavaAvaluo); exit();
+            //$cursor = null;        
+            $procedure = 'BEGIN
+            FEXAVA.FEXAVA_DATOSESTADISTICOS_PKG.FEXAVA_INSERT_FOTOAVALUO_P(
+                :PAR_IDDOCUMENTOFOTO,
+                :PAR_IDAVALUO,
+                :C_AVALUO
+            ); END;';
+
+            $conn = oci_connect(env("DB_USERNAME"), env("DB_PASSWORD"), env("DB_TNS"));
+            $stmt = oci_parse($conn, $procedure);
+            oci_bind_by_name($stmt, ':PAR_IDDOCUMENTOFOTO',$arrElementos['calle']);
+            oci_bind_by_name($stmt, ':PAR_IDAVALUO',$idAvaluo);         
+            $cursor = oci_new_cursor($conn);
+            oci_bind_by_name($stmt, ":C_AVALUO", $cursor, -1, OCI_B_CURSOR);
+            oci_execute($stmt, OCI_COMMIT_ON_SUCCESS);
+            oci_execute($cursor, OCI_COMMIT_ON_SUCCESS);
+            oci_free_statement($stmt);
+            oci_close($conn);
+            oci_fetch_all($cursor, $resInsertFexava, 0, -1, OCI_FETCHSTATEMENT_BY_ROW + OCI_ASSOC);
+            oci_free_cursor($cursor);
+            return $resInsertFexava[0]['IDFOTOAVALUO'];
+        }catch (\Throwable $th) {
+            error_log($th);
+            Log::info($th);
+            return 'Error al insertar en la tabla FEXAVA_FOTOCOMPARABLE';
+        }
+    }
     
     public function insertFexavaFotoComparable($arrElementos){
         try{
@@ -401,6 +445,7 @@ class GuardaenBD
 
     public function insertConstruccionesMer($arrElementos,$idAvaluo){
         try {
+            print_r($arrElementos); exit();
             $valNull = NULL;
             $procedure = 'BEGIN
             FEXAVA.FEXAVA_DATOSESTADISTICOS_PKG.FEXAVA_INSERT_CONSTRUCMER_P(
@@ -414,9 +459,9 @@ class GuardaenBD
 
             $conn = oci_connect(env("DB_USERNAME"), env("DB_PASSWORD"), env("DB_TNS"));
             $stmt = oci_parse($conn, $procedure);
-            oci_bind_by_name($stmt, ':PAR_VALORUNITARIOPROMEDIO',$arrElementos['VALORUNITARIOTIERRAPROMEDIO']);
-            oci_bind_by_name($stmt, ':PAR_VALORUNITARIOHOMOLOGADO',$arrElementos['VALORUNITARIOTIERRAHOMOLOGADO']);
-            oci_bind_by_name($stmt, ':PAR_VALORUNITARIOAPLICABLE',$arrElementos['CODTIPOTERRENO']);
+            oci_bind_by_name($stmt, ':PAR_VALORUNITARIOPROMEDIO',$arrElementos['VALORUNITARIOPROMEDIO']);
+            oci_bind_by_name($stmt, ':PAR_VALORUNITARIOHOMOLOGADO',$arrElementos['VALORUNITARIOHOMOLOGADO']);
+            oci_bind_by_name($stmt, ':PAR_VALORUNITARIOAPLICABLE',$arrElementos['VALORUNITARIOAPLICABLE']);
             oci_bind_by_name($stmt, ':PAR_IDMODOCONSTRUCCION',$arrElementos['IDMODOCONSTRUCCION']);        
             oci_bind_by_name($stmt, ':PAR_IDAVALUO',$idAvaluo);   
             $cursor = oci_new_cursor($conn);
