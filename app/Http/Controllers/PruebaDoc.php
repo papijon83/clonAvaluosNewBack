@@ -19,7 +19,8 @@ class PruebaDoc extends Controller
     public function __construct()
     {
         $this->modelDocumentos = new Documentos();
-        $this->modelElementosConstruccion = new ElementosConstruccion();        
+        $this->modelElementosConstruccion = new ElementosConstruccion();
+        $this->modelGuardaenBD = new GuardaenBD();         
     }
 
     public function pruebaInserta(){    
@@ -46,6 +47,39 @@ class PruebaDoc extends Controller
         $claveInstalEsp = 'IE01';
         $resElementosConstruccion = $this->modelElementosConstruccion->obtenerInstEspecialByClave($claveInstalEsp);
         print_r($resElementosConstruccion);
+    }
+
+    public function pruebaRangoEjercicio(){
+        //echo "AQUI SI "; exit();
+        $fecha = '2020-11-13';
+        $codRangoNiveles = 20;
+        $resElementosConstruccion = $this->modelElementosConstruccion->solicitarObtenerIdRangoNivelesByCodeAndAno($fecha,$codRangoNiveles);
+        print_r($resElementosConstruccion);
+    }
+
+    public function pruebaEjecutaProcedure(){
+        $elementos = array('IDINVESTPRODUCTOSCOMPARABLES' => '65445',
+                                    'CALLE' => 'CARLOS RAMIREZ LLACA',
+                                    'CODIGOPOSTAL' => '09280',
+                                    'TELEFONO' => '2455 1166',
+                                    'INFORMANTE' => 'CENTURY 21 AMICI',
+                                    'DESCRIPCION' => 'CASA HABITACION',
+                                    'SUPERFICIEVENDIBLEPORUNIDAD' => '170',
+                                    'PRECIOSOLICITADO' => '850000',
+                                    'IDCONSTRUCCIONESMERCADO' => '497908',
+                                    'IDDELEGACION' => '16',
+                                    'IDCOLONIA' => '1614',
+                                    'REGION' => '001',
+                                    'MANZANA' => '001',
+                                    'LOTE' => '01',
+                                    'UNIDADPRIVATIVA' => '001',
+                                    'CODTIPOCOMPARABLE' => 'V'
+        
+    );
+    $this->modelGuardaenBD->insertFexavaInvestProductosComp($elementos);
+        //$this->modelGuardaenBD->insertFexavaInvestProductosComp('FEXAVA_INVESTPRODUCTOSCOMP',$elementos,497908);
+
+
     }
     
 }

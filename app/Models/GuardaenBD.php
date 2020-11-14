@@ -3,43 +3,448 @@
 namespace App\Models;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Log;
 
 class GuardaenBD
 {
-
+    protected $idTerrenoMercado;
     public function insertAvaluo($arrAvaluo){
-        echo "AQUIIIIIIIIIIIIIIIIIIIIIII 1"; exit();      
-       $arrTablas = array('FEXAVA_DATOSPERSONAS','FEXAVA_FUENTEINFORMACIONLEG','FEXAVA_ESCRITURA','FEXAVA_SUPERFICIE','FEXAVA_TIPOCONSTRUCCION','FEXAVA_ELEMENTOSCONST','FEXAVA_OBRANEGRA','FEXAVA_REVESTIMIENTOACABADO','FEXAVA_CARPINTERIA','FEXAVA_INSTALACIONHIDSAN','FEXAVA_PUERTASYVENTANERIA','FEXAVA_ELEMENTOSEXTRA','FEXAVA_TERRENOMERCADO','FEXAVA_DATOSTERRENOS','FEXAVA_CONSTRUCCIONESMER','FEXAVA_INVESTPRODUCTOSCOMP','FEXAVA_ENFOQUECOSTESCAT','FEXAVA_FOTOAVALUO','FEXAVA_FOTOCOMPARABLE','FEXAVA_INVESTPRODUCTOSCOMP');
-       foreach($arrTablas as $tabla){        
-        if(in_array($tabla,$arrTablas)){            
-            switch ($tabla) {
-                case 'FEXAVA_DATOSPERSONAS':
-                    print_r($arrAvaluo[0]); exit();
-                    foreach($arrAvaluo[$tabla] as $idTabla => $elementosTabla){
-                        if($idTabla != 'CuentaCatastral'){
-                            $this->insertDatos($tabla,$elementosTabla);
-                        }
-                    }
-                break;    
+        //print_r($arrAvaluo); exit();
+        $arrNoTabla = array('IDAVALUO','FECHAAVALUO','VIDRERIA','CERRAJERIA','FACHADAS','CUCODCLASESCONSTRUCCION');
+        $arrFexavaAvaluo = array();
+        foreach($arrAvaluo as $idElementoPrincipal => $arrElementoPrincipal){
+            if(!is_array($arrElementoPrincipal) && !in_array($idElementoPrincipal,$arrNoTabla)){
+                if(stristr($idElementoPrincipal,'FECHA') != ''){
+                    $fechaf = new Carbon($arrElementoPrincipal);
+                    $fecha = $fechaf->format('d/m/y');
+                    $arrFexavaAvaluo[$idElementoPrincipal] = $fecha;
+                }else{
+                    $arrFexavaAvaluo[$idElementoPrincipal] = $arrElementoPrincipal;
+                }
+                
             }
         }
-       }           
+        //print_r($arrFexavaAvaluo); exit();
+        $resInsert = $this->insertDatosFexavaAvaluo('FEXAVA_AVALUO',$arrFexavaAvaluo,$arrAvaluo['IDAVALUO']);
+        if(strpos($resInsert, 'Error') != FALSE){
+            return $resInsert;
+        }
+        //$this->insertDatosFexavaAvaluo($arrAvaluo);
+       // exit();
+              
+       $arrTablas = array('FEXAVA_DATOSPERSONAS','FEXAVA_FUENTEINFORMACIONLEG','FEXAVA_ESCRITURA','FEXAVA_SUPERFICIE','FEXAVA_TIPOCONSTRUCCION','FEXAVA_ELEMENTOSCONST','FEXAVA_TERRENOMERCADO','FEXAVA_DATOSTERRENOS','FEXAVA_CONSTRUCCIONESMER','FEXAVA_ENFOQUECOSTESCAT','FEXAVA_FOTOAVALUO','FEXAVA_FOTOCOMPARABLE');
+       $arrElementosConst = array('FEXAVA_OBRANEGRA','FEXAVA_REVESTIMIENTOACABADO','FEXAVA_CARPINTERIA','FEXAVA_INSTALACIONHIDSAN','FEXAVA_PUERTASYVENTANERIA','FEXAVA_ELEMENTOSEXTRA');
+       foreach($arrTablas as $tabla){        
+                 
+        switch ($tabla) {
+            case 'FEXAVA_DATOSPERSONAS':               
+                if(isset($arrAvaluo[$tabla])){
+                    foreach($arrAvaluo[$tabla] as $idTabla => $elementosTabla){
+                        if($idTabla != 'CuentaCatastral' && $idTabla != 'PROPOSITO' && $idTabla != 'OBJETO'){
+                            $resInsert = $this->insertDatos($tabla,$elementosTabla,$arrAvaluo['IDAVALUO']);
+                            if(strpos($resInsert, 'Error') != FALSE){
+                                return $resInsert;
+                            }
+                        }
+                    }
+                    
+                }                
+            break;
+            
+            case 'FEXAVA_FUENTEINFORMACIONLEG':                
+                if(isset($arrAvaluo[$tabla])){
+                    $fechaf = new Carbon($arrAvaluo[$tabla]['FECHA']);
+                    $fecha = $fechaf->format('d/m/y');
+                    $arrAvaluo[$tabla]['FECHA'] = $fecha;                                          
+                    $resInsert = $this->insertDatos($tabla,$arrAvaluo[$tabla],$arrAvaluo['IDAVALUO']);    
+                }
+            break;
 
+            case 'FEXAVA_ESCRITURA':                
+                if(isset($arrAvaluo[$tabla])){                                           
+                    $resInsert = $this->insertDatos($tabla,$arrAvaluo[$tabla],$arrAvaluo['IDAVALUO']);
+                    if(strpos($resInsert, 'Error') != FALSE){
+                        return $resInsert;
+                    }    
+                }
+            break;
+
+            case 'FEXAVA_TIPOCONSTRUCCION':               
+                if(isset($arrAvaluo[$tabla])){
+                    foreach($arrAvaluo[$tabla] as $idTabla => $elementosTabla){
+                        
+                        $resInsert = $this->insertDatos($tabla,$elementosTabla,$arrAvaluo['IDAVALUO']);
+                        if(strpos($resInsert, 'Error') != FALSE){
+                            return $resInsert;
+                        }
+                        
+                    }
+                    
+                }                
+            break;
+
+            case 'FEXAVA_ELEMENTOSCONST':
+                $elementosTabla = array('VIDRERIA' => $arrAvaluo['VIDRERIA'],'CERRAJERIA' => $arrAvaluo['CERRAJERIA'],'FACHADAS' => $arrAvaluo['FACHADAS']);
+                $resInsert = $this->insertDatos($tabla,$elementosTabla,$arrAvaluo['IDAVALUO']);
+                if(strpos($resInsert, 'Error') != FALSE){
+                    return $resInsert;
+                }
+                
+                foreach($arrAvaluo[$tabla] as $idElementoPrincipal => $arrElementoPrincipal){
+                    if(is_array($arrElementoPrincipal) && in_array($idElementoPrincipal,$arrElementosConst)){
+
+                        if($idElementoPrincipal == 'FEXAVA_ELEMENTOSEXTRA'){
+                            foreach($arrAvaluo[$tabla][$idElementoPrincipal] as $arrElementoExtra){
+                                $resInsert = $this->insertDatosElementosExtra($idElementoPrincipal,$arrElementoExtra,$arrAvaluo['IDAVALUO']);
+                                if(strpos($resInsert, 'Error') != FALSE){
+                                    return $resInsert;
+                                }
+                            }
+                        }else{                            
+                            $resInsert = $this->insertDatos($idElementoPrincipal,$arrElementoPrincipal,$arrAvaluo['IDAVALUO']);
+                            if(strpos($resInsert, 'Error') != FALSE){
+                                return $resInsert;
+                            }   
+                        }    
+                        
+                    }
+                }
+
+            break;
+
+            case 'FEXAVA_TERRENOMERCADO':
+                if(isset($arrAvaluo[$tabla])){
+                    $this->idTerrenoMercado = $this->insertTerrenoMercado($arrAvaluo[$tabla],$arrAvaluo['IDAVALUO']);
+                    if(strpos($this->idTerrenoMercado, 'Error') != FALSE){
+                        return $this->idTerrenoMercado;
+                    }
+                    //$this->insertDatos($tabla,$arrAvaluo[$tabla],$arrAvaluo['IDAVALUO']);    
+                }
+            break;
+
+            case 'FEXAVA_DATOSTERRENOS':
+                if(isset($arrAvaluo[$tabla])){
+                    foreach($arrAvaluo[$tabla] as $idTabla => $elementosTabla){
+                        $elementosTabla['IDTERRENOMERCADO'] = $this->idTerrenoMercado;
+                        $resInsert = $this->insertDatosTerreno($tabla,$elementosTabla,$arrAvaluo['IDAVALUO']);
+                        if(strpos($resInsert, 'Error') != FALSE){
+                            return $resInsert;
+                        }
+                        
+                    }    
+                }
+            break;
+
+            case 'FEXAVA_CONSTRUCCIONESMER':
+                if(isset($arrAvaluo[$tabla])){
+                    $arrElementosConstruccionesMer = array();
+                    foreach($arrAvaluo[$tabla] as $idTabla => $elementosTabla){
+                        if(!is_array($elementosTabla)){
+                            $arrElementosConstruccionesMer[$idTabla] = $elementosTabla;
+                        }
+                        $idconstruccionesmercado = $this->insertConstruccionesMer($arrElementosConstruccionesMer,$arrAvaluo['IDAVALUO']);
+                        if(strpos($idconstruccionesmercado, 'Error') != FALSE){
+                            return $idconstruccionesmercado;
+                        }
+                        //$this->insertDatos($tabla,$elementosTabla,$arrAvaluo['IDAVALUO']);
+                        foreach($elementosTabla['FEXAVA_INVESTPRODUCTOSCOMP'] as $idProducto => $elementosProducto){
+                            $resInsert = $this->insertDatosProductos('FEXAVA_INVESTPRODUCTOSCOMP',$elementosProducto,$idconstruccionesmercado);
+                            if(strpos($resInsert, 'Error') != FALSE){
+                                return $resInsert;
+                            }
+                        }                        
+                    }                    
+                }
+            break;
+            
+            case 'FEXAVA_ENFOQUECOSTESCAT':
+                if(isset($arrAvaluo[$tabla])){                                            
+                    $resInsert = $this->insertDatos($tabla,$arrAvaluo[$tabla],$arrAvaluo['IDAVALUO']);
+                    if(strpos($resInsert, 'Error') != FALSE){
+                        return $resInsert;
+                    }      
+                }
+            break;
+
+            case 'FEXAVA_FOTOAVALUO':
+                if(isset($arrAvaluo[$tabla])){
+                    foreach($arrAvaluo[$tabla] as $idTabla => $elementosTabla){                        
+                        $resInsert = $this->insertDatos($tabla,$elementosTabla,$arrAvaluo['IDAVALUO']);
+                        if(strpos($resInsert, 'Error') != FALSE){
+                            return $resInsert;
+                        }                        
+                    }                    
+                }
+            break;
+
+            case 'FEXAVA_FOTOCOMPARABLE':
+                if(isset($arrAvaluo[$tabla])){ 
+                    $idinvestproductoscomparables = '';                   
+                    foreach($arrAvaluo[$tabla] as $id => $elemento){                                                    
+                        $idinvestproductoscomparables = $this->insertFexavaInvestProductosComp($elemento['FEXAVA_INVESTPRODUCTOSCOMP']);
+                        if(strpos($idinvestproductoscomparables, 'Error') != FALSE){
+                            return $idinvestproductoscomparables;
+                        }                           
+                        $arrFotoComparable = array('IDINVESTPRODUCTOSCOMPARABLES' => $idinvestproductoscomparables,'IDDOCUMENTOFOTO' => $elemento['IDDOCUMENTOFOTO']);
+                        $idFotosComparables = $this->insertFexavaFotoComparable($arrFotoComparable);
+                        if(strpos($idFotosComparables, 'Error') != FALSE){
+                            return $idFotosComparables;
+                        }                           
+                    }                    
+                }
+            break;
+        }
+        
+       }           
+       
     }
 
-    public function insertDatos($tabla,$elementosTabla){
-        echo "AQUIIIIIIIIIIIIIIIIIIIIIII"; exit();
-        $iniQuery = "INSERT INTO ".$tabla."(";
-        $campos = '';
-        $valores = '';
+    public function insertDatos($tabla,$elementosTabla,$idAvaluo){    
+        $iniQuery = "INSERT INTO ".$tabla;
+        $campos = '(IDAVALUO,';
+        $valores = '('.$idAvaluo.",";
         foreach($elementosTabla as $idElemento => $elemento){
             $campos .= $idElemento.",";
             $valores .= "'".$elemento."',";
         }
-        $campos = substr($campos,-1);
-        $valores = substr($valores,-1);
-        $query = $iniQuery.$campos.") VALUES (".$valores.")";
-        echo $query."\n";
+        $campos = substr($campos,0,strlen($campos) - 1);
+        $valores = substr($valores,0,strlen($valores) - 1);
+        $query = $iniQuery.$campos.") VALUES ".$valores.")";
+        //echo $query."\n\n"; 
+        return $this->ejecutaQuery($query,$tabla);
+    }
+
+    
+
+    public function insertDatosFexavaAvaluo($tabla,$elementosTabla,$idAvaluo){    
+        $iniQuery = "INSERT INTO ".$tabla;
+        $campos = '(IDAVALUO,CUIDCLASESEJERCICIO,';
+        $valores = '('.$idAvaluo.",391,";
+        foreach($elementosTabla as $idElemento => $elemento){
+            $campos .= $idElemento.",";
+            $valores .= "'".$elemento."',";
+        }
+        $campos = substr($campos,0,strlen($campos) - 1);
+        $valores = substr($valores,0,strlen($valores) - 1);
+        $query = $iniQuery.$campos.") VALUES ".$valores.")";
+        //echo $query."\n\n"; 
+        return $this->ejecutaQuery($query,$tabla);
+    }
+
+    public function insertDatosElementosExtra($tabla,$elementosTabla,$idAvaluo){
+        $iniQuery = "INSERT INTO ".$tabla;
+        $campos = '(';
+        $valores = '(';
+        foreach($elementosTabla as $idElemento => $elemento){
+            $campos .= $idElemento.",";
+            $valores .= "'".$elemento."',";
+        }
+        $campos = substr($campos,0,strlen($campos) - 1);
+        $valores = substr($valores,0,strlen($valores) - 1);
+        $query = $iniQuery.$campos.") VALUES ".$valores.")";
+        //echo $query."\n\n"; 
+        return $this->ejecutaQuery($query,$tabla);
+    }
+
+    public function insertDatosTerreno($tabla,$elementosTabla,$idAvaluo){
+        $iniQuery = "INSERT INTO ".$tabla;
+        $campos = '(';
+        $valores = '(';
+        foreach($elementosTabla as $idElemento => $elemento){
+            $campos .= $idElemento.",";
+            $valores .= "'".$elemento."',";
+        }
+        $campos = substr($campos,0,strlen($campos) - 1);
+        $valores = substr($valores,0,strlen($valores) - 1);
+        $query = $iniQuery.$campos.") VALUES ".$valores.")";
+        //echo $query."\n\n"; 
+        return $this->ejecutaQuery($query,$tabla);
+    }
+
+    public function insertDatosProductos($tabla,$elementosTabla,$idconstruccionesmercado){
+        $iniQuery = "INSERT INTO ".$tabla;
+        $campos = '(IDCONSTRUCCIONESMERCADO,';
+        $valores = '('.$idconstruccionesmercado.",";
+        foreach($elementosTabla as $idElemento => $elemento){
+            $campos .= $idElemento.",";
+            $valores .= "'".$elemento."',";
+        }
+        $campos = substr($campos,0,strlen($campos) - 1);
+        $valores = substr($valores,0,strlen($valores) - 1);
+        $query = $iniQuery.$campos.") VALUES ".$valores.")";
+        //echo $query."\n\n";
+        return $this->ejecutaQuery($query,$tabla);
+    }
+
+    public function insertFexavaInvestProductosComp($arrElementos){
+        try {            
+            $procedure = 'BEGIN
+            FEXAVA.FEXAVA_DATOSESTADISTICOS_PKG.FEXAVA_INSERT_INVPRODUCCOMP_P(
+                :PAR_CALLE,
+                :PAR_CODIGOPOSTAL,
+                :PAR_TELEFONO,
+                :PAR_INFORMANTE,
+                :PAR_DESCRIPCION,
+                :PAR_SUPERFVENDPORUNID,
+                :PAR_PRECIOSOLICITADO,
+                :PAR_IDCONSTRUCCIONESMERCADO,
+                :PAR_IDDELEGACION,
+                :PAR_IDCOLONIA,
+                :PAR_REGION,
+                :PAR_MANZANA,
+                :PAR_LOTE,
+                :PAR_UNIDADPRIVATIVA,
+                :PAR_CODTIPOCOMPARABLE,
+                :C_AVALUO
+            ); END;';
+
+            $conn = oci_connect(env("DB_USERNAME"), env("DB_PASSWORD"), env("DB_TNS"));
+            $stmt = oci_parse($conn, $procedure);
+            oci_bind_by_name($stmt, ':PAR_CALLE',$arrElementos['calle']);
+            oci_bind_by_name($stmt, ':PAR_CODIGOPOSTAL',$arrElementos['codigopostal']);
+            oci_bind_by_name($stmt, ':PAR_TELEFONO',$arrElementos['telefono']);
+            oci_bind_by_name($stmt, ':PAR_INFORMANTE',$arrElementos['informante']);
+            oci_bind_by_name($stmt, ':PAR_DESCRIPCION',$arrElementos['descripcion']);
+            oci_bind_by_name($stmt, ':PAR_SUPERFVENDPORUNID',$arrElementos['superficievendibleporunidad']);
+            oci_bind_by_name($stmt, ':PAR_PRECIOSOLICITADO',$arrElementos['preciosolicitado']);
+            oci_bind_by_name($stmt, ':PAR_IDCONSTRUCCIONESMERCADO',$arrElementos['idconstruccionesmercado']);
+            oci_bind_by_name($stmt, ':PAR_IDDELEGACION',$arrElementos['iddelegacion']);
+            oci_bind_by_name($stmt, ':PAR_IDCOLONIA',$arrElementos['idcolonia']);        
+            oci_bind_by_name($stmt, ':PAR_REGION',$arrElementos['region']);
+            oci_bind_by_name($stmt, ':PAR_MANZANA',$arrElementos['manzana']);
+            oci_bind_by_name($stmt, ':PAR_LOTE',$arrElementos['lote']);
+            oci_bind_by_name($stmt, ':PAR_UNIDADPRIVATIVA',$arrElementos['unidadprivativa']);
+            oci_bind_by_name($stmt, ':PAR_CODTIPOCOMPARABLE',$arrElementos['codtipocomparable']);     
+            $cursor = oci_new_cursor($conn);
+            oci_bind_by_name($stmt, ":C_AVALUO", $cursor, -1, OCI_B_CURSOR);
+            oci_execute($stmt, OCI_COMMIT_ON_SUCCESS);
+            oci_execute($cursor, OCI_COMMIT_ON_SUCCESS);
+            oci_free_statement($stmt);
+            oci_close($conn);
+            oci_fetch_all($cursor, $resInsertFexava, 0, -1, OCI_FETCHSTATEMENT_BY_ROW + OCI_ASSOC);
+            oci_free_cursor($cursor);
+            //print_r($resInsertFexava); exit();
+            return $resInsertFexava[0]['IDINVESTPRODUCTOSCOMPARABLES'];
+        }catch (\Throwable $th) {
+            error_log($th);
+            Log::info($th);
+            return 'Error al insertar en la tabla insertFexavaInvestProductosComp';
+        }
+    }
+    
+    public function insertFexavaFotoComparable($arrElementos){
+        try{
+            //print_r($arrFexavaAvaluo); exit();
+            //$cursor = null;        
+            $procedure = 'BEGIN
+            FEXAVA.FEXAVA_DATOSESTADISTICOS_PKG.FEXAVA_INSERT_FOTOCOMPARBLE_P(
+                :PAR_IDDOCUMENTOFOTO,
+                :PAR_IDINVESTPRODUCTOSCOMP,
+                :C_AVALUO
+            ); END;';
+
+            $conn = oci_connect(env("DB_USERNAME"), env("DB_PASSWORD"), env("DB_TNS"));
+            $stmt = oci_parse($conn, $procedure);
+            oci_bind_by_name($stmt, ':PAR_IDDOCUMENTOFOTO',$arrElementos['calle']);
+            oci_bind_by_name($stmt, ':PAR_IDINVESTPRODUCTOSCOMP',$arrElementos['codigopostal']);         
+            $cursor = oci_new_cursor($conn);
+            oci_bind_by_name($stmt, ":C_AVALUO", $cursor, -1, OCI_B_CURSOR);
+            oci_execute($stmt, OCI_COMMIT_ON_SUCCESS);
+            oci_execute($cursor, OCI_COMMIT_ON_SUCCESS);
+            oci_free_statement($stmt);
+            oci_close($conn);
+            oci_fetch_all($cursor, $resInsertFexava, 0, -1, OCI_FETCHSTATEMENT_BY_ROW + OCI_ASSOC);
+            oci_free_cursor($cursor);
+            return $resInsertFexava[0]['IDFOTOSCOMPARABLES'];
+        }catch (\Throwable $th) {
+            error_log($th);
+            Log::info($th);
+            return 'Error al insertar en la tabla FEXAVA_FOTOCOMPARABLE';
+        }
+    }
+
+    public function insertTerrenoMercado($arrElementos,$idAvaluo){
+        try{
+            $valNull = null;
+            $procedure = 'BEGIN
+            FEXAVA.FEXAVA_DATOSESTADISTICOS_PKG.FEXAVA_INSERT_TERRENOMERCADO_P(
+                :PAR_VALORUNITARIOTIERRAPROMED,
+                :PAR_VALORUNITARIOTIERRAHOMOL,
+                :PAR_CODTIPOTERRENO,
+                :PAR_VALORUNITARIORESIDUAL,
+                :PAR_IDAVALUO,
+                :C_AVALUO
+            ); END;';
+
+            $conn = oci_connect(env("DB_USERNAME"), env("DB_PASSWORD"), env("DB_TNS"));
+            $stmt = oci_parse($conn, $procedure);
+            oci_bind_by_name($stmt, ':PAR_VALORUNITARIOTIERRAPROMED',$arrElementos['VALORUNITARIOTIERRAPROMEDIO']);
+            oci_bind_by_name($stmt, ':PAR_VALORUNITARIOTIERRAHOMOL',$arrElementos['VALORUNITARIOTIERRAHOMOLOGADO']);
+            oci_bind_by_name($stmt, ':PAR_CODTIPOTERRENO',$arrElementos['CODTIPOTERRENO']);
+            oci_bind_by_name($stmt, ':PAR_VALORUNITARIORESIDUAL',$valNull);        
+            oci_bind_by_name($stmt, ':PAR_IDAVALUO',$idAvaluo);   
+            $cursor = oci_new_cursor($conn);
+            oci_bind_by_name($stmt, ":C_AVALUO", $cursor, -1, OCI_B_CURSOR);
+            oci_execute($stmt, OCI_COMMIT_ON_SUCCESS);
+            oci_execute($cursor, OCI_COMMIT_ON_SUCCESS);
+            oci_free_statement($stmt);
+            oci_close($conn);
+            oci_fetch_all($cursor, $resInsertTerreno, 0, -1, OCI_FETCHSTATEMENT_BY_ROW + OCI_ASSOC);
+            oci_free_cursor($cursor);
+            return $resInsertTerreno[0]['IDTERRENOMERCADO'];
+        }catch (\Throwable $th) {
+            error_log($th);
+            Log::info($th);
+            return 'Error al insertar en la tabla FEXAVA_TERRENOMERCADO';
+        }
+    }
+
+    public function insertConstruccionesMer($arrElementos,$idAvaluo){
+        try {
+            $valNull = null;
+            $procedure = 'BEGIN
+            FEXAVA.FEXAVA_DATOSESTADISTICOS_PKG.FEXAVA_INSERT_CONSTRUCMER_P(
+                :PAR_VALORUNITARIOPROMEDIO,
+                :PAR_VALORUNITARIOHOMOLOGADO,
+                :PAR_VALORUNITARIOAPLICABLE,
+                :PAR_IDMODOCONSTRUCCION,
+                :PAR_IDAVALUO,
+                :C_AVALUO
+            ); END;';
+
+            $conn = oci_connect(env("DB_USERNAME"), env("DB_PASSWORD"), env("DB_TNS"));
+            $stmt = oci_parse($conn, $procedure);
+            oci_bind_by_name($stmt, ':PAR_VALORUNITARIOPROMEDIO',$arrElementos['VALORUNITARIOTIERRAPROMEDIO']);
+            oci_bind_by_name($stmt, ':PAR_VALORUNITARIOHOMOLOGADO',$arrElementos['VALORUNITARIOTIERRAHOMOLOGADO']);
+            oci_bind_by_name($stmt, ':PAR_VALORUNITARIOAPLICABLE',$arrElementos['CODTIPOTERRENO']);
+            oci_bind_by_name($stmt, ':PAR_IDMODOCONSTRUCCION',$valNull);        
+            oci_bind_by_name($stmt, ':PAR_IDAVALUO',$idAvaluo);   
+            $cursor = oci_new_cursor($conn);
+            oci_bind_by_name($stmt, ":C_AVALUO", $cursor, -1, OCI_B_CURSOR);
+            oci_execute($stmt, OCI_COMMIT_ON_SUCCESS);
+            oci_execute($cursor, OCI_COMMIT_ON_SUCCESS);
+            oci_free_statement($stmt);
+            oci_close($conn);
+            oci_fetch_all($cursor, $resInsertConstruccionesMer, 0, -1, OCI_FETCHSTATEMENT_BY_ROW + OCI_ASSOC);
+            oci_free_cursor($cursor);
+            return $resInsertConstruccionesMer[0]['IDCONSTRUCCIONESMERCADO'];
+        }catch (\Throwable $th) {
+            error_log($th);
+            Log::info($th);
+            return 'Error al insertar en la tabla FEXAVA_CONSTRUCCIONESMER';
+        }
+    }
+
+    private function ejecutaQuery($query, $tabla){
+        try{
+            DB::insert($query);
+            return TRUE;
+        }catch (\Throwable $th) {
+            error_log($th);
+            Log::info($th);
+            return 'Error al insertar en la tabla '.$tabla;
+        }
+        
     }
     
 }

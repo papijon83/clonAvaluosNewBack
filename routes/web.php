@@ -30,6 +30,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
             $router->post('guardarAvaluo', 'BandejaEntradaController@guardarAvaluo');
 
             $router->post('pruebaDoc', 'PruebaDoc@pruebaGuardadoDB');
+            $router->get('pruebaEjecuta', 'PruebaDoc@pruebaEjecutaProcedure');
         });
     });
 });
