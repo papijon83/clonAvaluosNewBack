@@ -514,6 +514,8 @@ class BandejaEntradaController extends Controller
         $camposFexavaAvaluo = $this->guardarAvaluoAnexoFotografico($xml, $camposFexavaAvaluo,$elementoPrincipal);
         
         $resInsert = $this->modelGuardaenBD->insertAvaluo($camposFexavaAvaluo);
+
+        return $resInsert;
         if($resInsert == TRUE){
             echo "LA INFO "; print_r($camposFexavaAvaluo); exit();
         }

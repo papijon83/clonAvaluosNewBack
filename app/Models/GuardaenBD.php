@@ -9,6 +9,7 @@ class GuardaenBD
 {
     protected $idTerrenoMercado;
     public function insertAvaluo($arrAvaluo){
+        //return TRUE;
         //print_r($arrAvaluo); exit();
         $arrNoTabla = array('IDAVALUO','FECHAAVALUO','VIDRERIA','CERRAJERIA','FACHADAS','CUCODCLASESCONSTRUCCION');
         $arrFexavaAvaluo = array();
@@ -148,7 +149,7 @@ class GuardaenBD
                             if(strpos($idconstruccionesmercado, 'Error') != FALSE){
                                 return $idconstruccionesmercado;
                             }
-                        
+                        //echo "SOY idconstruccionesmercado ".$idconstruccionesmercado; exit();
                         foreach($elementosTabla as $id => $elementos){
                             if(is_array($elementos)){
                                 $resInsert = $this->insertDatosProductos('FEXAVA_INVESTPRODUCTOSCOMP',$elementos,$idconstruccionesmercado);
@@ -199,7 +200,9 @@ class GuardaenBD
             break; 
         }
         
-       }           
+       }
+       
+       return TRUE;
        
     }
 
@@ -270,18 +273,32 @@ class GuardaenBD
     }
 
     public function insertDatosProductos($tabla,$elementosTabla,$idconstruccionesmercado){
-        $iniQuery = "INSERT INTO ".$tabla;
-        $campos = '(IDCONSTRUCCIONESMERCADO,';
-        $valores = '('.$idconstruccionesmercado.",";
+        /*echo "TABLA ".$tabla."\n";
+        print_r($elementosTabla);
+        echo " idconstruccionesmercado".$idconstruccionesmercado; exit();*/
+        
         foreach($elementosTabla as $idElemento => $elemento){
-            $campos .= $idElemento.",";
-            $valores .= "'".$elemento."',";
+            $iniQuery = "INSERT INTO ".$tabla;
+            $campos = '(IDCONSTRUCCIONESMERCADO,';
+            $valores = '('.$idconstruccionesmercado.",";
+             
+            foreach($elemento as $id => $dato){
+                $campos .= $id.",";
+                $valores .= "'".$dato."',";
+            }
+            $campos = substr($campos,0,strlen($campos) - 1);
+            $valores = substr($valores,0,strlen($valores) - 1);
+            $query = $iniQuery.$campos.") VALUES ".$valores.")";
+            //echo $query."\n\n";
+            $resEjec = $this->ejecutaQuery($query,$tabla);
+
+            if(strpos($resEjec, 'Error') != FALSE){
+                return $resEjec;
+            }
+            
         }
-        $campos = substr($campos,0,strlen($campos) - 1);
-        $valores = substr($valores,0,strlen($valores) - 1);
-        $query = $iniQuery.$campos.") VALUES ".$valores.")";
-        //echo $query."\n\n";
-        return $this->ejecutaQuery($query,$tabla);
+        
+        return TRUE;
     }
 
     public function insertFexavaInvestProductosComp($arrElementos){
