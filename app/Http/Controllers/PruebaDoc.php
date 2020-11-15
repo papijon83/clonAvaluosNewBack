@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Documentos;
 use App\Models\ElementosConstruccion;
+use App\Models\GuardaenBD;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -80,6 +81,12 @@ class PruebaDoc extends Controller
         //$this->modelGuardaenBD->insertFexavaInvestProductosComp('FEXAVA_INVESTPRODUCTOSCOMP',$elementos,497908);
 
 
+    }
+
+    public function pruebaCat(){
+        $arrElementos = array('IDMODOCONSTRUCCION' => 'V','VALORUNITARIOPROMEDIO' => '37286.75','VALORUNITARIOHOMOLOGADO' => '36927.74','VALORUNITARIOAPLICABLE' => '36927.74');
+        $res = $this->modelGuardaenBD->insertConstruccionesMer($arrElementos,16874322);
+        print_r($res);
     }
     
 }

@@ -513,8 +513,11 @@ class BandejaEntradaController extends Controller
         $camposFexavaAvaluo = $this->guardarAvaluoValorReferido($xml, $camposFexavaAvaluo,$elementoPrincipal);
         $camposFexavaAvaluo = $this->guardarAvaluoAnexoFotografico($xml, $camposFexavaAvaluo,$elementoPrincipal);
         
-        $this->modelGuardaenBD->insertAvaluo($camposFexavaAvaluo);
-        echo "LA INFO "; print_r($camposFexavaAvaluo); exit();
+        $resInsert = $this->modelGuardaenBD->insertAvaluo($camposFexavaAvaluo);
+        if($resInsert == TRUE){
+            echo "LA INFO "; print_r($camposFexavaAvaluo); exit();
+        }
+        
         /*$this->doc = new \DOMDocument('1.0', 'utf-8');
         libxml_use_internal_errors(true);    
         $this->doc->loadXML($contents, LIBXML_NOBLANKS);*/
@@ -724,9 +727,10 @@ class BandejaEntradaController extends Controller
 
 
         $arrAntecedentes = $infoXmlAntecedentes->xpath($elementoPrincipal.'//Antecedentes[@id="b"]');
+        
         $datab = array_map("convierte_a_arreglo",$arrAntecedentes);
-        if(isset($datab['RegimenDePropiedad'])){
-            $camposFexavaAvaluo['CODREGIMENPROPIEDAD'];
+        if(isset($datab[0]['RegimenDePropiedad'])){
+            $camposFexavaAvaluo['CODREGIMENPROPIEDAD'] = $datab[0]['RegimenDePropiedad'];
         }
 
         return $camposFexavaAvaluo;
@@ -1995,7 +1999,7 @@ class BandejaEntradaController extends Controller
                     }
     
                     if(isset($arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.4'])){
-                        $camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'][$controlElemento]['CODIGOPOSTAL'] = (String)($arrTerrenosDirectos['arrElementos'][$i][$arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.2']]);
+                        $camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'][$controlElemento]['CODIGOPOSTAL'] = (String)($arrTerrenosDirectos['arrElementos'][$i][$arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.4']]);
                     }
     
                     if(isset($arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.5']) && count($arrTerrenosDirectos['arrElementos'][$i][$arrTerrenosDirectos['arrIds'][$i]['h.1.1.n.5']]) > 0){

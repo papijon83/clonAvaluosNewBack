@@ -118,22 +118,20 @@ class GuardaenBD
                     if(strpos($this->idTerrenoMercado, 'Error') != FALSE){
                         return $this->idTerrenoMercado;
                     }
+                    if(isset($arrAvaluo['FEXAVA_DATOSTERRENOS'])){
+                        foreach($arrAvaluo['FEXAVA_DATOSTERRENOS'] as $idTabla => $elementosTabla){
+                            $elementosTabla['IDTERRENOMERCADO'] = $this->idTerrenoMercado;
+                            $resInsert = $this->insertDatosTerreno('FEXAVA_DATOSTERRENOS',$elementosTabla,$arrAvaluo['IDAVALUO']);
+                            if(strpos($resInsert, 'Error') != FALSE){
+                                return $resInsert;
+                            }
+                            
+                        }
+                    }
+                     
                     //$this->insertDatos($tabla,$arrAvaluo[$tabla],$arrAvaluo['IDAVALUO']);    
                 }
-            break;
-
-            case 'FEXAVA_DATOSTERRENOS':
-                if(isset($arrAvaluo[$tabla])){
-                    foreach($arrAvaluo[$tabla] as $idTabla => $elementosTabla){
-                        $elementosTabla['IDTERRENOMERCADO'] = $this->idTerrenoMercado;
-                        $resInsert = $this->insertDatosTerreno($tabla,$elementosTabla,$arrAvaluo['IDAVALUO']);
-                        if(strpos($resInsert, 'Error') != FALSE){
-                            return $resInsert;
-                        }
-                        
-                    }    
-                }
-            break;
+            break;   
 
             case 'FEXAVA_CONSTRUCCIONESMER':
                 if(isset($arrAvaluo[$tabla])){
@@ -153,25 +151,18 @@ class GuardaenBD
                         
                         foreach($elementosTabla as $id => $elementos){
                             if(is_array($elementos)){
-                                $resInsert = $this->insertDatosProductos('FEXAVA_INVESTPRODUCTOSCOMP',$elementosProducto,$idconstruccionesmercado);
+                                $resInsert = $this->insertDatosProductos('FEXAVA_INVESTPRODUCTOSCOMP',$elementos,$idconstruccionesmercado);
                                 if(strpos($resInsert, 'Error') != FALSE){
                                     return $resInsert;
                                 }
                             }                            
-                        }
-                            //$this->insertDatos($tabla,$elementosTabla,$arrAvaluo['IDAVALUO']);
-                            /*foreach($elementos['FEXAVA_INVESTPRODUCTOSCOMP'] as $idProducto => $elementosProducto){
-                                $resInsert = $this->insertDatosProductos('FEXAVA_INVESTPRODUCTOSCOMP',$elementosProducto,$idconstruccionesmercado);
-                                if(strpos($resInsert, 'Error') != FALSE){
-                                    return $resInsert;
-                                }
-                            }*/
+                        }                            
                     }                    
                 }
             break;
             
             case 'FEXAVA_ENFOQUECOSTESCAT':
-                if(isset($arrAvaluo[$tabla])){                                            
+                if(isset($arrAvaluo[$tabla]) && count($arrAvaluo[$tabla]) > 0){                                            
                     $resInsert = $this->insertDatos($tabla,$arrAvaluo[$tabla],$arrAvaluo['IDAVALUO']);
                     if(strpos($resInsert, 'Error') != FALSE){
                         return $resInsert;
@@ -205,7 +196,7 @@ class GuardaenBD
                         }                           
                     }                    
                 }
-            break;
+            break; 
         }
         
        }           
@@ -223,6 +214,9 @@ class GuardaenBD
         $campos = substr($campos,0,strlen($campos) - 1);
         $valores = substr($valores,0,strlen($valores) - 1);
         $query = $iniQuery.$campos.") VALUES ".$valores.")";
+        /*if($tabla == 'FEXAVA_ELEMENTOSCONST'){
+            echo $query."\n\n"; exit();
+        }*/
         //echo $query."\n\n"; 
         return $this->ejecutaQuery($query,$tabla);
     }
@@ -245,6 +239,7 @@ class GuardaenBD
     }
 
     public function insertDatosElementosExtra($tabla,$elementosTabla,$idAvaluo){
+        //print_r($elementosTabla); exit();
         $iniQuery = "INSERT INTO ".$tabla;
         $campos = '(';
         $valores = '(';
@@ -407,7 +402,7 @@ class GuardaenBD
         }
     }
 
-    public function insertTerrenoMercado($arrElementos,$idAvaluo){
+    /*public function insertTerrenoMercado($arrElementos,$idAvaluo){
         try{
             $valNull = NULL;
             $procedure = 'BEGIN
@@ -439,13 +434,63 @@ class GuardaenBD
         }catch (\Throwable $th) {
             error_log($th);
             Log::info($th);
+            return $th;
+            return 'Error al insertar en la tabla FEXAVA_TERRENOMERCADO';
+        }
+    }*/
+    
+    public function insertTerrenoMercado($elementosTabla,$idAvaluo){
+        try{
+            $elementosTabla['IDAVALUO'] = $idAvaluo;
+            if(isset($arrElementos['VALORUNITARIORESIDUAL'])){
+
+            }else{
+                $elementosTabla['VALORUNITARIORESIDUAL'] = 'NULL';
+            }
+            $iniQuery = "INSERT INTO FEXAVA_TERRENOMERCADO";
+            $campos = '(';
+            $valores = '(';
+            foreach($elementosTabla as $idElemento => $elemento){
+                $campos .= $idElemento.",";
+                if($elemento == 'NULL'){
+                    $valores .= $elemento.","; 
+                }else{
+                    $valores .= "'".$elemento."',";
+                }
+                
+            }
+            $campos = substr($campos,0,strlen($campos) - 1);
+            $valores = substr($valores,0,strlen($valores) - 1);
+            $query = $iniQuery.$campos.") VALUES ".$valores.")";
+            //echo $query."\n\n"; 
+            $resInsert = $this->ejecutaQuery($query,'FEXAVA_TERRENOMERCADO');
+
+            if(strpos($resInsert, 'Error') != FALSE){
+                return $resInsert;
+            }else{
+                if($elementosTabla['VALORUNITARIORESIDUAL'] == 'NULL'){
+                    //echo "SELECT IDTERRENOMERCADO  FROM FEXAVA_TERRENOMERCADO WHERE VALORUNITARIOTIERRAPROMEDIO = '".$elementosTabla['VALORUNITARIOTIERRAPROMEDIO']."' AND VALORUNITARIOTIERRAHOMOLOGADO = '".$elementosTabla['VALORUNITARIOTIERRAHOMOLOGADO']."' AND CODTIPOTERRENO = '".$elementosTabla['CODTIPOTERRENO']."' AND VALORUNITARIORESIDUAL IS NULL AND IDAVALUO = $idAvaluo";
+                    $resTerrenoMercado =  DB::select("SELECT IDTERRENOMERCADO  FROM FEXAVA_TERRENOMERCADO WHERE VALORUNITARIOTIERRAPROMEDIO = '".$elementosTabla['VALORUNITARIOTIERRAPROMEDIO']."' AND VALORUNITARIOTIERRAHOMOLOGADO = '".$elementosTabla['VALORUNITARIOTIERRAHOMOLOGADO']."' AND CODTIPOTERRENO = '".$elementosTabla['CODTIPOTERRENO']."' AND VALORUNITARIORESIDUAL IS NULL AND IDAVALUO = $idAvaluo"); 
+                }else{
+                    $resTerrenoMercado = DB::select("SELECT IDTERRENOMERCADO  FROM FEXAVA_TERRENOMERCADO WHERE VALORUNITARIOTIERRAPROMEDIO = '".$elementosTabla['VALORUNITARIOTIERRAPROMEDIO']."' AND VALORUNITARIOTIERRAHOMOLOGADO = '".$elementosTabla['VALORUNITARIOTIERRAHOMOLOGADO']."' AND CODTIPOTERRENO = '".$elementosTabla['CODTIPOTERRENO']."' AND VALORUNITARIORESIDUAL = '".$elementosTabla['VALORUNITARIORESIDUAL']."' AND IDAVALUO = $idAvaluo"); 
+                }
+                return $resTerrenoMercado[0]->idterrenomercado; 
+                
+            }
+
+        }catch (\Throwable $th) {
+            error_log($th);
+            Log::info($th);
+            
+            //return $th;
             return 'Error al insertar en la tabla FEXAVA_TERRENOMERCADO';
         }
     }
 
-    public function insertConstruccionesMer($arrElementos,$idAvaluo){
-        try {
-            print_r($arrElementos); exit();
+    
+
+    /*public function insertConstruccionesMer($arrElementos,$idAvaluo){
+        try {            
             $valNull = NULL;
             $procedure = 'BEGIN
             FEXAVA.FEXAVA_DATOSESTADISTICOS_PKG.FEXAVA_INSERT_CONSTRUCMER_P(
@@ -475,8 +520,44 @@ class GuardaenBD
             return $resInsertConstruccionesMer[0]['IDCONSTRUCCIONESMERCADO'];
         }catch (\Throwable $th) {
             error_log($th);
-            Log::info($th);
+            Log::info($th);            
             return 'Error al insertar en la tabla FEXAVA_CONSTRUCCIONESMER';
+        }
+    }*/
+
+    public function insertConstruccionesMer($elementosTabla,$idAvaluo){
+        try{
+            //print_r($elementosTabla);
+            $elementosTabla['IDAVALUO'] = $idAvaluo;
+            
+            $iniQuery = "INSERT INTO FEXAVA_CONSTRUCCIONESMER";
+            $campos = '(';
+            $valores = '(';
+            foreach($elementosTabla as $idElemento => $elemento){
+                $campos .= $idElemento.",";                
+                $valores .= "'".$elemento."',";    
+            }
+            $campos = substr($campos,0,strlen($campos) - 1);
+            $valores = substr($valores,0,strlen($valores) - 1);
+            $query = $iniQuery.$campos.") VALUES ".$valores.")";
+            //echo $query."\n\n"; 
+            $resInsert = $this->ejecutaQuery($query,'FEXAVA_CONSTRUCCIONESMER');
+
+            if(strpos($resInsert, 'Error') != FALSE){
+                return $resInsert;
+            }else{
+                //echo "SELECT IDCONSTRUCCIONESMERCADO  FROM FEXAVA_CONSTRUCCIONESMER WHERE VALORUNITARIOPROMEDIO = '".$elementosTabla['VALORUNITARIOPROMEDIO']."' AND VALORUNITARIOHOMOLOGADO = '".$elementosTabla['VALORUNITARIOHOMOLOGADO']."' AND VALORUNITARIOAPLICABLE = '".$elementosTabla['VALORUNITARIOAPLICABLE']."' AND IDMODOCONSTRUCCION = '".$elementosTabla['IDMODOCONSTRUCCION']."' AND IDAVALUO = $idAvaluo";                
+                $resConstruccionMer = DB::select("SELECT IDCONSTRUCCIONESMERCADO  FROM FEXAVA_CONSTRUCCIONESMER WHERE VALORUNITARIOPROMEDIO = '".$elementosTabla['VALORUNITARIOPROMEDIO']."' AND VALORUNITARIOHOMOLOGADO = '".$elementosTabla['VALORUNITARIOHOMOLOGADO']."' AND VALORUNITARIOAPLICABLE = '".$elementosTabla['VALORUNITARIOAPLICABLE']."' AND IDMODOCONSTRUCCION = '".$elementosTabla['IDMODOCONSTRUCCION']."' AND IDAVALUO = $idAvaluo");                 
+                //print_r($resConstruccionMer); exit();
+                return $resConstruccionMer[0]->idconstruccionesmercado;                
+            }
+
+        }catch (\Throwable $th) {
+            error_log($th);
+            Log::info($th);
+            
+            //return $th;
+            return 'Error al insertar en la tabla FEXAVA_TERRENOMERCADO';
         }
     }
 
@@ -491,6 +572,18 @@ class GuardaenBD
             return 'Error al insertar en la tabla '.$tabla;
         }
         
+    }
+
+    public function pruebaCat(){
+        $conn = oci_connect(env("DB_USERNAME_CAS"), env("DB_PASSWORD"), env("DB_TNS"));        
+        $sqlcadena = oci_parse($conn, "SELECT * FROM CAS.CAS_CATINSTESPECIALES WHERE CODINSTESPECIALES = '30'");
+        oci_execute($sqlcadena);
+
+        $fila = oci_fetch_array($sqlcadena, OCI_ASSOC+OCI_RETURN_NULLS);
+        oci_free_statement($sqlcadena);
+        oci_close($conn);
+        print_r($fila); exit();
+        return $fila;
     }
     
 }
