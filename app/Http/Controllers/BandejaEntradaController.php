@@ -463,12 +463,14 @@ class BandejaEntradaController extends Controller
     }
 
     function guardarAvaluo(Request $request){
+
+        //print_r($request->idPersona); exit();
         $this->modelPeritoSociedad = new PeritoSociedad();
         $this->modelDatosExtrasAvaluo = new DatosExtrasAvaluo();
         $this->modelDocumentos = new Documentos();
         $this->modelElementosConstruccion = new ElementosConstruccion();
         $this->modelGuardaenBD = new GuardaenBD();
-        $idPersona = 318;
+        $idPersona = $request->idPersona;
         $file = $request->file('files');
         $contents = $this->descomprimirCualquierFormato($file);        
         $xml = new \SimpleXMLElement($contents);        
@@ -516,9 +518,9 @@ class BandejaEntradaController extends Controller
         $resInsert = $this->modelGuardaenBD->insertAvaluo($camposFexavaAvaluo);
 
         return $resInsert;
-        if($resInsert == TRUE){
+        /*if($resInsert == TRUE){
             echo "LA INFO "; print_r($camposFexavaAvaluo); exit();
-        }
+        }*/
         
         /*$this->doc = new \DOMDocument('1.0', 'utf-8');
         libxml_use_internal_errors(true);    
