@@ -174,7 +174,7 @@ class GuardaenBD
             case 'FEXAVA_FOTOAVALUO':
                 if(isset($arrAvaluo[$tabla])){
                     foreach($arrAvaluo[$tabla] as $idTabla => $elementosTabla){                        
-                        $resInsert = $this->insertFexavaFotoAvaluo($tabla,$elementosTabla,$arrAvaluo['IDAVALUO']);
+                        $resInsert = $this->insertFexavaFotoAvaluo($elementosTabla,$arrAvaluo['IDAVALUO']);
                         if(strpos($resInsert, 'Error') != FALSE){
                             return $resInsert;
                         }                        
@@ -302,6 +302,7 @@ class GuardaenBD
     }
 
     public function insertFexavaInvestProductosComp($arrElementos){
+        //print_r($arrElementos['calle']); exit();
         try {            
             $procedure = 'BEGIN
             FEXAVA.FEXAVA_DATOSESTADISTICOS_PKG.FEXAVA_INSERT_INVPRODUCCOMP_P(
@@ -325,21 +326,21 @@ class GuardaenBD
 
             $conn = oci_connect(env("DB_USERNAME"), env("DB_PASSWORD"), env("DB_TNS"));
             $stmt = oci_parse($conn, $procedure);
-            oci_bind_by_name($stmt, ':PAR_CALLE',$arrElementos['calle']);
-            oci_bind_by_name($stmt, ':PAR_CODIGOPOSTAL',$arrElementos['codigopostal']);
-            oci_bind_by_name($stmt, ':PAR_TELEFONO',$arrElementos['telefono']);
-            oci_bind_by_name($stmt, ':PAR_INFORMANTE',$arrElementos['informante']);
-            oci_bind_by_name($stmt, ':PAR_DESCRIPCION',$arrElementos['descripcion']);
-            oci_bind_by_name($stmt, ':PAR_SUPERFVENDPORUNID',$arrElementos['superficievendibleporunidad']);
-            oci_bind_by_name($stmt, ':PAR_PRECIOSOLICITADO',$arrElementos['preciosolicitado']);
-            oci_bind_by_name($stmt, ':PAR_IDCONSTRUCCIONESMERCADO',$arrElementos['idconstruccionesmercado']);
-            oci_bind_by_name($stmt, ':PAR_IDDELEGACION',$arrElementos['iddelegacion']);
-            oci_bind_by_name($stmt, ':PAR_IDCOLONIA',$arrElementos['idcolonia']);        
-            oci_bind_by_name($stmt, ':PAR_REGION',$arrElementos['region']);
-            oci_bind_by_name($stmt, ':PAR_MANZANA',$arrElementos['manzana']);
-            oci_bind_by_name($stmt, ':PAR_LOTE',$arrElementos['lote']);
-            oci_bind_by_name($stmt, ':PAR_UNIDADPRIVATIVA',$arrElementos['unidadprivativa']);
-            oci_bind_by_name($stmt, ':PAR_CODTIPOCOMPARABLE',$arrElementos['codtipocomparable']);     
+            oci_bind_by_name($stmt, ':PAR_CALLE',$arrElementos->calle);
+            oci_bind_by_name($stmt, ':PAR_CODIGOPOSTAL',$arrElementos->codigopostal);
+            oci_bind_by_name($stmt, ':PAR_TELEFONO',$arrElementos->telefono);
+            oci_bind_by_name($stmt, ':PAR_INFORMANTE',$arrElementos->informante);
+            oci_bind_by_name($stmt, ':PAR_DESCRIPCION',$arrElementos->descripcion);
+            oci_bind_by_name($stmt, ':PAR_SUPERFVENDPORUNID',$arrElementos->superficievendibleporunidad);
+            oci_bind_by_name($stmt, ':PAR_PRECIOSOLICITADO',$arrElementos->preciosolicitado);
+            oci_bind_by_name($stmt, ':PAR_IDCONSTRUCCIONESMERCADO',$arrElementos->idconstruccionesmercado);
+            oci_bind_by_name($stmt, ':PAR_IDDELEGACION',$arrElementos->iddelegacion);
+            oci_bind_by_name($stmt, ':PAR_IDCOLONIA',$arrElementos->idcolonia);        
+            oci_bind_by_name($stmt, ':PAR_REGION',$arrElementos->region);
+            oci_bind_by_name($stmt, ':PAR_MANZANA',$arrElementos->manzana);
+            oci_bind_by_name($stmt, ':PAR_LOTE',$arrElementos->lote);
+            oci_bind_by_name($stmt, ':PAR_UNIDADPRIVATIVA',$arrElementos->unidadprivativa);
+            oci_bind_by_name($stmt, ':PAR_CODTIPOCOMPARABLE',$arrElementos->codtipocomparable);     
             $cursor = oci_new_cursor($conn);
             oci_bind_by_name($stmt, ":C_AVALUO", $cursor, -1, OCI_B_CURSOR);
             oci_execute($stmt, OCI_COMMIT_ON_SUCCESS);
@@ -359,7 +360,7 @@ class GuardaenBD
 
     public function insertFexavaFotoAvaluo($arrElementos,$idAvaluo){
         try{
-            //print_r($arrFexavaAvaluo); exit();
+            //print_r($arrElementos); exit();
             //$cursor = null;        
             $procedure = 'BEGIN
             FEXAVA.FEXAVA_DATOSESTADISTICOS_PKG.FEXAVA_INSERT_FOTOAVALUO_P(
@@ -370,7 +371,7 @@ class GuardaenBD
 
             $conn = oci_connect(env("DB_USERNAME"), env("DB_PASSWORD"), env("DB_TNS"));
             $stmt = oci_parse($conn, $procedure);
-            oci_bind_by_name($stmt, ':PAR_IDDOCUMENTOFOTO',$arrElementos['calle']);
+            oci_bind_by_name($stmt, ':PAR_IDDOCUMENTOFOTO',$arrElementos['IDDOCUMENTOFOTO']);
             oci_bind_by_name($stmt, ':PAR_IDAVALUO',$idAvaluo);         
             $cursor = oci_new_cursor($conn);
             oci_bind_by_name($stmt, ":C_AVALUO", $cursor, -1, OCI_B_CURSOR);
@@ -401,8 +402,8 @@ class GuardaenBD
 
             $conn = oci_connect(env("DB_USERNAME"), env("DB_PASSWORD"), env("DB_TNS"));
             $stmt = oci_parse($conn, $procedure);
-            oci_bind_by_name($stmt, ':PAR_IDDOCUMENTOFOTO',$arrElementos['calle']);
-            oci_bind_by_name($stmt, ':PAR_IDINVESTPRODUCTOSCOMP',$arrElementos['codigopostal']);         
+            oci_bind_by_name($stmt, ':PAR_IDDOCUMENTOFOTO',$arrElementos['IDDOCUMENTOFOTO']);
+            oci_bind_by_name($stmt, ':PAR_IDINVESTPRODUCTOSCOMP',$arrElementos['IDINVESTPRODUCTOSCOMPARABLES']);         
             $cursor = oci_new_cursor($conn);
             oci_bind_by_name($stmt, ":C_AVALUO", $cursor, -1, OCI_B_CURSOR);
             oci_execute($stmt, OCI_COMMIT_ON_SUCCESS);

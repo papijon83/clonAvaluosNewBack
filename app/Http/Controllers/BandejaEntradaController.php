@@ -473,7 +473,8 @@ class BandejaEntradaController extends Controller
         $idPersona = $request->idPersona;
         $file = $request->file('files');
         $contents = $this->descomprimirCualquierFormato($file);        
-        $xml = new \SimpleXMLElement($contents);        
+        $xml = new \SimpleXMLElement($contents);
+        //print_r($xml);    exit();    
         $elementoFecha = $xml->xpath('//Comercial//Identificacion//FechaAvaluo[@id="a.2"]');
         $fechaAvaluo = $elementoFecha[0];
 
@@ -514,17 +515,20 @@ class BandejaEntradaController extends Controller
         $camposFexavaAvaluo = $this->guardarAvaluoResumenConclusionAvaluo($xml, $camposFexavaAvaluo,$elementoPrincipal);
         $camposFexavaAvaluo = $this->guardarAvaluoValorReferido($xml, $camposFexavaAvaluo,$elementoPrincipal);
         $camposFexavaAvaluo = $this->guardarAvaluoAnexoFotografico($xml, $camposFexavaAvaluo,$elementoPrincipal);
+        //echo "LA INFO "; print_r($camposFexavaAvaluo); exit();
         
         $resInsert = $this->modelGuardaenBD->insertAvaluo($camposFexavaAvaluo);
-
-        return $resInsert;
-        /*if($resInsert == TRUE){
-            echo "LA INFO "; print_r($camposFexavaAvaluo); exit();
-        }*/
+       
+        /*return $resInsert; 
+        exit();  */
         
-        /*$this->doc = new \DOMDocument('1.0', 'utf-8');
-        libxml_use_internal_errors(true);    
-        $this->doc->loadXML($contents, LIBXML_NOBLANKS);*/
+        
+        if($resInsert == TRUE){
+            return response()->json(['Estado' => $resInsert,'idAvaluo' => $camposFexavaAvaluo['IDAVALUO']], 200);
+        }else{
+            return response()->json(['mensaje' => $resInsert], 500);
+        }
+        
     }
 
     public function camposFexAva()
@@ -2525,22 +2529,24 @@ class BandejaEntradaController extends Controller
         /// <param name="valorReferido">Elemento xml con los datos del valor referido del avaluo.</param>
     public function guardarAvaluoValorReferido($xmlValorReferido, $camposFexavaAvaluo, $elementoPrincipal){
         $valorReferido = $xmlValorReferido->xpath($elementoPrincipal.'//ValorReferido[@id="p"]');
-
-        $errores = valida_AvaluoValorReferido($valorReferido, $elementoPrincipal);    
+        if(count($valorReferido) > 0){
+            $errores = valida_AvaluoValorReferido($valorReferido, $elementoPrincipal);    
             if(count($errores) > 0){
                 return array('ERROR' => $errores);
             }
 
-        $arrValorReferido = $this->obtenElementosPrincipal($valorReferido);
+            $arrValorReferido = $this->obtenElementosPrincipal($valorReferido);
 
-        if(isset($arrValorReferido['arrIds']['p.1'])){
-            $camposFexavaAvaluo['FECHAVALORREFERIDO'] = (String)($arrValorReferido['arrElementos'][$arrValorReferido['arrIds']['p.1']]);
+            if(isset($arrValorReferido['arrIds']['p.1'])){
+                $camposFexavaAvaluo['FECHAVALORREFERIDO'] = (String)($arrValorReferido['arrElementos'][$arrValorReferido['arrIds']['p.1']]);
+            }
+            if(isset($arrValorReferido['arrIds']['p.2'])){
+                $camposFexavaAvaluo['VALORREFERIDO'] = (String)($arrValorReferido['arrElementos'][$arrValorReferido['arrIds']['p.2']]);
+            }
+            
         }
-        if(isset($arrValorReferido['arrIds']['p.2'])){
-            $camposFexavaAvaluo['VALORREFERIDO'] = (String)($arrValorReferido['arrElementos'][$arrValorReferido['arrIds']['p.2']]);
-        }
-
         return $camposFexavaAvaluo;
+        
     }
 
     /// <summary>
