@@ -326,7 +326,6 @@ class BandejaEntradaController extends Controller
     function descomprimirCualquierFormato($archivo){
         //var_dump($request);
         //$archivo = $request->file('files');        
-        
         if($this->validarTamanioFichero(filesize($archivo)) == FALSE){
             $res = response()->json(['mensaje' => 'El tamaño del fichero es muy grande.'], 500);
             return $res;
@@ -463,7 +462,7 @@ class BandejaEntradaController extends Controller
     }
 
     function guardarAvaluo(Request $request){
-
+        try{
         //print_r($request->idPersona); exit();
         $this->modelPeritoSociedad = new PeritoSociedad();
         $this->modelDatosExtrasAvaluo = new DatosExtrasAvaluo();
@@ -472,6 +471,7 @@ class BandejaEntradaController extends Controller
         $this->modelGuardaenBD = new GuardaenBD();
         $idPersona = $request->idPersona;
         $file = $request->file('files');
+        
         $contents = $this->descomprimirCualquierFormato($file);        
         $xml = new \SimpleXMLElement($contents);
         //print_r($xml);    exit();    
@@ -527,6 +527,11 @@ class BandejaEntradaController extends Controller
             return response()->json(['Estado' => $resInsert,'idAvaluo' => $camposFexavaAvaluo['IDAVALUO']], 200);
         }else{
             return response()->json(['mensaje' => $resInsert], 500);
+        }
+        } catch (\Throwable $th) {
+            //Log::info($th);
+            error_log($th);
+            return response()->json(['mensaje' => 'Error en el servidor'], 500);
         }
         
     }
