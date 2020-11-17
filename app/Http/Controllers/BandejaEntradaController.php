@@ -486,7 +486,7 @@ class BandejaEntradaController extends Controller
         }else{
             $esComercial = false;
             $tipoTramite = 2;
-            $elementoPrincipal = '//Comercial';            
+            $elementoPrincipal = '//Catastral';            
         }
         //$camposFexavaAvaluo = $this->camposFexAva();
         $camposFexavaAvaluo = array();
