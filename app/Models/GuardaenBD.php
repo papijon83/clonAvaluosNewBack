@@ -55,7 +55,7 @@ class GuardaenBD
             case 'FEXAVA_FUENTEINFORMACIONLEG':                
                 if(isset($arrAvaluo[$tabla])){
                     $fechaf = new Carbon($arrAvaluo[$tabla]['FECHA']);
-                    $fecha = $fechaf->format('d/m/y');
+                    $fecha = $fechaf->format('y/m/d');
                     $arrAvaluo[$tabla]['FECHA'] = $fecha;                                          
                     $resInsert = $this->insertDatos($tabla,$arrAvaluo[$tabla],$arrAvaluo['IDAVALUO']);    
                 }
