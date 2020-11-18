@@ -17,7 +17,7 @@ class GuardaenBD
             if(!is_array($arrElementoPrincipal) && !in_array($idElementoPrincipal,$arrNoTabla)){
                 if(stristr($idElementoPrincipal,'FECHA') != ''){
                     $fechaf = new Carbon($arrElementoPrincipal);
-                    $fecha = $fechaf->format('y/m/d');
+                    $fecha = $fechaf->format('Y/m/d');
                     $arrFexavaAvaluo[$idElementoPrincipal] = $fecha;
                 }else{
                     $arrFexavaAvaluo[$idElementoPrincipal] = $arrElementoPrincipal;
@@ -55,7 +55,7 @@ class GuardaenBD
             case 'FEXAVA_FUENTEINFORMACIONLEG':                
                 if(isset($arrAvaluo[$tabla])){
                     $fechaf = new Carbon($arrAvaluo[$tabla]['FECHA']);
-                    $fecha = $fechaf->format('y/m/d');
+                    $fecha = $fechaf->format('Y/m/d');
                     $arrAvaluo[$tabla]['FECHA'] = $fecha;                                          
                     $resInsert = $this->insertDatos($tabla,$arrAvaluo[$tabla],$arrAvaluo['IDAVALUO']);    
                 }
