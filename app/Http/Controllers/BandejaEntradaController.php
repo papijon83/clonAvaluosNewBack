@@ -473,7 +473,8 @@ class BandejaEntradaController extends Controller
         $file = $request->file('files');
         
         $contents = $this->descomprimirCualquierFormato($file);        
-        $xml = new \SimpleXMLElement($contents);
+        //$xml = new \SimpleXMLElement($contents);
+        $xml = simplexml_load_string($contents,'SimpleXMLElement', LIBXML_NOCDATA);
         //print_r($xml);    exit();    
         $elementoFecha = $xml->xpath('//Comercial//Identificacion//FechaAvaluo[@id="a.2"]');
         $fechaAvaluo = $elementoFecha[0];
