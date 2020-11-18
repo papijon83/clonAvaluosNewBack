@@ -10,6 +10,7 @@ use App\Models\GuardaenBD;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Log;
 
 class BandejaEntradaController extends Controller
 {
@@ -530,7 +531,7 @@ class BandejaEntradaController extends Controller
             return response()->json(['mensaje' => $resInsert], 500);
         }
         } catch (\Throwable $th) {
-            //Log::info($th);
+            Log::info($th);
             error_log($th);
             return response()->json(['mensaje' => 'Error en el servidor'], 500);
         }
