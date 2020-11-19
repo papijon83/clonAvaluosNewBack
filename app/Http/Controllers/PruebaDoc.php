@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Documentos;
 use App\Models\ElementosConstruccion;
 use App\Models\GuardaenBD;
+use App\Models\Reimpresion;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -21,7 +22,8 @@ class PruebaDoc extends Controller
     {
         $this->modelDocumentos = new Documentos();
         $this->modelElementosConstruccion = new ElementosConstruccion();
-        $this->modelGuardaenBD = new GuardaenBD();         
+        $this->modelGuardaenBD = new GuardaenBD();
+        $this->modelReimpresion = new Reimpresion();       
     }
 
     public function pruebaInserta(){    
@@ -87,6 +89,12 @@ class PruebaDoc extends Controller
         $arrElementos = array('IDMODOCONSTRUCCION' => 'V','VALORUNITARIOPROMEDIO' => '37286.75','VALORUNITARIOHOMOLOGADO' => '36927.74','VALORUNITARIOAPLICABLE' => '36927.74');
         $res = $this->modelGuardaenBD->insertConstruccionesMer($arrElementos,16874322);
         print_r($res);
+    }
+
+    public function pruebaInfoAcuse(){
+        
+        $infoAcuse = $this->modelReimpresion->infoAcuse(16876750);
+        print_r($infoAcuse);
     }
     
 }
