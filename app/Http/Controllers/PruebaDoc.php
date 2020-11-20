@@ -93,7 +93,7 @@ class PruebaDoc extends Controller
 
     public function pruebaInfoAcuse(){
         
-        $infoAcuse = $this->modelReimpresion->infoAcuse(16876750);
+        $infoAcuse = $this->modelReimpresion->infoAvaluo(16876750);
         print_r($infoAcuse);
     }
     
