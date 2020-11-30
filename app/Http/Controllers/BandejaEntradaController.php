@@ -436,23 +436,60 @@ class BandejaEntradaController extends Controller
 
         $infoXmlIdentificacion = $xml->xpath($elementoPrincipal.'//Identificacion[@id="a"]');
         $camposFexavaAvaluo = $this->guardarAvaluoIdentificacion($infoXmlIdentificacion, $camposFexavaAvaluo, $idPersona,$elementoPrincipal);
+        if(isset($camposFexavaAvaluo['ERROR'])){
+            return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
+        }
         $camposFexavaAvaluo['FEXAVA_DATOSPERSONAS'] = array();
         $camposFexavaAvaluo = $this->guardarAvaluoAntecedentes($xml, $camposFexavaAvaluo,$elementoPrincipal);
+        if(isset($camposFexavaAvaluo['ERROR'])){
+            return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
+        }
         //$camposFexavaAvaluo['CaracteristicasUrbanas'] = array();
         $camposFexavaAvaluo = $this->guardarAvaluoCaracteristicasUrbanas($xml, $camposFexavaAvaluo,$elementoPrincipal);
+        if(isset($camposFexavaAvaluo['ERROR'])){
+            return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
+        }
         $camposFexavaAvaluo['IDAVALUO'] = 0;
         $camposFexavaAvaluo = $this->guardarAvaluoTerreno($xml, $camposFexavaAvaluo,$elementoPrincipal);
-
+        if(isset($camposFexavaAvaluo['ERROR'])){
+            return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
+        }
         $camposFexavaAvaluo = $this->guardarAvaluoDescripcionImueble($xml, $camposFexavaAvaluo,$elementoPrincipal);
-        
+        if(isset($camposFexavaAvaluo['ERROR'])){
+            return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
+        }
         $camposFexavaAvaluo = $this->guardarAvaluoElementosConstruccion($xml, $camposFexavaAvaluo,$elementoPrincipal);
+        if(isset($camposFexavaAvaluo['ERROR'])){
+            return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
+        }
         $camposFexavaAvaluo = $this->guardarAvaluoEnfoqueMercado($xml, $camposFexavaAvaluo,$elementoPrincipal);
+        if(isset($camposFexavaAvaluo['ERROR'])){
+            return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
+        }
         $camposFexavaAvaluo = $this->guardarAvaluoEnfoqueCostosComercial($xml, $camposFexavaAvaluo,$elementoPrincipal);
+        if(isset($camposFexavaAvaluo['ERROR'])){
+            return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
+        }
         $camposFexavaAvaluo = $this->guardarAvaluoEnfoqueCostosCatastral($xml, $camposFexavaAvaluo,$elementoPrincipal);
+        if(isset($camposFexavaAvaluo['ERROR'])){
+            return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
+        }
         $camposFexavaAvaluo = $this->guardarAvaluoEnfoqueIngresos($xml, $camposFexavaAvaluo,$elementoPrincipal);
+        if(isset($camposFexavaAvaluo['ERROR'])){
+            return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
+        }
         $camposFexavaAvaluo = $this->guardarAvaluoResumenConclusionAvaluo($xml, $camposFexavaAvaluo,$elementoPrincipal);
+        if(isset($camposFexavaAvaluo['ERROR'])){
+            return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
+        }
         $camposFexavaAvaluo = $this->guardarAvaluoValorReferido($xml, $camposFexavaAvaluo,$elementoPrincipal);
+        if(isset($camposFexavaAvaluo['ERROR'])){
+            return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
+        }
         $camposFexavaAvaluo = $this->guardarAvaluoAnexoFotografico($xml, $camposFexavaAvaluo,$elementoPrincipal);
+        if(isset($camposFexavaAvaluo['ERROR'])){
+            return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
+        }
         //echo "LA INFO "; print_r($camposFexavaAvaluo); exit();
         
         $resInsert = $this->modelGuardaenBD->insertAvaluo($camposFexavaAvaluo);
