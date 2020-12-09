@@ -793,7 +793,7 @@ function val_decimal_positivo_tipo($valor, $tipo){
                     return "contiene un valor mayor a 999";
                 }else{
                     if($valor < 0.6){
-                        return "contiene un valor mayor a 0.6";
+                        return "contiene un valor menor a 0.6";
                     }else{
                         return $estado;
                     }                    
