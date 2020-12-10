@@ -506,7 +506,7 @@ class BandejaEntradaController extends Controller
         } catch (\Throwable $th) {
             Log::info($th);
             error_log($th);
-            return response()->json(['mensaje' => 'Error en el servidor'], 500);
+            return response()->json(['mensaje' => 'Error en el servidor al guardar'], 500);
         }
         
     }
