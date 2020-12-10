@@ -400,7 +400,7 @@ class BandejaEntradaController extends Controller
 
     function guardarAvaluo(Request $request){
         //try{
-            //print_r($request->idPersona); exit();
+            return response()->json(['mensaje' => 'Inicio'], 500); //print_r($request->idPersona); exit();
             $this->modelPeritoSociedad = new PeritoSociedad();
             $this->modelDatosExtrasAvaluo = new DatosExtrasAvaluo();
             $this->modelDocumentos = new Documentos();
@@ -438,8 +438,7 @@ class BandejaEntradaController extends Controller
             $camposFexavaAvaluo = $this->guardarAvaluoIdentificacion($infoXmlIdentificacion, $camposFexavaAvaluo, $idPersona,$elementoPrincipal);
             if(isset($camposFexavaAvaluo['ERROR'])){
                 return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
-            }
-            return response()->json(['mensaje' => 'Antes de guardarAvaluoAntecedentes'], 500);
+            }            
             $camposFexavaAvaluo['FEXAVA_DATOSPERSONAS'] = array();
             $camposFexavaAvaluo = $this->guardarAvaluoAntecedentes($xml, $camposFexavaAvaluo,$elementoPrincipal);
             if(isset($camposFexavaAvaluo['ERROR'])){
