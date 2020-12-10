@@ -490,7 +490,7 @@ class BandejaEntradaController extends Controller
         if(isset($camposFexavaAvaluo['ERROR'])){
             return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
         }
-        //echo "LA INFO "; print_r($camposFexavaAvaluo); exit();
+        return response()->json(['mensaje' => 'Antes de insert'], 500);//echo "LA INFO "; print_r($camposFexavaAvaluo); exit();
         
         $resInsert = $this->modelGuardaenBD->insertAvaluo($camposFexavaAvaluo);
        
@@ -506,7 +506,7 @@ class BandejaEntradaController extends Controller
         } catch (\Throwable $th) {
             Log::info($th);
             error_log($th);
-            return response()->json(['mensaje' => 'Error en el servidor al guardar'], 500);
+            return response()->json(['mensaje' => 'Error en el servidor'], 500);
         }
         
     }
