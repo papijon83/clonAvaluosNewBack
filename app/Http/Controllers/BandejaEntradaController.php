@@ -439,6 +439,7 @@ class BandejaEntradaController extends Controller
         if(isset($camposFexavaAvaluo['ERROR'])){
             return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
         }
+        return response()->json(['mensaje' => 'Antes de guardarAvaluoAntecedentes'], 500);
         $camposFexavaAvaluo['FEXAVA_DATOSPERSONAS'] = array();
         $camposFexavaAvaluo = $this->guardarAvaluoAntecedentes($xml, $camposFexavaAvaluo,$elementoPrincipal);
         if(isset($camposFexavaAvaluo['ERROR'])){
@@ -453,8 +454,7 @@ class BandejaEntradaController extends Controller
         $camposFexavaAvaluo = $this->guardarAvaluoTerreno($xml, $camposFexavaAvaluo,$elementoPrincipal);
         if(isset($camposFexavaAvaluo['ERROR'])){
             return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
-        }
-        return response()->json(['mensaje' => 'Antes de guardarAvaluoDescripcionImueble'], 500);
+        }        
         $camposFexavaAvaluo = $this->guardarAvaluoDescripcionImueble($xml, $camposFexavaAvaluo,$elementoPrincipal);
         if(isset($camposFexavaAvaluo['ERROR'])){
             return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
