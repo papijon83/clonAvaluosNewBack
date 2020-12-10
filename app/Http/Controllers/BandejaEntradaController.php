@@ -454,6 +454,7 @@ class BandejaEntradaController extends Controller
         if(isset($camposFexavaAvaluo['ERROR'])){
             return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
         }
+        return response()->json(['mensaje' => 'Antes de guardarAvaluoDescripcionImueble'], 500);
         $camposFexavaAvaluo = $this->guardarAvaluoDescripcionImueble($xml, $camposFexavaAvaluo,$elementoPrincipal);
         if(isset($camposFexavaAvaluo['ERROR'])){
             return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
@@ -490,7 +491,7 @@ class BandejaEntradaController extends Controller
         if(isset($camposFexavaAvaluo['ERROR'])){
             return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
         }
-        return response()->json(['mensaje' => 'Antes de insert'], 500);//echo "LA INFO "; print_r($camposFexavaAvaluo); exit();
+        //echo "LA INFO "; print_r($camposFexavaAvaluo); exit();
         
         $resInsert = $this->modelGuardaenBD->insertAvaluo($camposFexavaAvaluo);
        
