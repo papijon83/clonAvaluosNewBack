@@ -399,8 +399,8 @@ class BandejaEntradaController extends Controller
     }
 
     function guardarAvaluo(Request $request){
-        //try{
-            return response()->json(['mensaje' => 'Inicio'], 500); //print_r($request->idPersona); exit();
+        try{
+            //print_r($request->idPersona); exit();
             $this->modelPeritoSociedad = new PeritoSociedad();
             $this->modelDatosExtrasAvaluo = new DatosExtrasAvaluo();
             $this->modelDocumentos = new Documentos();
@@ -503,11 +503,11 @@ class BandejaEntradaController extends Controller
             }else{
                 return response()->json(['mensaje' => $resInsert], 500);
             }
-        /*} catch (\Throwable $th) {
+        } catch (\Throwable $th) {
             Log::info($th);
             error_log($th);
             return response()->json(['mensaje' => 'Error en el servidor'], 500);
-        }*/
+        }
         
     }
 
