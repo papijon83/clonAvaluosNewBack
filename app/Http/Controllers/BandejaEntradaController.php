@@ -51,6 +51,7 @@ class BandejaEntradaController extends Controller
                 'FEXAVA_AVALUO.lote',
                 'FEXAVA_AVALUO.unidadprivativa',
                 'FEXAVA_AVALUO.fecha_presentacion',
+                'FEXAVA_AVALUO.numeroavaluo',
                 'FEXAVA_CATESTADOSAVALUO.descripcion as estadoavaluo',
                 'RCON.RCON_PERITO.registro as perito',
                 //'RCON.RCON_SOCIEDADVALUACION.registro as sociedad',
@@ -69,7 +70,7 @@ class BandejaEntradaController extends Controller
             }
 
             if ($noAvaluo) {
-                $table->where('FEXAVA_AVALUO.numeroavaluo', $noAvaluo);
+                $table->where(DB::raw('TRIM(FEXAVA_AVALUO.numeroavaluo)'), $noAvaluo);
             }
 
             if ($noUnico) {
@@ -83,10 +84,10 @@ class BandejaEntradaController extends Controller
             if ($ctaCatastral) {
                 $cta = explode('-', $ctaCatastral);
                 if (count($cta) === 4) {
-                    $table->where('FEXAVA_AVALUO.region', $cta[0]);
-                    $table->where('FEXAVA_AVALUO.manzana', $cta[1]);
-                    $table->where('FEXAVA_AVALUO.lote', $cta[2]);
-                    $table->where('FEXAVA_AVALUO.unidadprivativa', $cta[3]);
+                    $table->where(DB::raw('TRIM(FEXAVA_AVALUO.region)'), $cta[0]);
+                    $table->where(DB::raw('TRIM(FEXAVA_AVALUO.manzana)'), $cta[1]);
+                    $table->where(DB::raw('TRIM(FEXAVA_AVALUO.lote)'), $cta[2]);
+                    $table->where(DB::raw('TRIM(FEXAVA_AVALUO.unidadprivativa)'), $cta[3]);
                 } else {
                     return response()->json(['mensaje' => 'Formato de cuenta predial incorrecta'], 400);
                 }
