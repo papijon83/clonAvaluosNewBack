@@ -42,9 +42,12 @@ class BandejaEntradaController extends Controller
             $idSociedad = $request->query('id_sociedad');
             $codEstado = $request->query('estado');
             $ctaCatastral = $request->query('cta_catastral');
+            $vigencia = $request->query('vigencia');
             $table = DB::table('FEXAVA_AVALUO');
             $table->join('FEXAVA_CATESTADOSAVALUO', 'FEXAVA_AVALUO.codestadoavaluo', '=', 'FEXAVA_CATESTADOSAVALUO.codestadoavaluo');
             $table->join('RCON.RCON_PERITO', 'FEXAVA_AVALUO.idpersonaperito', '=', 'RCON.RCON_PERITO.idpersona');
+            
+            
             //$table->join('RCON.RCON_SOCIEDADVALUACION', 'FEXAVA_AVALUO.idpersonasociedad', '=', 'RCON.RCON_SOCIEDADVALUACION.idpersona');
             //$table->join('RCON.RCON_NOTARIO', 'FEXAVA_AVALUO.idpersonanotario', '=', 'RCON.RCON_NOTARIO.idpersona');
             $table->select(
@@ -63,7 +66,8 @@ class BandejaEntradaController extends Controller
                             WHEN FEXAVA_AVALUO.codtipotramite = '1' 
                                 THEN 'COM'
                                 ELSE 'CAT'
-                        END as tipotramite")
+                        END as tipotramite"),
+                
             );
 
             if ($fechaIni && $fechaFin) {
@@ -74,6 +78,24 @@ class BandejaEntradaController extends Controller
 
             if ($noAvaluo) {
                 $table->where(DB::raw('TRIM(FEXAVA_AVALUO.numeroavaluo)'), $noAvaluo);
+            }
+
+            if ($vigencia == 1) {
+                $table->join('DOC.DOC_DOCUMENTODIGITAL', 'DOC.DOC_DOCUMENTODIGITAL.IDDOCUMENTODIGITAL', '=', 'FEXAVA_AVALUO.idavaluo');
+                $table->where(DB::raw("CASE
+                WHEN (    (trunc (add_months (trunc (sysdate), -12)) <= trunc (DOC.DOC_DOCUMENTODIGITAL.fecha))
+                      AND (trunc (sysdate) >= trunc (DOC.DOC_DOCUMENTODIGITAL.fecha)))
+                   THEN (1)
+            
+             END"), $vigencia);
+            }
+            if ($vigencia == 2) {
+                $table->join('DOC.DOC_DOCUMENTODIGITAL', 'DOC.DOC_DOCUMENTODIGITAL.IDDOCUMENTODIGITAL', '=', 'FEXAVA_AVALUO.idavaluo');
+                $table->where(DB::raw("CASE
+                WHEN (    (trunc (add_months (trunc (sysdate), -12)) > trunc (DOC.DOC_DOCUMENTODIGITAL.fecha))
+                      AND (trunc (sysdate) < trunc (DOC.DOC_DOCUMENTODIGITAL.fecha)))
+                   THEN (2)
+             END"), $vigencia);
             }
 
             if ($idPerito) {
