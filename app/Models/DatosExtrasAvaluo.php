@@ -13,7 +13,8 @@ class DatosExtrasAvaluo
         if ($esPerito)
         { 
             $dsePeritosSociedades = $this->getPeritoById($registroPerito);
-            if(count($dsePeritosSociedades) > 0)
+            //if(count($dsePeritosSociedades) > 0)
+            if(isset($dsePeritosSociedades))
             {
                 return $dsePeritosSociedades['idpersona'];
             }
