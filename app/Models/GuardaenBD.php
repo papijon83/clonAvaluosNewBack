@@ -17,9 +17,15 @@ class GuardaenBD
             if(!is_array($arrElementoPrincipal) && !in_array($idElementoPrincipal,$arrNoTabla)){
                 if(stristr($idElementoPrincipal,'FECHA') != ''){
                     $fechaf = new Carbon($arrElementoPrincipal);
-                    $fecha = $fechaf->format('Y/m/d');
+                    $fecha = $fechaf->format('d/m/Y');
                     $arrFexavaAvaluo[$idElementoPrincipal] = $fecha;
                 }else{
+                    if($arrElementoPrincipal == 'true' || $arrElementoPrincipal == 'TRUE'){
+                        $arrElementoPrincipal = 1;
+                    }
+                    if($arrElementoPrincipal == 'false' || $arrElementoPrincipal == 'FALSE'){
+                        $arrElementoPrincipal = 0;
+                    }
                     $arrFexavaAvaluo[$idElementoPrincipal] = $arrElementoPrincipal;
                 }
                 

@@ -433,13 +433,13 @@ class BandejaEntradaController extends Controller
             $fecha_hoy = new Carbon(date('Y-m-d'));
             $fecha_presentacion = $fecha_hoy->format('Y-m-d');
             $camposFexavaAvaluo['FECHA_PRESENTACION'] = $fecha_presentacion;
-            $camposFexavaAvaluo['CODTIPOTRAMITE'] = $tipoTramite;
-
+            $camposFexavaAvaluo['CODTIPOTRAMITE'] = $tipoTramite;            
             $infoXmlIdentificacion = $xml->xpath($elementoPrincipal.'//Identificacion[@id="a"]');
             $camposFexavaAvaluo = $this->guardarAvaluoIdentificacion($infoXmlIdentificacion, $camposFexavaAvaluo, $idPersona,$elementoPrincipal);
+            
             if(isset($camposFexavaAvaluo['ERROR'])){
                 return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
-            }            
+            }//echo "LA INFO "; print_r($camposFexavaAvaluo); exit();                        
             $camposFexavaAvaluo['FEXAVA_DATOSPERSONAS'] = array();
             $camposFexavaAvaluo = $this->guardarAvaluoAntecedentes($xml, $camposFexavaAvaluo,$elementoPrincipal);
             if(isset($camposFexavaAvaluo['ERROR'])){
@@ -486,7 +486,7 @@ class BandejaEntradaController extends Controller
             $camposFexavaAvaluo = $this->guardarAvaluoValorReferido($xml, $camposFexavaAvaluo,$elementoPrincipal);
             if(isset($camposFexavaAvaluo['ERROR'])){
                 return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
-            }
+            } //print_r($camposFexavaAvaluo); exit();
             $camposFexavaAvaluo = $this->guardarAvaluoAnexoFotografico($xml, $camposFexavaAvaluo,$elementoPrincipal);
             if(isset($camposFexavaAvaluo['ERROR'])){
                 return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);

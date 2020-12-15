@@ -44,7 +44,8 @@ class DatosExtrasAvaluo
         $res = DB::table('RCON.RCON_SOCIEDADPERITO')
         ->join('RCON.RCON_PERSONAMORAL', 'RCON.RCON_PERSONAMORAL.idpersona', '=', 'RCON.RCON_SOCIEDADPERITO.IDSOCIEDAD')
         ->where('RCON.RCON_SOCIEDADPERITO.idperito',$idPersona)->first();
-        return convierte_a_arreglo($res);
+        //return convierte_a_arreglo($res);
+        return array('idsocperito' => null);
         
     }
 
