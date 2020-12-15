@@ -2090,6 +2090,7 @@ class BandejaEntradaController extends Controller
                 if(isset($arrConclusionesHomologacionTerreno['arrIds']['h.1.3.4'])){
                     $productosComparables = $infoXmlElementosConst->xpath($elementoPrincipal.'//EnfoqueDeMercado[@id="h"]//'.$arrPrincipalEnfoqueDeMercado['arrIds']['h.1'].'[@id="h.1"]//'.$arrTerrenos['arrIds']['h.1.3'].'[@id="h.1.3"]//'.$arrConclusionesHomologacionTerreno['arrIds']['h.1.3.4'].'[@id="h.1.3.4"]');
                     $arrProductosComparables = $this->obtenElementos($productosComparables);
+                    //echo "arrProductosComparables "; print_r($arrProductosComparables); exit();
                     if(!isset($camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'])){
                         $camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'] = array();
                     }                    
@@ -2114,16 +2115,16 @@ class BandejaEntradaController extends Controller
                         }
 
                         if(isset($arrProductosComparables['arrIds'][$i]['h.1.3.4.n.5']) && count($arrProductosComparables['arrElementos'][$i][$arrProductosComparables['arrIds'][$i]['h.1.3.4.n.5']]) > 0){
-                            $fot = $infoXmlElementosConst->xpath($elementoPrincipal.'//EnfoqueDeMercado[@id="h"]//'.$arrPrincipalEnfoqueDeMercado['arrIds']['h.1'].'[@id="h.1"]//'.$arrTerrenos['arrIds']['h.1.1'].'[@id="h.1.1"]//'.$arrProductosComparables['arrIds'][$i]['h.1.3.4.n.5'].'[@id="h.1.3.4.n.5"]');
+                            $fot = $infoXmlElementosConst->xpath($elementoPrincipal.'//EnfoqueDeMercado[@id="h"]//'.$arrPrincipalEnfoqueDeMercado['arrIds']['h.1'].'[@id="h.1"]//'.$arrTerrenos['arrIds']['h.1.3'].'[@id="h.1.3"]//InvestigacionProductosComparables[@id="h.1.3.4"]//'.$arrProductosComparables['arrIds'][$i]['h.1.3.4.n.5'].'[@id="h.1.3.4.n.5"]');
                             $arrFot = $this->obtenElementosPrincipal($fot);
-                            if(isset($arrProductosComparables['arrIds']['h.1.3.4.n.5.1'])){
+                            //if(isset($arrProductosComparables['arrIds']['h.1.3.4.n.5.1'])){ echo (String)($arrFot['arrElementos'][$arrFot['arrIds']['h.1.3.4.n.5.1']]); exit();
                                 $camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'][$controlElemento]['TELEFONO'] = (String)($arrFot['arrElementos'][$arrFot['arrIds']['h.1.3.4.n.5.1']]);
-                            }
-                            if(isset($arrProductosComparables['arrIds']['h.1.3.4.n.5.2'])){
+                           // }
+                            //if(isset($arrProductosComparables['arrIds']['h.1.3.4.n.5.2'])){
                                 $camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'][$controlElemento]['INFORMANTE'] = (String)($arrFot['arrElementos'][$arrFot['arrIds']['h.1.3.4.n.5.2']]);
-                            }
+                            //}
                             
-                        }
+                        }//print_r($camposFexavaAvaluo['FEXAVA_DATOSTERRENOS']); exit();
 
                         if(isset($arrProductosComparables['arrIds'][$i]['h.1.3.4.n.6'])){
                             $camposFexavaAvaluo['FEXAVA_DATOSTERRENOS'][$controlElemento]['DESCRIPCION'] = (String)($arrProductosComparables['arrElementos'][$i][$arrProductosComparables['arrIds'][$i]['h.1.3.4.n.6']]);
