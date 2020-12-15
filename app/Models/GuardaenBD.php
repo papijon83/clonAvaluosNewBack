@@ -15,9 +15,9 @@ class GuardaenBD
         $arrFexavaAvaluo = array();
         foreach($arrAvaluo as $idElementoPrincipal => $arrElementoPrincipal){
             if(!is_array($arrElementoPrincipal) && !in_array($idElementoPrincipal,$arrNoTabla)){
-                if(stristr($idElementoPrincipal,'FECHA') != ''){
+                if(stristr($idElementoPrincipal,'FECHA') != ''){                    
                     $fechaf = new Carbon($arrElementoPrincipal);
-                    $fecha = $fechaf->format('d/m/Y');
+                    $fecha = $fechaf->format('Y/m/d');
                     $arrFexavaAvaluo[$idElementoPrincipal] = $fecha;
                 }else{
                     if($arrElementoPrincipal == 'true' || $arrElementoPrincipal == 'TRUE'){
@@ -238,7 +238,12 @@ class GuardaenBD
         $valores = '('.$idAvaluo.",391,";
         foreach($elementosTabla as $idElemento => $elemento){
             $campos .= $idElemento.",";
-            $valores .= "'".$elemento."',";
+            if($idElemento == 'FECHA_PRESENTACION'){
+                $valores .= "SYSDATE,";
+            }else{
+                $valores .= "'".$elemento."',";
+            }
+           
         }
         $campos = substr($campos,0,strlen($campos) - 1);
         $valores = substr($valores,0,strlen($valores) - 1);
