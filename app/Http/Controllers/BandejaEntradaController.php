@@ -38,6 +38,9 @@ class BandejaEntradaController extends Controller
             $noAvaluo = $request->query('no_avaluo');
             $noUnico = $request->query('no_unico');
             $codEstado = $request->query('estado');
+            $idPerito = $request->query('id_perito');
+            $idSociedad = $request->query('id_sociedad');
+            $codEstado = $request->query('estado');
             $ctaCatastral = $request->query('cta_catastral');
             $table = DB::table('FEXAVA_AVALUO');
             $table->join('FEXAVA_CATESTADOSAVALUO', 'FEXAVA_AVALUO.codestadoavaluo', '=', 'FEXAVA_CATESTADOSAVALUO.codestadoavaluo');
@@ -72,6 +75,15 @@ class BandejaEntradaController extends Controller
             if ($noAvaluo) {
                 $table->where(DB::raw('TRIM(FEXAVA_AVALUO.numeroavaluo)'), $noAvaluo);
             }
+
+            if ($idPerito) {
+                $table->where('FEXAVA_AVALUO.idpersonaperito', $idPerito);
+            }
+
+            if ($idSociedad) {
+                $table->where('FEXAVA_AVALUO.idpersonasociedad', $idSociedad);
+            }
+            
 
             if ($noUnico) {
                 $table->where(DB::raw('TRIM(FEXAVA_AVALUO.numerounico)'), $noUnico);
