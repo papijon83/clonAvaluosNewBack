@@ -6,7 +6,7 @@ use Carbon\Carbon;
 
 class DatosExtrasAvaluo
 {
-    public function IdPeritoSociedadByRegistro($registroPerito, $esPerito)
+    public function IdPeritoSociedadByRegistro($registroPerito, $registroSoci, $esPerito)
     { 
         $dsePeritosSociedades = array();
 
@@ -21,32 +21,48 @@ class DatosExtrasAvaluo
         }
         else
         {
-            $dsePeritosSociedades = $this->getSociedadByIdPerito($registroPerito);
+            $dsePeritosSociedades = $this->getSociedadByIdPerito($registroPerito, $registroSoci);
 
             if(count($dsePeritosSociedades) > 0)
             {
-                return $dsePeritosSociedades['idsocperito'];
+                return $dsePeritosSociedades['idpersona'];
             }
         }
 
         return -1;
     }
 
-    public function getPeritoById($idPersona){
-        $res = DB::table('RCON.RCON_PERITO')
+    public function getPeritoById($registroPerito){
+        /* $res = DB::table('RCON.RCON_PERITO')
         ->join('RCON.RCON_PERSONAFISICA', 'RCON.RCON_PERSONAFISICA.idpersona', '=', 'RCON.RCON_PERITO.idpersona')
         ->where('RCON.RCON_PERITO.idpersona',$idPersona)->first();
+        return convierte_a_arreglo($res); */
+        $res = DB::table('RCON.RCON_PERITO')
+        ->join('RCON.RCON_PERSONAFISICA', 'RCON.RCON_PERSONAFISICA.idpersona', '=', 'RCON.RCON_PERITO.idpersona')
+        ->where('RCON.RCON_PERITO.REGISTRO',$registroPerito)->first();
         return convierte_a_arreglo($res);
 
     }
 
-    public function getSociedadByIdPerito($idPersona){
-
-        $res = DB::table('RCON.RCON_SOCIEDADPERITO')
+    public function getSociedadByIdPerito($registroPerito, $registroSoci){
+        $perito = $this->getPeritoById($registroPerito);
+        $idPerito = $perito['idpersona']; 
+        /*$res = DB::table('RCON.RCON_SOCIEDADPERITO')
         ->join('RCON.RCON_PERSONAMORAL', 'RCON.RCON_PERSONAMORAL.idpersona', '=', 'RCON.RCON_SOCIEDADPERITO.IDSOCIEDAD')
         ->where('RCON.RCON_SOCIEDADPERITO.idperito',$idPersona)->first();
         //return convierte_a_arreglo($res);
-        return array('idsocperito' => null);
+        return array('idsocperito' => null);*/
+        $res = DB::table('RCON.RCON_SOCIEDADVALUACION')
+        ->join('RCON.RCON_PERSONAMORAL', 'RCON.RCON_PERSONAMORAL.IDPERSONA', '=', 'RCON.RCON_SOCIEDADVALUACION.IDPERSONA')
+        ->where('RCON.RCON_SOCIEDADVALUACION.REGISTRO',$registroSoci)->first();
+        $sociedadValuacion = convierte_a_arreglo($res);
+        return $sociedadValuacion;
+        //Comentado porque en la tabla FEXAVA_AVALUO existe CONSTRAINT "FEXAVA_SOCIEDAD_FK" FOREIGN KEY ("IDPERSONASOCIEDAD")
+        /*$idSociedadValuacion = $sociedadValuacion['idpersona'];
+
+        $resSociedad = DB::select("SELECT * FROM RCON.RCON_SOCIEDADPERITO WHERE IDPERITO = $idPerito AND IDSOCIEDAD = $idSociedadValuacion");
+        $sociedadPerito = convierte_a_arreglo($resSociedad);
+        return $sociedadPerito[0];*/
         
     }
 

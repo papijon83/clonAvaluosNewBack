@@ -1566,7 +1566,7 @@ function valida_AvaluoTerreno($data, $elementoPrincipal){
         $validacionesd414 = array('Fecha' => 'date', 'NumeroFolio' => 'nonEmptyString_20');
         $validacionesd42 = array('Orientacion' => 'nonEmptyString', 'MedidaEnMetros' => 'decimalPositivo_223', 'DescripcionColindante' => 'nonEmptyString');
         $validacionesd5P = array('IdentificadorFraccionN1' => 'SUB-IdentificadorFraccionN1Priv', 'SuperficieFraccionN1' => 'SUB-SuperficieFraccionN1Priv', 'ClaveDeAreaDeValor' => 'SUB-ClaveDeAreaDeValorPriv', 'ValorCatastralDeTierraAplicableALaFraccion' => 'SUB-ValorCatastralDeTierraAplicableALaFraccionPriv');
-        $validacionesd5P = array('IdentificadorFraccionN1' => 'SUB-IdentificadorFraccionN1Com', 'SuperficieFraccionN1' => 'SUB-SuperficieFraccionN1Com', 'ClaveDeAreaDeValor' => 'SUB-ClaveDeAreaDeValorCom', 'ValorCatastralDeTierraAplicableALaFraccion' => 'SUB-ValorCatastralDeTierraAplicableALaFraccionCom');
+        $validacionesd5C = array('IdentificadorFraccionN1' => 'SUB-IdentificadorFraccionN1Com', 'SuperficieFraccionN1' => 'SUB-SuperficieFraccionN1Com', 'ClaveDeAreaDeValor' => 'SUB-ClaveDeAreaDeValorCom', 'ValorCatastralDeTierraAplicableALaFraccion' => 'SUB-ValorCatastralDeTierraAplicableALaFraccionCom');
     }
     
     $errores = array();
@@ -1693,7 +1693,7 @@ function valida_AvaluoDescripcionImueble($data, $elementoPrincipal){
         
         $validacionese21 = array('Descripcion' => 'SUB-Descripcion', 'ClaveUso' => 'SUB-ClaveUso', 'NumeroDeNivelesDelTipo' => 'SUB-NumeroDeNivelesDelTipo', 'ClaveRangoDeNiveles' => 'SUB-ClaveRangoDeNiveles', 'PuntajeDeClasificacion' => 'SUB-PuntajeDeClasificacion', 'ClaveClase' => 'SUB-ClaveClase', 'Edad' => 'SUB-Edad', 'VidaUtilTotalDelTipo' => 'SUB-VidaUtilTipo', 'VidaUtilRemanente' => 'SUB-VidaUtilRemanente', 'ClaveConservacion' => 'SUB-ClaveConservacion', 'Superficie' => 'SUB-Superficie', 'ValorDeLaFraccionN' => 'SUB-ValorDeLaFraccionNDescInmueble', 'ValorUnitarioCatastral' => 'SUB-ValorUnitarioCatastral', 'DepreciacionPorEdad' => 'SUB-DepreciacionPorEdad');
        
-        $validacionese21 = array('Descripcion' => 'SUB-Descripcion', 'ClaveUso' => 'SUB-ClaveUso', 'NumeroDeNivelesDelTipo' => 'SUB-NumeroDeNivelesDelTipo', 'ClaveRangoDeNiveles' => 'SUB-ClaveRangoDeNiveles', 'PuntajeDeClasificacion' => 'SUB-PuntajeDeClasificacion', 'ClaveClase' => 'SUB-ClaveClase', 'Edad' => 'SUB-Edad', 'VidaUtilTotalDelTipo' => 'SUB-VidaUtilTipo', 'VidaUtilRemanente' => 'SUB-VidaUtilRemanente', 'ClaveConservacion' => 'SUB-ClaveConservacion', 'Superficie' => 'SUB-Superficie', 'ValorDeLaFraccionN' => 'SUB-ValorDeLaFraccionNDescInmueble', 'ValorUnitarioCatastral' => 'SUB-ValorUnitarioCatastral', 'DepreciacionPorEdad' => 'SUB-DepreciacionPorEdad', 'PorcentajeIndivisoComunes' => 'SUB-PorcentajeIndivisoComunes');
+        $validacionese25 = array('Descripcion' => 'SUB-Descripcion', 'ClaveUso' => 'SUB-ClaveUso', 'NumeroDeNivelesDelTipo' => 'SUB-NumeroDeNivelesDelTipo', 'ClaveRangoDeNiveles' => 'SUB-ClaveRangoDeNiveles', 'PuntajeDeClasificacion' => 'SUB-PuntajeDeClasificacion', 'ClaveClase' => 'SUB-ClaveClase', 'Edad' => 'SUB-Edad', 'VidaUtilTotalDelTipo' => 'SUB-VidaUtilTipo', 'VidaUtilRemanente' => 'SUB-VidaUtilRemanente', 'ClaveConservacion' => 'SUB-ClaveConservacion', 'Superficie' => 'SUB-Superficie', 'ValorDeLaFraccionN' => 'SUB-ValorDeLaFraccionNDescInmueble', 'ValorUnitarioCatastral' => 'SUB-ValorUnitarioCatastral', 'DepreciacionPorEdad' => 'SUB-DepreciacionPorEdad', 'PorcentajeIndivisoComunes' => 'SUB-PorcentajeIndivisoComunes');
     }
 
     $errores = array();
@@ -1795,6 +1795,7 @@ function valida_AvaluoDescripcionImueble($data, $elementoPrincipal){
 
 
 function valida_AvaluoElementosDeLaConstruccion($data, $elementoPrincipal){
+    
     if($elementoPrincipal == '//Comercial'){
         $validacionesf = array('InstalacionesElectricasYAlumbrado' => 'string_250', 'Vidreria' => 'string_250', 'Cerrajeria' => 'string_250', 'Fachadas' => 'string_250', 'ImporteTotalInstalacionesAccesoriosComplementariasPrivativas' => 'SUB-ImporteTotalInstalacionesAccesoriosComplementariasPrivativas', 'ImporteTotalInstalacionesAccesoriosComplementariasComunes' => 'SUB-ImporteTotalInstalacionesAccesoriosComplementariasComunes', 'ImporteIndivisoInstalacionesEspecialesObrasComplementariasYElementosAccesoriosComunes' => 'SUB-ImporteIndivisoInstalacionesEspecialesObrasComplementariasYElementosAccesoriosComunes', 'ImporteIndivisoInstalacionesEspecialesObrasComplementariasYElementosAccesoriosPrivativas' => 'SUB-ImporteIndivisoInstalacionesEspecialesObrasComplementariasYElementosAccesoriosPrivativas');
 
@@ -1821,7 +1822,7 @@ function valida_AvaluoElementosDeLaConstruccion($data, $elementoPrincipal){
         $validacionesf111 = array('ClaveObraComplementaria' => 'SUB-ClaveObraComplementaria-PrivativasCom', 'DescripcionObraComplementaria' => 'SUB-DescripcionObraComplementaria-Privativas', 'UnidadObraComplementaria' => 'SUB-UnidadObraComplementaria-Privativas', 'CantidadObraComplementaria' => 'SUB-CantidadObraComplementaria-Privativas', 'EdadObraComplementaria' => 'SUB-EdadObraComplementaria-Privativas', 'VidaUtilTotalObraComplementaria' => 'nullableDecimalPositivo', 'ValorUnitarioObraComplementaria' => 'SUB-ValorUnitarioObraComplementaria-Privativas', 'FactorDeEdadObraComplementaria' => 'SUB-FactorDeEdadObraComplementaria-Privativas', 'ImporteObraComplementaria' => 'SUB-ImporteObraComplementaria-Privativas');
 
         $validacionesf112 = array('ClaveObraComplementaria' => 'SUB-ClaveObraComplementaria-ComunesCom', 'DescripcionObraComplementaria' => 'SUB-DescripcionObraComplementaria-ComunesCom', 'UnidadObraComplementaria' => 'SUB-UnidadObraComplementaria-ComunesCom', 'CantidadObraComplementaria' => 'SUB-CantidadObraComplementaria-ComunesCom', 'EdadObraComplementaria' => 'SUB-EdadObraComplementaria-Comunes', 'VidaUtilTotalObraComplementaria' => 'SUB-VidaUtilTotalObraComplementaria-Comunes', 'ValorUnitarioObraComplementaria' => 'SUB-ValorUnitarioObraComplementaria-Comunes', 'FactorDeEdadObraComplementaria' => 'SUB-FactorDeEdadObraComplementaria-Comunes', 'ImporteObraComplementaria' => 'SUB-ImporteObraComplementaria-complementaria', 'PorcentajeIndivisoObraComplementaria' => 'SUB-PorcentajeIndivisoObraComplementaria-complementaria');
-    }else{
+    }else{        
         $validacionesf = array('InstalacionesElectricasYAlumbrado' => 'string_250', 'Vidreria' => 'string_250', 'Cerrajeria' => 'string_250', 'Fachadas' => 'string_250', 'ImporteTotalInstalacionesAccesoriosComplementariasPrivativas' => 'SUB-ImporteTotalInstalacionesAccesoriosComplementariasPrivativas', 'ImporteTotalInstalacionesAccesoriosComplementariasComunes' => 'SUB-ImporteTotalInstalacionesAccesoriosComplementariasComunes', 'ImporteIndivisoInstalacionesEspecialesObrasComplementariasYElementosAccesoriosComunes' => 'SUB-ImporteIndivisoInstalacionesEspecialesObrasComplementariasYElementosAccesoriosComunes', 'ImporteIndivisoInstalacionesEspecialesObrasComplementariasYElementosAccesoriosPrivativas' => 'SUB-ImporteIndivisoInstalacionesEspecialesObrasComplementariasYElementosAccesoriosPrivativas');
         $validacionesf1 = array('Cimentacion' => 'SUB-Cimentacion', 'Estructura' => 'string_250', 'Muros' => 'string_250', 'Entrepisos' => 'string_250', 'Techos' => 'string_250', 'Azoteas' => 'string_250', 'Bardas' => 'string_250');
         $validacionesf2 = array('Aplanados' => 'string_500', 'Plafones' => 'string_500', 'Lambrines' => 'string_500', 'Pisos' => 'string_500', 'Zoclos' => 'string_500', 'Escaleras' => 'string_500', 'Pintura' => 'string_250', 'RecubrimientosEspeciales' => 'string_250');
@@ -1844,286 +1845,414 @@ function valida_AvaluoElementosDeLaConstruccion($data, $elementoPrincipal){
     }
 
     $errores = array(); 
-    $data = array_map("convierte_a_arreglo",$data);
+    $data = array_map("convierte_a_arreglo",$data); //print_r($data); exit();
 
-    foreach($validacionesf as $etiqueta => $validacion){
-        if(!isset($data[0][$etiqueta])){
-            $errores[] = "Falta ".$etiqueta." en ElementosDeLaConstruccion";
-        }else{
-            $resValidacion = define_validacion($validacion, $data[0][$etiqueta]);                
-            if($resValidacion != 'correcto'){
-                $errores[] = "El campo ".$etiqueta." ".$resValidacion;
-            }                
-        }
-    }
-
-    foreach($validacionesf1 as $etiqueta => $validacion){
-        if(!isset($data[0]['ObraNegra'][$etiqueta])){
-            $errores[] = "Falta ".$etiqueta." en ObraNegra";
-        }else{
-            $resValidacion = define_validacion($validacion, $data[0]['ObraNegra'][$etiqueta]);                
-            if($resValidacion != 'correcto'){
-                $errores[] = "El campo ".$etiqueta." ".$resValidacion;
-            }                
-        }
-    }
-
-    foreach($validacionesf2 as $etiqueta => $validacion){
-        if(!isset($data[0]['RevestimientosYAcabadosInteriores'][$etiqueta])){
-            $errores[] = "Falta ".$etiqueta." en RevestimientosYAcabadosInteriores";
-        }else{
-            $resValidacion = define_validacion($validacion, $data[0]['RevestimientosYAcabadosInteriores'][$etiqueta]);                
-            if($resValidacion != 'correcto'){
-                $errores[] = "El campo ".$etiqueta." ".$resValidacion;
-            }                
-        }
-    }
-
-    foreach($validacionesf3 as $etiqueta => $validacion){
-        if(!isset($data[0]['Carpinteria'][$etiqueta])){
-            $errores[] = "Falta ".$etiqueta." en Carpinteria";
-        }else{
-            $resValidacion = define_validacion($validacion, $data[0]['Carpinteria'][$etiqueta]);                
-            if($resValidacion != 'correcto'){
-                $errores[] = "El campo ".$etiqueta." ".$resValidacion;
-            }                
-        }
-    }
-
-    foreach($validacionesf4 as $etiqueta => $validacion){
-        if(!isset($data[0]['InstalacionesHidraulicasYSanitrias'][$etiqueta])){
-            $errores[] = "Falta ".$etiqueta." en InstalacionesHidraulicasYSanitrias";
-        }else{
-            $resValidacion = define_validacion($validacion, $data[0]['InstalacionesHidraulicasYSanitrias'][$etiqueta]);                
-            if($resValidacion != 'correcto'){
-                $errores[] = "El campo ".$etiqueta." ".$resValidacion;
-            }                
-        }
-    }
-
-    foreach($validacionesf5 as $etiqueta => $validacion){
-        if(!isset($data[0]['PuertasYVentaneriaMetalica'][$etiqueta])){
-            $errores[] = "Falta ".$etiqueta." en PuertasYVentaneriaMetalica";
-        }else{
-            $resValidacion = define_validacion($validacion, $data[0]['PuertasYVentaneriaMetalica'][$etiqueta]);                
-            if($resValidacion != 'correcto'){
-                $errores[] = "El campo ".$etiqueta." ".$resValidacion;
-            }                
-        }
-    }
-
-    if(isset($data[0]['InstalacionesEspeciales']['Privativas']['@attributes']) && $data[0]['InstalacionesEspeciales']['Privativas']['@attributes']['id'] == 'f.9.1'){
-        foreach($validacionesf91 as $etiqueta => $validacion){
-            if(!isset($data[0]['InstalacionesEspeciales']['Privativas'][$etiqueta])){
-                $errores[] = "Falta ".$etiqueta." en en InstalacionesEspeciales (Privativas)";
-            }else{
-                $resValidacion = define_validacion($validacion, $data[0]['InstalacionesEspeciales']['Privativas'][$etiqueta]);                
-                if($resValidacion != 'correcto'){
-                    $errores[] = "El campo ".$etiqueta." ".$resValidacion;
-                }                
+    if(count($data) > 1){
+        $obligatoriosf = array();
+            foreach($validacionesf as $etiqueta => $validacion){    
+                
+                if(!isset($data[0][$etiqueta]) && in_array($etiqueta,$obligatoriosf)){
+                    $errores[] = "Falta ".$etiqueta." en ElementosDeLaConstruccion";
+                }else{
+                    if(isset($data[0][$etiqueta])){
+                        $resValidacion = define_validacion($validacion, $data[0][$etiqueta]);                
+                        if($resValidacion != 'correcto'){
+                            $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                        }
+                    }
+                                    
+                }
             }
-        }
-    }
+        
+        $obligatoriosf1 = array();
+            foreach($validacionesf1 as $etiqueta => $validacion){
+                if(!isset($data[0]['ObraNegra'][$etiqueta]) && in_array($etiqueta,$obligatoriosf1)){
+                    $errores[] = "Falta ".$etiqueta." en ObraNegra";
+                }else{
+                    if(isset($data[0]['ObraNegra'][$etiqueta])){
+                        $resValidacion = define_validacion($validacion, $data[0]['ObraNegra'][$etiqueta]);                
+                        if($resValidacion != 'correcto'){
+                            $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                        }
+                    }
+                                    
+                }
+            }
+        
+        $obligatoriosf2 = array();
+            foreach($validacionesf2 as $etiqueta => $validacion){
+                if(!isset($data[0]['RevestimientosYAcabadosInteriores'][$etiqueta]) && in_array($etiqueta,$obligatoriosf2)){
+                    $errores[] = "Falta ".$etiqueta." en RevestimientosYAcabadosInteriores";
+                }else{
+                    if(isset($data[0]['RevestimientosYAcabadosInteriores'][$etiqueta])){
+                        $resValidacion = define_validacion($validacion, $data[0]['RevestimientosYAcabadosInteriores'][$etiqueta]);                
+                        if($resValidacion != 'correcto'){
+                            $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                        }
+                    }                                    
+                }
+            }
+        $obligatoriosf3 = array();
+            foreach($validacionesf3 as $etiqueta => $validacion){
+                if(!isset($data[0]['Carpinteria'][$etiqueta])  && in_array($etiqueta,$obligatoriosf3)){
+                    $errores[] = "Falta ".$etiqueta." en Carpinteria";
+                }else{
+                    if(isset($data[0]['Carpinteria'][$etiqueta])){
+                        $resValidacion = define_validacion($validacion, $data[0]['Carpinteria'][$etiqueta]);                
+                        if($resValidacion != 'correcto'){
+                            $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                        }
+                    }
+                                    
+                }
+            }
+        $obligatoriosf4 = array();
+            foreach($validacionesf4 as $etiqueta => $validacion){
+                if(!isset($data[0]['InstalacionesHidraulicasYSanitrias'][$etiqueta]) && in_array($etiqueta,$obligatoriosf4)){
+                    $errores[] = "Falta ".$etiqueta." en InstalacionesHidraulicasYSanitrias";
+                }else{
+                    if(isset($data[0]['InstalacionesHidraulicasYSanitrias'][$etiqueta])){
+                        $resValidacion = define_validacion($validacion, $data[0]['InstalacionesHidraulicasYSanitrias'][$etiqueta]);                
+                        if($resValidacion != 'correcto'){
+                            $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                        }
+                    }
+                }
+            }
+            
+        $obligatoriosf5 = array();
+            foreach($validacionesf5 as $etiqueta => $validacion){
+                if(!isset($data[0]['PuertasYVentaneriaMetalica'][$etiqueta]) && in_array($etiqueta,$obligatoriosf5)){
+                    $errores[] = "Falta ".$etiqueta." en PuertasYVentaneriaMetalica";
+                }else{
+                    if(isset($data[0]['PuertasYVentaneriaMetalica'][$etiqueta])){
+                        $resValidacion = define_validacion($validacion, $data[0]['PuertasYVentaneriaMetalica'][$etiqueta]);                
+                        if($resValidacion != 'correcto'){
+                            $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                        }
+                    }                    
+                }
+            }
+        
+            if(isset($data[0]['InstalacionesEspeciales']) && count($data[0]['InstalacionesEspeciales']) > 1){                
 
-    if(isset($data[0]['InstalacionesEspeciales']['Privativas'][0]['@attributes']) && $data[0]['InstalacionesEspeciales']['Privativas'][0]['@attributes']['id'] == 'f.9.1'){
-        foreach($data[0]['InstalacionesEspeciales']['Privativas'] as $llavePrincipal => $elementoPrincipal){            
-            //if(is_array($elementoPrincipal) && $elementoPrincipal['id'] != 'e.2.1'){
+                if(isset($data[0]['InstalacionesEspeciales']['Privativas']['@attributes']) && $data[0]['InstalacionesEspeciales']['Privativas']['@attributes']['id'] == 'f.9.1'){
+
+                    if($elementoPrincipal == '//Comercial'){
+                        $obligatorios = array('ClaveInstalacionEspecial','DescripcionInstalacionEspecial','UnidadInstalacionEspecial','CantidadInstalacionEspecial','EdadInstalacionEspecial','VidaUtilTotalInstalacionEspecial','ValorUnitarioInstalacionEspecial','FactorDeEdadInstalacionEspecial','ImporteInstalacionEspecial');
+                    }else{
+                        $obligatorios = array('ClaveInstalacionEspecial','DescripcionInstalacionEspecial','UnidadInstalacionEspecial','CantidadInstalacionEspecial');
+                    }
+
                     foreach($validacionesf91 as $etiqueta => $validacion){
-                        if(!isset($elementoPrincipal[$etiqueta])){
-                            $errores[] = "Falta ".$etiqueta." en InstalacionesEspeciales (Privativas)";
+                        if(!isset($data[0]['InstalacionesEspeciales']['Privativas'][$etiqueta])){
+                            $errores[] = "Falta ".$etiqueta." en en InstalacionesEspeciales (Privativas)";
                         }else{
-                            $resValidacion = define_validacion($validacion, $elementoPrincipal[$etiqueta]);                
+                            $resValidacion = define_validacion($validacion, $data[0]['InstalacionesEspeciales']['Privativas'][$etiqueta]);                
                             if($resValidacion != 'correcto'){
                                 $errores[] = "El campo ".$etiqueta." ".$resValidacion;
                             }                
                         }
                     }
-            //}            
-        }
-    }
+                }
+        
+                if(isset($data[0]['InstalacionesEspeciales']['Privativas'][0]['@attributes']) && $data[0]['InstalacionesEspeciales']['Privativas'][0]['@attributes']['id'] == 'f.9.1'){
 
-    if(isset($data[0]['InstalacionesEspeciales']['Comunes']['@attributes']) && $data[0]['InstalacionesEspeciales']['Comunes']['@attributes']['id'] == 'f.9.2'){
-        foreach($validacionesf92 as $etiqueta => $validacion){
-            if(!isset($data[0]['InstalacionesEspeciales']['Comunes'][$etiqueta])){
-                $errores[] = "Falta ".$etiqueta." en en InstalacionesEspeciales (Comunes)";
-            }else{
-                $resValidacion = define_validacion($validacion, $data[0]['InstalacionesEspeciales']['Comunes'][$etiqueta]);                
-                if($resValidacion != 'correcto'){
-                    $errores[] = "El campo ".$etiqueta." ".$resValidacion;
-                }                
-            }
-        }
-    }
+                    if($elementoPrincipal == '//Comercial'){
+                        $obligatorios = array('ClaveInstalacionEspecial','DescripcionInstalacionEspecial','UnidadInstalacionEspecial','CantidadInstalacionEspecial','EdadInstalacionEspecial','VidaUtilTotalInstalacionEspecial','ValorUnitarioInstalacionEspecial','FactorDeEdadInstalacionEspecial','ImporteInstalacionEspecial');
+                    }else{
+                        $obligatorios = array('ClaveInstalacionEspecial','DescripcionInstalacionEspecial','UnidadInstalacionEspecial','CantidadInstalacionEspecial');
+                    }
 
-    if(isset($data[0]['InstalacionesEspeciales']['Comunes'][0]['@attributes']) && $data[0]['InstalacionesEspeciales']['Comunes'][0]['@attributes']['id'] == 'f.9.2'){
-        foreach($data[0]['InstalacionesEspeciales']['Comunes'] as $llavePrincipal => $elementoPrincipal){            
-            //if(is_array($elementoPrincipal) && $elementoPrincipal['id'] != 'e.2.1'){
+                    foreach($data[0]['InstalacionesEspeciales']['Privativas'] as $llavePrincipal => $elementoPrincipal){            
+                        //if(is_array($elementoPrincipal) && $elementoPrincipal['id'] != 'e.2.1'){
+                                foreach($validacionesf91 as $etiqueta => $validacion){
+                                    if(!isset($elementoPrincipal[$etiqueta])){
+                                        $errores[] = "Falta ".$etiqueta." en InstalacionesEspeciales (Privativas)";
+                                    }else{
+                                        $resValidacion = define_validacion($validacion, $elementoPrincipal[$etiqueta]);                
+                                        if($resValidacion != 'correcto'){
+                                            $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                                        }                
+                                    }
+                                }
+                        //}            
+                    }
+                }
+        
+                if(isset($data[0]['InstalacionesEspeciales']['Comunes']['@attributes']) && $data[0]['InstalacionesEspeciales']['Comunes']['@attributes']['id'] == 'f.9.2'){
+                    if($elementoPrincipal == '//Comercial'){
+                        $obligatorios = array();
+                    }else{
+                        $obligatorios = array('ClaveInstalacionEspecial','DescripcionInstalacionEspecial','UnidadInstalacionEspecial','CantidadInstalacionEspecial');
+                    }
                     foreach($validacionesf92 as $etiqueta => $validacion){
-                        if(!isset($elementoPrincipal[$etiqueta])){
-                            $errores[] = "Falta ".$etiqueta." en InstalacionesEspeciales (Comunes)";
+                        if(!isset($data[0]['InstalacionesEspeciales']['Comunes'][$etiqueta])){
+                            $errores[] = "Falta ".$etiqueta." en en InstalacionesEspeciales (Comunes)";
                         }else{
-                            $resValidacion = define_validacion($validacion, $elementoPrincipal[$etiqueta]);                
+                            $resValidacion = define_validacion($validacion, $data[0]['InstalacionesEspeciales']['Comunes'][$etiqueta]);                
                             if($resValidacion != 'correcto'){
                                 $errores[] = "El campo ".$etiqueta." ".$resValidacion;
                             }                
                         }
                     }
-            //}            
-        }
-    }
+                }
+        
+                if(isset($data[0]['InstalacionesEspeciales']['Comunes'][0]['@attributes']) && $data[0]['InstalacionesEspeciales']['Comunes'][0]['@attributes']['id'] == 'f.9.2'){
+                    if($elementoPrincipal == '//Comercial'){
+                        $obligatorios = array();
+                    }else{
+                        $obligatorios = array('ClaveInstalacionEspecial','DescripcionInstalacionEspecial','UnidadInstalacionEspecial','CantidadInstalacionEspecial');
+                    }
+                    foreach($data[0]['InstalacionesEspeciales']['Comunes'] as $llavePrincipal => $elementoPrincipal){            
+                        //if(is_array($elementoPrincipal) && $elementoPrincipal['id'] != 'e.2.1'){
+                                foreach($validacionesf92 as $etiqueta => $validacion){
+                                    if(!isset($elementoPrincipal[$etiqueta])){
+                                        $errores[] = "Falta ".$etiqueta." en InstalacionesEspeciales (Comunes)";
+                                    }else{
+                                        $resValidacion = define_validacion($validacion, $elementoPrincipal[$etiqueta]);                
+                                        if($resValidacion != 'correcto'){
+                                            $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                                        }                
+                                    }
+                                }
+                        //}            
+                    }
+                }
 
-    foreach($validacionesf9 as $etiqueta => $validacion){
-        if(!isset($data[0]['InstalacionesEspeciales'][$etiqueta])){
-            $errores[] = "Falta ".$etiqueta." en InstalacionesEspeciales";
-        }else{
-            $resValidacion = define_validacion($validacion, $data[0]['InstalacionesEspeciales'][$etiqueta]);                
-            if($resValidacion != 'correcto'){
-                $errores[] = "El campo ".$etiqueta." ".$resValidacion;
-            }                
-        }
-    }
-
-    if(isset($data[0]['ElementosAccesorios']['Privativas']['@attributes']) && $data[0]['ElementosAccesorios']['Privativas']['@attributes']['id'] == 'f.10.1'){
-        foreach($validacionesf101 as $etiqueta => $validacion){
-            if(!isset($data[0]['ElementosAccesorios']['Privativas'][$etiqueta])){
-                $errores[] = "Falta ".$etiqueta." en en ElementosAccesorios (Privativas)";
-            }else{
-                $resValidacion = define_validacion($validacion, $data[0]['ElementosAccesorios']['Privativas'][$etiqueta]);                
-                if($resValidacion != 'correcto'){
-                    $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                if($elementoPrincipal == '//Comercial'){
+                    $obligatoriosf9 = array('ImporteTotalInstalacionesEspecialesPrivativas','ImporteTotalInstalacionesEspecialesComunes');
+                }else{
+                    $obligatoriosf9 = array();
                 }                
-            }
-        }
-    }
 
-    if(isset($data[0]['ElementosAccesorios']['Privativas'][0]['@attributes']) && $data[0]['ElementosAccesorios']['Privativas'][0]['@attributes']['id'] == 'f.10.1'){
-        foreach($data[0]['ElementosAccesorios']['Privativas'] as $llavePrincipal => $elementoPrincipal){            
-            //if(is_array($elementoPrincipal) && $elementoPrincipal['id'] != 'e.2.1'){
+                foreach($validacionesf9 as $etiqueta => $validacion){
+                    if(!isset($data[0]['InstalacionesEspeciales'][$etiqueta]) && in_array($etiqueta, $obligatoriosf9)){
+                        $errores[] = "Falta ".$etiqueta." en InstalacionesEspeciales";
+                    }else{
+                        if(isset($data[0]['InstalacionesEspeciales'][$etiqueta])){
+                            $resValidacion = define_validacion($validacion, $data[0]['InstalacionesEspeciales'][$etiqueta]);                
+                            if($resValidacion != 'correcto'){
+                                $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                            }
+                        }                                        
+                    }
+                }
+            }
+        
+            if(isset($data[0]['ElementosAccesorios']) && count($data[0]['ElementosAccesorios']) > 1){        
+                
+                
+                if(isset($data[0]['ElementosAccesorios']['Privativas']['@attributes']) && $data[0]['ElementosAccesorios']['Privativas']['@attributes']['id'] == 'f.10.1'){
+        
+                    if($elementoPrincipal == '//Comercial'){
+                        $obligatorios = array('ClaveElementoAccesorio','DescripcionElementoAccesorio','UnidadElementoAccesorio','CantidadElementoAccesorio','EdadElementoAccesorio','VidaUtilTotalElementoAccesorio','ValorUnitarioElementoAccesorio','FactorDeEdadElementoAccesorio','ImporteElementoAccesorio');
+                    }else{
+                        $obligatorios = array('ClaveElementoAccesorio','DescripcionElementoAccesorio','UnidadElementoAccesorio','CantidadElementoAccesorio');
+                    }
+        
                     foreach($validacionesf101 as $etiqueta => $validacion){
-                        if(!isset($elementoPrincipal[$etiqueta])){
-                            $errores[] = "Falta ".$etiqueta." en ElementosAccesorios (Privativas)";
+                        if(!isset($data[0]['ElementosAccesorios']['Privativas'][$etiqueta])){
+                            $errores[] = "Falta ".$etiqueta." en en ElementosAccesorios (Privativas)";
                         }else{
-                            $resValidacion = define_validacion($validacion, $elementoPrincipal[$etiqueta]);                
+                            $resValidacion = define_validacion($validacion, $data[0]['ElementosAccesorios']['Privativas'][$etiqueta]);                
                             if($resValidacion != 'correcto'){
                                 $errores[] = "El campo ".$etiqueta." ".$resValidacion;
                             }                
                         }
                     }
-            //}            
-        }
-    }
-
-    if(isset($data[0]['ElementosAccesorios']['Comunes']['@attributes']) && $data[0]['ElementosAccesorios']['Comunes']['@attributes']['id'] == 'f.10.2'){
-        foreach($validacionesf102 as $etiqueta => $validacion){
-            if(!isset($data[0]['ElementosAccesorios']['Comunes'][$etiqueta])){
-                $errores[] = "Falta ".$etiqueta." en en ElementosAccesorios (Comunes)";
-            }else{
-                $resValidacion = define_validacion($validacion, $data[0]['ElementosAccesorios']['Comunes'][$etiqueta]);                
-                if($resValidacion != 'correcto'){
-                    $errores[] = "El campo ".$etiqueta." ".$resValidacion;
-                }                
-            }
-        }
-    }
-
-    if(isset($data[0]['ElementosAccesorios']['Comunes'][0]['@attributes']) && $data[0]['ElementosAccesorios']['Comunes'][0]['@attributes']['id'] == 'f.10.2'){
-        foreach($data[0]['ElementosAccesorios']['Comunes'] as $llavePrincipal => $elementoPrincipal){            
-            //if(is_array($elementoPrincipal) && $elementoPrincipal['id'] != 'e.2.1'){
+                }
+        
+                if(isset($data[0]['ElementosAccesorios']['Privativas'][0]['@attributes']) && $data[0]['ElementosAccesorios']['Privativas'][0]['@attributes']['id'] == 'f.10.1'){
+        
+                    if($elementoPrincipal == '//Comercial'){
+                        $obligatorios = array('ClaveElementoAccesorio','DescripcionElementoAccesorio','UnidadElementoAccesorio','CantidadElementoAccesorio','EdadElementoAccesorio','VidaUtilTotalElementoAccesorio','ValorUnitarioElementoAccesorio','FactorDeEdadElementoAccesorio','ImporteElementoAccesorio');
+                    }else{
+                        $obligatorios = array('ClaveElementoAccesorio','DescripcionElementoAccesorio','UnidadElementoAccesorio','CantidadElementoAccesorio');
+                    }
+        
+                    foreach($data[0]['ElementosAccesorios']['Privativas'] as $llavePrincipal => $elementoPrincipal){            
+                        //if(is_array($elementoPrincipal) && $elementoPrincipal['id'] != 'e.2.1'){
+                                foreach($validacionesf101 as $etiqueta => $validacion){
+                                    if(!isset($elementoPrincipal[$etiqueta])){
+                                        $errores[] = "Falta ".$etiqueta." en ElementosAccesorios (Privativas)";
+                                    }else{
+                                        $resValidacion = define_validacion($validacion, $elementoPrincipal[$etiqueta]);                
+                                        if($resValidacion != 'correcto'){
+                                            $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                                        }                
+                                    }
+                                }
+                        //}            
+                    }
+                }
+        
+                if(isset($data[0]['ElementosAccesorios']['Comunes']['@attributes']) && $data[0]['ElementosAccesorios']['Comunes']['@attributes']['id'] == 'f.10.2'){
+        
+                    if($elementoPrincipal == '//Comercial'){
+                        $obligatorios = array('ClaveElementoAccesorio','DescripcionElementoAccesorio','UnidadElementoAccesorio','CantidadElementoAccesorio','EdadElementoAccesorio','VidaUtilTotalElementoAccesorio','ValorUnitarioElementoAccesorio','FactorDeEdadElementoAccesorio','ImporteElementoAccesorio');
+                    }else{
+                        $obligatorios = array('ClaveElementoAccesorio','DescripcionElementoAccesorio','UnidadElementoAccesorio','CantidadElementoAccesorio');
+                    }
+        
                     foreach($validacionesf102 as $etiqueta => $validacion){
-                        if(!isset($elementoPrincipal[$etiqueta])){
-                            $errores[] = "Falta ".$etiqueta." en ElementosAccesorios (Comunes)";
+                        if(!isset($data[0]['ElementosAccesorios']['Comunes'][$etiqueta])){
+                            $errores[] = "Falta ".$etiqueta." en en ElementosAccesorios (Comunes)";
                         }else{
-                            $resValidacion = define_validacion($validacion, $elementoPrincipal[$etiqueta]);                
+                            $resValidacion = define_validacion($validacion, $data[0]['ElementosAccesorios']['Comunes'][$etiqueta]);                
                             if($resValidacion != 'correcto'){
                                 $errores[] = "El campo ".$etiqueta." ".$resValidacion;
                             }                
                         }
                     }
-            //}            
-        }
-    }
+                }
+        
+                if(isset($data[0]['ElementosAccesorios']['Comunes'][0]['@attributes']) && $data[0]['ElementosAccesorios']['Comunes'][0]['@attributes']['id'] == 'f.10.2'){
+        
+                    if($elementoPrincipal == '//Comercial'){
+                        $obligatorios = array('ClaveElementoAccesorio','DescripcionElementoAccesorio','UnidadElementoAccesorio','CantidadElementoAccesorio','EdadElementoAccesorio','VidaUtilTotalElementoAccesorio','ValorUnitarioElementoAccesorio','FactorDeEdadElementoAccesorio','ImporteElementoAccesorio');
+                    }else{
+                        $obligatorios = array('ClaveElementoAccesorio','DescripcionElementoAccesorio','UnidadElementoAccesorio','CantidadElementoAccesorio');
+                    }
+        
+                    foreach($data[0]['ElementosAccesorios']['Comunes'] as $llavePrincipal => $elementoPrincipal){            
+                        //if(is_array($elementoPrincipal) && $elementoPrincipal['id'] != 'e.2.1'){
+                                foreach($validacionesf102 as $etiqueta => $validacion){
+                                    if(!isset($elementoPrincipal[$etiqueta])){
+                                        $errores[] = "Falta ".$etiqueta." en ElementosAccesorios (Comunes)";
+                                    }else{
+                                        $resValidacion = define_validacion($validacion, $elementoPrincipal[$etiqueta]);                
+                                        if($resValidacion != 'correcto'){
+                                            $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                                        }                
+                                    }
+                                }
+                        //}            
+                    }
+                }
 
-    foreach($validacionesf10 as $etiqueta => $validacion){
-        if(!isset($data[0]['ElementosAccesorios'][$etiqueta])){
-            $errores[] = "Falta ".$etiqueta." en ElementosAccesorios";
-        }else{
-            $resValidacion = define_validacion($validacion, $data[0]['ElementosAccesorios'][$etiqueta]);                
-            if($resValidacion != 'correcto'){
-                $errores[] = "El campo ".$etiqueta." ".$resValidacion;
-            }                
-        }
-    }
-
-    if(isset($data[0]['ObrasComplementarias']['Privativas']['@attributes']) && $data[0]['ObrasComplementarias']['Privativas']['@attributes']['id'] == 'f.11.1'){
-        foreach($validacionesf111 as $etiqueta => $validacion){
-            if(!isset($data[0]['ObrasComplementarias']['Privativas'][$etiqueta])){
-                $errores[] = "Falta ".$etiqueta." en en ObrasComplementarias (Privativas)";
-            }else{
-                $resValidacion = define_validacion($validacion, $data[0]['ObrasComplementarias']['Privativas'][$etiqueta]);                
-                if($resValidacion != 'correcto'){
-                    $errores[] = "El campo ".$etiqueta." ".$resValidacion;
-                }                
+                
+                $obligatoriosf10 = array();
+                        
+                foreach($validacionesf10 as $etiqueta => $validacion){
+                    if(!isset($data[0]['ElementosAccesorios'][$etiqueta]) && in_array($etiqueta,$obligatoriosf10)){
+                        $errores[] = "Falta ".$etiqueta." en ElementosAccesorios";
+                    }else{
+                        if(isset($data[0]['ElementosAccesorios'][$etiqueta])){
+                            $resValidacion = define_validacion($validacion, $data[0]['ElementosAccesorios'][$etiqueta]);                
+                            if($resValidacion != 'correcto'){
+                                $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                            }
+                        }
+                                        
+                    }
+                }
+            }
+        
+        if(isset($data[0]['ObrasComplementarias']) && count($data[0]['ObrasComplementarias']) > 1){
+            if(isset($data[0]['ObrasComplementarias']['Privativas']['@attributes']) && $data[0]['ObrasComplementarias']['Privativas']['@attributes']['id'] == 'f.11.1'){
+        
+                if($elementoPrincipal == '//Comercial'){
+                    $obligatorios = array('ClaveObraComplementaria','DescripcionObraComplementaria','UnidadObraComplementaria','CantidadObraComplementaria','EdadObraComplementaria','VidaUtilTotalObraComplementaria','ValorUnitarioObraComplementaria','FactorDeEdadObraComplementaria','ImporteObraComplementaria');
+                }else{
+                    $obligatorios = array('ClaveObraComplementaria','DescripcionObraComplementaria','UnidadObraComplementaria','CantidadObraComplementaria');
+                }
+        
+                foreach($validacionesf111 as $etiqueta => $validacion){
+                    if(!isset($data[0]['ObrasComplementarias']['Privativas'][$etiqueta])){
+                        $errores[] = "Falta ".$etiqueta." en en ObrasComplementarias (Privativas)";
+                    }else{
+                        $resValidacion = define_validacion($validacion, $data[0]['ObrasComplementarias']['Privativas'][$etiqueta]);                
+                        if($resValidacion != 'correcto'){
+                            $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                        }                
+                    }
+                }
+            }
+        
+            if(isset($data[0]['ObrasComplementarias']['Privativas'][0]['@attributes']) && $data[0]['ObrasComplementarias']['Privativas'][0]['@attributes']['id'] == 'f.11.1'){
+                if($elementoPrincipal == '//Comercial'){
+                    $obligatorios = array('ClaveObraComplementaria','DescripcionObraComplementaria','UnidadObraComplementaria','CantidadObraComplementaria','EdadObraComplementaria','VidaUtilTotalObraComplementaria','ValorUnitarioObraComplementaria','FactorDeEdadObraComplementaria','ImporteObraComplementaria');
+                }else{
+                    $obligatorios = array('ClaveObraComplementaria','DescripcionObraComplementaria','UnidadObraComplementaria','CantidadObraComplementaria');
+                }
+                foreach($data[0]['ObrasComplementarias']['Privativas'] as $llavePrincipal => $elementoPrincipal){            
+                    //if(is_array($elementoPrincipal) && $elementoPrincipal['id'] != 'e.2.1'){
+                            foreach($validacionesf111 as $etiqueta => $validacion){
+                                if(!isset($elementoPrincipal[$etiqueta])){
+                                    $errores[] = "Falta ".$etiqueta." en ObrasComplementarias (Privativas)";
+                                }else{
+                                    $resValidacion = define_validacion($validacion, $elementoPrincipal[$etiqueta]);                
+                                    if($resValidacion != 'correcto'){
+                                        $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                                    }                
+                                }
+                            }
+                    //}            
+                }
+            }
+        
+            if(isset($data[0]['ObrasComplementarias']['Comunes']['@attributes']) && $data[0]['ObrasComplementarias']['Comunes']['@attributes']['id'] == 'f.11.2'){
+        
+                if($elementoPrincipal == '//Comercial'){
+                    $obligatorios = array('ClaveObraComplementaria','DescripcionObraComplementaria','UnidadObraComplementaria','CantidadObraComplementaria','EdadObraComplementaria','VidaUtilTotalObraComplementaria','ValorUnitarioObraComplementaria','FactorDeEdadObraComplementaria','ImporteObraComplementaria');
+                }else{
+                    $obligatorios = array('ClaveObraComplementaria','DescripcionObraComplementaria','UnidadObraComplementaria','CantidadObraComplementaria');
+                }
+        
+                foreach($validacionesf112 as $etiqueta => $validacion){
+                    if(!isset($data[0]['ObrasComplementarias']['Comunes'][$etiqueta])){
+                        $errores[] = "Falta ".$etiqueta." en en ObrasComplementarias (Comunes)";
+                    }else{
+                        $resValidacion = define_validacion($validacion, $data[0]['ObrasComplementarias']['Comunes'][$etiqueta]);                
+                        if($resValidacion != 'correcto'){
+                            $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                        }                
+                    }
+                }
+            }
+        
+            if(isset($data[0]['ObrasComplementarias']['Comunes'][0]['@attributes']) && $data[0]['ObrasComplementarias']['Comunes'][0]['@attributes']['id'] == 'f.11.2'){
+        
+                if($elementoPrincipal == '//Comercial'){
+                    $obligatorios = array('ClaveObraComplementaria','DescripcionObraComplementaria','UnidadObraComplementaria','CantidadObraComplementaria','EdadObraComplementaria','VidaUtilTotalObraComplementaria','ValorUnitarioObraComplementaria','FactorDeEdadObraComplementaria','ImporteObraComplementaria');
+                }else{
+                    $obligatorios = array('ClaveObraComplementaria','DescripcionObraComplementaria','UnidadObraComplementaria','CantidadObraComplementaria');
+                }
+        
+                foreach($data[0]['ObrasComplementarias']['Comunes'] as $llavePrincipal => $elementoPrincipal){            
+                    //if(is_array($elementoPrincipal) && $elementoPrincipal['id'] != 'e.2.1'){
+                            foreach($validacionesf112 as $etiqueta => $validacion){
+                                if(!isset($elementoPrincipal[$etiqueta])){
+                                    $errores[] = "Falta ".$etiqueta." en ObrasComplementarias (Comunes)";
+                                }else{
+                                    $resValidacion = define_validacion($validacion, $elementoPrincipal[$etiqueta]);                
+                                    if($resValidacion != 'correcto'){
+                                        $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                                    }                
+                                }
+                            }
+                    //}            
+                }
+            }
+        $obligatoriosf11 = array();
+            foreach($validacionesf11 as $etiqueta => $validacion){
+                if(!isset($data[0]['ObrasComplementarias'][$etiqueta]) && in_array($etiqueta,$obligatoriosf11)){
+                    $errores[] = "Falta ".$etiqueta." en ObrasComplementarias";
+                }else{
+                    if(isset($data[0]['ObrasComplementarias'][$etiqueta])){
+                        $resValidacion = define_validacion($validacion, $data[0]['ObrasComplementarias'][$etiqueta]);                
+                        if($resValidacion != 'correcto'){
+                            $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                        }
+                    }                                    
+                }
             }
         }
+
     }
 
-    if(isset($data[0]['ObrasComplementarias']['Privativas'][0]['@attributes']) && $data[0]['ObrasComplementarias']['Privativas'][0]['@attributes']['id'] == 'f.11.1'){
-        foreach($data[0]['ObrasComplementarias']['Privativas'] as $llavePrincipal => $elementoPrincipal){            
-            //if(is_array($elementoPrincipal) && $elementoPrincipal['id'] != 'e.2.1'){
-                    foreach($validacionesf111 as $etiqueta => $validacion){
-                        if(!isset($elementoPrincipal[$etiqueta])){
-                            $errores[] = "Falta ".$etiqueta." en ObrasComplementarias (Privativas)";
-                        }else{
-                            $resValidacion = define_validacion($validacion, $elementoPrincipal[$etiqueta]);                
-                            if($resValidacion != 'correcto'){
-                                $errores[] = "El campo ".$etiqueta." ".$resValidacion;
-                            }                
-                        }
-                    }
-            //}            
-        }
-    }
-
-    if(isset($data[0]['ObrasComplementarias']['Comunes']['@attributes']) && $data[0]['ObrasComplementarias']['Comunes']['@attributes']['id'] == 'f.11.2'){
-        foreach($validacionesf112 as $etiqueta => $validacion){
-            if(!isset($data[0]['ObrasComplementarias']['Comunes'][$etiqueta])){
-                $errores[] = "Falta ".$etiqueta." en en ObrasComplementarias (Comunes)";
-            }else{
-                $resValidacion = define_validacion($validacion, $data[0]['ObrasComplementarias']['Comunes'][$etiqueta]);                
-                if($resValidacion != 'correcto'){
-                    $errores[] = "El campo ".$etiqueta." ".$resValidacion;
-                }                
-            }
-        }
-    }
-
-    if(isset($data[0]['ObrasComplementarias']['Comunes'][0]['@attributes']) && $data[0]['ObrasComplementarias']['Comunes'][0]['@attributes']['id'] == 'f.11.2'){
-        foreach($data[0]['ObrasComplementarias']['Comunes'] as $llavePrincipal => $elementoPrincipal){            
-            //if(is_array($elementoPrincipal) && $elementoPrincipal['id'] != 'e.2.1'){
-                    foreach($validacionesf112 as $etiqueta => $validacion){
-                        if(!isset($elementoPrincipal[$etiqueta])){
-                            $errores[] = "Falta ".$etiqueta." en ObrasComplementarias (Comunes)";
-                        }else{
-                            $resValidacion = define_validacion($validacion, $elementoPrincipal[$etiqueta]);                
-                            if($resValidacion != 'correcto'){
-                                $errores[] = "El campo ".$etiqueta." ".$resValidacion;
-                            }                
-                        }
-                    }
-            //}            
-        }
-    }
-
-    foreach($validacionesf11 as $etiqueta => $validacion){
-        if(!isset($data[0]['ObrasComplementarias'][$etiqueta])){
-            $errores[] = "Falta ".$etiqueta." en ObrasComplementarias";
-        }else{
-            $resValidacion = define_validacion($validacion, $data[0]['ObrasComplementarias'][$etiqueta]);                
-            if($resValidacion != 'correcto'){
-                $errores[] = "El campo ".$etiqueta." ".$resValidacion;
-            }                
-        }
-    }    
+    
     //print_r($data[0]['InstalacionesEspeciales']); exit();
     
     return $errores;
@@ -2188,382 +2317,389 @@ function valida_AvaluoEnfoqueMercado($data){
     $errores = array(); 
     $data = array_map("convierte_a_arreglo",$data);
 
-    foreach($validacionesh as $etiqueta => $validacion){
-        if(!isset($data[0][$etiqueta])){
-            $errores[] = "Falta ".$etiqueta." en Enfoque de Mercado";
-        }else{
-            $resValidacion = define_validacion($validacion, $data[0][$etiqueta]);                
-            if($resValidacion != 'correcto'){
-                $errores[] = "El campo ".$etiqueta." ".$resValidacion;
-            }                
-        }
-    }
-
-    foreach($validacionesh1 as $etiqueta => $validacion){
-        if(!isset($data[0]['Terrenos'][$etiqueta])){
-            $errores[] = "Falta ".$etiqueta." en Terrenos";
-        }else{
-            $resValidacion = define_validacion($validacion, $data[0]['Terrenos'][$etiqueta]);                
-            if($resValidacion != 'correcto'){
-                $errores[] = "El campo ".$etiqueta." ".$resValidacion;
-            }                
-        }
-    }
-
-    //print_r($data); exit();
-    if(isset($data[0]['Terrenos']['TerrenosDirectos']['@attributes']) && $data[0]['Terrenos']['TerrenosDirectos']['@attributes']['id'] == 'h.1.1'){
-        foreach($validacionesh11 as $etiqueta => $validacion){
-            if(!isset($data[0]['Terrenos']['TerrenosDirectos'][$etiqueta])){
-                $errores[] = "Falta ".$etiqueta." en en Terrenos (TerrenosDirectos)";
+    if(count($data) > 1){
+        $obligatoriosh = array();
+        foreach($validacionesh as $etiqueta => $validacion){
+            if(!isset($data[0][$etiqueta]) && in_array($etiqueta,$obligatoriosh)){
+                $errores[] = "Falta ".$etiqueta." en Enfoque de Mercado";
             }else{
-                $resValidacion = define_validacion($validacion, $data[0]['Terrenos']['TerrenosDirectos'][$etiqueta]);                
+                if(isset($data[0][$etiqueta])){
+                    $resValidacion = define_validacion($validacion, $data[0][$etiqueta]);                
+                    if($resValidacion != 'correcto'){
+                        $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                    }
+                }                    
+            }
+        }
+    
+        foreach($validacionesh1 as $etiqueta => $validacion){
+            if(!isset($data[0]['Terrenos'][$etiqueta])){
+                $errores[] = "Falta ".$etiqueta." en Terrenos";
+            }else{
+                $resValidacion = define_validacion($validacion, $data[0]['Terrenos'][$etiqueta]);                
                 if($resValidacion != 'correcto'){
                     $errores[] = "El campo ".$etiqueta." ".$resValidacion;
                 }                
             }
         }
-
-        if(isset($data[0]['Terrenos']['TerrenosDirectos']['FuenteDeInformacion'])){
-            foreach($validacionesh11n5 as $etiqueta => $validacion){
-                if(!isset($data[0]['Terrenos']['TerrenosDirectos']['FuenteDeInformacion'][$etiqueta])){
-                    $errores[] = "Falta ".$etiqueta." en en Terrenos (FuenteDeInformacion)";
+    
+        //print_r($data); exit();
+        if(isset($data[0]['Terrenos']['TerrenosDirectos']['@attributes']) && $data[0]['Terrenos']['TerrenosDirectos']['@attributes']['id'] == 'h.1.1'){
+            foreach($validacionesh11 as $etiqueta => $validacion){
+                if(!isset($data[0]['Terrenos']['TerrenosDirectos'][$etiqueta])){
+                    $errores[] = "Falta ".$etiqueta." en en Terrenos (TerrenosDirectos)";
                 }else{
-                    $resValidacion = define_validacion($validacion, $data[0]['Terrenos']['TerrenosDirectos']['FuenteDeInformacion'][$etiqueta]);                
+                    $resValidacion = define_validacion($validacion, $data[0]['Terrenos']['TerrenosDirectos'][$etiqueta]);                
                     if($resValidacion != 'correcto'){
                         $errores[] = "El campo ".$etiqueta." ".$resValidacion;
                     }                
                 }
             }
-        }
-
-        if(isset($data[0]['Terrenos']['TerrenosDirectos']['Fot'])){
-            foreach($validacionesh11n18 as $etiqueta => $validacion){
-                if(!isset($data[0]['Terrenos']['TerrenosDirectos']['Fot'][$etiqueta])){
-                    $errores[] = "Falta ".$etiqueta." en en Terrenos (Fot)";
-                }else{
-                    $resValidacion = define_validacion($validacion, $data[0]['Terrenos']['TerrenosDirectos']['Fot'][$etiqueta]);                
-                    if($resValidacion != 'correcto'){
-                        $errores[] = "El campo ".$etiqueta." ".$resValidacion;
-                    }                
-                }
-            }
-        }
-    }
-
-    if(isset($data[0]['Terrenos']['TerrenosDirectos'][0]['@attributes']) && $data[0]['Terrenos']['TerrenosDirectos'][0]['@attributes']['id'] == 'h.1.1'){
-        foreach($data[0]['Terrenos']['TerrenosDirectos'] as $llavePrincipal => $elementoPrincipal){            
-            //if(is_array($elementoPrincipal) && $elementoPrincipal['id'] != 'e.2.1'){
-                    foreach($validacionesh11 as $etiqueta => $validacion){
-                        if(!isset($elementoPrincipal[$etiqueta])){
-                            $errores[] = "Falta ".$etiqueta." en Terrenos (TerrenosDirectos)";
-                        }else{
-                            $resValidacion = define_validacion($validacion, $elementoPrincipal[$etiqueta]);                
-                            if($resValidacion != 'correcto'){
-                                $errores[] = "El campo ".$etiqueta." ".$resValidacion;
-                            }                
-                        }
-                    }
-            //}
-            
-            if(isset($elementoPrincipal['FuenteDeInformacion'])){
-
+    
+            if(isset($data[0]['Terrenos']['TerrenosDirectos']['FuenteDeInformacion'])){
                 foreach($validacionesh11n5 as $etiqueta => $validacion){
-                    if(!isset($elementoPrincipal['FuenteDeInformacion'][$etiqueta])){
-                        $errores[] = "Falta ".$etiqueta." en Terrenos (FuenteDeInformacion)";
+                    if(!isset($data[0]['Terrenos']['TerrenosDirectos']['FuenteDeInformacion'][$etiqueta])){
+                        $errores[] = "Falta ".$etiqueta." en en Terrenos (FuenteDeInformacion)";
                     }else{
-                        $resValidacion = define_validacion($validacion, $elementoPrincipal['FuenteDeInformacion'][$etiqueta]);                
+                        $resValidacion = define_validacion($validacion, $data[0]['Terrenos']['TerrenosDirectos']['FuenteDeInformacion'][$etiqueta]);                
                         if($resValidacion != 'correcto'){
                             $errores[] = "El campo ".$etiqueta." ".$resValidacion;
                         }                
                     }
                 }
-
             }
-
-            if(isset($elementoPrincipal['Fot'])){
-
+    
+            if(isset($data[0]['Terrenos']['TerrenosDirectos']['Fot'])){
                 foreach($validacionesh11n18 as $etiqueta => $validacion){
-                    if(!isset($elementoPrincipal['Fot'][$etiqueta])){
-                        $errores[] = "Falta ".$etiqueta." en Terrenos (Fot)";
+                    if(!isset($data[0]['Terrenos']['TerrenosDirectos']['Fot'][$etiqueta])){
+                        $errores[] = "Falta ".$etiqueta." en en Terrenos (Fot)";
                     }else{
-                        $resValidacion = define_validacion($validacion, $elementoPrincipal['Fot'][$etiqueta]);                
+                        $resValidacion = define_validacion($validacion, $data[0]['Terrenos']['TerrenosDirectos']['Fot'][$etiqueta]);                
                         if($resValidacion != 'correcto'){
                             $errores[] = "El campo ".$etiqueta." ".$resValidacion;
                         }                
                     }
                 }
-
             }
         }
-    }
-
-    if(isset($data[0]['Terrenos']['ConclusionesHomologacionTerrenos'])){
-
-        foreach($validacionesh12 as $etiqueta => $validacion){
-            if(!isset($data[0]['Terrenos']['ConclusionesHomologacionTerrenos'][$etiqueta])){
-                $errores[] = "Falta ".$etiqueta." en en Terrenos (ConclusionesHomologacionTerrenos)";
-            }else{
-                $resValidacion = define_validacion($validacion, $data[0]['Terrenos']['ConclusionesHomologacionTerrenos'][$etiqueta]);                
-                if($resValidacion != 'correcto'){
-                    $errores[] = "El campo ".$etiqueta." ".$resValidacion;
-                }                
-            }
-        }
-
-    }else{
-        $errores[] = "Falta ConclusionesHomologacionTerrenos en en Terrenos";
-    }
-
-    if(isset($data[0]['Terrenos']['TerrenosResidual']['@attributes']) && $data[0]['Terrenos']['TerrenosResidual']['@attributes']['id'] == 'h.1.3'){
-        foreach($validacionesh13 as $etiqueta => $validacion){
-            if(!isset($data[0]['Terrenos']['TerrenosResidual'][$etiqueta])){
-                $errores[] = "Falta ".$etiqueta." en en Terrenos (TerrenosResidual)";
-            }else{
-                $resValidacion = define_validacion($validacion, $data[0]['Terrenos']['TerrenosResidual'][$etiqueta]);                
-                if($resValidacion != 'correcto'){
-                    $errores[] = "El campo ".$etiqueta." ".$resValidacion;
-                }                
-            }
-        }
-
-        if(isset($data[0]['Terrenos']['TerrenosResidual']['InvestigacionProductosComparables'])){
-            $numeroInvestigacionProductosComparablesR = count($data[0]['Terrenos']['TerrenosResidual']['InvestigacionProductosComparables']);
-            if($numeroInvestigacionProductosComparablesR < 4){
-                $errores[] = "Existen menos de 4 InvestigacionProductosComparables (TerrenosResidual)";
-            }else{
-                foreach($data[0]['Terrenos']['TerrenosResidual']['InvestigacionProductosComparables'] as $llavePrincipal => $elementoPrincipal){
-                    foreach($validacionesh134 as $etiqueta => $validacion){
-                        if(!isset($elementoPrincipal[$etiqueta])){
-                            $errores[] = "Falta ".$etiqueta." en en TerrenosResidual (InvestigacionProductosComparables)";
-                        }else{
-                            $resValidacion = define_validacion($validacion, $elementoPrincipal[$etiqueta]);                
-                            if($resValidacion != 'correcto'){
-                                $errores[] = "El campo ".$etiqueta." ".$resValidacion;
-                            }                
-                        }
-                    }
-            
-                    if(isset($elementoPrincipal['FuenteDeInformacion'])){
-                        foreach($validacionesh134n5 as $etiqueta => $validacion){
-                            if(!isset($elementoPrincipal['FuenteDeInformacion'][$etiqueta])){
-                                $errores[] = "Falta ".$etiqueta." en en InvestigacionProductosComparables (FuenteDeInformacion)";
+    
+        if(isset($data[0]['Terrenos']['TerrenosDirectos'][0]['@attributes']) && $data[0]['Terrenos']['TerrenosDirectos'][0]['@attributes']['id'] == 'h.1.1'){
+            foreach($data[0]['Terrenos']['TerrenosDirectos'] as $llavePrincipal => $elementoPrincipal){            
+                //if(is_array($elementoPrincipal) && $elementoPrincipal['id'] != 'e.2.1'){
+                        foreach($validacionesh11 as $etiqueta => $validacion){
+                            if(!isset($elementoPrincipal[$etiqueta])){
+                                $errores[] = "Falta ".$etiqueta." en Terrenos (TerrenosDirectos)";
                             }else{
-                                $resValidacion = define_validacion($validacion, $elementoPrincipal['FuenteDeInformacion'][$etiqueta]);                
+                                $resValidacion = define_validacion($validacion, $elementoPrincipal[$etiqueta]);                
                                 if($resValidacion != 'correcto'){
                                     $errores[] = "El campo ".$etiqueta." ".$resValidacion;
                                 }                
                             }
                         }
-                    }
-                }
+                //}
                 
-                /******************************************************* */
-                /*foreach($validacionesh134 as $etiqueta => $validacion){
-                    if(!isset($data[0]['Terrenos']['TerrenosResidual']['InvestigacionProductosComparables'][$etiqueta])){
-                        $errores[] = "Falta ".$etiqueta." en en TerrenosResidual (InvestigacionProductosComparables)";
-                    }else{
-                        $resValidacion = define_validacion($validacion, $data[0]['Terrenos']['TerrenosResidual']['InvestigacionProductosComparables'][$etiqueta]);                
-                        if($resValidacion != 'correcto'){
-                            $errores[] = "El campo ".$etiqueta." ".$resValidacion;
-                        }                
-                    }
-                }
-        
-                if(isset($data[0]['Terrenos']['TerrenosResidual']['InvestigacionProductosComparables']['FuenteDeInformacion'])){
-                    foreach($validacionesh134n5 as $etiqueta => $validacion){
-                        if(!isset($data[0]['Terrenos']['TerrenosResidual']['InvestigacionProductosComparables']['FuenteDeInformacion'][$etiqueta])){
-                            $errores[] = "Falta ".$etiqueta." en en InvestigacionProductosComparables (FuenteDeInformacion)";
+                if(isset($elementoPrincipal['FuenteDeInformacion'])){
+    
+                    foreach($validacionesh11n5 as $etiqueta => $validacion){
+                        if(!isset($elementoPrincipal['FuenteDeInformacion'][$etiqueta])){
+                            $errores[] = "Falta ".$etiqueta." en Terrenos (FuenteDeInformacion)";
                         }else{
-                            $resValidacion = define_validacion($validacion, $data[0]['Terrenos']['TerrenosResidual']['InvestigacionProductosComparables']['FuenteDeInformacion'][$etiqueta]);                
+                            $resValidacion = define_validacion($validacion, $elementoPrincipal['FuenteDeInformacion'][$etiqueta]);                
                             if($resValidacion != 'correcto'){
                                 $errores[] = "El campo ".$etiqueta." ".$resValidacion;
                             }                
                         }
                     }
-                }*/
-                /******************************************************* */
-                
-            }
-            
-        }
-
-        if(isset($data[0]['Terrenos']['TerrenosResidual']['ConclusionesHomologacionCompResiduales'])){
-            foreach($validacionesh135 as $etiqueta => $validacion){
-                if(!isset($data[0]['Terrenos']['TerrenosResidual']['ConclusionesHomologacionCompResiduales'][$etiqueta])){
-                    $errores[] = "Falta ".$etiqueta." en en TerrenosResidual (ConclusionesHomologacionCompResiduales)";
-                }else{
-                    $resValidacion = define_validacion($validacion, $data[0]['Terrenos']['TerrenosResidual']['ConclusionesHomologacionCompResiduales'][$etiqueta]);                
-                    if($resValidacion != 'correcto'){
-                        $errores[] = "El campo ".$etiqueta." ".$resValidacion;
-                    }                
-                }
-            }
-        }
-
-        if(isset($data[0]['Terrenos']['TerrenosResidual']['AnalisisResidual'])){
-            foreach($validacionesh136 as $etiqueta => $validacion){
-                if(!isset($data[0]['Terrenos']['TerrenosResidual']['AnalisisResidual'][$etiqueta])){
-                    $errores[] = "Falta ".$etiqueta." en en TerrenosResidual (AnalisisResidual)";
-                }else{
-                    $resValidacion = define_validacion($validacion, $data[0]['Terrenos']['TerrenosResidual']['AnalisisResidual'][$etiqueta]);                
-                    if($resValidacion != 'correcto'){
-                        $errores[] = "El campo ".$etiqueta." ".$resValidacion;
-                    }                
-                }
-            }
-        }
-    }
     
-    //print_r($data[0]['ConstruccionesEnVenta']); exit();
-    if(isset($data[0]['ConstruccionesEnVenta']['@attributes']) && $data[0]['ConstruccionesEnVenta']['@attributes']['id'] == 'h.2'){
-        $numeroInvestigacionProductosComparables = count($data[0]['ConstruccionesEnVenta']['InvestigacionProductosComparables']);
-        if($numeroInvestigacionProductosComparables < 4){
-            $errores[] = "Existen menos de 4 InvestigacionProductosComparables";
+                }
+    
+                if(isset($elementoPrincipal['Fot'])){
+    
+                    foreach($validacionesh11n18 as $etiqueta => $validacion){
+                        if(!isset($elementoPrincipal['Fot'][$etiqueta])){
+                            $errores[] = "Falta ".$etiqueta." en Terrenos (Fot)";
+                        }else{
+                            $resValidacion = define_validacion($validacion, $elementoPrincipal['Fot'][$etiqueta]);                
+                            if($resValidacion != 'correcto'){
+                                $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                            }                
+                        }
+                    }
+    
+                }
+            }
+        }
+    
+        if(isset($data[0]['Terrenos']['ConclusionesHomologacionTerrenos'])){
+    
+            foreach($validacionesh12 as $etiqueta => $validacion){
+                if(!isset($data[0]['Terrenos']['ConclusionesHomologacionTerrenos'][$etiqueta])){
+                    $errores[] = "Falta ".$etiqueta." en en Terrenos (ConclusionesHomologacionTerrenos)";
+                }else{
+                    $resValidacion = define_validacion($validacion, $data[0]['Terrenos']['ConclusionesHomologacionTerrenos'][$etiqueta]);                
+                    if($resValidacion != 'correcto'){
+                        $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                    }                
+                }
+            }
+    
         }else{
-            //print_r($data[0]['ConstruccionesEnVenta']['InvestigacionProductosComparables']); exit();
-            foreach($data[0]['ConstruccionesEnVenta']['InvestigacionProductosComparables'] as $llavePrincipal => $elementoPrincipal){            
+            $errores[] = "Falta ConclusionesHomologacionTerrenos en en Terrenos";
+        }
+    
+        if(isset($data[0]['Terrenos']['TerrenosResidual']['@attributes']) && $data[0]['Terrenos']['TerrenosResidual']['@attributes']['id'] == 'h.1.3'){
+            foreach($validacionesh13 as $etiqueta => $validacion){
+                if(!isset($data[0]['Terrenos']['TerrenosResidual'][$etiqueta])){
+                    $errores[] = "Falta ".$etiqueta." en en Terrenos (TerrenosResidual)";
+                }else{
+                    $resValidacion = define_validacion($validacion, $data[0]['Terrenos']['TerrenosResidual'][$etiqueta]);                
+                    if($resValidacion != 'correcto'){
+                        $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                    }                
+                }
+            }
+    
+            if(isset($data[0]['Terrenos']['TerrenosResidual']['InvestigacionProductosComparables'])){
+                $numeroInvestigacionProductosComparablesR = count($data[0]['Terrenos']['TerrenosResidual']['InvestigacionProductosComparables']);
+                if($numeroInvestigacionProductosComparablesR < 4){
+                    $errores[] = "Existen menos de 4 InvestigacionProductosComparables (TerrenosResidual)";
+                }else{
+                    foreach($data[0]['Terrenos']['TerrenosResidual']['InvestigacionProductosComparables'] as $llavePrincipal => $elementoPrincipal){
+                        foreach($validacionesh134 as $etiqueta => $validacion){
+                            if(!isset($elementoPrincipal[$etiqueta])){
+                                $errores[] = "Falta ".$etiqueta." en en TerrenosResidual (InvestigacionProductosComparables)";
+                            }else{
+                                $resValidacion = define_validacion($validacion, $elementoPrincipal[$etiqueta]);                
+                                if($resValidacion != 'correcto'){
+                                    $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                                }                
+                            }
+                        }
                 
-                foreach($validacionesh21 as $etiqueta => $validacion){
-                    if(!isset($elementoPrincipal[$etiqueta])){
-                        $errores[] = "Falta ".$etiqueta." en ConstruccionesEnVenta (InvestigacionProductosComparables)";
+                        if(isset($elementoPrincipal['FuenteDeInformacion'])){
+                            foreach($validacionesh134n5 as $etiqueta => $validacion){
+                                if(!isset($elementoPrincipal['FuenteDeInformacion'][$etiqueta])){
+                                    $errores[] = "Falta ".$etiqueta." en en InvestigacionProductosComparables (FuenteDeInformacion)";
+                                }else{
+                                    $resValidacion = define_validacion($validacion, $elementoPrincipal['FuenteDeInformacion'][$etiqueta]);                
+                                    if($resValidacion != 'correcto'){
+                                        $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                                    }                
+                                }
+                            }
+                        }
+                    }
+                    
+                    /******************************************************* */
+                    /*foreach($validacionesh134 as $etiqueta => $validacion){
+                        if(!isset($data[0]['Terrenos']['TerrenosResidual']['InvestigacionProductosComparables'][$etiqueta])){
+                            $errores[] = "Falta ".$etiqueta." en en TerrenosResidual (InvestigacionProductosComparables)";
+                        }else{
+                            $resValidacion = define_validacion($validacion, $data[0]['Terrenos']['TerrenosResidual']['InvestigacionProductosComparables'][$etiqueta]);                
+                            if($resValidacion != 'correcto'){
+                                $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                            }                
+                        }
+                    }
+            
+                    if(isset($data[0]['Terrenos']['TerrenosResidual']['InvestigacionProductosComparables']['FuenteDeInformacion'])){
+                        foreach($validacionesh134n5 as $etiqueta => $validacion){
+                            if(!isset($data[0]['Terrenos']['TerrenosResidual']['InvestigacionProductosComparables']['FuenteDeInformacion'][$etiqueta])){
+                                $errores[] = "Falta ".$etiqueta." en en InvestigacionProductosComparables (FuenteDeInformacion)";
+                            }else{
+                                $resValidacion = define_validacion($validacion, $data[0]['Terrenos']['TerrenosResidual']['InvestigacionProductosComparables']['FuenteDeInformacion'][$etiqueta]);                
+                                if($resValidacion != 'correcto'){
+                                    $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                                }                
+                            }
+                        }
+                    }*/
+                    /******************************************************* */
+                    
+                }
+                
+            }
+    
+            if(isset($data[0]['Terrenos']['TerrenosResidual']['ConclusionesHomologacionCompResiduales'])){
+                foreach($validacionesh135 as $etiqueta => $validacion){
+                    if(!isset($data[0]['Terrenos']['TerrenosResidual']['ConclusionesHomologacionCompResiduales'][$etiqueta])){
+                        $errores[] = "Falta ".$etiqueta." en en TerrenosResidual (ConclusionesHomologacionCompResiduales)";
                     }else{
-                        $resValidacion = define_validacion($validacion, $elementoPrincipal[$etiqueta]);                
+                        $resValidacion = define_validacion($validacion, $data[0]['Terrenos']['TerrenosResidual']['ConclusionesHomologacionCompResiduales'][$etiqueta]);                
                         if($resValidacion != 'correcto'){
                             $errores[] = "El campo ".$etiqueta." ".$resValidacion;
                         }                
                     }
                 }
-                
-                foreach($validacionesh21n5 as $etiqueta => $validacion){
-                    if(!isset($elementoPrincipal['FuenteDeInformacion'][$etiqueta])){
-                        $errores[] = "Falta ".$etiqueta." en InvestigacionProductosComparables (FuenteDeInformacion)";
+            }
+    
+            if(isset($data[0]['Terrenos']['TerrenosResidual']['AnalisisResidual'])){
+                foreach($validacionesh136 as $etiqueta => $validacion){
+                    if(!isset($data[0]['Terrenos']['TerrenosResidual']['AnalisisResidual'][$etiqueta])){
+                        $errores[] = "Falta ".$etiqueta." en en TerrenosResidual (AnalisisResidual)";
                     }else{
-                        $resValidacion = define_validacion($validacion, $elementoPrincipal['FuenteDeInformacion'][$etiqueta]);                
+                        $resValidacion = define_validacion($validacion, $data[0]['Terrenos']['TerrenosResidual']['AnalisisResidual'][$etiqueta]);                
                         if($resValidacion != 'correcto'){
                             $errores[] = "El campo ".$etiqueta." ".$resValidacion;
                         }                
                     }
                 }
-
-                foreach($validacionesh21n10 as $etiqueta => $validacion){
-                    if(!isset($elementoPrincipal['CuentaCatastral'][$etiqueta])){
-                        $errores[] = "Falta ".$etiqueta." en InvestigacionProductosComparables (CuentaCatastral)";
+            }
+        }
+        
+        //print_r($data[0]['ConstruccionesEnVenta']); exit();
+        if(isset($data[0]['ConstruccionesEnVenta']['@attributes']) && $data[0]['ConstruccionesEnVenta']['@attributes']['id'] == 'h.2'){
+            $numeroInvestigacionProductosComparables = count($data[0]['ConstruccionesEnVenta']['InvestigacionProductosComparables']);
+            if($numeroInvestigacionProductosComparables < 4){
+                $errores[] = "Existen menos de 4 InvestigacionProductosComparables";
+            }else{
+                //print_r($data[0]['ConstruccionesEnVenta']['InvestigacionProductosComparables']); exit();
+                foreach($data[0]['ConstruccionesEnVenta']['InvestigacionProductosComparables'] as $llavePrincipal => $elementoPrincipal){            
+                    
+                    foreach($validacionesh21 as $etiqueta => $validacion){
+                        if(!isset($elementoPrincipal[$etiqueta])){
+                            $errores[] = "Falta ".$etiqueta." en ConstruccionesEnVenta (InvestigacionProductosComparables)";
+                        }else{
+                            $resValidacion = define_validacion($validacion, $elementoPrincipal[$etiqueta]);                
+                            if($resValidacion != 'correcto'){
+                                $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                            }                
+                        }
+                    }
+                    
+                    foreach($validacionesh21n5 as $etiqueta => $validacion){
+                        if(!isset($elementoPrincipal['FuenteDeInformacion'][$etiqueta])){
+                            $errores[] = "Falta ".$etiqueta." en InvestigacionProductosComparables (FuenteDeInformacion)";
+                        }else{
+                            $resValidacion = define_validacion($validacion, $elementoPrincipal['FuenteDeInformacion'][$etiqueta]);                
+                            if($resValidacion != 'correcto'){
+                                $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                            }                
+                        }
+                    }
+    
+                    foreach($validacionesh21n10 as $etiqueta => $validacion){
+                        if(!isset($elementoPrincipal['CuentaCatastral'][$etiqueta])){
+                            $errores[] = "Falta ".$etiqueta." en InvestigacionProductosComparables (CuentaCatastral)";
+                        }else{                                             
+                            $resValidacion = define_validacion($validacion, $elementoPrincipal['CuentaCatastral'][$etiqueta]);
+                            if($resValidacion != 'correcto'){
+                                $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                            }    
+                        }
+                    }                
+                }
+                //print_r($data[0]['ConstruccionesEnVenta']['ConclusionesHomologacionConstruccionesEnVenta']); exit();
+                foreach($validacionesh22 as $etiqueta => $validacion){
+                    if(!isset($data[0]['ConstruccionesEnVenta']['ConclusionesHomologacionConstruccionesEnVenta'][$etiqueta])){
+                        $errores[] = "Falta ".$etiqueta." en ConstruccionesEnVenta (ConclusionesHomologacionConstruccionesEnVenta)";
                     }else{                                             
-                        $resValidacion = define_validacion($validacion, $elementoPrincipal['CuentaCatastral'][$etiqueta]);
+                        $resValidacion = define_validacion($validacion, $data[0]['ConstruccionesEnVenta']['ConclusionesHomologacionConstruccionesEnVenta'][$etiqueta]);
                         if($resValidacion != 'correcto'){
                             $errores[] = "El campo ".$etiqueta." ".$resValidacion;
                         }    
                     }
-                }                
-            }
-            //print_r($data[0]['ConstruccionesEnVenta']['ConclusionesHomologacionConstruccionesEnVenta']); exit();
-            foreach($validacionesh22 as $etiqueta => $validacion){
-                if(!isset($data[0]['ConstruccionesEnVenta']['ConclusionesHomologacionConstruccionesEnVenta'][$etiqueta])){
-                    $errores[] = "Falta ".$etiqueta." en ConstruccionesEnVenta (ConclusionesHomologacionConstruccionesEnVenta)";
-                }else{                                             
-                    $resValidacion = define_validacion($validacion, $data[0]['ConstruccionesEnVenta']['ConclusionesHomologacionConstruccionesEnVenta'][$etiqueta]);
-                    if($resValidacion != 'correcto'){
-                        $errores[] = "El campo ".$etiqueta." ".$resValidacion;
-                    }    
                 }
-            }
-
-        }
-    }
-
-    if(isset($data[0]['ConstruccionesEnRenta']['@attributes']) && $data[0]['ConstruccionesEnRenta']['@attributes']['id'] == 'h.4'){
-       
-        if(isset($data[0]['ConstruccionesEnRenta']['InvestigacionProductosComparables']['@attributes']) && $data[0]['ConstruccionesEnRenta']['InvestigacionProductosComparables']['@attributes']['id'] == 'h.4.1'){
-            foreach($validacionesh41 as $etiqueta => $validacion){
-                if(!isset($data[0]['ConstruccionesEnRenta']['InvestigacionProductosComparables'][$etiqueta])){
-                    $errores[] = "Falta ".$etiqueta." en en ConstruccionesEnRenta (InvestigacionProductosComparables)";
-                }else{
-                    $resValidacion = define_validacion($validacion, $data[0]['ConstruccionesEnRenta']['InvestigacionProductosComparables'][$etiqueta]);                
-                    if($resValidacion != 'correcto'){
-                        $errores[] = "El campo ".$etiqueta." ".$resValidacion;
-                    }                
-                }
-            }
-
-            foreach($validacionesh41n5 as $etiqueta => $validacion){
-                if(!isset($data[0]['ConstruccionesEnRenta']['InvestigacionProductosComparables']['FuenteDeInformacion'][$etiqueta])){
-                    $errores[] = "Falta ".$etiqueta." en en InvestigacionProductosComparables (FuenteDeInformacion)";
-                }else{
-                    $resValidacion = define_validacion($validacion, $data[0]['ConstruccionesEnRenta']['InvestigacionProductosComparables']['FuenteDeInformacion'][$etiqueta]);                
-                    if($resValidacion != 'correcto'){
-                        $errores[] = "El campo ".$etiqueta." ".$resValidacion;
-                    }                
-                }
-            }
-
-            foreach($validacionesh41n10 as $etiqueta => $validacion){
-                if(!isset($data[0]['ConstruccionesEnRenta']['InvestigacionProductosComparables']['CuentaCatastral'][$etiqueta])){
-                    $errores[] = "Falta ".$etiqueta." en en InvestigacionProductosComparables (CuentaCatastral)";
-                }else{
-                    $resValidacion = define_validacion($validacion, $data[0]['ConstruccionesEnRenta']['InvestigacionProductosComparables']['CuentaCatastral'][$etiqueta]);                
-                    if($resValidacion != 'correcto'){
-                        $errores[] = "El campo ".$etiqueta." ".$resValidacion;
-                    }                
-                }
+    
             }
         }
-
-        if(isset($data[0]['ConstruccionesEnRenta']['InvestigacionProductosComparables'][0]['@attributes']) && $data[0]['ConstruccionesEnRenta']['InvestigacionProductosComparables'][0]['@attributes']['id'] == 'h.4.1'){
-            
-            foreach($data[0]['ConstruccionesEnRenta']['InvestigacionProductosComparables'] as $llavePrincipal => $elementoPrincipal){
-                
+    
+        if(isset($data[0]['ConstruccionesEnRenta']['@attributes']) && $data[0]['ConstruccionesEnRenta']['@attributes']['id'] == 'h.4'){
+           
+            if(isset($data[0]['ConstruccionesEnRenta']['InvestigacionProductosComparables']['@attributes']) && $data[0]['ConstruccionesEnRenta']['InvestigacionProductosComparables']['@attributes']['id'] == 'h.4.1'){
                 foreach($validacionesh41 as $etiqueta => $validacion){
-                    if(!isset($elementoPrincipal[$etiqueta])){
+                    if(!isset($data[0]['ConstruccionesEnRenta']['InvestigacionProductosComparables'][$etiqueta])){
                         $errores[] = "Falta ".$etiqueta." en en ConstruccionesEnRenta (InvestigacionProductosComparables)";
                     }else{
-                        $resValidacion = define_validacion($validacion, $elementoPrincipal[$etiqueta]);                
+                        $resValidacion = define_validacion($validacion, $data[0]['ConstruccionesEnRenta']['InvestigacionProductosComparables'][$etiqueta]);                
                         if($resValidacion != 'correcto'){
                             $errores[] = "El campo ".$etiqueta." ".$resValidacion;
                         }                
                     }
                 }
-
+    
                 foreach($validacionesh41n5 as $etiqueta => $validacion){
-                    if(!isset($elementoPrincipal['FuenteDeInformacion'][$etiqueta])){
+                    if(!isset($data[0]['ConstruccionesEnRenta']['InvestigacionProductosComparables']['FuenteDeInformacion'][$etiqueta])){
                         $errores[] = "Falta ".$etiqueta." en en InvestigacionProductosComparables (FuenteDeInformacion)";
                     }else{
-                        $resValidacion = define_validacion($validacion, $elementoPrincipal['FuenteDeInformacion'][$etiqueta]);                
+                        $resValidacion = define_validacion($validacion, $data[0]['ConstruccionesEnRenta']['InvestigacionProductosComparables']['FuenteDeInformacion'][$etiqueta]);                
                         if($resValidacion != 'correcto'){
                             $errores[] = "El campo ".$etiqueta." ".$resValidacion;
                         }                
                     }
                 }
-                //echo "ENTRE AQUI "; print_r($elementoPrincipal['CuentaCatastral']); exit();
-                if(isset($elementoPrincipal['CuentaCatastral'])){
-                    foreach($validacionesh41n10 as $etiqueta => $validacion){
-                        //echo $elementoPrincipal['CuentaCatastral'][$etiqueta]; echo "\n";
-                        if(!isset($elementoPrincipal['CuentaCatastral'][$etiqueta])){
-                            $errores[] = "Falta ".$etiqueta." en en InvestigacionProductosComparables (CuentaCatastral)";
+    
+                foreach($validacionesh41n10 as $etiqueta => $validacion){
+                    if(!isset($data[0]['ConstruccionesEnRenta']['InvestigacionProductosComparables']['CuentaCatastral'][$etiqueta])){
+                        $errores[] = "Falta ".$etiqueta." en en InvestigacionProductosComparables (CuentaCatastral)";
+                    }else{
+                        $resValidacion = define_validacion($validacion, $data[0]['ConstruccionesEnRenta']['InvestigacionProductosComparables']['CuentaCatastral'][$etiqueta]);                
+                        if($resValidacion != 'correcto'){
+                            $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                        }                
+                    }
+                }
+            }
+    
+            if(isset($data[0]['ConstruccionesEnRenta']['InvestigacionProductosComparables'][0]['@attributes']) && $data[0]['ConstruccionesEnRenta']['InvestigacionProductosComparables'][0]['@attributes']['id'] == 'h.4.1'){
+                
+                foreach($data[0]['ConstruccionesEnRenta']['InvestigacionProductosComparables'] as $llavePrincipal => $elementoPrincipal){
+                    
+                    foreach($validacionesh41 as $etiqueta => $validacion){
+                        if(!isset($elementoPrincipal[$etiqueta])){
+                            $errores[] = "Falta ".$etiqueta." en en ConstruccionesEnRenta (InvestigacionProductosComparables)";
                         }else{
-                            $resValidacion = define_validacion($validacion, $elementoPrincipal['CuentaCatastral'][$etiqueta]);                
+                            $resValidacion = define_validacion($validacion, $elementoPrincipal[$etiqueta]);                
                             if($resValidacion != 'correcto'){
                                 $errores[] = "El campo ".$etiqueta." ".$resValidacion;
                             }                
                         }
                     }
-                }                
-
+    
+                    foreach($validacionesh41n5 as $etiqueta => $validacion){
+                        if(!isset($elementoPrincipal['FuenteDeInformacion'][$etiqueta])){
+                            $errores[] = "Falta ".$etiqueta." en en InvestigacionProductosComparables (FuenteDeInformacion)";
+                        }else{
+                            $resValidacion = define_validacion($validacion, $elementoPrincipal['FuenteDeInformacion'][$etiqueta]);                
+                            if($resValidacion != 'correcto'){
+                                $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                            }                
+                        }
+                    }
+                    //echo "ENTRE AQUI "; print_r($elementoPrincipal['CuentaCatastral']); exit();
+                    if(isset($elementoPrincipal['CuentaCatastral'])){
+                        foreach($validacionesh41n10 as $etiqueta => $validacion){
+                            //echo $elementoPrincipal['CuentaCatastral'][$etiqueta]; echo "\n";
+                            if(!isset($elementoPrincipal['CuentaCatastral'][$etiqueta])){
+                                $errores[] = "Falta ".$etiqueta." en en InvestigacionProductosComparables (CuentaCatastral)";
+                            }else{
+                                $resValidacion = define_validacion($validacion, $elementoPrincipal['CuentaCatastral'][$etiqueta]);                
+                                if($resValidacion != 'correcto'){
+                                    $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                                }                
+                            }
+                        }
+                    }                
+    
+                }
+                
             }
-            
+    
+            foreach($validacionesh42 as $etiqueta => $validacion){
+                if(!isset($data[0]['ConstruccionesEnRenta']['ConclusionesHomologacionConstruccionesEnVenta'][$etiqueta])){
+                    $errores[] = "Falta ".$etiqueta." en en ConstruccionesEnRenta (ConclusionesHomologacionConstruccionesEnVenta)";
+                }else{
+                    $resValidacion = define_validacion($validacion, $data[0]['ConstruccionesEnRenta']['ConclusionesHomologacionConstruccionesEnVenta'][$etiqueta]);                
+                    if($resValidacion != 'correcto'){
+                        $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                    }                
+                }
+            }        
+    
         }
 
-        foreach($validacionesh42 as $etiqueta => $validacion){
-            if(!isset($data[0]['ConstruccionesEnRenta']['ConclusionesHomologacionConstruccionesEnVenta'][$etiqueta])){
-                $errores[] = "Falta ".$etiqueta." en en ConstruccionesEnRenta (ConclusionesHomologacionConstruccionesEnVenta)";
-            }else{
-                $resValidacion = define_validacion($validacion, $data[0]['ConstruccionesEnRenta']['ConclusionesHomologacionConstruccionesEnVenta'][$etiqueta]);                
-                if($resValidacion != 'correcto'){
-                    $errores[] = "El campo ".$etiqueta." ".$resValidacion;
-                }                
-            }
-        }        
-
     }
+    
     return $errores;
 }
 
@@ -2588,17 +2724,17 @@ function valida_AvaluoEnfoqueMercado($data){
     }
 
 function valida_AvaluoEnfoqueCostosCatastral($data, $elementoPrincipal){
-
+    
     $validacionesj = array('ImporteInstalacionesEspeciales' => 'SUB-ImporteInstalacionesEspeciales', 'ImporteTotalValorCatastral' => 'SUB-ImporteTotalValorCatastral', 'AvanceDeObra' => 'SUB-AvanceDeObra', 'ImporteTotalValorCatastralObraEnProceso' => 'SUB-ImporteTotalValorCatastralObraEnProceso');        
 
     $errores = array(); 
     $data = array_map("convierte_a_arreglo",$data);
-
+    //print_r($data); exit();
     foreach($validacionesj as $etiqueta => $validacion){
-        if(!isset($data[0]['EnfoqueDeCostos'][$etiqueta])){
+        if(!isset($data[0][$etiqueta])){
             $errores[] = "Falta ".$etiqueta." en en EnfoqueDeCostos";
         }else{
-            $resValidacion = define_validacion($validacion, $data[0]['EnfoqueDeCostos'][$etiqueta]);                
+            $resValidacion = define_validacion($validacion, $data[0][$etiqueta]);                
             if($resValidacion != 'correcto'){
                 $errores[] = "El campo ".$etiqueta." ".$resValidacion;
             }                
@@ -2669,7 +2805,7 @@ function valida_AvaluoConclusionDelAvaluoComercial($data, $elementoPrincipal){
     //print_r($data); exit();
     $errores = array(); 
     $data = array_map("convierte_a_arreglo",$data);
-    //print_r($data); exit();
+    
     foreach($validacioneso as $etiqueta => $validacion){
         
         if(!isset($data[0][$etiqueta])){
@@ -2685,11 +2821,11 @@ function valida_AvaluoConclusionDelAvaluoComercial($data, $elementoPrincipal){
 }
 
 function valida_AvaluoConclusionDelAvaluoCatastral($data, $elementoPrincipal){
-    $validacioneso = array('ValorComercialDelInmueble' => 'decimalPositivo');
+    $validacioneso = array('ValorCatastralDelInmueble' => 'decimalPositivo');
 
     $errores = array(); 
     $data = array_map("convierte_a_arreglo",$data);
-
+    //echo $data[0]['ValorCatastralDelInmueble']; exit();
     foreach($validacioneso as $etiqueta => $validacion){
         
         if(!isset($data[0][$etiqueta])){

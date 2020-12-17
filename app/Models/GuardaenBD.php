@@ -91,11 +91,22 @@ class GuardaenBD
             break;
 
             case 'FEXAVA_ELEMENTOSCONST':
-                $elementosTabla = array('VIDRERIA' => $arrAvaluo['VIDRERIA'],'CERRAJERIA' => $arrAvaluo['CERRAJERIA'],'FACHADAS' => $arrAvaluo['FACHADAS']);
-                $resInsert = $this->insertDatos($tabla,$elementosTabla,$arrAvaluo['IDAVALUO']);
-                if(strpos($resInsert, 'Error') != FALSE){
-                    return $resInsert;
+                $elementosTabla = array();
+                $elementos = array('VIDRERIA','CERRAJERIA','FACHADAS');
+
+                foreach($elementos as $elemento){
+                    if(isset($arrAvaluo[$elemento])){
+                        $elementosTabla[$elemento] = $arrAvaluo[$elemento];
+                    }
                 }
+                //$elementosTabla = array('VIDRERIA' => $arrAvaluo['VIDRERIA'],'CERRAJERIA' => $arrAvaluo['CERRAJERIA'],'FACHADAS' => $arrAvaluo['FACHADAS']);
+
+                if(count($elementosTabla) > 0){
+                    $resInsert = $this->insertDatos($tabla,$elementosTabla,$arrAvaluo['IDAVALUO']);
+                    if(strpos($resInsert, 'Error') != FALSE){
+                        return $resInsert;
+                    }
+                }                
                 
                 foreach($arrAvaluo[$tabla] as $idElementoPrincipal => $arrElementoPrincipal){
                     if(is_array($arrElementoPrincipal) && in_array($idElementoPrincipal,$arrElementosConst)){
@@ -120,7 +131,7 @@ class GuardaenBD
             break;
 
             case 'FEXAVA_TERRENOMERCADO':
-                if(isset($arrAvaluo[$tabla])){
+                if(isset($arrAvaluo[$tabla]) && count($arrAvaluo[$tabla]) > 0){
                     $this->idTerrenoMercado = $this->insertTerrenoMercado($arrAvaluo[$tabla],$arrAvaluo['IDAVALUO']);
                     if(strpos($this->idTerrenoMercado, 'Error') != FALSE){
                         return $this->idTerrenoMercado;
