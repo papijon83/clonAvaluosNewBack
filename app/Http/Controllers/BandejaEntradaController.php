@@ -577,7 +577,13 @@ class BandejaEntradaController extends Controller
         $arrIdentificacion = array();
         foreach($infoXmlIdentificacion[0] as $llave => $elemento){
             $arrIdentificacion[$llave] = (String)($elemento);
-        }                 
+        }
+        //echo "LOS IDS ".$idPersona." ".$this->modelDatosExtrasAvaluo->IdPeritoSociedadByRegistro($arrIdentificacion['ClaveValuador'], '',true); exit();
+        if($idPersona != $this->modelDatosExtrasAvaluo->IdPeritoSociedadByRegistro($this->modelDatosExtrasAvaluo->IdPeritoSociedadByRegistro($arrIdentificacion['ClaveValuador'], '',true), '',true) and $idPersona != 264){
+            $errores = array(0 => 'El usuario no corresponde con la ClaveValuador');
+            return array('ERROR' => $errores);
+        }
+        
         if($arrIdentificacion['NumeroDeAvaluo'] != ''){            
             $camposFexavaAvaluo['NUMEROAVALUO'] = $arrIdentificacion['NumeroDeAvaluo'];
         } 
