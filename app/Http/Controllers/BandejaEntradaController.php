@@ -538,8 +538,9 @@ class BandejaEntradaController extends Controller
             exit();  */
             
             
-            if($resInsert == TRUE){
-                return response()->json(['Estado' => $resInsert,'idAvaluo' => $camposFexavaAvaluo['IDAVALUO']], 200);
+            if($resInsert == TRUE){    
+                $numeroUnico = $this->modelDocumentos->get_numero_unico_db($camposFexavaAvaluo['IDAVALUO']);
+                return response()->json(['Estado' => $resInsert,'numeroUnico' => $numeroUnico], 200);
             }else{
                 return response()->json(['mensaje' => $resInsert], 500);
             }
@@ -580,7 +581,7 @@ class BandejaEntradaController extends Controller
         }
         //echo "LOS IDS ".$idPersona." ".$this->modelDatosExtrasAvaluo->IdPeritoSociedadByRegistro($arrIdentificacion['ClaveValuador'], '',true); exit();
         if($idPersona != $this->modelDatosExtrasAvaluo->IdPeritoSociedadByRegistro($this->modelDatosExtrasAvaluo->IdPeritoSociedadByRegistro($arrIdentificacion['ClaveValuador'], '',true), '',true) and $idPersona != 264){
-            $errores = array(0 => 'El usuario no corresponde con la ClaveValuador');
+            $errores = array(0 => 'Un perito no puede subir avalúos a nombre de otro perito');
             return array('ERROR' => $errores);
         }
         

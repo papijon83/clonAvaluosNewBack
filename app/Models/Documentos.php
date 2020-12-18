@@ -125,4 +125,9 @@ class Documentos
         $this->InsertFotoInmueble($idDocumentoDigital, $tipoFoto);
         return $idDocumentoDigital ? $idDocumentoDigital : 0;
     }
+
+    public function get_numero_unico_db($idAvaluo){         
+        $numeroUnicoAvaluo = convierte_a_arreglo(DB::select("SELECT NUMEROUNICO FROM FEXAVA_AVALUO WHERE IDAVALUO = $idAvaluo"));
+        return trim($numeroUnicoAvaluo[0]['numerounico']);
+    }
 }
