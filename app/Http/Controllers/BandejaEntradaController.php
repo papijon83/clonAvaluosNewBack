@@ -441,10 +441,13 @@ class BandejaEntradaController extends Controller
             $this->modelDocumentos = new Documentos();
             $this->modelElementosConstruccion = new ElementosConstruccion();
             $this->modelGuardaenBD = new GuardaenBD();
-            $idPersona = $request->idPersona;
+            $idPersona = $request->idPersona;            
             $file = $request->file('files');
-            
-            $contents = $this->descomprimirCualquierFormato($file);        
+            $myfile = fopen($file, "r");
+            $contents = fread($myfile, filesize($file));
+            fclose($myfile);
+            //print_r($res); exit();
+            //$contents = $this->descomprimirCualquierFormato($file);        
             //$xml = new \SimpleXMLElement($contents);
             $xml = simplexml_load_string($contents,'SimpleXMLElement', LIBXML_NOCDATA);
             //print_r($xml);    exit();    
