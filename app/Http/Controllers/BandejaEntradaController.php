@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Crypt;
 use App\Models\PeritoSociedad;
 use App\Models\DatosExtrasAvaluo;
 use App\Models\Documentos;
@@ -44,6 +44,114 @@ class BandejaEntradaController extends Controller
             $ctaCatastral = $request->query('cta_catastral');
             $vigencia = $request->query('vigencia');
             $table = DB::table('FEXAVA_AVALUO');
+            $table->join('FEXAVA_CATESTADOSAVALUO', 'FEXAVA_AVALUO.codestadoavaluo', '=', 'FEXAVA_CATESTADOSAVALUO.codestadoavaluo');
+            $table->join('RCON.RCON_PERITO', 'FEXAVA_AVALUO.idpersonaperito', '=', 'RCON.RCON_PERITO.idpersona');
+            $authToken = $request->header('Authorization');
+            
+            //$table->join('RCON.RCON_SOCIEDADVALUACION', 'FEXAVA_AVALUO.idpersonasociedad', '=', 'RCON.RCON_SOCIEDADVALUACION.idpersona');
+            //$table->join('RCON.RCON_NOTARIO', 'FEXAVA_AVALUO.idpersonanotario', '=', 'RCON.RCON_NOTARIO.idpersona');
+            $table->select(
+                DB::raw('TRIM(FEXAVA_AVALUO.numerounico) as numerounico'),
+                'FEXAVA_AVALUO.region',
+                'FEXAVA_AVALUO.manzana',
+                'FEXAVA_AVALUO.lote',
+                'FEXAVA_AVALUO.unidadprivativa',
+                'FEXAVA_AVALUO.fecha_presentacion',
+                'FEXAVA_AVALUO.numeroavaluo',
+                'FEXAVA_CATESTADOSAVALUO.descripcion as estadoavaluo',
+                'RCON.RCON_PERITO.registro as perito',
+                //'RCON.RCON_SOCIEDADVALUACION.registro as sociedad',
+                //'RCON.RCON_NOTARIO.NUMNOTARIO as notario',
+                DB::raw("CASE
+                            WHEN FEXAVA_AVALUO.codtipotramite = '1' 
+                                THEN 'COM'
+                                ELSE 'CAT'
+                        END as tipotramite"),
+                
+            );
+
+            if ($fechaIni && $fechaFin) {
+                $fi = new Carbon($fechaIni);
+                $ff = new Carbon($fechaFin);
+                $table->whereBetween('FEXAVA_AVALUO.fecha_presentacion', [$fi->format('Y-m-d'), $ff->format('Y-m-d')]);
+            }
+
+            if ($noAvaluo) {
+                $table->where(DB::raw('TRIM(FEXAVA_AVALUO.numeroavaluo)'), $noAvaluo);
+            }
+            
+            if ($vigencia == 1) {
+                $year = Carbon::today()->subYear();
+                $table->where('FEXAVA_AVALUO.fecha_presentacion','>=',$year->format('Y-m-d'));
+                // 6 es el estatus enviado notario
+                $table->where('FEXAVA_AVALUO.codestadoavaluo',6);
+            }
+            if ($vigencia == 2) {
+                $year = Carbon::today()->subYear();
+                $table->where('FEXAVA_AVALUO.fecha_presentacion','<',$year->format('Y-m-d'));
+                // 2 es el estatus cancelado
+                $table->orWhere('FEXAVA_AVALUO.codestadoavaluo',2);
+
+            }
+
+            if ($idPerito) {
+                $table->where('FEXAVA_AVALUO.idpersonaperito', $idPerito);
+            }
+
+            if ($idSociedad) {
+                $table->where('FEXAVA_AVALUO.idpersonasociedad', $idSociedad);
+            }
+            
+
+            if ($noUnico) {
+                $table->where(DB::raw('TRIM(FEXAVA_AVALUO.numerounico)'), $noUnico);
+            }
+
+            if ($codEstado) {
+                $table->where('FEXAVA_AVALUO.codestadoavaluo', $codEstado);
+            }
+
+            if ($ctaCatastral) {
+                $cta = explode('-', $ctaCatastral);
+                if (count($cta) === 4) {
+                    $table->where(DB::raw('TRIM(FEXAVA_AVALUO.region)'), $cta[0]);
+                    $table->where(DB::raw('TRIM(FEXAVA_AVALUO.manzana)'), $cta[1]);
+                    $table->where(DB::raw('TRIM(FEXAVA_AVALUO.lote)'), $cta[2]);
+                    $table->where(DB::raw('TRIM(FEXAVA_AVALUO.unidadprivativa)'), $cta[3]);
+                } else {
+                    return response()->json(['mensaje' => 'Formato de cuenta predial incorrecta'], 400);
+                }
+            }
+            $table->orderBy('FEXAVA_AVALUO.fecha_presentacion' , 'desc');
+            $avaluos = $table->paginate(15);
+            return response()->json($avaluos, 200);
+        } catch (\Throwable $th) {
+            //Log::info($th);
+            error_log($th);
+            return response()->json(['mensaje' => 'Error en el servidor'], 500);
+        }
+    }
+
+    public function avaluosPerito(Request $request)
+    { //echo "<pre>"; print_r($request); exit();
+        try {
+            $fechaIni = $request->query('fecha_ini');
+            $fechaFin = $request->query('fecha_fin');
+            $noAvaluo = $request->query('no_avaluo');
+            $noUnico = $request->query('no_unico');
+            $codEstado = $request->query('estado');
+            $idPerito = $request->query('id_perito');
+            $idSociedad = $request->query('id_sociedad');
+            $codEstado = $request->query('estado');
+            $ctaCatastral = $request->query('cta_catastral');
+            $vigencia = $request->query('vigencia');
+            $table = DB::table('FEXAVA_AVALUO');
+
+            $authToken = $request->header('Authorization');
+            if (!$authToken) {
+                return response()->json(['mensaje' => 'Sin acceso a la aplicación'], 403);
+            } 
+            $resToken = Crypt::decrypt($authToken);
             $table->join('FEXAVA_CATESTADOSAVALUO', 'FEXAVA_AVALUO.codestadoavaluo', '=', 'FEXAVA_CATESTADOSAVALUO.codestadoavaluo');
             $table->join('RCON.RCON_PERITO', 'FEXAVA_AVALUO.idpersonaperito', '=', 'RCON.RCON_PERITO.idpersona');
             
@@ -94,6 +202,8 @@ class BandejaEntradaController extends Controller
 
             }
 
+            $table->where('FEXAVA_AVALUO.idpersonaperito', $resToken['id_anterior']);
+            
             if ($idPerito) {
                 $table->where('FEXAVA_AVALUO.idpersonaperito', $idPerito);
             }
