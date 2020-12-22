@@ -81,21 +81,17 @@ class BandejaEntradaController extends Controller
             }
             
             if ($vigencia == 1) {
-                $table->join('DOC.DOC_DOCUMENTODIGITAL', 'DOC.DOC_DOCUMENTODIGITAL.IDDOCUMENTODIGITAL', '=', 'FEXAVA_AVALUO.idavaluo');
-                $table->where(DB::raw("CASE
-                WHEN (    (trunc (add_months (trunc (sysdate), -12)) <= trunc (DOC.DOC_DOCUMENTODIGITAL.fecha))
-                      AND (trunc (sysdate) >= trunc (DOC.DOC_DOCUMENTODIGITAL.fecha)) AND TRUNC((SYSDATE - FEXAVA_AVALUO.fecha_presentacion)) <= 365)
-                   THEN (1)
-            
-             END"), $vigencia);
+                $year = Carbon::today()->subYear();
+                $table->where('FEXAVA_AVALUO.fecha_presentacion','>=',$year->format('Y-m-d'));
+                // 6 es el estatus enviado notario
+                $table->where('FEXAVA_AVALUO.codestadoavaluo',6);
             }
             if ($vigencia == 2) {
-                $table->join('DOC.DOC_DOCUMENTODIGITAL', 'DOC.DOC_DOCUMENTODIGITAL.IDDOCUMENTODIGITAL', '=', 'FEXAVA_AVALUO.idavaluo');
-                $table->where(DB::raw("CASE
-                WHEN (    (trunc (add_months (trunc (sysdate), -12)) > trunc (DOC.DOC_DOCUMENTODIGITAL.fecha))
-                      AND (trunc (sysdate) < trunc (DOC.DOC_DOCUMENTODIGITAL.fecha)) AND TRUNC((SYSDATE - FEXAVA_AVALUO.fecha_presentacion)) > 365)
-                   THEN (2)
-             END"), $vigencia);
+                $year = Carbon::today()->subYear();
+                $table->where('FEXAVA_AVALUO.fecha_presentacion','<',$year->format('Y-m-d'));
+                // 2 es el estatus cancelado
+                $table->orWhere('FEXAVA_AVALUO.codestadoavaluo',2);
+
             }
 
             if ($idPerito) {
