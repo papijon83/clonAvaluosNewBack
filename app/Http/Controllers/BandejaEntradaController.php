@@ -79,12 +79,12 @@ class BandejaEntradaController extends Controller
             if ($noAvaluo) {
                 $table->where(DB::raw('TRIM(FEXAVA_AVALUO.numeroavaluo)'), $noAvaluo);
             }
-
+            
             if ($vigencia == 1) {
                 $table->join('DOC.DOC_DOCUMENTODIGITAL', 'DOC.DOC_DOCUMENTODIGITAL.IDDOCUMENTODIGITAL', '=', 'FEXAVA_AVALUO.idavaluo');
                 $table->where(DB::raw("CASE
                 WHEN (    (trunc (add_months (trunc (sysdate), -12)) <= trunc (DOC.DOC_DOCUMENTODIGITAL.fecha))
-                      AND (trunc (sysdate) >= trunc (DOC.DOC_DOCUMENTODIGITAL.fecha)))
+                      AND (trunc (sysdate) >= trunc (DOC.DOC_DOCUMENTODIGITAL.fecha)) AND TRUNC((SYSDATE - FEXAVA_AVALUO.fecha_presentacion)) <= 365)
                    THEN (1)
             
              END"), $vigencia);
@@ -93,7 +93,7 @@ class BandejaEntradaController extends Controller
                 $table->join('DOC.DOC_DOCUMENTODIGITAL', 'DOC.DOC_DOCUMENTODIGITAL.IDDOCUMENTODIGITAL', '=', 'FEXAVA_AVALUO.idavaluo');
                 $table->where(DB::raw("CASE
                 WHEN (    (trunc (add_months (trunc (sysdate), -12)) > trunc (DOC.DOC_DOCUMENTODIGITAL.fecha))
-                      AND (trunc (sysdate) < trunc (DOC.DOC_DOCUMENTODIGITAL.fecha)))
+                      AND (trunc (sysdate) < trunc (DOC.DOC_DOCUMENTODIGITAL.fecha)) AND TRUNC((SYSDATE - FEXAVA_AVALUO.fecha_presentacion)) > 365)
                    THEN (2)
              END"), $vigencia);
             }
@@ -435,7 +435,7 @@ class BandejaEntradaController extends Controller
 
     function guardarAvaluo(Request $request){
         try{
-            //print_r($request->idPersona); exit();
+            
             $this->modelPeritoSociedad = new PeritoSociedad();
             $this->modelDatosExtrasAvaluo = new DatosExtrasAvaluo();
             $this->modelDocumentos = new Documentos();
@@ -580,8 +580,15 @@ class BandejaEntradaController extends Controller
             $arrIdentificacion[$llave] = (String)($elemento);
         }
         //echo "LOS IDS ".$idPersona." ".$this->modelDatosExtrasAvaluo->IdPeritoSociedadByRegistro($arrIdentificacion['ClaveValuador'], '',true); exit();
-        if($idPersona != $this->modelDatosExtrasAvaluo->IdPeritoSociedadByRegistro($this->modelDatosExtrasAvaluo->IdPeritoSociedadByRegistro($arrIdentificacion['ClaveValuador'], '',true), '',true) and $idPersona != 264){
+        if($idPersona != $this->modelDatosExtrasAvaluo->IdPeritoSociedadByRegistro($arrIdentificacion['ClaveValuador'], '',true) and $idPersona != 264){
             $errores = array(0 => 'Un perito no puede subir avalúos a nombre de otro perito');
+            return array('ERROR' => $errores);
+        }
+
+        $resExiste = $this->modelDocumentos->valida_existencia($arrIdentificacion['NumeroDeAvaluo'],$idPersona);
+
+        if($resExiste == TRUE){
+            $errores = array(0 => 'Un perito no puede subir el mismo avalúo dos veces');
             return array('ERROR' => $errores);
         }
         

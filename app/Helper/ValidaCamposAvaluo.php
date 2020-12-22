@@ -808,13 +808,27 @@ function val_decimal_positivo_tipo($valor, $tipo){
     if($tipo == '06'){
         $res = val_decimal_positivo($valor);
         if($res == 'correcto'){            
-            //$patron = '/\d{1,3}+.\d{0,1}/';
-            $patron = '/\d{1,3}/';
+           if($pos === TRUE || $pos === 1){
+                $arrVals = explode('.',$valor);
+                if($arrVals[0] != 0 || strlen($arrVals[1]) > 6){
+                    return "no corresponde a un formato valido para este campo";
+                }
+           }
+            if($valor > 0.999999){
+                return "contiene un valor mayor a 0.999999";
+            }else{
+                if($valor < 0.6){
+                    return "contiene un valor menor a 0.6";
+                }else{
+                    return $estado;
+                }                    
+            }
+            /*$patron = '/\d{1,3}/';
             if (!preg_match($patron, $valor)) {
                 return "no corresponde a un formato valido para este campo";
             }else{
-                if($valor > 999){
-                    return "contiene un valor mayor a 999";
+                if($valor > 0.999999){
+                    return "contiene un valor mayor a 0.999999";
                 }else{
                     if($valor < 0.6){
                         return "contiene un valor menor a 0.6";
@@ -822,7 +836,7 @@ function val_decimal_positivo_tipo($valor, $tipo){
                         return $estado;
                     }                    
                 }
-            }
+            }*/
         }
         
     }
