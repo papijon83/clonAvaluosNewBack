@@ -556,9 +556,8 @@ class BandejaEntradaController extends Controller
             //$contents = $this->descomprimirCualquierFormato($file);        
             //$xml = new \SimpleXMLElement($contents);
             $xml = simplexml_load_string($contents,'SimpleXMLElement', LIBXML_NOCDATA);
-            //print_r($xml);    exit();    
-            
-
+            //print_r($xml);    exit(); 
+              
             $esComercial = $xml->xpath('//Comercial');
             if(count($esComercial) > 0){
                 $esComercial = true;
@@ -569,6 +568,15 @@ class BandejaEntradaController extends Controller
                 $tipoTramite = 2;
                 $elementoPrincipal = '//Catastral';            
             }
+
+            /*$datao1 = $xml->xpath($elementoPrincipal.'//ConclusionDelAvaluo[@id="o"]//ValorComercialDelInmueble[@id="o.1"]'); $arro1 = array_map("convierte_a_arreglo",$datao1); print_r($arro1); exit();
+            $datap = $xml->xpath($elementoPrincipal.'//ValorReferido[@id="p"]'); $arrp = array_map("convierte_a_arreglo",$datap); print_r($arrp); exit();
+            $datak = $xml->xpath($elementoPrincipal.'//EnfoqueDeIngresos[@id="k"]'); $arrk = array_map("convierte_a_arreglo",$datak); print_r($arrk); exit();
+            $datai = $xml->xpath($elementoPrincipal.'//EnfoqueDeCostos[@id="i"]'); $arrdi = array_map("convierte_a_arreglo",$datai); print_r($arrdi); exit();
+            $datad13 = $xml->xpath($elementoPrincipal.'//Terreno[@id="d"]//ValorTotalDelTerrenoProporcional[@id="d.13"]'); 
+        $datae2 = $xml->xpath($elementoPrincipal.'//DescripcionDelInmueble[@id="e"]//TiposDeConstruccion[@id="e.2"]'); $arrde2 = array_map("convierte_a_arreglo",$datae2); print_r($arrde2); exit();
+        $dataf12 = $xml->xpath($elementoPrincipal.'//ElementosDeLaConstruccion[@id="f"]//ImporteTotalInstalacionesAccesoriosComplementariasPrivativas[@id="f.12"]');
+        $dataf14 = $xml->xpath($elementoPrincipal.'//ElementosDeLaConstruccion[@id="f"]//ImporteIndivisoInstalacionesEspecialesObrasComplementariasYElementosAccesoriosComunes[@id="f.14"]'); */
 
             $elementoFecha = $xml->xpath($elementoPrincipal.'//Identificacion//FechaAvaluo[@id="a.2"]');
             $fechaAvaluo = $elementoFecha[0];
@@ -603,7 +611,7 @@ class BandejaEntradaController extends Controller
             $camposFexavaAvaluo = $this->guardarAvaluoDescripcionImueble($xml, $camposFexavaAvaluo,$elementoPrincipal);
             if(isset($camposFexavaAvaluo['ERROR'])){
                 return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
-            }
+            } 
             $camposFexavaAvaluo = $this->guardarAvaluoElementosConstruccion($xml, $camposFexavaAvaluo,$elementoPrincipal);
             if(isset($camposFexavaAvaluo['ERROR'])){
                 return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
@@ -1076,8 +1084,19 @@ class BandejaEntradaController extends Controller
         return $camposFexavaAvaluo;
     }
 
-    public function guardarAvaluoTerreno($infoXmlTerreno, $camposFexavaAvaluo,$elementoPrincipal){
-        $errores = valida_AvaluoTerreno($infoXmlTerreno->xpath($elementoPrincipal.'//Terreno[@id="d"]'), $elementoPrincipal);    
+    public function guardarAvaluoTerreno($infoXmlTerreno, $camposFexavaAvaluo,$elementoPrincipal){        
+        $datah = $infoXmlTerreno->xpath($elementoPrincipal.'//EnfoqueDeMercado[@id="h"]'); 
+        if($elementoPrincipal == '//Comercial'){
+            if(isset($datah)){
+                $errores = valida_AvaluoTerreno($infoXmlTerreno->xpath($elementoPrincipal.'//Terreno[@id="d"]'), $elementoPrincipal, $datah);
+            }else{
+                $errores = valida_AvaluoTerreno($infoXmlTerreno->xpath($elementoPrincipal.'//Terreno[@id="d"]'), $elementoPrincipal);
+            }
+            
+        }else{
+            $errores = valida_AvaluoTerreno($infoXmlTerreno->xpath($elementoPrincipal.'//Terreno[@id="d"]'), $elementoPrincipal);
+        }
+            
         if(count($errores) > 0){
             return array('ERROR' => $errores);
         }                       
@@ -1409,7 +1428,8 @@ class BandejaEntradaController extends Controller
     }
 
     public function guardarAvaluoDescripcionImueble($infoXmlTerreno, $camposFexavaAvaluo,$elementoPrincipal){
-        $errores = valida_AvaluoDescripcionImueble($infoXmlTerreno->xpath($elementoPrincipal.'//DescripcionDelInmueble[@id="e"]'), $elementoPrincipal);    
+        $errores = valida_AvaluoDescripcionImueble($infoXmlTerreno->xpath($elementoPrincipal.'//DescripcionDelInmueble[@id="e"]'), $elementoPrincipal, $infoXmlTerreno->xpath($elementoPrincipal.'//Terreno[@id="d"]')); 
+        
         if(count($errores) > 0){
             return array('ERROR' => $errores);
         }
@@ -1489,8 +1509,13 @@ class BandejaEntradaController extends Controller
                         
                        }
         
-                       if(isset($arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.9'])){                               
-                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['VIDAUTILREMANENTE'] = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.9']]);
+                       if(isset($arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.9'])){
+                           if($arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.9'] < 0){
+                            $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['VIDAUTILREMANENTE'] = '0';
+                           }else{
+                            $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['VIDAUTILREMANENTE'] = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.9']]);
+                           }                               
+                        
                        }
         
                        if(isset($arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.10'])){                               
@@ -1653,7 +1678,7 @@ class BandejaEntradaController extends Controller
 
         $elementosConst = $infoXmlElementosConst->xpath($elementoPrincipal.'//ElementosDeLaConstruccion[@id="f"]');
         
-        $errores = valida_AvaluoElementosDeLaConstruccion($elementosConst, $elementoPrincipal);    
+        $errores = valida_AvaluoElementosDeLaConstruccion($elementosConst, $elementoPrincipal, $infoXmlElementosConst->xpath($elementoPrincipal.'//Terreno[@id="d"]'));    
         if(count($errores) > 0){
             return array('ERROR' => $errores);
         }
@@ -2562,8 +2587,12 @@ class BandejaEntradaController extends Controller
         if(count($arrCostos) == 0){
             return $camposFexavaAvaluo;
         }
+        $datad13 = $xmlEnfoqueDeCostos->xpath($elementoPrincipal.'//Terreno[@id="d"]//ValorTotalDelTerrenoProporcional[@id="d.13"]');
+        $datae2 = $xmlEnfoqueDeCostos->xpath($elementoPrincipal.'//DescripcionDelInmueble[@id="e"]//TiposDeConstruccion[@id="e.2"]');
+        $dataf12 = $xmlEnfoqueDeCostos->xpath($elementoPrincipal.'//ElementosDeLaConstruccion[@id="f"]//ImporteTotalInstalacionesAccesoriosComplementariasPrivativas[@id="f.12"]');
+        $dataf14 = $xmlEnfoqueDeCostos->xpath($elementoPrincipal.'//ElementosDeLaConstruccion[@id="f"]//ImporteIndivisoInstalacionesEspecialesObrasComplementariasYElementosAccesoriosComunes[@id="f.14"]');
 
-        $errores = valida_AvaluoEnfoqueCostosComercial($xmlEnfoqueDeCostos->xpath($elementoPrincipal.'//EnfoqueDeCostos[@id="i"]'), $elementoPrincipal);    
+        $errores = valida_AvaluoEnfoqueCostosComercial($xmlEnfoqueDeCostos->xpath($elementoPrincipal.'//EnfoqueDeCostos[@id="i"]'), $elementoPrincipal, $datad13, $datae2, $dataf12, $dataf14);    
         if(count($errores) > 0){
             return array('ERROR' => $errores);
         }
@@ -2591,7 +2620,31 @@ class BandejaEntradaController extends Controller
         //print_r($arrGeneral['arrIds']); exit();
         if(isset(($arrGeneral['arrIds']['j']))){
 
-            $errores = valida_AvaluoEnfoqueCostosCatastral($xmlEnfoqueDeCostos->xpath($elementoPrincipal.'//EnfoqueDeCostos[@id="j"]'), $elementoPrincipal);    
+            $datae23 = $xmlEnfoqueDeCostos->xpath($elementoPrincipal.'//DescripcionDelInmueble[@id="e"]//TiposDeConstruccion[@id="e.2"]//ValorTotalDeConstruccionesPrivativas[@id="e.2.3"]');
+            $datae27 = $xmlEnfoqueDeCostos->xpath($elementoPrincipal.'//DescripcionDelInmueble[@id="e"]//TiposDeConstruccion[@id="e.2"]//ValorTotalDeConstruccionesComunes[@id="e.2.7"]');
+            $datab6 = $xmlEnfoqueDeCostos->xpath($elementoPrincipal.'//Antecedentes[@id="b"]//RegimenDePropiedad[@id="b.6"]');
+            $datad6 = $xmlEnfoqueDeCostos->xpath($elementoPrincipal.'//Terreno[@id="d"]//Indiviso[@id="d.6"]');
+            $datad13 = $xmlEnfoqueDeCostos->xpath($elementoPrincipal.'//Terreno[@id="d"]//ValorTotalDelTerrenoProporcional[@id="d.13"]');
+            $f9 = $xmlEnfoqueDeCostos->xpath($elementoPrincipal.'//ElementosDeLaConstruccion[@id="f"]//InstalacionesEspeciales[@id="f.9"]');
+            if(count($f9) > 1){
+                $existef9 = TRUE;
+            }else{
+                $existef9 = FALSE;
+            }
+            $f10 = $xmlEnfoqueDeCostos->xpath($elementoPrincipal.'//ElementosDeLaConstruccion[@id="f"]//ElementosAccesorios[@id="f.10"]');
+            if(count($f10) > 1){
+                $existef10= TRUE;
+            }else{
+                $existef10 = FALSE;
+            }
+            $f11 = $xmlEnfoqueDeCostos->xpath($elementoPrincipal.'//ElementosDeLaConstruccion[@id="f"]//ObrasComplementarias[@id="f.11"]');
+            if(count($f11) > 1){
+                $existef11= TRUE;
+            }else{
+                $existef11 = FALSE;
+            }
+
+            $errores = valida_AvaluoEnfoqueCostosCatastral($xmlEnfoqueDeCostos->xpath($elementoPrincipal.'//EnfoqueDeCostos[@id="j"]'), $elementoPrincipal, $datae23, $datae27, $datab6, $datad6, $datad13, $existef9, $existef10, $existef11);    
             if(count($errores) > 0){
                 return array('ERROR' => $errores);
             }
@@ -2692,8 +2745,9 @@ class BandejaEntradaController extends Controller
         /// <param name="valorReferido">Elemento xml con los datos del valor referido del avaluo.</param>
     public function guardarAvaluoValorReferido($xmlValorReferido, $camposFexavaAvaluo, $elementoPrincipal){
         $valorReferido = $xmlValorReferido->xpath($elementoPrincipal.'//ValorReferido[@id="p"]');
-        if(count($valorReferido) > 0){
-            $errores = valida_AvaluoValorReferido($valorReferido, $elementoPrincipal);    
+        $datao1 = $xmlValorReferido->xpath($elementoPrincipal.'//ConclusionDelAvaluo[@id="o"]//ValorComercialDelInmueble[@id="o.1"]');
+        if(count($valorReferido) > 1){ echo "EL ARREGLO P ".print_r($valorReferido); exit();
+            $errores = valida_AvaluoValorReferido($valorReferido, $elementoPrincipal,$datao1);    
             if(count($errores) > 0){
                 return array('ERROR' => $errores);
             }
