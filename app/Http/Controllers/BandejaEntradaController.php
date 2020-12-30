@@ -7,6 +7,7 @@ use App\Models\DatosExtrasAvaluo;
 use App\Models\Documentos;
 use App\Models\ElementosConstruccion;
 use App\Models\GuardaenBD;
+use App\Models\Ava;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -541,20 +542,25 @@ class BandejaEntradaController extends Controller
 
     function guardarAvaluo(Request $request){
         try{
+
+            $token = Crypt::decrypt($request->header('Authorization'));
+            //Log::info($token['id_usuario']); exit();
+            $idPersona = $token['id_usuario'];
             
             $this->modelPeritoSociedad = new PeritoSociedad();
             $this->modelDatosExtrasAvaluo = new DatosExtrasAvaluo();
             $this->modelDocumentos = new Documentos();
             $this->modelElementosConstruccion = new ElementosConstruccion();
             $this->modelGuardaenBD = new GuardaenBD();
+            //Id Persona de usuarios migrados es el id anterior
             $authToken = $request->header('Authorization');
             if (!$authToken) {
                 return response()->json(['mensaje' => 'Sin acceso a la aplicación'], 403);
             } 
             $resToken = Crypt::decrypt($authToken);
             
+            $idPersona = empty($resToken['id_anterior']) ? $resToken['id_usuario']: $resToken['id_anterior'];
 
-            $idPersona = empty($resToken['id_anterior']) ? $resToken['id_usuario']: $resToken['id_anterior'];            
             $file = $request->file('files');
             $myfile = fopen($file, "r");
             $contents = fread($myfile, filesize($file));
@@ -576,6 +582,7 @@ class BandejaEntradaController extends Controller
                 $elementoPrincipal = '//Catastral';            
             }
 
+            //$datah14 = $xml->xpath($elementoPrincipal.'//EnfoqueDeMercado[@id="h"]//Terrenos[@id="h.1"]//ValorUnitarioDeTierraAplicableAlAvaluo[@id="h.1.4"]'); $arrh14 = array_map("convierte_a_arreglo",$datah14); print_r($arrh14); exit();    
             /*$datao1 = $xml->xpath($elementoPrincipal.'//ConclusionDelAvaluo[@id="o"]//ValorComercialDelInmueble[@id="o.1"]'); $arro1 = array_map("convierte_a_arreglo",$datao1); print_r($arro1); exit();
             $datap = $xml->xpath($elementoPrincipal.'//ValorReferido[@id="p"]'); $arrp = array_map("convierte_a_arreglo",$datap); print_r($arrp); exit();
             $datak = $xml->xpath($elementoPrincipal.'//EnfoqueDeIngresos[@id="k"]'); $arrk = array_map("convierte_a_arreglo",$datak); print_r($arrk); exit();
@@ -589,70 +596,76 @@ class BandejaEntradaController extends Controller
             $fechaAvaluo = $elementoFecha[0];
             //$camposFexavaAvaluo = $this->camposFexAva();
             $camposFexavaAvaluo = array();
+            $camposFexavaAvaluo['ERRORES'] = array();
             $camposFexavaAvaluo['CODESTADOAVALUO'] =  1; //CODESTADOAVALUO (Recibido)
             $fecha_hoy = new Carbon(date('Y-m-d'));
             $fecha_presentacion = $fecha_hoy->format('Y-m-d');
             $camposFexavaAvaluo['FECHA_PRESENTACION'] = $fecha_presentacion;
             $camposFexavaAvaluo['CODTIPOTRAMITE'] = $tipoTramite;            
             $infoXmlIdentificacion = $xml->xpath($elementoPrincipal.'//Identificacion[@id="a"]');
+            $mensajes = array();
             $camposFexavaAvaluo = $this->guardarAvaluoIdentificacion($infoXmlIdentificacion, $camposFexavaAvaluo, $idPersona,$elementoPrincipal);
             
-            if(isset($camposFexavaAvaluo['ERROR'])){
+            /* if(isset($camposFexavaAvaluo['ERROR'])){
                 return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
-            }                        
+            }  */                      
             $camposFexavaAvaluo['FEXAVA_DATOSPERSONAS'] = array();
             $camposFexavaAvaluo = $this->guardarAvaluoAntecedentes($xml, $camposFexavaAvaluo,$elementoPrincipal);
-            if(isset($camposFexavaAvaluo['ERROR'])){
+            /*if(isset($camposFexavaAvaluo['ERROR'])){
                 return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
-            }
+            }*/
             //$camposFexavaAvaluo['CaracteristicasUrbanas'] = array();
             $camposFexavaAvaluo = $this->guardarAvaluoCaracteristicasUrbanas($xml, $camposFexavaAvaluo,$elementoPrincipal);
-            if(isset($camposFexavaAvaluo['ERROR'])){
+            /*if(isset($camposFexavaAvaluo['ERROR'])){
                 return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
-            }
+            }*/
             $camposFexavaAvaluo['IDAVALUO'] = 0;
             $camposFexavaAvaluo = $this->guardarAvaluoTerreno($xml, $camposFexavaAvaluo,$elementoPrincipal);
-            if(isset($camposFexavaAvaluo['ERROR'])){
+            /*if(isset($camposFexavaAvaluo['ERROR'])){
                 return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
-            }        
+            }*/     
             $camposFexavaAvaluo = $this->guardarAvaluoDescripcionImueble($xml, $camposFexavaAvaluo,$elementoPrincipal);
-            if(isset($camposFexavaAvaluo['ERROR'])){
+            /* if(isset($camposFexavaAvaluo['ERROR'])){
                 return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
-            } 
+            } */
             $camposFexavaAvaluo = $this->guardarAvaluoElementosConstruccion($xml, $camposFexavaAvaluo,$elementoPrincipal);
-            if(isset($camposFexavaAvaluo['ERROR'])){
+            /* if(isset($camposFexavaAvaluo['ERROR'])){
                 return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
-            }
+            } */
             $camposFexavaAvaluo = $this->guardarAvaluoEnfoqueMercado($xml, $camposFexavaAvaluo,$elementoPrincipal);
-            if(isset($camposFexavaAvaluo['ERROR'])){
+            /* if(isset($camposFexavaAvaluo['ERROR'])){
                 return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
-            } //echo "LA INFO "; print_r($camposFexavaAvaluo); exit();
+            }*/ //echo "LA INFO "; print_r($camposFexavaAvaluo); exit();
             $camposFexavaAvaluo = $this->guardarAvaluoEnfoqueCostosComercial($xml, $camposFexavaAvaluo,$elementoPrincipal);
-            if(isset($camposFexavaAvaluo['ERROR'])){
+            /* if(isset($camposFexavaAvaluo['ERROR'])){
                 return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
-            }
+            } */
             $camposFexavaAvaluo = $this->guardarAvaluoEnfoqueCostosCatastral($xml, $camposFexavaAvaluo,$elementoPrincipal);
-            if(isset($camposFexavaAvaluo['ERROR'])){
+            /* if(isset($camposFexavaAvaluo['ERROR'])){
                 return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
-            }
+            }*/
             $camposFexavaAvaluo = $this->guardarAvaluoEnfoqueIngresos($xml, $camposFexavaAvaluo,$elementoPrincipal);
-            if(isset($camposFexavaAvaluo['ERROR'])){
+            /* if(isset($camposFexavaAvaluo['ERROR'])){
                 return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
-            }
+            }*/
             $camposFexavaAvaluo = $this->guardarAvaluoResumenConclusionAvaluo($xml, $camposFexavaAvaluo,$elementoPrincipal);
-            if(isset($camposFexavaAvaluo['ERROR'])){
+            /* if(isset($camposFexavaAvaluo['ERROR'])){
                 return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
-            }
+            }*/
             $camposFexavaAvaluo = $this->guardarAvaluoValorReferido($xml, $camposFexavaAvaluo,$elementoPrincipal);
-            if(isset($camposFexavaAvaluo['ERROR'])){
+            /* if(isset($camposFexavaAvaluo['ERROR'])){
                 return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
-            } //print_r($camposFexavaAvaluo); exit();
+            }*/ //print_r($camposFexavaAvaluo); exit();
             $camposFexavaAvaluo = $this->guardarAvaluoAnexoFotografico($xml, $camposFexavaAvaluo,$elementoPrincipal);
-            if(isset($camposFexavaAvaluo['ERROR'])){
+            /* if(isset($camposFexavaAvaluo['ERROR'])){
                 return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
-            }
+            }*/
             //echo "LA INFO "; print_r($camposFexavaAvaluo); exit();
             
+            if(count($camposFexavaAvaluo['ERRORES']) > 0){
+                return response()->json(['mensaje' => $camposFexavaAvaluo['ERRORES']], 500);
+            }
+
             $resInsert = $this->modelGuardaenBD->insertAvaluo($camposFexavaAvaluo);
         
             /*return $resInsert; 
@@ -693,24 +706,30 @@ class BandejaEntradaController extends Controller
 
     public function guardarAvaluoIdentificacion($infoXmlIdentificacion, $camposFexavaAvaluo, $idPersona,$elementoPrincipal){
         $errores = valida_AvaluoIdentificacion($infoXmlIdentificacion);
+        
         if(count($errores) > 0){
-            return array('ERROR' => $errores);
+            $camposFexavaAvaluo['ERRORES'][] = $errores;
+            //return array('ERROR' => $errores);
         }
         $arrIdentificacion = array();
         foreach($infoXmlIdentificacion[0] as $llave => $elemento){
             $arrIdentificacion[$llave] = (String)($elemento);
         }
-        //echo "LOS IDS ".$idPersona." ".$this->modelDatosExtrasAvaluo->IdPeritoSociedadByRegistro($arrIdentificacion['ClaveValuador'], '',true); exit();
-        if($idPersona != $this->modelDatosExtrasAvaluo->IdPeritoSociedadByRegistro($arrIdentificacion['ClaveValuador'], '',true) and $idPersona != 264){
+        //$errores = array(0 => "LOS IDS ".$idPersona." ".$this->modelDatosExtrasAvaluo->IdPeritoSociedadByRegistro($arrIdentificacion['ClaveValuador'], '',true)); $camposFexavaAvaluo['ERRORES'][] = $errores; return $camposFexavaAvaluo;
+        if($idPersona != $this->modelDatosExtrasAvaluo->IdPeritoSociedadByRegistro($arrIdentificacion['ClaveValuador'], '',true)){
+            $errores = array(0 => "LOS IDS ".$idPersona." ".$this->modelDatosExtrasAvaluo->IdPeritoSociedadByRegistro($arrIdentificacion['ClaveValuador'], '',true)); 
+            $camposFexavaAvaluo['ERRORES'][] = $errores;
             $errores = array(0 => 'Un perito no puede subir avalúos a nombre de otro perito');
-            return array('ERROR' => $errores);
-        }
+            $camposFexavaAvaluo['ERRORES'][] = $errores;
+            //return array('ERROR' => $errores);
+        }//exit();
 
         $resExiste = $this->modelDocumentos->valida_existencia($arrIdentificacion['NumeroDeAvaluo'],$idPersona);
 
         if($resExiste == TRUE){
             $errores = array(0 => 'Un perito no puede subir el mismo avalúo dos veces');
-            return array('ERROR' => $errores);
+            $camposFexavaAvaluo['ERRORES'][] = $errores;
+            //return array('ERROR' => $errores);
         }
         
         if($arrIdentificacion['NumeroDeAvaluo'] != ''){            
@@ -744,7 +763,8 @@ class BandejaEntradaController extends Controller
         $infoXmlSolicitante = $infoXmlAntecedentes->xpath($elementoPrincipal.'//Antecedentes[@id="b"]//Solicitante[@id="b.1"]');
         $errores = valida_AvaluoAntecedentes($infoXmlAntecedentes->xpath($elementoPrincipal.'//Antecedentes[@id="b"]'), $elementoPrincipal);
         if(count($errores) > 0){
-            return array('ERROR' => $errores);
+            //return array('ERROR' => $errores);
+            $camposFexavaAvaluo['ERRORES'][] = $errores;
         }
         $camposFexavaAvaluo['FEXAVA_DATOSPERSONAS']['Solicitante'] = array();
         foreach($infoXmlSolicitante[0] as $llave => $elemento){
@@ -906,7 +926,8 @@ class BandejaEntradaController extends Controller
 
         $errores = valida_AvaluoCaracteristicasUrbanas($infoXmlCaracteristicasUrbanas);   
         if(count($errores) > 0){
-            return array('ERROR' => $errores);
+            //return array('ERROR' => $errores);
+            $camposFexavaAvaluo['ERRORES'][] = $errores;
         }
         //$camposFexavaAvaluo['CaracteristicasUrbanas'] = array();
         foreach($infoXmlCaracteristicasUrbanas[0] as $llave => $elemento){
@@ -1095,17 +1116,18 @@ class BandejaEntradaController extends Controller
         $datah = $infoXmlTerreno->xpath($elementoPrincipal.'//EnfoqueDeMercado[@id="h"]'); 
         if($elementoPrincipal == '//Comercial'){
             if(isset($datah)){
-                $errores = valida_AvaluoTerreno($infoXmlTerreno->xpath($elementoPrincipal.'//Terreno[@id="d"]'), $elementoPrincipal, $datah);
+                $errores = valida_AvaluoTerreno($infoXmlTerreno->xpath($elementoPrincipal.'//Terreno[@id="d"]'), $elementoPrincipal, $datah);                
             }else{
-                $errores = valida_AvaluoTerreno($infoXmlTerreno->xpath($elementoPrincipal.'//Terreno[@id="d"]'), $elementoPrincipal);
+                $errores = valida_AvaluoTerreno($infoXmlTerreno->xpath($elementoPrincipal.'//Terreno[@id="d"]'), $elementoPrincipal);                
             }
             
         }else{
-            $errores = valida_AvaluoTerreno($infoXmlTerreno->xpath($elementoPrincipal.'//Terreno[@id="d"]'), $elementoPrincipal);
+            $errores = valida_AvaluoTerreno($infoXmlTerreno->xpath($elementoPrincipal.'//Terreno[@id="d"]'), $elementoPrincipal);            
         }
             
         if(count($errores) > 0){
-            return array('ERROR' => $errores);
+            //return array('ERROR' => $errores);
+            $camposFexavaAvaluo['ERRORES'][] = $errores;
         }                       
         $infoXmlCallesTransversalesLimitrofesYOrientacion = $infoXmlTerreno->xpath($elementoPrincipal.'//Terreno[@id="d"]//CallesTransversalesLimitrofesYOrientacion[@id="d.1"]');        
         $query = (String)($infoXmlCallesTransversalesLimitrofesYOrientacion[0]);
@@ -1438,7 +1460,8 @@ class BandejaEntradaController extends Controller
         $errores = valida_AvaluoDescripcionImueble($infoXmlTerreno->xpath($elementoPrincipal.'//DescripcionDelInmueble[@id="e"]'), $elementoPrincipal, $infoXmlTerreno->xpath($elementoPrincipal.'//Terreno[@id="d"]')); 
         
         if(count($errores) > 0){
-            return array('ERROR' => $errores);
+            //return array('ERROR' => $errores);
+            $camposFexavaAvaluo['ERRORES'][] = $errores;
         }
         $fechaAvaluo = $camposFexavaAvaluo['FECHAAVALUO'];
 
@@ -1687,7 +1710,8 @@ class BandejaEntradaController extends Controller
         
         $errores = valida_AvaluoElementosDeLaConstruccion($elementosConst, $elementoPrincipal, $infoXmlElementosConst->xpath($elementoPrincipal.'//Terreno[@id="d"]'));    
         if(count($errores) > 0){
-            return array('ERROR' => $errores);
+            //return array('ERROR' => $errores);
+            $camposFexavaAvaluo['ERRORES'][] = $errores;
         }
         
         $arrPrincipalElementosConst = $this->obtenElementosPrincipal($elementosConst);       
@@ -2136,7 +2160,8 @@ class BandejaEntradaController extends Controller
         
         $errores = valida_AvaluoEnfoqueMercado($enfoqueDeMercado, $elementoPrincipal);    
         if(count($errores) > 0){
-            return array('ERROR' => $errores);
+            //return array('ERROR' => $errores);
+            $camposFexavaAvaluo['ERRORES'][] = $errores;
         }
         $arrPrincipalEnfoqueDeMercado = $this->obtenElementosPrincipal($enfoqueDeMercado);
         //print_r($arrPrincipalEnfoqueDeMercado); exit();
@@ -2343,8 +2368,38 @@ class BandejaEntradaController extends Controller
             }
 
             if(isset($arrTerrenos['arrIds']['h.1.4'])){
+                //echo "EL ARR_CAMPOS_FEXAVA "; print_r($camposFexavaAvaluo); exit();
                 $valorUnitarioDeTierraAplicableAlAvaluo = $infoXmlElementosConst->xpath($elementoPrincipal.'//EnfoqueDeMercado[@id="h"]//'.$arrPrincipalEnfoqueDeMercado['arrIds']['h.1'].'[@id="h.1"]//'.$arrTerrenos['arrIds']['h.1.4'].'[@id="h.1.4"]');
+
                 $arrValorUnitarioDeTierraAplicableAlAvaluo = $this->obtenElementosPrincipal($valorUnitarioDeTierraAplicableAlAvaluo);
+
+                $minMuestras = env("MINMUESTRAS");
+
+                if($minMuestras > 0){
+                    $infoDesviacion = $this->modelAva->valorUnitarioDesviacion($camposFexavaAvaluo['REGION'],$camposFexavaAvaluo['MANZANA'],$camposFexavaAvaluo['LOTE'],$camposFexavaAvaluo['UNIDADPRIVATIVA']);
+                    if($infoDesviacion != 'Error al obtener la desviación estandar.'){
+
+                        if(isset($infoDesviacion) && count($infoDesviacion) > 0){
+                            if($infoDesviacion['NUMMUESTRAS'] < $minMuestras || trim($infoDesviacion['MEDIAVUS'] == ''))    {
+                                $camposFexavaAvaluo['ALERTA'] = "No ha sido posible hacer la validación de valor unitario de suelo por falta de datos. ¿Desea continuar?";
+                            }else{
+                                if(trim($infoDesviacion['DESVIACION']) == ''){
+                                    $infoDesviacion['DESVIACION'] = 0;
+                                }
+                                $valMinVus = $infoDesviacion['MEDIAVUS'] - $infoDesviacion['DESVIACION'];
+                                $valMaxVus = $infoDesviacion['MEDIAVUS'] + $infoDesviacion['DESVIACION'];
+                                if($valorUnitarioDeTierraAplicableAlAvaluo[0] < $valMinVus || $valorUnitarioDeTierraAplicableAlAvaluo[0] > $valMaxVus){
+                                    $camposFexavaAvaluo['ALERTA'] = "El valor unitario de suelo del avalúo no se encuentra entre en el rango del valor mínimo y máximo de VUS en base a la media para el área de valor. ¿Desea continuar?";
+                                }
+                            }
+                        }
+
+                    }else{
+                        //return array('ERROR' => array($infoDesviacion)); 
+                        $camposFexavaAvaluo['ERRORES'][] = $errores;
+                    }
+                    
+                }    
                 
                 $camposFexavaAvaluo['VALORUNITARIOTIERRAAVALUO'] = (String)($valorUnitarioDeTierraAplicableAlAvaluo[0]);
             }
@@ -2601,7 +2656,8 @@ class BandejaEntradaController extends Controller
 
         $errores = valida_AvaluoEnfoqueCostosComercial($xmlEnfoqueDeCostos->xpath($elementoPrincipal.'//EnfoqueDeCostos[@id="i"]'), $elementoPrincipal, $datad13, $datae2, $dataf12, $dataf14);    
         if(count($errores) > 0){
-            return array('ERROR' => $errores);
+            //return array('ERROR' => $errores);
+            $camposFexavaAvaluo['ERRORES'][] = $errores;
         }
         $enfoqueDeCostos = $xmlEnfoqueDeCostos->xpath($elementoPrincipal.'//EnfoqueDeCostos[@id="i"]//ImporteTotalDelEnfoqueDeCostos[@id="i.6"]');        
 
@@ -2653,7 +2709,8 @@ class BandejaEntradaController extends Controller
 
             $errores = valida_AvaluoEnfoqueCostosCatastral($xmlEnfoqueDeCostos->xpath($elementoPrincipal.'//EnfoqueDeCostos[@id="j"]'), $elementoPrincipal, $datae23, $datae27, $datab6, $datad6, $datad13, $existef9, $existef10, $existef11);    
             if(count($errores) > 0){
-                return array('ERROR' => $errores);
+                //return array('ERROR' => $errores);
+                $camposFexavaAvaluo['ERRORES'][] = $errores;
             }
 
             $instalacionesEsp = $xmlEnfoqueDeCostos->xpath($elementoPrincipal.'//'.$arrGeneral['arrIds']['j'].'[@id="j"]');
@@ -2689,7 +2746,8 @@ class BandejaEntradaController extends Controller
 
             $errores = valida_AvaluoEnfoqueIngresos($enfoqueDeIngresos, $elementoPrincipal);    
             if(count($errores) > 0){
-                return array('ERROR' => $errores);
+                //return array('ERROR' => $errores);
+                $camposFexavaAvaluo['ERRORES'][] = $errores;
             }
 
             $arrEnfoqueDeIngresos = $this->obtenElementosPrincipal($enfoqueDeIngresos);
@@ -2728,7 +2786,8 @@ class BandejaEntradaController extends Controller
             if(isset($arrConclusionAvaluo['arrIds']['o.1'])){
                 $errores = valida_AvaluoConclusionDelAvaluoComercial($conclusionAvaluo, $elementoPrincipal);    
                 if(count($errores) > 0){
-                    return array('ERROR' => $errores);
+                    //return array('ERROR' => $errores);
+                    $camposFexavaAvaluo['ERRORES'][] = $errores;
                 }
                 $camposFexavaAvaluo['VALORCOMERCIAL'] = (String)($arrConclusionAvaluo['arrElementos'][$arrConclusionAvaluo['arrIds']['o.1']]);
             }
@@ -2736,7 +2795,8 @@ class BandejaEntradaController extends Controller
             if(isset($arrConclusionAvaluo['arrIds']['o.2'])){
                 $errores = valida_AvaluoConclusionDelAvaluoCatastral($conclusionAvaluo, $elementoPrincipal);    
                 if(count($errores) > 0){
-                    return array('ERROR' => $errores);
+                    //return array('ERROR' => $errores);
+                    $camposFexavaAvaluo['ERRORES'][] = $errores;
                 }
                 $camposFexavaAvaluo['VALORCATASTRAL'] = (String)($arrConclusionAvaluo['arrElementos'][$arrConclusionAvaluo['arrIds']['o.2']]);
             }
@@ -2756,7 +2816,8 @@ class BandejaEntradaController extends Controller
         if(count($valorReferido) > 1){ echo "EL ARREGLO P ".print_r($valorReferido); exit();
             $errores = valida_AvaluoValorReferido($valorReferido, $elementoPrincipal,$datao1);    
             if(count($errores) > 0){
-                return array('ERROR' => $errores);
+                //return array('ERROR' => $errores);
+                $camposFexavaAvaluo['ERRORES'][] = $errores;
             }
 
             $arrValorReferido = $this->obtenElementosPrincipal($valorReferido);
@@ -2786,7 +2847,8 @@ class BandejaEntradaController extends Controller
 
         $errores = valida_AvaluoAnexoFotografico($anexoFotografico, $elementoPrincipal);    
             if(count($errores) > 0){
-                return array('ERROR' => $errores);
+                //return array('ERROR' => $errores);
+                $camposFexavaAvaluo['ERRORES'][] = $errores;
             }
 
         $arrAnexoFotografico = $this->obtenElementosPrincipal($anexoFotografico);
