@@ -543,9 +543,9 @@ class BandejaEntradaController extends Controller
     function guardarAvaluo(Request $request){
         try{
 
-            $token = Crypt::decrypt($request->header('Authorization'));
+            //$token = Crypt::decrypt($request->header('Authorization'));
             //Log::info($token['id_usuario']); exit();
-            $idPersona = $token['id_usuario'];
+            //$idPersona = $token['id_usuario'];
             
             $this->modelPeritoSociedad = new PeritoSociedad();
             $this->modelDatosExtrasAvaluo = new DatosExtrasAvaluo();
