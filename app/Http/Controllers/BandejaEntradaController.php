@@ -547,7 +547,14 @@ class BandejaEntradaController extends Controller
             $this->modelDocumentos = new Documentos();
             $this->modelElementosConstruccion = new ElementosConstruccion();
             $this->modelGuardaenBD = new GuardaenBD();
-            $idPersona = $request->idPersona;            
+            $authToken = $request->header('Authorization');
+            if (!$authToken) {
+                return response()->json(['mensaje' => 'Sin acceso a la aplicación'], 403);
+            } 
+            $resToken = Crypt::decrypt($authToken);
+            
+
+            $idPersona = empty($resToken['id_anterior']) ? $resToken['id_usuario']: $resToken['id_anterior'];            
             $file = $request->file('files');
             $myfile = fopen($file, "r");
             $contents = fread($myfile, filesize($file));
