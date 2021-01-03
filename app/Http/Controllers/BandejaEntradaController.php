@@ -544,6 +544,8 @@ class BandejaEntradaController extends Controller
         try{
 
             $token = Crypt::decrypt($request->header('Authorization'));
+            //Log::info($token['id_usuario']); exit();
+            $idPersona = $token['id_usuario'];
             
             $this->modelPeritoSociedad = new PeritoSociedad();
             $this->modelDatosExtrasAvaluo = new DatosExtrasAvaluo();
@@ -551,8 +553,7 @@ class BandejaEntradaController extends Controller
             $this->modelElementosConstruccion = new ElementosConstruccion();
             $this->modelGuardaenBD = new GuardaenBD();
             $this->modelAva = new Ava();
-            $idPersona = $token['idusuario'];
-            //$idPersona = $request->idPersona;            
+            $idPersona = $request->idPersona;        
             $file = $request->file('files');
             $myfile = fopen($file, "r");
             $contents = fread($myfile, filesize($file));
