@@ -2540,14 +2540,25 @@ function valida_AvaluoTerreno($data, $elementoPrincipal, $datah = false){
     if ($numeroTerrenos > 1) {
         $errores[] = "El XML cuenta con mas de una seccion de Terreno";
     }else{
-        foreach($validacionesd as $etiqueta => $validacion){
+        foreach($validacionesd as $etiqueta => $validacion){ 
             if(!isset($data[0][$etiqueta])){
                 $errores[] = "Falta ".$etiqueta." en MedidasYColindancias";
-            }else{
+            }else{                
                 $resValidacion = define_validacion($validacion, $data[0][$etiqueta]);                             
                 if($resValidacion != 'correcto'){
                     $errores[] = "El campo ".$etiqueta." ".$resValidacion;
                 }
+                
+                /*if($etiqueta == "CroquisMicroLocalizacion" || $etiqueta == "CroquisMacroLocalizacion"){
+                   
+                    $img = base64_decode($data[0][$etiqueta]);
+                    list($ancho, $alto, $tipo, $atributos, $bits, $chanels, $mine) = getimagesizefromstring($img); //print_r($infoTamanio); exit();
+
+                    if($ancho > '640' || $alto > '480'){
+                        $errores[] = "Los pixeles de ".$etiqueta." son mas grandes de lo aceptado";
+                    }
+                    
+                }*/
             }
         }
         

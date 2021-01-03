@@ -544,8 +544,7 @@ class BandejaEntradaController extends Controller
         try{
 
             $token = Crypt::decrypt($request->header('Authorization'));
-            //Log::info($token['id_usuario']); exit();
-            $idPersona = $token['id_usuario'];
+            //Log::info($token); exit();            
             
             $this->modelPeritoSociedad = new PeritoSociedad();
             $this->modelDatosExtrasAvaluo = new DatosExtrasAvaluo();
@@ -553,8 +552,9 @@ class BandejaEntradaController extends Controller
             $this->modelElementosConstruccion = new ElementosConstruccion();
             $this->modelGuardaenBD = new GuardaenBD();
             $this->modelAva = new Ava();
-            $idPersona = $request->idPersona;        
-            $file = $request->file('files');
+            $idPersona = $token['id_anterior'];
+            //$idPersona = $request->idPersona;  
+            $file = $request->file('files');            
             $myfile = fopen($file, "r");
             $contents = fread($myfile, filesize($file));
             fclose($myfile);
@@ -597,6 +597,11 @@ class BandejaEntradaController extends Controller
             $camposFexavaAvaluo['CODTIPOTRAMITE'] = $tipoTramite;            
             $infoXmlIdentificacion = $xml->xpath($elementoPrincipal.'//Identificacion[@id="a"]');
             $mensajes = array();
+
+            if($this->validarTamanioFichero(filesize($file)) == FALSE){
+                $camposFexavaAvaluo['ERRORES'][] = array('El tamaño del fichero es muy grande.');    
+            }
+
             $camposFexavaAvaluo = $this->guardarAvaluoIdentificacion($infoXmlIdentificacion, $camposFexavaAvaluo, $idPersona,$elementoPrincipal);
             
             /* if(isset($camposFexavaAvaluo['ERROR'])){
@@ -1125,7 +1130,7 @@ class BandejaEntradaController extends Controller
         $infoXmlCallesTransversalesLimitrofesYOrientacion = $infoXmlTerreno->xpath($elementoPrincipal.'//Terreno[@id="d"]//CallesTransversalesLimitrofesYOrientacion[@id="d.1"]');        
         $query = (String)($infoXmlCallesTransversalesLimitrofesYOrientacion[0]);
 
-        $infoXmlCroquisMicroLocalizacion = $infoXmlTerreno->xpath($elementoPrincipal.'//Terreno[@id="d"]//CroquisMicroLocalizacion[@id="d.2"]');        
+        $infoXmlCroquisMicroLocalizacion = $infoXmlTerreno->xpath($elementoPrincipal.'//Terreno[@id="d"]//CroquisMicroLocalizacion[@id="d.2"]');    
         $queryMicro = (String)($infoXmlCroquisMicroLocalizacion[0]);
         
         $infoXmlCroquisMacroLocalizacion = $infoXmlTerreno->xpath($elementoPrincipal.'//Terreno[@id="d"]//CroquisMacroLocalizacion[@id="d.3"]');        
