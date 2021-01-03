@@ -543,18 +543,25 @@ class BandejaEntradaController extends Controller
     function guardarAvaluo(Request $request){
         try{
 
-            $token = Crypt::decrypt($request->header('Authorization'));
-            //Log::info($token); exit();            
+            //$token = Crypt::decrypt($request->header('Authorization'));
+            //Log::info($token['id_usuario']); exit();
+            //$idPersona = $token['id_usuario'];
             
             $this->modelPeritoSociedad = new PeritoSociedad();
             $this->modelDatosExtrasAvaluo = new DatosExtrasAvaluo();
             $this->modelDocumentos = new Documentos();
             $this->modelElementosConstruccion = new ElementosConstruccion();
             $this->modelGuardaenBD = new GuardaenBD();
-            $this->modelAva = new Ava();
-            $idPersona = $token['id_anterior'];
-            //$idPersona = $request->idPersona;  
-            $file = $request->file('files');            
+            //Id Persona de usuarios migrados es el id anterior
+            $authToken = $request->header('Authorization');
+            if (!$authToken) {
+                return response()->json(['mensaje' => 'Sin acceso a la aplicación'], 403);
+            } 
+            $resToken = Crypt::decrypt($authToken);
+            
+            $idPersona = empty($resToken['id_anterior']) ? $resToken['id_usuario']: $resToken['id_anterior'];
+
+            $file = $request->file('files');
             $myfile = fopen($file, "r");
             $contents = fread($myfile, filesize($file));
             fclose($myfile);
