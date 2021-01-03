@@ -704,12 +704,12 @@ class BandejaEntradaController extends Controller
         foreach($infoXmlIdentificacion[0] as $llave => $elemento){
             $arrIdentificacion[$llave] = (String)($elemento);
         }
-        //echo "LOS IDS ".$idPersona." ".$this->modelDatosExtrasAvaluo->IdPeritoSociedadByRegistro($arrIdentificacion['ClaveValuador'], '',true); exit();
-        if($idPersona != $this->modelDatosExtrasAvaluo->IdPeritoSociedadByRegistro($arrIdentificacion['ClaveValuador'], '',true) and $idPersona != 264){
+        //$errores = array(0 => "LOS IDS ".$idPersona." ".$this->modelDatosExtrasAvaluo->IdPeritoSociedadByRegistro($arrIdentificacion['ClaveValuador'], '',true)); $camposFexavaAvaluo['ERRORES'][] = $errores; return $camposFexavaAvaluo;
+        if($idPersona != $this->modelDatosExtrasAvaluo->IdPeritoSociedadByRegistro($arrIdentificacion['ClaveValuador'], '',true)){
             $errores = array(0 => 'Un perito no puede subir avalúos a nombre de otro perito');
             $camposFexavaAvaluo['ERRORES'][] = $errores;
             //return array('ERROR' => $errores);
-        }
+        }//exit();
 
         $resExiste = $this->modelDocumentos->valida_existencia($arrIdentificacion['NumeroDeAvaluo'],$idPersona);
 
