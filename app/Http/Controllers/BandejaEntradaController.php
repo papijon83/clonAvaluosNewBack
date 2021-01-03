@@ -542,6 +542,8 @@ class BandejaEntradaController extends Controller
 
     function guardarAvaluo(Request $request){
         try{
+
+            $token = Crypt::decrypt($request->header('Authorization'));
             
             $this->modelPeritoSociedad = new PeritoSociedad();
             $this->modelDatosExtrasAvaluo = new DatosExtrasAvaluo();
@@ -549,7 +551,8 @@ class BandejaEntradaController extends Controller
             $this->modelElementosConstruccion = new ElementosConstruccion();
             $this->modelGuardaenBD = new GuardaenBD();
             $this->modelAva = new Ava();
-            $idPersona = $request->idPersona;            
+            $idPersona = $token['idusuario'];
+            //$idPersona = $request->idPersona;            
             $file = $request->file('files');
             $myfile = fopen($file, "r");
             $contents = fread($myfile, filesize($file));
@@ -706,6 +709,8 @@ class BandejaEntradaController extends Controller
         }
         //$errores = array(0 => "LOS IDS ".$idPersona." ".$this->modelDatosExtrasAvaluo->IdPeritoSociedadByRegistro($arrIdentificacion['ClaveValuador'], '',true)); $camposFexavaAvaluo['ERRORES'][] = $errores; return $camposFexavaAvaluo;
         if($idPersona != $this->modelDatosExtrasAvaluo->IdPeritoSociedadByRegistro($arrIdentificacion['ClaveValuador'], '',true)){
+            $errores = array(0 => "LOS IDS ".$idPersona." ".$this->modelDatosExtrasAvaluo->IdPeritoSociedadByRegistro($arrIdentificacion['ClaveValuador'], '',true)); 
+            $camposFexavaAvaluo['ERRORES'][] = $errores;
             $errores = array(0 => 'Un perito no puede subir avalúos a nombre de otro perito');
             $camposFexavaAvaluo['ERRORES'][] = $errores;
             //return array('ERROR' => $errores);
