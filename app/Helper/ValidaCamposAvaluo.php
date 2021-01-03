@@ -2249,10 +2249,15 @@ function valida_Calculos($data, $letra, $dataextra = false, $dataextrados = fals
         if(isset($data[0]['ImporteTotalInstalacionesAccesoriosComplementariasPrivativas'])){
 
             $f_12 = $data[0]['ImporteTotalInstalacionesAccesoriosComplementariasPrivativas'];
-            $calc_f_12 = $data[0]['InstalacionesEspeciales']['ImporteTotalInstalacionesEspecialesPrivativas'] + $data[0]['ElementosAccesorios']['ImporteTotalElementosAccesoriosPrivativas'] + $data[0]['ObrasComplementarias']['ImporteTotalObrasComplementariasPrivativas'];
-            if(truncate($f_12,2) != truncate($calc_f_12,2)){
+            if(!isset($data[0]['InstalacionesEspeciales']['ImporteTotalInstalacionesEspecialesPrivativas']) && !isset($data[0]['ElementosAccesorios']['ImporteTotalElementosAccesoriosPrivativas']) && !isset($data[0]['ObrasComplementarias']['ImporteTotalObrasComplementariasPrivativas']) && $f_12 != 0){
                 return  "El calculo de f.12 es erroneo ";
+            }else{
+                $calc_f_12 = $data[0]['InstalacionesEspeciales']['ImporteTotalInstalacionesEspecialesPrivativas'] + $data[0]['ElementosAccesorios']['ImporteTotalElementosAccesoriosPrivativas'] + $data[0]['ObrasComplementarias']['ImporteTotalObrasComplementariasPrivativas'];
+                if(truncate($f_12,2) != truncate($calc_f_12,2)){
+                    return  "El calculo de f.12 es erroneo ";
+                }
             }
+            
         }
 
         if(isset($data[0]['ImporteTotalInstalacionesAccesoriosComplementariasComunes'])){
@@ -2549,7 +2554,7 @@ function valida_AvaluoTerreno($data, $elementoPrincipal, $datah = false){
                     $errores[] = "El campo ".$etiqueta." ".$resValidacion;
                 }
                 
-                /*if($etiqueta == "CroquisMicroLocalizacion" || $etiqueta == "CroquisMacroLocalizacion"){
+                /*if$etiqueta == "CroquisMicroLocalizacion" || $etiqueta == "CroquisMacroLocalizacion"){
                    
                     $img = base64_decode($data[0][$etiqueta]);
                     list($ancho, $alto, $tipo, $atributos, $bits, $chanels, $mine) = getimagesizefromstring($img); //print_r($infoTamanio); exit();

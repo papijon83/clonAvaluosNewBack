@@ -553,13 +553,13 @@ class BandejaEntradaController extends Controller
             $this->modelElementosConstruccion = new ElementosConstruccion();
             $this->modelGuardaenBD = new GuardaenBD();
             //Id Persona de usuarios migrados es el id anterior
-            $authToken = $request->header('Authorization');
+           $authToken = $request->header('Authorization');
             if (!$authToken) {
                 return response()->json(['mensaje' => 'Sin acceso a la aplicación'], 403);
             } 
             $resToken = Crypt::decrypt($authToken);
             
-            $idPersona = empty($resToken['id_anterior']) ? $resToken['id_usuario']: $resToken['id_anterior'];
+            $idPersona = empty($resToken['id_anterior']) ? $resToken['id_usuario']: $resToken['id_anterior']; // $idPersona = 264;
 
             $file = $request->file('files');
             $myfile = fopen($file, "r");
@@ -648,7 +648,7 @@ class BandejaEntradaController extends Controller
             $camposFexavaAvaluo = $this->guardarAvaluoEnfoqueCostosCatastral($xml, $camposFexavaAvaluo,$elementoPrincipal);
             /* if(isset($camposFexavaAvaluo['ERROR'])){
                 return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
-            }*/
+            }*/ 
             $camposFexavaAvaluo = $this->guardarAvaluoEnfoqueIngresos($xml, $camposFexavaAvaluo,$elementoPrincipal);
             /* if(isset($camposFexavaAvaluo['ERROR'])){
                 return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
@@ -665,7 +665,7 @@ class BandejaEntradaController extends Controller
             /* if(isset($camposFexavaAvaluo['ERROR'])){
                 return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
             }*/
-            //echo "LA INFO "; print_r($camposFexavaAvaluo); exit();
+            //echo "LA INFO "; print_r($camposFexavaAvaluo); exit(); 
             
             if(count($camposFexavaAvaluo['ERRORES']) > 0){
                 return response()->json(['mensaje' => $camposFexavaAvaluo['ERRORES']], 500);
