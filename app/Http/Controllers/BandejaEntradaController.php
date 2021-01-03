@@ -559,7 +559,7 @@ class BandejaEntradaController extends Controller
             } 
             $resToken = Crypt::decrypt($authToken);
             
-            $idPersona = empty($resToken['id_anterior']) ? $resToken['id_usuario']: $resToken['id_anterior']; // $idPersona = 264;
+            $idPersona = empty($resToken['id_anterior']) ? $resToken['id_usuario']: $resToken['id_anterior']; //$idPersona = 264;
 
             $file = $request->file('files');
             $myfile = fopen($file, "r");

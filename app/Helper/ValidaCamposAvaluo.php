@@ -2249,14 +2249,28 @@ function valida_Calculos($data, $letra, $dataextra = false, $dataextrados = fals
         if(isset($data[0]['ImporteTotalInstalacionesAccesoriosComplementariasPrivativas'])){
 
             $f_12 = $data[0]['ImporteTotalInstalacionesAccesoriosComplementariasPrivativas'];
-            if(!isset($data[0]['InstalacionesEspeciales']['ImporteTotalInstalacionesEspecialesPrivativas']) && !isset($data[0]['ElementosAccesorios']['ImporteTotalElementosAccesoriosPrivativas']) && !isset($data[0]['ObrasComplementarias']['ImporteTotalObrasComplementariasPrivativas']) && $f_12 != 0){
-                return  "El calculo de f.12 es erroneo ";
-            }else{
-                $calc_f_12 = $data[0]['InstalacionesEspeciales']['ImporteTotalInstalacionesEspecialesPrivativas'] + $data[0]['ElementosAccesorios']['ImporteTotalElementosAccesoriosPrivativas'] + $data[0]['ObrasComplementarias']['ImporteTotalObrasComplementariasPrivativas'];
+            
+                if(!isset($data[0]['InstalacionesEspeciales']['ImporteTotalInstalacionesEspecialesPrivativas']) || trim($data[0]['InstalacionesEspeciales']['ImporteTotalElementosAccesoriosPrivativas']) == ''){
+                    $importeTotalInstalacionesEspecialesPrivativas = 0;
+                }else{
+                    $importeTotalInstalacionesEspecialesPrivativas = $data[0]['InstalacionesEspeciales']['ImporteTotalInstalacionesEspecialesPrivativas'];
+                }
+                if(!isset($data[0]['InstalacionesEspeciales']['ImporteTotalElementosAccesoriosPrivativas']) || trim($data[0]['InstalacionesEspeciales']['ImporteTotalElementosAccesoriosPrivativas']) == ''){
+                    $importeTotalElementosAccesoriosPrivativas = 0;
+                }else{
+                    $importeTotalElementosAccesoriosPrivativas = $data[0]['InstalacionesEspeciales']['ImporteTotalElementosAccesoriosPrivativas'];
+                }
+                if(!isset($data[0]['InstalacionesEspeciales']['ImporteTotalObrasComplementariasPrivativas']) || trim($data[0]['InstalacionesEspeciales']['ImporteTotalObrasComplementariasPrivativas']) == ''){
+                    $importeTotalObrasComplementariasPrivativas = 0;
+                }else{
+                    $importeTotalObrasComplementariasPrivativas = $data[0]['InstalacionesEspeciales']['ImporteTotalObrasComplementariasPrivativas'];
+                }
+                //$calc_f_12 = $data[0]['InstalacionesEspeciales']['ImporteTotalInstalacionesEspecialesPrivativas'] + $data[0]['ElementosAccesorios']['ImporteTotalElementosAccesoriosPrivativas'] + $data[0]['ObrasComplementarias']['ImporteTotalObrasComplementariasPrivativas'];
+                $calc_f_12 = $importeTotalInstalacionesEspecialesPrivativas + $importeTotalElementosAccesoriosPrivativas + $importeTotalObrasComplementariasPrivativas;
                 if(truncate($f_12,2) != truncate($calc_f_12,2)){
                     return  "El calculo de f.12 es erroneo ";
                 }
-            }
+            
             
         }
 
