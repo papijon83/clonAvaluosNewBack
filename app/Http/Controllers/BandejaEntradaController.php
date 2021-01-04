@@ -553,7 +553,7 @@ class BandejaEntradaController extends Controller
             $this->modelElementosConstruccion = new ElementosConstruccion();
             $this->modelGuardaenBD = new GuardaenBD();
             //Id Persona de usuarios migrados es el id anterior
-           $authToken = $request->header('Authorization');
+            $authToken = $request->header('Authorization');
             if (!$authToken) {
                 return response()->json(['mensaje' => 'Sin acceso a la aplicación'], 403);
             } 

@@ -2279,7 +2279,27 @@ function valida_Calculos($data, $letra, $dataextra = false, $dataextrados = fals
         if(isset($data[0]['ImporteTotalInstalacionesAccesoriosComplementariasComunes'])){
 
             $f_13 = $data[0]['ImporteTotalInstalacionesAccesoriosComplementariasComunes'];
-            $calc_f_13 = $data[0]['InstalacionesEspeciales']['ImporteTotalInstalacionesEspecialesComunes'] + $data[0]['ElementosAccesorios']['ImporteTotalElementosAccesoriosComunes'] + $data[0]['ObrasComplementarias']['ImporteTotalObrasComplementariasComunes'];
+
+            if(!isset($data[0]['InstalacionesEspeciales']['ImporteTotalInstalacionesEspecialesComunes']) || trim($data[0]['InstalacionesEspeciales']['ImporteTotalInstalacionesEspecialesComunes']) == ''){
+                $importeTotalInstalacionesEspecialesComunes = 0;
+            }else{
+                $importeTotalInstalacionesEspecialesComunes = $data[0]['InstalacionesEspeciales']['ImporteTotalInstalacionesEspecialesComunes'];
+            }
+            
+            if(!isset($data[0]['ElementosAccesorios']['ImporteTotalElementosAccesoriosComunes']) || trim($data[0]['ElementosAccesorios']['ImporteTotalElementosAccesoriosComunes']) == ''){
+                $importeTotalElementosAccesoriosComunes = 0;
+            }else{
+                $importeTotalElementosAccesoriosComunes = $data[0]['ElementosAccesorios']['ImporteTotalElementosAccesoriosComunes'];
+            }
+            
+            if(!isset($data[0]['ObrasComplementarias']['ImporteTotalObrasComplementariasComunes']) || trim($data[0]['ObrasComplementarias']['ImporteTotalObrasComplementariasComunes']) == ''){
+                $importeTotalObrasComplementariasComunes = 0;
+            }else{
+                $importeTotalObrasComplementariasComunes = $data[0]['ObrasComplementarias']['ImporteTotalObrasComplementariasComunes'];
+            }
+
+            //$calc_f_13 = $data[0]['InstalacionesEspeciales']['ImporteTotalInstalacionesEspecialesComunes'] + $data[0]['ElementosAccesorios']['ImporteTotalElementosAccesoriosComunes'] + $data[0]['ObrasComplementarias']['ImporteTotalObrasComplementariasComunes'];
+            $calc_f_13 = $importeTotalInstalacionesEspecialesComunes + $importeTotalElementosAccesoriosComunes + $importeTotalObrasComplementariasComunes;
             if(truncate($f_13,2) != truncate($calc_f_13,2)){ //echo truncate($f_13,2)." != ".truncate($calc_f_13,2)."\n";
                 return  "El calculo de f.13 es erroneo ";
             }
