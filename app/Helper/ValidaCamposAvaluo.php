@@ -1267,7 +1267,10 @@ function val_base64_binary($valor){
     $estado = 'correcto';
     try {
 
-        if(base64_encode(base64_decode($valor, true)) === $valor){
+        $img = base64_decode($valor);                    
+        $infoImg = getimagesizefromstring($img);
+
+        if(isset($infoImg) && count($infoImg) > 0){
             return $estado;
         }else{
             return "no contiene un base64";
@@ -2590,16 +2593,19 @@ function valida_AvaluoTerreno($data, $elementoPrincipal, $datah = false){
                     $errores[] = "El campo ".$etiqueta." ".$resValidacion;
                 }
                 
-                /*if$etiqueta == "CroquisMicroLocalizacion" || $etiqueta == "CroquisMacroLocalizacion"){
-                   
-                    $img = base64_decode($data[0][$etiqueta]);
-                    list($ancho, $alto, $tipo, $atributos, $bits, $chanels, $mine) = getimagesizefromstring($img); //print_r($infoTamanio); exit();
-
-                    if($ancho > '640' || $alto > '480'){
-                        $errores[] = "Los pixeles de ".$etiqueta." son mas grandes de lo aceptado";
+                if($etiqueta == "CroquisMicroLocalizacion" || $etiqueta == "CroquisMacroLocalizacion"){
+                try{    
+                    $img = base64_decode($data[0][$etiqueta]);                    
+                    $infoImg = getimagesizefromstring($img);
+                    if($infoImg[0] > '640' || $infoImg[1] > '480'){
+                        $errores[] = "La resolucion en pixeles de ".$etiqueta." es mas grande de lo aceptado";
                     }
+                } catch (\Throwable $th) {
+                    //return "no contiene un base64";
+                    $errores[] = $etiqueta." no contiene una imagen";
+                }
                     
-                }*/
+                }
             }
         }
         
@@ -3958,8 +3964,8 @@ function valida_AvaluoAnexoFotografico($data, $elementoPrincipal){
                     $errores[] = "Falta ".$etiqueta." en Sujeto (FotosInmuebleAvaluo)";
                 }else{
                     
-                    $resValidacion = define_validacion($validacion, $elementoPrincipal[$etiqueta]);                
-                    if($resValidacion != 'correcto'){
+                    $resValidacion = define_validacion($validacion, trim($elementoPrincipal[$etiqueta]));                
+                    if($resValidacion != 'correcto'){ //echo "ENTRE EN Q12 ".$elementoPrincipal[$etiqueta]; exit();
                         $errores[] = "El campo ".$etiqueta." ".$resValidacion;
                     }
                 }
@@ -3988,7 +3994,7 @@ function valida_AvaluoAnexoFotografico($data, $elementoPrincipal){
                     $errores[] = "Falta ".$etiqueta." en ComparableRentas (FotosInmuebleAvaluo)";
                 }else{
                     
-                    $resValidacion = define_validacion($validacion, $data[0]['ComparableRentas']['FotosInmuebleAvaluo'][$etiqueta]);                
+                    $resValidacion = define_validacion($validacion, trim($data[0]['ComparableRentas']['FotosInmuebleAvaluo'][$etiqueta]));                
                     if($resValidacion != 'correcto'){
                         $errores[] = "El campo ".$etiqueta." ".$resValidacion;
                     }
@@ -4048,7 +4054,7 @@ function valida_AvaluoAnexoFotografico($data, $elementoPrincipal){
                     $errores[] = "Falta ".$etiqueta." en ComparableVentas (FotosInmuebleAvaluo)";
                 }else{
                     
-                    $resValidacion = define_validacion($validacion, $data[0]['ComparableVentas']['FotosInmuebleAvaluo'][$etiqueta]);                
+                    $resValidacion = define_validacion($validacion, trim($data[0]['ComparableVentas']['FotosInmuebleAvaluo'][$etiqueta]));                
                     if($resValidacion != 'correcto'){
                         $errores[] = "El campo ".$etiqueta." ".$resValidacion;
                     }

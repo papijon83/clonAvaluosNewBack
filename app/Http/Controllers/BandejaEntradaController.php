@@ -541,8 +541,7 @@ class BandejaEntradaController extends Controller
     }
 
     function guardarAvaluo(Request $request){
-        try{
-
+        try{    
             //$token = Crypt::decrypt($request->header('Authorization'));
             //Log::info($token['id_usuario']); exit();
             //$idPersona = $token['id_usuario'];
