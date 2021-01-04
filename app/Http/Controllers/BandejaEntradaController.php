@@ -8,6 +8,7 @@ use App\Models\Documentos;
 use App\Models\ElementosConstruccion;
 use App\Models\GuardaenBD;
 use App\Models\Ava;
+use App\Models\Fis;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -25,6 +26,8 @@ class BandejaEntradaController extends Controller
     protected $modelDocumentos;
     protected $modelElementosConstruccion;
     protected $modelGuardaenBD;
+    protected $modelAva;
+    protected $modelFis;
 
     public function __construct()
     {
@@ -551,14 +554,16 @@ class BandejaEntradaController extends Controller
             $this->modelDocumentos = new Documentos();
             $this->modelElementosConstruccion = new ElementosConstruccion();
             $this->modelGuardaenBD = new GuardaenBD();
+            $this->modelAva = new Ava();
+            $this->modelFis = new Fis();
             //Id Persona de usuarios migrados es el id anterior
-            $authToken = $request->header('Authorization');
+            /*$authToken = $request->header('Authorization');
             if (!$authToken) {
                 return response()->json(['mensaje' => 'Sin acceso a la aplicación'], 403);
             } 
             $resToken = Crypt::decrypt($authToken);
             
-            $idPersona = empty($resToken['id_anterior']) ? $resToken['id_usuario']: $resToken['id_anterior']; //$idPersona = 264;
+            $idPersona = empty($resToken['id_anterior']) ? $resToken['id_usuario']: $resToken['id_anterior'];*/ $idPersona = 264;
 
             $file = $request->file('files');
             $myfile = fopen($file, "r");
@@ -668,7 +673,7 @@ class BandejaEntradaController extends Controller
             
             if(count($camposFexavaAvaluo['ERRORES']) > 0){
                 return response()->json(['mensaje' => $camposFexavaAvaluo['ERRORES']], 500);
-            }
+            } exit();
 
             $resInsert = $this->modelGuardaenBD->insertAvaluo($camposFexavaAvaluo);
         
@@ -1562,6 +1567,27 @@ class BandejaEntradaController extends Controller
         
                        if(isset($arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.12'])){                               
                         $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['VALORUNITARIOREPNUEVO'] = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.12']]);
+                       }
+
+                       if(isset($arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.16'])){
+                        $valorUnitarioCatastral = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.16']]);
+                        $codUso = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.2']]);
+                        if(trim($codUso) != '' && $codUso != 'w'){
+                            $codClase = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.6']]);
+                            $codRangoNiveles = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.4']]);
+                            $numeroNiveles = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.3']]);
+                            $periodo = 1;
+
+                            $descripcion = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.1']]);                        
+
+                            $infoValorUnitarioConstruccion = $this->modelFis->getDataByObtenerValorUnitarioConstruccion($codUso,$codClase,$codRangoNiveles,$numeroNiveles,$periodo);                            
+                            //echo $valorUnitarioCatastral." != ".$infoValorUnitarioConstruccion." && ".$valorUnitarioCatastral." != ".($infoValorUnitarioConstruccion + 0.01)." && ".$valorUnitarioCatastral." != ".($infoValorUnitarioConstruccion - 0.01); exit();
+                            if($valorUnitarioCatastral != $infoValorUnitarioConstruccion && $valorUnitarioCatastral != ($infoValorUnitarioConstruccion + 0.01) && $valorUnitarioCatastral != ($infoValorUnitarioConstruccion - 0.01)){
+                                $camposFexavaAvaluo['ERRORES'][] = array("e.2.1.n.16 - El valor unitario de construcción no es correcto para: Uso: ".$codUso.", Rango niveles: ".$codRangoNiveles.", Clase:  ".$codClase.", descripción: ".$descripcion.". El valor ESPERADO es: ".$infoValorUnitarioConstruccion);
+                            }
+                            //Comentado porque no existe VALORUNITARIOCATASTRAL en la tabla FEXAVA_TIPOCONSTRUCCION $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['VALORUNITARIOCATASTRAL'] = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.16']]);
+                        }
+                        
                        }
         
                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['CODTIPO'] = "P";
