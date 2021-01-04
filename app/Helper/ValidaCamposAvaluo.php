@@ -3926,7 +3926,7 @@ function valida_AvaluoValorReferido($data, $elementoPrincipal, $datao1){
     return $errores;
 }
 
-function valida_AvaluoAnexoFotografico($data, $elementoPrincipal){
+function valida_AvaluoAnexoFotografico($data, $elementoPrincipal){ //print_r($data); exit();
     if($elementoPrincipal == '//Comercial'){
         $validacionesq11 = array('Region' => 'regionManzanaUp', 'Manzana' => 'regionManzanaUp', 'Lote' => 'lote', 'Localidad' => 'regionManzanaUp');
         $validacionesq12 = array('Foto' => 'base64Binary', 'InteriorOExterior' => 'catTipoFotoInmueble');
@@ -3949,14 +3949,14 @@ function valida_AvaluoAnexoFotografico($data, $elementoPrincipal){
             
             $resValidacionCuentaCatastral = define_validacion($validacionCatastral, $data[0]['Sujeto']['CuentaCatastral'][$etiquetaCatastral]);                
             if($resValidacionCuentaCatastral != 'correcto'){
-                $errores[] = "El campo ".$etiquetaCatastral." ".$resValidacionCuentaCatastral;
+                $errores[] = "El campo q.1.1 ".$etiquetaCatastral." ".$resValidacionCuentaCatastral;
             }
         }
     }
 
     if(count($data[0]['Sujeto']['FotosInmuebleAvaluo']) < 8){
         $errores[] = "Existen menos de 8 FotosInmuebleAvaluo";
-    }else{
+    }else{ 
         foreach($data[0]['Sujeto']['FotosInmuebleAvaluo'] as $llavePrincipal => $elementoPrincipal){
 
             foreach($validacionesq12 as $etiqueta => $validacion){
@@ -3966,7 +3966,8 @@ function valida_AvaluoAnexoFotografico($data, $elementoPrincipal){
                     
                     $resValidacion = define_validacion($validacion, trim($elementoPrincipal[$etiqueta]));                
                     if($resValidacion != 'correcto'){ //echo "ENTRE EN Q12 ".$elementoPrincipal[$etiqueta]; exit();
-                        $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                        
+                        $errores[] = "El campo q.1.2 ".$etiqueta." ".$resValidacion;
                     }
                 }
             }
@@ -3984,7 +3985,7 @@ function valida_AvaluoAnexoFotografico($data, $elementoPrincipal){
                 }else{
                     $resValidacion = define_validacion($validacion, $data[0]['ComparableRentas']['CuentaCatastral'][$etiqueta]);                
                     if($resValidacion != 'correcto'){
-                        $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                        $errores[] = "El campo q.2.n.1".$etiqueta." ".$resValidacion;
                     }                
                 }
             }
@@ -3993,10 +3994,15 @@ function valida_AvaluoAnexoFotografico($data, $elementoPrincipal){
                 if(!isset($data[0]['ComparableRentas']['FotosInmuebleAvaluo'][$etiqueta])){
                     $errores[] = "Falta ".$etiqueta." en ComparableRentas (FotosInmuebleAvaluo)";
                 }else{
-                    
+                    //print_r($data[0]['ComparableRentas']['FotosInmuebleAvaluo']); exit();
                     $resValidacion = define_validacion($validacion, trim($data[0]['ComparableRentas']['FotosInmuebleAvaluo'][$etiqueta]));                
                     if($resValidacion != 'correcto'){
-                        $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                        if(isset($data[0]['ComparableRentas']['FotosInmuebleAvaluo']['@attributes']['id'])){
+                            $idCampo = $data[0]['ComparableRentas']['FotosInmuebleAvaluo']['@attributes']['id'];
+                        }else{
+                            $idCampo = '';
+                        }
+                        $errores[] = "El q.2.n.2 ".$idCampo." ".$etiqueta." ".$resValidacion;
                     }
                 }
             }
@@ -4012,7 +4018,7 @@ function valida_AvaluoAnexoFotografico($data, $elementoPrincipal){
                     }else{
                         $resValidacion = define_validacion($validacion, $elementoPrincipal['CuentaCatastral'][$etiqueta]);                
                         if($resValidacion != 'correcto'){
-                            $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                            $errores[] = "El campo q.2.n.1 ".$etiqueta." ".$resValidacion;
                         }                
                     }
                 }
@@ -4024,7 +4030,7 @@ function valida_AvaluoAnexoFotografico($data, $elementoPrincipal){
                         
                         $resValidacion = define_validacion($validacion, $elementoPrincipal['FotosInmuebleAvaluo'][$etiqueta]);                
                         if($resValidacion != 'correcto'){
-                            $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                            $errores[] = "El campo q.2.n.2 ".$etiqueta." ".$resValidacion;
                         }
                     }
                 }            
@@ -4056,7 +4062,9 @@ function valida_AvaluoAnexoFotografico($data, $elementoPrincipal){
                     
                     $resValidacion = define_validacion($validacion, trim($data[0]['ComparableVentas']['FotosInmuebleAvaluo'][$etiqueta]));                
                     if($resValidacion != 'correcto'){
-                        $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                        
+                        $errores[] = "El campo q.3.n.2 ".$etiqueta." ".$resValidacion;
+                        
                     }
                 }
             }
