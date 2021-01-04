@@ -2255,15 +2255,17 @@ function valida_Calculos($data, $letra, $dataextra = false, $dataextrados = fals
                 }else{
                     $importeTotalInstalacionesEspecialesPrivativas = $data[0]['InstalacionesEspeciales']['ImporteTotalInstalacionesEspecialesPrivativas'];
                 }
-                if(!isset($data[0]['InstalacionesEspeciales']['ImporteTotalElementosAccesoriosPrivativas']) || trim($data[0]['InstalacionesEspeciales']['ImporteTotalElementosAccesoriosPrivativas']) == ''){
+                
+                if(!isset($data[0]['ElementosAccesorios']['ImporteTotalElementosAccesoriosPrivativas']) || trim($data[0]['ElementosAccesorios']['ImporteTotalElementosAccesoriosPrivativas']) == ''){
                     $importeTotalElementosAccesoriosPrivativas = 0;
                 }else{
-                    $importeTotalElementosAccesoriosPrivativas = $data[0]['InstalacionesEspeciales']['ImporteTotalElementosAccesoriosPrivativas'];
+                    $importeTotalElementosAccesoriosPrivativas = $data[0]['ElementosAccesorios']['ImporteTotalElementosAccesoriosPrivativas'];
                 }
-                if(!isset($data[0]['InstalacionesEspeciales']['ImporteTotalObrasComplementariasPrivativas']) || trim($data[0]['InstalacionesEspeciales']['ImporteTotalObrasComplementariasPrivativas']) == ''){
+                
+                if(!isset($data[0]['ObrasComplementarias']['ImporteTotalObrasComplementariasPrivativas']) || trim($data[0]['ObrasComplementarias']['ImporteTotalObrasComplementariasPrivativas']) == ''){
                     $importeTotalObrasComplementariasPrivativas = 0;
                 }else{
-                    $importeTotalObrasComplementariasPrivativas = $data[0]['InstalacionesEspeciales']['ImporteTotalObrasComplementariasPrivativas'];
+                    $importeTotalObrasComplementariasPrivativas = $data[0]['ObrasComplementarias']['ImporteTotalObrasComplementariasPrivativas'];
                 }
                 //$calc_f_12 = $data[0]['InstalacionesEspeciales']['ImporteTotalInstalacionesEspecialesPrivativas'] + $data[0]['ElementosAccesorios']['ImporteTotalElementosAccesoriosPrivativas'] + $data[0]['ObrasComplementarias']['ImporteTotalObrasComplementariasPrivativas'];
                 $calc_f_12 = $importeTotalInstalacionesEspecialesPrivativas + $importeTotalElementosAccesoriosPrivativas + $importeTotalObrasComplementariasPrivativas;
