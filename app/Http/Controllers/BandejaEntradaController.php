@@ -822,6 +822,25 @@ class BandejaEntradaController extends Controller
         }
 
         if(trim($arrSolicitante['TipoPersona']) != ''){
+            if(strtoupper($arrSolicitante['TipoPersona']) == 'F'){
+                if(!isset($arrSolicitante['A.Paterno']) || trim($arrSolicitante['A.Paterno']) == ''){
+                    $validadoSol = false;
+                    $camposFexavaAvaluo['ERRORES'][] = "b.1.10 - Error en el tipo de persona: La persona física debe contener el apellido paterno (b.1.1)";                    
+                }
+            }
+
+            if(strtoupper($arrSolicitante['TipoPersona']) == 'M'){
+                if(isset($arrSolicitante['A.Paterno']) && trim($arrSolicitante['A.Paterno']) != ''){
+                    $validadoSol = false;
+                    $camposFexavaAvaluo['ERRORES'][] = "b.1.10 - Error en el tipo de persona: La persona moral no puede tener apellido paterno (b.1.1)";                    
+                }
+
+                if(isset($arrSolicitante['A.Materno']) && trim($arrSolicitante['A.Materno']) != ''){
+                    $validadoSol = false;
+                    $camposFexavaAvaluo['ERRORES'][] = "b.1.10 - Error en el tipo de persona: La persona moral no puede tener apellido materno (b.1.2)";                    
+                }
+            }
+
             $camposFexavaAvaluo['FEXAVA_DATOSPERSONAS']['Solicitante']['TIPOPERSONA'] = $arrSolicitante['TipoPersona'];
         }
 
@@ -876,6 +895,26 @@ class BandejaEntradaController extends Controller
         }
 
         if(trim($arrPropietario['TipoPersona']) != ''){
+
+            if(strtoupper($arrPropietario['TipoPersona']) == 'F'){
+                if(!isset($arrPropietario['A.Paterno']) || trim($arrPropietario['A.Paterno']) == ''){
+                    $validadoSol = false;
+                    $camposFexavaAvaluo['ERRORES'][] = "b.2.10 - Error en el tipo de persona: La persona física debe contener el apellido paterno (b.2.1)";                    
+                }
+            }
+
+            if(strtoupper($arrPropietario['TipoPersona']) == 'M'){
+                if(isset($arrPropietario['A.Paterno']) && trim($arrPropietario['A.Paterno']) != ''){
+                    $validadoSol = false;
+                    $camposFexavaAvaluo['ERRORES'][] = "b.2.10 - Error en el tipo de persona: La persona moral no puede tener apellido paterno (b.2.1)";                    
+                }
+
+                if(isset($arrPropietario['A.Materno']) && trim($arrPropietario['A.Materno']) != ''){
+                    $validadoSol = false;
+                    $camposFexavaAvaluo['ERRORES'][] = "b.2.10 - Error en el tipo de persona: La persona moral no puede tener apellido materno (b.2.2)";                    
+                }
+            }
+
             $camposFexavaAvaluo['FEXAVA_DATOSPERSONAS']['Propietario']['TIPOPERSONA'] = $arrPropietario['TipoPersona'];
         }
         
@@ -1466,6 +1505,7 @@ class BandejaEntradaController extends Controller
     }
 
     public function guardarAvaluoDescripcionImueble($infoXmlTerreno, $camposFexavaAvaluo,$elementoPrincipal){
+
         $errores = valida_AvaluoDescripcionImueble($infoXmlTerreno->xpath($elementoPrincipal.'//DescripcionDelInmueble[@id="e"]'), $elementoPrincipal, $infoXmlTerreno->xpath($elementoPrincipal.'//Terreno[@id="d"]')); 
         
         if(count($errores) > 0){
@@ -1473,6 +1513,17 @@ class BandejaEntradaController extends Controller
             $camposFexavaAvaluo['ERRORES'][] = $errores;
         }
         $fechaAvaluo = $camposFexavaAvaluo['FECHAAVALUO'];
+
+        if($elementoPrincipal == '//Comercial'){
+            $esComercial = true;
+        }else{
+            $esComercial = false;
+        }
+
+        if(esFechaValida($fechaAvaluo) == true){
+            $fecha = $fechaAvaluo;
+            $fechastr = darFormatoFechaXML($fechaAvaluo);
+        }
 
         $arrPrincipalUsoActual = $infoXmlTerreno->xpath($elementoPrincipal.'//DescripcionDelInmueble[@id="e"]//UsoActual[@id="e.1"]');        
         if(trim((String)($arrPrincipalUsoActual[0])) != ''){
@@ -1505,11 +1556,16 @@ class BandejaEntradaController extends Controller
                     $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i] = array();
 
                     if(isset($arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.1'])){
+                        $descripcion = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.1']]);
                         $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['DESCRIPCION'] = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.1']]);
                        }
         
                        if(isset($arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.2'])){
                         $codUso = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.2']]);
+                        $idusoEjercicio = existeCatUsoEjercicio($codUso,$fechastr);
+                        if($idusoEjercicio == false){
+                            $camposFexavaAvaluo['ERRORES'][] = array('e.2.1.n.2 - No existe un uso ejercicio para la fecha '.$fecha." y codUso ".$codUso);
+                        }
                         $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['IDUSOSEJERCICIO'] = $this->modelDatosExtrasAvaluo->SolicitarObtenerIdUsosByCodeAndAno('fechaAvaluo', $codUso);
                        }
         
@@ -1517,8 +1573,11 @@ class BandejaEntradaController extends Controller
                         $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['NUMNIVELES'] = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.3']]);
                        }
         
-                       if(isset($arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.4'])){
+                       if(isset($arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.4'])){                        
                         $codRangoNiveles = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.4']]);
+                        if(existeCatRangoNivelesEjercicio($codRangoNiveles,$fechastr) == false){
+                            $camposFexavaAvaluo['ERRORES'][] = array('e.2.1.n.4 - No existe un rango nivel ejercicio para la fecha '.$fechastr." y codRangoNiveles ".$codRangoNiveles);
+                        }
                         $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['IDRANGONIVELESEJERCICIO'] = $this->modelDatosExtrasAvaluo->SolicitarObtenerIdRangoNivelesByCodeAndAno('fechaAvaluo', $codRangoNiveles);
                        }
         
@@ -1528,8 +1587,17 @@ class BandejaEntradaController extends Controller
         
                        if(isset($arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.6'])){
                         $codClase = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.6']]);
+                        $idclaseEjercicio = existeCatClaseEjercicio($codClase,$fechastr);
+                        if($idclaseEjercicio == false){
+                            $camposFexavaAvaluo['ERRORES'][] = array('e.2.1.n.6 - No existe una clase Ejercicio para la fecha '.$fechastr." y codClase ".$codClase);
+                        }
                         $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['IDCLASESEJERCICIO'] = $this->modelDatosExtrasAvaluo->SolicitarObtenerIdClasesByCodeAndAno('fechaAvaluo', $codClase);
                        }
+
+                       if (existeClaseUsoEjercicio($idclaseEjercicio, $idusoEjercicio) == false) //ValidarusoClaseejercicio
+                        {
+                            $camposFexavaAvaluo['ERRORES'][] = array('No existe relación entre clase(e.2.1.n.6) '.$codClase." y  uso(e.2.1.n.2) ".$codUso." para la fecha ".$fechastr);
+                        }
         
                        if(isset($arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.7'])){                               
                         $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['EDAD'] = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.7']]);
@@ -1538,11 +1606,17 @@ class BandejaEntradaController extends Controller
                        if(isset($arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.8'])){
                         $idUsoEjercicio = $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['IDUSOSEJERCICIO'];
                         $idClaseEjercicio = $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['IDCLASESEJERCICIO'];
+                        $VidaUtilTotalDelTipo = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.8']]);
+                        if(trim($VidaUtilTotalDelTipo) != '' && $codUso != "W" && $esComercial == false){
+                            if (validarCatUsoClase($codUso, $codClase, $VidaUtilTotalDelTipo, $fechastr) == false){
+                                $camposFexavaAvaluo['ERRORES'][] = array("e.2.1.n.8 - La vida útil especificada no es correcta para la clase y el uso especificados: Clase ".$codClase.", Uso ".$codUso);
+                            }
+                        }
                         if($codClase != 'U'){
                             //•	En el caso de clase única (U), no se debe validar el campo e.2.1.n.8 - Vida útil total del tipo y  por tanto no existe la relación clase uso en la tabla fexava_usoClase
                             $catdt = $this->modelDatosExtrasAvaluo->ObtenerClaseUsoByIdUsoIdClase($idUsoEjercicio, $idClaseEjercicio);
                             if(count($catdt) > 0){
-                                $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['IDUSOCLASEEJERCICIO'] = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.8']]);
+                                $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['IDUSOCLASEEJERCICIO'] = $VidaUtilTotalDelTipo;
                             }                    
                         }                               
                         
@@ -2843,7 +2917,7 @@ class BandejaEntradaController extends Controller
     public function guardarAvaluoValorReferido($xmlValorReferido, $camposFexavaAvaluo, $elementoPrincipal){
         $valorReferido = $xmlValorReferido->xpath($elementoPrincipal.'//ValorReferido[@id="p"]');
         $datao1 = $xmlValorReferido->xpath($elementoPrincipal.'//ConclusionDelAvaluo[@id="o"]//ValorComercialDelInmueble[@id="o.1"]');
-        if(count($valorReferido) > 1){ echo "EL ARREGLO P ".print_r($valorReferido); exit();
+        if(count($valorReferido) > 0){
             $errores = valida_AvaluoValorReferido($valorReferido, $elementoPrincipal,$datao1);    
             if(count($errores) > 0){
                 //return array('ERROR' => $errores);

@@ -1,6 +1,9 @@
 <?php
 use Illuminate\Support\Facades\DB;
 use PhpParser\Node\Stmt\TryCatch;
+use Carbon\Carbon;
+use App\Models\Fis;
+use App\Models\DatosExtrasAvaluo;
 
 function convierte_a_arreglo($data){    
     return json_decode( json_encode($data), true );
@@ -1376,6 +1379,15 @@ function val_null_string($valor){
 function val_usos_construcciones($valor){
     $estado = 'correcto';  
     $idUsos = convierte_a_arreglo(DB::select("SELECT IDUSOS FROM FIS.FIS_CATUSOS WHERE CODUSO = '$valor'"));    
+    if(count($idUsos) == 0){            
+        return "el codigo de uso construccion ".$valor." no existe en el catalogo de usos";
+    }
+    return $estado;    
+}
+
+function val_ejercicio($valor){
+    $estado = 'correcto';  
+    $idUsos = convierte_a_arreglo(DB::select("SELECT IDUSOS FROM FIS.FIS_EJERCICIO WHERE CODUSO = '$valor'"));    
     if(count($idUsos) == 0){            
         return "el codigo de uso construccion ".$valor." no existe en el catalogo de usos";
     }
@@ -2789,7 +2801,8 @@ function valida_AvaluoDescripcionImueble($data, $elementoPrincipal, $datad = fal
         }
     }
     //print_r($data[0]['TiposDeConstruccion']['ValorTotalDeLasConstruccionesComunesProIndiviso']); exit();
-    foreach($validacionese2 as $etiqueta => $validacion){
+    foreach($validacionese2 as $etiqueta => $validacion){        
+
         if(!isset($data[0]['TiposDeConstruccion'][$etiqueta]) && $etiqueta != 'ValorTotalDeLasConstruccionesProIndiviso'){
             $errores[] = "Falta ".$etiqueta." en TiposDeConstruccion";
         }else{
@@ -2800,8 +2813,92 @@ function valida_AvaluoDescripcionImueble($data, $elementoPrincipal, $datad = fal
             }                
         }
     }
-    
+        
     if(isset($data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['@attributes']) && $data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['@attributes']['id'] == 'e.2.1'){
+
+        if($data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['ClaveUso'] == 'W'){
+            if(trim($data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['Superficie']) != ''){
+                $superficie = trim($data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['Superficie']);
+                if($superficie == 0){
+                    $usoNoBaldioConSuper = false;
+                }else{
+                    $usoNoBaldioConSuper = true;
+                }
+            }else{
+                $usoNoBaldioConSuper = false;
+            }
+        }else{
+            $usoNoBaldioConSuper = true;
+        }
+
+        if($usoNoBaldioConSuper == true){
+            $claveUso = $data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['ClaveUso'];
+            $numeroEtiqueta = 1;
+            $numeroArreglo = 0;
+            foreach($validacionese21 as $etiqueta => $validacion){                
+                if(trim($data[0]['TiposDeConstruccion']['ConstruccionesPrivativas'][$etiqueta]) == '' && $numeroArreglo < 6){
+                    $errores[] = $claveUso == 'W' ? "e.2.1.n.$numeroEtiqueta Campo obligatorio para el uso baldio" : "e.2.1.n.$numeroEtiqueta Campo obligatorio";
+                }
+                $numeroEtiqueta = $numeroEtiqueta + 1;
+                $numeroArreglo = $numeroArreglo + 1;    
+            }
+
+            if($elementoPrincipal != '//Comercial' && trim($data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['Edad']) == ''){
+                $errores[] = $claveUso == 'W' ? "e.2.1.n.7 Campo obligatorio para el uso baldio" : "e.2.1.n.7 Campo obligatorio";
+            }else{
+                if($elementoPrincipal == '//Comercial' && trim($data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['Edad']) != '' && !is_numeric($data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['Edad'])){
+                    $errores[] = "e.2.1.n.7 El dato no es correcto, se requiere asignar un valor.";
+                } 
+            }
+
+            if($elementoPrincipal != '//Comercial' && trim($data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['VidaUtilTotalDelTipo']) == ''){
+                if($claveUso != 'W'){
+                    $errores[] = "e.2.1.n.8 Campo obligatorio";
+                }                
+            }
+
+            if($claveUso != 'H' && trim($data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['VidaUtilRemanente']) == ''){                
+                $errores[] = $claveUso == 'W' ? "e.2.1.n.9 Campo obligatorio para el uso baldio" : "e.2.1.n.9 Campo obligatorio";                              
+            }
+
+            if($claveUso != 'H' && trim($data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['ClaveConservacion']) == ''){                
+                $errores[] = $claveUso == 'W' ? "e.2.1.n.10 Campo obligatorio para el uso baldio" : "e.2.1.n.10 Campo obligatorio";                              
+            }
+
+            if(trim($data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['Superficie']) == ''){                
+                $errores[] = $claveUso == 'W' ? "e.2.1.n.11 Campo obligatorio para el uso baldio" : "e.2.1.n.11 Campo obligatorio";                              
+            }
+
+            if((!isset($data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['ValorunitariodereposicionNuevo']) || trim($data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['ValorunitariodereposicionNuevo']) == '') && $elementoPrincipal == '//Comercial'){                
+                $errores[] = $claveUso == 'W' ? "e.2.1.n.12 Campo obligatorio para el uso baldio" : "e.2.1.n.12 Campo obligatorio";                              
+            }
+
+            if((!isset($data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['FactorDeEdad']) || trim($data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['FactorDeEdad']) == '') && $elementoPrincipal == '//Comercial' && $claveUso != 'H'){                
+                $errores[] = $claveUso == 'W' ? "e.2.1.n.13 Campo obligatorio para el uso baldio" : "e.2.1.n.13 Campo obligatorio";                              
+            }
+
+            if((!isset($data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['FactorResultante']) || trim($data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['FactorResultante']) == '') && $elementoPrincipal == '//Comercial' && $claveUso != 'H'){                
+                $errores[] = $claveUso == 'W' ? "e.2.1.n.14 Campo obligatorio para el uso baldio" : "e.2.1.n.14 Campo obligatorio";                              
+            }
+
+            if(trim($data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['ValorDeLaFraccionN']) == ''){              
+                $errores[] = $claveUso == 'W' ? "e.2.1.n.15 Campo obligatorio para el uso baldio" : "e.2.1.n.15 Campo obligatorio";                              
+            }
+
+            if((!isset($data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['ValorUnitarioCatastral']) || trim($data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['ValorUnitarioCatastral']) == '') && $elementoPrincipal != '//Comercial'){                
+                if($claveUso != 'W'){
+                    $errores[] = "e.2.1.n.16 Campo obligatorio";
+                }                              
+            }
+
+            if((!isset($data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['DepreciacionPorEdad']) || trim($data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['DepreciacionPorEdad']) == '') && $elementoPrincipal != '//Comercial'){                
+                if($claveUso != 'W'){
+                    $errores[] = "e.2.1.n.17 Campo obligatorio";
+                }                              
+            }
+
+        }
+
         foreach($validacionese21 as $etiqueta => $validacion){
             if(!isset($data[0]['TiposDeConstruccion']['ConstruccionesPrivativas'][$etiqueta])){
                 $errores[] = "Falta ".$etiqueta." en ConstruccionesPrivativas";
@@ -2811,11 +2908,99 @@ function valida_AvaluoDescripcionImueble($data, $elementoPrincipal, $datad = fal
                     $errores[] = "El campo ".$etiqueta." ".$resValidacion;
                 }                
             }
-        }
+        }    
+        
     } 
 
     if(isset($data[0]['TiposDeConstruccion']['ConstruccionesPrivativas'][0]['@attributes']) && $data[0]['TiposDeConstruccion']['ConstruccionesPrivativas'][0]['@attributes']['id'] == 'e.2.1'){
-        foreach($data[0]['TiposDeConstruccion']['ConstruccionesPrivativas'] as $llavePrincipal => $elementoPrincipal){            
+        foreach($data[0]['TiposDeConstruccion']['ConstruccionesPrivativas'] as $llavePrincipal => $elementoPrincipal){
+            
+            if($elementoPrincipal['ClaveUso'] == 'W'){
+                if(trim($elementoPrincipal['Superficie']) != ''){
+                    $superficie = trim($elementoPrincipal['Superficie']);
+                    if($superficie == 0){
+                        $usoNoBaldioConSuper = false;
+                    }else{
+                        $usoNoBaldioConSuper = true;
+                    }
+                }else{
+                    $usoNoBaldioConSuper = false;
+                }
+            }else{
+                $usoNoBaldioConSuper = true;
+            }
+    
+            if($usoNoBaldioConSuper == true){
+                $claveUso = $elementoPrincipal['ClaveUso'];
+                $numeroEtiqueta = 1;
+                $numeroArreglo = 0;
+                foreach($validacionese21 as $etiqueta => $validacion){                
+                    if(trim($elementoPrincipal[$etiqueta]) == '' && $numeroArreglo < 6){
+                        $errores[] = $claveUso == 'W' ? "e.2.1.n.$numeroEtiqueta Campo obligatorio para el uso baldio" : "e.2.1.n.$numeroEtiqueta Campo obligatorio";
+                    }
+                    $numeroEtiqueta = $numeroEtiqueta + 1;
+                    $numeroArreglo = $numeroArreglo + 1;    
+                }
+    
+                if($elementoPrincipal != '//Comercial' && trim($elementoPrincipal['Edad']) == ''){
+                    $errores[] = $claveUso == 'W' ? "e.2.1.n.7 Campo obligatorio para el uso baldio" : "e.2.1.n.7 Campo obligatorio";
+                }else{
+                    if($elementoPrincipal == '//Comercial' && trim($elementoPrincipal['Edad']) != '' && !is_numeric($elementoPrincipal['Edad'])){
+                        $errores[] = "e.2.1.n.7 El dato no es correcto, se requiere asignar un valor.";
+                    } 
+                }
+    
+                if($elementoPrincipal != '//Comercial' && trim($elementoPrincipal['VidaUtilTotalDelTipo']) == ''){
+                    if($claveUso != 'W'){
+                        $errores[] = "e.2.1.n.8 Campo obligatorio";
+                    }                
+                }
+    
+                if($claveUso != 'H' && trim($elementoPrincipal['VidaUtilRemanente']) == ''){                
+                    $errores[] = $claveUso == 'W' ? "e.2.1.n.9 Campo obligatorio para el uso baldio" : "e.2.1.n.9 Campo obligatorio";                              
+                }
+    
+                if($claveUso != 'H' && trim($elementoPrincipal['ClaveConservacion']) == ''){                
+                    $errores[] = $claveUso == 'W' ? "e.2.1.n.10 Campo obligatorio para el uso baldio" : "e.2.1.n.10 Campo obligatorio";                              
+                }
+    
+                if(trim($elementoPrincipal['Superficie']) == ''){                
+                    $errores[] = $claveUso == 'W' ? "e.2.1.n.11 Campo obligatorio para el uso baldio" : "e.2.1.n.11 Campo obligatorio";                              
+                }
+    
+                if((!isset($elementoPrincipal['ValorunitariodereposicionNuevo']) || trim($elementoPrincipal['ValorunitariodereposicionNuevo']) == '') && $elementoPrincipal == '//Comercial'){                
+                    $errores[] = $claveUso == 'W' ? "e.2.1.n.12 Campo obligatorio para el uso baldio" : "e.2.1.n.12 Campo obligatorio";                              
+                }
+    
+                if((!isset($elementoPrincipal['ValorunitariodereposicionNuevo']) || trim($elementoPrincipal['FactorDeEdad']) == '') && $elementoPrincipal == '//Comercial' && $claveUso != 'H'){                
+                    $errores[] = $claveUso == 'W' ? "e.2.1.n.13 Campo obligatorio para el uso baldio" : "e.2.1.n.13 Campo obligatorio";                              
+                }
+    
+                if((!isset($elementoPrincipal['ValorunitariodereposicionNuevo']) || trim($elementoPrincipal['FactorResultante']) == '') && $elementoPrincipal == '//Comercial' && $claveUso != 'H'){                
+                    $errores[] = $claveUso == 'W' ? "e.2.1.n.14 Campo obligatorio para el uso baldio" : "e.2.1.n.14 Campo obligatorio";                              
+                }
+    
+                if(trim($elementoPrincipal['ValorDeLaFraccionN']) == ''){              
+                    $errores[] = $claveUso == 'W' ? "e.2.1.n.15 Campo obligatorio para el uso baldio" : "e.2.1.n.15 Campo obligatorio";                              
+                }
+    
+                if((!isset($elementoPrincipal['ValorUnitarioCatastral']) || trim($elementoPrincipal['ValorUnitarioCatastral']) == '') && $elementoPrincipal != '//Comercial'){                
+                    if($claveUso != 'W'){
+                        $errores[] = "e.2.1.n.16 Campo obligatorio";
+                    }                              
+                }
+    
+                if((!isset($elementoPrincipal['DepreciacionPorEdad']) || trim($elementoPrincipal['DepreciacionPorEdad']) == '') && $elementoPrincipal != '//Comercial'){                
+                    if($claveUso != 'W'){
+                        $errores[] = "e.2.1.n.17 Campo obligatorio";
+                    }                              
+                }
+    
+            }
+
+
+
+
             //if(is_array($elementoPrincipal) && $elementoPrincipal['id'] != 'e.2.1'){
                     foreach($validacionese21 as $etiqueta => $validacion){
                         if(!isset($elementoPrincipal[$etiqueta])){
@@ -3955,6 +4140,22 @@ function valida_AvaluoValorReferido($data, $elementoPrincipal, $datao1){
     if(count($data[0]) == 0){
 
     }else{
+        $validado = false;
+        $fechaDeValorReferido = $data[0]['FechaDeValorReferido'];
+        $valorReferido = $data[0]['ValorReferido'];
+
+        if($fechaDeValorReferido >= 0 && $valorReferido >= 0){
+            $validado = true;
+        }
+
+        if(trim($fechaDeValorReferido) != '' && trim($valorReferido) != ''){
+            $validado = true;
+        }
+
+        if($validado == false){
+            $errores[] = "Valor referido (p.5 y p.1)";
+        }
+
         foreach($validacionesp as $etiqueta => $validacion){
         
             if(!isset($data[0][$etiqueta])){
@@ -3970,6 +4171,7 @@ function valida_AvaluoValorReferido($data, $elementoPrincipal, $datao1){
     
     return $errores;
 }
+
 
 function valida_AvaluoAnexoFotografico($data, $elementoPrincipal){ //print_r($data); exit();
     if($elementoPrincipal == '//Comercial'){
@@ -4150,8 +4352,168 @@ function valida_AvaluoAnexoFotografico($data, $elementoPrincipal){ //print_r($da
 
 }
 
-function usoNoBaldioConSuper(){
+function existeCatUsoEjercicio($codUso,$fecha){
+    if(estaEnCatClaseUso($codUso) == true && estaEnCatEjercicio($fecha) == true){
+        //$modelFis = new Fis();
+        //$idUsoEjercicio = $modelFis->solicitarObtenerIdUsosByCodeAndAno($fecha, $codUso); //COMENTADO PORQUE NO FUNCIONA EL PKG CON ESTA INFO
+        return true;
+    }else{
+        $idUsoEjercicio = null;
+        return false;
+    }
+}
 
+function existeCatRangoNivelesEjercicio($codRangoNiveles,$fecha){
+    if(estaEnCatClaseRangoNiveles($codRangoNiveles) == true && estaEnCatEjercicio($fecha) == true){
+        $modelFis = new Fis();
+        return $modelFis->solicitarObtenerIdUsosByCodeAndAno($fecha,intval($codRangoNiveles));
+    }else{        
+        return false;
+    }
+}
+
+function existeCatClaseEjercicio($codClase, $fecha){
+    if(estaEnCatClaseConstruccion($codClase) == true && estaEnCatEjercicio($fecha) == true){
+        $modelFis = new Fis();
+        //return $modelFis->solicitarObtenerIdClasesByCodeAndAno($fecha,intval($codRangoNiveles)); //COMENTADO PORQUE ES LO MISMO QUE EL DE ABAJO
+        return $modelFis->solicitarObtenerIdUsosByCodeAndAno($fecha,intval($codClase));
+    }else{        
+        return false;
+    }
+}
+
+function estaEnCatClaseConstruccion($elem){
+    $resul = false;
+    if(val_cat_clases_construccion($elem) == 'correcto'){
+        $resul = true;
+    }
+    return $resul;
+}
+
+function estaEnCatClaseUso($elem){
+    $resul = false;
+    if(val_usos_construcciones($elem) == 'correcto'){
+        $resul = true;
+    }
+    return $resul;
+}
+
+function estaEnCatEjercicio($date){
+    $resultado = false;
+    $date = strtotime(formateaFecha($date));
+    $infoEjercicios = infoCat('FIS_EJERCICIO');
+    foreach($infoEjercicios as $elemento){
+        foreach($elemento as $id => $campo){ 
+            if($id == 'FECHAINICIO'){ 
+                $fechainicio = strtotime(formateaFecha($campo));
+            }
+            if($id == 'FECHAFIN'){ 
+                $fechafin = strtotime(formateaFecha($campo));
+            }            
+        }
+        if(isset($fechainicio) && isset($fechafin) && $date >= $fechainicio && $date <= $fechafin){
+            //echo $date." >= ".$fechainicio." && ".$date." <= ".$fechafin."\n"; exit();
+            $resultado = true;
+        }
+    } 
+    return $resultado;   
+}
+
+function estaEnCatClaseRangoNiveles($codRangoNiveles){
+    $resultado = false;    
+    $catRangoNiveles = infoCat('FIS_CATRANGONIVELES',"CODRANGONIVELES = '".$codRangoNiveles."'");
+    if(count($catRangoNiveles) > 0){
+        $resultado = true;
+    }
+    return $resultado;
+}
+
+function validarCatUsoClase($codUso, $codClase, $vidaUtilTotalDelTipo, $fecha){
+    $modelFis = new Fis();
+    $idClaseEjercicio = existeCatClaseEjercicio($codClase, $fecha);    
+    $idusoEjercicio = existeCatUsoEjercicio($codUso, $fecha);
+    $estaEnEjercicio = estaEnCatEjercicio($fecha);
+
+    if($idClaseEjercicio != false && $idusoEjercicio != false && $estaEnEjercicio != false){
+        if ($codClase == "U"){
+            return true;
+        }else{
+            //echo "INFOA ENVIAR 1 ".$fecha." ".$codUso; exit();
+            $idUsoEjercicio = $modelFis->solicitarObtenerIdUsosByCodeAndAno($fecha,$codUso); //echo "INFOA ENVIAR ".$idUsoEjercicio." ".$idClaseEjercicio." ".$vidaUtilTotalDelTipo; exit();
+            if (comprobarEdadUtilTipo($idUsoEjercicio, $idClaseEjercicio, $vidaUtilTotalDelTipo) == false){ //Si hay errores devolver el mensaje de error
+                return false;
+            }else{
+                return true;
+            }
+        }
+    }else{
+        return false;
+    }
+    
+}
+
+function comprobarEdadUtilTipo($idUsoEjercicio, $idClaseEjercicio, $vidaUtilTotalDelTipo){
+    $modelDatosExtrasAvaluo = new DatosExtrasAvaluo();
+    $dseCatClaseUso = $modelDatosExtrasAvaluo->select_catClaseUsoId_p($idUsoEjercicio, $idClaseEjercicio);
+    if(count($dseCatClaseUso) > 0){
+        //print_r($dseCatClaseUso); exit();
+        if($dseCatClaseUso[0]['EDADUTIL'] == $vidaUtilTotalDelTipo){
+            return true;
+        }else{
+            return false;
+        }
+    }else{
+        return false;
+    }
+}
+
+function formateaFecha($date){
+    $fecha = new Carbon($date);
+    return $fecha->format('Y-m-d');
+}
+
+
+function infoCat($cat, $where = false){
+    $arrRes = array();
+    if($where != false){
+        $query = "SELECT * FROM $cat WHERE $where";
+    }else{
+        $query = "SELECT * FROM $cat";
+    }    
+    list($usu,$nombre) = explode('_',$cat);
+    $conn = oci_connect($usu, env("DB_PASSWORD"), env("DB_TNS"));
+    oci_execute(oci_parse($conn,"ALTER SESSION SET NLS_NUMERIC_CHARACTERS = '.,'"));
+    oci_execute(oci_parse($conn,"ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD'"));
+    $sqlcadena = oci_parse($conn, $query);
+    oci_execute($sqlcadena);
+
+    while (($fila = oci_fetch_array($sqlcadena, OCI_ASSOC+OCI_RETURN_NULLS)) != false){
+        $arrRes[] = $fila;            
+    }
+    oci_free_statement($sqlcadena);
+    oci_close($conn);
+    
+    return $arrRes;
+}
+
+
+function esFechaValida($fecha){
+    list($anio,$mes,$dia) = explode('-',$fecha);
+    if(checkdate($dia,$mes,$anio) == true){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+function darFormatoFechaXML($fecha){
+    list($anio,$mes,$dia) = explode('-',$fecha);
+    $fechaXML = $dia."/".$mes."/".$anio;
+    return $fechaXML;
+}
+
+function existeClaseUsoEjercicio($idClaseejercicio, $idUsoejercicio){
+    return true;
 }
 
 

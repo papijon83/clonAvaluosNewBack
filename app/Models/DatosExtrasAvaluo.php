@@ -177,4 +177,31 @@ class DatosExtrasAvaluo
         $c_claseUso = DB::select("SELECT * FROM FIS.FIS_CATUSOS WHERE CODUSO = '$idUsoEjercicio'");
         return $c_claseUso;
     }
+
+    public function select_catClaseUsoId_p($idUsoEjercicio, $idClaseEjercicio){   $idUsoEjercicio = 753 ;
+        $procedure = 'BEGIN
+            FEXAVA.FEXAVA_CATALOGOS_PKG.fexava_select_catClaseUsoId_p(
+                :par_idUsoEjercicio,
+                :par_idClaseEjercicio,
+                :c_catclaseuso
+            ); END;';
+            $conn = oci_connect(env("DB_USERNAME"), env("DB_PASSWORD"), env("DB_TNS"));            
+            $stmt = oci_parse($conn, $procedure);
+            oci_bind_by_name($stmt, ':par_idUsoEjercicio', $idUsoEjercicio,3);
+            oci_bind_by_name($stmt, ':par_idClaseEjercicio', $idClaseEjercicio, 3);            
+            $cursor = oci_new_cursor($conn);
+            oci_bind_by_name($stmt, ":c_catclaseuso", $cursor, -1, OCI_B_CURSOR);
+            oci_execute($stmt, OCI_COMMIT_ON_SUCCESS);
+            oci_execute($cursor, OCI_COMMIT_ON_SUCCESS);
+            oci_free_statement($stmt);
+            oci_close($conn);
+            oci_fetch_all($cursor, $valores, 0, -1, OCI_FETCHSTATEMENT_BY_ROW + OCI_ASSOC);
+            oci_free_cursor($cursor);            
+            if (count($valores) > 0) {    
+               return $valores;
+            } else {
+                return [];
+            }
+
+    }
 }

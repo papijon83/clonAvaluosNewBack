@@ -3,6 +3,7 @@
 namespace App\Models;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Log;
 
 class Fis
 {
@@ -23,6 +24,7 @@ class Fis
                 :c_vuc
             ); END;';
             $conn = oci_connect(env("DB_USERNAME_FIS"), env("DB_PASSWORD"), env("DB_TNS"));
+            oci_execute(oci_parse($conn,"ALTER SESSION SET NLS_NUMERIC_CHARACTERS = '.,'"));
             $stmt = oci_parse($conn, $procedure);
             oci_bind_by_name($stmt, ':par_coduso', $codUso,3);
             oci_bind_by_name($stmt, ':par_codclase', $codClase, 3);
@@ -39,7 +41,7 @@ class Fis
             oci_fetch_all($cursor, $valores, 0, -1, OCI_FETCHSTATEMENT_BY_ROW + OCI_ASSOC);
             oci_free_cursor($cursor);            
             if (count($valores) > 0) {    
-                return tofloat($valores[0]['VALORUNITARIO']);                
+                return $valores[0]['VALORUNITARIO'];
             } else {
                 return [];
             }
@@ -52,6 +54,57 @@ class Fis
             
         }         
 
+    } 
+
+    function solicitarObtenerIdUsosByCodeAndAno($fecha, $cod){
+        try{ //echo "SOY FECHA Y CODUSO ".$fecha." ".$cod." "; exit();
+            /*$procedure = 'BEGIN
+            FIS.FIS_RANGONIVELESEJERCICIO_PKG.FIS_SELECT_BYANOCOD_P(
+                TO_DATE(:PAR_FECHA,\'DD/MM/YYYY\'),
+                :PAR_CODTIPO,
+                :IDRANGO
+            ); END;';
+            
+            $conn = oci_connect(env("DB_USERNAME_FIS"), env("DB_PASSWORD"), env("DB_TNS"));            
+            $stmt = oci_parse($conn, $procedure);
+            oci_bind_by_name($stmt, ':PAR_FECHA', $fecha, 10);
+            oci_bind_by_name($stmt, ':PAR_CODTIPO', $cod, 3);
+            oci_bind_by_name($stmt, ':IDRANGO', $idRango, 10);    
+            oci_execute($stmt, OCI_COMMIT_ON_SUCCESS);
+            oci_free_statement($stmt);
+            oci_close($conn);  echo "EL IDRANGO ".$idRango; exit();                
+            if (isset($idRango)) {    
+                return $idRango;
+            } else {
+                return false;
+            }*/
+
+            $query = "SELECT rne.idclasesejercicio 
+            FROM fis_clasesejercicio rne 
+            INNER JOIN fis_ejercicio fe ON rne.idejercicio = fe.idejercicio 
+            INNER JOIN fis_catclases crne ON crne.idclases = rne.idclases 
+            WHERE TO_DATE('$fecha','DD/MM/YYYY') BETWEEN fe.fechainicio AND fe.fechafin AND upper(crne.codclase) = '$cod'"; //print_r($query)."\n";
+            $conn = oci_connect("FIS", env("DB_PASSWORD"), env("DB_TNS"));        
+            $sqlcadena = oci_parse($conn, $query);
+            //oci_define_by_name($sqlcadena, 'text', $text);
+            oci_execute($sqlcadena);         
+            $fila = oci_fetch_array($sqlcadena, OCI_ASSOC+OCI_RETURN_NULLS);            
+            oci_free_statement($sqlcadena);
+            oci_close($conn); //print_r($fila); exit();
+            if (isset($fila['IDCLASESEJERCICIO'])){     
+                return $fila['IDCLASESEJERCICIO'];
+            } else {
+                //echo "ENTRE AQUIIII";
+                return 0;
+            }    
+        }catch (\Throwable $th){
+
+            error_log($th);
+            Log::info($th);
+            return 'Error al obtener el idUsoEjercicio.';
+            
+        } 
+        
     }
-    
+
 }

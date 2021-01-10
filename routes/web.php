@@ -32,6 +32,9 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
             $router->post('pruebaDoc', 'PruebaDoc@pruebaGuardadoDB');
             $router->get('pruebaEjecuta', 'PruebaDoc@pruebaEjecutaProcedure');
+            $router->get('catalogo/{cat}', 'PruebaDoc@infoCat');
+            $router->get('pk/{pk}', 'PruebaDoc@infopk');
+            $router->get('pruebaIdUsos', 'PruebaDoc@pruebaIdUsos');
         });
     });
 });

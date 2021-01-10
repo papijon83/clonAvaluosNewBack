@@ -9,6 +9,8 @@ use App\Models\Reimpresion;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Models\Fis;
+
 
 class PruebaDoc extends Controller
 {
@@ -23,7 +25,8 @@ class PruebaDoc extends Controller
         $this->modelDocumentos = new Documentos();
         $this->modelElementosConstruccion = new ElementosConstruccion();
         $this->modelGuardaenBD = new GuardaenBD();
-        $this->modelReimpresion = new Reimpresion();       
+        $this->modelReimpresion = new Reimpresion();
+        $this->modelFis = new Fis();     
     }
 
     public function pruebaInserta(){    
@@ -95,6 +98,52 @@ class PruebaDoc extends Controller
         
         $infoAcuse = $this->modelReimpresion->infoAvaluo(16876750);
         print_r($infoAcuse);
+    }
+
+
+    public function infoCat($cat){
+        $arrRes = array();
+        $query = "SELECT * FROM $cat"; //echo $query."\n";
+        list($usu,$nombre) = explode('_',$cat);
+        $conn = oci_connect($usu, env("DB_PASSWORD"), env("DB_TNS"));
+        oci_execute(oci_parse($conn,"ALTER SESSION SET NLS_NUMERIC_CHARACTERS = '.,'"));
+        oci_execute(oci_parse($conn,"ALTER SESSION SET NLS_DATE_FORMAT = 'DD/MM/YYYY'"));
+        $sqlcadena = oci_parse($conn, $query);
+        oci_execute($sqlcadena);
+
+        while (($fila = oci_fetch_array($sqlcadena, OCI_ASSOC+OCI_RETURN_NULLS)) != false){
+            $arrRes[] = $fila;            
+        }
+        oci_free_statement($sqlcadena);
+        oci_close($conn);
+        
+        print_r($arrRes); exit();
+    }
+
+    public function infopk($pk){
+        $arrRes = '';
+        $query = "SELECT TEXT FROM all_source WHERE name = 'FIS_CLASESEJERCICIO_PKG'"; //echo $query."\n";
+        
+        $conn = oci_connect("FIS", env("DB_PASSWORD"), env("DB_TNS"));        
+        $sqlcadena = oci_parse($conn, $query);
+        oci_define_by_name($sqlcadena, 'text', $text);
+        oci_execute($sqlcadena);         
+        
+        while (($fila = oci_fetch_array($sqlcadena, OCI_ASSOC+OCI_RETURN_NULLS)) != false){
+            $arrRes.= $fila['TEXT']." ";            
+        }
+        oci_free_statement($sqlcadena);
+        oci_close($conn);
+        
+        print_r($arrRes); exit();
+    }
+
+    public function pruebaIdUsos(){
+        $fecha = '01/01/2021';
+        //$cod = 'A';
+        $cod = 'H';
+        $res = $this->modelFis->solicitarObtenerIdUsosByCodeAndAno($fecha, $cod);
+        var_dump($res);
     }
     
 }
