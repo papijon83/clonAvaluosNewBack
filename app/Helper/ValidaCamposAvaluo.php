@@ -4382,7 +4382,7 @@ function existeCatUsoEjercicio($codUso,$fecha){ //echo $codUso." ".$fecha; exit(
     }
 }
 
-function existeCatRangoNivelesEjercicio($codRangoNiveles,$fecha){
+function existeCatRangoNivelesEjercicio($codRangoNiveles,$fecha){ //echo $codRangoNiveles." FECHA: ".$fecha; exit();
     if(estaEnCatClaseRangoNiveles($codRangoNiveles) == true && estaEnCatEjercicio($fecha) == true){
         $modelFis = new Fis();
         return $modelFis->solicitarObtenerIdUsosByCodeAndAno($fecha,intval($codRangoNiveles));
@@ -4434,7 +4434,7 @@ function estaEnCatEjercicio($date){
             //echo $date." >= ".$fechainicio." && ".$date." <= ".$fechafin."\n"; exit();
             $resultado = true;
         }
-    } 
+    }
     return $resultado;   
 }
 
@@ -4487,8 +4487,9 @@ function comprobarEdadUtilTipo($idUsoEjercicio, $idClaseEjercicio, $vidaUtilTota
 }
 
 function formateaFecha($date){
-    $fecha = new Carbon($date);
-    return $fecha->format('Y-m-d');
+    //$fecha = new Carbon($date);
+    //return $fecha->format('Y-m-d');    
+    return str_replace('/','-',$date);
 }
 
 
@@ -4516,9 +4517,9 @@ function infoCat($cat, $where = false){
 }
 
 
-function esFechaValida($fecha){
+function esFechaValida($fecha){ 
     list($anio,$mes,$dia) = explode('-',$fecha);
-    if(checkdate($dia,$mes,$anio) == true){
+    if(checkdate($mes,$dia,$anio) == true){
         return true;
     }else{
         return false;
