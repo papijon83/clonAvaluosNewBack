@@ -557,13 +557,13 @@ class BandejaEntradaController extends Controller
             $this->modelAva = new Ava();
             $this->modelFis = new Fis();
             //Id Persona de usuarios migrados es el id anterior
-            /*$authToken = $request->header('Authorization');
+            $authToken = $request->header('Authorization');
             if (!$authToken) {
                 return response()->json(['mensaje' => 'Sin acceso a la aplicación'], 403);
             } 
             $resToken = Crypt::decrypt($authToken);
             
-            $idPersona = empty($resToken['id_anterior']) ? $resToken['id_usuario']: $resToken['id_anterior'];*/ $idPersona = 264;
+            $idPersona = empty($resToken['id_anterior']) ? $resToken['id_usuario']: $resToken['id_anterior']; //$idPersona = 264;
 
             $file = $request->file('files');
             $myfile = fopen($file, "r");
