@@ -1519,7 +1519,8 @@ class BandejaEntradaController extends Controller
         }else{
             $esComercial = false;
         }
-
+        $fecha = '';
+        $fechastr = '';
         if(esFechaValida($fechaAvaluo) == true){
             $fecha = $fechaAvaluo;
             $fechastr = darFormatoFechaXML($fechaAvaluo);
@@ -1562,6 +1563,7 @@ class BandejaEntradaController extends Controller
         
                        if(isset($arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.2'])){
                         $codUso = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.2']]);
+                        //echo $fechastr; exit(); 
                         $idusoEjercicio = existeCatUsoEjercicio($codUso,$fechastr);
                         if($idusoEjercicio == false){
                             $camposFexavaAvaluo['ERRORES'][] = array('e.2.1.n.2 - No existe un uso ejercicio para la fecha '.$fecha." y codUso ".$codUso);
@@ -2916,23 +2918,25 @@ class BandejaEntradaController extends Controller
         /// <param name="valorReferido">Elemento xml con los datos del valor referido del avaluo.</param>
     public function guardarAvaluoValorReferido($xmlValorReferido, $camposFexavaAvaluo, $elementoPrincipal){
         $valorReferido = $xmlValorReferido->xpath($elementoPrincipal.'//ValorReferido[@id="p"]');
-        $datao1 = $xmlValorReferido->xpath($elementoPrincipal.'//ConclusionDelAvaluo[@id="o"]//ValorComercialDelInmueble[@id="o.1"]');
+        $datao1 = $xmlValorReferido->xpath($elementoPrincipal.'//ConclusionDelAvaluo[@id="o"]//ValorComercialDelInmueble[@id="o.1"]');        
         if(count($valorReferido) > 0){
-            $errores = valida_AvaluoValorReferido($valorReferido, $elementoPrincipal,$datao1);    
-            if(count($errores) > 0){
-                //return array('ERROR' => $errores);
-                $camposFexavaAvaluo['ERRORES'][] = $errores;
-            }
+            $arrLimpio = quitar_attributes(convierte_a_arreglo($valorReferido));
+            if(count($arrLimpio[0]) > 0 && numero_datos($arrLimpio) > 0){
+                $errores = valida_AvaluoValorReferido($valorReferido, $elementoPrincipal,$datao1);    
+                if(count($errores) > 0){
+                    //return array('ERROR' => $errores);
+                    $camposFexavaAvaluo['ERRORES'][] = $errores;
+                }
 
-            $arrValorReferido = $this->obtenElementosPrincipal($valorReferido);
+                $arrValorReferido = $this->obtenElementosPrincipal($valorReferido);
 
-            if(isset($arrValorReferido['arrIds']['p.1'])){
-                $camposFexavaAvaluo['FECHAVALORREFERIDO'] = (String)($arrValorReferido['arrElementos'][$arrValorReferido['arrIds']['p.1']]);
-            }
-            if(isset($arrValorReferido['arrIds']['p.2'])){
-                $camposFexavaAvaluo['VALORREFERIDO'] = (String)($arrValorReferido['arrElementos'][$arrValorReferido['arrIds']['p.2']]);
-            }
-            
+                if(isset($arrValorReferido['arrIds']['p.1'])){
+                    $camposFexavaAvaluo['FECHAVALORREFERIDO'] = (String)($arrValorReferido['arrElementos'][$arrValorReferido['arrIds']['p.1']]);
+                }
+                if(isset($arrValorReferido['arrIds']['p.2'])){
+                    $camposFexavaAvaluo['VALORREFERIDO'] = (String)($arrValorReferido['arrElementos'][$arrValorReferido['arrIds']['p.2']]);
+                }
+            }    
         }
         return $camposFexavaAvaluo;
         

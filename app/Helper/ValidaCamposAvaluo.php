@@ -30,6 +30,25 @@ function limpiar_arreglo($arrIni){
      return $arrIni;        
 }
 
+function quitar_attributes($arrIni){
+    if(count($arrIni) == 1 && isset($arrIni[0]['@attributes'])){
+        unset($arrIni[0]['@attributes']);       
+    }   
+    return $arrIni;        
+}
+
+function numero_datos($arrIni){ //print_r($arrIni); exit();
+    $numero = 0;
+    foreach($arrIni as $elemento){
+
+        if (isset($elemento) && !is_array($elemento) && trim($elemento) != '') {
+            $numero = $numero + 1;
+        }
+
+    }
+    return $numero;
+}
+
 function define_validacion($tipo_validacion, $valor){
     $existeSeparador = strpos($tipo_validacion,'_');
     if($existeSeparador != FALSE){
@@ -4352,7 +4371,7 @@ function valida_AvaluoAnexoFotografico($data, $elementoPrincipal){ //print_r($da
 
 }
 
-function existeCatUsoEjercicio($codUso,$fecha){
+function existeCatUsoEjercicio($codUso,$fecha){ //echo $codUso." ".$fecha; exit();
     if(estaEnCatClaseUso($codUso) == true && estaEnCatEjercicio($fecha) == true){
         //$modelFis = new Fis();
         //$idUsoEjercicio = $modelFis->solicitarObtenerIdUsosByCodeAndAno($fecha, $codUso); //COMENTADO PORQUE NO FUNCIONA EL PKG CON ESTA INFO
