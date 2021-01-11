@@ -2306,8 +2306,8 @@ function valida_Calculos($data, $letra, $dataextra = false, $dataextrados = fals
         if(isset($data[0]['ImporteTotalInstalacionesAccesoriosComplementariasPrivativas'])){
 
             $f_12 = $data[0]['ImporteTotalInstalacionesAccesoriosComplementariasPrivativas'];
-            
-                if(!isset($data[0]['InstalacionesEspeciales']['ImporteTotalInstalacionesEspecialesPrivativas']) || trim($data[0]['InstalacionesEspeciales']['ImporteTotalElementosAccesoriosPrivativas']) == ''){
+                //echo "SOY "; print_r($data[0]['InstalacionesEspeciales']); echo" ".$data[0]['InstalacionesEspeciales']['ImporteTotalInstalacionesEspecialesPrivativas']; exit();
+                if(!isset($data[0]['InstalacionesEspeciales']['ImporteTotalInstalacionesEspecialesPrivativas']) == true || trim($data[0]['InstalacionesEspeciales']['ImporteTotalInstalacionesEspecialesPrivativas']) == ''){
                     $importeTotalInstalacionesEspecialesPrivativas = 0;
                 }else{
                     $importeTotalInstalacionesEspecialesPrivativas = $data[0]['InstalacionesEspeciales']['ImporteTotalInstalacionesEspecialesPrivativas'];
