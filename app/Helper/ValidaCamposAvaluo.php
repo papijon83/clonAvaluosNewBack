@@ -4382,10 +4382,11 @@ function existeCatUsoEjercicio($codUso,$fecha){ //echo $codUso." ".$fecha; exit(
     }
 }
 
-function existeCatRangoNivelesEjercicio($codRangoNiveles,$fecha){ //echo $codRangoNiveles." FECHA: ".$fecha; exit();
+function existeCatRangoNivelesEjercicio($codRangoNiveles,$fecha){ //echo $codRangoNiveles." FECHA: ".$fecha; exit(); //var_dump(estaEnCatClaseRangoNiveles($codRangoNiveles))." FECHA: ".var_dump(estaEnCatEjercicio($fecha)); exit();
     if(estaEnCatClaseRangoNiveles($codRangoNiveles) == true && estaEnCatEjercicio($fecha) == true){
         $modelFis = new Fis();
-        return $modelFis->solicitarObtenerIdUsosByCodeAndAno($fecha,intval($codRangoNiveles));
+        //return $modelFis->solicitarObtenerIdUsosByCodeAndAno($fecha,intval($codRangoNiveles));
+        return true;
     }else{        
         return false;
     }
