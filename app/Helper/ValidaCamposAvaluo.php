@@ -1985,36 +1985,46 @@ function valida_Calculos($data, $letra, $dataextra = false, $dataextrados = fals
 
                 foreach($data[0]['InstalacionesEspeciales']['Privativas'] as $idElemento => $elemento){
                     if(isset($elemento['@attributes']['id']) && $elemento['@attributes']['id'] == 'f.9.1'){
-                        $f_9_1_n_8 = $elemento['FactorDeEdadInstalacionEspecial'];
-                        $calc_f_9_1_n_8 = 1-($elemento['EdadInstalacionEspecial'] / $elemento['VidaUtilTotalInstalacionEspecial']);
+                        if(isset($elemento['EdadInstalacionEspecial']) && $elemento['VidaUtilTotalInstalacionEspecial']){
+                            $f_9_1_n_8 = $elemento['FactorDeEdadInstalacionEspecial'];
+                            $calc_f_9_1_n_8 = 1-($elemento['EdadInstalacionEspecial'] / $elemento['VidaUtilTotalInstalacionEspecial']);
 
-                        if(truncate($calc_f_9_1_n_8,2) != truncate($f_9_1_n_8,2)){
-                            $mensajesf[] =  "El calculo de f.9.1.n.8 es erroneo ";
-                        }
-
-                        $f_9_1_n_9 = $elemento['ImporteInstalacionEspecial'];
-                        $calc_f_9_1_n_9 = $elemento['CantidadInstalacionEspecial'] * $elemento['ValorUnitarioInstalacionEspecial'] * $f_9_1_n_8;
-                        $sumatoriaf_9_1_n_9 = $sumatoriaf_9_1_n_9 + $f_9_1_n_9;
-
-                        if(truncate($calc_f_9_1_n_9,2) != truncate($f_9_1_n_9,2)){
-                            $mensajesf[] =  "El calculo de f.9.1.n.9 es erroneo ";
-                        }
-
-                    }else{
-                        if(isset($elemento['id']) && $elemento['id'] == 'f.9.1'){
-                            $f_9_1_n_8 = $data[0]['InstalacionesEspeciales']['Privativas']['FactorDeEdadInstalacionEspecial'];
-                            $calc_f_9_1_n_8 = 1-($data[0]['InstalacionesEspeciales']['Privativas']['EdadInstalacionEspecial'] / $data[0]['InstalacionesEspeciales']['Privativas']['VidaUtilTotalInstalacionEspecial']);
                             if(truncate($calc_f_9_1_n_8,2) != truncate($f_9_1_n_8,2)){
                                 $mensajesf[] =  "El calculo de f.9.1.n.8 es erroneo ";
                             }
-                            
-                            $f_9_1_n_9 = $data[0]['InstalacionesEspeciales']['Privativas']['ImporteInstalacionEspecial'];
-                            $calc_f_9_1_n_9 = $data[0]['InstalacionesEspeciales']['Privativas']['CantidadInstalacionEspecial'] * $data[0]['InstalacionesEspeciales']['Privativas']['ValorUnitarioInstalacionEspecial'] * $f_9_1_n_8;
+                        }
+                        
+                        if(isset($f_9_1_n_8)){
+                            $f_9_1_n_9 = $elemento['ImporteInstalacionEspecial'];
+                            $calc_f_9_1_n_9 = $elemento['CantidadInstalacionEspecial'] * $elemento['ValorUnitarioInstalacionEspecial'] * $f_9_1_n_8;
                             $sumatoriaf_9_1_n_9 = $sumatoriaf_9_1_n_9 + $f_9_1_n_9;
 
                             if(truncate($calc_f_9_1_n_9,2) != truncate($f_9_1_n_9,2)){
                                 $mensajesf[] =  "El calculo de f.9.1.n.9 es erroneo ";
                             }
+
+                        }    
+
+                    }else{
+                        if(isset($elemento['id']) && $elemento['id'] == 'f.9.1'){
+                            if(isset($data[0]['InstalacionesEspeciales']['Privativas']['EdadInstalacionEspecial']) && isset($data[0]['InstalacionesEspeciales']['Privativas']['VidaUtilTotalInstalacionEspecial'])){
+                                $f_9_1_n_8 = $data[0]['InstalacionesEspeciales']['Privativas']['FactorDeEdadInstalacionEspecial'];
+                                $calc_f_9_1_n_8 = 1-($data[0]['InstalacionesEspeciales']['Privativas']['EdadInstalacionEspecial'] / $data[0]['InstalacionesEspeciales']['Privativas']['VidaUtilTotalInstalacionEspecial']);
+                                if(truncate($calc_f_9_1_n_8,2) != truncate($f_9_1_n_8,2)){
+                                    $mensajesf[] =  "El calculo de f.9.1.n.8 es erroneo ";
+                                }
+                            }
+                            
+                            if(isset($f_9_1_n_8)){
+                                $f_9_1_n_9 = $data[0]['InstalacionesEspeciales']['Privativas']['ImporteInstalacionEspecial'];
+                                $calc_f_9_1_n_9 = $data[0]['InstalacionesEspeciales']['Privativas']['CantidadInstalacionEspecial'] * $data[0]['InstalacionesEspeciales']['Privativas']['ValorUnitarioInstalacionEspecial'] * $f_9_1_n_8;
+                                $sumatoriaf_9_1_n_9 = $sumatoriaf_9_1_n_9 + $f_9_1_n_9;
+
+                                if(truncate($calc_f_9_1_n_9,2) != truncate($f_9_1_n_9,2)){
+                                    $mensajesf[] =  "El calculo de f.9.1.n.9 es erroneo ";
+                                }
+                            }
+                            
                         }
                     }
                 }
@@ -2063,17 +2073,22 @@ function valida_Calculos($data, $letra, $dataextra = false, $dataextrados = fals
 
             }
 
-            $f_9_3 = $data[0]['InstalacionesEspeciales']['ImporteTotalInstalacionesEspecialesPrivativas'];
+            if(isset($data[0]['InstalacionesEspeciales']['ImporteTotalInstalacionesEspecialesPrivativas'])){
+                $f_9_3 = $data[0]['InstalacionesEspeciales']['ImporteTotalInstalacionesEspecialesPrivativas'];
 
-            if(truncate($f_9_3,2) != truncate($sumatoriaf_9_1_n_9,2)){
-                $mensajesf[] =  "El calculo de f.9.3 es erroneo ";
+                if(truncate($f_9_3,2) != truncate($sumatoriaf_9_1_n_9,2)){
+                    $mensajesf[] =  "El calculo de f.9.3 es erroneo ";
+                }
             }
-
-            $f_9_4 = $data[0]['InstalacionesEspeciales']['ImporteTotalInstalacionesEspecialesComunes'];
             
-            if(truncate($f_9_4,2) != truncate($sumatoriaf_9_2_n_9,2)){ //echo truncate($sumatoriaf_9_2_n_9,2)." != ".truncate($f_9_4,2)."\n";
-                $mensajesf[] =  "El calculo de f.9.4 es erroneo ";
+            if(isset($data[0]['InstalacionesEspeciales']['ImporteTotalInstalacionesEspecialesComunes'])){
+                $f_9_4 = $data[0]['InstalacionesEspeciales']['ImporteTotalInstalacionesEspecialesComunes'];
+            
+                if(truncate($f_9_4,2) != truncate($sumatoriaf_9_2_n_9,2)){ //echo truncate($sumatoriaf_9_2_n_9,2)." != ".truncate($f_9_4,2)."\n";
+                    $mensajesf[] =  "El calculo de f.9.4 es erroneo ";
+                }
             }
+            
         }
 
         /****************************************************************************************************************************************/
@@ -2105,19 +2120,24 @@ function valida_Calculos($data, $letra, $dataextra = false, $dataextrados = fals
 
                     }else{
                         if(isset($elemento['id']) && $elemento['id'] == 'f.10.1'){
-                            $f_10_1_n_8 = $data[0]['ElementosAccesorios']['Privativas']['FactorDeEdadElementoAccesorio'];
-                            $calc_f_10_1_n_8 = 1-($data[0]['ElementosAccesorios']['Privativas']['EdadElementoAccesorio'] / $data[0]['ElementosAccesorios']['Privativas']['VidaUtilTotalElementoAccesorio']);
-                            if(truncate($calc_f_10_1_n_8,2) != truncate($f_10_1_n_8,2)){
-                                $mensajesf[] =  "El calculo de f.10.1.n.8 es erroneo ";
+                            if(isset($data[0]['ElementosAccesorios']['Privativas']['FactorDeEdadElementoAccesorio'])){
+                                $f_10_1_n_8 = $data[0]['ElementosAccesorios']['Privativas']['FactorDeEdadElementoAccesorio'];
+                                $calc_f_10_1_n_8 = 1-($data[0]['ElementosAccesorios']['Privativas']['EdadElementoAccesorio'] / $data[0]['ElementosAccesorios']['Privativas']['VidaUtilTotalElementoAccesorio']);
+                                if(truncate($calc_f_10_1_n_8,2) != truncate($f_10_1_n_8,2)){
+                                    $mensajesf[] =  "El calculo de f.10.1.n.8 es erroneo ";
+                                }
+                            }                            
+                            
+                            if(isset($data[0]['ElementosAccesorios']['Privativas']['ImporteElementoAccesorio'])){
+                                $f_10_1_n_9 = $data[0]['ElementosAccesorios']['Privativas']['ImporteElementoAccesorio'];
+                                $calc_f_10_1_n_9 = $data[0]['ElementosAccesorios']['Privativas']['CantidadElementoAccesorio'] * $data[0]['ElementosAccesorios']['Privativas']['ValorUnitarioElementoAccesorio'] * $f_10_1_n_8;
+                                $sumatoriaf_10_1_n_9 = $sumatoriaf_10_1_n_9 + $f_10_1_n_9;
+
+                                if(truncate($calc_f_10_1_n_9,2) != truncate($f_10_1_n_9,2)){
+                                    $mensajesf[] =  "El calculo de f.10.1.n.9 es erroneo ";
+                                }
                             }
                             
-                            $f_10_1_n_9 = $data[0]['ElementosAccesorios']['Privativas']['ImporteElementoAccesorio'];
-                            $calc_f_10_1_n_9 = $data[0]['ElementosAccesorios']['Privativas']['CantidadElementoAccesorio'] * $data[0]['ElementosAccesorios']['Privativas']['ValorUnitarioElementoAccesorio'] * $f_10_1_n_8;
-                            $sumatoriaf_10_1_n_9 = $sumatoriaf_10_1_n_9 + $f_10_1_n_9;
-
-                            if(truncate($calc_f_10_1_n_9,2) != truncate($f_10_1_n_9,2)){
-                                $mensajesf[] =  "El calculo de f.10.1.n.9 es erroneo ";
-                            }
                         }
                     }
                 }
@@ -2166,17 +2186,22 @@ function valida_Calculos($data, $letra, $dataextra = false, $dataextrados = fals
 
             }
 
-            $f_10_3 = $data[0]['ElementosAccesorios']['ImporteTotalElementosAccesoriosPrivativas'];
+            if(isset($data[0]['ElementosAccesorios']['ImporteTotalElementosAccesoriosPrivativas'])){
+                $f_10_3 = $data[0]['ElementosAccesorios']['ImporteTotalElementosAccesoriosPrivativas'];
 
-            if(truncate($f_10_3,2) != truncate($sumatoriaf_10_1_n_9,2)){
-                $mensajesf[] =  "El calculo de f.10.3 es erroneo ";
+                if(truncate($f_10_3,2) != truncate($sumatoriaf_10_1_n_9,2)){
+                    $mensajesf[] =  "El calculo de f.10.3 es erroneo ";
+                }
             }
-
-            $f_10_4 = $data[0]['ElementosAccesorios']['ImporteTotalElementosAccesoriosComunes'];
             
-            if(truncate($f_10_4,2) != truncate($sumatoriaf_10_2_n_9,2)){
-                $mensajesf[] =  "El calculo de f.10.4 es erroneo ";
+            if(isset($data[0]['ElementosAccesorios']['ImporteTotalElementosAccesoriosComunes'])){
+                $f_10_4 = $data[0]['ElementosAccesorios']['ImporteTotalElementosAccesoriosComunes'];
+            
+                if(truncate($f_10_4,2) != truncate($sumatoriaf_10_2_n_9,2)){
+                    $mensajesf[] =  "El calculo de f.10.4 es erroneo ";
+                }
             }
+            
         }
 
         /****************************************************************************************************************************************************************/
@@ -2191,39 +2216,13 @@ function valida_Calculos($data, $letra, $dataextra = false, $dataextrados = fals
                 $arrUno = array('OC03','OC06');
                 foreach($data[0]['ObrasComplementarias']['Privativas'] as $idElemento => $elemento){
                     if(isset($elemento['@attributes']['id']) && $elemento['@attributes']['id'] == 'f.11.1'){
-
-                        $f_11_1_n_8 = $elemento['FactorDeEdadObraComplementaria'];
-                        $f_11_1_n_6 = $elemento['VidaUtilTotalObraComplementaria'];
-                        $f_11_1_n_5 = $elemento['EdadObraComplementaria'];
-                        $calc_f_11_1_n_8 = (0.1 * $f_11_1_n_6 + 0.9 * ($f_11_1_n_6 - $f_11_1_n_5)) / $f_11_1_n_6;
-
-                        if(in_array($elemento['ClaveObraComplementaria'],$arrUno)){
-                            if(truncate($f_11_1_n_8,2) != truncate(1,2)){
-                                $mensajesf[] =  "El calculo de f.11.1.N.8 es erroneo ";
-                            }
-                        }else{
-                            if(truncate($f_11_1_n_8,2) != truncate($calc_f_11_1_n_8,2)){
-                                $mensajesf[] =  "El calculo de f.11.1.N.8 es erroneo ";
-                            }
-                        }
-                        
-                        $f_11_1_n_9 = $elemento['ImporteObraComplementaria'];
-                        $calc_f_11_1_n_9 = $elemento['CantidadObraComplementaria'] * $elemento['ValorUnitarioObraComplementaria'] * $f_11_1_n_8;
-                        $sumatoria_f_11_1_n_9 = $sumatoria_f_11_1_n_9 + $f_11_1_n_9;
-
-                        if(truncate($f_11_1_n_9,2) != truncate($calc_f_11_1_n_9,2)){
-                            $mensajesf[] =  "El calculo de f.11.1.N.9 es erroneo ";
-                        }
-
-                    }else{
-                        if(isset($elemento['id']) && $elemento['id'] == 'f.11.1'){
-                            
-                            $f_11_1_n_8 = $data[0]['ObrasComplementarias']['Privativas']['FactorDeEdadObraComplementaria'];
-                            $f_11_1_n_6 = $data[0]['ObrasComplementarias']['Privativas']['VidaUtilTotalObraComplementaria'];
-                            $f_11_1_n_5 = $data[0]['ObrasComplementarias']['Privativas']['EdadObraComplementaria'];
+                        if(isset($elemento['FactorDeEdadObraComplementaria'])){
+                            $f_11_1_n_8 = $elemento['FactorDeEdadObraComplementaria'];
+                            $f_11_1_n_6 = $elemento['VidaUtilTotalObraComplementaria'];
+                            $f_11_1_n_5 = $elemento['EdadObraComplementaria'];
                             $calc_f_11_1_n_8 = (0.1 * $f_11_1_n_6 + 0.9 * ($f_11_1_n_6 - $f_11_1_n_5)) / $f_11_1_n_6;
 
-                            if(in_array($data[0]['ObrasComplementarias']['Privativas']['ClaveObraComplementaria'],$arrUno)){
+                            if(in_array($elemento['ClaveObraComplementaria'],$arrUno)){
                                 if(truncate($f_11_1_n_8,2) != truncate(1,2)){
                                     $mensajesf[] =  "El calculo de f.11.1.N.8 es erroneo ";
                                 }
@@ -2232,14 +2231,46 @@ function valida_Calculos($data, $letra, $dataextra = false, $dataextrados = fals
                                     $mensajesf[] =  "El calculo de f.11.1.N.8 es erroneo ";
                                 }
                             }
-
-                            $f_11_1_n_9 = $data[0]['ObrasComplementarias']['Privativas']['ImporteObraComplementaria'];
-                            $calc_f_11_1_n_9 = $data[0]['ObrasComplementarias']['Privativas']['CantidadObraComplementaria'] * $data[0]['ObrasComplementarias']['Privativas']['ValorUnitarioObraComplementaria'] * $f_11_1_n_8;
+                        }
+                        
+                        if(isset($elemento['ImporteObraComplementaria']) && isset($f_11_1_n_8)){
+                            $f_11_1_n_9 = $elemento['ImporteObraComplementaria'];
+                            $calc_f_11_1_n_9 = $elemento['CantidadObraComplementaria'] * $elemento['ValorUnitarioObraComplementaria'] * $f_11_1_n_8;
                             $sumatoria_f_11_1_n_9 = $sumatoria_f_11_1_n_9 + $f_11_1_n_9;
 
                             if(truncate($f_11_1_n_9,2) != truncate($calc_f_11_1_n_9,2)){
                                 $mensajesf[] =  "El calculo de f.11.1.N.9 es erroneo ";
                             }
+                        }                        
+
+                    }else{
+                        if(isset($elemento['id']) && $elemento['id'] == 'f.11.1'){
+                            if(isset($data[0]['ObrasComplementarias']['Privativas']['FactorDeEdadObraComplementaria'])){
+                                $f_11_1_n_8 = $data[0]['ObrasComplementarias']['Privativas']['FactorDeEdadObraComplementaria'];
+                                $f_11_1_n_6 = $data[0]['ObrasComplementarias']['Privativas']['VidaUtilTotalObraComplementaria'];
+                                $f_11_1_n_5 = $data[0]['ObrasComplementarias']['Privativas']['EdadObraComplementaria'];
+                                $calc_f_11_1_n_8 = (0.1 * $f_11_1_n_6 + 0.9 * ($f_11_1_n_6 - $f_11_1_n_5)) / $f_11_1_n_6;
+
+                                if(in_array($data[0]['ObrasComplementarias']['Privativas']['ClaveObraComplementaria'],$arrUno)){
+                                    if(truncate($f_11_1_n_8,2) != truncate(1,2)){
+                                        $mensajesf[] =  "El calculo de f.11.1.N.8 es erroneo ";
+                                    }
+                                }else{
+                                    if(truncate($f_11_1_n_8,2) != truncate($calc_f_11_1_n_8,2)){
+                                        $mensajesf[] =  "El calculo de f.11.1.N.8 es erroneo ";
+                                    }
+                                }
+                            }
+                            
+                            if(isset($data[0]['ObrasComplementarias']['Privativas']['ImporteObraComplementaria']) && isset($f_11_1_n_8)){
+                                $f_11_1_n_9 = $data[0]['ObrasComplementarias']['Privativas']['ImporteObraComplementaria'];
+                                $calc_f_11_1_n_9 = $data[0]['ObrasComplementarias']['Privativas']['CantidadObraComplementaria'] * $data[0]['ObrasComplementarias']['Privativas']['ValorUnitarioObraComplementaria'] * $f_11_1_n_8;
+                                $sumatoria_f_11_1_n_9 = $sumatoria_f_11_1_n_9 + $f_11_1_n_9;
+
+                                if(truncate($f_11_1_n_9,2) != truncate($calc_f_11_1_n_9,2)){
+                                    $mensajesf[] =  "El calculo de f.11.1.N.9 es erroneo ";
+                                }
+                            }                            
 
                         }
                     }
@@ -2307,15 +2338,17 @@ function valida_Calculos($data, $letra, $dataextra = false, $dataextrados = fals
                 }
             }
 
-            $f_11_3 = $data[0]['ObrasComplementarias']['ImporteTotalObrasComplementariasPrivativas'];
-            if(truncate($f_11_3,2) != truncate($sumatoria_f_11_1_n_9,2)){
-                $mensajesf[] =  "El calculo de f.11.3 es erroneo ";
-            }
+            if(isset($data[0]['ObrasComplementarias']['ImporteTotalObrasComplementariasPrivativas'])){
+                $f_11_3 = $data[0]['ObrasComplementarias']['ImporteTotalObrasComplementariasPrivativas'];
+                if(truncate($f_11_3,2) != truncate($sumatoria_f_11_1_n_9,2)){
+                    $mensajesf[] =  "El calculo de f.11.3 es erroneo ";
+                }
 
-            $f_11_4 = $data[0]['ObrasComplementarias']['ImporteTotalObrasComplementariasComunes'];
-            if(truncate($f_11_4,2) != truncate($sumatoria_f_11_2_n_9,2)){ //echo truncate($f_11_4,2)." != ".truncate($sumatoria_f_11_2_n_9,2)."\n";
-                $mensajesf[] =  "El calculo de f.11.4 es erroneo ";
-            }
+                $f_11_4 = $data[0]['ObrasComplementarias']['ImporteTotalObrasComplementariasComunes'];
+                if(truncate($f_11_4,2) != truncate($sumatoria_f_11_2_n_9,2)){ //echo truncate($f_11_4,2)." != ".truncate($sumatoria_f_11_2_n_9,2)."\n";
+                    $mensajesf[] =  "El calculo de f.11.4 es erroneo ";
+                }
+            }    
 
         }
 
@@ -2425,7 +2458,7 @@ function valida_Calculos($data, $letra, $dataextra = false, $dataextrados = fals
     }
 
     if($letra == 'k'){
-        //echo "SOY DATA DE K ".print_r($data); exit();
+        echo "SOY DATA DE K ".print_r($data); exit();
         $k_2_1 = $data[0]['Deducciones']['Vacios'];
         $k_2_2 = $data[0]['Deducciones']['ImpuestoPredial'];
         $k_2_3 = $data[0]['Deducciones']['ServicioDeAgua'];
@@ -2742,18 +2775,35 @@ function valida_AvaluoTerreno($data, $elementoPrincipal, $datah = false){
         if($numeroColindancias == 0){
             $errores[] = "El XML no cuenta con la seccion de Colindancias";
         }else{
-            foreach($data[0]['MedidasYColindancias']['Colindancias'] as $colindancia){
+            if(isset($data[0]['MedidasYColindancias']['Colindancias']['@attributes'])){
                 foreach($validacionesd42 as $etiqueta => $validacion){
-                    if(!isset($colindancia[$etiqueta])){
+                    if(!isset($data[0]['MedidasYColindancias']['Colindancias'][$etiqueta])){
                         $errores[] = "Falta ".$etiqueta." en Colindancias";
                     }else{
-                        $resValidacion = define_validacion($validacion, $colindancia[$etiqueta]);                             
+                        $resValidacion = define_validacion($validacion, $data[0]['MedidasYColindancias']['Colindancias'][$etiqueta]);                             
                         if($resValidacion != 'correcto'){
                             $errores[] = "El campo ".$etiqueta." ".$resValidacion;
                         }
                     }
                 }
-            }
+
+            }else{
+                foreach($data[0]['MedidasYColindancias']['Colindancias'] as $id => $colindancia){
+                    
+                        foreach($validacionesd42 as $etiqueta => $validacion){
+                            if(!isset($colindancia[$etiqueta])){
+                                $errores[] = "Falta ".$etiqueta." en Colindancias";
+                            }else{
+                                $resValidacion = define_validacion($validacion, $colindancia[$etiqueta]);                             
+                                if($resValidacion != 'correcto'){
+                                    $errores[] = "El campo ".$etiqueta." ".$resValidacion;
+                                }
+                            }
+                        }
+                    
+                }
+
+            }            
         }
         
         foreach($validacionesd5P as $etiqueta => $validacion){

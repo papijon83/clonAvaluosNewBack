@@ -652,8 +652,11 @@ class BandejaEntradaController extends Controller
             $camposFexavaAvaluo = $this->guardarAvaluoEnfoqueCostosCatastral($xml, $camposFexavaAvaluo,$elementoPrincipal);
             /* if(isset($camposFexavaAvaluo['ERROR'])){
                 return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
-            }*/ 
-            $camposFexavaAvaluo = $this->guardarAvaluoEnfoqueIngresos($xml, $camposFexavaAvaluo,$elementoPrincipal);
+            }*/
+            /*$infoEnfoqueDeIngresos = $xml->xpath($elementoPrincipal.'//EnfoqueDeIngresos[@id="k"]');
+            if(isset($infoEnfoqueDeIngresos)){*/
+                $camposFexavaAvaluo = $this->guardarAvaluoEnfoqueIngresos($xml, $camposFexavaAvaluo,$elementoPrincipal);
+            //}            
             /* if(isset($camposFexavaAvaluo['ERROR'])){
                 return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
             }*/
@@ -1746,7 +1749,7 @@ class BandejaEntradaController extends Controller
                     }
 
                     if(isset($arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.18'])){
-                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento]['TEINDIVISO'] = (String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.12']]);
+                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento]['TEINDIVISO'] = (String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.18']]);
                     }
 
                     $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento]['CODTIPO'] = "C";
@@ -2846,17 +2849,29 @@ class BandejaEntradaController extends Controller
     /// </summary>
     /// <param name="enfoqueIngresos">Elemento xml con los datos de enfoque de ingresos.</param>
     public function guardarAvaluoEnfoqueIngresos($xmlEnfoqueDeIngresos, $camposFexavaAvaluo,$elementoPrincipal){
+        $enfoqueDeIngresos = $xmlEnfoqueDeIngresos->xpath($elementoPrincipal.'//EnfoqueDeIngresos[@id="k"]');
+
+        if(!isset($enfoqueDeIngresos[0]) || count($enfoqueDeIngresos) == 0){
+            return $camposFexavaAvaluo;
+        }else{
+            $arrEnfoqueDeIngresos = convierte_a_arreglo($enfoqueDeIngresos);
+            if(count($arrEnfoqueDeIngresos[0] == 1)){
+                return $camposFexavaAvaluo;
+            }
+        }
+
         if($this->esTerrenoValdio($xmlEnfoqueDeIngresos, $elementoPrincipal) == TRUE){
 
-            $enfoqueDeIngresos = $xmlEnfoqueDeIngresos->xpath($elementoPrincipal.'//EnfoqueDeIngresos[@id="k"]');
+           
+            if(isset($enfoqueDeIngresos)){
+                $errores = valida_AvaluoEnfoqueIngresos($enfoqueDeIngresos, $elementoPrincipal);    
+                if(count($errores) > 0){
+                    //return array('ERROR' => $errores);
+                    $camposFexavaAvaluo['ERRORES'][] = $errores;
+                }
 
-            $errores = valida_AvaluoEnfoqueIngresos($enfoqueDeIngresos, $elementoPrincipal);    
-            if(count($errores) > 0){
-                //return array('ERROR' => $errores);
-                $camposFexavaAvaluo['ERRORES'][] = $errores;
-            }
-
-            $arrEnfoqueDeIngresos = $this->obtenElementosPrincipal($enfoqueDeIngresos);
+                $arrEnfoqueDeIngresos = $this->obtenElementosPrincipal($enfoqueDeIngresos);
+            }    
             
             if(isset($arrEnfoqueDeIngresos['arrIds']['k.1'])){
                 $camposFexavaAvaluo['EIRENTABRUTAMENSUAL'] = (String)($arrEnfoqueDeIngresos['arrElementos'][$arrEnfoqueDeIngresos['arrIds']['k.1']]);
