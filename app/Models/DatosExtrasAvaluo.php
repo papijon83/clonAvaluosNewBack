@@ -178,7 +178,7 @@ class DatosExtrasAvaluo
         return $c_claseUso;
     }
 
-    public function select_catClaseUsoId_p($idUsoEjercicio, $idClaseEjercicio){   $idUsoEjercicio = 753 ;
+    public function select_catClaseUsoId_p($idUsoEjercicio, $idClaseEjercicio){   //$idUsoEjercicio = 753 ;
         $procedure = 'BEGIN
             FEXAVA.FEXAVA_CATALOGOS_PKG.fexava_select_catClaseUsoId_p(
                 :par_idUsoEjercicio,
