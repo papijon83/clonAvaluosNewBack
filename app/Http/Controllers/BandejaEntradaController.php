@@ -995,7 +995,7 @@ class BandejaEntradaController extends Controller
         $fechaAvaluo = $camposFexavaAvaluo['FECHAAVALUO'];
         if(trim($arrCaracteristicasUrbanas['ClaseGeneralDeInmueblesDeLaZona']) != ''){
             $codClase = $arrCaracteristicasUrbanas['ClaseGeneralDeInmueblesDeLaZona'];
-            $idClaseEjercicio = $this->modelDatosExtrasAvaluo->SolicitarObtenerIdClasesByCodeAndAno($fechaAvaluo, $codClase); //No se si el query sea el correcto ya que obtiene por fecha pero no hay fecha en la tabla
+            $idClaseEjercicio = $this->modelDatosExtrasAvaluo->SolicitarObtenerIdClasesByCodeAndAno(darFormatoFechaXML($fechaAvaluo), $codClase); //No se si el query sea el correcto ya que obtiene por fecha pero no hay fecha en la tabla
             $camposFexavaAvaluo['CUCODCLASESCONSTRUCCION'] = $idClaseEjercicio;
         }
 
@@ -1571,7 +1571,7 @@ class BandejaEntradaController extends Controller
                         if($idusoEjercicio == false){
                             $camposFexavaAvaluo['ERRORES'][] = array('e.2.1.n.2 - No existe un uso ejercicio para la fecha '.$fecha." y codUso ".$codUso);
                         }
-                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['IDUSOSEJERCICIO'] = $this->modelDatosExtrasAvaluo->SolicitarObtenerIdUsosByCodeAndAno('fechaAvaluo', $codUso);
+                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['IDUSOSEJERCICIO'] = $this->modelDatosExtrasAvaluo->SolicitarObtenerIdUsosByCodeAndAno($fechastr, $codUso);
                        }
         
                        if(isset($arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.3'])){
@@ -1583,7 +1583,7 @@ class BandejaEntradaController extends Controller
                         if(existeCatRangoNivelesEjercicio($codRangoNiveles,$fechastr) == false){
                             $camposFexavaAvaluo['ERRORES'][] = array('e.2.1.n.4 - No existe un rango nivel ejercicio para la fecha '.$fechastr." y codRangoNiveles ".$codRangoNiveles);
                         }
-                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['IDRANGONIVELESEJERCICIO'] = $this->modelDatosExtrasAvaluo->SolicitarObtenerIdRangoNivelesByCodeAndAno('fechaAvaluo', $codRangoNiveles);
+                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['IDRANGONIVELESEJERCICIO'] = $this->modelDatosExtrasAvaluo->SolicitarObtenerIdRangoNivelesByCodeAndAno($fechastr, $codRangoNiveles);
                        }
         
                        if(isset($arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.5'])){                
@@ -1596,7 +1596,7 @@ class BandejaEntradaController extends Controller
                         if($idclaseEjercicio == false){
                             $camposFexavaAvaluo['ERRORES'][] = array('e.2.1.n.6 - No existe una clase Ejercicio para la fecha '.$fechastr." y codClase ".$codClase);
                         }
-                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['IDCLASESEJERCICIO'] = $this->modelDatosExtrasAvaluo->SolicitarObtenerIdClasesByCodeAndAno('fechaAvaluo', $codClase);
+                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['IDCLASESEJERCICIO'] = $this->modelDatosExtrasAvaluo->SolicitarObtenerIdClasesByCodeAndAno($fechastr, $codClase);
                        }
 
                        if (existeClaseUsoEjercicio($idclaseEjercicio, $idusoEjercicio) == false) //ValidarusoClaseejercicio
@@ -1613,7 +1613,7 @@ class BandejaEntradaController extends Controller
                         $idClaseEjercicio = $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['IDCLASESEJERCICIO'];
                         $VidaUtilTotalDelTipo = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.8']]);
                         if(trim($VidaUtilTotalDelTipo) != '' && $codUso != "W" && $esComercial == false){
-                            if (validarCatUsoClase($codUso, $codClase, $VidaUtilTotalDelTipo, $fechastr) == false){
+                            if (validarCatUsoClase($idUsoEjercicio, $idClaseEjercicio, $VidaUtilTotalDelTipo, $fechastr) == false){
                                 $camposFexavaAvaluo['ERRORES'][] = array("e.2.1.n.8 - La vida útil especificada no es correcta para la clase y el uso especificados: Clase ".$codClase.", Uso ".$codUso);
                             }
                         }
@@ -1696,7 +1696,7 @@ class BandejaEntradaController extends Controller
 
                     if(isset($arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.2'])){
                         $codUso = (String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.2']]);
-                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento]['IDUSOSEJERCICIO'] = $this->modelDatosExtrasAvaluo->SolicitarObtenerIdUsosByCodeAndAno('fechaAvaluo', $codUso);
+                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento]['IDUSOSEJERCICIO'] = $this->modelDatosExtrasAvaluo->SolicitarObtenerIdUsosByCodeAndAno($fechastr, $codUso);
                     }
 
                     if(isset($arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.3'])){
@@ -1705,7 +1705,7 @@ class BandejaEntradaController extends Controller
 
                     if(isset($arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.4'])){
                         $codRangoNiveles = (String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.4']]);
-                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento]['IDRANGONIVELESEJERCICIO'] = $this->modelDatosExtrasAvaluo->SolicitarObtenerIdRangoNivelesByCodeAndAno('fechaAvaluo', $codRangoNiveles);
+                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento]['IDRANGONIVELESEJERCICIO'] = $this->modelDatosExtrasAvaluo->SolicitarObtenerIdRangoNivelesByCodeAndAno($fechastr, $codRangoNiveles);
                     }
 
                     if(isset($arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.5'])){
@@ -1714,7 +1714,7 @@ class BandejaEntradaController extends Controller
 
                     if(isset($arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.6'])){
                         $codClase = (String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.6']]);
-                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento]['IDCLASESEJERCICIO'] = $this->modelDatosExtrasAvaluo->SolicitarObtenerIdClasesByCodeAndAno('fechaAvaluo', $codClase);
+                        $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento]['IDCLASESEJERCICIO'] = $this->modelDatosExtrasAvaluo->SolicitarObtenerIdClasesByCodeAndAno($fechastr, $codClase);
                     }
                     
                     if(isset($arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.7'])){

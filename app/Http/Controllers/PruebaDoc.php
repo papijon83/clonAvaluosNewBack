@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Fis;
+use App\Models\DatosExtrasAvaluo;
 
 
 class PruebaDoc extends Controller
@@ -26,7 +27,8 @@ class PruebaDoc extends Controller
         $this->modelElementosConstruccion = new ElementosConstruccion();
         $this->modelGuardaenBD = new GuardaenBD();
         $this->modelReimpresion = new Reimpresion();
-        $this->modelFis = new Fis();     
+        $this->modelFis = new Fis();
+        $this->modelDatosExtrasAvaluo = new DatosExtrasAvaluo();     
     }
 
     public function pruebaInserta(){    
@@ -122,7 +124,7 @@ class PruebaDoc extends Controller
 
     public function infopk($pk){
         $arrRes = '';
-        $query = "SELECT TEXT FROM all_source WHERE name = 'FIS_CLASESEJERCICIO_PKG'"; //echo $query."\n";
+        $query = "SELECT TEXT FROM all_source WHERE name = '$pk'"; //echo $query."\n";
         
         $conn = oci_connect("FIS", env("DB_PASSWORD"), env("DB_TNS"));        
         $sqlcadena = oci_parse($conn, $query);
@@ -139,10 +141,12 @@ class PruebaDoc extends Controller
     }
 
     public function pruebaIdUsos(){
-        $fecha = '01/01/2021';
+        //$fecha = '01/01/2021';
+        $fecha = '2021-01-07';
         //$cod = 'A';
-        $cod = 'H';
-        $res = $this->modelFis->solicitarObtenerIdUsosByCodeAndAno($fecha, $cod);
+        $cod = '6';
+        //$res = $this->modelFis->solicitarObtenerIdUsosByCodeAndAno($fecha, $cod);
+        $res = $this->modelDatosExtrasAvaluo->SolicitarObtenerIdClasesByCodeAndAno($fecha, $cod);
         var_dump($res);
     }
     

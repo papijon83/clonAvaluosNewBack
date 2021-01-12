@@ -131,31 +131,144 @@ class DatosExtrasAvaluo
 
     public function SolicitarObtenerIdClasesByCodeAndAno($fecha, $codClase)
     {
+        try{
+            /*SELECT rne.idclasesejercicio 
+            FROM fis_clasesejercicio rne 
+            INNER JOIN fis_ejercicio fe ON rne.idejercicio = fe.idejercicio 
+            INNER JOIN fis_catclases crne ON crne.idclases = rne.idclases 
+            WHERE TO_DATE('$fecha','DD/MM/YYYY') BETWEEN fe.fechainicio AND fe.fechafin AND upper(crne.codclase) = $codClase*/
+        $query = "SELECT rne.idclasesejercicio    
+            FROM fis_clasesejercicio rne 
+            INNER JOIN fis_ejercicio fe ON rne.idejercicio = fe.idejercicio
+            INNER JOIN fis_catclases crne ON crne.idclases = rne.idclases
+            WHERE TO_DATE('$fecha','DD/MM/YYYY') BETWEEN fe.fechainicio AND fe.fechafin
+            AND upper (crne.codclase) = '$codClase'";
+
+            $conn = oci_connect("FIS", env("DB_PASSWORD"), env("DB_TNS")); 
+            $sqlcadena = oci_parse($conn, $query);            
+            oci_execute($sqlcadena);         
+            $fila = oci_fetch_array($sqlcadena, OCI_ASSOC+OCI_RETURN_NULLS);            
+            oci_free_statement($sqlcadena);
+            oci_close($conn);
+            if (isset($fila['IDCLASESEJERCICIO'])){     
+                return $fila['IDCLASESEJERCICIO'];
+            } else {    
+                return 0;
+            }
+        }catch (\Throwable $th){
+            error_log($th);
+            Log::info($th);
+            return 'Error al obtener el IDUSOSEJERCICIO.';
+            
+        }
         //FIS_CLASESEJERCICIO
-        $c_filtro = DB::select("SELECT * FROM FIS.FIS_CATCLASES WHERE CODCLASE = '$codClase'");
+        /*$c_filtro = DB::select("SELECT * FROM FIS.FIS_CATCLASES WHERE CODCLASE = '$codClase'");
 
         if(count($c_filtro) == 0){            
             return "el codigo de clase ".$codClase." no existe en el catalogo de clases";
         }else{
             return $c_filtro[0]->idclases;
-        }
+        }*/
     }
 
     public function SolicitarObtenerIdUsosByCodeAndAno($fecha, $codUso)
     {
+        try{ //echo "SOY FECHA Y CODUSO ".$fecha." ".$cod." "; exit();
+            /*$procedure = 'BEGIN
+            FIS.FIS_USOSEJERCICIO_PKG.FIS_SELECT_BYANOCOD_P(
+                TO_DATE(:PAR_FECHA,\'DD/MM/YYYY\'),
+                :PAR_CODTIPO,
+                :IDRANGO
+            ); END;';
+            
+            $conn = oci_connect(env("DB_USERNAME_FIS"), env("DB_PASSWORD"), env("DB_TNS"));            
+            $stmt = oci_parse($conn, $procedure);
+            oci_bind_by_name($stmt, ':PAR_FECHA', $fecha, 10);
+            oci_bind_by_name($stmt, ':PAR_CODTIPO', $cod, 3);
+            oci_bind_by_name($stmt, ':IDRANGO', $idRango, 10);    
+            oci_execute($stmt, OCI_COMMIT_ON_SUCCESS);
+            oci_free_statement($stmt);
+            oci_close($conn);  echo "EL IDRANGO ".print_r($idRango); exit();                
+            if (isset($idRango)) {    
+                return $idRango;
+            } else {
+                return false;
+            }*/
+            if($codUso == 'ALL' ){
+                $query = "SELECT rne.idusosejercicio                
+                FROM fis_usosejercicio rne INNER JOIN fis_ejercicio fe ON rne.idejercicio = fe.idejercicio
+                INNER JOIN fis_catusos crne ON crne.idusos = rne.idusos
+                WHERE TO_DATE('$fecha','DD/MM/YYYY') BETWEEN fe.fechainicio AND fe.fechafin";
+            }else{
+                $query = "SELECT rne.idusosejercicio                
+                FROM fis_usosejercicio rne INNER JOIN fis_ejercicio fe ON rne.idejercicio = fe.idejercicio
+                INNER JOIN fis_catusos crne ON crne.idusos = rne.idusos
+                WHERE TO_DATE('$fecha','DD/MM/YYYY') BETWEEN fe.fechainicio AND fe.fechafin
+                AND upper (crne.coduso) = '$codUso'";
+            }
+            $conn = oci_connect("FIS", env("DB_PASSWORD"), env("DB_TNS"));        
+            $sqlcadena = oci_parse($conn, $query);            
+            oci_execute($sqlcadena);         
+            $fila = oci_fetch_array($sqlcadena, OCI_ASSOC+OCI_RETURN_NULLS);            
+            oci_free_statement($sqlcadena);
+            oci_close($conn); //print_r($fila); exit();
+            if (isset($fila['IDUSOSEJERCICIO'])){     
+                return $fila['IDUSOSEJERCICIO'];
+            } else {    
+                return 0;
+            }   
+        }catch (\Throwable $th){
+
+            error_log($th);
+            Log::info($th);
+            return 'Error al obtener el IDUSOSEJERCICIO.';
+            
+        }
+
         //FIS_USOSEJERCICIO
-        $c_filtro = DB::select("SELECT * FROM FIS.FIS_CATUSOS WHERE CODUSO = '$codUso'");
+        /*$c_filtro = DB::select("SELECT * FROM FIS.FIS_CATUSOS WHERE CODUSO = '$codUso'");
 
         if(count($c_filtro) == 0){            
             return "el codigo de uso ".$codUso." no existe en el catalogo de usos";
         }else{
             return $c_filtro[0]->idusos;
-        }
+        }*/
     }
 
     public function SolicitarObtenerIdRangoNivelesByCodeAndAno($fecha, $codRangoNiveles)
     {
-        $conn = oci_connect("FIS", env("DB_PASSWORD"), env("DB_TNS"));        
+        try{
+            if($codRangoNiveles == 'ALL' ){
+                $query = "SELECT rne.idrangonivelesejercicio                
+                FROM fis_rangonivelesejercicio rne INNER JOIN fis_ejercicio fe ON rne.idejercicio = fe.idejercicio
+                INNER JOIN fis_catrangoniveles crne ON crne.idrangoniveles = rne.idrangoniveles
+                WHERE TO_DATE('$fecha','DD/MM/YYYY') BETWEEN fe.fechainicio AND fe.fechafin";
+            }else{
+                $query = "SELECT rne.idrangonivelesejercicio                
+                FROM fis_rangonivelesejercicio rne INNER JOIN fis_ejercicio fe ON rne.idejercicio = fe.idejercicio
+                INNER JOIN fis_catrangoniveles crne ON crne.idrangoniveles = rne.idrangoniveles
+                WHERE TO_DATE('$fecha','DD/MM/YYYY') BETWEEN fe.fechainicio AND fe.fechafin
+                AND upper (crne.codrangoniveles) = '$codRangoNiveles'";
+            }
+            $conn = oci_connect("FIS", env("DB_PASSWORD"), env("DB_TNS"));        
+            $sqlcadena = oci_parse($conn, $query);            
+            oci_execute($sqlcadena);         
+            $fila = oci_fetch_array($sqlcadena, OCI_ASSOC+OCI_RETURN_NULLS);            
+            oci_free_statement($sqlcadena);
+            oci_close($conn); //print_r($fila); exit();
+            if (isset($fila['IDRANGONIVELESEJERCICIO'])){     
+                return $fila['IDRANGONIVELESEJERCICIO'];
+            } else {    
+                return 0;
+            }   
+        }catch (\Throwable $th){
+
+            error_log($th);
+            Log::info($th);
+            return 'Error al obtener el IDRANGONIVELESEJERCICIO.';
+            
+        }
+        /*$conn = oci_connect("FIS", env("DB_PASSWORD"), env("DB_TNS"));        
         $sqlcadena = oci_parse($conn, "SELECT * FROM FIS.FIS_RANGONIVELESEJERCICIO WHERE IDRANGONIVELESEJERCICIO  = '$codRangoNiveles'");
         oci_execute($sqlcadena);
 
@@ -167,7 +280,7 @@ class DatosExtrasAvaluo
             return "el codigo de rango ".$codRangoNiveles." no existe en el catalogo de rangos";
         }else{
             return $fila['IDRANGONIVELESEJERCICIO'];
-        }
+        }*/
     }
 
     public function ObtenerClaseUsoByIdUsoIdClase($idUsoEjercicio, $idClaseEjercicio)
@@ -178,7 +291,7 @@ class DatosExtrasAvaluo
         return $c_claseUso;
     }
 
-    public function select_catClaseUsoId_p($idUsoEjercicio, $idClaseEjercicio){   //$idUsoEjercicio = 753 ;
+    public function select_catClaseUsoId_p($idUsoEjercicio, $idClaseEjercicio){   //echo $idUsoEjercicio." ".$idClaseEjercicio."\n"; exit();//$idUsoEjercicio = 753 ;
         $procedure = 'BEGIN
             FEXAVA.FEXAVA_CATALOGOS_PKG.fexava_select_catClaseUsoId_p(
                 :par_idUsoEjercicio,

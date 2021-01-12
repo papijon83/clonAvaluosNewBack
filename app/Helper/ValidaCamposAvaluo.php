@@ -4569,8 +4569,8 @@ function valida_AvaluoAnexoFotografico($data, $elementoPrincipal){ //print_r($da
 
 function existeCatUsoEjercicio($codUso,$fecha){ //echo $codUso." ".$fecha; exit();
     if(estaEnCatClaseUso($codUso) == true && estaEnCatEjercicio($fecha) == true){
-        //$modelFis = new Fis();
-        //$idUsoEjercicio = $modelFis->solicitarObtenerIdUsosByCodeAndAno($fecha, $codUso); //COMENTADO PORQUE NO FUNCIONA EL PKG CON ESTA INFO
+        $modelDatosExtrasAvaluo = new DatosExtrasAvaluo();
+        //$idUsoEjercicio = $modelDatosExtrasAvaluo->solicitarObtenerIdUsosByCodeAndAno($fecha, $codUso); //COMENTADO PORQUE NO FUNCIONA EL PKG CON ESTA INFO
         return true;
     }else{
         $idUsoEjercicio = null;
@@ -4580,9 +4580,9 @@ function existeCatUsoEjercicio($codUso,$fecha){ //echo $codUso." ".$fecha; exit(
 
 function existeCatRangoNivelesEjercicio($codRangoNiveles,$fecha){ //echo $codRangoNiveles." FECHA: ".$fecha; exit(); //var_dump(estaEnCatClaseRangoNiveles($codRangoNiveles))." FECHA: ".var_dump(estaEnCatEjercicio($fecha)); exit();
     if(estaEnCatClaseRangoNiveles($codRangoNiveles) == true && estaEnCatEjercicio($fecha) == true){
-        $modelFis = new Fis();
-        //return $modelFis->solicitarObtenerIdUsosByCodeAndAno($fecha,intval($codRangoNiveles));
-        return true;
+        $modelDatosExtrasAvaluo = new DatosExtrasAvaluo();
+        return $modelDatosExtrasAvaluo->SolicitarObtenerIdRangoNivelesByCodeAndAno($fecha,intval($codRangoNiveles));
+        //return true;
     }else{        
         return false;
     }
@@ -4590,9 +4590,9 @@ function existeCatRangoNivelesEjercicio($codRangoNiveles,$fecha){ //echo $codRan
 
 function existeCatClaseEjercicio($codClase, $fecha){
     if(estaEnCatClaseConstruccion($codClase) == true && estaEnCatEjercicio($fecha) == true){
-        $modelFis = new Fis();
+        $modelDatosExtrasAvaluo = new DatosExtrasAvaluo();
         //return $modelFis->solicitarObtenerIdClasesByCodeAndAno($fecha,intval($codRangoNiveles)); //COMENTADO PORQUE ES LO MISMO QUE EL DE ABAJO
-        return $modelFis->solicitarObtenerIdUsosByCodeAndAno($fecha,intval($codClase));
+        return $modelDatosExtrasAvaluo->SolicitarObtenerIdClasesByCodeAndAno($fecha,intval($codClase));
     }else{        
         return false;
     }
@@ -4646,17 +4646,18 @@ function estaEnCatClaseRangoNiveles($codRangoNiveles){
 
 function validarCatUsoClase($codUso, $codClase, $vidaUtilTotalDelTipo, $fecha){
     $modelFis = new Fis();
-    $idClaseEjercicio = existeCatClaseEjercicio($codClase, $fecha);    
-    $idusoEjercicio = existeCatUsoEjercicio($codUso, $fecha);
+    //$idClaseEjercicio = existeCatClaseEjercicio($codClase, $fecha);    
+    //$idusoEjercicio = existeCatUsoEjercicio($codUso, $fecha);
     $estaEnEjercicio = estaEnCatEjercicio($fecha);
 
-    if($idClaseEjercicio != false && $idusoEjercicio != false && $estaEnEjercicio != false){
+    //if($idClaseEjercicio != false && $idusoEjercicio != false && $estaEnEjercicio != false){
+    if($estaEnEjercicio != false){
         if ($codClase == "U"){
             return true;
         }else{
             //echo "INFOA ENVIAR 1 ".$fecha." ".$codUso; exit();
-            $idUsoEjercicio = $modelFis->solicitarObtenerIdUsosByCodeAndAno($fecha,$codUso); //echo "INFOA ENVIAR ".$idUsoEjercicio." ".$idClaseEjercicio." ".$vidaUtilTotalDelTipo; exit();
-            if (comprobarEdadUtilTipo($idUsoEjercicio, $idClaseEjercicio, $vidaUtilTotalDelTipo) == false){ //Si hay errores devolver el mensaje de error
+            //$idUsoEjercicio = $modelFis->solicitarObtenerIdUsosByCodeAndAno($fecha,$codUso);
+            if (comprobarEdadUtilTipo($codUso, $codClase, $vidaUtilTotalDelTipo) == false){ //Si hay errores devolver el mensaje de error
                 return false;
             }else{
                 return true;
