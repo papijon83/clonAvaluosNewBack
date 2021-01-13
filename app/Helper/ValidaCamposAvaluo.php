@@ -4581,7 +4581,7 @@ function existeCatUsoEjercicio($codUso,$fecha){ //echo $codUso." ".$fecha; exit(
 function existeCatRangoNivelesEjercicio($codRangoNiveles,$fecha){
     if(estaEnCatClaseRangoNiveles($codRangoNiveles) == true && estaEnCatEjercicio($fecha) == true){
         $modelDatosExtrasAvaluo = new DatosExtrasAvaluo();
-        $res = $modelDatosExtrasAvaluo->SolicitarObtenerIdRangoNivelesByCodeAndAno($fecha,intval($codRangoNiveles));
+        $res = $modelDatosExtrasAvaluo->SolicitarObtenerIdRangoNivelesByCodeAndAno($fecha,$codRangoNiveles);
         return  $res;
         //return true;
     }else{        

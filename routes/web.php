@@ -35,6 +35,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
             $router->get('catalogo/{cat}', 'PruebaDoc@infoCat');
             $router->get('pk/{pk}', 'PruebaDoc@infopk');
             $router->get('pruebaIdUsos', 'PruebaDoc@pruebaIdUsos');
+            $router->get('pruebaIdRango', 'PruebaDoc@pruebaIdRango');
         });
     });
 });

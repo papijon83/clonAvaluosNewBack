@@ -149,5 +149,35 @@ class PruebaDoc extends Controller
         $res = $this->modelDatosExtrasAvaluo->SolicitarObtenerIdClasesByCodeAndAno($fecha, $cod);
         var_dump($res);
     }
+
+    public function pruebaIdRango(){
+        
+        try{
+            
+                $query = "SELECT rne.idrangonivelesejercicio
+                FROM fis_rangonivelesejercicio rne INNER JOIN fis_ejercicio fe ON rne.idejercicio = fe.idejercicio
+                INNER JOIN fis_catrangoniveles crne ON crne.idrangoniveles = rne.idrangoniveles
+                WHERE TO_DATE('07/01/2021','DD/MM/YYYY') BETWEEN fe.fechainicio AND fe.fechafin
+                AND upper (crne.codrangoniveles) = '05'";
+            echo $query;
+            $conn = oci_connect("FIS", env("DB_PASSWORD"), env("DB_TNS"));        
+            $sqlcadena = oci_parse($conn, $query);            
+            oci_execute($sqlcadena);         
+            $fila = oci_fetch_array($sqlcadena, OCI_ASSOC+OCI_RETURN_NULLS);            
+            oci_free_statement($sqlcadena);
+            oci_close($conn); print_r($fila); exit();
+            if (isset($fila['IDRANGONIVELESEJERCICIO'])){     
+                return $fila['IDRANGONIVELESEJERCICIO'];
+            } else {    
+                return 0;
+            }   
+        }catch (\Throwable $th){
+
+            error_log($th);
+            Log::info($th);
+            return 'Error al obtener el IDRANGONIVELESEJERCICIO.';
+            
+        }
+    }
     
 }
