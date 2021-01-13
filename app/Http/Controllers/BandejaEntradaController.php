@@ -51,6 +51,11 @@ class BandejaEntradaController extends Controller
             $table->join('FEXAVA_CATESTADOSAVALUO', 'FEXAVA_AVALUO.codestadoavaluo', '=', 'FEXAVA_CATESTADOSAVALUO.codestadoavaluo');
             $table->join('RCON.RCON_PERITO', 'FEXAVA_AVALUO.idpersonaperito', '=', 'RCON.RCON_PERITO.idpersona');
             $authToken = $request->header('Authorization');
+            if (!$authToken) {
+                return response()->json(['mensaje' => 'Sin acceso a la aplicación'], 403);
+            } 
+            $resToken = Crypt::decrypt($authToken);
+            //Log::info($request);
             
             //$table->join('RCON.RCON_SOCIEDADVALUACION', 'FEXAVA_AVALUO.idpersonasociedad', '=', 'RCON.RCON_SOCIEDADVALUACION.idpersona');
             //$table->join('RCON.RCON_NOTARIO', 'FEXAVA_AVALUO.idpersonanotario', '=', 'RCON.RCON_NOTARIO.idpersona');
@@ -97,6 +102,8 @@ class BandejaEntradaController extends Controller
                 $table->orWhere('FEXAVA_AVALUO.codestadoavaluo',2);
 
             }
+
+            $idPerito = empty($resToken['id_anterior']) ? $resToken['id_usuario']: $resToken['id_anterior'];
 
             if ($idPerito) {
                 $table->where('FEXAVA_AVALUO.idpersonaperito', $idPerito);
@@ -149,8 +156,7 @@ class BandejaEntradaController extends Controller
             $codEstado = $request->query('estado');
             $ctaCatastral = $request->query('cta_catastral');
             $vigencia = $request->query('vigencia');
-            $table = DB::table('FEXAVA_AVALUO');
-
+            $table = DB::table('FEXAVA_AVALUO');            
             $authToken = $request->header('Authorization');
             if (!$authToken) {
                 return response()->json(['mensaje' => 'Sin acceso a la aplicación'], 403);
@@ -206,7 +212,10 @@ class BandejaEntradaController extends Controller
 
             }
 
-            $table->where('FEXAVA_AVALUO.idpersonaperito', $resToken['id_anterior']);
+            $idPerito = empty($resToken['id_anterior']) ? $resToken['id_usuario']: $resToken['id_anterior'];
+
+            //$table->where('FEXAVA_AVALUO.idpersonaperito', $resToken['id_anterior']);
+            $table->where('FEXAVA_AVALUO.idpersonaperito', $idPerito);
             
             if ($idPerito) {
                 $table->where('FEXAVA_AVALUO.idpersonaperito', $idPerito);
