@@ -2272,7 +2272,7 @@ class BandejaEntradaController extends Controller
                                    
                     $controlElemento = count($camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA']) - 1;                                          
                 
-                for($i=0;$i<count($accesoriosPrivativas);$i++){
+                for($i=0;$i<count($obrasComplementariasPrivativas);$i++){
                     $controlElemento = $controlElemento+1;
                     $camposFexavaAvaluo['FEXAVA_ELEMENTOSCONST']['FEXAVA_ELEMENTOSEXTRA'][$controlElemento] = array();
                     //print_r($arrObrasComplementariasPrivativas); exit();
