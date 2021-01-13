@@ -1557,6 +1557,21 @@ class BandejaEntradaController extends Controller
               
                 for($i=0;$i<count($construccionesPrivativas);$i++){
 
+                    if((String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.2']]) == 'W'){
+                        if(trim((String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.11']])) != ''){
+                            $superficie = trim((String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.11']]));
+                            if($superficie == 0){
+                                $usoNoBaldioConSuper = false;
+                            }else{
+                                $usoNoBaldioConSuper = true;
+                            }
+                        }else{
+                            $usoNoBaldioConSuper = false;
+                        }
+                    }else{
+                        $usoNoBaldioConSuper = true;
+                    }
+
                     $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i] = array();
 
                     if(isset($arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.1'])){
@@ -1566,11 +1581,12 @@ class BandejaEntradaController extends Controller
         
                        if(isset($arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.2'])){
                         $codUso = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.2']]);
-                        //echo $fechastr; exit(); 
-                        $idusoEjercicio = existeCatUsoEjercicio($codUso,$fechastr);
-                        if($idusoEjercicio == false){
-                            $camposFexavaAvaluo['ERRORES'][] = array('e.2.1.n.2 - No existe un uso ejercicio para la fecha '.$fecha." y codUso ".$codUso);
-                        }
+                        if($usoNoBaldioConSuper == true){
+                            $idusoEjercicio = existeCatUsoEjercicio($codUso,$fechastr);
+                            if($idusoEjercicio == false){
+                                $camposFexavaAvaluo['ERRORES'][] = array('e.2.1.n.2 - No existe un uso ejercicio para la fecha '.$fecha." y codUso ".$codUso);
+                            }
+                        }                        
                         $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['IDUSOSEJERCICIO'] = $this->modelDatosExtrasAvaluo->SolicitarObtenerIdUsosByCodeAndAno($fechastr, $codUso);
                        }
         
@@ -1580,9 +1596,11 @@ class BandejaEntradaController extends Controller
         
                        if(isset($arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.4'])){                        
                         $codRangoNiveles = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.4']]);
-                        if(existeCatRangoNivelesEjercicio($codRangoNiveles,$fechastr) == false){
-                            $camposFexavaAvaluo['ERRORES'][] = array('e.2.1.n.4 - No existe un rango nivel ejercicio para la fecha '.$fechastr." y codRangoNiveles ".$codRangoNiveles);
-                        }
+                        if($usoNoBaldioConSuper == true){
+                            if(existeCatRangoNivelesEjercicio($codRangoNiveles,$fechastr) == false){
+                                $camposFexavaAvaluo['ERRORES'][] = array('e.2.1.n.4 - No existe un rango nivel ejercicio para la fecha '.$fechastr." y codRangoNiveles ".$codRangoNiveles);
+                            }
+                        }                        
                         $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['IDRANGONIVELESEJERCICIO'] = $this->modelDatosExtrasAvaluo->SolicitarObtenerIdRangoNivelesByCodeAndAno($fechastr, $codRangoNiveles);
                        }
         
@@ -1592,17 +1610,21 @@ class BandejaEntradaController extends Controller
         
                        if(isset($arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.6'])){
                         $codClase = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.6']]);
-                        $idclaseEjercicio = existeCatClaseEjercicio($codClase,$fechastr);
-                        if($idclaseEjercicio == false){
-                            $camposFexavaAvaluo['ERRORES'][] = array('e.2.1.n.6 - No existe una clase Ejercicio para la fecha '.$fechastr." y codClase ".$codClase);
-                        }
+                        if($usoNoBaldioConSuper == true){
+                            $idclaseEjercicio = existeCatClaseEjercicio($codClase,$fechastr);
+                            if($idclaseEjercicio == false){
+                                $camposFexavaAvaluo['ERRORES'][] = array('e.2.1.n.6 - No existe una clase Ejercicio para la fecha '.$fechastr." y codClase ".$codClase);
+                            }
+                        }                        
                         $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['IDCLASESEJERCICIO'] = $this->modelDatosExtrasAvaluo->SolicitarObtenerIdClasesByCodeAndAno($fechastr, $codClase);
                        }
 
-                       if (existeClaseUsoEjercicio($idclaseEjercicio, $idusoEjercicio) == false) //ValidarusoClaseejercicio
-                        {
-                            $camposFexavaAvaluo['ERRORES'][] = array('No existe relación entre clase(e.2.1.n.6) '.$codClase." y  uso(e.2.1.n.2) ".$codUso." para la fecha ".$fechastr);
-                        }
+                       if($usoNoBaldioConSuper == true){
+                            if (existeClaseUsoEjercicio($idclaseEjercicio, $idusoEjercicio) == false) //ValidarusoClaseejercicio
+                            {
+                                $camposFexavaAvaluo['ERRORES'][] = array('No existe relación entre clase(e.2.1.n.6) '.$codClase." y  uso(e.2.1.n.2) ".$codUso." para la fecha ".$fechastr);
+                            }
+                       }                       
         
                        if(isset($arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.7'])){                               
                         $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['EDAD'] = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.7']]);
@@ -1612,11 +1634,13 @@ class BandejaEntradaController extends Controller
                         $idUsoEjercicio = $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['IDUSOSEJERCICIO'];
                         $idClaseEjercicio = $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['IDCLASESEJERCICIO'];
                         $VidaUtilTotalDelTipo = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.8']]);
-                        if(trim($VidaUtilTotalDelTipo) != '' && $codUso != "W" && $esComercial == false){
-                            if (validarCatUsoClase($idUsoEjercicio, $idClaseEjercicio, $VidaUtilTotalDelTipo, $fechastr) == false){
-                                $camposFexavaAvaluo['ERRORES'][] = array("e.2.1.n.8 - La vida útil especificada no es correcta para la clase y el uso especificados: Clase ".$codClase.", Uso ".$codUso);
+                        if($usoNoBaldioConSuper == true){
+                            if(trim($VidaUtilTotalDelTipo) != '' && $codUso != "W" && $esComercial == false && $codClase != 'U'){
+                                if (validarCatUsoClase($idUsoEjercicio, $idClaseEjercicio, $VidaUtilTotalDelTipo, $fechastr) == false){
+                                    $camposFexavaAvaluo['ERRORES'][] = array("e.2.1.n.8 - La vida útil especificada no es correcta para la clase y el uso especificados: Clase ".$codClase.", Uso ".$codUso);
+                                }
                             }
-                        }
+                        }                        
                         if($codClase != 'U'){
                             //•	En el caso de clase única (U), no se debe validar el campo e.2.1.n.8 - Vida útil total del tipo y  por tanto no existe la relación clase uso en la tabla fexava_usoClase
                             $catdt = $this->modelDatosExtrasAvaluo->ObtenerClaseUsoByIdUsoIdClase($idUsoEjercicio, $idClaseEjercicio);
@@ -1651,21 +1675,23 @@ class BandejaEntradaController extends Controller
                        if(isset($arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.16'])){
                         $valorUnitarioCatastral = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.16']]);
                         $codUso = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.2']]);
-                        if(trim($codUso) != '' && $codUso != 'w'){
-                            $codClase = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.6']]);
-                            $codRangoNiveles = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.4']]);
-                            $numeroNiveles = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.3']]);
-                            $periodo = 1;
-
-                            $descripcion = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.1']]);                        
-
-                            $infoValorUnitarioConstruccion = $this->modelFis->getDataByObtenerValorUnitarioConstruccion($codUso,$codClase,$codRangoNiveles,$numeroNiveles,$periodo);                            
-                            //echo $valorUnitarioCatastral." != ".$infoValorUnitarioConstruccion." && ".$valorUnitarioCatastral." != ".($infoValorUnitarioConstruccion + 0.01)." && ".$valorUnitarioCatastral." != ".($infoValorUnitarioConstruccion - 0.01); exit();
-                            if($valorUnitarioCatastral != $infoValorUnitarioConstruccion && $valorUnitarioCatastral != ($infoValorUnitarioConstruccion + 0.01) && $valorUnitarioCatastral != ($infoValorUnitarioConstruccion - 0.01)){
-                                $camposFexavaAvaluo['ERRORES'][] = array("e.2.1.n.16 - El valor unitario de construcción no es correcto para: Uso: ".$codUso.", Rango niveles: ".$codRangoNiveles.", Clase:  ".$codClase.", descripción: ".$descripcion.". El valor ESPERADO es: ".$infoValorUnitarioConstruccion);
+                        if($usoNoBaldioConSuper == true){
+                            if(trim($codUso) != '' && $codUso != 'w'){
+                                $codClase = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.6']]);
+                                $codRangoNiveles = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.4']]);
+                                $numeroNiveles = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.3']]);
+                                $periodo = 1;
+    
+                                $descripcion = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.1']]);                        
+    
+                                $infoValorUnitarioConstruccion = $this->modelFis->getDataByObtenerValorUnitarioConstruccion($codUso,$codClase,$codRangoNiveles,$numeroNiveles,$periodo);                            
+                                //echo $valorUnitarioCatastral." != ".$infoValorUnitarioConstruccion." && ".$valorUnitarioCatastral." != ".($infoValorUnitarioConstruccion + 0.01)." && ".$valorUnitarioCatastral." != ".($infoValorUnitarioConstruccion - 0.01); exit();
+                                if($valorUnitarioCatastral != $infoValorUnitarioConstruccion && $valorUnitarioCatastral != ($infoValorUnitarioConstruccion + 0.01) && $valorUnitarioCatastral != ($infoValorUnitarioConstruccion - 0.01)){
+                                    $camposFexavaAvaluo['ERRORES'][] = array("e.2.1.n.16 - El valor unitario de construcción no es correcto para: Uso: ".$codUso.", Rango niveles: ".$codRangoNiveles.", Clase:  ".$codClase.", descripción: ".$descripcion.". El valor ESPERADO es: ".$infoValorUnitarioConstruccion);
+                                }
+                                //Comentado porque no existe VALORUNITARIOCATASTRAL en la tabla FEXAVA_TIPOCONSTRUCCION $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['VALORUNITARIOCATASTRAL'] = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.16']]);
                             }
-                            //Comentado porque no existe VALORUNITARIOCATASTRAL en la tabla FEXAVA_TIPOCONSTRUCCION $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['VALORUNITARIOCATASTRAL'] = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.16']]);
-                        }
+                        }                        
                         
                        }
         
@@ -1687,6 +1713,21 @@ class BandejaEntradaController extends Controller
                 }                       
                 
                 for($i=0;$i<count($construccionesComunes);$i++){
+
+                    if((String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.2']]) == 'W'){
+                        if(trim((String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.11']])) != ''){
+                            $superficie = trim((String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.11']]));
+                            if($superficie == 0){
+                                $usoNoBaldioConSuper = false;
+                            }else{
+                                $usoNoBaldioConSuper = true;
+                            }
+                        }else{
+                            $usoNoBaldioConSuper = false;
+                        }
+                    }else{
+                        $usoNoBaldioConSuper = true;
+                    }
                     
                     $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento] = array();
 
@@ -1696,6 +1737,12 @@ class BandejaEntradaController extends Controller
 
                     if(isset($arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.2'])){
                         $codUso = (String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.2']]);
+                        if($usoNoBaldioConSuper == true){
+                            $idusoEjercicio = existeCatUsoEjercicio($codUso,$fechastr);
+                            if($idusoEjercicio == false){
+                                $camposFexavaAvaluo['ERRORES'][] = array('e.2.5.n.2 - No existe un uso ejercicio para la fecha '.$fecha." y codUso ".$codUso);
+                            }
+                        }
                         $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento]['IDUSOSEJERCICIO'] = $this->modelDatosExtrasAvaluo->SolicitarObtenerIdUsosByCodeAndAno($fechastr, $codUso);
                     }
 
@@ -1705,6 +1752,11 @@ class BandejaEntradaController extends Controller
 
                     if(isset($arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.4'])){
                         $codRangoNiveles = (String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.4']]);
+                        if($usoNoBaldioConSuper == true){ //echo existeCatRangoNivelesEjercicio($codRangoNiveles,$fechastr);
+                            if(existeCatRangoNivelesEjercicio($codRangoNiveles,$fechastr) === false){ echo "ENTREEEEEEEEE "; exit();
+                                $camposFexavaAvaluo['ERRORES'][] = array('e.2.5.n.4 - No existe un rango nivel ejercicio para la fecha '.$fechastr." y codRangoNiveles ".$codRangoNiveles);
+                            }
+                        }
                         $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento]['IDRANGONIVELESEJERCICIO'] = $this->modelDatosExtrasAvaluo->SolicitarObtenerIdRangoNivelesByCodeAndAno($fechastr, $codRangoNiveles);
                     }
 
@@ -1714,8 +1766,21 @@ class BandejaEntradaController extends Controller
 
                     if(isset($arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.6'])){
                         $codClase = (String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.6']]);
+                        if($usoNoBaldioConSuper == true){
+                            $idclaseEjercicio = existeCatClaseEjercicio($codClase,$fechastr);
+                            if($idclaseEjercicio === false){
+                                $camposFexavaAvaluo['ERRORES'][] = array('e.2.5.n.6 - No existe una clase Ejercicio para la fecha '.$fechastr." y codClase ".$codClase);
+                            }
+                        }
                         $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento]['IDCLASESEJERCICIO'] = $this->modelDatosExtrasAvaluo->SolicitarObtenerIdClasesByCodeAndAno($fechastr, $codClase);
                     }
+
+                    if($usoNoBaldioConSuper == true){
+                        if (existeClaseUsoEjercicio($idclaseEjercicio, $idusoEjercicio) == false) //ValidarusoClaseejercicio
+                        {
+                            $camposFexavaAvaluo['ERRORES'][] = array('No existe relación entre clase(e.2.1.n.6) '.$codClase." y  uso(e.2.1.n.2) ".$codUso." para la fecha ".$fechastr);
+                        }
+                   }
                     
                     if(isset($arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.7'])){
                         $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento]['EDAD'] = (String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.7']]);
@@ -1724,6 +1789,14 @@ class BandejaEntradaController extends Controller
                     if(isset($arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.8'])){                    
                         $idUsoEjercicio = $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento]['IDUSOSEJERCICIO'];
                         $idClaseEjercicio = $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento]['IDCLASESEJERCICIO'];
+                        $VidaUtilTotalDelTipo = (String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.8']]);
+                        if($usoNoBaldioConSuper == true){
+                            if(trim($VidaUtilTotalDelTipo) != '' && $codUso != "W" && $esComercial == false && $codClase != 'U'){
+                                if (validarCatUsoClase5($idUsoEjercicio, $idClaseEjercicio, $VidaUtilTotalDelTipo, $fechastr) === false){
+                                    $camposFexavaAvaluo['ERRORES'][] = array("e.2.5.n.8 - La vida útil especificada no es correcta para la clase y el uso especificados: Clase ".$codClase.", Uso ".$codUso);
+                                }
+                            }
+                        }
                         if($codClase != 'U'){
                             //•	En el caso de clase única (U), no se debe validar el campo e.2.1.n.8 - Vida útil total del tipo y  por tanto no existe la relación clase uso en la tabla fexava_usoClase
                             $catdt = $this->modelDatosExtrasAvaluo->ObtenerClaseUsoByIdUsoIdClase($idUsoEjercicio, $idClaseEjercicio);
@@ -1747,6 +1820,29 @@ class BandejaEntradaController extends Controller
                     if(isset($arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.12'])){
                         $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento]['VALORUNITARIOREPNUEVO'] = (String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.12']]);
                     }
+
+                    if(isset($arrConstruccionesPrivativas['arrIds'][$i]['e.2.5.n.16'])){
+                        $valorUnitarioCatastral = (String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.15']]);
+                        //$codUso = (String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.2']]);
+                        if($usoNoBaldioConSuper == true){
+                            if(trim($codUso) != '' && $codUso != 'w'){
+                                //$codClase = (String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.6']]);
+                                //$codRangoNiveles = (String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.4']]);
+                                $numeroNiveles = (String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.3']]);
+                                $periodo = 1;
+    
+                                $descripcion = (String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.1']]);                        
+    
+                                $infoValorUnitarioConstruccion = $this->modelFis->getDataByObtenerValorUnitarioConstruccion($codUso,$codClase,$codRangoNiveles,$numeroNiveles,$periodo);                            
+                                //echo $valorUnitarioCatastral." != ".$infoValorUnitarioConstruccion." && ".$valorUnitarioCatastral." != ".($infoValorUnitarioConstruccion + 0.01)." && ".$valorUnitarioCatastral." != ".($infoValorUnitarioConstruccion - 0.01); exit();
+                                if($valorUnitarioCatastral != $infoValorUnitarioConstruccion && $valorUnitarioCatastral != ($infoValorUnitarioConstruccion + 0.01) && $valorUnitarioCatastral != ($infoValorUnitarioConstruccion - 0.01)){
+                                    $camposFexavaAvaluo['ERRORES'][] = array("e.2.5.n.16 - El valor unitario de construcción no es correcto para: Uso: ".$codUso.", Rango niveles: ".$codRangoNiveles.", Clase:  ".$codClase.", descripción: ".$descripcion.". El valor ESPERADO es: ".$infoValorUnitarioConstruccion);
+                                }
+                                //Comentado porque no existe VALORUNITARIOCATASTRAL en la tabla FEXAVA_TIPOCONSTRUCCION $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i]['VALORUNITARIOCATASTRAL'] = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.16']]);
+                            }
+                        }                        
+                        
+                       }
 
                     if(isset($arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.18'])){
                         $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento]['TEINDIVISO'] = (String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.18']]);

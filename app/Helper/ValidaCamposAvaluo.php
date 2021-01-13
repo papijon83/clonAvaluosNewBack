@@ -4578,10 +4578,11 @@ function existeCatUsoEjercicio($codUso,$fecha){ //echo $codUso." ".$fecha; exit(
     }
 }
 
-function existeCatRangoNivelesEjercicio($codRangoNiveles,$fecha){ //echo $codRangoNiveles." FECHA: ".$fecha; exit(); //var_dump(estaEnCatClaseRangoNiveles($codRangoNiveles))." FECHA: ".var_dump(estaEnCatEjercicio($fecha)); exit();
+function existeCatRangoNivelesEjercicio($codRangoNiveles,$fecha){
     if(estaEnCatClaseRangoNiveles($codRangoNiveles) == true && estaEnCatEjercicio($fecha) == true){
         $modelDatosExtrasAvaluo = new DatosExtrasAvaluo();
-        return $modelDatosExtrasAvaluo->SolicitarObtenerIdRangoNivelesByCodeAndAno($fecha,intval($codRangoNiveles));
+        $res = $modelDatosExtrasAvaluo->SolicitarObtenerIdRangoNivelesByCodeAndAno($fecha,intval($codRangoNiveles));
+        return  $res;
         //return true;
     }else{        
         return false;
@@ -4657,6 +4658,26 @@ function validarCatUsoClase($codUso, $codClase, $vidaUtilTotalDelTipo, $fecha){
         }else{
             //echo "INFOA ENVIAR 1 ".$fecha." ".$codUso; exit();
             //$idUsoEjercicio = $modelFis->solicitarObtenerIdUsosByCodeAndAno($fecha,$codUso);
+            if (comprobarEdadUtilTipo($codUso, $codClase, $vidaUtilTotalDelTipo) == false){ //Si hay errores devolver el mensaje de error
+                return false;
+            }else{
+                return true;
+            }
+        }
+    }else{
+        return false;
+    }
+    
+}
+
+function validarCatUsoClase5($codUso, $codClase, $vidaUtilTotalDelTipo, $fecha){
+    $modelFis = new Fis();    
+    $estaEnEjercicio = estaEnCatEjercicio($fecha);
+
+    if($estaEnEjercicio != false){
+        if ($codClase == "U"){
+            return true;
+        }else{            
             if (comprobarEdadUtilTipo($codUso, $codClase, $vidaUtilTotalDelTipo) == false){ //Si hay errores devolver el mensaje de error
                 return false;
             }else{
