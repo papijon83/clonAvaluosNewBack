@@ -677,7 +677,7 @@ class BandejaEntradaController extends Controller
             /* if(isset($camposFexavaAvaluo['ERROR'])){
                 return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
             }*/ //print_r($camposFexavaAvaluo); exit();
-            $camposFexavaAvaluo = $this->guardarAvaluoAnexoFotografico($xml, $camposFexavaAvaluo,$elementoPrincipal);
+           //DESCOMENTAR ESTA PARTE $camposFexavaAvaluo = $this->guardarAvaluoAnexoFotografico($xml, $camposFexavaAvaluo,$elementoPrincipal);
             /* if(isset($camposFexavaAvaluo['ERROR'])){
                 return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
             }*/
@@ -748,7 +748,7 @@ class BandejaEntradaController extends Controller
         $resExiste = $this->modelDocumentos->valida_existencia($arrIdentificacion['NumeroDeAvaluo'],$idPersona);
 
         if($resExiste == TRUE){
-            $errores = array(0 => 'Un perito no puede subir el mismo avalúo dos veces');
+            $errores = array(0 => 'a.1 - Ya existe un avalúo registrado con n° avalúo: '.$arrIdentificacion['NumeroDeAvaluo']);
             $camposFexavaAvaluo['ERRORES'][] = $errores;
             //return array('ERROR' => $errores);
         }
@@ -1518,7 +1518,7 @@ class BandejaEntradaController extends Controller
 
     public function guardarAvaluoDescripcionImueble($infoXmlTerreno, $camposFexavaAvaluo,$elementoPrincipal){
 
-        $errores = valida_AvaluoDescripcionImueble($infoXmlTerreno->xpath($elementoPrincipal.'//DescripcionDelInmueble[@id="e"]'), $elementoPrincipal, $infoXmlTerreno->xpath($elementoPrincipal.'//Terreno[@id="d"]')); 
+        $errores = valida_AvaluoDescripcionImueble($infoXmlTerreno->xpath($elementoPrincipal.'//DescripcionDelInmueble[@id="e"]'), $elementoPrincipal, $infoXmlTerreno->xpath($elementoPrincipal.'//Terreno[@id="d"]'), $infoXmlTerreno->xpath($elementoPrincipal.'//Antecedentes[@id="b"]//RegimenDePropiedad[@id="b.6"]')); 
         
         if(count($errores) > 0){
             //return array('ERROR' => $errores);
@@ -1621,7 +1621,7 @@ class BandejaEntradaController extends Controller
                         $codClase = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.6']]);
                         if($usoNoBaldioConSuper == true){
                             $idclaseEjercicio = existeCatClaseEjercicio($codClase,$fechastr);
-                            if($idclaseEjercicio == false){
+                            if($idclaseEjercicio === false){
                                 $camposFexavaAvaluo['ERRORES'][] = array('e.2.1.n.6 - No existe una clase Ejercicio para la fecha '.$fechastr." y codClase ".$codClase);
                             }
                         }                        
@@ -1762,7 +1762,7 @@ class BandejaEntradaController extends Controller
                     if(isset($arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.4'])){
                         $codRangoNiveles = (String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.4']]);
                         if($usoNoBaldioConSuper == true){ //echo existeCatRangoNivelesEjercicio($codRangoNiveles,$fechastr);
-                            if(existeCatRangoNivelesEjercicio($codRangoNiveles,$fechastr) === false){ echo "ENTREEEEEEEEE "; exit();
+                            if(existeCatRangoNivelesEjercicio($codRangoNiveles,$fechastr) === false){
                                 $camposFexavaAvaluo['ERRORES'][] = array('e.2.5.n.4 - No existe un rango nivel ejercicio para la fecha '.$fechastr." y codRangoNiveles ".$codRangoNiveles);
                             }
                         }
@@ -1922,7 +1922,7 @@ class BandejaEntradaController extends Controller
 
         $elementosConst = $infoXmlElementosConst->xpath($elementoPrincipal.'//ElementosDeLaConstruccion[@id="f"]');
         
-        $errores = valida_AvaluoElementosDeLaConstruccion($elementosConst, $elementoPrincipal, $infoXmlElementosConst->xpath($elementoPrincipal.'//Terreno[@id="d"]'));    
+        $errores = valida_AvaluoElementosDeLaConstruccion($elementosConst, $elementoPrincipal, $infoXmlElementosConst->xpath($elementoPrincipal.'//Terreno[@id="d"]'),$infoXmlElementosConst->xpath($elementoPrincipal.'//Antecedentes[@id="b"]//RegimenDePropiedad[@id="b.6"]'));    
         if(count($errores) > 0){
             //return array('ERROR' => $errores);
             $camposFexavaAvaluo['ERRORES'][] = $errores;
@@ -2902,24 +2902,24 @@ class BandejaEntradaController extends Controller
             $datab6 = $xmlEnfoqueDeCostos->xpath($elementoPrincipal.'//Antecedentes[@id="b"]//RegimenDePropiedad[@id="b.6"]');
             $datad6 = $xmlEnfoqueDeCostos->xpath($elementoPrincipal.'//Terreno[@id="d"]//Indiviso[@id="d.6"]');
             $datad13 = $xmlEnfoqueDeCostos->xpath($elementoPrincipal.'//Terreno[@id="d"]//ValorTotalDelTerrenoProporcional[@id="d.13"]');
-            $f9 = $xmlEnfoqueDeCostos->xpath($elementoPrincipal.'//ElementosDeLaConstruccion[@id="f"]//InstalacionesEspeciales[@id="f.9"]');
-            if(count($f9) > 1){
+            $f9 = $xmlEnfoqueDeCostos->xpath($elementoPrincipal.'//ElementosDeLaConstruccion[@id="f"]//InstalacionesEspeciales[@id="f.9"]'); //echo "count ".count(quitar_attributes(convierte_a_arreglo($f9)))."\n"; //echo " SOY F9 ".print_r(quitar_attributes(convierte_a_arreglo($f9))); echo "  
+            if(count(quitar_attributes(convierte_a_arreglo($f9))) > 0){
                 $existef9 = TRUE;
             }else{
                 $existef9 = FALSE;
             }
-            $f10 = $xmlEnfoqueDeCostos->xpath($elementoPrincipal.'//ElementosDeLaConstruccion[@id="f"]//ElementosAccesorios[@id="f.10"]');
-            if(count($f10) > 1){
-                $existef10= TRUE;
+            $f10 = $xmlEnfoqueDeCostos->xpath($elementoPrincipal.'//ElementosDeLaConstruccion[@id="f"]//ElementosAccesorios[@id="f.10"]'); //echo "  count ".count(quitar_attributes(convierte_a_arreglo($f10)))."\n"; //echo " SOY F10 ".print_r(quitar_attributes(convierte_a_arreglo($f10))); echo "  count ".count(quitar_attributes(convierte_a_arreglo($f10)))."\n";
+            if(count(quitar_attributes(convierte_a_arreglo($f10))) > 0){
+                $existef10 = TRUE;
             }else{
                 $existef10 = FALSE;
             }
-            $f11 = $xmlEnfoqueDeCostos->xpath($elementoPrincipal.'//ElementosDeLaConstruccion[@id="f"]//ObrasComplementarias[@id="f.11"]');
-            if(count($f11) > 1){
-                $existef11= TRUE;
+            $f11 = $xmlEnfoqueDeCostos->xpath($elementoPrincipal.'//ElementosDeLaConstruccion[@id="f"]//ObrasComplementarias[@id="f.11"]'); //echo "  count ".count(quitar_attributes(convierte_a_arreglo($f11)))."\n"; //echo " SOY F11 ".print_r(quitar_attributes(convierte_a_arreglo($f11))); 
+            if(count(quitar_attributes(convierte_a_arreglo($f11))) > 0){
+                $existef11 = TRUE;
             }else{
                 $existef11 = FALSE;
-            }
+            } //echo "existef9 ".var_dump($existef9)." existef10 ".var_dump($existef10)." existef11".var_dump($existef11); exit();
 
             $errores = valida_AvaluoEnfoqueCostosCatastral($xmlEnfoqueDeCostos->xpath($elementoPrincipal.'//EnfoqueDeCostos[@id="j"]'), $elementoPrincipal, $datae23, $datae27, $datab6, $datad6, $datad13, $existef9, $existef10, $existef11);    
             if(count($errores) > 0){
@@ -2959,8 +2959,8 @@ class BandejaEntradaController extends Controller
         if(!isset($enfoqueDeIngresos[0]) || count($enfoqueDeIngresos) == 0){
             return $camposFexavaAvaluo;
         }else{
-            $arrEnfoqueDeIngresos = convierte_a_arreglo($enfoqueDeIngresos);
-            if(count($arrEnfoqueDeIngresos[0] == 1)){
+            $arrEnfoqueDeIngresos = convierte_a_arreglo($enfoqueDeIngresos); //print_r($arrEnfoqueDeIngresos); exit();
+            if(count($arrEnfoqueDeIngresos[0]) == 1){
                 return $camposFexavaAvaluo;
             }
         }
