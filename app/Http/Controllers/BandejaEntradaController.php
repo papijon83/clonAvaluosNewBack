@@ -677,7 +677,7 @@ class BandejaEntradaController extends Controller
             /* if(isset($camposFexavaAvaluo['ERROR'])){
                 return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
             }*/ //print_r($camposFexavaAvaluo); exit();
-           //DESCOMENTAR ESTA PARTE $camposFexavaAvaluo = $this->guardarAvaluoAnexoFotografico($xml, $camposFexavaAvaluo,$elementoPrincipal);
+           $camposFexavaAvaluo = $this->guardarAvaluoAnexoFotografico($xml, $camposFexavaAvaluo,$elementoPrincipal);
             /* if(isset($camposFexavaAvaluo['ERROR'])){
                 return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
             }*/
@@ -685,7 +685,7 @@ class BandejaEntradaController extends Controller
             
             if(count($camposFexavaAvaluo['ERRORES']) > 0){
                 return response()->json(['mensaje' => $camposFexavaAvaluo['ERRORES']], 500);
-            } exit();
+            }
 
             $resInsert = $this->modelGuardaenBD->insertAvaluo($camposFexavaAvaluo);
         
