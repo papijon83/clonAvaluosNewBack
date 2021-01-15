@@ -131,6 +131,11 @@ class Documentos
         return trim($numeroUnicoAvaluo[0]['numerounico']);
     }
 
+    public function get_idavaluo_db($numeroUnico){         
+        $numeroUnicoAvaluo = convierte_a_arreglo(DB::select("SELECT IDAVALUO FROM FEXAVA_AVALUO WHERE NUMEROUNICO = '$numeroUnico'"));
+        return trim($numeroUnicoAvaluo[0]['idavaluo']);
+    }
+
     public function valida_existencia($numeroAvaluo,$idpersona_perito){
         $rowsAvaluos = convierte_a_arreglo(DB::select("SELECT * FROM FEXAVA_AVALUO WHERE NUMEROAVALUO = '$numeroAvaluo' AND IDPERSONAPERITO = $idpersona_perito AND CODESTADOAVALUO != 2"));
         if(count($rowsAvaluos) > 0){

@@ -288,8 +288,12 @@ class BandejaEntradaController extends Controller
     public function ModificarEstadoAvaluo(Request $request)
     {
         try {
-            //print_r($request); exit();
-            $id_avaluo = $request->query('id_avaluo');
+            //Log::info("SOLITO: ".$request->query('no_unico'));
+            $numero_unico = $request->query('no_unico');
+            $this->modelDocumentos = new Documentos();
+             
+            $id_avaluo = $this->modelDocumentos->get_idavaluo_db($numero_unico); //Log::info("IDAVALUO: ".$id_avaluo);
+            //$id_avaluo = $request->query('id_avaluo');
             $code_estado_avaluo = $request->query('code_estado_avaluo');
 
             $procedure = 'BEGIN
