@@ -191,7 +191,17 @@ class BandejaEntradaController extends Controller
             if ($fechaIni && $fechaFin) {
                 $fi = new Carbon($fechaIni);
                 $ff = new Carbon($fechaFin);
-                $table->whereBetween('FEXAVA_AVALUO.fecha_presentacion', [$fi->format('Y-m-d'), $ff->format('Y-m-d')]);
+                if(isset($vigencia) &&  $vigencia == 2){
+                    $year = Carbon::today()->subYear();
+                    if(isset($fi) && $year->lt($fi)){
+                        $table->whereBetween('FEXAVA_AVALUO.fecha_presentacion', [$fi->format('Y-m-d'), $ff->format('Y-m-d')]);
+                    }else{
+                        $table->whereBetween('FEXAVA_AVALUO.fecha_presentacion', [$fi->format('Y-m-d'), $year->format('Y-m-d')]);
+                    }
+                }else{
+                    $table->whereBetween('FEXAVA_AVALUO.fecha_presentacion', [$fi->format('Y-m-d'), $ff->format('Y-m-d')]);  
+                }                
+                
             }
 
             if ($noAvaluo) {
@@ -202,20 +212,40 @@ class BandejaEntradaController extends Controller
                 $year = Carbon::today()->subYear();
                 $table->where('FEXAVA_AVALUO.fecha_presentacion','>=',$year->format('Y-m-d'));
                 // 6 es el estatus enviado notario
-                $table->where('FEXAVA_AVALUO.codestadoavaluo',6);
+                //$table->where('FEXAVA_AVALUO.codestadoavaluo',6);
+                $table->whereIn('FEXAVA_AVALUO.codestadoavaluo',array(6,1));
             }
             if ($vigencia == 2) {
                 $year = Carbon::today()->subYear();
-                $table->where('FEXAVA_AVALUO.fecha_presentacion','<',$year->format('Y-m-d'));
-                // 2 es el estatus cancelado
-                $table->orWhere('FEXAVA_AVALUO.codestadoavaluo',2);
+                if(isset($fi) && $year->lt($fi)){
+                    $table->where('FEXAVA_AVALUO.codestadoavaluo',2);
+                }
+                elseif(isset($fi) && $year->gt($fi)){
 
+                    $idPerito = empty($resToken['id_anterior']) ? $resToken['id_usuario']: $resToken['id_anterior'];
+
+                    if ($idPerito) {
+                        $table->where('FEXAVA_AVALUO.idpersonaperito', $idPerito);
+                    }
+        
+                    if ($idSociedad) {
+                        $table->where('FEXAVA_AVALUO.idpersonasociedad', $idSociedad);
+                    }
+                    $table->orWhere('FEXAVA_AVALUO.fecha_presentacion','>',$year->format('Y-m-d'));
+                    $table->where('FEXAVA_AVALUO.fecha_presentacion','<=',$ff->format('Y-m-d'));
+                    $table->where('FEXAVA_AVALUO.codestadoavaluo',2);
+                }else{
+                    $table->where('FEXAVA_AVALUO.fecha_presentacion','<',$year->format('Y-m-d'));
+                    // 2 es el estatus cancelado
+                    $table->orWhere('FEXAVA_AVALUO.codestadoavaluo',2);    
+                }
+                
             }
 
             $idPerito = empty($resToken['id_anterior']) ? $resToken['id_usuario']: $resToken['id_anterior'];
 
             //$table->where('FEXAVA_AVALUO.idpersonaperito', $resToken['id_anterior']);
-            $table->where('FEXAVA_AVALUO.idpersonaperito', $idPerito);
+            //COMENTADO PRQUE YA ESTA ABAJO $table->where('FEXAVA_AVALUO.idpersonaperito', $idPerito);
             
             if ($idPerito) {
                 $table->where('FEXAVA_AVALUO.idpersonaperito', $idPerito);
