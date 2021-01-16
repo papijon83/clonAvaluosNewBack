@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\PeritoSociedad;
@@ -28,6 +27,8 @@ class BandejaEntradaController extends Controller
     protected $modelGuardaenBD;
     protected $modelAva;
     protected $modelFis;
+    private $errors;
+    private $doc;
 
     public function __construct()
     {
@@ -321,43 +322,61 @@ class BandejaEntradaController extends Controller
 
     public function avaluosProximos(Request $request)
     {
+        try{
+            $authToken = $request->header('Authorization');
+                if (!$authToken) {
+                    return response()->json(['mensaje' => 'Sin acceso a la aplicación'], 403);
+                } 
+                $resToken = Crypt::decrypt($authToken);
+                
+                $id_persona_perito = empty($resToken['id_anterior']) ? $resToken['id_usuario']: $resToken['id_anterior']; 
 
-        //print_r($request); exit();
-        $id_avaluo = $request->query('id_avaluo');
-        $id_persona_perito = $request->query('id_persona_perito');
-        $page_size = $request->query('page_size');
-        $page = $request->query('page');
-        $sortexpression = $request->query('sortexpression');
+            $numero_unico = $request->query('no_unico');
+            $this->modelDocumentos = new Documentos();
+                
+            $id_avaluo = $this->modelDocumentos->get_idavaluo_db($numero_unico);
 
-        $procedure = 'BEGIN
-            FEXAVA.FEXAVA_AVALUOS_PKG.FEXAVA_SEL_V_PROXIMID_PERITO_P(
-                :PAR_ID_AVALUO,
-                :PAR_IDPERSONAPERITO,
-                :PAGE_SIZE,
-                :PAGE,
-                :SORTEXPRESSION,
-                :C_AVALUOS
-            ); END;';
-        $conn = oci_connect(env("DB_USERNAME"), env("DB_PASSWORD"), env("DB_TNS"));
-        $stmt = oci_parse($conn, $procedure);
-        oci_bind_by_name($stmt, ':PAR_ID_AVALUO', $id_avaluo);
-        oci_bind_by_name($stmt, ':PAR_IDPERSONAPERITO', $id_persona_perito, 300);
-        oci_bind_by_name($stmt, ':PAGE_SIZE', $page_size, 300);
-        oci_bind_by_name($stmt, ':PAGE', $page, 300);
-        oci_bind_by_name($stmt, ':SORTEXPRESSION', $sortexpression);
-        $cursor = oci_new_cursor($conn);
-        oci_bind_by_name($stmt, ":C_AVALUOS", $cursor, -1, OCI_B_CURSOR);
-        oci_execute($stmt, OCI_COMMIT_ON_SUCCESS);
-        oci_execute($cursor, OCI_COMMIT_ON_SUCCESS);
-        oci_free_statement($stmt);
-        oci_close($conn);
-        oci_fetch_all($cursor, $avaluos, 0, -1, OCI_FETCHSTATEMENT_BY_ROW + OCI_ASSOC);
-        oci_free_cursor($cursor);
+            //print_r($request); exit();
+            //$id_avaluo = $request->query('id_avaluo');
+            //$id_persona_perito = $request->query('id_persona_perito');
+            $page_size = $request->query('page_size');
+            $page = $request->query('page');
+            $sortexpression = 'IDAVALUO';
 
-        if (count($avaluos) > 0) {
-            return $avaluos;
-        } else {
-            return [];
+            $procedure = 'BEGIN
+                FEXAVA.FEXAVA_AVALUOS_PKG.FEXAVA_SEL_V_PROXIMID_PERITO_P(
+                    :PAR_ID_AVALUO,
+                    :PAR_IDPERSONAPERITO,
+                    :PAGE_SIZE,
+                    :PAGE,
+                    :SORTEXPRESSION,
+                    :C_AVALUOS
+                ); END;';
+            $conn = oci_connect(env("DB_USERNAME"), env("DB_PASSWORD"), env("DB_TNS"));
+            $stmt = oci_parse($conn, $procedure);
+            oci_bind_by_name($stmt, ':PAR_ID_AVALUO', $id_avaluo);
+            oci_bind_by_name($stmt, ':PAR_IDPERSONAPERITO', $id_persona_perito, 300);
+            oci_bind_by_name($stmt, ':PAGE_SIZE', $page_size, 300);
+            oci_bind_by_name($stmt, ':PAGE', $page, 300);
+            oci_bind_by_name($stmt, ':SORTEXPRESSION', $sortexpression);
+            $cursor = oci_new_cursor($conn);
+            oci_bind_by_name($stmt, ":C_AVALUOS", $cursor, -1, OCI_B_CURSOR);
+            oci_execute($stmt, OCI_COMMIT_ON_SUCCESS);
+            oci_execute($cursor, OCI_COMMIT_ON_SUCCESS);
+            oci_free_statement($stmt);
+            oci_close($conn);
+            oci_fetch_all($cursor, $avaluos, 0, -1, OCI_FETCHSTATEMENT_BY_ROW + OCI_ASSOC);
+            oci_free_cursor($cursor); //Log::info($avaluos);
+
+            if (count($avaluos) > 0) {
+                return response()->json($avaluos, 200);
+            } else {
+                return response()->json(['mensaje' => 'No se encontraron registros'], 500);
+            }
+        } catch (\Throwable $th) {
+            //Log::info($th);
+            error_log($th);
+            return response()->json(['mensaje' => 'Error en el servidor'], 500);
         }
     }
 
@@ -530,60 +549,29 @@ class BandejaEntradaController extends Controller
         }
     }
     
-    function esValidoAvaluo(Request $request){
-        $file = $request->file('files');
-        $contents = $this->descomprimirCualquierFormato($file);
-        $this->doc = new \DOMDocument('1.0', 'utf-8');        
-        //$xsd = 'EsquemaAvaluo.xsd';
-        //$xsd = 'Prueba.xsd';
-        $xsd = 'EsquemaAvaluomiodos.xsd';
+    function esValidoEsquema($contents){
+        
+        $this->doc = new \DOMDocument('1.0', 'utf-8');
+        libxml_use_internal_errors(true);       
+        
+        //$xsd = 'EsquemaAvaluomio.xsd';
+        $xsd = 'EsquemaAvaluoFinal.xsd';
+        
         if (!file_exists($xsd)) {
             echo "Archivo <b>$xsd</b> no existe.";
             return false;
         }
-        //Habilita/Deshabilita errores libxml y permite al usuario extraer 
-        //información de errores según sea necesario
-        libxml_use_internal_errors(true);       
-        //echo $contents; exit();
         $this->doc->loadXML($contents, LIBXML_NOBLANKS);
-        /*$myfilexsd = fopen('EsquemaAvaluo.xsd', "r");
-        $resxsd = fread($myfilexsd, filesize('EsquemaAvaluo.xsd'));    
-        fclose($myfilexsd); */
-        //var_dump($resxsd); exit();        
-        $this->doc->schemaValidate($xsd);
-        //echo "EL ERROR ";
-        $this->errors = libxml_get_errors();
-        $msg = '';
-        foreach ($this->errors as $error) {
-            switch ($error->level) {
-                case LIBXML_ERR_WARNING:
-                    $nivel = 'Warning';
-                    break;
-                case LIBXML_ERR_ERROR :
-                    $nivel = 'Error_1';
-                    break;
-                case LIBXML_ERR_FATAL:
-                    $nivel = 'Fatal Error_1';
-                    break;
-            }
-            echo $msg .= "<b>Error $error->code [$nivel]:</b><br>"
-                    . str_repeat('&nbsp;', 6) . "Linea: $error->line<br>"
-                    . str_repeat('&nbsp;', 6) . "Mensaje: $error->message<br>";
-        }
-        //fclose($myfile);
-        // Valida un documento basado en un esquema
         if (!$this->doc->schemaValidate($xsd)) {
-            echo "AQUI SI LLEGO "; exit();
             //Recupera un array de errores
-            $this->errors = libxml_get_errors();
-            return false;
+            $this->errors = libxml_get_errors(); //print_r(convierte_a_arreglo($this->errors)); exit();
+            $relacionErrores = array();
+            foreach(convierte_a_arreglo($this->errors) as $elementoError){                
+                $relacionErrores[] = "Line ".$elementoError['line']." ".$elementoError['message'];                
+            }
+            return $relacionErrores;        
         }
-
-        
-        //Limpia el buffer de errores de libxml
-        libxml_clear_errors();
-        echo "LLEGUE HASTA ACA  "; exit();
-        return true;
+       return true;
     }
 
     function guardarAvaluo(Request $request){
@@ -604,14 +592,23 @@ class BandejaEntradaController extends Controller
             if (!$authToken) {
                 return response()->json(['mensaje' => 'Sin acceso a la aplicación'], 403);
             } 
-            $resToken = Crypt::decrypt($authToken);
+            /*$resToken = Crypt::decrypt($authToken);
             
             $idPersona = empty($resToken['id_anterior']) ? $resToken['id_usuario']: $resToken['id_anterior']; //$idPersona = 264;
 
             $file = $request->file('files');
             $myfile = fopen($file, "r");
-            $contents = fread($myfile, filesize($file));
+            $contents = fread($myfile, filesize($file));    
             fclose($myfile);
+
+            $resValidaEsquema = $this->esValidoEsquema($contents);*/ var_dump($resValidaEsquema); exit();
+            if(is_array($resValidaEsquema)){ 
+                $camposFexavaAvaluo = array();
+                $camposFexavaAvaluo['ERRORES'] = $resValidaEsquema;
+                return response()->json(['mensaje' => $camposFexavaAvaluo['ERRORES']], 500);
+                
+            }
+
             //print_r($res); exit();
             //$contents = $this->descomprimirCualquierFormato($file);        
             //$xml = new \SimpleXMLElement($contents);
@@ -1038,7 +1035,13 @@ class BandejaEntradaController extends Controller
         $fechaAvaluo = $camposFexavaAvaluo['FECHAAVALUO'];
         if(trim($arrCaracteristicasUrbanas['ClaseGeneralDeInmueblesDeLaZona']) != ''){
             $codClase = $arrCaracteristicasUrbanas['ClaseGeneralDeInmueblesDeLaZona'];
-            $idClaseEjercicio = $this->modelDatosExtrasAvaluo->SolicitarObtenerIdClasesByCodeAndAno(darFormatoFechaXML($fechaAvaluo), $codClase); //No se si el query sea el correcto ya que obtiene por fecha pero no hay fecha en la tabla
+            if(esFechaValida($fechaAvaluo) == true){
+                $idClaseEjercicio = $this->modelDatosExtrasAvaluo->SolicitarObtenerIdClasesByCodeAndAno(darFormatoFechaXML($fechaAvaluo), $codClase); //No se si el query sea el correcto ya que obtiene por fecha pero no hay fecha en la tabla
+            }else{
+                $idClaseEjercicio = 0;
+            }
+
+            
             $camposFexavaAvaluo['CUCODCLASESCONSTRUCCION'] = $idClaseEjercicio;
         }
 
@@ -1221,8 +1224,8 @@ class BandejaEntradaController extends Controller
             
         if(count($errores) > 0){
             //return array('ERROR' => $errores);
-            $camposFexavaAvaluo['ERRORES'][] = $errores;
-        }                       
+            $camposFexavaAvaluo['ERRORES'][] = $errores;            
+        }    print_r($camposFexavaAvaluo); exit();                   
         $infoXmlCallesTransversalesLimitrofesYOrientacion = $infoXmlTerreno->xpath($elementoPrincipal.'//Terreno[@id="d"]//CallesTransversalesLimitrofesYOrientacion[@id="d.1"]');        
         $query = (String)($infoXmlCallesTransversalesLimitrofesYOrientacion[0]);
 
