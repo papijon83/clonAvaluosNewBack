@@ -550,7 +550,7 @@ class BandejaEntradaController extends Controller
     }
     
     function esValidoEsquema($contents){
-        
+        $arrContenoidoXML = explode("\r\n",$contents); //print_r($arrContenoidoXML); exit();
         $this->doc = new \DOMDocument('1.0', 'utf-8');
         libxml_use_internal_errors(true);       
         
@@ -566,8 +566,9 @@ class BandejaEntradaController extends Controller
             //Recupera un array de errores
             $this->errors = libxml_get_errors(); //print_r(convierte_a_arreglo($this->errors)); exit();
             $relacionErrores = array();
-            foreach(convierte_a_arreglo($this->errors) as $elementoError){                
-                $relacionErrores[] = "Line ".$elementoError['line']." ".$elementoError['message'];                
+            foreach(convierte_a_arreglo($this->errors) as $elementoError){
+                $arrRenglonXML = explode("'",$arrContenoidoXML[$elementoError['line'] - 1]);                
+                $relacionErrores[] = $arrRenglonXML[1]." - Line ".$elementoError['line']." ".$elementoError['message'];                
             }
             return $relacionErrores;        
         }
@@ -592,7 +593,7 @@ class BandejaEntradaController extends Controller
             if (!$authToken) {
                 return response()->json(['mensaje' => 'Sin acceso a la aplicación'], 403);
             } 
-            /*$resToken = Crypt::decrypt($authToken);
+            $resToken = Crypt::decrypt($authToken);
             
             $idPersona = empty($resToken['id_anterior']) ? $resToken['id_usuario']: $resToken['id_anterior']; //$idPersona = 264;
 
@@ -601,7 +602,7 @@ class BandejaEntradaController extends Controller
             $contents = fread($myfile, filesize($file));    
             fclose($myfile);
 
-            $resValidaEsquema = $this->esValidoEsquema($contents);*/ var_dump($resValidaEsquema); exit();
+            $resValidaEsquema = $this->esValidoEsquema($contents); //var_dump($resValidaEsquema); exit();
             if(is_array($resValidaEsquema)){ 
                 $camposFexavaAvaluo = array();
                 $camposFexavaAvaluo['ERRORES'] = $resValidaEsquema;
