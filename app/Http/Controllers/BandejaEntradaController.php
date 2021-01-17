@@ -550,6 +550,7 @@ class BandejaEntradaController extends Controller
     }
     
     function esValidoEsquema($contents){
+        $relacionErrores = array();
         $arrContenoidoXML = explode("\r\n",$contents); //print_r($arrContenoidoXML); exit();
         $this->doc = new \DOMDocument('1.0', 'utf-8');
         libxml_use_internal_errors(true);       
@@ -558,14 +559,13 @@ class BandejaEntradaController extends Controller
         $xsd = 'EsquemaAvaluoFinal.xsd';
         
         if (!file_exists($xsd)) {
-            echo "Archivo <b>$xsd</b> no existe.";
+            //$relacionErrores[] = "Archivo <b>$xsd</b> no existe.";
             return false;
         }
         $this->doc->loadXML($contents, LIBXML_NOBLANKS);
         if (!$this->doc->schemaValidate($xsd)) {
             //Recupera un array de errores
-            $this->errors = libxml_get_errors(); //print_r(convierte_a_arreglo($this->errors)); exit();
-            $relacionErrores = array();
+            $this->errors = libxml_get_errors(); //print_r(convierte_a_arreglo($this->errors)); exit();            
             foreach(convierte_a_arreglo($this->errors) as $elementoError){
                 $arrRenglonXML = explode("'",$arrContenoidoXML[$elementoError['line'] - 1]);                
                 $relacionErrores[] = $arrRenglonXML[1]." - Line ".$elementoError['line']." ".$elementoError['message'];                
@@ -600,16 +600,20 @@ class BandejaEntradaController extends Controller
             $file = $request->file('files');
             $myfile = fopen($file, "r");
             $contents = fread($myfile, filesize($file));    
-            fclose($myfile);
+            fclose($myfile);    
 
-            $resValidaEsquema = $this->esValidoEsquema($contents); //var_dump($resValidaEsquema); exit();
-            if(is_array($resValidaEsquema)){ 
+            if($this->validarTamanioFichero(filesize($file)) == FALSE){
+                $camposFexavaAvaluo['ERRORES'][] = array('El tamaño del fichero es muy grande.');    
+            }
+
+            $resValidaEsquema = $this->esValidoEsquema($contents);
+            if(is_array($resValidaEsquema)){ //Log::info($this->esValidoEsquema($contents));
                 $camposFexavaAvaluo = array();
-                $camposFexavaAvaluo['ERRORES'] = $resValidaEsquema;
+                $camposFexavaAvaluo['ERRORES'][] = $resValidaEsquema;
                 return response()->json(['mensaje' => $camposFexavaAvaluo['ERRORES']], 500);
                 
             }
-
+           
             //print_r($res); exit();
             //$contents = $this->descomprimirCualquierFormato($file);        
             //$xml = new \SimpleXMLElement($contents);
@@ -625,17 +629,7 @@ class BandejaEntradaController extends Controller
                 $esComercial = false;
                 $tipoTramite = 2;
                 $elementoPrincipal = '//Catastral';            
-            }
-
-            //$datah14 = $xml->xpath($elementoPrincipal.'//EnfoqueDeMercado[@id="h"]//Terrenos[@id="h.1"]//ValorUnitarioDeTierraAplicableAlAvaluo[@id="h.1.4"]'); $arrh14 = array_map("convierte_a_arreglo",$datah14); print_r($arrh14); exit();    
-            /*$datao1 = $xml->xpath($elementoPrincipal.'//ConclusionDelAvaluo[@id="o"]//ValorComercialDelInmueble[@id="o.1"]'); $arro1 = array_map("convierte_a_arreglo",$datao1); print_r($arro1); exit();
-            $datap = $xml->xpath($elementoPrincipal.'//ValorReferido[@id="p"]'); $arrp = array_map("convierte_a_arreglo",$datap); print_r($arrp); exit();
-            $datak = $xml->xpath($elementoPrincipal.'//EnfoqueDeIngresos[@id="k"]'); $arrk = array_map("convierte_a_arreglo",$datak); print_r($arrk); exit();
-            $datai = $xml->xpath($elementoPrincipal.'//EnfoqueDeCostos[@id="i"]'); $arrdi = array_map("convierte_a_arreglo",$datai); print_r($arrdi); exit();
-            $datad13 = $xml->xpath($elementoPrincipal.'//Terreno[@id="d"]//ValorTotalDelTerrenoProporcional[@id="d.13"]'); 
-        $datae2 = $xml->xpath($elementoPrincipal.'//DescripcionDelInmueble[@id="e"]//TiposDeConstruccion[@id="e.2"]'); $arrde2 = array_map("convierte_a_arreglo",$datae2); print_r($arrde2); exit();
-        $dataf12 = $xml->xpath($elementoPrincipal.'//ElementosDeLaConstruccion[@id="f"]//ImporteTotalInstalacionesAccesoriosComplementariasPrivativas[@id="f.12"]');
-        $dataf14 = $xml->xpath($elementoPrincipal.'//ElementosDeLaConstruccion[@id="f"]//ImporteIndivisoInstalacionesEspecialesObrasComplementariasYElementosAccesoriosComunes[@id="f.14"]'); */
+            }            
 
             $elementoFecha = $xml->xpath($elementoPrincipal.'//Identificacion//FechaAvaluo[@id="a.2"]');
             $fechaAvaluo = $elementoFecha[0];
@@ -648,75 +642,81 @@ class BandejaEntradaController extends Controller
             $camposFexavaAvaluo['FECHA_PRESENTACION'] = $fecha_presentacion;
             $camposFexavaAvaluo['CODTIPOTRAMITE'] = $tipoTramite;            
             $infoXmlIdentificacion = $xml->xpath($elementoPrincipal.'//Identificacion[@id="a"]');
-            $mensajes = array();
+            $mensajes = array();            
 
-            if($this->validarTamanioFichero(filesize($file)) == FALSE){
-                $camposFexavaAvaluo['ERRORES'][] = array('El tamaño del fichero es muy grande.');    
-            }
-
-            $camposFexavaAvaluo = $this->guardarAvaluoIdentificacion($infoXmlIdentificacion, $camposFexavaAvaluo, $idPersona,$elementoPrincipal);
-            
-            /* if(isset($camposFexavaAvaluo['ERROR'])){
-                return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
-            }  */                      
+            $camposFexavaAvaluo = $this->guardarAvaluoIdentificacion($infoXmlIdentificacion, $camposFexavaAvaluo, $idPersona,$elementoPrincipal);            
+                                
             $camposFexavaAvaluo['FEXAVA_DATOSPERSONAS'] = array();
-            $camposFexavaAvaluo = $this->guardarAvaluoAntecedentes($xml, $camposFexavaAvaluo,$elementoPrincipal);
-            /*if(isset($camposFexavaAvaluo['ERROR'])){
-                return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
-            }*/
-            //$camposFexavaAvaluo['CaracteristicasUrbanas'] = array();
+            $camposFexavaAvaluo = $this->guardarAvaluoAntecedentes($xml, $camposFexavaAvaluo,$elementoPrincipal); 
+            
             $camposFexavaAvaluo = $this->guardarAvaluoCaracteristicasUrbanas($xml, $camposFexavaAvaluo,$elementoPrincipal);
-            /*if(isset($camposFexavaAvaluo['ERROR'])){
-                return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
-            }*/
+                       
             $camposFexavaAvaluo['IDAVALUO'] = 0;
             $camposFexavaAvaluo = $this->guardarAvaluoTerreno($xml, $camposFexavaAvaluo,$elementoPrincipal);
-            /*if(isset($camposFexavaAvaluo['ERROR'])){
-                return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
-            }*/     
+               
             $camposFexavaAvaluo = $this->guardarAvaluoDescripcionImueble($xml, $camposFexavaAvaluo,$elementoPrincipal);
-            /* if(isset($camposFexavaAvaluo['ERROR'])){
-                return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
-            } */
-            $camposFexavaAvaluo = $this->guardarAvaluoElementosConstruccion($xml, $camposFexavaAvaluo,$elementoPrincipal);
-            /* if(isset($camposFexavaAvaluo['ERROR'])){
-                return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
-            } */
-            $camposFexavaAvaluo = $this->guardarAvaluoEnfoqueMercado($xml, $camposFexavaAvaluo,$elementoPrincipal);
-            /* if(isset($camposFexavaAvaluo['ERROR'])){
-                return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
-            }*/ //echo "LA INFO "; print_r($camposFexavaAvaluo); exit();
-            $camposFexavaAvaluo = $this->guardarAvaluoEnfoqueCostosComercial($xml, $camposFexavaAvaluo,$elementoPrincipal);
-            /* if(isset($camposFexavaAvaluo['ERROR'])){
-                return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
-            } */
-            $camposFexavaAvaluo = $this->guardarAvaluoEnfoqueCostosCatastral($xml, $camposFexavaAvaluo,$elementoPrincipal);
-            /* if(isset($camposFexavaAvaluo['ERROR'])){
-                return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
-            }*/
-            /*$infoEnfoqueDeIngresos = $xml->xpath($elementoPrincipal.'//EnfoqueDeIngresos[@id="k"]');
-            if(isset($infoEnfoqueDeIngresos)){*/
-                $camposFexavaAvaluo = $this->guardarAvaluoEnfoqueIngresos($xml, $camposFexavaAvaluo,$elementoPrincipal);
-            //}            
-            /* if(isset($camposFexavaAvaluo['ERROR'])){
-                return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
-            }*/
-            $camposFexavaAvaluo = $this->guardarAvaluoResumenConclusionAvaluo($xml, $camposFexavaAvaluo,$elementoPrincipal);
-            /* if(isset($camposFexavaAvaluo['ERROR'])){
-                return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
-            }*/
-            $camposFexavaAvaluo = $this->guardarAvaluoValorReferido($xml, $camposFexavaAvaluo,$elementoPrincipal);
-            /* if(isset($camposFexavaAvaluo['ERROR'])){
-                return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
-            }*/ //print_r($camposFexavaAvaluo); exit();
-           $camposFexavaAvaluo = $this->guardarAvaluoAnexoFotografico($xml, $camposFexavaAvaluo,$elementoPrincipal);
-            /* if(isset($camposFexavaAvaluo['ERROR'])){
-                return response()->json(['mensaje' => $camposFexavaAvaluo['ERROR'][0]], 500);
-            }*/
-            //echo "LA INFO "; print_r($camposFexavaAvaluo); exit(); 
             
-            if(count($camposFexavaAvaluo['ERRORES']) > 0){
-                return response()->json(['mensaje' => $camposFexavaAvaluo['ERRORES']], 500);
+            $camposFexavaAvaluo = $this->guardarAvaluoElementosConstruccion($xml, $camposFexavaAvaluo,$elementoPrincipal);
+           
+            $camposFexavaAvaluo = $this->guardarAvaluoEnfoqueMercado($xml, $camposFexavaAvaluo,$elementoPrincipal);
+            
+            $camposFexavaAvaluo = $this->guardarAvaluoEnfoqueCostosComercial($xml, $camposFexavaAvaluo,$elementoPrincipal);
+            
+            $camposFexavaAvaluo = $this->guardarAvaluoEnfoqueCostosCatastral($xml, $camposFexavaAvaluo,$elementoPrincipal);
+            
+            $camposFexavaAvaluo = $this->guardarAvaluoEnfoqueIngresos($xml, $camposFexavaAvaluo,$elementoPrincipal);
+            
+            $camposFexavaAvaluo = $this->guardarAvaluoResumenConclusionAvaluo($xml, $camposFexavaAvaluo,$elementoPrincipal);
+           
+            $camposFexavaAvaluo = $this->guardarAvaluoValorReferido($xml, $camposFexavaAvaluo,$elementoPrincipal);
+            
+           //$camposFexavaAvaluo = $this->guardarAvaluoAnexoFotografico($xml, $camposFexavaAvaluo,$elementoPrincipal);
+                       
+            if(count($camposFexavaAvaluo['ERRORES']) > 0){ 
+                foreach($camposFexavaAvaluo['ERRORES'] as $idElementoError => $elementoError){
+                    if(is_array($elementoError)){
+                        if(count($elementoError) == 0){
+                            unset($camposFexavaAvaluo['ERRORES'][$idElementoError]);
+                        }else{
+                            $control = 0;
+                            foreach($elementoError as $idSubElementoError => $subElementoError){
+                                if(is_array($subElementoError)){
+                                    if(count($subElementoError) == 0){
+                                        unset($camposFexavaAvaluo['ERRORES'][$idElementoError][$idSubElementoError]);
+                                    }else{
+                                        if(trim($camposFexavaAvaluo['ERRORES'][$idElementoError][$idSubElementoError]) == ''){
+                                            unset($camposFexavaAvaluo['ERRORES'][$idElementoError][$idSubElementoError]);
+                                        }else{
+                                            $control = $control + 1;
+                                        }
+                                    }
+                                    
+                                }else{
+                                    if(trim($subElementoError) == ''){
+                                        unset($camposFexavaAvaluo['ERRORES'][$idElementoError][$idSubElementoError]);
+                                    }else{
+                                        $control = $control + 1;
+                                    }
+                                }
+                            }
+                            if($control == 0){
+                                unset($camposFexavaAvaluo['ERRORES'][$idElementoError]);
+                            }
+                            
+                        }
+                    }else{
+                        if(trim($elementoError) == ''){
+                            unset($camposFexavaAvaluo['ERRORES'][$idElementoError]);
+                        }
+                    }
+                    
+                    $arrn = array();
+                    foreach($camposFexavaAvaluo['ERRORES'] as $elementoError){
+                        $arrn[] = $elementoError;
+                    }
+                }
+                Log::info($arrn);
+                return response()->json(['mensaje' => $arrn], 500);
             }
 
             $resInsert = $this->modelGuardaenBD->insertAvaluo($camposFexavaAvaluo);
@@ -1226,7 +1226,7 @@ class BandejaEntradaController extends Controller
         if(count($errores) > 0){
             //return array('ERROR' => $errores);
             $camposFexavaAvaluo['ERRORES'][] = $errores;            
-        }    print_r($camposFexavaAvaluo); exit();                   
+        }
         $infoXmlCallesTransversalesLimitrofesYOrientacion = $infoXmlTerreno->xpath($elementoPrincipal.'//Terreno[@id="d"]//CallesTransversalesLimitrofesYOrientacion[@id="d.1"]');        
         $query = (String)($infoXmlCallesTransversalesLimitrofesYOrientacion[0]);
 
