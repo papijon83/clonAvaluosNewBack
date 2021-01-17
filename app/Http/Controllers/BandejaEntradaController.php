@@ -670,7 +670,7 @@ class BandejaEntradaController extends Controller
            
             $camposFexavaAvaluo = $this->guardarAvaluoValorReferido($xml, $camposFexavaAvaluo,$elementoPrincipal);
             
-           //$camposFexavaAvaluo = $this->guardarAvaluoAnexoFotografico($xml, $camposFexavaAvaluo,$elementoPrincipal);
+            $camposFexavaAvaluo = $this->guardarAvaluoAnexoFotografico($xml, $camposFexavaAvaluo,$elementoPrincipal);
                        
             if(count($camposFexavaAvaluo['ERRORES']) > 0){ 
                 foreach($camposFexavaAvaluo['ERRORES'] as $idElementoError => $elementoError){
