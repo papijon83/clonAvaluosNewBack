@@ -383,6 +383,10 @@ class BandejaEntradaController extends Controller
             oci_fetch_all($cursor, $avaluos, 0, -1, OCI_FETCHSTATEMENT_BY_ROW + OCI_ASSOC);
             oci_free_cursor($cursor); //Log::info($avaluos);
 
+            $offset = ($page * $page_size) - $page_size;
+            $data = array_slice($avaluos, $offset, $page_size, true);
+            $avaluos = new \Illuminate\Pagination\LengthAwarePaginator($data, count($data), $page_size, $page);
+
             if (count($avaluos) > 0) {
                 return response()->json($avaluos, 200);
             } else {
