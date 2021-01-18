@@ -94,7 +94,7 @@ class BandejaEntradaController extends Controller
                 $year = Carbon::today()->subYear();
                 $table->where('FEXAVA_AVALUO.fecha_presentacion','>=',$year->format('Y-m-d'));
                 // 6 es el estatus enviado notario
-                $table->where('FEXAVA_AVALUO.codestadoavaluo',6);
+                $table->where('FEXAVA_AVALUO.codestadoavaluo',array(6,1));
             }
             if ($vigencia == 2) {
                 $year = Carbon::today()->subYear();
@@ -235,10 +235,25 @@ class BandejaEntradaController extends Controller
                     $table->orWhere('FEXAVA_AVALUO.fecha_presentacion','>',$year->format('Y-m-d'));
                     $table->where('FEXAVA_AVALUO.fecha_presentacion','<=',$ff->format('Y-m-d'));
                     $table->where('FEXAVA_AVALUO.codestadoavaluo',2);
-                }else{
+                }else{                                      
                     $table->where('FEXAVA_AVALUO.fecha_presentacion','<',$year->format('Y-m-d'));
+                    if($ctaCatastral){
+                        $cta = explode('-', $ctaCatastral);
+                        if (count($cta) === 4) {
+                            $table->where(DB::raw('TRIM(FEXAVA_AVALUO.region)'), $cta[0]);
+                            $table->where(DB::raw('TRIM(FEXAVA_AVALUO.manzana)'), $cta[1]);
+                            $table->where(DB::raw('TRIM(FEXAVA_AVALUO.lote)'), $cta[2]);
+                            $table->where(DB::raw('TRIM(FEXAVA_AVALUO.unidadprivativa)'), $cta[3]);
+                        } else {
+                            return response()->json(['mensaje' => 'Formato de cuenta predial incorrecta'], 400);
+                        }
+                        $idPerito = empty($resToken['id_anterior']) ? $resToken['id_usuario']: $resToken['id_anterior'];
+                        if ($idPerito) {
+                            $table->where('FEXAVA_AVALUO.idpersonaperito', $idPerito);
+                        }
+                    }
                     // 2 es el estatus cancelado
-                    $table->orWhere('FEXAVA_AVALUO.codestadoavaluo',2);    
+                    $table->orWhere('FEXAVA_AVALUO.codestadoavaluo',2);        
                 }
                 
             }
@@ -565,7 +580,7 @@ class BandejaEntradaController extends Controller
         $this->doc->loadXML($contents, LIBXML_NOBLANKS);
         if (!$this->doc->schemaValidate($xsd)) {
             //Recupera un array de errores
-            $this->errors = libxml_get_errors(); //print_r(convierte_a_arreglo($this->errors)); exit();            
+            $this->errors = libxml_get_errors();
             foreach(convierte_a_arreglo($this->errors) as $elementoError){
                 $arrRenglonXML = explode("'",$arrContenoidoXML[$elementoError['line'] - 1]);                
                 $relacionErrores[] = $arrRenglonXML[1]." - Line ".$elementoError['line']." ".$elementoError['message'];                
@@ -576,10 +591,7 @@ class BandejaEntradaController extends Controller
     }
 
     function guardarAvaluo(Request $request){
-        try{    
-            //$token = Crypt::decrypt($request->header('Authorization'));
-            //Log::info($token['id_usuario']); exit();
-            //$idPersona = $token['id_usuario'];
+        try{       
             
             $this->modelPeritoSociedad = new PeritoSociedad();
             $this->modelDatosExtrasAvaluo = new DatosExtrasAvaluo();
@@ -612,14 +624,11 @@ class BandejaEntradaController extends Controller
                 $camposFexavaAvaluo['ERRORES'][] = $resValidaEsquema;
                 return response()->json(['mensaje' => $camposFexavaAvaluo['ERRORES']], 500);
                 
-            }
-           
-            //print_r($res); exit();
-            //$contents = $this->descomprimirCualquierFormato($file);        
+            }           
+                    
             //$xml = new \SimpleXMLElement($contents);
             $xml = simplexml_load_string($contents,'SimpleXMLElement', LIBXML_NOCDATA);
-            //print_r($xml);    exit(); 
-              
+                          
             $esComercial = $xml->xpath('//Comercial');
             if(count($esComercial) > 0){
                 $esComercial = true;
