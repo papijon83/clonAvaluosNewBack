@@ -2,6 +2,7 @@
 <!--Created with Liquid XML Studio 6.1.17.0 - FREE Community Edition (http://www.liquid-technologies.com)-->
 <xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xml:lang="es" >
 
+
   <!-- ESQUEMA QUE DEFINE LA ESTRUCTURA  QUE DEBE CUMPLIR EL XML (AvalÃºo)Y QUE DEFINDE LOS TIPOS DE DATOS DE CADA CAMPO-->
 
   <!-- ********************************************** TIPOS DE DATOS *************************************************-->

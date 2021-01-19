@@ -573,7 +573,8 @@ class BandejaEntradaController extends Controller
     }
     
     function esValidoEsquema($contents){
-        $relacionErrores = array();
+        $relacionErrores = '';
+        //$arrRelacionErrores = array();
         $arrContenoidoXML = explode("\r\n",$contents); //print_r($arrContenoidoXML); exit();
         $this->doc = new \DOMDocument('1.0', 'utf-8');
         libxml_use_internal_errors(true);       
@@ -590,12 +591,34 @@ class BandejaEntradaController extends Controller
             //Recupera un array de errores
             $this->errors = libxml_get_errors();
             foreach(convierte_a_arreglo($this->errors) as $elementoError){
-                $arrRenglonXML = explode("'",$arrContenoidoXML[$elementoError['line'] - 1]);                
-                $relacionErrores[] = $arrRenglonXML[1]." - Line ".$elementoError['line']." ".$elementoError['message'];                
+                $arrRenglonXML = explode("'",$arrContenoidoXML[$elementoError['line'] - 1]);
+                $relacionErrores = $relacionErrores.$arrRenglonXML[1]." - Linea ".$elementoError['line']." ".$elementoError['message']."<<>>";
+                                                              
             }
-            return $relacionErrores;        
+            //$arrRelacionErrores[] = $arrRenglonXML[1]." - Linea ".$elementoError['line']." ".$elementoError['message'];
+            $arrRelacionErrores = $this->traduce($relacionErrores);
+            return $arrRelacionErrores;        
         }
        return true;
+    }
+
+    function traduce($relacionErrores){
+        $cadenas = array("Element"=>"Elemento",
+        "is not a valid value of the atomic type" => "no es un valor válido de tipo atómico", 
+        "[facet 'minLength'] The value has a length of" => "[faceta 'minLength'] El valor tiene una longitud de",
+        "this underruns the allowed minimum length of" => "esto no alcanza la longitud mínima permitida de",
+        "[facet 'enumeration'] The value" => "[faceta 'enumeración'] El valor",
+        "is not an element of the set" => "no es un elemento del conjunto", 
+        "[facet 'pattern'] The value" => "[faceta 'patrón'] El valor",
+        "is not accepted by the pattern" => "no es aceptado por el patrón",
+        "is not a valid value of the union type" => "no es un valor válido del tipo de unión");
+
+        foreach($cadenas as $en => $es){
+            $relacionErrores = str_replace($en,$es,$relacionErrores);
+        }
+
+        $arrRelacionErrores = explode("<<>>",$relacionErrores);
+        return $arrRelacionErrores;
     }
 
     function guardarAvaluo(Request $request){
@@ -609,13 +632,13 @@ class BandejaEntradaController extends Controller
             $this->modelAva = new Ava();
             $this->modelFis = new Fis();
             //Id Persona de usuarios migrados es el id anterior
-            $authToken = $request->header('Authorization');
+            /*$authToken = $request->header('Authorization');
             if (!$authToken) {
                 return response()->json(['mensaje' => 'Sin acceso a la aplicación'], 403);
             } 
             $resToken = Crypt::decrypt($authToken);
             
-            $idPersona = empty($resToken['id_anterior']) ? $resToken['id_usuario']: $resToken['id_anterior']; //$idPersona = 264;
+            $idPersona = empty($resToken['id_anterior']) ? $resToken['id_usuario']: $resToken['id_anterior'];*/ $idPersona = 264;
 
             $file = $request->file('files');
             $myfile = fopen($file, "r");
