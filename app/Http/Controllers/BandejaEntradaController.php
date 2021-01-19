@@ -410,7 +410,7 @@ class BandejaEntradaController extends Controller
         $rfc = $request->query('rfc') == '' ? null : $request->query('rfc');
         $curp = $request->query('curp') == '' ? null : $request->query('curp');
         $claveife = $request->query('claveife') == '' ? null : $request->query('claveife');
-        $page_size = $request->query('page_size ') == '' ? 1 : $request->query('page_size ');
+        $page_size = $request->query('page_size') == '' ? 1 : $request->query('page_size');
         $page = $request->query('page') == '' ? 1 : $request->query('page');
         $sortexpression = $request->query('sortexpression') == '' ? 'NUMERO' : $request->query('sortexpression');
 
@@ -448,6 +448,10 @@ class BandejaEntradaController extends Controller
         oci_close($conn);
         oci_fetch_all($cursor, $notarios, 0, -1, OCI_FETCHSTATEMENT_BY_ROW + OCI_ASSOC);
         oci_free_cursor($cursor);
+
+        $offset = ($page * $page_size) - $page_size;
+        $data = array_slice($notarios, $offset, $page_size, true);
+        $notarios = new \Illuminate\Pagination\LengthAwarePaginator($data, count($data), $page_size, $page);
 
         if (count($notarios) > 0) {
             return $notarios;
