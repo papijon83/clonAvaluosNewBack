@@ -465,7 +465,12 @@ class BandejaEntradaController extends Controller
         try {
             //print_r($request); exit();
             $id_persona_notario = $request->query('id_persona_notario');
-            $id_avaluo = $request->query('id_avaluo');
+
+            $numero_unico = $request->query('no_unico');
+            $this->modelDocumentos = new Documentos();
+                
+            $id_avaluo = $this->modelDocumentos->get_idavaluo_db($numero_unico);
+            //$id_avaluo = $request->query('id_avaluo');
 
             $procedure = 'BEGIN
             FEXAVA.FEXAVA_AVALUOS_PKG.fexava_update_ava_notarios_p(
