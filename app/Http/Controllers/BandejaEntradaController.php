@@ -581,6 +581,10 @@ class BandejaEntradaController extends Controller
         $relacionErrores = '';
         //$arrRelacionErrores = array();
         $arrContenoidoXML = explode("\r\n",$contents); //print_r($arrContenoidoXML); exit();
+        if(count($arrContenoidoXML) < 2){
+            $arrContenoidoXML = explode("\n",$contents);
+        }
+
         $this->doc = new \DOMDocument('1.0', 'utf-8');
         libxml_use_internal_errors(true);       
         
@@ -594,9 +598,15 @@ class BandejaEntradaController extends Controller
         $this->doc->loadXML($contents, LIBXML_NOBLANKS);
         if (!$this->doc->schemaValidate($xsd)) {
             //Recupera un array de errores
-            $this->errors = libxml_get_errors();
-            foreach(convierte_a_arreglo($this->errors) as $elementoError){
-                $arrRenglonXML = explode("'",$arrContenoidoXML[$elementoError['line'] - 1]);
+            $this->errors = libxml_get_errors();  //print_r($this->errors);
+            foreach(convierte_a_arreglo($this->errors) as $elementoError){ //print_r($elementoError); echo 'arrContenoidoXML ';  print_r($arrContenoidoXML[$elementoError['line'] - 1])." FIN \n"; exit();
+                $pos = strpos($arrContenoidoXML[$elementoError['line'] - 1], "'");
+                if($pos === false){
+                    $arrRenglonXML = explode('"',$arrContenoidoXML[$elementoError['line'] - 1]); //print_r($arrRenglonXML); exit();
+                }else{
+                    $arrRenglonXML = explode("'",$arrContenoidoXML[$elementoError['line'] - 1]); //print_r($arrRenglonXML); exit();
+                }
+                
                 $relacionErrores = $relacionErrores.$arrRenglonXML[1]." - Linea ".$elementoError['line']." ".$elementoError['message']."<<>>";
                                                               
             }
@@ -616,7 +626,10 @@ class BandejaEntradaController extends Controller
         "is not an element of the set" => "no es un elemento del conjunto", 
         "[facet 'pattern'] The value" => "[faceta 'patrón'] El valor",
         "is not accepted by the pattern" => "no es aceptado por el patrón",
-        "is not a valid value of the union type" => "no es un valor válido del tipo de unión");
+        "is not a valid value of the union type" => "no es un valor válido del tipo de unión",
+        "This element is not expected. Expected is" => "Este elemento no se espera. Se espera",
+        "The value" => "EL valor",
+        "is less than the minimum value allowed" => "es menor que el valor mínimo permitido");
 
         foreach($cadenas as $en => $es){
             $relacionErrores = str_replace($en,$es,$relacionErrores);
@@ -716,41 +729,45 @@ class BandejaEntradaController extends Controller
             $camposFexavaAvaluo = $this->guardarAvaluoValorReferido($xml, $camposFexavaAvaluo,$elementoPrincipal);
             
             $camposFexavaAvaluo = $this->guardarAvaluoAnexoFotografico($xml, $camposFexavaAvaluo,$elementoPrincipal);
-                       
-            if(count($camposFexavaAvaluo['ERRORES']) > 0){ 
+
+                                  
+            if(count($camposFexavaAvaluo['ERRORES']) > 0){  
                 foreach($camposFexavaAvaluo['ERRORES'] as $idElementoError => $elementoError){
-                    if(is_array($elementoError)){
-                        if(count($elementoError) == 0){
+                    if(is_array($elementoError) === true){
+                        if(count($elementoError) === 0){
                             unset($camposFexavaAvaluo['ERRORES'][$idElementoError]);
                         }else{
                             $control = 0;
                             foreach($elementoError as $idSubElementoError => $subElementoError){
-                                if(is_array($subElementoError)){
-                                    if(count($subElementoError) == 0){
+                                if(is_array($subElementoError) === true){ 
+                                    if(count($subElementoError) === 0){
                                         unset($camposFexavaAvaluo['ERRORES'][$idElementoError][$idSubElementoError]);
-                                    }else{
-                                        if(trim($camposFexavaAvaluo['ERRORES'][$idElementoError][$idSubElementoError]) == ''){
-                                            unset($camposFexavaAvaluo['ERRORES'][$idElementoError][$idSubElementoError]);
-                                        }else{
-                                            $control = $control + 1;
-                                        }
+                                    }else{ 
+                                        foreach($camposFexavaAvaluo['ERRORES'][$idElementoError][$idSubElementoError] as $idElementoFinal => $elementoFInal){
+                                            //echo trim($elementoFInal)."\n";
+                                            if(trim($elementoFInal) === ''){
+                                                unset($camposFexavaAvaluo['ERRORES'][$idElementoError][$idSubElementoError][$idElementoFinal]);
+                                            }else{
+                                                $control = $control + 1;
+                                            }
+                                        }                                        
                                     }
                                     
                                 }else{
-                                    if(trim($subElementoError) == ''){
+                                    if(trim($subElementoError) === ''){
                                         unset($camposFexavaAvaluo['ERRORES'][$idElementoError][$idSubElementoError]);
                                     }else{
                                         $control = $control + 1;
                                     }
                                 }
                             }
-                            if($control == 0){
+                            if($control === 0){
                                 unset($camposFexavaAvaluo['ERRORES'][$idElementoError]);
                             }
                             
                         }
                     }else{
-                        if(trim($elementoError) == ''){
+                        if(trim($elementoError) === ''){
                             unset($camposFexavaAvaluo['ERRORES'][$idElementoError]);
                         }
                     }
@@ -763,12 +780,11 @@ class BandejaEntradaController extends Controller
                 Log::info($arrn);
                 return response()->json(['mensaje' => $arrn], 500);
             }
-
+            
             $resInsert = $this->modelGuardaenBD->insertAvaluo($camposFexavaAvaluo);
         
             /*return $resInsert; 
-            exit();  */
-            
+            exit();  */            
             
             if($resInsert == TRUE){    
                 $numeroUnico = $this->modelDocumentos->get_numero_unico_db($camposFexavaAvaluo['IDAVALUO']);
