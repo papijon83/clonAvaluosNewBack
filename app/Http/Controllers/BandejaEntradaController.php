@@ -703,9 +703,9 @@ class BandejaEntradaController extends Controller
             if($this->validarTamanioFichero(filesize($file)) == FALSE){
                 $camposFexavaAvaluo['ERRORES'][] = array('El tamaño del fichero es muy grande.');    
             }
-
+            
             $resValidaEsquema = $this->esValidoEsquema($contents);
-            if(is_array($resValidaEsquema)){ //Log::info($this->esValidoEsquema($contents));
+            if(is_array($resValidaEsquema)){
                 $camposFexavaAvaluo = array();
                 $camposFexavaAvaluo['ERRORES'][] = $resValidaEsquema;
                 return response()->json(['mensaje' => $camposFexavaAvaluo['ERRORES']], 500);
@@ -738,14 +738,15 @@ class BandejaEntradaController extends Controller
             $camposFexavaAvaluo['CODTIPOTRAMITE'] = $tipoTramite;            
             $infoXmlIdentificacion = $xml->xpath($elementoPrincipal.'//Identificacion[@id="a"]');
             $mensajes = array();            
-
-            $camposFexavaAvaluo = $this->guardarAvaluoIdentificacion($infoXmlIdentificacion, $camposFexavaAvaluo, $idPersona,$elementoPrincipal);            
-                                
+            
+            $camposFexavaAvaluo = $this->guardarAvaluoIdentificacion($infoXmlIdentificacion, $camposFexavaAvaluo, $idPersona,$elementoPrincipal);
+                                            
             $camposFexavaAvaluo['FEXAVA_DATOSPERSONAS'] = array();
             $camposFexavaAvaluo = $this->guardarAvaluoAntecedentes($xml, $camposFexavaAvaluo,$elementoPrincipal); 
             
-            $camposFexavaAvaluo = $this->guardarAvaluoCaracteristicasUrbanas($xml, $camposFexavaAvaluo,$elementoPrincipal);
-                       
+            $camposFexavaAvaluo = $this->guardarAvaluoCaracteristicasUrbanas($xml, $camposFexavaAvaluo,$elementoPrincipal); 
+            
+            //Log::info($camposFexavaAvaluo); exit();                  
             $camposFexavaAvaluo['IDAVALUO'] = 0;    
             $cuentaCat = $camposFexavaAvaluo['REGION'].'-'.
                            $camposFexavaAvaluo['MANZANA'].'-'.
@@ -829,7 +830,7 @@ class BandejaEntradaController extends Controller
                         $arrn[] = $elementoError;
                     }
                 }
-                Log::info($arrn);
+                //Log::info($arrn);
                 return response()->json(['mensaje' => $arrn], 500);
             }
             
