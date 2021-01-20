@@ -8,6 +8,7 @@ use App\Models\ElementosConstruccion;
 use App\Models\GuardaenBD;
 use App\Models\Ava;
 use App\Models\Fis;
+use App\Models\Reimpresion;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -27,6 +28,7 @@ class BandejaEntradaController extends Controller
     protected $modelGuardaenBD;
     protected $modelAva;
     protected $modelFis;
+    protected $modelReimpresion;
     private $errors;
     private $doc;
 
@@ -3434,5 +3436,20 @@ class BandejaEntradaController extends Controller
                 return 'F';
                 break;
         }
+    }
+
+    public function acuseAvaluo(Request $request){
+        try{
+            $numero_unico = trim($request->query('no_unico'));
+            $this->modelDocumentos = new Documentos();    //echo $numero_unico; exit();         
+            $id_avaluo = $this->modelDocumentos->get_idavaluo_db($numero_unico);            
+            $this->modelReimpresion = new Reimpresion();
+            $infoAcuse = $this->modelReimpresion->infoAcuse($id_avaluo);    
+            return response()->json($infoAcuse, 200);
+        }catch (\Throwable $th) {
+            //Log::info($th);
+            error_log($th);
+            return response()->json(['mensaje' => 'Error en el servidor'], 500);
+        }    
     }
 }

@@ -29,6 +29,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
             $router->get('asignaNotarioAvaluo', 'BandejaEntradaController@asignaNotarioAvaluo');
             $router->post('esValidoAvaluo', 'BandejaEntradaController@esValidoAvaluo');
             $router->post('guardarAvaluo', 'BandejaEntradaController@guardarAvaluo');
+            $router->get('acuseAvaluo', 'BandejaEntradaController@acuseAvaluo');
 
             $router->post('pruebaDoc', 'PruebaDoc@pruebaGuardadoDB');
             $router->get('pruebaEjecuta', 'PruebaDoc@pruebaEjecutaProcedure');

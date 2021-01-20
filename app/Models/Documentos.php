@@ -131,7 +131,7 @@ class Documentos
         return trim($numeroUnicoAvaluo[0]['numerounico']);
     }
 
-    public function get_idavaluo_db($numeroUnico){         
+    public function get_idavaluo_db($numeroUnico){
         $numeroUnicoAvaluo = convierte_a_arreglo(DB::select("SELECT IDAVALUO FROM FEXAVA_AVALUO WHERE NUMEROUNICO = '$numeroUnico'"));
         return trim($numeroUnicoAvaluo[0]['idavaluo']);
     }

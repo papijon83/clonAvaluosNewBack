@@ -7,7 +7,9 @@ use Log;
 
 class Reimpresion
 {
+
     public function infoAcuse($idavaluo){
+        
         $arrInfoAcuse = array();
         $numeroUnico = DB::select("SELECT NUMEROUNICO FROM FEXAVA_AVALUO WHERE IDAVALUO = $idavaluo");
         $arrInfoAcuse['numeroUnico'] = $numeroUnico[0]->numerounico;
