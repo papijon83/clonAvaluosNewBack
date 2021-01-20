@@ -193,6 +193,13 @@
     </xs:restriction>
   </xs:simpleType>
 
+  <!--NonEmptyString70: Cadenas de texto con 70 carÃ¡cteres mÃ¡ximo(No acepta cadenas vacÃ­as) -->
+  <xs:simpleType name="NonEmptyString70">
+    <xs:restriction base="NonEmptyString">
+      <xs:maxLength value="70" />
+    </xs:restriction>
+  </xs:simpleType>
+
   <!--NonEmptyString100: Cadenas de texto con 100 carÃ¡cteres mÃ¡ximo(No acepta cadenas vacÃ­as) -->
   <xs:simpleType name="NonEmptyString100">
     <xs:restriction base="NonEmptyString">
@@ -2243,7 +2250,7 @@
       <xs:element name="PropositoDelAvaluo">
         <xs:complexType>
           <xs:simpleContent>
-            <xs:extension  base="NonEmptyString50">
+            <xs:extension  base="NonEmptyString70">
               <xs:attribute fixed="b.4" name="id" type="xs:string" use="required" />
             </xs:extension>
           </xs:simpleContent>
@@ -2252,7 +2259,7 @@
       <xs:element name="ObjetoDelAvaluo">
         <xs:complexType>
           <xs:simpleContent>
-            <xs:extension  base="NonEmptyString50">
+            <xs:extension  base="NonEmptyString70">
               <xs:attribute fixed="b.5" name="id" type="xs:string" use="required" />
             </xs:extension>
           </xs:simpleContent>
