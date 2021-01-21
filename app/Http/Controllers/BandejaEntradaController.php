@@ -403,63 +403,106 @@ class BandejaEntradaController extends Controller
 
     public function buscaNotario(Request $request)
     {
+        try{
+            /*echo "ENCODE ".mb_check_encoding($request->query('ape_paterno'),'UTF-8')." "; echo " ";
+            print_r($request->query('ape_paterno')); exit();*/              
+            $numero_notario = $request->query('numero_notario') == '' ? null : $request->query('numero_notario');
+            $nombre_notario = $request->query('nombre_notario') == '' ? null : mb_convert_encoding($request->query('nombre_notario'),'ISO-8859-1','UTF-8');
+            $ape_paterno = $request->query('ape_paterno') == '' ? null : mb_convert_encoding($request->query('ape_paterno'),'ISO-8859-1','UTF-8');
+            $ape_materno = $request->query('ape_materno') == '' ? null : mb_convert_encoding($request->query('ape_materno'),'ISO-8859-1','UTF-8');
+            $rfc = $request->query('rfc') == '' ? null : $request->query('rfc');
+            $curp = $request->query('curp') == '' ? null : $request->query('curp');
+            $claveife = $request->query('claveife') == '' ? null : $request->query('claveife');
+            $page_size = $request->query('page_size') == '' ? 1 : $request->query('page_size');
+            $page = $request->query('page') == '' ? 1 : $request->query('page');
+            $sortexpression = $request->query('sortexpression') == '' ? 'NUMERO' : $request->query('sortexpression');
+            
+            //$convertida = mb_convert_encoding($ape_paterno,'ISO-8859-1','UTF-8');
+            //echo $ape_paterno."\n"; exit();
+            //$ape_paterno = "NU".mb_convert_encoding('Ñ','Windows-1252','UTF-8')."EZ";
+            //echo $ape_paterno."\n"; exit();
+            
+            //echo "ENCODE ".mb_check_encoding($ape_paterno,'UTF-8')." "; echo "VALOR ";
+            //$ape_paterno = mb_convert_encoding($ape_paterno,'UTF-32','UTF-8');
+            //echo $ape_paterno; exit();
 
-        //print_r($request); exit();
-        $numero_notario = $request->query('numero_notario') == '' ? null : $request->query('numero_notario');
-        $nombre_notario = $request->query('nombre_notario') == '' ? null : $request->query('nombre_notario');
-        $ape_paterno = $request->query('ape_paterno') == '' ? null : $request->query('ape_paterno');
-        $ape_materno = $request->query('ape_materno') == '' ? null : $request->query('ape_materno');
-        $rfc = $request->query('rfc') == '' ? null : $request->query('rfc');
-        $curp = $request->query('curp') == '' ? null : $request->query('curp');
-        $claveife = $request->query('claveife') == '' ? null : $request->query('claveife');
-        $page_size = $request->query('page_size') == '' ? 1 : $request->query('page_size');
-        $page = $request->query('page') == '' ? 1 : $request->query('page');
-        $sortexpression = $request->query('sortexpression') == '' ? 'NUMERO' : $request->query('sortexpression');
+            $procedure = 'BEGIN
+            FEXAVA.FEXAVA_NOTARIOS_PKG.fexava_select_notariosbuscar_p(
+                :PAR_NUMERO,
+                :PAR_NOMBRE,
+                :PAR_APELLIDOPATERNO,
+                :PAR_APELLIDOMATERNO,
+                :PAR_RFC,
+                :PAR_CURP,
+                :PAR_CLAVEIFE,
+                :PAGE_SIZE,
+                :PAGE,
+                :SORTEXPRESSION,
+                :C_NOTARIOS
+            ); END;';
+            $conn = oci_connect(env("DB_USERNAME"), env("DB_PASSWORD"), env("DB_TNS"));
+            //oci_execute(oci_parse($conn,"ALTER SESSION SET NLS_LANG=SPANISH_SPAIN.WE8MSWIN1252"));
+            //oci_execute(oci_parse($conn,"ALTER SESSION SET NLS_LANGUAGE='SPANISH'"));
+            $stmt = oci_parse($conn, $procedure);
+            oci_bind_by_name($stmt, ':PAR_NUMERO', $numero_notario);
+            oci_bind_by_name($stmt, ':PAR_NOMBRE', $nombre_notario, 300);
+            oci_bind_by_name($stmt, ':PAR_APELLIDOPATERNO', $ape_paterno, 300);
+            oci_bind_by_name($stmt, ':PAR_APELLIDOMATERNO', $ape_materno, 300);
+            oci_bind_by_name($stmt, ':PAR_RFC', $rfc, 300);
+            oci_bind_by_name($stmt, ':PAR_CURP', $curp, 300);
+            oci_bind_by_name($stmt, ':PAR_CLAVEIFE', $claveife, 300);
+            oci_bind_by_name($stmt, ':PAGE_SIZE', $page_size, 300);
+            oci_bind_by_name($stmt, ':PAGE', $page, 300);
+            oci_bind_by_name($stmt, ':SORTEXPRESSION', $sortexpression);
+            $cursor = oci_new_cursor($conn);
+            oci_bind_by_name($stmt, ":C_NOTARIOS", $cursor, -1, OCI_B_CURSOR);
+            oci_execute($stmt, OCI_COMMIT_ON_SUCCESS);
+            oci_execute($cursor, OCI_COMMIT_ON_SUCCESS);
+            oci_free_statement($stmt);
+            oci_close($conn);
+            oci_fetch_all($cursor, $notarios, 0, -1, OCI_FETCHSTATEMENT_BY_ROW + OCI_ASSOC);
+            oci_free_cursor($cursor);
 
-        $procedure = 'BEGIN
-        FEXAVA.FEXAVA_NOTARIOS_PKG.fexava_select_notariosbuscar_p(
-            :PAR_NUMERO,
-            :PAR_NOMBRE,
-            :PAR_APELLIDOPATERNO,
-            :PAR_APELLIDOMATERNO,
-            :PAR_RFC,
-            :PAR_CURP,
-            :PAR_CLAVEIFE,
-            :PAGE_SIZE,
-            :PAGE,
-            :SORTEXPRESSION,
-            :C_NOTARIOS
-        ); END;';
-        $conn = oci_connect(env("DB_USERNAME"), env("DB_PASSWORD"), env("DB_TNS"));
-        $stmt = oci_parse($conn, $procedure);
-        oci_bind_by_name($stmt, ':PAR_NUMERO', $numero_notario);
-        oci_bind_by_name($stmt, ':PAR_NOMBRE', $nombre_notario, 300);
-        oci_bind_by_name($stmt, ':PAR_APELLIDOPATERNO', $ape_paterno, 300);
-        oci_bind_by_name($stmt, ':PAR_APELLIDOMATERNO', $ape_materno, 300);
-        oci_bind_by_name($stmt, ':PAR_RFC', $rfc, 300);
-        oci_bind_by_name($stmt, ':PAR_CURP', $curp, 300);
-        oci_bind_by_name($stmt, ':PAR_CLAVEIFE', $claveife, 300);
-        oci_bind_by_name($stmt, ':PAGE_SIZE', $page_size, 300);
-        oci_bind_by_name($stmt, ':PAGE', $page, 300);
-        oci_bind_by_name($stmt, ':SORTEXPRESSION', $sortexpression);
-        $cursor = oci_new_cursor($conn);
-        oci_bind_by_name($stmt, ":C_NOTARIOS", $cursor, -1, OCI_B_CURSOR);
-        oci_execute($stmt, OCI_COMMIT_ON_SUCCESS);
-        oci_execute($cursor, OCI_COMMIT_ON_SUCCESS);
-        oci_free_statement($stmt);
-        oci_close($conn);
-        oci_fetch_all($cursor, $notarios, 0, -1, OCI_FETCHSTATEMENT_BY_ROW + OCI_ASSOC);
-        oci_free_cursor($cursor);
+            $offset = ($page * $page_size) - $page_size;
+            $data = array_slice($notarios, $offset, $page_size, true);
+            
+            foreach($data as $idElemento => $elementoNotario){
+                if($elementoNotario['NUMERO'] < 1){
+                    unset($data[$idElemento]);
+                }else{
+                    foreach($elementoNotario as $id => $valor){
+                        if($id == 'NOMBRE' || $id == 'APELLIDOPATERNO' || $id == 'APELLIDOMATERNO' || $id == 'NOMBREAPELLIDOS'){
+                            //$valor = mb_convert_encoding($valor,'ISO-8859-1','UTF-8');                            
+                            $valor = str_replace('?','Ñ',$valor);
+                            //echo "ENCODE ".mb_check_encoding($valor,'UTF-8')." "; echo "VALOR " ";
+                            $data[$idElemento][$id] = $valor;
+                        
+                        }    
+                    }
+                }                 
+            }
 
-        $offset = ($page * $page_size) - $page_size;
-        $data = array_slice($notarios, $offset, $page_size, true);
-        $notarios = new \Illuminate\Pagination\LengthAwarePaginator($data, count($data), $page_size, $page);
+            $newData = array();
+            $control = 0;
+            foreach($data as $idElemento => $elementoNotario){
+                $newData[] = $elementoNotario;
+            }
+            $data = $newData;
+            //print_r($data); exit();
+            $notarios = new \Illuminate\Pagination\LengthAwarePaginator($data, count($data), $page_size, $page);
 
-        if (count($notarios) > 0) {
-            return $notarios;
-        } else {
-            return [];
-        }
+            if (count($notarios) > 0) {            
+                return $notarios;
+            } else {
+                return [];
+            }
+        } catch (\Throwable $th) {
+            //Log::info($th);
+            error_log($th);
+            return response()->json(['mensaje' => 'Error al obtener notario'], 500);
+        }    
+
+    
     }
 
     public function asignaNotarioAvaluo(Request $request)
@@ -573,6 +616,7 @@ class BandejaEntradaController extends Controller
         try{
             if ($archivo) {
                 $nombreArchivo = $archivo->getClientOriginalName(); // OK WORK!
+                $nombreArchivo = str_replace(' ','_',$nombreArchivo);
                 $rutaArchivos = getcwd();
             }
             
@@ -643,7 +687,7 @@ class BandejaEntradaController extends Controller
 
     function traduce($relacionErrores){
         $cadenas = array("Element"=>"Elemento",
-        "is not a valid value of the atomic type" => "no es un valor válido de tipo atómico", 
+        "is not a valid value of the atomic type" => "no es un valor válido de tipo",
         "[facet 'minLength'] The value has a length of" => "[faceta 'minLength'] El valor tiene una longitud de",
         "this underruns the allowed minimum length of" => "esto no alcanza la longitud mínima permitida de",
         "[facet 'enumeration'] The value" => "[faceta 'enumeración'] El valor",
@@ -652,6 +696,8 @@ class BandejaEntradaController extends Controller
         "is not accepted by the pattern" => "no es aceptado por el patrón",
         "is not a valid value of the union type" => "no es un valor válido del tipo de unión",
         "This element is not expected. Expected is" => "Este elemento no se espera. Se espera",
+        "[facet 'maxLength'] The value has a length of" => "[faceta 'maxLength'] EL valor tiene una longitud de",
+        "this exceeds the allowed maximum length of" => "esto excede la longitud máxima permitida de",
         "The value" => "EL valor",
         "is less than the minimum value allowed" => "es menor que el valor mínimo permitido");
 
@@ -744,9 +790,8 @@ class BandejaEntradaController extends Controller
             $camposFexavaAvaluo['FEXAVA_DATOSPERSONAS'] = array();
             $camposFexavaAvaluo = $this->guardarAvaluoAntecedentes($xml, $camposFexavaAvaluo,$elementoPrincipal); 
             
-            $camposFexavaAvaluo = $this->guardarAvaluoCaracteristicasUrbanas($xml, $camposFexavaAvaluo,$elementoPrincipal); 
+            $camposFexavaAvaluo = $this->guardarAvaluoCaracteristicasUrbanas($xml, $camposFexavaAvaluo,$elementoPrincipal);            
             
-            //Log::info($camposFexavaAvaluo); exit();                  
             $camposFexavaAvaluo['IDAVALUO'] = 0;    
             $cuentaCat = $camposFexavaAvaluo['REGION'].'-'.
                            $camposFexavaAvaluo['MANZANA'].'-'.
