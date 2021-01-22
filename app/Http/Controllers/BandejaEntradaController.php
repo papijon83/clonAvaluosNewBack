@@ -47,7 +47,7 @@ class BandejaEntradaController extends Controller
             $codEstado = $request->query('estado');
             $idPerito = $request->query('id_perito');
             $idSociedad = $request->query('id_sociedad');
-            $codEstado = $request->query('estado');
+            //$codEstado = $request->query('estado');
             $ctaCatastral = $request->query('cta_catastral');
             $vigencia = $request->query('vigencia');
             $table = DB::table('FEXAVA_AVALUO');
@@ -81,11 +81,21 @@ class BandejaEntradaController extends Controller
                         END as tipotramite"),
                 
             );
-
+            
             if ($fechaIni && $fechaFin) {
                 $fi = new Carbon($fechaIni);
                 $ff = new Carbon($fechaFin);
-                $table->whereBetween('FEXAVA_AVALUO.fecha_presentacion', [$fi->format('Y-m-d'), $ff->format('Y-m-d')]);
+                if(isset($vigencia) &&  $vigencia == 2){
+                    $year = Carbon::today()->subYear();
+                    if(isset($fi) && $year->lt($fi)){
+                        $table->whereBetween('FEXAVA_AVALUO.fecha_presentacion', [$fi->format('Y-m-d'), $ff->format('Y-m-d')]);
+                    }else{
+                        $table->whereBetween('FEXAVA_AVALUO.fecha_presentacion', [$fi->format('Y-m-d'), $year->format('Y-m-d')]);
+                    }
+                }else{
+                    $table->whereBetween('FEXAVA_AVALUO.fecha_presentacion', [$fi->format('Y-m-d'), $ff->format('Y-m-d')]);  
+                }                
+                
             }
 
             if ($noAvaluo) {
@@ -97,13 +107,60 @@ class BandejaEntradaController extends Controller
                 $table->where('FEXAVA_AVALUO.fecha_presentacion','>=',$year->format('Y-m-d'));
                 // 6 es el estatus enviado notario
                 $table->where('FEXAVA_AVALUO.codestadoavaluo',array(6,1));
-            }
+            }    
+
             if ($vigencia == 2) {
                 $year = Carbon::today()->subYear();
-                $table->where('FEXAVA_AVALUO.fecha_presentacion','<',$year->format('Y-m-d'));
-                // 2 es el estatus cancelado
-                $table->orWhere('FEXAVA_AVALUO.codestadoavaluo',2);
+                if(isset($fi) && $year->lt($fi)){
+                    $table->where('FEXAVA_AVALUO.codestadoavaluo',2);
+                }
+                elseif(isset($fi) && $year->gt($fi)){
 
+                    $idPerito = empty($resToken['id_anterior']) ? $resToken['id_usuario']: $resToken['id_anterior'];
+
+                    if ($idPerito) {
+                        $table->where('FEXAVA_AVALUO.idpersonaperito', $idPerito);
+                    }
+        
+                    if ($idSociedad) {
+                        $table->where('FEXAVA_AVALUO.idpersonasociedad', $idSociedad);
+                    }
+                    $table->orWhere('FEXAVA_AVALUO.fecha_presentacion','>',$year->format('Y-m-d'));
+                    $table->where('FEXAVA_AVALUO.fecha_presentacion','<=',$ff->format('Y-m-d'));
+                    $table->where('FEXAVA_AVALUO.codestadoavaluo',2);
+                }else{                                      
+                    $table->where('FEXAVA_AVALUO.fecha_presentacion','<',$year->format('Y-m-d'));
+                    if($ctaCatastral){
+                        $cta = explode('-', $ctaCatastral);
+                        if (count($cta) === 4) {
+                            if(trim($cta[0]) != ''){
+                                $table->where(DB::raw('TRIM(FEXAVA_AVALUO.region)'), $cta[0]);
+                            }
+                            if(trim($cta[1] != '')){
+                                $table->where(DB::raw('TRIM(FEXAVA_AVALUO.manzana)'), $cta[1]);
+                            }
+                            if(trim($cta[2]) != ''){
+                                $table->where(DB::raw('TRIM(FEXAVA_AVALUO.lote)'), $cta[2]);
+                            }
+                            if(trim($cta[3])){
+                                $table->where(DB::raw('TRIM(FEXAVA_AVALUO.unidadprivativa)'), $cta[3]);
+                            }
+                            /*$table->where(DB::raw('TRIM(FEXAVA_AVALUO.region)'), $cta[0]);
+                            $table->where(DB::raw('TRIM(FEXAVA_AVALUO.manzana)'), $cta[1]);
+                            $table->where(DB::raw('TRIM(FEXAVA_AVALUO.lote)'), $cta[2]);
+                            $table->where(DB::raw('TRIM(FEXAVA_AVALUO.unidadprivativa)'), $cta[3]);*/
+                        } else {
+                            return response()->json(['mensaje' => 'Formato de cuenta predial incorrecta'], 400);
+                        }
+                        $idPerito = empty($resToken['id_anterior']) ? $resToken['id_usuario']: $resToken['id_anterior'];
+                        if ($idPerito) {
+                            $table->where('FEXAVA_AVALUO.idpersonaperito', $idPerito);
+                        }
+                    }
+                    // 2 es el estatus cancelado
+                    $table->orWhere('FEXAVA_AVALUO.codestadoavaluo',2);        
+                }
+                
             }
 
             $idPerito = empty($resToken['id_anterior']) ? $resToken['id_usuario']: $resToken['id_anterior'];
@@ -125,13 +182,22 @@ class BandejaEntradaController extends Controller
                 $table->where('FEXAVA_AVALUO.codestadoavaluo', $codEstado);
             }
 
-            if ($ctaCatastral) {
+            if ($ctaCatastral) {                
                 $cta = explode('-', $ctaCatastral);
                 if (count($cta) === 4) {
-                    $table->where(DB::raw('TRIM(FEXAVA_AVALUO.region)'), $cta[0]);
-                    $table->where(DB::raw('TRIM(FEXAVA_AVALUO.manzana)'), $cta[1]);
-                    $table->where(DB::raw('TRIM(FEXAVA_AVALUO.lote)'), $cta[2]);
-                    $table->where(DB::raw('TRIM(FEXAVA_AVALUO.unidadprivativa)'), $cta[3]);
+                    if(trim($cta[0]) != ''){
+                        $table->where(DB::raw('TRIM(FEXAVA_AVALUO.region)'), $cta[0]);
+                    }
+                    if(trim($cta[1] != '')){
+                        $table->where(DB::raw('TRIM(FEXAVA_AVALUO.manzana)'), $cta[1]);
+                    }
+                    if(trim($cta[2]) != ''){
+                        $table->where(DB::raw('TRIM(FEXAVA_AVALUO.lote)'), $cta[2]);
+                    }
+                    if(trim($cta[3])){
+                        $table->where(DB::raw('TRIM(FEXAVA_AVALUO.unidadprivativa)'), $cta[3]);
+                    }
+                    
                 } else {
                     return response()->json(['mensaje' => 'Formato de cuenta predial incorrecta'], 400);
                 }
@@ -147,13 +213,14 @@ class BandejaEntradaController extends Controller
     }
 
     public function avaluosPerito(Request $request)
-    { //echo "<pre>"; print_r($request); exit();
+    { 
         try {
+            
             $fechaIni = $request->query('fecha_ini');
             $fechaFin = $request->query('fecha_fin');
             $noAvaluo = $request->query('no_avaluo');
             $noUnico = $request->query('no_unico');
-            $codEstado = $request->query('estado');
+            //$codEstado = $request->query('estado');
             $idPerito = $request->query('id_perito');
             $idSociedad = $request->query('id_sociedad');
             $codEstado = $request->query('estado');
@@ -166,8 +233,7 @@ class BandejaEntradaController extends Controller
             } 
             $resToken = Crypt::decrypt($authToken);
             $table->join('FEXAVA_CATESTADOSAVALUO', 'FEXAVA_AVALUO.codestadoavaluo', '=', 'FEXAVA_CATESTADOSAVALUO.codestadoavaluo');
-            $table->join('RCON.RCON_PERITO', 'FEXAVA_AVALUO.idpersonaperito', '=', 'RCON.RCON_PERITO.idpersona');
-            
+            $table->join('RCON.RCON_PERITO', 'FEXAVA_AVALUO.idpersonaperito', '=', 'RCON.RCON_PERITO.idpersona');    
             
             //$table->join('RCON.RCON_SOCIEDADVALUACION', 'FEXAVA_AVALUO.idpersonasociedad', '=', 'RCON.RCON_SOCIEDADVALUACION.idpersona');
             //$table->join('RCON.RCON_NOTARIO', 'FEXAVA_AVALUO.idpersonanotario', '=', 'RCON.RCON_NOTARIO.idpersona');
@@ -239,13 +305,26 @@ class BandejaEntradaController extends Controller
                     $table->where('FEXAVA_AVALUO.codestadoavaluo',2);
                 }else{                                      
                     $table->where('FEXAVA_AVALUO.fecha_presentacion','<',$year->format('Y-m-d'));
+                    
                     if($ctaCatastral){
                         $cta = explode('-', $ctaCatastral);
                         if (count($cta) === 4) {
-                            $table->where(DB::raw('TRIM(FEXAVA_AVALUO.region)'), $cta[0]);
+                            if(trim($cta[0]) != ''){
+                                $table->where(DB::raw('TRIM(FEXAVA_AVALUO.region)'), $cta[0]);
+                            }
+                            if(trim($cta[1] != '')){
+                                $table->where(DB::raw('TRIM(FEXAVA_AVALUO.manzana)'), $cta[1]);
+                            }
+                            if(trim($cta[2]) != ''){
+                                $table->where(DB::raw('TRIM(FEXAVA_AVALUO.lote)'), $cta[2]);
+                            }
+                            if(trim($cta[3])){
+                                $table->where(DB::raw('TRIM(FEXAVA_AVALUO.unidadprivativa)'), $cta[3]);
+                            }
+                            /*$table->where(DB::raw('TRIM(FEXAVA_AVALUO.region)'), $cta[0]);
                             $table->where(DB::raw('TRIM(FEXAVA_AVALUO.manzana)'), $cta[1]);
                             $table->where(DB::raw('TRIM(FEXAVA_AVALUO.lote)'), $cta[2]);
-                            $table->where(DB::raw('TRIM(FEXAVA_AVALUO.unidadprivativa)'), $cta[3]);
+                            $table->where(DB::raw('TRIM(FEXAVA_AVALUO.unidadprivativa)'), $cta[3]);*/
                         } else {
                             return response()->json(['mensaje' => 'Formato de cuenta predial incorrecta'], 400);
                         }
@@ -281,14 +360,24 @@ class BandejaEntradaController extends Controller
             if ($codEstado) {
                 $table->where('FEXAVA_AVALUO.codestadoavaluo', $codEstado);
             }
-
-            if ($ctaCatastral) {
+            
+            if ($ctaCatastral) {                
                 $cta = explode('-', $ctaCatastral);
+                
                 if (count($cta) === 4) {
-                    $table->where(DB::raw('TRIM(FEXAVA_AVALUO.region)'), $cta[0]);
-                    $table->where(DB::raw('TRIM(FEXAVA_AVALUO.manzana)'), $cta[1]);
-                    $table->where(DB::raw('TRIM(FEXAVA_AVALUO.lote)'), $cta[2]);
-                    $table->where(DB::raw('TRIM(FEXAVA_AVALUO.unidadprivativa)'), $cta[3]);
+                    if(trim($cta[0]) != ''){
+                        $table->where(DB::raw('TRIM(FEXAVA_AVALUO.region)'), $cta[0]);
+                    }
+                    if(trim($cta[1]) != ''){
+                        $table->where(DB::raw('TRIM(FEXAVA_AVALUO.manzana)'), $cta[1]);
+                    }
+                    if(trim($cta[2]) != ''){
+                        $table->where(DB::raw('TRIM(FEXAVA_AVALUO.lote)'), $cta[2]);
+                    }
+                    if(trim($cta[3])){
+                        $table->where(DB::raw('TRIM(FEXAVA_AVALUO.unidadprivativa)'), $cta[3]);
+                    }
+                    
                 } else {
                     return response()->json(['mensaje' => 'Formato de cuenta predial incorrecta'], 400);
                 }
@@ -507,9 +596,9 @@ class BandejaEntradaController extends Controller
 
     public function asignaNotarioAvaluo(Request $request)
     {
-        try {
+        try {            
             //print_r($request); exit();
-            $id_persona_notario = $request->query('id_persona_notario');
+            $id_persona_notario = $request->query('id_persona_notario');    
 
             $numero_unico = $request->query('no_unico');
             $this->modelDocumentos = new Documentos();
@@ -532,7 +621,9 @@ class BandejaEntradaController extends Controller
             $pdo->close();
             DB::commit();
             DB::reconnect();
-            return response()->json(['mensaje' => 'Notario Actualizado'], 200);
+
+            $infoNotario = convierte_a_arreglo(DB::select("SELECT * FROM FEXAVA_NOTARIOS_V WHERE IDPERSONA = $id_persona_notario")); //print_r($infoNotario);
+            return response()->json(['mensaje' => 'Notario Actualizado a N° '.$infoNotario[0]['numero'].' '.$infoNotario[0]['apellidopaterno'].' '.$infoNotario[0]['apellidomaterno'].' '.$infoNotario[0]['nombre']], 200);
         } catch (\Throwable $th) {
             //Log::info($th);
             error_log($th);
@@ -741,7 +832,7 @@ class BandejaEntradaController extends Controller
             
             $idPersona = empty($resToken['id_anterior']) ? $resToken['id_usuario']: $resToken['id_anterior']; //$idPersona = 264;
 
-            $file = $request->file('files');
+            $file = $request->file('files');    
             $myfile = fopen($file, "r");
             $contents = fread($myfile, filesize($file));    
             fclose($myfile);    
@@ -785,13 +876,16 @@ class BandejaEntradaController extends Controller
             $infoXmlIdentificacion = $xml->xpath($elementoPrincipal.'//Identificacion[@id="a"]');
             $mensajes = array();            
             
+            
+            $nombreArchivo = $file->getClientOriginalName();
+            $this->guardaAvance($nombreArchivo,0);
             $camposFexavaAvaluo = $this->guardarAvaluoIdentificacion($infoXmlIdentificacion, $camposFexavaAvaluo, $idPersona,$elementoPrincipal);
-                                            
+            $this->guardaAvance($nombreArchivo,5);                               
             $camposFexavaAvaluo['FEXAVA_DATOSPERSONAS'] = array();
             $camposFexavaAvaluo = $this->guardarAvaluoAntecedentes($xml, $camposFexavaAvaluo,$elementoPrincipal); 
             
             $camposFexavaAvaluo = $this->guardarAvaluoCaracteristicasUrbanas($xml, $camposFexavaAvaluo,$elementoPrincipal);            
-            
+            $this->guardaAvance($nombreArchivo,10);
             $camposFexavaAvaluo['IDAVALUO'] = 0;    
             $cuentaCat = $camposFexavaAvaluo['REGION'].'-'.
                            $camposFexavaAvaluo['MANZANA'].'-'.
@@ -811,23 +905,23 @@ class BandejaEntradaController extends Controller
             $camposFexavaAvaluo = $this->guardarAvaluoTerreno($xml, $camposFexavaAvaluo,$elementoPrincipal,$idDocumentoDigital);
                
             $camposFexavaAvaluo = $this->guardarAvaluoDescripcionImueble($xml, $camposFexavaAvaluo,$elementoPrincipal);
-            
+            $this->guardaAvance($nombreArchivo,15);
             $camposFexavaAvaluo = $this->guardarAvaluoElementosConstruccion($xml, $camposFexavaAvaluo,$elementoPrincipal);
            
             $camposFexavaAvaluo = $this->guardarAvaluoEnfoqueMercado($xml, $camposFexavaAvaluo,$elementoPrincipal);
-            
+            $this->guardaAvance($nombreArchivo,20);
             $camposFexavaAvaluo = $this->guardarAvaluoEnfoqueCostosComercial($xml, $camposFexavaAvaluo,$elementoPrincipal);
             
             $camposFexavaAvaluo = $this->guardarAvaluoEnfoqueCostosCatastral($xml, $camposFexavaAvaluo,$elementoPrincipal);
-            
+            $this->guardaAvance($nombreArchivo,25);
             $camposFexavaAvaluo = $this->guardarAvaluoEnfoqueIngresos($xml, $camposFexavaAvaluo,$elementoPrincipal);
             
             $camposFexavaAvaluo = $this->guardarAvaluoResumenConclusionAvaluo($xml, $camposFexavaAvaluo,$elementoPrincipal);
            
             $camposFexavaAvaluo = $this->guardarAvaluoValorReferido($xml, $camposFexavaAvaluo,$elementoPrincipal);
-            
+            $this->guardaAvance($nombreArchivo,30);
             $camposFexavaAvaluo = $this->guardarAvaluoAnexoFotografico($xml, $camposFexavaAvaluo,$elementoPrincipal);
-
+            $this->guardaAvance($nombreArchivo,50);
                                   
             if(count($camposFexavaAvaluo['ERRORES']) > 0){  
                 foreach($camposFexavaAvaluo['ERRORES'] as $idElementoError => $elementoError){
@@ -878,9 +972,9 @@ class BandejaEntradaController extends Controller
                 //Log::info($arrn);
                 return response()->json(['mensaje' => $arrn], 500);
             }
-            
+            $this->guardaAvance($nombreArchivo,55);
             $resInsert = $this->modelGuardaenBD->insertAvaluo($camposFexavaAvaluo);
-        
+            $this->guardaAvance($nombreArchivo,100);
             /*return $resInsert; 
             exit();  */            
             
@@ -898,6 +992,23 @@ class BandejaEntradaController extends Controller
             return response()->json(['mensaje' => 'Error en el servidor'], 500);
         }
         
+    }
+
+    public function guardaAvance($nombreArchivo,$porcentaje){
+        $arrNombreArchivo = explode('.',$nombreArchivo);
+        $rutaArchivos = getcwd();
+        $comando = "echo ".$porcentaje." > ".$rutaArchivos."/Avance_".$arrNombreArchivo[0].".txt";
+        //shell_exec($comando);    
+    }
+
+    public function leerAvance($nombreArchivo){
+        $arrNombreArchivo = explode('.',$nombreArchivo);
+        $rutaArchivos = getcwd();
+        $archivoAvance = $rutaArchivos."/Avance_".$arrNombreArchivo[0].".txt";
+        $myfile = fopen($archivoAvance, "r");
+        $res = fread($myfile, filesize($archivoAvance));    
+        fclose($myfile);
+        return response()->json(['Avance' => $res], 200);
     }
 
     public function camposFexAva()
