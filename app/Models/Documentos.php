@@ -214,5 +214,131 @@ class Documentos
             return FALSE;
         }
     }
+
+    public function get_valuador($idPeritoSociedad){
+        $claveValuador = DB::select("SELECT REGISTRO FROM RCON.RCON_PERITO WHERE IDPERSONA = $idPeritoSociedad");
+        $arrClaveValuador = convierte_a_arreglo($claveValuador);
+        return $arrClaveValuador[0]['registro'];
+    }
+
+    public function get_regimen_propiedad($codRegimenPropiedad){
+        $regimenPropiedad = DB::select("SELECT DESCRIPCION FROM FEXAVA_CATREGIMENPROPIEDAD WHERE CODREGIMENPROPIEDAD = $codRegimenPropiedad");
+        $arrRegimenPropiedad = convierte_a_arreglo($regimenPropiedad);
+        return $arrRegimenPropiedad[0]['descripcion'];
+    }
+
+    public function get_clasificacion_zona($codClasificacionZona){
+        $clasificacionZona = DB::select("SELECT DESCRIPCION FROM FEXAVA_CATCLASIFICACIONZONA WHERE CODCLASIFICACIONZONA = $codClasificacionZona");
+        $arrClasificacionZona = convierte_a_arreglo($clasificacionZona);
+        return $arrClasificacionZona[0]['descripcion'];
+    }
+
+    public function get_densidad_poblacion($codDensidadPoblacion){
+        $densidadPoblacion = DB::select("SELECT DESCRIPCION FROM FEXAVA_CATDENSIDADPOB WHERE CODDENSIDADPOBLACION = $codDensidadPoblacion");
+        $arrDensidadPoblacion = convierte_a_arreglo($densidadPoblacion);
+        return $arrDensidadPoblacion[0]['descripcion'];
+    }
+
+    public function get_nivel_socioeconomico_zona($codNivelSocioeconomico){
+        $nivelSocioecon = DB::select("SELECT DESCRIPCION FROM FEXAVA_CATNIVELSOCIOECON WHERE CODNIVELSOCIOECONOMICO = $codNivelSocioeconomico");
+        $arrNivelSocioecon = convierte_a_arreglo($nivelSocioecon);
+        return $arrNivelSocioecon[0]['descripcion'];
+    }
+
+    public function get_red_agua_potable($codRedAguaPotable){
+        $aguaPotable = DB::select("SELECT DESCRIPCION FROM FEXAVA_CATAGUAPOTABLE WHERE CODAGUAPOTABLE = $codRedAguaPotable");
+        $arrAguaPotable = convierte_a_arreglo($aguaPotable);
+        return $arrAguaPotable[0]['descripcion'];
+    }
+
+    public function get_drenaje_pluvial_calle_zona($codDrenajePluvial){
+        $drenajePluvial = DB::select("SELECT DESCRIPCION FROM FEXAVA_CATDRENAJEPLUVIAL WHERE CODDRENAJEPLUVIAL = $codDrenajePluvial");
+        $arrDrenajePluvial = convierte_a_arreglo($drenajePluvial);
+        return $arrDrenajePluvial[0]['descripcion'];
+    }
+
+    public function get_drenaje_mixto($codRedAguaResidual){
+        $drenajeInmueble = DB::select("SELECT DESCRIPCION FROM FEXAVA_CATDRENAJEINMUEBLE WHERE CODDRENAJEINMUEBLE = $codRedAguaResidual");
+        $arrDrenajeInmueble = convierte_a_arreglo($drenajeInmueble);
+        return $arrDrenajeInmueble[0]['descripcion'];
+    }
+
+    public function get_suministro_electrico($codSuministroElec){
+        $suministroElectrico = DB::select("SELECT DESCRIPCION FROM FEXAVA_CATSUMINISTROELEC WHERE CODSUMINISTROELECTRICO = $codSuministroElec");
+        $arrSuministroElectrico = convierte_a_arreglo($suministroElectrico);
+        return $arrSuministroElectrico[0]['descripcion'];
+    }
+
+    public function get_acometida_inmueble($codAcometidaInmueble){
+        $acometida = DB::select("SELECT DESCRIPCION FROM FEXAVA_CATACOMETIDAINM WHERE CODACOMETIDAINMUEBLE = $codAcometidaInmueble");
+        $arrAcometida = convierte_a_arreglo($acometida);
+        return $arrAcometida[0]['descripcion'];
+    }
+
+    public function get_alumbrado_publico($codAlumbradoPublico){
+        $alumbradoPublico = DB::select("SELECT DESCRIPCION FROM FEXAVA_CATALUMBRADOPUBLICO WHERE CODALUMBRADOPUBLICO = $codAlumbradoPublico");
+        $arrAlumbradoPublico = convierte_a_arreglo($alumbradoPublico);
+        return $arrAlumbradoPublico[0]['descripcion'];
+    }
+
+    public function get_vialidades($codVialidades){
+        $vialidades = DB::select("SELECT DESCRIPCION FROM FEXAVA_CATVIALIDADES WHERE CODVIALIDADES = $codVialidades");
+        $arrVialidades = convierte_a_arreglo($vialidades);
+        return $arrVialidades[0]['descripcion'];
+    }
+
+    public function get_banquetas($codBanqueta){
+        $banquetas = DB::select("SELECT DESCRIPCION FROM FEXAVA_CATBANQUETAS WHERE CODBANQUETAS = $codBanqueta");
+        $arrBanquetas = convierte_a_arreglo($banquetas);
+        return $arrBanquetas[0]['descripcion'];
+    }
+
+    public function get_guarniciones($codGuarnicion){
+        $guarniciones = DB::select("SELECT DESCRIPCION FROM FEXAVA_CATGUARNICIONES WHERE CODGUARNICIONES = $codGuarnicion");
+        $arrGuarniciones = convierte_a_arreglo($guarniciones);
+        return $arrGuarniciones[0]['descripcion'];
+    }
+
+    public function get_gas_natural($codGasNatural){
+        $gasNatural = DB::select("SELECT DESCRIPCION FROM FEXAVA_CATGASNATURAL WHERE CODGASNATURAL = $codGasNatural");
+        $arrGasNatural = convierte_a_arreglo($gasNatural);
+        return $arrGasNatural[0]['descripcion'];
+    }
+
+    public function get_suministro_tel($codSuministroTel){
+        $suministroTel = DB::select("SELECT DESCRIPCION FROM FEXAVA_CATSUMINISTROTEL WHERE CODSUMINISTROTELEFONICA = $codSuministroTel");
+        $arrSuministroTel = convierte_a_arreglo($suministroTel);
+        return $arrSuministroTel[0]['descripcion'];
+    }
+
+    public function get_senal_vias($codSenalVias){
+        $senalVias = DB::select("SELECT DESCRIPCION FROM FEXAVA_CATSENALIZACIONVIAS WHERE CODSENALIZACIONVIAS = $codSenalVias");
+        $arrSenalVias = convierte_a_arreglo($senalVias);
+        return $arrSenalVias[0]['descripcion'];
+    }
+
+    public function get_acometida_inmueble_tel($codAcometidaInmueble){
+        $acometida = DB::select("SELECT DESCRIPCION FROM FEXAVA_CATACOMETIDAINM WHERE CODACOMETIDAINMUEBLE = $codAcometidaInmueble");
+        $arrAcometida = convierte_a_arreglo($acometida);
+        return $arrAcometida[0]['descripcion'];
+    }
+
+    public function get_vigilancia_zona($codVigilancia){
+        $vigilancia = DB::select("SELECT DESCRIPCION FROM FEXAVA_CATVIGILANCIAZONA WHERE CODVIGILANCIAZONA = $codVigilancia");
+        $arrVigilancia = convierte_a_arreglo($vigilancia);
+        return $arrVigilancia[0]['descripcion'];
+    }
+
+    public function get_recoleccion_basura($cod){
+        $info = DB::select("SELECT DESCRIPCION FROM FEXAVA_CATRECOLECCIONBASURA WHERE CODRECOLECCIONBASURA = $cod");
+        $arrInfo = convierte_a_arreglo($info);
+        return $arrInfo[0]['descripcion'];
+    }
+
+    public function get_nomenclatura_calle($cod){
+        $info = DB::select("SELECT DESCRIPCION FROM FEXAVA_CATNOMENCLATURACALLE WHERE CODNOMENCLATURACALLE = $cod");
+        $arrInfo = convierte_a_arreglo($info);
+        return $arrInfo[0]['descripcion'];
+    }
     
 }

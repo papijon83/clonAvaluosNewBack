@@ -922,7 +922,7 @@ class BandejaEntradaController extends Controller
             $this->guardaAvance($nombreArchivo,30);
             $camposFexavaAvaluo = $this->guardarAvaluoAnexoFotografico($xml, $camposFexavaAvaluo,$elementoPrincipal);
             $this->guardaAvance($nombreArchivo,50);
-                                  
+            //print_r($camposFexavaAvaluo);
             if(count($camposFexavaAvaluo['ERRORES']) > 0){  
                 foreach($camposFexavaAvaluo['ERRORES'] as $idElementoError => $elementoError){
                     if(is_array($elementoError) === true){
@@ -3664,4 +3664,21 @@ class BandejaEntradaController extends Controller
             return response()->json(['mensaje' => 'Error en el servidor'], 500);
         }    
     }
+
+    public function infoAvaluo(Request $request){
+        try{
+            $numero_unico = trim($request->query('no_unico'));
+            $this->modelDocumentos = new Documentos();    //echo $numero_unico; exit();         
+            $id_avaluo = $this->modelDocumentos->get_idavaluo_db($numero_unico);    
+            $this->modelReimpresion = new Reimpresion();
+            $infoAvaluo = $this->modelReimpresion->infoAvaluo($id_avaluo);
+            print_r($infoAvaluo); exit();
+            //return response()->json($infoAvaluo, 200);
+        }catch (\Throwable $th) {
+            //Log::info($th);
+            error_log($th);
+            return response()->json(['mensaje' => 'Error en el servidor'], 500);
+        }    
+    }
+
 }

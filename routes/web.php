@@ -30,6 +30,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
             $router->post('esValidoAvaluo', 'BandejaEntradaController@esValidoAvaluo');
             $router->post('guardarAvaluo', 'BandejaEntradaController@guardarAvaluo');
             $router->get('acuseAvaluo', 'BandejaEntradaController@acuseAvaluo');
+            $router->get('reimprimeAvaluo', 'BandejaEntradaController@infoAvaluo');
 
             $router->post('pruebaDoc', 'PruebaDoc@pruebaGuardadoDB');
             $router->get('pruebaEjecuta', 'PruebaDoc@pruebaEjecutaProcedure');
@@ -37,6 +38,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
             $router->get('pk/{pk}', 'PruebaDoc@infopk');
             $router->get('pruebaIdUsos', 'PruebaDoc@pruebaIdUsos');
             $router->get('pruebaIdRango', 'PruebaDoc@pruebaIdRango');
+            $router->get('query', 'PruebaDoc@ejecutaQuery');
         });
     });
 });
