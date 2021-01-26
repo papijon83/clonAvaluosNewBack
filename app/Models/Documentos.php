@@ -340,5 +340,11 @@ class Documentos
         $arrInfo = convierte_a_arreglo($info);
         return $arrInfo[0]['descripcion'];
     }
+
+    public function get_fichero_documento($idFichero){ //echo "SELECT BINARIODATOS FROM DOC.DOC_FICHERODOCUMENTO WHERE IDFICHERODOCUMENTO = $idFichero"; exit();
+        $info = DB::select("SELECT BINARIODATOS FROM DOC.DOC_FICHERODOCUMENTO WHERE IDFICHERODOCUMENTO = $idFichero");
+        $arrInfo = $info[0]; //print_r($arrInfo->binariodatos); exit();
+        return $arrInfo->binariodatos;
+    }
     
 }
