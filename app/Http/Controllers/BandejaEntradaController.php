@@ -101,13 +101,14 @@ class BandejaEntradaController extends Controller
             if ($noAvaluo) {
                 $table->where(DB::raw('TRIM(FEXAVA_AVALUO.numeroavaluo)'), $noAvaluo);
             }
-            
+                        
             if ($vigencia == 1) {
                 $year = Carbon::today()->subYear();
                 $table->where('FEXAVA_AVALUO.fecha_presentacion','>=',$year->format('Y-m-d'));
                 // 6 es el estatus enviado notario
-                $table->where('FEXAVA_AVALUO.codestadoavaluo',array(6,1));
-            }    
+                //$table->where('FEXAVA_AVALUO.codestadoavaluo',6);
+                $table->whereIn('FEXAVA_AVALUO.codestadoavaluo',array(6,1));
+            }  
 
             if ($vigencia == 2) {
                 $year = Carbon::today()->subYear();
