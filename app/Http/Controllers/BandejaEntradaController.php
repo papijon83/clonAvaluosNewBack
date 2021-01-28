@@ -123,13 +123,13 @@ class BandejaEntradaController extends Controller
 
                     $idPerito = empty($resToken['id_anterior']) ? $resToken['id_usuario']: $resToken['id_anterior'];
 
-                    if ($idPerito) {
+                    /*if ($idPerito) {
                         $table->where('FEXAVA_AVALUO.idpersonaperito', $idPerito);
                     }
         
                     if ($idSociedad) {
                         $table->where('FEXAVA_AVALUO.idpersonasociedad', $idSociedad);
-                    }
+                    } */
                     $table->orWhere('FEXAVA_AVALUO.fecha_presentacion','>',$year->format('Y-m-d'));
                     $table->where('FEXAVA_AVALUO.fecha_presentacion','<=',$ff->format('Y-m-d'));
                     $table->where('FEXAVA_AVALUO.codestadoavaluo',2);
@@ -158,9 +158,9 @@ class BandejaEntradaController extends Controller
                             return response()->json(['mensaje' => 'Formato de cuenta predial incorrecta'], 400);
                         }
                         $idPerito = empty($resToken['id_anterior']) ? $resToken['id_usuario']: $resToken['id_anterior'];
-                        if ($idPerito) {
+                        /*if ($idPerito) {
                             $table->where('FEXAVA_AVALUO.idpersonaperito', $idPerito);
-                        }
+                        }*/
                     }
                     // 2 es el estatus cancelado
                     $table->orWhere('FEXAVA_AVALUO.codestadoavaluo',2);        
