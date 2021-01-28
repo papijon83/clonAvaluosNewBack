@@ -53,6 +53,8 @@ class BandejaEntradaController extends Controller
             $table = DB::table('FEXAVA_AVALUO');
             $table->join('FEXAVA_CATESTADOSAVALUO', 'FEXAVA_AVALUO.codestadoavaluo', '=', 'FEXAVA_CATESTADOSAVALUO.codestadoavaluo');
             $table->join('RCON.RCON_PERITO', 'FEXAVA_AVALUO.idpersonaperito', '=', 'RCON.RCON_PERITO.idpersona');
+            $table->leftJoin('RCON.RCON_NOTARIO', 'FEXAVA_AVALUO.idpersonanotario', '=', 'RCON.RCON_NOTARIO.idpersona');
+
             $authToken = $request->header('Authorization');
             if (!$authToken) {
                 return response()->json(['mensaje' => 'Sin acceso a la aplicación'], 403);
@@ -72,6 +74,8 @@ class BandejaEntradaController extends Controller
                 'FEXAVA_AVALUO.numeroavaluo',
                 'FEXAVA_CATESTADOSAVALUO.descripcion as estadoavaluo',
                 'RCON.RCON_PERITO.registro as perito',
+                'RCON.RCON_NOTARIO.NUMNOTARIO as notario',
+                
                 //'RCON.RCON_SOCIEDADVALUACION.registro as sociedad',
                 //'RCON.RCON_NOTARIO.NUMNOTARIO as notario',
                 DB::raw("CASE
@@ -234,7 +238,8 @@ class BandejaEntradaController extends Controller
             } 
             $resToken = Crypt::decrypt($authToken);
             $table->join('FEXAVA_CATESTADOSAVALUO', 'FEXAVA_AVALUO.codestadoavaluo', '=', 'FEXAVA_CATESTADOSAVALUO.codestadoavaluo');
-            $table->join('RCON.RCON_PERITO', 'FEXAVA_AVALUO.idpersonaperito', '=', 'RCON.RCON_PERITO.idpersona');    
+            $table->join('RCON.RCON_PERITO', 'FEXAVA_AVALUO.idpersonaperito', '=', 'RCON.RCON_PERITO.idpersona');
+            $table->leftJoin('RCON.RCON_NOTARIO', 'FEXAVA_AVALUO.idpersonanotario', '=', 'RCON.RCON_NOTARIO.idpersona');    
             
             //$table->join('RCON.RCON_SOCIEDADVALUACION', 'FEXAVA_AVALUO.idpersonasociedad', '=', 'RCON.RCON_SOCIEDADVALUACION.idpersona');
             //$table->join('RCON.RCON_NOTARIO', 'FEXAVA_AVALUO.idpersonanotario', '=', 'RCON.RCON_NOTARIO.idpersona');
@@ -248,6 +253,7 @@ class BandejaEntradaController extends Controller
                 'FEXAVA_AVALUO.numeroavaluo',
                 'FEXAVA_CATESTADOSAVALUO.descripcion as estadoavaluo',
                 'RCON.RCON_PERITO.registro as perito',
+                'RCON.RCON_NOTARIO.NUMNOTARIO as notario',
                 //'RCON.RCON_SOCIEDADVALUACION.registro as sociedad',
                 //'RCON.RCON_NOTARIO.NUMNOTARIO as notario',
                 DB::raw("CASE
@@ -292,6 +298,7 @@ class BandejaEntradaController extends Controller
                 }
                 elseif(isset($fi) && $year->gt($fi)){
 
+                    //$idPerito = 264; 
                     $idPerito = empty($resToken['id_anterior']) ? $resToken['id_usuario']: $resToken['id_anterior'];
 
                     if ($idPerito) {
@@ -340,6 +347,7 @@ class BandejaEntradaController extends Controller
                 
             }
 
+            //$idPerito = 264;
             $idPerito = empty($resToken['id_anterior']) ? $resToken['id_usuario']: $resToken['id_anterior'];
 
             //$table->where('FEXAVA_AVALUO.idpersonaperito', $resToken['id_anterior']);
@@ -385,6 +393,7 @@ class BandejaEntradaController extends Controller
             }
             $table->orderBy('FEXAVA_AVALUO.fecha_presentacion' , 'desc');
             $avaluos = $table->paginate(15);
+            print_r($avaluos); exit();
             return response()->json($avaluos, 200);
         } catch (\Throwable $th) {
             //Log::info($th);
