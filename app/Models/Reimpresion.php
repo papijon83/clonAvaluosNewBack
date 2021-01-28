@@ -77,10 +77,12 @@ class Reimpresion
 
         if(isset($arrXML['Comercial'])){
             $elementoPrincipal = $arrXML['Comercial'];
+            $tipoDeAvaluo =  "Comercial";
         }
 
         if(isset($arrXML['Catastral'])){
             $elementoPrincipal = $arrXML['Catastral'];
+            $tipoDeAvaluo =  "Catastral";
         }
 
         $identificacion = $elementoPrincipal['Identificacion'];
@@ -234,6 +236,7 @@ class Reimpresion
         /************************************************************************************************************************************************************************/
 
         $infoReimpresion['Superficie_Total_Segun'] = array();
+        $infoReimpresion['Superficie_Total_Segun']['Totales'] = array();
         /*$infoSuperficie = DB::select("SELECT * FROM FEXAVA_SUPERFICIE WHERE IDAVALUO = $idAvaluo");
         $arrInfoSuperficie = array_map("convierte_a_arreglo",$infoSuperficie);
         $arrSuperficie = $arrInfoSuperficie[0];
@@ -241,15 +244,42 @@ class Reimpresion
         $superficieDelTerreno = $terreno['SuperficieDelTerreno'];
         $infoReimpresion['Superficie_Total_Segun']['Ident_Fraccion'] = $superficieDelTerreno['IdentificadorFraccionN1'];
         $infoReimpresion['Superficie_Total_Segun']['Sup_Fraccion'] = $superficieDelTerreno['SuperficieFraccionN1'];
-        $infoReimpresion['Superficie_Total_Segun']['Fzo'] = $superficieDelTerreno['Fzo'];
-        $infoReimpresion['Superficie_Total_Segun']['Fub'] = $superficieDelTerreno['Fub'];
-        $infoReimpresion['Superficie_Total_Segun']['FFr'] = $superficieDelTerreno['FFr'];
-        $infoReimpresion['Superficie_Total_Segun']['Ffo'] = $superficieDelTerreno['Ffo'];
-        $infoReimpresion['Superficie_Total_Segun']['Fsu'] = $superficieDelTerreno['Fsu'];
+        if(isset($superficieDelTerreno['Fzo'])){
+            $infoReimpresion['Superficie_Total_Segun']['Fzo'] = $superficieDelTerreno['Fzo'];
+        }
+        
+        if(isset($superficieDelTerreno['Fub'])){
+            $infoReimpresion['Superficie_Total_Segun']['Fub'] = $superficieDelTerreno['Fub'];
+        }
+
+        if(isset($superficieDelTerreno['FFr'])){
+            $infoReimpresion['Superficie_Total_Segun']['FFr'] = $superficieDelTerreno['FFr'];
+        }
+
+        if(isset($superficieDelTerreno['Ffo'])){
+            $infoReimpresion['Superficie_Total_Segun']['Ffo'] = $superficieDelTerreno['Ffo'];
+        }
+
+        if(isset($superficieDelTerreno['Fsu'])){
+            $infoReimpresion['Superficie_Total_Segun']['Fsu'] = $superficieDelTerreno['Fsu'];
+        }
+
+        if($tipoDeAvaluo == 'Catastral'){
+            $infoReimpresion['Superficie_Total_Segun']['Valor_Fraccion'] = $superficieDelTerreno['ValorDeLaFraccionN'];
+        }
+        
         $infoReimpresion['Superficie_Total_Segun']['Clave_Area_Valor'] = $superficieDelTerreno['ClaveDeAreaDeValor'];
-        $infoReimpresion['Superficie_Total_Segun']['Valor'] = $superficieDelTerreno['Fot']['Valor'];
-        $infoReimpresion['Superficie_Total_Segun']['Descripcion'] = $superficieDelTerreno['Fot']['Descripcion'];
-        $infoReimpresion['Superficie_Total_Segun']['Fre'] = $superficieDelTerreno['Fre'];
+
+        if(isset($superficieDelTerreno['Fsu'])){
+            $infoReimpresion['Superficie_Total_Segun']['Valor'] = $superficieDelTerreno['Fot']['Valor'];
+            $infoReimpresion['Superficie_Total_Segun']['Descripcion'] = $superficieDelTerreno['Fot']['Descripcion'];
+        }
+
+        if(isset($superficieDelTerreno['Fre'])){
+            $infoReimpresion['Superficie_Total_Segun']['Fre'] = $superficieDelTerreno['Fre'];
+        }
+
+        $infoReimpresion['Superficie_Total_Segun']['Totales']['Superficie_Total_Terreno'] =  $terreno['SuperficieTotalDelTerreno'];
 
         $infoReimpresion['Topografia_Configuracion'] = array();
         $infoReimpresion['Topografia_Configuracion']['Caracteristicas_Panoramicas'] = $arrFexava['tecaracteristicasparonamicas'];
@@ -333,7 +363,7 @@ class Reimpresion
             }
         }
         
-        $infoReimpresion['Indiviso'] = $terreno['Indiviso'];
+        $infoReimpresion['Indiviso'] = $terreno['Indiviso'] <= 1 ? $terreno['Indiviso'] * 100 : $terreno['Indiviso'];
         $infoReimpresion['Vida_Util_Promedio_Inmueble'] = $descripcionInmueble['VidaUtilTotalPonderadaDelInmueble'];
         $infoReimpresion['Edad_Aproximada_Construccion'] = $descripcionInmueble['EdadPonderadaDelInmueble'];
         $infoReimpresion['Vida_Util_Remanente'] = $descripcionInmueble['VidaUtilRemanentePonderadaDelInmueble'];
@@ -404,273 +434,850 @@ class Reimpresion
 
         /************************************************************************************************************************************************************************/
 
-        $infoReimpresion['Elementos_Accesorios']  = array();
-        $elementosAccesorios = $elementosConstruccion['ElementosAccesorios'];
+        if(isset($elementosConstruccion['ElementosAccesorios'])){
+            $infoReimpresion['Elementos_Accesorios']  = array();
+            $elementosAccesorios = $elementosConstruccion['ElementosAccesorios'];
 
-        if(isset($elementosAccesorios['Privativas']['@attributes'])){
-            $infoReimpresion['Elementos_Accesorios']['Privativas'] = array();
-            $infoReimpresion['Elementos_Accesorios']['Privativas']['Clave'] = $elementosAccesorios['Privativas']['ClaveElementoAccesorio'];
-            $infoReimpresion['Elementos_Accesorios']['Privativas']['Descripcion'] = $elementosAccesorios['Privativas']['DescripcionElementoAccesorio'];
-            $infoReimpresion['Elementos_Accesorios']['Privativas']['Unidad'] = $elementosAccesorios['Privativas']['UnidadElementoAccesorio'];
-            $infoReimpresion['Elementos_Accesorios']['Privativas']['Cantidad'] = $elementosAccesorios['Privativas']['CantidadElementoAccesorio'];
-            $infoReimpresion['Elementos_Accesorios']['Privativas']['Edad'] = $elementosAccesorios['Privativas']['EdadElementoAccesorio'];
-            $infoReimpresion['Elementos_Accesorios']['Privativas']['Vida_Util_Total'] = $elementosAccesorios['Privativas']['VidaUtilTotalElementoAccesorio'];
-            $infoReimpresion['Elementos_Accesorios']['Privativas']['Valor_Unitario'] = $elementosAccesorios['Privativas']['ValorUnitarioElementoAccesorio'];
-        }
+            if(isset($elementosAccesorios['Privativas']['@attributes'])){
+                $infoReimpresion['Elementos_Accesorios']['Privativas'] = array();
+                $infoReimpresion['Elementos_Accesorios']['Privativas']['Clave'] = $elementosAccesorios['Privativas']['ClaveElementoAccesorio'];
+                $infoReimpresion['Elementos_Accesorios']['Privativas']['Descripcion'] = $elementosAccesorios['Privativas']['DescripcionElementoAccesorio'];
+                $infoReimpresion['Elementos_Accesorios']['Privativas']['Unidad'] = $elementosAccesorios['Privativas']['UnidadElementoAccesorio'];
+                $infoReimpresion['Elementos_Accesorios']['Privativas']['Cantidad'] = $elementosAccesorios['Privativas']['CantidadElementoAccesorio'];
+                if(isset($elementosAccesorios['Privativas']['EdadElementoAccesorio'])){
+                    $infoReimpresion['Elementos_Accesorios']['Privativas']['Edad'] = $elementosAccesorios['Privativas']['EdadElementoAccesorio'];
+                }
+                if(isset($elementosAccesorios['Privativas']['VidaUtilTotalElementoAccesorio'])){
+                    $infoReimpresion['Elementos_Accesorios']['Privativas']['Vida_Util_Total'] = $elementosAccesorios['Privativas']['VidaUtilTotalElementoAccesorio'];
+                }
+                if(isset($elementosAccesorios['Privativas']['ValorUnitarioElementoAccesorio'])){
+                    $infoReimpresion['Elementos_Accesorios']['Privativas']['Valor_Unitario'] = $elementosAccesorios['Privativas']['ValorUnitarioElementoAccesorio'];
+                }
+                
+            }
 
-        if(isset($elementosAccesorios['Privativas'][0])){
-            $infoReimpresion['Elementos_Accesorios']['Privativas'] = array();
-            $control = 0;
-            foreach($elementosAccesorios['Privativas'] as $elementoAccesorio){
-                $infoReimpresion['Elementos_Accesorios']['Privativas'][$control]['Clave'] = $elementoAccesorio['ClaveElementoAccesorio'];
-                $infoReimpresion['Elementos_Accesorios']['Privativas'][$control]['Descripcion'] = $elementoAccesorio['DescripcionElementoAccesorio'];
-                $infoReimpresion['Elementos_Accesorios']['Privativas'][$control]['Unidad'] = $elementoAccesorio['UnidadElementoAccesorio'];
-                $infoReimpresion['Elementos_Accesorios']['Privativas'][$control]['Cantidad'] = $elementoAccesorio['CantidadElementoAccesorio'];
-                $infoReimpresion['Elementos_Accesorios']['Privativas'][$control]['Edad'] = $elementoAccesorio['EdadElementoAccesorio'];
-                $infoReimpresion['Elementos_Accesorios']['Privativas'][$control]['Vida_Util_Total'] = $elementoAccesorio['VidaUtilTotalElementoAccesorio'];
-                $infoReimpresion['Elementos_Accesorios']['Privativas'][$control]['Valor_Unitario'] = $elementoAccesorio['ValorUnitarioElementoAccesorio'];
-                $control = $control + 1;
+            if(isset($elementosAccesorios['Privativas'][0])){
+                $infoReimpresion['Elementos_Accesorios']['Privativas'] = array();
+                $control = 0;
+                foreach($elementosAccesorios['Privativas'] as $elementoAccesorio){
+                    $infoReimpresion['Elementos_Accesorios']['Privativas'][$control]['Clave'] = $elementoAccesorio['ClaveElementoAccesorio'];
+                    $infoReimpresion['Elementos_Accesorios']['Privativas'][$control]['Descripcion'] = $elementoAccesorio['DescripcionElementoAccesorio'];
+                    $infoReimpresion['Elementos_Accesorios']['Privativas'][$control]['Unidad'] = $elementoAccesorio['UnidadElementoAccesorio'];
+                    $infoReimpresion['Elementos_Accesorios']['Privativas'][$control]['Cantidad'] = $elementoAccesorio['CantidadElementoAccesorio'];
+                    if(isset($elementoAccesorio['EdadElementoAccesorio'])){
+                        $infoReimpresion['Elementos_Accesorios']['Privativas'][$control]['Edad'] = $elementoAccesorio['EdadElementoAccesorio'];
+                    }
+                    if(isset($elementoAccesorio['VidaUtilTotalElementoAccesorio'])){
+                        $infoReimpresion['Elementos_Accesorios']['Privativas'][$control]['Vida_Util_Total'] = $elementoAccesorio['VidaUtilTotalElementoAccesorio'];
+                    }
+                    if(isset($elementoAccesorio['ValorUnitarioElementoAccesorio'])){
+                        $infoReimpresion['Elementos_Accesorios']['Privativas'][$control]['Valor_Unitario'] = $elementoAccesorio['ValorUnitarioElementoAccesorio'];
+                    }
+                    
+                    $control = $control + 1;
+                }
+            }
+
+            if(isset($elementosAccesorios['Comunes']['@attributes'])){
+                $infoReimpresion['Elementos_Accesorios']['Comunes'] = array();
+                $infoReimpresion['Elementos_Accesorios']['Comunes']['Clave'] = $elementosAccesorios['Comunes']['ClaveElementoAccesorio'];
+                $infoReimpresion['Elementos_Accesorios']['Comunes']['Descripcion'] = $elementosAccesorios['Comunes']['DescripcionElementoAccesorio'];
+                $infoReimpresion['Elementos_Accesorios']['Comunes']['Unidad'] = $elementosAccesorios['Comunes']['UnidadElementoAccesorio'];
+                $infoReimpresion['Elementos_Accesorios']['Comunes']['Cantidad'] = $elementosAccesorios['Comunes']['CantidadElementoAccesorio'];
+                if(isset($elementosAccesorios['Comunes']['EdadElementoAccesorio'])){
+                    $infoReimpresion['Elementos_Accesorios']['Comunes']['Edad'] = $elementosAccesorios['Comunes']['EdadElementoAccesorio'];
+                }
+                if(isset($elementosAccesorios['Comunes']['VidaUtilTotalElementoAccesorio'])){
+                    $infoReimpresion['Elementos_Accesorios']['Comunes']['Vida_Util_Total'] = $elementosAccesorios['Comunes']['VidaUtilTotalElementoAccesorio'];
+                }
+                if(isset($elementosAccesorios['Comunes']['ValorUnitarioElementoAccesorio'])){
+                    $infoReimpresion['Elementos_Accesorios']['Comunes']['Valor_Unitario'] = $elementosAccesorios['Comunes']['ValorUnitarioElementoAccesorio'];
+                }
+                
+            }
+
+            if(isset($elementosAccesorios['Comunes'][0])){
+                $infoReimpresion['Elementos_Accesorios']['Comunes'] = array();
+                $control = 0;
+                foreach($elementosAccesorios['Comunes'] as $elementoAccesorio){
+                    $infoReimpresion['Elementos_Accesorios']['Comunes'][$control]['Clave'] = $elementoAccesorio['ClaveElementoAccesorio'];
+                    $infoReimpresion['Elementos_Accesorios']['Comunes'][$control]['Descripcion'] = $elementoAccesorio['DescripcionElementoAccesorio'];
+                    $infoReimpresion['Elementos_Accesorios']['Comunes'][$control]['Unidad'] = $elementoAccesorio['UnidadElementoAccesorio'];
+                    $infoReimpresion['Elementos_Accesorios']['Comunes'][$control]['Cantidad'] = $elementoAccesorio['CantidadElementoAccesorio'];
+                    if(isset($elementoAccesorio['EdadElementoAccesorio'])){
+                        $infoReimpresion['Elementos_Accesorios']['Comunes'][$control]['Edad'] = $elementoAccesorio['EdadElementoAccesorio'];
+                    }
+                    if(isset($elementoAccesorio['VidaUtilTotalElementoAccesorio'])){
+                        $infoReimpresion['Elementos_Accesorios']['Comunes'][$control]['Vida_Util_Total'] = $elementoAccesorio['VidaUtilTotalElementoAccesorio'];
+                    }
+                    if(isset($elementoAccesorio['ValorUnitarioElementoAccesorio'])){
+                        $infoReimpresion['Elementos_Accesorios']['Comunes'][$control]['Valor_Unitario'] = $elementoAccesorio['ValorUnitarioElementoAccesorio'];
+                    }
+                    
+                    $control = $control + 1;
+                }
             }
         }
-
-        if(isset($elementosAccesorios['Comunes']['@attributes'])){
-            $infoReimpresion['Elementos_Accesorios']['Comunes'] = array();
-            $infoReimpresion['Elementos_Accesorios']['Comunes']['Clave'] = $elementosAccesorios['Comunes']['ClaveElementoAccesorio'];
-            $infoReimpresion['Elementos_Accesorios']['Comunes']['Descripcion'] = $elementosAccesorios['Comunes']['DescripcionElementoAccesorio'];
-            $infoReimpresion['Elementos_Accesorios']['Comunes']['Unidad'] = $elementosAccesorios['Comunes']['UnidadElementoAccesorio'];
-            $infoReimpresion['Elementos_Accesorios']['Comunes']['Cantidad'] = $elementosAccesorios['Comunes']['CantidadElementoAccesorio'];
-            $infoReimpresion['Elementos_Accesorios']['Comunes']['Edad'] = $elementosAccesorios['Comunes']['EdadElementoAccesorio'];
-            $infoReimpresion['Elementos_Accesorios']['Comunes']['Vida_Util_Total'] = $elementosAccesorios['Comunes']['VidaUtilTotalElementoAccesorio'];
-            $infoReimpresion['Elementos_Accesorios']['Comunes']['Valor_Unitario'] = $elementosAccesorios['Comunes']['ValorUnitarioElementoAccesorio'];
-        }
-
-        if(isset($elementosAccesorios['Comunes'][0])){
-            $infoReimpresion['Elementos_Accesorios']['Comunes'] = array();
-            $control = 0;
-            foreach($elementosAccesorios['Comunes'] as $elementoAccesorio){
-                $infoReimpresion['Elementos_Accesorios']['Comunes'][$control]['Clave'] = $elementoAccesorio['ClaveElementoAccesorio'];
-                $infoReimpresion['Elementos_Accesorios']['Comunes'][$control]['Descripcion'] = $elementoAccesorio['DescripcionElementoAccesorio'];
-                $infoReimpresion['Elementos_Accesorios']['Comunes'][$control]['Unidad'] = $elementoAccesorio['UnidadElementoAccesorio'];
-                $infoReimpresion['Elementos_Accesorios']['Comunes'][$control]['Cantidad'] = $elementoAccesorio['CantidadElementoAccesorio'];
-                $infoReimpresion['Elementos_Accesorios']['Comunes'][$control]['Edad'] = $elementoAccesorio['EdadElementoAccesorio'];
-                $infoReimpresion['Elementos_Accesorios']['Comunes'][$control]['Vida_Util_Total'] = $elementoAccesorio['VidaUtilTotalElementoAccesorio'];
-                $infoReimpresion['Elementos_Accesorios']['Comunes'][$control]['Valor_Unitario'] = $elementoAccesorio['ValorUnitarioElementoAccesorio'];
-                $control = $control + 1;
-            }
-        }
+        
 
         /******************************************************************************************************************************************************/
         
-        $infoReimpresion['Obras_Complementarias']  = array();
-        $obrasComplementarias = $elementosConstruccion['ObrasComplementarias'];
+        if(isset($elementosConstruccion['ObrasComplementarias'])){
+            $infoReimpresion['Obras_Complementarias']  = array();
+            $obrasComplementarias = $elementosConstruccion['ObrasComplementarias'];
 
-        if(isset($obrasComplementarias['Privativas']['@attributes'])){
-            $infoReimpresion['Obras_Complementarias']['Privativas'] = array();
-            $infoReimpresion['Obras_Complementarias']['Privativas']['Clave'] = $obrasComplementarias['Privativas']['ClaveObraComplementaria'];
-            $infoReimpresion['Obras_Complementarias']['Privativas']['Descripcion'] = $obrasComplementarias['Privativas']['DescripcionObraComplementaria'];
-            $infoReimpresion['Obras_Complementarias']['Privativas']['Unidad'] = $obrasComplementarias['Privativas']['UnidadObraComplementaria'];
-            $infoReimpresion['Obras_Complementarias']['Privativas']['Cantidad'] = $obrasComplementarias['Privativas']['CantidadObraComplementaria'];
-            $infoReimpresion['Obras_Complementarias']['Privativas']['Edad'] = $obrasComplementarias['Privativas']['EdadObraComplementaria'];
-            $infoReimpresion['Obras_Complementarias']['Privativas']['Vida_Util_Total'] = $obrasComplementarias['Privativas']['VidaUtilTotalObraComplementaria'];
-            $infoReimpresion['Obras_Complementarias']['Privativas']['Valor_Unitario'] = $obrasComplementarias['Privativas']['ValorUnitarioObraComplementaria'];
+            if(isset($obrasComplementarias['Privativas']['@attributes'])){
+                $infoReimpresion['Obras_Complementarias']['Privativas'] = array();
+                $infoReimpresion['Obras_Complementarias']['Privativas']['Clave'] = $obrasComplementarias['Privativas']['ClaveObraComplementaria'];
+                $infoReimpresion['Obras_Complementarias']['Privativas']['Descripcion'] = $obrasComplementarias['Privativas']['DescripcionObraComplementaria'];
+                $infoReimpresion['Obras_Complementarias']['Privativas']['Unidad'] = $obrasComplementarias['Privativas']['UnidadObraComplementaria'];
+                $infoReimpresion['Obras_Complementarias']['Privativas']['Cantidad'] = $obrasComplementarias['Privativas']['CantidadObraComplementaria'];
+                if(isset($obrasComplementarias['Privativas']['EdadObraComplementaria'])){
+                    $infoReimpresion['Obras_Complementarias']['Privativas']['Edad'] = $obrasComplementarias['Privativas']['EdadObraComplementaria'];
+                }
+                if(isset($obrasComplementarias['Privativas']['VidaUtilTotalObraComplementaria'])){
+                    $infoReimpresion['Obras_Complementarias']['Privativas']['Vida_Util_Total'] = $obrasComplementarias['Privativas']['VidaUtilTotalObraComplementaria'];
+                }
+                if(isset($obrasComplementarias['Privativas']['ValorUnitarioObraComplementaria'])){
+                    $infoReimpresion['Obras_Complementarias']['Privativas']['Valor_Unitario'] = $obrasComplementarias['Privativas']['ValorUnitarioObraComplementaria'];
+                }
+            }
+
+            if(isset($obrasComplementarias['Privativas'][0])){
+                $infoReimpresion['Obras_Complementarias']['Privativas'] = array();
+                $control = 0;
+                foreach($obrasComplementarias['Privativas'] as $obraComplementaria){
+                    $infoReimpresion['Obras_Complementarias']['Privativas'][$control]['Clave'] = $obraComplementaria['ClaveObraComplementaria'];
+                    $infoReimpresion['Obras_Complementarias']['Privativas'][$control]['Descripcion'] = $obraComplementaria['DescripcionObraComplementaria'];
+                    $infoReimpresion['Obras_Complementarias']['Privativas'][$control]['Unidad'] = $obraComplementaria['UnidadObraComplementaria'];
+                    $infoReimpresion['Obras_Complementarias']['Privativas'][$control]['Cantidad'] = $obraComplementaria['CantidadObraComplementaria'];
+                    if(isset($obraComplementaria['EdadObraComplementaria'])){
+                        $infoReimpresion['Obras_Complementarias']['Privativas'][$control]['Edad'] = $obraComplementaria['EdadObraComplementaria'];
+                    }
+                    if(isset($obraComplementaria['VidaUtilTotalObraComplementaria'])){
+                        $infoReimpresion['Obras_Complementarias']['Privativas'][$control]['Vida_Util_Total'] = $obraComplementaria['VidaUtilTotalObraComplementaria'];
+                    }
+                    if(isset($obraComplementaria['ValorUnitarioObraComplementaria'])){
+                        $infoReimpresion['Obras_Complementarias']['Privativas'][$control]['Valor_Unitario'] = $obraComplementaria['ValorUnitarioObraComplementaria'];
+                    }
+                    $control = $control + 1;
+                }
+            }
+
+            if(isset($obrasComplementarias['Comunes']['@attributes'])){
+                $infoReimpresion['Obras_Complementarias']['Comunes'] = array();
+                $infoReimpresion['Obras_Complementarias']['Comunes']['Clave'] = $obrasComplementarias['Comunes']['ClaveObraComplementaria'];
+                $infoReimpresion['Obras_Complementarias']['Comunes']['Descripcion'] = $obrasComplementarias['Comunes']['DescripcionObraComplementaria'];
+                $infoReimpresion['Obras_Complementarias']['Comunes']['Unidad'] = $obrasComplementarias['Comunes']['UnidadObraComplementaria'];
+                $infoReimpresion['Obras_Complementarias']['Comunes']['Cantidad'] = $obrasComplementarias['Comunes']['CantidadObraComplementaria'];
+                if(isset($obrasComplementarias['Comunes']['EdadObraComplementaria'])){
+                    $infoReimpresion['Obras_Complementarias']['Comunes']['Edad'] = $obrasComplementarias['Comunes']['EdadObraComplementaria'];
+                }
+                if(isset($obrasComplementarias['Comunes']['VidaUtilTotalObraComplementaria'])){
+                    $infoReimpresion['Obras_Complementarias']['Comunes']['Vida_Util_Total'] = $obrasComplementarias['Comunes']['VidaUtilTotalObraComplementaria'];
+                }
+                if(isset($obrasComplementarias['Comunes']['ValorUnitarioObraComplementaria'])){
+                    $infoReimpresion['Obras_Complementarias']['Comunes']['Valor_Unitario'] = $obrasComplementarias['Comunes']['ValorUnitarioObraComplementaria'];
+                }
+                
+            }
+
+            if(isset($obrasComplementarias['Comunes'][0])){
+                $infoReimpresion['Obras_Complementarias']['Comunes'] = array();
+                $control = 0;
+                foreach($obrasComplementarias['Comunes'] as $obraComplementaria){
+                    $infoReimpresion['Obras_Complementarias']['Comunes'][$control]['Clave'] = $obraComplementaria['ClaveObraComplementaria'];
+                    $infoReimpresion['Obras_Complementarias']['Comunes'][$control]['Descripcion'] = $obraComplementaria['DescripcionObraComplementaria'];
+                    $infoReimpresion['Obras_Complementarias']['Comunes'][$control]['Unidad'] = $obraComplementaria['UnidadObraComplementaria'];
+                    $infoReimpresion['Obras_Complementarias']['Comunes'][$control]['Cantidad'] = $obraComplementaria['CantidadObraComplementaria'];
+                    if(isset($obraComplementaria['EdadObraComplementaria'])){
+                        $infoReimpresion['Obras_Complementarias']['Comunes'][$control]['Edad'] = $obraComplementaria['EdadObraComplementaria'];
+                    }
+                    if(isset($obraComplementaria['VidaUtilTotalObraComplementaria'])){
+                        $infoReimpresion['Obras_Complementarias']['Comunes'][$control]['Vida_Util_Total'] = $obraComplementaria['VidaUtilTotalObraComplementaria'];
+                    }
+                    if(isset($obraComplementaria['ValorUnitarioObraComplementaria'])){
+                        $infoReimpresion['Obras_Complementarias']['Comunes'][$control]['Valor_Unitario'] = $obraComplementaria['ValorUnitarioObraComplementaria'];
+                    }    
+                    $control = $control + 1;
+                }
+            }
+        }
+        
+
+        /*********************************************************************************************************************/
+
+        if(isset($elementoPrincipal['EnfoqueDeMercado'])){
+            $infoReimpresion['Terrenos']  = array();
+            $infoReimpresion['Terrenos']['Terrenos_Directos'] = array();
+            $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaUno'] = array();
+            $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'] = array();
+
+            $enfoqueMercado = $elementoPrincipal['EnfoqueDeMercado'];
+            $terrenos = $enfoqueMercado['Terrenos'];
+            $terrenosDirectos = $terrenos['TerrenosDirectos'];
+            
+            $control = 0;
+            foreach($terrenosDirectos as $terrenoDirecto){
+                $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaUno'][$control]['Ubicacion'] = $terrenoDirecto['Calle'].". ".$terrenoDirecto['Colonia'].". ".$terrenoDirecto['CodigoPostal'].".";
+                $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaUno'][$control]['Descripcion'] = $terrenoDirecto['DescripcionDelPredio'];
+                $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaUno'][$control]['C_U_S'] = $terrenoDirecto['CUS'];
+                $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaUno'][$control]['Uso_Suelo'] = $terrenoDirecto['UsoDelSuelo'];
+
+                $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['F_Negociacion'] = $terrenoDirecto['FactorDeNegociacion'];
+                $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Superficie'] = $terrenoDirecto['Superficie'];
+                $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Fzo'] = $terrenoDirecto['Fzo'];
+                $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Fub'] = $terrenoDirecto['Fub'];
+                $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['FFr'] = $terrenoDirecto['FFr'];
+                $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Ffo'] = $terrenoDirecto['Ffo'];
+                $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Fsu'] = $terrenoDirecto['Fsu'];
+                if(isset($terrenoDirecto['Fot'])){
+                    $infoReimpresioN['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['F_otro'] = $terrenoDirecto['Fot']['Valor'];
+                }else{
+                    $infoReimpresioN['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['F_otro'] = '';
+                }                
+                $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Fre'] = $terrenoDirecto['Fre'];
+                $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Precio_Solicitado'] = $terrenoDirecto['PrecioSolicitado'];
+
+                $control = $control + 1;
+            }
+
+            $conclusionHomologacionTerrenos = $terrenos['ConclusionesHomologacionTerrenos'];
+
+            $infoReimpresion['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos'] = array();
+            $infoReimpresion['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Tierra_Promedio'] = $conclusionHomologacionTerrenos['ValorUnitarioDeTierraPromedio'];
+            $infoReimpresion['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Tierra_Homologado'] = $conclusionHomologacionTerrenos['ValorUnitarioDeTierraHomologado'];
+            $infoReimpresion['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Sin_Homologar_Minimo'] = $conclusionHomologacionTerrenos['ValorUnitarioSinHomologarMinimo'];
+            $infoReimpresion['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Sin_Homologar_Maximo'] = $conclusionHomologacionTerrenos['ValorUnitarioSinHomologarMaximo'];
+            $infoReimpresion['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Homologado_Minimo'] = $conclusionHomologacionTerrenos['ValorUnitarioHomologadoMinimo'];
+            $infoReimpresion['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Homologado_Maximo'] = $conclusionHomologacionTerrenos['ValorUnitarioHomologadoMaximo'];
+
+            /************************************************************************************************************************************************************************/
+
+            if(isset($terrenos['TerrenosResidual'])){
+                $infoReimpresion['Terrenos']['Terrenos_Residuales'] = array();
+                $terrenosResidual = $terrenos['TerrenosResidual'];
+
+                $infoReimpresion['Terrenos']['Terrenos_Residuales']['Tipo_Producto_Inmoviliario_Propuesto'] = $terrenosResidual['TipoDeProductoInmobiliarioPropuesto'];
+                $infoReimpresion['Terrenos']['Terrenos_Residuales']['Numero_Unidades_Vendibles'] = $terrenosResidual['NumeroDeUnidadesVendibles'];
+                $infoReimpresion['Terrenos']['Terrenos_Residuales']['Superficie_Vendible_Unidad'] = $terrenosResidual['SuperficieVendiblePorUnidad'];
+
+                $infoReimpresion['Terrenos']['Terrenos_Residuales']['Investigacion_Productos_Comparables'] = array();
+
+                $control = 0;
+                foreach($terrenosResidual as $terrenoResidual){
+                    $infoReimpresion['Terrenos']['Terrenos_Residuales']['Investigacion_Productos_Comparables'][$control]['Ubicacion'] = $terrenoDirecto['Calle'].". ".$terrenoDirecto['Colonia'].". ".$terrenoDirecto['CodigoPostal'].".";
+                    $infoReimpresion['Terrenos']['Terrenos_Residuales']['Investigacion_Productos_Comparables'][$control]['Descripcion'] = $terrenoDirecto['DescripcionDelComparable'];   
+
+                    $control = $control + 1;
+                }
+
+                $conclusionHomologacionResiduales = $terrenosResidual['ConclusionesHomologacionCompResiduales'];
+                $infoReimpresion['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales'] = array();
+
+                $infoReimpresion['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Promedio'] = $conclusionHomologacionResiduales['ValorUnitarioPromedio'];
+                $infoReimpresion['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Homologado'] = $conclusionHomologacionResiduales['ValorUnitarioHomologado'];
+                $infoReimpresion['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Sin_Homologar_Minimo'] = $conclusionHomologacionResiduales['ValorUnitarioSinHomologarMinimo'];
+                $infoReimpresion['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Sin_Homologar_Maximo'] = $conclusionHomologacionResiduales['ValorUnitarioSinHomologarMaximo'];
+                $infoReimpresion['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Homologado_Minimo'] = $conclusionHomologacionResiduales['ValorUnitarioHomologadoMinimo'];
+                $infoReimpresion['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Homologado_Maximo'] = $conclusionHomologacionResiduales['ValorUnitarioHomologadoMaximo'];
+                $infoReimpresion['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Aplicable_Residual'] = $conclusionHomologacionResiduales['ValorUnitarioAplicableAlResidual'];
+
+                $infoReimpresion['Terrenos']['Terrenos_Residuales']['Analisis_Residual'] = array();
+                $analisisResidual = $terrenosResidual['AnalisisResidual'];
+
+                $infoReimpresion['Terrenos']['Terrenos_Residuales']['Analisis_Residual']['Total_Ingresos'] = $analisisResidual['TotalDeIngresos'];
+                $infoReimpresion['Terrenos']['Terrenos_Residuales']['Analisis_Residual']['Total_Egresos'] = $analisisResidual['TotalDeEgresos'];
+                $infoReimpresion['Terrenos']['Terrenos_Residuales']['Analisis_Residual']['Unidad_Propuesta'] = $analisisResidual['UtilidadPropuesta'];
+                $infoReimpresion['Terrenos']['Terrenos_Residuales']['Analisis_Residual']['Valor_Unitario_Tierra_Residual'] = $analisisResidual['ValorUnitarioDeTierraResidual'];
+
+            }
+            
+            $infoReimpresion['Terrenos']['Valor_Unitario_Tierra_Del_Avaluo'] = $terrenos['ValorUnitarioDeTierraAplicableAlAvaluo'];
+        
+        
+
+        /***********************************************************************************************************************/
+
+            $infoReimpresion['Construcciones_En_Venta'] = array();
+            $infoReimpresion['Construcciones_En_Venta']['Investigacion_Productos_Comparables'] = array();
+            $infoReimpresion['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaUno'] = array();
+            $infoReimpresion['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaDos'] = array();
+
+            $construccionesEnVenta = $enfoqueMercado['ConstruccionesEnVenta'];
+            $investigacionProductosComparables = $construccionesEnVenta['InvestigacionProductosComparables'];
+
+            $control = 0;
+            foreach($investigacionProductosComparables as $productoComparable){
+                $infoReimpresion['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaUno'][$control]['Ubicacion'] = $productoComparable['Calle'].". ".$productoComparable['Colonia'].". ".$productoComparable['CodigoPostal'];
+                $infoReimpresion['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaUno'][$control]['Descripcion'] = $productoComparable['DescripcionDelComparable'];
+
+                $infoReimpresion['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaDos'][$control]['F_Negociacion'] = $productoComparable['FactorDeNegociacion'];
+                $infoReimpresion['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaDos'][$control]['Superficie_Vendible'] = $productoComparable['SuperficieVendiblePorUnidad'];
+                $infoReimpresion['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaDos'][$control]['Precio_Solicitado'] = $productoComparable['PrecioSolicitado'];
+
+                $control = $control + 1;
+            }
+
+            $infoReimpresion['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta'] = array();
+            $conclusionesHomologacionContruccionesVenta = $construccionesEnVenta['ConclusionesHomologacionConstruccionesEnVenta'];
+
+            $infoReimpresion['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Promedio'] = $conclusionesHomologacionContruccionesVenta['ValorUnitarioPromedio'];
+            $infoReimpresion['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Homologado'] = $conclusionesHomologacionContruccionesVenta['ValorUnitarioHomologado'];
+            $infoReimpresion['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Sin_Homolgar_Minimo'] = $conclusionesHomologacionContruccionesVenta['ValorUnitarioSinHomologarMinimo'];
+            $infoReimpresion['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Sin_Homolgar_Maximo'] = $conclusionesHomologacionContruccionesVenta['ValorUnitarioSinHomologarMaximo'];
+            $infoReimpresion['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Homologado_Minimo'] = $conclusionesHomologacionContruccionesVenta['ValorUnitarioHomologadoMinimo'];
+            $infoReimpresion['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Homologado_Maximo']  = $conclusionesHomologacionContruccionesVenta['ValorUnitarioHomologadoMaximo'];
+
+            $infoReimpresion['Construcciones_En_Venta']['Valor_Unitario_Aplicable_Avaluo'] = $conclusionesHomologacionContruccionesVenta['ValorUnitarioAplicableAlAvaluo'];
+            $infoReimpresion['Construcciones_En_Venta']['Valor_Mercado_Del_Inmueble'] = $enfoqueMercado['ValorDeMercadoDelInmueble'];
+
+            /************************************************************************************************************************************************************************/
+
+            $infoReimpresion['Construcciones_En_Renta'] = array();
+            $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables'] = array();
+            $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaUno'] = array();
+            $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos'] = array();
+
+            $construccionesEnRenta = $enfoqueMercado['ConstruccionesEnRenta'];
+            $investigacionProductosComparables = $construccionesEnRenta['InvestigacionProductosComparables'];
+
+            $control = 0;
+            foreach($investigacionProductosComparables as $productoComparable){
+                $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaUno'][$control]['Ubicacion'] = $productoComparable['Calle'].". ".$productoComparable['Colonia'].". ".$productoComparable['CodigoPostal'];
+                $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaUno'][$control]['Descripcion'] = $productoComparable['DescripcionDelComparable'];
+
+                $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos'][$control]['F_Negociacion'] = $productoComparable['FactorDeNegociacion'];
+                $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos'][$control]['Superficie_Vendible'] = $productoComparable['SuperficieVendiblePorUnidad'];
+                $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos'][$control]['Precio_Solicitado'] = $productoComparable['PrecioSolicitado'];
+
+                $control = $control + 1;
+            }
+
+            $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta'] = array();
+            //Se usa ConclusionesHomologacionConstruccionesEnVenta porque asi llega en el XML
+            $conclusionesHomologacionContruccionesRenta = $construccionesEnRenta['ConclusionesHomologacionConstruccionesEnVenta'];
+
+            $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Promedio'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioPromedio'];
+            $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologado'];
+            $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Sin_Homolgar_Minimo'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioSinHomologarMinimo'];
+            $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Sin_Homolgar_Maximo'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioSinHomologarMaximo'];
+            $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado_Minimo'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologadoMinimo'];
+            $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado_Maximo']  = $conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologadoMaximo'];
+
+            $infoReimpresion['Construcciones_En_Renta']['Valor_Unitario_Aplicable_Avaluo'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioAplicableAlAvaluo'];
+
+    }
+
+        /************************************************************************************************************************************************************************/
+
+        //$superficieDelTerreno = $terreno['SuperficieDelTerreno'];
+        $infoReimpresion['Calculo_Del_Valor_Del_Terreno'] = array();
+        $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Totales'] = array();
+
+        $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Fracc'] = $superficieDelTerreno['IdentificadorFraccionN1'];
+        $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Clave_Area_Valor'] = $superficieDelTerreno['ClaveDeAreaDeValor'];
+        $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Superficie_m2'] = $superficieDelTerreno['SuperficieFraccionN1'];
+        if(isset($superficieDelTerreno['Fzo'])){
+            $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Fzo'] = $superficieDelTerreno['Fzo'];
+        }        
+        if(isset($superficieDelTerreno['Fub'])){
+            $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Fub'] = $superficieDelTerreno['Fub'];
+        }
+        if(isset($superficieDelTerreno['FFr'])){
+            $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['FFr'] = $superficieDelTerreno['FFr'];
+        }
+        if(isset($superficieDelTerreno['Ffo'])){
+            $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Ffo'] = $superficieDelTerreno['Ffo'];
+        }
+        if(isset($superficieDelTerreno['Fsu'])){
+            $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Fsu'] = $superficieDelTerreno['Fsu'];            
+        }
+        if(isset($superficieDelTerreno['Fot'])){
+            $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Fot'] = $superficieDelTerreno['Fot']['Valor']." ".$superficieDelTerreno['Fot']['Descripcion'];
+        }
+        if(isset($superficieDelTerreno['Fre'])){
+            $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['F_Resultante'] = $superficieDelTerreno['Fre'];
+        }
+        
+        if($tipoDeAvaluo == 'Catastral'){
+            $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Valor_Catastral'] = $superficieDelTerreno['ValorCatastralDeTierraAplicableALaFraccion'];
+        }
+        
+        $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Valor_Fraccion'] = $superficieDelTerreno['ValorDeLaFraccionN'];
+
+        $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Totales']['Total_Superficie'] = $terreno['SuperficieTotalDelTerreno'];
+        $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Totales']['Valor_Del_Terreno_Total'] = $terreno['ValorTotalDelTerreno'];        
+
+        $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Totales']['Indiviso_Unidad_Que_Se_Valua'] = $terreno['Indiviso'] <= 1 ? $terreno['Indiviso'] * 100 : $terreno['Indiviso'];
+        
+        $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Totales']['Valor_Total_Del_Terreno_Proporcional'] = $terreno['ValorTotalDelTerrenoProporcional'];
+
+        /*********************************************************************************************************************************************************************************/
+
+        $infoReimpresion['Calculo_Valor_Construcciones'] = array();
+        $infoReimpresion['Calculo_Valor_Construcciones']['Privativas'] = array();
+        $infoReimpresion['Calculo_Valor_Construcciones']['Totales_Privativas'] = array();
+        $infoReimpresion['Calculo_Valor_Construcciones']['Comunes'] = array();        
+        $infoReimpresion['Calculo_Valor_Construcciones']['Totales_Comunes'] = array();
+
+        if($tipoDeAvaluo == 'Comercial'){
+
+            if(isset($tiposContruccion['ConstruccionesPrivativas']['@attributes'])){
+                $infoReimpresion['Calculo_Valor_Construcciones']['Privativas']['Fracc'] = $superficieDelTerreno['IdentificadorFraccionN1'];
+                $infoReimpresion['Calculo_Valor_Construcciones']['Privativas']['Descripcion'] = $tiposContruccion['ConstruccionesPrivativas']['Descripcion'];
+                $infoReimpresion['Calculo_Valor_Construcciones']['Privativas']['Uso'] = $tiposContruccion['ConstruccionesPrivativas']['ClaveUso'];
+                $infoReimpresion['Calculo_Valor_Construcciones']['Privativas']['Clase'] = $tiposContruccion['ConstruccionesPrivativas']['ClaveClase'];
+                $infoReimpresion['Calculo_Valor_Construcciones']['Privativas']['Superficie_m2'] = $tiposContruccion['ConstruccionesPrivativas']['Superficie'];
+                $infoReimpresion['Calculo_Valor_Construcciones']['Privativas']['Valor_Unitario'] = $tiposContruccion['ConstruccionesPrivativas']['ValorunitariodereposicionNuevo'];
+                $infoReimpresion['Calculo_Valor_Construcciones']['Privativas']['Edad'] = $tiposContruccion['ConstruccionesPrivativas']['Edad'];
+                $infoReimpresion['Calculo_Valor_Construcciones']['Privativas']['Fco'] = $tiposContruccion['ConstruccionesPrivativas']['ClaveConservacion'];
+                $infoReimpresion['Calculo_Valor_Construcciones']['Privativas']['FRe'] = $tiposContruccion['ConstruccionesPrivativas']['FactorResultante'];
+                $infoReimpresion['Calculo_Valor_Construcciones']['Privativas']['Valor_Fraccion'] = $tiposContruccion['ConstruccionesPrivativas']['ValorDeLaFraccionN'];            
+            }
+    
+            if(isset($tiposContruccion['ConstruccionesPrivativas'][0])){
+                $control = 0;
+                foreach($tiposContruccion['ConstruccionesPrivativas'] as $construccionPrivativa){
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Privativas'][$control]['Fracc'] = $superficieDelTerreno['IdentificadorFraccionN1'];
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Privativas'][$control]['Descripcion'] = $construccionPrivativa['Descripcion'];
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Privativas'][$control]['Uso'] = $construccionPrivativa['ClaveUso'];
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Privativas'][$control]['Clase'] = $construccionPrivativa['ClaveClase'];
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Privativas'][$control]['Superficie_m2'] = $construccionPrivativa['Superficie'];
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Privativas'][$control]['Valor_Unitario'] = $construccionPrivativa['ValorunitariodereposicionNuevo'];
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Privativas'][$control]['Edad'] = $construccionPrivativa['Edad'];
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Privativas'][$control]['Fco'] = $construccionPrivativa['ClaveConservacion'];
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Privativas'][$control]['FRe'] = $construccionPrivativa['FactorResultante'];
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Privativas'][$control]['Valor_Fraccion'] = $construccionPrivativa['ValorDeLaFraccionN'];
+                                    
+                    $control = $control + 1;
+                }
+            }
+    
+            $infoReimpresion['Calculo_Valor_Construcciones']['Totales_Privativas']['Total_Superficie'] = $tiposContruccion['SuperficieTotalDeConstruccionesPrivativas'];
+            $infoReimpresion['Calculo_Valor_Construcciones']['Totales_Privativas']['Total_Construcciones_Privativas'] = $tiposContruccion['ValorTotalDeConstruccionesPrivativas'];
+            
+            if(isset($tiposContruccion['ConstruccionesComunes']['@attributes'])){
+                $infoReimpresion['Calculo_Valor_Construcciones']['Comunes']['Fracc'] = $superficieDelTerreno['IdentificadorFraccionN1'];
+                $infoReimpresion['Calculo_Valor_Construcciones']['Comunes']['Descripcion'] = $tiposContruccion['ConstruccionesComunes']['Descripcion'];
+                $infoReimpresion['Calculo_Valor_Construcciones']['Comunes']['Uso'] = $tiposContruccion['ConstruccionesComunes']['ClaveUso'];
+                $infoReimpresion['Calculo_Valor_Construcciones']['Comunes']['Clase'] = $tiposContruccion['ConstruccionesComunes']['ClaveClase'];
+                $infoReimpresion['Calculo_Valor_Construcciones']['Comunes']['Superficie_m2'] = $tiposContruccion['ConstruccionesComunes']['Superficie'];
+                $infoReimpresion['Calculo_Valor_Construcciones']['Comunes']['Valor_Unitario'] = $tiposContruccion['ConstruccionesComunes']['ValorunitariodereposicionNuevo'];
+                $infoReimpresion['Calculo_Valor_Construcciones']['Comunes']['Edad'] = $tiposContruccion['ConstruccionesComunes']['Edad'];
+                $infoReimpresion['Calculo_Valor_Construcciones']['Comunes']['Fco'] = $tiposContruccion['ConstruccionesComunes']['ClaveConservacion'];
+                $infoReimpresion['Calculo_Valor_Construcciones']['Comunes']['FRe'] = $tiposContruccion['ConstruccionesComunes']['FactorResultante'];
+                $infoReimpresion['Calculo_Valor_Construcciones']['Comunes']['Valor_Fraccion'] = $tiposContruccion['ConstruccionesComunes']['ValorDeLaFraccionN'];
+                $infoReimpresion['Calculo_Valor_Construcciones']['Comunes']['Indiviso'] = $tiposContruccion['ConstruccionesComunes']['PorcentajeIndivisoComunes'];            
+            }
+    
+            if(isset($tiposContruccion['ConstruccionesComunes'][0])){
+                $control = 0;
+                foreach($tiposContruccion['ConstruccionesComunes'] as $construccionComun){
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Comunes'][$control]['Fracc'] = $superficieDelTerreno['IdentificadorFraccionN1'];
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Comunes'][$control]['Descripcion'] = $construccionComun['Descripcion'];
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Comunes'][$control]['Uso'] = $construccionComun['ClaveUso'];
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Comunes'][$control]['Clase'] = $construccionComun['ClaveClase'];
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Comunes'][$control]['Superficie_m2'] = $construccionComun['Superficie'];
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Comunes'][$control]['Valor_Unitario'] = $construccionComun['ValorunitariodereposicionNuevo'];
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Comunes'][$control]['Edad'] = $construccionComun['Edad'];
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Comunes'][$control]['Fco'] = $construccionComun['ClaveConservacion'];
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Comunes'][$control]['FRe'] = $construccionComun['FactorResultante'];
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Comunes'][$control]['Valor_Fraccion'] = $construccionComun['ValorDeLaFraccionN'];
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Comunes'][$control]['Indiviso'] = $construccionComun['PorcentajeIndivisoComunes'];
+                    
+                    $control = $control + 1;
+                }
+            }
+    
+            $infoReimpresion['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Superficie'] = $tiposContruccion['SuperficieTotalDeConstruccionesComunes'];
+            $infoReimpresion['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Construcciones_Comunes'] = $tiposContruccion['ValorTotalDeConstruccionesComunes'];
+
+            
+
+        }else{
+
+            if(isset($tiposContruccion['ConstruccionesPrivativas']['@attributes'])){
+                $infoReimpresion['Calculo_Valor_Construcciones']['Privativas']['Tipo'] = 1;
+                $infoReimpresion['Calculo_Valor_Construcciones']['Privativas']['Descripcion'] = $tiposContruccion['ConstruccionesPrivativas']['Descripcion'];
+                $infoReimpresion['Calculo_Valor_Construcciones']['Privativas']['Uso'] = $tiposContruccion['ConstruccionesPrivativas']['ClaveUso'];
+                $infoReimpresion['Calculo_Valor_Construcciones']['Privativas']['Numero_Niveles_Tipo'] = $tiposContruccion['ConstruccionesPrivativas']['NumeroDeNivelesDelTipo'];
+                $infoReimpresion['Calculo_Valor_Construcciones']['Privativas']['Clave_Rango_Niveles'] = $tiposContruccion['ConstruccionesPrivativas']['ClaveRangoDeNiveles'];
+                $infoReimpresion['Calculo_Valor_Construcciones']['Privativas']['Clase'] = $tiposContruccion['ConstruccionesPrivativas']['ClaveClase'];
+                $infoReimpresion['Calculo_Valor_Construcciones']['Privativas']['Valor_Unitario'] = $tiposContruccion['ConstruccionesPrivativas']['ValorUnitarioCatastral'];
+                $infoReimpresion['Calculo_Valor_Construcciones']['Privativas']['Depreciacion_Por_Edad'] = $tiposContruccion['ConstruccionesPrivativas']['DepreciacionPorEdad'];
+                $infoReimpresion['Calculo_Valor_Construcciones']['Privativas']['Valor'] = $tiposContruccion['ConstruccionesPrivativas']['ValorDeLaFraccionN'];
+                $infoReimpresion['Calculo_Valor_Construcciones']['Privativas']['Sup'] = $tiposContruccion['ConstruccionesPrivativas']['Superficie'];
+                                
+            }
+    
+            if(isset($tiposContruccion['ConstruccionesPrivativas'][0])){
+                $control = 0;
+                foreach($tiposContruccion['ConstruccionesPrivativas'] as $construccionPrivativa){
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Privativas'][$control]['Tipo'] = $control + 1;
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Privativas'][$control]['Descripcion'] = $construccionPrivativa['Descripcion'];
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Privativas'][$control]['Uso'] = $construccionPrivativa['ClaveUso'];
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Privativas'][$control]['Numero_Niveles_Tipo'] = $construccionPrivativa['NumeroDeNivelesDelTipo'];
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Privativas'][$control]['Clave_Rango_Niveles'] = $construccionPrivativa['ClaveRangoDeNiveles'];
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Privativas'][$control]['Clase'] = $construccionPrivativa['ClaveClase'];
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Privativas'][$control]['Valor_Unitario'] = $construccionPrivativa['ValorUnitarioCatastral'];
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Privativas'][$control]['Depreciacion_Por_Edad'] = $construccionPrivativa['DepreciacionPorEdad'];
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Privativas'][$control]['Valor'] = $construccionPrivativa['ValorDeLaFraccionN'];
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Privativas'][$control]['Sup'] = $construccionPrivativa['Superficie'];
+                                    
+                    $control = $control + 1;
+                }
+            }
+    
+            $infoReimpresion['Calculo_Valor_Construcciones']['Totales_Privativas']['Total_Superficie'] = $tiposContruccion['SuperficieTotalDeConstruccionesPrivativas'];
+            $infoReimpresion['Calculo_Valor_Construcciones']['Totales_Privativas']['Total_Construcciones_Privativas'] = $tiposContruccion['ValorTotalDeConstruccionesPrivativas'];
+            
+            if(isset($tiposContruccion['ConstruccionesComunes']['@attributes'])){
+                $infoReimpresion['Calculo_Valor_Construcciones']['Comunes']['Tipo'] = 1;
+                $infoReimpresion['Calculo_Valor_Construcciones']['Comunes']['Descripcion'] = $tiposContruccion['ConstruccionesComunes']['Descripcion'];
+                $infoReimpresion['Calculo_Valor_Construcciones']['Comunes']['Uso'] = $tiposContruccion['ConstruccionesComunes']['ClaveUso'];
+                $infoReimpresion['Calculo_Valor_Construcciones']['Comunes']['Numero_Niveles_Tipo'] = $tiposContruccion['ConstruccionesComunes']['NumeroDeNivelesDelTipo'];
+                $infoReimpresion['Calculo_Valor_Construcciones']['Comunes']['Clave_Rango_Niveles'] = $tiposContruccion['ConstruccionesComunes']['ClaveRangoDeNiveles'];
+                $infoReimpresion['Calculo_Valor_Construcciones']['Comunes']['Clase'] = $tiposContruccion['ConstruccionesComunes']['ClaveClase'];
+                $infoReimpresion['Calculo_Valor_Construcciones']['Comunes']['Valor_Unitario'] = $tiposContruccion['ConstruccionesComunes']['ValorUnitarioCatastral'];
+                $infoReimpresion['Calculo_Valor_Construcciones']['Comunes']['Depreciacion_Por_Edad'] = $tiposContruccion['ConstruccionesComunes']['DepreciacionPorEdad'];
+                $infoReimpresion['Calculo_Valor_Construcciones']['Comunes']['Valor'] = $tiposContruccion['ConstruccionesComunes']['ValorDeLaFraccionN'];
+                $infoReimpresion['Calculo_Valor_Construcciones']['Comunes']['Sup'] = $tiposContruccion['ConstruccionesComunes']['Superficie'];                          
+            }
+    
+            if(isset($tiposContruccion['ConstruccionesComunes'][0])){
+                $control = 0;
+                foreach($tiposContruccion['ConstruccionesComunes'] as $construccionComun){
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Comunes'][$control]['Tipo'] = $control + 1;
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Comunes'][$control]['Descripcion'] = $construccionComun['Descripcion'];
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Comunes'][$control]['Uso'] = $construccionComun['ClaveUso'];
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Comunes'][$control]['Numero_Niveles_Tipo'] = $construccionComun['NumeroDeNivelesDelTipo'];
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Comunes'][$control]['Clave_Rango_Niveles'] = $construccionComun['ClaveRangoDeNiveles'];
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Comunes'][$control]['Clase'] = $construccionComun['ClaveClase'];
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Comunes'][$control]['Valor_Unitario'] = $construccionComun['ValorUnitarioCatastral'];
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Comunes'][$control]['Depreciacion_Por_Edad'] = $construccionComun['DepreciacionPorEdad'];
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Comunes'][$control]['Valor'] = $construccionComun['ValorDeLaFraccionN'];
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Comunes'][$control]['Sup'] = $construccionComun['Superficie'];                                        
+                    $control = $control + 1;
+                }
+            }
+    
+            $infoReimpresion['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Superficie'] = $tiposContruccion['SuperficieTotalDeConstruccionesComunes'];
+            $infoReimpresion['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Construcciones_Comunes'] = $tiposContruccion['ValorTotalDeConstruccionesComunes'];
+            
+            $infoReimpresion['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Construcciones_Comunes_Por_Indiviso'] = $tiposContruccion['ValorTotalDeLasConstruccionesComunesProIndiviso'];
+            
+
+        }        
+
+        /***********************************************************************************************************************************************************************/ 
+
+        $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios'] = array();
+        $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Totales'] = array();
+
+        if(isset($elementosAccesorios['Privativas']['@attributes'])){
+            $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'] = array();
+            $control = 0;
+            $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'] = array();
+            $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'][$control][0] = 'E';
+            $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'][$control]['Clave'] = $elementosAccesorios['Privativas']['ClaveElementoAccesorio'];
+            $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'][$control]['Concepto'] = $elementosAccesorios['Privativas']['DescripcionElementoAccesorio'];
+            $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'][$control]['Cantidad'] = $elementosAccesorios['Privativas']['CantidadElementoAccesorio'];
+            if(isset($elementosAccesorios['Privativas']['ValorUnitarioElementoAccesorio'])){
+                $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'][$control]['Valor_Unitario'] = $elementosAccesorios['Privativas']['ValorUnitarioElementoAccesorio'];
+            }
+            if(isset($elementosAccesorios['Privativas']['EdadElementoAccesorio'])){
+                $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'][$control]['Edad'] = $elementosAccesorios['Privativas']['EdadElementoAccesorio'];
+            }
+            if(isset($elementosAccesorios['Privativas']['ImporteElementoAccesorio'])){
+                $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'][$control]['Importe'] = $elementosAccesorios['Privativas']['ImporteElementoAccesorio'];
+            }
+            
+            $control = $control + 1;
         }
 
-        if(isset($obrasComplementarias['Privativas'][0])){
-            $infoReimpresion['Obras_Complementarias']['Privativas'] = array();
+        if(isset($elementosAccesorios['Privativas'][0])){
+            $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'] = array();
             $control = 0;
+            foreach($elementosAccesorios['Privativas'] as $elementoAccesorio){
+                $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'][$control][0] = 'E';
+                $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'][$control]['Clave'] = $elementoAccesorio['ClaveElementoAccesorio'];
+                $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'][$control]['Concepto'] = $elementoAccesorio['DescripcionElementoAccesorio'];
+                $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'][$control]['Cantidad'] = $elementoAccesorio['CantidadElementoAccesorio'];
+                if(isset($elementoAccesorio['ValorUnitarioElementoAccesorio'])){
+                    $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'][$control]['Valor_Unitario'] = $elementoAccesorio['ValorUnitarioElementoAccesorio'];
+                }
+                if(isset($elementoAccesorio['EdadElementoAccesorio'])){
+                    $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'][$control]['Edad'] = $elementoAccesorio['EdadElementoAccesorio'];
+                }
+                if(isset($elementoAccesorio['ImporteElementoAccesorio'])){
+                    $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'][$control]['Importe'] = $elementoAccesorio['ImporteElementoAccesorio'];
+                }    
+                                
+                $control = $control + 1;
+            }
+        }
+
+        if(isset($obrasComplementarias['Privativas']['@attributes'])){
+            $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'][$control][0] = 'O';
+            $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'][$control]['Clave'] = $obrasComplementarias['Privativas']['ClaveObraComplementaria'];
+            $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'][$control]['Concepto'] = $obrasComplementarias['Privativas']['DescripcionObraComplementaria'];
+            $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'][$control]['Cantidad'] = $obrasComplementarias['Privativas']['CantidadObraComplementaria'];
+            if(isset($obrasComplementarias['Privativas']['ValorUnitarioObraComplementaria'])){
+                $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'][$control]['Valor_Unitario'] = $obrasComplementarias['Privativas']['ValorUnitarioObraComplementaria'];
+            }
+            if(isset($obrasComplementarias['Privativas']['EdadObraComplementaria'])){
+                $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'][$control]['Edad'] = $obrasComplementarias['Privativas']['EdadObraComplementaria'];
+            }
+            if(isset($obrasComplementarias['Privativas']['ImporteObraComplementaria'])){
+                $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'][$control]['Importe'] = $obrasComplementarias['Privativas']['ImporteObraComplementaria'];
+            }    
+            $control = $control + 1;            
+        }
+
+        if(isset($obrasComplementarias['Privativas'][0])){    
             foreach($obrasComplementarias['Privativas'] as $obraComplementaria){
-                $infoReimpresion['Obras_Complementarias']['Privativas'][$control]['Clave'] = $obraComplementaria['ClaveObraComplementaria'];
-                $infoReimpresion['Obras_Complementarias']['Privativas'][$control]['Descripcion'] = $obraComplementaria['DescripcionObraComplementaria'];
-                $infoReimpresion['Obras_Complementarias']['Privativas'][$control]['Unidad'] = $obraComplementaria['UnidadObraComplementaria'];
-                $infoReimpresion['Obras_Complementarias']['Privativas'][$control]['Cantidad'] = $obraComplementaria['CantidadObraComplementaria'];
-                $infoReimpresion['Obras_Complementarias']['Privativas'][$control]['Edad'] = $obraComplementaria['EdadObraComplementaria'];
-                $infoReimpresion['Obras_Complementarias']['Privativas'][$control]['Vida_Util_Total'] = $obraComplementaria['VidaUtilTotalObraComplementaria'];
-                $infoReimpresion['Obras_Complementarias']['Privativas'][$control]['Valor_Unitario'] = $obraComplementaria['ValorUnitarioObraComplementaria'];
+                $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'][$control][0] = 'O';
+                $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'][$control]['Clave'] = $obraComplementaria['ClaveObraComplementaria'];
+                $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'][$control]['Concepto'] = $obraComplementaria['DescripcionObraComplementaria'];
+                $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'][$control]['Cantidad'] = $obraComplementaria['CantidadObraComplementaria'];
+                if(isset($obraComplementaria['ValorUnitarioObraComplementaria'])){
+                    $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'][$control]['Valor_Unitario'] = $obraComplementaria['ValorUnitarioObraComplementaria'];
+                }
+                if(isset($obraComplementaria['EdadObraComplementaria'])){
+                    $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'][$control]['Edad'] = $obraComplementaria['EdadObraComplementaria'];
+                }
+                if(isset($obraComplementaria['ImporteObraComplementaria'])){
+                    $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'][$control]['Importe'] = $obraComplementaria['ImporteObraComplementaria'];                
+                }    
+                $control = $control + 1;
+            }
+        }
+
+        /******************************************************************************************************************************************************************/
+
+        if(isset($elementosAccesorios['Comunes']['@attributes'])){
+            $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Comunes'] = array();
+            $control = 0;            
+            $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Comunes'][$control][0] = 'E';
+            $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Comunes'][$control]['Clave'] = $elementosAccesorios['Comunes']['ClaveElementoAccesorio'];
+            $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Comunes'][$control]['Concepto'] = $elementosAccesorios['Comunes']['DescripcionElementoAccesorio'];
+            $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Comunes'][$control]['Cantidad'] = $elementosAccesorios['Comunes']['CantidadElementoAccesorio'];
+            if(isset($elementosAccesorios['Comunes']['ValorUnitarioElementoAccesorio'])){
+                $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Comunes'][$control]['Valor_Unitario'] = $elementosAccesorios['Comunes']['ValorUnitarioElementoAccesorio'];
+            }
+            if(isset($elementosAccesorios['Comunes']['EdadElementoAccesorio'])){
+                $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Comunes'][$control]['Edad'] = $elementosAccesorios['Comunes']['EdadElementoAccesorio'];
+            }
+            if(isset($elementosAccesorios['Comunes']['ImporteElementoAccesorio'])){
+                $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Comunes'][$control]['Importe'] = $elementosAccesorios['Comunes']['ImporteElementoAccesorio'];
+            }    
+            $control = $control + 1;          
+            
+        }
+
+        if(isset($elementosAccesorios['Comunes'][0])){
+            $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Comunes'] = array();
+            $control = 0;
+            foreach($elementosAccesorios['Comunes'] as $elementoAccesorio){
+                $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Comunes'][$control][0] = 'E';
+                $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Comunes'][$control]['Clave'] = $elementoAccesorio['ClaveElementoAccesorio'];
+                $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Comunes'][$control]['Concepto'] = $elementoAccesorio['DescripcionElementoAccesorio'];
+                $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Comunes'][$control]['Cantidad'] = $elementoAccesorio['CantidadElementoAccesorio'];
+                if(isset($elementoAccesorio['ValorUnitarioElementoAccesorio'])){
+                    $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Comunes'][$control]['Valor_Unitario'] = $elementoAccesorio['ValorUnitarioElementoAccesorio'];
+                }
+                if(isset($elementoAccesorio['EdadElementoAccesorio'])){
+                    $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Comunes'][$control]['Edad'] = $elementoAccesorio['EdadElementoAccesorio'];
+                }
+                if(isset($elementoAccesorio['ImporteElementoAccesorio'])){
+                    $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Comunes'][$control]['Importe'] = $elementoAccesorio['ImporteElementoAccesorio'];
+                }
+
                 $control = $control + 1;
             }
         }
 
         if(isset($obrasComplementarias['Comunes']['@attributes'])){
-            $infoReimpresion['Obras_Complementarias']['Comunes'] = array();
-            $infoReimpresion['Obras_Complementarias']['Comunes']['Clave'] = $obrasComplementarias['Comunes']['ClaveObraComplementaria'];
-            $infoReimpresion['Obras_Complementarias']['Comunes']['Descripcion'] = $obrasComplementarias['Comunes']['DescripcionObraComplementaria'];
-            $infoReimpresion['Obras_Complementarias']['Comunes']['Unidad'] = $obrasComplementarias['Comunes']['UnidadObraComplementaria'];
-            $infoReimpresion['Obras_Complementarias']['Comunes']['Cantidad'] = $obrasComplementarias['Comunes']['CantidadObraComplementaria'];
-            $infoReimpresion['Obras_Complementarias']['Comunes']['Edad'] = $obrasComplementarias['Comunes']['EdadObraComplementaria'];
-            $infoReimpresion['Obras_Complementarias']['Comunes']['Vida_Util_Total'] = $obrasComplementarias['Comunes']['VidaUtilTotalObraComplementaria'];
-            $infoReimpresion['Obras_Complementarias']['Comunes']['Valor_Unitario'] = $obrasComplementarias['Comunes']['ValorUnitarioObraComplementaria'];
+            $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Comunes'] = array();
+            $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Comunes'][$control][0] = 'O';
+            $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Comunes'][$control]['Clave'] = $obrasComplementarias['Comunes']['ClaveObraComplementaria'];
+            $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Comunes'][$control]['Concepto'] = $obrasComplementarias['Comunes']['DescripcionObraComplementaria'];
+            $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Comunes'][$control]['Cantidad'] = $obrasComplementarias['Comunes']['CantidadObraComplementaria'];
+            if(isset($obrasComplementarias['Comunes']['ValorUnitarioObraComplementaria'])){
+                $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Comunes'][$control]['Valor_Unitario'] = $obrasComplementarias['Comunes']['ValorUnitarioObraComplementaria'];
+            }
+            if(isset($obrasComplementarias['Comunes']['EdadObraComplementaria'])){
+                $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Comunes'][$control]['Edad'] = $obrasComplementarias['Comunes']['EdadObraComplementaria'];
+            }
+            if(isset($obrasComplementarias['Comunes']['ImporteObraComplementaria'])){
+                $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Comunes'][$control]['Importe'] = $obrasComplementarias['Comunes']['ImporteObraComplementaria'];
+            }
+            
+            $control = $control + 1;   
         }
 
-        if(isset($obrasComplementarias['Comunes'][0])){
-            $infoReimpresion['Obras_Complementarias']['Comunes'] = array();
-            $control = 0;
+        if(isset($obrasComplementarias['Comunes'][0])){            
             foreach($obrasComplementarias['Comunes'] as $obraComplementaria){
-                $infoReimpresion['Obras_Complementarias']['Comunes'][$control]['Clave'] = $obraComplementaria['ClaveObraComplementaria'];
-                $infoReimpresion['Obras_Complementarias']['Comunes'][$control]['Descripcion'] = $obraComplementaria['DescripcionObraComplementaria'];
-                $infoReimpresion['Obras_Complementarias']['Comunes'][$control]['Unidad'] = $obraComplementaria['UnidadObraComplementaria'];
-                $infoReimpresion['Obras_Complementarias']['Comunes'][$control]['Cantidad'] = $obraComplementaria['CantidadObraComplementaria'];
-                $infoReimpresion['Obras_Complementarias']['Comunes'][$control]['Edad'] = $obraComplementaria['EdadObraComplementaria'];
-                $infoReimpresion['Obras_Complementarias']['Comunes'][$control]['Vida_Util_Total'] = $obraComplementaria['VidaUtilTotalObraComplementaria'];
-                $infoReimpresion['Obras_Complementarias']['Comunes'][$control]['Valor_Unitario'] = $obraComplementaria['ValorUnitarioObraComplementaria'];
+                $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Comunes'][$control][0] = 'O';
+                $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Comunes'][$control]['Clave'] = $obraComplementaria['ClaveObraComplementaria'];
+                $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Comunes'][$control]['Concepto'] = $obraComplementaria['DescripcionObraComplementaria'];
+                $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Comunes'][$control]['Cantidad'] = $obraComplementaria['CantidadObraComplementaria'];
+                if(isset($obraComplementaria['ValorUnitarioObraComplementaria'])){
+                    $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Comunes'][$control]['Valor_Unitario'] = $obraComplementaria['ValorUnitarioObraComplementaria'];
+                }
+                if(isset($obraComplementaria['EdadObraComplementaria'])){
+                    $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Comunes'][$control]['Edad'] = $obraComplementaria['EdadObraComplementaria'];
+                }
+                if(isset($obraComplementaria['ImporteObraComplementaria'])){
+                    $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Comunes'][$control]['Importe'] = $obraComplementaria['ImporteObraComplementaria'];                
+                }
+
                 $control = $control + 1;
             }
         }
 
-        /*********************************************************************************************************************/
+        $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Totales']['Indiviso_Unidad_Que_Se_Valua'] = $terreno['Indiviso'] <= 1 ? $terreno['Indiviso'] * 100 : $terreno['Indiviso'];
+        if(isset($elementosConstruccion['ImporteTotalInstalacionesAccesoriosComplementariasPrivativas']) && isset($elementosConstruccion['ImporteTotalInstalacionesAccesoriosComplementariasComunes'])){
+            $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Totales']['Total_De_Las_Instalaciones'] = $elementosConstruccion['ImporteTotalInstalacionesAccesoriosComplementariasPrivativas'] + $elementosConstruccion['ImporteTotalInstalacionesAccesoriosComplementariasComunes'];
+        }    
 
-        $infoReimpresion['Terrenos']  = array();
-        $infoReimpresion['Terrenos']['Terrenos_Directos'] = array();
-        $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaUno'] = array();
-        $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'] = array();
+        $enfoqueCostos = $elementoPrincipal['EnfoqueDeCostos'];
+        if(isset($enfoqueCostos['ImporteTotalDelEnfoqueDeCostos'])){
+            $infoReimpresion['Indice_Fisico_Directo'] = $enfoqueCostos['ImporteTotalDelEnfoqueDeCostos'];
+        }
 
-        $enfoqueMercado = $elementoPrincipal['EnfoqueDeMercado'];
-        $terrenos = $enfoqueMercado['Terrenos'];
-        $terrenosDirectos = $terrenos['TerrenosDirectos'];
+        if($tipoDeAvaluo == 'Catastral'){
+            $infoReimpresion['Importe_Instalaciones_Especiales_Elementos_Accesorios_Obras_Comp'] = $enfoqueCostos['ImporteInstalacionesEspeciales'];
+            $infoReimpresion['Importe_Total_Valor_Catastral'] = $enfoqueCostos['ImporteTotalValorCatastral'];
+            $infoReimpresion['Avance_Obra'] = $enfoqueCostos['AvanceDeObra'] <= 1 ? $enfoqueCostos['AvanceDeObra'] * 100 : $enfoqueCostos['AvanceDeObra'];
+            $infoReimpresion['Importe_Total_Valor_Catastral_Obra_Proceso'] = $enfoqueCostos['ImporteTotalValorCatastralObraEnProceso'];
+
+            $consideraciones = $elementoPrincipal['ConsideracionesPreviasAlAvaluo'];
+
+            $infoReimpresion['Consideraciones'] = $consideraciones['ConsideracionesPreviasAlAvaluo'];
+        }        
+
         
+
+        /*************************************************************************************************************************************************************/
+
+        if(isset($enfoqueMercado['ConstruccionesEnRenta'])){
+            $infoReimpresion['Renta_Estimada'] = array();
+            $construccionesEnRenta = $enfoqueMercado['ConstruccionesEnRenta'];
+            $investigacionProductosComparables = $construccionesEnRenta['InvestigacionProductosComparables'];
+            $control = 0;
+            foreach($investigacionProductosComparables as $productoComparable){
+                $infoReimpresion['Renta_Estimada'][$control]['Ubicacion'] = $productoComparable['Calle'].". ".$productoComparable['Colonia'].". ".$productoComparable['CodigoPostal'];
+                $infoReimpresion['Renta_Estimada'][$control]['Superficie_m2'] = $productoComparable['SuperficieVendiblePorUnidad'];
+                $infoReimpresion['Renta_Estimada'][$control]['Renta_Mensual'] = $productoComparable['PrecioSolicitado'];
+                $infoReimpresion['Renta_Estimada'][$control]['Renta_m2'] = $productoComparable['PrecioSolicitado'] / $productoComparable['SuperficieVendiblePorUnidad'];    
+
+                $control = $control + 1;
+            }
+        }
+        
+        if(isset($elementoPrincipal['EnfoqueDeIngresos'])){
+            $infoReimpresion['Analisis_Deducciones'] = array();
+            $infoReimpresion['Analisis_Deducciones']['Totales'] = array();
+            $enfoqueIngresos = $elementoPrincipal['EnfoqueDeIngresos'];
+            $deducciones = $enfoqueIngresos['Deducciones'];
+            
+            $infoReimpresion['Analisis_Deducciones']['Vacios'] = $deducciones['Vacios'];
+            $infoReimpresion['Analisis_Deducciones']['Impuesto_Predial'] = $deducciones['ImpuestoPredial'];
+            $infoReimpresion['Analisis_Deducciones']['Servicio_Agua'] = $deducciones['ServicioDeAgua'];
+            $infoReimpresion['Analisis_Deducciones']['Conserv_Mant'] = $deducciones['ConservacionYMantenimiento'];
+            $infoReimpresion['Analisis_Deducciones']['Administracion'] = $deducciones['Administracion'];
+            $infoReimpresion['Analisis_Deducciones']['Energia_Electrica'] = $deducciones['ServicioEnergiaElectrica'];
+            $infoReimpresion['Analisis_Deducciones']['Seguros'] = $deducciones['Seguros'];
+            $infoReimpresion['Analisis_Deducciones']['Otros'] = $deducciones['Otros'];
+            $infoReimpresion['Analisis_Deducciones']['Depreciacion_Fiscal'] = $deducciones['DepreciacionFiscal'];
+            $infoReimpresion['Analisis_Deducciones']['Deducc_Fiscales'] = $deducciones['DeduccionesFiscales'];
+            $infoReimpresion['Analisis_Deducciones']['ISR'] = $deducciones['ImpuestoSobreLaRenta'];
+
+            $infoReimpresion['Analisis_Deducciones']['Totales']['Suma'] = $deducciones['DeduccionesMensuales'];
+            $infoReimpresion['Analisis_Deducciones']['Totales']['Deducciones_Mensuales'] = $deducciones['DeduccionesMensuales'];
+            $infoReimpresion['Analisis_Deducciones']['Totales']['Producto_Liquido_Mensual'] = $enfoqueIngresos['ProductoLiquidoAnual'] / 12;
+            $infoReimpresion['Analisis_Deducciones']['Totales']['Producto_Liquido_Anual'] = $enfoqueIngresos['ProductoLiquidoAnual'];
+            $infoReimpresion['Analisis_Deducciones']['Totales']['Tasa_Capitalizacion_Aplicable'] = $enfoqueIngresos['TasaDeCapitalizacionAplicable'] <= 1 ? $enfoqueIngresos['TasaDeCapitalizacionAplicable'] * 100 : $enfoqueIngresos['TasaDeCapitalizacionAplicable'];
+
+            $infoReimpresion['Resultado_Aplicacion_Enfoque_Ingresos'] = $enfoqueIngresos['ImporteEnfoqueDeIngresos'];
+        }
+        
+        if(isset($elementoPrincipal['EnfoqueDeMercado'])){
+            $infoReimpresion['Valor_Mercado_Construcciones'] = $enfoqueMercado['ValorDeMercadoDelInmueble'];    
+        }
+        
+        if(isset($elementoPrincipal['ConsideracionesPreviasALaConclusion'])){
+            $consideraciones = $elementoPrincipal['ConsideracionesPreviasALaConclusion'];
+            $infoReimpresion['Consideraciones'] = $consideraciones['ConsideracionesPreviasALaConclusion'];
+        }
+
+        $conclusionAvaluo = $elementoPrincipal['ConclusionDelAvaluo'];
+        if(isset($conclusionAvaluo['ValorComercialDelInmueble'])){
+            $infoReimpresion['Consideramos_Que_Valor_Comercial_Corresponde'] = $conclusionAvaluo['ValorComercialDelInmueble'];
+        }    
+
+        if(isset($elementoPrincipal['ValorReferido'])){
+            $infoReimpresion['Valor_Referido'] = array();
+            $valorReferido = $elementoPrincipal['ValorReferido'];
+
+            $infoReimpresion['Valor_Referido']['Valor_Referido'] = $valorReferido['ValorReferido'];
+            $infoReimpresion['Valor_Referido']['Fecha'] = $valorReferido['FechaDeValorReferido'];
+            $infoReimpresion['Valor_Referido']['Factor'] = $valorReferido['FactorDeConversion'];
+        }
+
+        $infoReimpresion['Perito_Valuador'] = $this->modelDocumentos->get_nombre_perito($identificacion['ClaveValuador']);
+
+        $anexoFotogrfico = $elementoPrincipal['AnexoFotografico'];
+        $sujeto = $anexoFotogrfico['Sujeto'];
+        $fotosInmuebleAvaluo = $sujeto['FotosInmuebleAvaluo'];
+        $cuentaCatastral = $sujeto['CuentaCatastral'];
+
+        if(isset($anexoFotogrfico['ComparableVentas'])){
+            $fotosVenta = $anexoFotogrfico['ComparableVentas'];
+        }
+        if(isset($anexoFotogrfico['ComparableRentas'])){
+            $fotosRenta = $anexoFotogrfico['ComparableRentas'];
+        } 
+        
+        $infoReimpresion['Inmueble_Objeto_Avaluo'] = array();
+        $cuentaAvaluo = $cuentaCatastral['Region']."-".$cuentaCatastral['Manzana']."-".$cuentaCatastral['Lote']."-".$cuentaCatastral['Localidad'];
+            
+        
+        
+
         $control = 0;
-        foreach($terrenosDirectos as $terrenoDirecto){
-            $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaUno'][$control]['Ubicacion'] = $terrenoDirecto['Calle'].". ".$terrenoDirecto['Colonia'].". ".$terrenoDirecto['CodigoPostal'].".";
-            $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaUno'][$control]['Descripcion'] = $terrenoDirecto['DescripcionDelPredio'];
-            $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaUno'][$control]['C_U_S'] = $terrenoDirecto['CUS'];
-            $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaUno'][$control]['Uso_Suelo'] = $terrenoDirecto['UsoDelSuelo'];
-
-            $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['F_Negociacion'] = $terrenoDirecto['FactorDeNegociacion'];
-            $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Superficie'] = $terrenoDirecto['Superficie'];
-            $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Fzo'] = $terrenoDirecto['Fzo'];
-            $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Fub'] = $terrenoDirecto['Fub'];
-            $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['FFr'] = $terrenoDirecto['FFr'];
-            $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Ffo'] = $terrenoDirecto['Ffo'];
-            $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Fsu'] = $terrenoDirecto['Fsu'];
-            $infoReimpresioN['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['F_otro'] = $terrenoDirecto['Fot']['Valor'];
-            $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Fre'] = $terrenoDirecto['Fre'];
-            $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Precio_Solicitado'] = $terrenoDirecto['PrecioSolicitado'];
-
+        foreach($fotosInmuebleAvaluo as $fotoInmuebleAvaluo){
+            $infoReimpresion['Inmueble_Objeto_Avaluo'][$control]['Foto'] = base64_encode($this->modelDocumentos->get_fichero_documento($fotoInmuebleAvaluo['Foto']));
+            $infoReimpresion['Inmueble_Objeto_Avaluo'][$control]['Cuenta_Catastral'] = $cuentaAvaluo;
+            $infoReimpresion['Inmueble_Objeto_Avaluo'][$control]['Interior_O_Exterior'] = $fotoInmuebleAvaluo['InteriorOExterior'];
             $control = $control + 1;
         }
 
-        $conclusionHomologacionTerrenos = $terrenos['ConclusionesHomologacionTerrenos'];
+        if(isset($fotosVenta)){
 
-        $infoReimpresion['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos'] = array();
-        $infoReimpresion['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Tierra_Promedio'] = $conclusionHomologacionTerrenos['ValorUnitarioDeTierraPromedio'];
-        $infoReimpresion['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Tierra_Homologado'] = $conclusionHomologacionTerrenos['ValorUnitarioDeTierraHomologado'];
-        $infoReimpresion['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Sin_Homologar_Minimo'] = $conclusionHomologacionTerrenos['ValorUnitarioSinHomologarMinimo'];
-        $infoReimpresion['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Sin_Homologar_Maximo'] = $conclusionHomologacionTerrenos['ValorUnitarioSinHomologarMaximo'];
-        $infoReimpresion['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Homologado_Minimo'] = $conclusionHomologacionTerrenos['ValorUnitarioHomologadoMinimo'];
-        $infoReimpresion['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Homologado_Maximo'] = $conclusionHomologacionTerrenos['ValorUnitarioHomologadoMaximo'];
-
-        /************************************************************************************************************************************************************************/
-
-        if(isset($terrenos['TerrenosResidual'])){
-            $infoReimpresion['Terrenos']['Terrenos_Residuales'] = array();
-            $terrenosResidual = $terrenos['TerrenosResidual'];
-
-            $infoReimpresion['Terrenos']['Terrenos_Residuales']['Tipo_Producto_Inmoviliario_Propuesto'] = $terrenosResidual['TipoDeProductoInmobiliarioPropuesto'];
-            $infoReimpresion['Terrenos']['Terrenos_Residuales']['Numero_Unidades_Vendibles'] = $terrenosResidual['NumeroDeUnidadesVendibles'];
-            $infoReimpresion['Terrenos']['Terrenos_Residuales']['Superficie_Vendible_Unidad'] = $terrenosResidual['SuperficieVendiblePorUnidad'];
-
-            $infoReimpresion['Terrenos']['Terrenos_Residuales']['Investigacion_Productos_Comparables'] = array();
+            $infoReimpresion['Inmueble_Venta'] = array();
 
             $control = 0;
-            foreach($terrenosResidual as $terrenoResidual){
-                $infoReimpresion['Terrenos']['Terrenos_Residuales']['Investigacion_Productos_Comparables'][$control]['Ubicacion'] = $terrenoDirecto['Calle'].". ".$terrenoDirecto['Colonia'].". ".$terrenoDirecto['CodigoPostal'].".";
-                $infoReimpresion['Terrenos']['Terrenos_Residuales']['Investigacion_Productos_Comparables'][$control]['Descripcion'] = $terrenoDirecto['DescripcionDelComparable'];   
-
-                $control = $control + 1;
+            foreach($fotosVenta as $fotoVenta){
+                $infoReimpresion['Inmueble_Venta'][$control]['Foto'] = base64_encode($this->modelDocumentos->get_fichero_documento($fotoVenta['FotosInmuebleAvaluo']['Foto']));
+                $infoReimpresion['Inmueble_Venta'][$control]['Cuenta_Catastral'] = $fotoVenta['CuentaCatastral']['Region']."-".$fotoVenta['CuentaCatastral']['Manzana']."-".$fotoVenta['CuentaCatastral']['Lote']."-".$fotoVenta['CuentaCatastral']['Localidad'];
+                $infoReimpresion['Inmueble_Venta'][$control]['Interior_O_Exterior'] = $fotoVenta['FotosInmuebleAvaluo']['InteriorOExterior'];
             }
-
-            $conclusionHomologacionResiduales = $terrenosResidual['ConclusionesHomologacionCompResiduales'];
-            $infoReimpresion['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales'] = array();
-
-            $infoReimpresion['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Promedio'] = $conclusionHomologacionResiduales['ValorUnitarioPromedio'];
-            $infoReimpresion['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Homologado'] = $conclusionHomologacionResiduales['ValorUnitarioHomologado'];
-            $infoReimpresion['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Sin_Homologar_Minimo'] = $conclusionHomologacionResiduales['ValorUnitarioSinHomologarMinimo'];
-            $infoReimpresion['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Sin_Homologar_Maximo'] = $conclusionHomologacionResiduales['ValorUnitarioSinHomologarMaximo'];
-            $infoReimpresion['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Homologado_Minimo'] = $conclusionHomologacionResiduales['ValorUnitarioHomologadoMinimo'];
-            $infoReimpresion['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Homologado_Maximo'] = $conclusionHomologacionResiduales['ValorUnitarioHomologadoMaximo'];
-            $infoReimpresion['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Aplicable_Residual'] = $conclusionHomologacionResiduales['ValorUnitarioAplicableAlResidual'];
-
-            $infoReimpresion['Terrenos']['Terrenos_Residuales']['Analisis_Residual'] = array();
-            $analisisResidual = $terrenosResidual['AnalisisResidual'];
-
-            $infoReimpresion['Terrenos']['Terrenos_Residuales']['Analisis_Residual']['Total_Ingresos'] = $analisisResidual['TotalDeIngresos'];
-            $infoReimpresion['Terrenos']['Terrenos_Residuales']['Analisis_Residual']['Total_Egresos'] = $analisisResidual['TotalDeEgresos'];
-            $infoReimpresion['Terrenos']['Terrenos_Residuales']['Analisis_Residual']['Unidad_Propuesta'] = $analisisResidual['UtilidadPropuesta'];
-            $infoReimpresion['Terrenos']['Terrenos_Residuales']['Analisis_Residual']['Valor_Unitario_Tierra_Residual'] = $analisisResidual['ValorUnitarioDeTierraResidual'];
-
         }
-         
-        $infoReimpresion['Terrenos']['Valor_Unitario_Tierra_Del_Avaluo'] = $terrenos['ValorUnitarioDeTierraAplicableAlAvaluo'];
+        
+        if(isset($fotosRenta)){
 
-        /***********************************************************************************************************************/
+            $infoReimpresion['Inmueble_Renta'] = array();
 
-        $infoReimpresion['Construcciones_En_Venta'] = array();
-        $infoReimpresion['Construcciones_En_Venta']['Investigacion_Productos_Comparables'] = array();
-        $infoReimpresion['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaUno'] = array();
-        $infoReimpresion['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaDos'] = array();
-
-        $construccionesEnVenta = $enfoqueMercado['ConstruccionesEnVenta'];
-        $investigacionProductosComparables = $construccionesEnVenta['InvestigacionProductosComparables'];
-
-        $control = 0;
-        foreach($investigacionProductosComparables as $productoComparable){
-            $infoReimpresion['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaUno'][$control]['Ubicacion'] = $productoComparable['Calle'].". ".$productoComparable['Colonia'].". ".$productoComparable['CodigoPostal'];
-            $infoReimpresion['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaUno'][$control]['Descripcion'] = $productoComparable['DescripcionDelComparable'];
-
-            $infoReimpresion['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaDos'][$control]['F_Negociacion'] = $productoComparable['FactorDeNegociacion'];
-            $infoReimpresion['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaDos'][$control]['Superficie_Vendible'] = $productoComparable['SuperficieVendiblePorUnidad'];
-            $infoReimpresion['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaDos'][$control]['Precio_Solicitado'] = $productoComparable['PrecioSolicitado'];
-
-            $control = $control + 1;
-        }
-
-        $infoReimpresion['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta'] = array();
-        $conclusionesHomologacionContruccionesVenta = $construccionesEnVenta['ConclusionesHomologacionConstruccionesEnVenta'];
-
-        $infoReimpresion['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Promedio'] = $conclusionesHomologacionContruccionesVenta['ValorUnitarioPromedio'];
-        $infoReimpresion['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Homologado'] = $conclusionesHomologacionContruccionesVenta['ValorUnitarioHomologado'];
-        $infoReimpresion['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Sin_Homolgar_Minimo'] = $conclusionesHomologacionContruccionesVenta['ValorUnitarioSinHomologarMinimo'];
-        $infoReimpresion['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Sin_Homolgar_Maximo'] = $conclusionesHomologacionContruccionesVenta['ValorUnitarioSinHomologarMaximo'];
-        $infoReimpresion['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Homologado_Minimo'] = $conclusionesHomologacionContruccionesVenta['ValorUnitarioHomologadoMinimo'];
-        $infoReimpresion['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Homologado_Maximo']  = $conclusionesHomologacionContruccionesVenta['ValorUnitarioHomologadoMaximo'];
-
-        $infoReimpresion['Construcciones_En_Venta']['Valor_Unitario_Aplicable_Avaluo'] = $conclusionesHomologacionContruccionesVenta['ValorUnitarioAplicableAlAvaluo'];
-        $infoReimpresion['Construcciones_En_Venta']['Valor_Mercado_Del_Inmueble'] = $enfoqueMercado['ValorDeMercadoDelInmueble'];
-
-        /************************************************************************************************************************************************************************/
-
-        $infoReimpresion['Construcciones_En_Renta'] = array();
-        $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables'] = array();
-        $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaUno'] = array();
-        $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos'] = array();
-
-        $construccionesEnRenta = $enfoqueMercado['ConstruccionesEnRenta'];
-        $investigacionProductosComparables = $construccionesEnRenta['InvestigacionProductosComparables'];
-
-        $control = 0;
-        foreach($investigacionProductosComparables as $productoComparable){
-            $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaUno'][$control]['Ubicacion'] = $productoComparable['Calle'].". ".$productoComparable['Colonia'].". ".$productoComparable['CodigoPostal'];
-            $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaUno'][$control]['Descripcion'] = $productoComparable['DescripcionDelComparable'];
-
-            $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos'][$control]['F_Negociacion'] = $productoComparable['FactorDeNegociacion'];
-            $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos'][$control]['Superficie_Vendible'] = $productoComparable['SuperficieVendiblePorUnidad'];
-            $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos'][$control]['Precio_Solicitado'] = $productoComparable['PrecioSolicitado'];
-
-            $control = $control + 1;
-        }
-
-        $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta'] = array();
-        //Se usa ConclusionesHomologacionConstruccionesEnVenta porque asi llega en el XML
-        $conclusionesHomologacionContruccionesRenta = $construccionesEnRenta['ConclusionesHomologacionConstruccionesEnVenta'];
-
-        $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Promedio'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioPromedio'];
-        $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Homologado'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologado'];
-        $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Sin_Homolgar_Minimo'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioSinHomologarMinimo'];
-        $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Sin_Homolgar_Maximo'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioSinHomologarMaximo'];
-        $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Homologado_Minimo'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologadoMinimo'];
-        $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Homologado_Maximo']  = $conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologadoMaximo'];
-
-        $infoReimpresion['Construcciones_En_Renta']['Valor_Unitario_Aplicable_Avaluo'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioAplicableAlAvaluo'];
-
+            $control = 0;
+            foreach($fotosRenta as $fotoRenta){
+                $infoReimpresion['Inmueble_Renta'][$control]['Foto'] = base64_encode($this->modelDocumentos->get_fichero_documento($fotoRenta['FotosInmuebleAvaluo']['Foto']));
+                $infoReimpresion['Inmueble_Renta'][$control]['Cuenta_Catastral'] = $fotoRenta['CuentaCatastral']['Region']."-".$fotoRenta['CuentaCatastral']['Manzana']."-".$fotoRenta['CuentaCatastral']['Lote']."-".$fotoRenta['CuentaCatastral']['Localidad'];
+                $infoReimpresion['Inmueble_Renta'][$control]['Interior_O_Exterior'] = $fotoRenta['FotosInmuebleAvaluo']['InteriorOExterior'];
+            }
+        }        
 
         return $infoReimpresion;
         

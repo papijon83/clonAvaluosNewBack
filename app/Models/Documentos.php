@@ -346,5 +346,15 @@ class Documentos
         $arrInfo = $info[0]; //print_r($arrInfo->binariodatos); exit();
         return $arrInfo->binariodatos;
     }
+
+    public function get_nombre_perito($claveValuador){
+        $info = DB::select("SELECT IDPERSONA FROM RCON.RCON_PERITO WHERE REGISTRO = '$claveValuador'");
+        $arrInfo = convierte_a_arreglo($info); //print_r($arrInfo->binariodatos); exit();
+        $idpersona = $arrInfo[0]['idpersona'];
+        $infoNombre = DB::select("SELECT APELLIDOPATERNO, APELLIDOMATERNO, NOMBRE FROM RCON.RCON_PERSONAFISICA WHERE IDPERSONA = $idpersona");
+        $arrInfoPersona = convierte_a_arreglo($infoNombre); //print_r($arrInfo->binariodatos); exit();
+        $nombrePerito = $arrInfoPersona[0]['apellidopaterno']." ".$arrInfoPersona[0]['apellidomaterno']." ".$arrInfoPersona[0]['nombre'];
+        return $nombrePerito;
+    }
     
 }
