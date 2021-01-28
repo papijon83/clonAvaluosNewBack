@@ -75,7 +75,7 @@ class BandejaEntradaController extends Controller
                 'FEXAVA_CATESTADOSAVALUO.descripcion as estadoavaluo',
                 'RCON.RCON_PERITO.registro as perito',
                 'RCON.RCON_NOTARIO.NUMNOTARIO as notario',
-                
+
                 //'RCON.RCON_SOCIEDADVALUACION.registro as sociedad',
                 //'RCON.RCON_NOTARIO.NUMNOTARIO as notario',
                 DB::raw("CASE
@@ -393,7 +393,7 @@ class BandejaEntradaController extends Controller
             }
             $table->orderBy('FEXAVA_AVALUO.fecha_presentacion' , 'desc');
             $avaluos = $table->paginate(15);
-            print_r($avaluos); exit();
+            //print_r($avaluos); exit();
             return response()->json($avaluos, 200);
         } catch (\Throwable $th) {
             //Log::info($th);
