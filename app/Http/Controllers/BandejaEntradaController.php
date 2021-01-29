@@ -10,6 +10,8 @@ use App\Models\Ava;
 use App\Models\Fis;
 use App\Models\Reimpresion;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Log;
@@ -3678,11 +3680,24 @@ class BandejaEntradaController extends Controller
     public function infoAvaluo(Request $request){
         try{
             $numero_unico = trim($request->query('no_unico'));
-            $this->modelDocumentos = new Documentos();    //echo $numero_unico; exit();         
+
+
+
+            $datosPDF = [];
+            $datosPDF['no_unico'] =  $numero_unico;
+            $formato = view('justificante', compact("datosPDF"))->render();
+            $pdf = PDF::loadHTML($formato);
+            $pdf->setOptions(['chroot' => 'public']);
+            Storage::put('formato.pdf', $pdf->output());
+            return response()->json(['pdfbase64' => base64_encode(Storage::get('formato.pdf')), 'nombre' =>  $numero_unico . '.pdf'], 200);
+
+
+
+           /* $this->modelDocumentos = new Documentos();    //echo $numero_unico; exit();         
             $id_avaluo = $this->modelDocumentos->get_idavaluo_db($numero_unico);    
             $this->modelReimpresion = new Reimpresion();
             $infoAvaluo = $this->modelReimpresion->infoAvaluo($id_avaluo);
-            print_r($infoAvaluo); exit();
+            print_r($infoAvaluo); exit();*/
             //return response()->json($infoAvaluo, 200);
         }catch (\Throwable $th) {
             //Log::info($th);
