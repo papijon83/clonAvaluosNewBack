@@ -52,7 +52,7 @@ class BandejaEntradaController extends Controller
             $vigencia = $request->query('vigencia');
             $table = DB::table('FEXAVA_AVALUO');
             $table->join('FEXAVA_CATESTADOSAVALUO', 'FEXAVA_AVALUO.codestadoavaluo', '=', 'FEXAVA_CATESTADOSAVALUO.codestadoavaluo');
-            $table->join('RCON.RCON_PERITO', 'FEXAVA_AVALUO.idpersonaperito', '=', 'RCON.RCON_PERITO.idpersona');
+            $table->leftJoin('RCON.RCON_PERITO', 'FEXAVA_AVALUO.idpersonaperito', '=', 'RCON.RCON_PERITO.idpersona');
             $table->leftJoin('RCON.RCON_NOTARIO', 'FEXAVA_AVALUO.idpersonanotario', '=', 'RCON.RCON_NOTARIO.idpersona');
 
             $authToken = $request->header('Authorization');
@@ -170,9 +170,9 @@ class BandejaEntradaController extends Controller
 
             $idPerito = empty($resToken['id_anterior']) ? $resToken['id_usuario']: $resToken['id_anterior'];
 
-            if ($idPerito) {
+            /* if ($idPerito) {
                 $table->where('FEXAVA_AVALUO.idpersonaperito', $idPerito);
-            }
+            } */
 
             if ($idSociedad) {
                 $table->where('FEXAVA_AVALUO.idpersonasociedad', $idSociedad);
