@@ -766,7 +766,7 @@ class BandejaEntradaController extends Controller
         }else{
             $elementoPrincipal = "Catastral";
         }
-        error_log($elementoPrincipal);
+        //error_log($elementoPrincipal);
         if(isset($arrXML[$elementoPrincipal]['EnfoqueDeMercado']['Terrenos']['TerrenosDirectos']) && isset($arrXML[$elementoPrincipal]['EnfoqueDeMercado']['Terrenos']['TerrenosResidual'])){
             $xsd = 'EsquemaAvaluoMixtoFinal.xsd';
         }else{

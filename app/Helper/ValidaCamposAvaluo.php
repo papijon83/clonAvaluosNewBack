@@ -4510,8 +4510,8 @@ function valida_AvaluoAnexoFotografico($data, $elementoPrincipal){ //print_r($da
         foreach($data[0]['Sujeto']['FotosInmuebleAvaluo'] as $llavePrincipal => $elementoPrincipal){
 
             foreach($validacionesq12 as $etiqueta => $validacion){
-                if(!isset($elementoPrincipal[$etiqueta])){
-                    $errores[] = "Falta ".$etiqueta." en Sujeto (FotosInmuebleAvaluo)";
+                if(!isset($elementoPrincipal[$etiqueta]) || isset($elementoPrincipal[$etiqueta]['@attributes'])){
+                    $errores[] = "q.1.2 - Falta ".$etiqueta." en Sujeto (FotosInmuebleAvaluo)";
                 }else{
                     
                     $resValidacion = define_validacion($validacion, trim($elementoPrincipal[$etiqueta]));                
@@ -4541,8 +4541,8 @@ function valida_AvaluoAnexoFotografico($data, $elementoPrincipal){ //print_r($da
             }
 
             foreach($validacionesq2n2 as $etiqueta => $validacion){
-                if(!isset($data[0]['ComparableRentas']['FotosInmuebleAvaluo'][$etiqueta])){
-                    $errores[] = "Falta ".$etiqueta." en ComparableRentas (FotosInmuebleAvaluo)";
+                if(!isset($data[0]['ComparableRentas']['FotosInmuebleAvaluo'][$etiqueta]) || isset($data[0]['ComparableRentas']['FotosInmuebleAvaluo'][$etiqueta]['@attributes'])){
+                    $errores[] = "q.2.n.2 Falta ".$etiqueta." en ComparableRentas (FotosInmuebleAvaluo)";
                 }else{
                     //print_r($data[0]['ComparableRentas']['FotosInmuebleAvaluo']); exit();
                     $resValidacion = define_validacion($validacion, trim($data[0]['ComparableRentas']['FotosInmuebleAvaluo'][$etiqueta]));                
@@ -4574,7 +4574,7 @@ function valida_AvaluoAnexoFotografico($data, $elementoPrincipal){ //print_r($da
                 }
     
                 foreach($validacionesq2n2 as $etiqueta => $validacion){
-                    if(!isset($elementoPrincipal['FotosInmuebleAvaluo'][$etiqueta])){
+                    if(!isset($elementoPrincipal['FotosInmuebleAvaluo'][$etiqueta]) || isset($elementoPrincipal['FotosInmuebleAvaluo'][$etiqueta]['@attributes'])){
                         $errores[] = "Falta ".$etiqueta." en ComparableRentas (FotosInmuebleAvaluo)";
                     }else{
                         
@@ -4606,7 +4606,7 @@ function valida_AvaluoAnexoFotografico($data, $elementoPrincipal){ //print_r($da
             }
 
             foreach($validacionesq3n2 as $etiqueta => $validacion){
-                if(!isset($data[0]['ComparableVentas']['FotosInmuebleAvaluo'][$etiqueta])){
+                if(!isset($data[0]['ComparableVentas']['FotosInmuebleAvaluo'][$etiqueta]) || isset($data[0]['ComparableVentas']['FotosInmuebleAvaluo'][$etiqueta]['@attributes'])){
                     $errores[] = "Falta ".$etiqueta." en ComparableVentas (FotosInmuebleAvaluo)";
                 }else{
                     
@@ -4636,7 +4636,7 @@ function valida_AvaluoAnexoFotografico($data, $elementoPrincipal){ //print_r($da
                 }
     
                 foreach($validacionesq3n2 as $etiqueta => $validacion){
-                    if(!isset($elementoPrincipal['FotosInmuebleAvaluo'][$etiqueta])){
+                    if(!isset($elementoPrincipal['FotosInmuebleAvaluo'][$etiqueta]) || isset($elementoPrincipal['FotosInmuebleAvaluo'][$etiqueta]['@attributes'])){
                         $errores[] = "Falta ".$etiqueta." en ComparableVentas (FotosInmuebleAvaluo)";
                     }else{
                         
