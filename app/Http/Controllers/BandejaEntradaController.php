@@ -256,6 +256,7 @@ class BandejaEntradaController extends Controller
                 'FEXAVA_CATESTADOSAVALUO.descripcion as estadoavaluo',
                 'RCON.RCON_PERITO.registro as perito',
                 'RCON.RCON_NOTARIO.NUMNOTARIO as notario',
+                'FEXAVA_AVALUO.PROPOSITO',
                 //'RCON.RCON_SOCIEDADVALUACION.registro as sociedad',
                 //'RCON.RCON_NOTARIO.NUMNOTARIO as notario',
                 DB::raw("CASE
@@ -789,10 +790,10 @@ class BandejaEntradaController extends Controller
                     $arrRenglonXML = explode("'",$arrContenoidoXML[$elementoError['line'] - 1]); //print_r($arrRenglonXML); exit();
                 }
                 
-                $relacionErrores = $relacionErrores.$arrRenglonXML[1]." - Linea ".$elementoError['line']." ".$elementoError['message']."<<>>";
+                $relacionErrores = $relacionErrores.$arrRenglonXML[1]." - Línea ".$elementoError['line']." ".$elementoError['message']."<<>>";
                                                               
             }
-            //$arrRelacionErrores[] = $arrRenglonXML[1]." - Linea ".$elementoError['line']." ".$elementoError['message'];
+            //$arrRelacionErrores[] = $arrRenglonXML[1]." - Línea ".$elementoError['line']." ".$elementoError['message'];
             $arrRelacionErrores = $this->traduce($relacionErrores);
             return $arrRelacionErrores;        
         }
@@ -803,9 +804,9 @@ class BandejaEntradaController extends Controller
         $cadenas = array("Element"=>"Elemento",
         "is not a valid value of the atomic type" => "no es un valor válido de tipo",
         "[facet 'minLength'] The value has a length of" => "[faceta 'minLength'] El valor tiene una longitud de",
-        "this underruns the allowed minimum length of" => "esto no alcanza la longitud mínima permitida de",
-        "[facet 'enumeration'] The value" => "[faceta 'enumeración'] El valor",
-        "is not an element of the set" => "no es un elemento del conjunto", 
+        "this underruns the allowed minimum length of" => "Longitud mínima requerida",
+        "[facet 'enumeration'] The value" => "El valor",
+        "is not an element of the set" => "no es un elemento válido, valores permitidos:", 
         "[facet 'pattern'] The value" => "[faceta 'patrón'] El valor",
         "is not accepted by the pattern" => "no es aceptado por el patrón",
         "is not a valid value of the union type" => "no es un valor válido del tipo de unión",
