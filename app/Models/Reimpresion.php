@@ -228,10 +228,18 @@ class Reimpresion
         $colindancias = $terreno['MedidasYColindancias']['Colindancias'];
         $infoReimpresion['Colindancias'] = array();
 
-        foreach($colindancias as $colindancia){
-            unset($colindancia['@attributes']);
-            $infoReimpresion['Colindancias'][] = $colindancia;
+        if(isset($colindancias['@attributes'])){
+            unset($colindancias['@attributes']);
+            $infoReimpresion['Colindancias'][] = $colindancias;
         }
+
+        if(isset($colindancias[0])){
+            foreach($colindancias as $colindancia){
+                unset($colindancia['@attributes']);
+                $infoReimpresion['Colindancias'][] = $colindancia;
+            }
+        }
+        
 
         /************************************************************************************************************************************************************************/
 

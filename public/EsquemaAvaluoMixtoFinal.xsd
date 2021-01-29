@@ -5612,9 +5612,9 @@
         <xs:complexType>
           <xs:sequence>
             <xs:choice >
-              <xs:group  ref="SUB-TerrenosDirectos"></xs:group>
-              <xs:group  ref="SUB-TerrenosResiduales"></xs:group>              
-              <!-- <xs:group  ref="SUB-TerrenosMixtos"></xs:group> -->
+              <!-- <xs:group  ref="SUB-TerrenosDirectos"></xs:group>
+              <xs:group  ref="SUB-TerrenosResiduales"></xs:group> -->              
+              <xs:group  ref="SUB-TerrenosMixtos"></xs:group>
             </xs:choice>
             <xs:element name="ValorUnitarioDeTierraAplicableAlAvaluo" type="SUB-ValorUnitarioDeTierraAplicableAlAvaluo" />
           </xs:sequence>

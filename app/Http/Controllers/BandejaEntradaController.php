@@ -760,7 +760,18 @@ class BandejaEntradaController extends Controller
         libxml_use_internal_errors(true);       
         
         //$xsd = 'EsquemaAvaluomio.xsd';
-        $xsd = 'EsquemaAvaluoFinal.xsd';
+        $arrXML = convierte_a_arreglo(simplexml_load_string($contents,'SimpleXMLElement', LIBXML_NOCDATA));
+        if(isset($arrXML['Comercial'])){
+            $elementoPrincipal = "Comercial";
+        }else{
+            $elementoPrincipal = "Catastral";
+        }
+        error_log($elementoPrincipal);
+        if(isset($arrXML[$elementoPrincipal]['EnfoqueDeMercado']['Terrenos']['TerrenosDirectos']) && isset($arrXML[$elementoPrincipal]['EnfoqueDeMercado']['Terrenos']['TerrenosResidual'])){
+            $xsd = 'EsquemaAvaluoMixtoFinal.xsd';
+        }else{
+            $xsd = 'EsquemaAvaluoFinal.xsd';
+        }        
         
         if (!file_exists($xsd)) {
             //$relacionErrores[] = "Archivo <b>$xsd</b> no existe.";
