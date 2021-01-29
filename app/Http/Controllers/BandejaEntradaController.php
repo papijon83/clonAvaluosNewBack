@@ -3668,8 +3668,9 @@ class BandejaEntradaController extends Controller
             $this->modelDocumentos = new Documentos();    //echo $numero_unico; exit();         
             $id_avaluo = $this->modelDocumentos->get_idavaluo_db($numero_unico);            
             $this->modelReimpresion = new Reimpresion();
-            $infoAcuse = $this->modelReimpresion->infoAcuse($id_avaluo);    
-            return response()->json($infoAcuse, 200);
+            $infoAcuse = $this->modelReimpresion->infoAcuse($id_avaluo);
+            $token_infoAcuse = Crypt::encrypt($infoAcuse); 
+            return response()->json([$infoAcuse, $token_infoAcuse], 200);
         }catch (\Throwable $th) {
             //Log::info($th);
             error_log($th);
