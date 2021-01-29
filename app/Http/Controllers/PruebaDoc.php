@@ -150,8 +150,7 @@ class PruebaDoc extends Controller
         var_dump($res);
     }
 
-    public function pruebaIdRango(){
-        
+    public function pruebaIdRango(){    
         try{
             
                 $query = "SELECT rne.idrangonivelesejercicio
