@@ -256,7 +256,7 @@ class BandejaEntradaController extends Controller
                 'FEXAVA_CATESTADOSAVALUO.descripcion as estadoavaluo',
                 'RCON.RCON_PERITO.registro as perito',
                 'RCON.RCON_NOTARIO.NUMNOTARIO as notario',
-                'FEXAVA_AVALUO.PROPOSITO',
+                'FEXAVA_AVALUO.proposito',
                 //'RCON.RCON_SOCIEDADVALUACION.registro as sociedad',
                 //'RCON.RCON_NOTARIO.NUMNOTARIO as notario',
                 DB::raw("CASE
