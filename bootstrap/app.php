@@ -60,6 +60,7 @@ $app->singleton(
 */
 
 $app->configure('app');
+$app->configure('dompdf');
 
 /*
 |--------------------------------------------------------------------------
@@ -96,6 +97,7 @@ $app->middleware([
 */
 
 $app->register(Yajra\Oci8\Oci8ServiceProvider::class);
+$app->register(\Barryvdh\DomPDF\ServiceProvider::class);
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
