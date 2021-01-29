@@ -54,7 +54,7 @@ class BandejaEntradaController extends Controller
             $vigencia = $request->query('vigencia');
             $table = DB::table('FEXAVA_AVALUO');
             $table->join('FEXAVA_CATESTADOSAVALUO', 'FEXAVA_AVALUO.codestadoavaluo', '=', 'FEXAVA_CATESTADOSAVALUO.codestadoavaluo');
-            $table->join('DOC.DOCUMENTODIGITAL', 'FEXAVA_AVALUO.idavaluo', '=', 'DOC.DOC_DOCUMENTODIGITAL.iddocumentodigital');
+            $table->join('DOC.DOC_DOCUMENTODIGITAL', 'FEXAVA_AVALUO.idavaluo', '=', 'DOC.DOC_DOCUMENTODIGITAL.iddocumentodigital');
             $table->leftJoin('RCON.RCON_PERITO', 'FEXAVA_AVALUO.idpersonaperito', '=', 'RCON.RCON_PERITO.idpersona');
             $table->leftJoin('RCON.RCON_NOTARIO', 'FEXAVA_AVALUO.idpersonanotario', '=', 'RCON.RCON_NOTARIO.idpersona');
 
@@ -244,7 +244,7 @@ class BandejaEntradaController extends Controller
             $resToken = Crypt::decrypt($authToken);
             $table->join('FEXAVA_CATESTADOSAVALUO', 'FEXAVA_AVALUO.codestadoavaluo', '=', 'FEXAVA_CATESTADOSAVALUO.codestadoavaluo');
             $table->join('RCON.RCON_PERITO', 'FEXAVA_AVALUO.idpersonaperito', '=', 'RCON.RCON_PERITO.idpersona');
-            $table->join('DOC.DOCUMENTODIGITAL', 'FEXAVA_AVALUO.idavaluo', '=', 'DOC.DOC_DOCUMENTODIGITAL.iddocumentodigital');
+            $table->join('DOC.DOC_DOCUMENTODIGITAL', 'FEXAVA_AVALUO.idavaluo', '=', 'DOC.DOC_DOCUMENTODIGITAL.iddocumentodigital');
             $table->leftJoin('RCON.RCON_NOTARIO', 'FEXAVA_AVALUO.idpersonanotario', '=', 'RCON.RCON_NOTARIO.idpersona');    
             
             //$table->join('RCON.RCON_SOCIEDADVALUACION', 'FEXAVA_AVALUO.idpersonasociedad', '=', 'RCON.RCON_SOCIEDADVALUACION.idpersona');
