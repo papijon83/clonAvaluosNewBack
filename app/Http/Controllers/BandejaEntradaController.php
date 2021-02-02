@@ -819,7 +819,8 @@ class BandejaEntradaController extends Controller
         "[facet 'maxLength'] The value has a length of" => "[faceta 'maxLength'] EL valor tiene una longitud de",
         "this exceeds the allowed maximum length of" => "esto excede la longitud máxima permitida de",
         "The value" => "EL valor",
-        "is less than the minimum value allowed" => "es menor que el valor mínimo permitido");
+        "is less than the minimum value allowed" => "es menor que el valor mínimo permitido",
+        "{'F', 'M', 'f', 'm'}" => " F o M");
 
         foreach($cadenas as $en => $es){
             $relacionErrores = str_replace($en,$es,$relacionErrores);

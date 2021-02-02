@@ -129,6 +129,14 @@
     </xs:restriction>
   </xs:simpleType>
 
+  <!--NonEmptyString5: Cadenas de texto con 5 carÃ¡cteres mÃ¡ximo(No acepta cadenas vacÃ­as) -->
+  <xs:simpleType name="NonEmptyStringCP">
+    <xs:restriction base="NonEmptyString">
+      <xs:minLength value="5" />
+      <xs:maxLength value="5" />
+    </xs:restriction>
+  </xs:simpleType>
+
   <!--NonEmptyString7: Cadenas de texto con 7 carÃ¡cteres mÃ¡ximo(No acepta cadenas vacÃ­as) -->
   <xs:simpleType name="NonEmptyString7">
     <xs:restriction base="NonEmptyString">
@@ -154,6 +162,14 @@
   <xs:simpleType name="NonEmptyString20">
     <xs:restriction base="NonEmptyString">
       <xs:maxLength value="20" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!--ValClaveValuador: Cadenas de texto con 4 caracteres minimo y 20 carÃ¡cteres mÃ¡ximo(No acepta cadenas vacÃ­as) -->
+  <xs:simpleType name="ValClaveValuador">
+    <xs:restriction base="NonEmptyString">
+      <xs:minLength value="4" />
+      <xs:maxLength value="20"/>
     </xs:restriction>
   </xs:simpleType>
 
@@ -240,7 +256,7 @@
   <xs:simpleType name="DecimalPositivo">
     <xs:restriction base="xs:decimal">
       <xs:minInclusive value="0" />      
-    </xs:restriction>
+    </xs:restriction>    
   </xs:simpleType>
 
   <!-- NullableDecimalPositivo: Admite una cadena de texto vacÃ­a o cualquier decimal positivo-->
@@ -1148,7 +1164,7 @@
               <xs:element name="Colonia">
                 <xs:complexType>
                   <xs:simpleContent>
-                    <xs:extension base="Cat-Colonia">
+                    <xs:extension base="NonEmptyString50">
                       <xs:attribute fixed="h.1.1.n.2" name="id" type="xs:string" use="required" />
                     </xs:extension>
                   </xs:simpleContent>
@@ -1157,7 +1173,7 @@
               <xs:element name="Delegacion">
                 <xs:complexType>
                   <xs:simpleContent>
-                    <xs:extension base="Cat-Delegacion">
+                    <xs:extension base="NonEmptyString50">
                       <xs:attribute fixed="h.1.1.n.3" name="id" type="xs:string" use="required" />
                     </xs:extension>
                   </xs:simpleContent>
@@ -1166,7 +1182,7 @@
               <xs:element name="CodigoPostal">
                 <xs:complexType>
                   <xs:simpleContent>
-                    <xs:extension base="NonEmptyString5">
+                    <xs:extension base="NonEmptyStringCP">
                       <xs:attribute fixed="h.1.1.n.4" name="id" type="xs:string" use="required" />
                     </xs:extension>
                   </xs:simpleContent>
@@ -1448,7 +1464,7 @@
                   <xs:element name="Colonia">
                     <xs:complexType>
                       <xs:simpleContent>
-                        <xs:extension base="Cat-Colonia">
+                        <xs:extension base="NonEmptyString50">
                           <xs:attribute fixed="h.1.3.4.n.2" name="id" type="xs:string" use="required" />
                         </xs:extension>
                       </xs:simpleContent>
@@ -1457,7 +1473,7 @@
                   <xs:element name="Delegacion">
                     <xs:complexType>
                       <xs:simpleContent>
-                        <xs:extension base="Cat-Delegacion">
+                        <xs:extension base="NonEmptyString50">
                           <xs:attribute fixed="h.1.3.4.n.3" name="id" type="xs:string" use="required" />
                         </xs:extension>
                       </xs:simpleContent>
@@ -1466,7 +1482,7 @@
                   <xs:element name="CodigoPostal">
                     <xs:complexType>
                       <xs:simpleContent>
-                        <xs:extension base="NonEmptyString5">
+                        <xs:extension base="NonEmptyStringCP">
                           <xs:attribute fixed="h.1.3.4.n.4" name="id" type="xs:string" use="required" />
                         </xs:extension>
                       </xs:simpleContent>
@@ -1705,7 +1721,7 @@
       <xs:element name="Colonia" >
         <xs:complexType>
           <xs:simpleContent>
-            <xs:extension base="Cat-Colonia">
+            <xs:extension base="NonEmptyString50">
               <xs:attribute fixed="b.1.7" name="id" type="xs:string" use="required" />
             </xs:extension>
           </xs:simpleContent>
@@ -1714,7 +1730,7 @@
       <xs:element name="CodigoPostal">
         <xs:complexType>
           <xs:simpleContent>
-            <xs:extension  base="NonEmptyString5">
+            <xs:extension  base="NonEmptyStringCP">
               <xs:attribute fixed="b.1.8" name="id" type="xs:string" use="required" />
             </xs:extension>
           </xs:simpleContent>
@@ -1723,7 +1739,7 @@
       <xs:element name="Delegacion">
         <xs:complexType>
           <xs:simpleContent>
-            <xs:extension base="Cat-Delegacion">
+            <xs:extension base="NonEmptyString50">
               <xs:attribute fixed="b.1.9" name="id" type="xs:string" use="required" />
             </xs:extension>
           </xs:simpleContent>
@@ -1772,7 +1788,7 @@
       <xs:element name="Colonia" >
         <xs:complexType>
           <xs:simpleContent>
-            <xs:extension base="Cat-Colonia">
+            <xs:extension base="NonEmptyString50">
               <xs:attribute fixed="b.2.7" name="id" type="xs:string" use="required" />
             </xs:extension>
           </xs:simpleContent>
@@ -1781,7 +1797,7 @@
       <xs:element name="CodigoPostal">
         <xs:complexType>
           <xs:simpleContent>
-            <xs:extension  base="NonEmptyString5">
+            <xs:extension  base="NonEmptyStringCP">
               <xs:attribute fixed="b.2.8" name="id" type="xs:string" use="required" />
             </xs:extension>
           </xs:simpleContent>
@@ -1790,7 +1806,7 @@
       <xs:element name="Delegacion">
         <xs:complexType>
           <xs:simpleContent>
-            <xs:extension base="Cat-Delegacion">
+            <xs:extension base="NonEmptyString50">
               <xs:attribute fixed="b.2.9" name="id" type="xs:string" use="required" />
             </xs:extension>
           </xs:simpleContent>
@@ -1887,7 +1903,7 @@
       <xs:element name="ClaveValuador" >
         <xs:complexType>
           <xs:simpleContent>
-            <xs:extension base="NonEmptyString20"  >
+            <xs:extension base="ValClaveValuador" >
               <xs:attribute fixed="a.3" name="id" type="xs:string" use="required"/>
             </xs:extension>
           </xs:simpleContent>
@@ -1971,7 +1987,7 @@
               <xs:element name="Colonia" >
                 <xs:complexType>
                   <xs:simpleContent>
-                    <xs:extension base="Cat-Colonia">
+                    <xs:extension base="NonEmptyString50">
                       <xs:attribute fixed="b.1.7" name="id" type="xs:string" use="required" />
                     </xs:extension>
                   </xs:simpleContent>
@@ -1980,7 +1996,7 @@
               <xs:element name="CodigoPostal">
                 <xs:complexType>
                   <xs:simpleContent>
-                    <xs:extension  base="NonEmptyString5">
+                    <xs:extension  base="NonEmptyStringCP">
                       <xs:attribute fixed="b.1.8" name="id" type="xs:string" use="required" />
                     </xs:extension>
                   </xs:simpleContent>
@@ -1989,7 +2005,7 @@
               <xs:element name="Delegacion">
                 <xs:complexType>
                   <xs:simpleContent>
-                    <xs:extension base="Cat-Delegacion">
+                    <xs:extension base="NonEmptyString50">
                       <xs:attribute fixed="b.1.9" name="id" type="xs:string" use="required" />
                     </xs:extension>
                   </xs:simpleContent>
@@ -2065,7 +2081,7 @@
             <xs:element name="Colonia" >
               <xs:complexType>
                 <xs:simpleContent>
-                  <xs:extension base="Cat-Colonia">
+                  <xs:extension base="NonEmptyString50">
                     <xs:attribute fixed="b.2.7" name="id" type="xs:string" use="required" />
                   </xs:extension>
                 </xs:simpleContent>
@@ -2074,7 +2090,7 @@
             <xs:element name="CodigoPostal">
               <xs:complexType>
                 <xs:simpleContent>
-                  <xs:extension  base="NonEmptyString5">
+                  <xs:extension  base="NonEmptyStringCP">
                     <xs:attribute fixed="b.2.8" name="id" type="xs:string" use="required" />
                   </xs:extension>
                 </xs:simpleContent>
@@ -2083,7 +2099,7 @@
             <xs:element name="Delegacion">
               <xs:complexType>
                 <xs:simpleContent>
-                  <xs:extension base="Cat-Delegacion">
+                  <xs:extension base="NonEmptyString50">
                     <xs:attribute fixed="b.2.9" name="id" type="xs:string" use="required" />
                   </xs:extension>
                 </xs:simpleContent>
@@ -2158,7 +2174,7 @@
             <xs:element name="Colonia">
               <xs:complexType>
                 <xs:simpleContent>
-                  <xs:extension base="Cat-Colonia">
+                  <xs:extension base="NonEmptyString50">
                     <xs:attribute fixed="b.3.7" name="id" type="xs:string" use="required" />
                   </xs:extension>
                 </xs:simpleContent>
@@ -2167,7 +2183,7 @@
             <xs:element name="CodigoPostal">
               <xs:complexType>
                 <xs:simpleContent>
-                  <xs:extension  base="NonEmptyString5">
+                  <xs:extension  base="NonEmptyStringCP">
                     <xs:attribute fixed="b.3.8" name="id" type="xs:string" use="required" />
                   </xs:extension>
                 </xs:simpleContent>
@@ -2176,7 +2192,7 @@
             <xs:element name="Delegacion">
               <xs:complexType>
                 <xs:simpleContent>
-                  <xs:extension base="Cat-Delegacion">
+                  <xs:extension base="NonEmptyString50">
                     <xs:attribute fixed="b.3.9" name="id" type="xs:string" use="required" />
                   </xs:extension>
                 </xs:simpleContent>
@@ -2342,7 +2358,7 @@
               <xs:element name="Colonia" >
                 <xs:complexType>
                   <xs:simpleContent>
-                    <xs:extension base="Cat-Colonia">
+                    <xs:extension base="NonEmptyString50">
                       <xs:attribute fixed="b.1.7" name="id" type="xs:string" use="required" />
                     </xs:extension>
                   </xs:simpleContent>
@@ -2351,7 +2367,7 @@
               <xs:element name="CodigoPostal">
                 <xs:complexType>
                   <xs:simpleContent>
-                    <xs:extension  base="NonEmptyString5">
+                    <xs:extension  base="NonEmptyStringCP">
                       <xs:attribute fixed="b.1.8" name="id" type="xs:string" use="required" />
                     </xs:extension>
                   </xs:simpleContent>
@@ -2360,7 +2376,7 @@
               <xs:element name="Delegacion">
                 <xs:complexType>
                   <xs:simpleContent>
-                    <xs:extension base="Cat-Delegacion">
+                    <xs:extension base="NonEmptyString50">
                       <xs:attribute fixed="b.1.9" name="id" type="xs:string" use="required" />
                     </xs:extension>
                   </xs:simpleContent>
@@ -2436,7 +2452,7 @@
             <xs:element name="Colonia" >
               <xs:complexType>
                 <xs:simpleContent>
-                  <xs:extension base="Cat-Colonia">
+                  <xs:extension base="NonEmptyString50">
                     <xs:attribute fixed="b.2.7" name="id" type="xs:string" use="required" />
                   </xs:extension>
                 </xs:simpleContent>
@@ -2445,7 +2461,7 @@
             <xs:element name="CodigoPostal">
               <xs:complexType>
                 <xs:simpleContent>
-                  <xs:extension  base="NonEmptyString5">
+                  <xs:extension  base="NonEmptyStringCP">
                     <xs:attribute fixed="b.2.8" name="id" type="xs:string" use="required" />
                   </xs:extension>
                 </xs:simpleContent>
@@ -2454,7 +2470,7 @@
             <xs:element name="Delegacion">
               <xs:complexType>
                 <xs:simpleContent>
-                  <xs:extension base="Cat-Delegacion">
+                  <xs:extension base="NonEmptyString50">
                     <xs:attribute fixed="b.2.9" name="id" type="xs:string" use="required" />
                   </xs:extension>
                 </xs:simpleContent>
@@ -2529,7 +2545,7 @@
             <xs:element name="Colonia">
               <xs:complexType>
                 <xs:simpleContent>
-                  <xs:extension base="Cat-Colonia">
+                  <xs:extension base="NonEmptyString50">
                     <xs:attribute fixed="b.3.7" name="id" type="xs:string" use="required" />
                   </xs:extension>
                 </xs:simpleContent>
@@ -2538,7 +2554,7 @@
             <xs:element name="CodigoPostal">
               <xs:complexType>
                 <xs:simpleContent>
-                  <xs:extension  base="NonEmptyString5">
+                  <xs:extension  base="NonEmptyStringCP">
                     <xs:attribute fixed="b.3.8" name="id" type="xs:string" use="required" />
                   </xs:extension>
                 </xs:simpleContent>
@@ -2547,7 +2563,7 @@
             <xs:element name="Delegacion">
               <xs:complexType>
                 <xs:simpleContent>
-                  <xs:extension base="Cat-Delegacion">
+                  <xs:extension base="NonEmptyString50">
                     <xs:attribute fixed="b.3.9" name="id" type="xs:string" use="required" />
                   </xs:extension>
                 </xs:simpleContent>
@@ -5639,7 +5655,7 @@
                   <xs:element name="Colonia">
                     <xs:complexType>
                       <xs:simpleContent>
-                        <xs:extension base="Cat-Colonia">
+                        <xs:extension base="NonEmptyString50">
                           <xs:attribute fixed="h.2.1.n.2" name="id" type="xs:string" use="required" />
                         </xs:extension>
                       </xs:simpleContent>
@@ -5648,7 +5664,7 @@
                   <xs:element name="Delegacion">
                     <xs:complexType>
                       <xs:simpleContent>
-                        <xs:extension base="Cat-Delegacion">
+                        <xs:extension base="NonEmptyString50">
                           <xs:attribute fixed="h.2.1.n.3" name="id" type="xs:string" use="required" />
                         </xs:extension>
                       </xs:simpleContent>
@@ -5657,7 +5673,7 @@
                   <xs:element name="CodigoPostal">
                     <xs:complexType>
                       <xs:simpleContent>
-                        <xs:extension base="NonEmptyString5">
+                        <xs:extension base="NonEmptyStringCP">
                           <xs:attribute fixed="h.2.1.n.4" name="id" type="xs:string" use="required" />
                         </xs:extension>
                       </xs:simpleContent>
@@ -5864,7 +5880,7 @@
                   <xs:element name="Colonia">
                     <xs:complexType>
                       <xs:simpleContent>
-                        <xs:extension base="Cat-Colonia">
+                        <xs:extension base="NonEmptyString50">
                           <xs:attribute fixed="h.4.1.n.2" name="id" type="xs:string" use="required" />
                         </xs:extension>
                       </xs:simpleContent>
@@ -5873,7 +5889,7 @@
                   <xs:element name="Delegacion">
                     <xs:complexType>
                       <xs:simpleContent>
-                        <xs:extension base="Cat-Delegacion">
+                        <xs:extension base="NonEmptyString50">
                           <xs:attribute fixed="h.4.1.n.3" name="id" type="xs:string" use="required" />
                         </xs:extension>
                       </xs:simpleContent>
@@ -5882,7 +5898,7 @@
                   <xs:element name="CodigoPostal">
                     <xs:complexType>
                       <xs:simpleContent>
-                        <xs:extension base="NonEmptyString5">
+                        <xs:extension base="NonEmptyStringCP">
                           <xs:attribute fixed="h.4.1.n.4" name="id" type="xs:string" use="required" />
                         </xs:extension>
                       </xs:simpleContent>
