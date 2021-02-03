@@ -875,7 +875,7 @@ class BandejaEntradaController extends Controller
             if(is_array($resValidaEsquema)){
                 $camposFexavaAvaluo = array();
                 $camposFexavaAvaluo['ERRORES'][] = $resValidaEsquema;
-                return response()->json(['mensaje' => $camposFexavaAvaluo['ERRORES']], 500);
+                return response()->json(['mensaje' => $this->limpiaRepetidos($camposFexavaAvaluo['ERRORES'])], 500);
                 
             }           
                     
@@ -999,8 +999,8 @@ class BandejaEntradaController extends Controller
                         $arrn[] = $elementoError;
                     }
                 }
-                Log::info($arrn);
-                return response()->json(['mensaje' => $this->limpiaRepetidos($arrn)], 500);
+                //Log::info($arrn);
+                return response()->json(['mensaje' => $arrn], 500);
             }
             $this->guardaAvance($nombreArchivo,55);
             $resInsert = $this->modelGuardaenBD->insertAvaluo($camposFexavaAvaluo);
