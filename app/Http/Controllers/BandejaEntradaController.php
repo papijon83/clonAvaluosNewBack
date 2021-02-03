@@ -1000,7 +1000,7 @@ class BandejaEntradaController extends Controller
                     }
                 }
                 //Log::info($arrn);
-                return response()->json(['mensaje' => $arrn], 500);
+                return response()->json(['mensaje' => $this->limpiaRepetidos($arrn)], 500);
             }
             $this->guardaAvance($nombreArchivo,55);
             $resInsert = $this->modelGuardaenBD->insertAvaluo($camposFexavaAvaluo);
@@ -1022,6 +1022,34 @@ class BandejaEntradaController extends Controller
             return response()->json(['mensaje' => 'Error en el servidor'], 500);
         }
         
+    }
+
+    public function limpiaRepetidos($arrn){
+        $arrLimpio = array();
+        $textoLineaAnt = '';
+        $numeroLineaAnt = '';
+        foreach($arrn as $idn => $elementon){
+            $arrElemento = explode(' ',$elementon);
+            if(count($arrElemento) > 3){
+                $textoLinea = $arrElemento[2];
+                $numeroLinea = $arrElemento[3];
+
+                if($textoLinea === $textoLineaAnt && $numeroLinea === $numeroLineaAnt){
+                    unset($arrn[$idn]);
+                }else{
+                    $textoLineaAnt = $textoLinea;
+                    $numeroLineaAnt = $numeroLinea;
+                }
+            }
+        }
+
+        foreach($arrn as $elementon){
+            if(trim($elementon) !== ''){
+                $arrLimpio[] = $elementon;
+            }            
+        }
+
+        return $arrLimpio;
     }
 
     public function guardaAvance($nombreArchivo,$porcentaje){
