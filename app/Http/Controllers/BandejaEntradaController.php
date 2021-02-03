@@ -999,7 +999,7 @@ class BandejaEntradaController extends Controller
                         $arrn[] = $elementoError;
                     }
                 }
-                //Log::info($arrn);
+                Log::info($arrn);
                 return response()->json(['mensaje' => $this->limpiaRepetidos($arrn)], 500);
             }
             $this->guardaAvance($nombreArchivo,55);
