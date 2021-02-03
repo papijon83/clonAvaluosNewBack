@@ -8,11 +8,20 @@
             #footer { position: fixed; left: 0px; bottom: -130px; right: 0px; height: 40px; text-align: center; } 
             #footer .page:after { content: counter(page, decimal); } 
             .grises{color: #8D8D8D;}
+
             .tabla_cabeza_gris{width: 100%; border-collapse: collapse!important; margin-top: 2%;}
                 .tabla_cabeza_gris>thead>tr>th, .tabla_cabeza_gris>tbody>tr>td {border: 1px solid #000; padding: 2px;}
                 .tabla_cabeza_gris>thead{background-color: #D3D3D3; font-size: 10px!important;}
+
+            .tabla_gris_valor{width: 100%; margin-top: 2%; margin-bottom: 2%; border-collapse: separate; border-spacing: 10px 5px;}
+                .tabla_gris_valor>thead>tr>th{background-color: #D3D3D3; font-size: 10px!important; text-align: right; padding: 4px; font-size: 12px;}
+
+            .tabla_doble{width: 80%; border-collapse: collapse!important;}
+                 .tabla_doble>thead>tr>th{border-bottom: 2px solid #000;}
+                 .tabla_doble>tfoot>tr>td{border-top: 2px solid #000;}
+            
             .centrado{text-align: center;}
-            .pleca_verde{background-color: #9ACD32; color: #fff; border: 0px; text-align: right; margin: 2% 0 2% 0; pading: 5px; font-size: 15px;}
+            .pleca_verde{background-color: #00A346; color: #fff; border: 0px; text-align: right; margin: 2% 0 2% 0; pading: 5px; font-size: 15px;}
             .letras_pequenas{font-weight: lighter; font-size: 10px;}
         </style>
     </head>
@@ -44,7 +53,7 @@
                             <td class="grises">097654</td>
                         </tr>
                 </table>
-                <hr style="background-color: #9ACD32; height: 5px; border: 0px;">
+                <hr style="background-color: #00A346; height: 5px; border: 0px;">
         </div>
         <!-- Fin de HEADER -->
 
@@ -807,8 +816,8 @@
                 </p>
 
                 <br>
-                <!-- 7.- COMPARACIÓN DE MERCADO -->
-                <div style="background-color: #9ACD32; color: #fff; border: 0px; text-align: right;">VII. COMPARACIÓN DE MERCADO</div>
+                <!-- 7.- Comparación de Mercado -->
+                <div style="background-color: #00A346; color: #fff; border: 0px; text-align: right;">VII. COMPARACIÓN DE MERCADO</div>
                 <h4 style="margin-top: 4%;">TERRENOS DIRECTOS</h4>
                 <h4 style="margin-top: 4%;">TERRENOS</h4>
                 <hr>
@@ -988,9 +997,17 @@
                         </tr>
                     </tbody>
                 </table>
-                <br>
-                <p>VALOR UNITARIO DE TIERRA DEL AVALUO: DATO</p>
-                <br>
+
+                
+                <table class="tabla_gris_valor">
+                    <thead>
+                        <tr>
+                            <th>VALOR UNITARIO DE TIERRA DEL AVALUO</th>
+                            <th>datos</th>
+                        </tr>
+                    </thead> 
+                </table>
+
                 <h4 style="margin-top: 4%;">CONSTRUCCIONES EN VENTA</h4>
                 <hr>
                 <p>Investigación productos comparables</p>
@@ -1063,10 +1080,25 @@
                         </tr>
                     </tbody>
                 </table>
-                <br>
-                <p>VALOR UNITARIO APLICABLE AL AVALUO:</p>
-                <p>VALOR DE MERCADO DEL INMUEBLE:</p>
-                <br>
+                
+                <table class="tabla_gris_valor">
+                    <thead>
+                        <tr>
+                            <th>VALOR UNITARIO APLICABLE AL AVALUO:</th>
+                            <th>datos</th>
+                        </tr>
+                    </thead> 
+                </table>
+                
+                <table class="tabla_gris_valor">
+                    <thead>
+                        <tr>
+                            <th>VALOR DE MERCADO DEL INMUEBLE:</th>
+                            <th>datos</th>
+                        </tr>
+                    </thead> 
+                </table>
+
                 <h4 style="margin-top: 4%;">CONTRUCCIONES EN RENTA</h4>
                 <hr>
                 <br>
@@ -1141,12 +1173,19 @@
                         </tr>
                     </tbody>
                 </table>
-                <br>
-                <p>VALOR UNITARIO APLICABLE AL AVALUO:</p>
-                <br>
 
-                <!-- 8.- ÍNDICE FÍSICO O DIRECTO -->
-                <div style="background-color: #9ACD32; color: #fff; border: 0px; text-align: right; margin: 2% 0 2% 0;"><b>VIII.- ÍNDICE FÍSICO O DIRECTO</b></div>
+                <table class="tabla_gris_valor">
+                    <thead>
+                        <tr>
+                            <th>VALOR UNITARIO APLICABLE AL AVALUO:</th>
+                            <th>datos</th>
+                        </tr>
+                    </thead> 
+                </table>
+                
+
+                <!-- 8.- Índice Físico o Directo -->
+                <div class="pleca_verde"><b>VIII.- ÍNDICE FÍSICO O DIRECTO</b></div>
                 <p><b>a) CÁLCULO DEL VALOR DEL TERRENO</b></p>
                 <table class="tabla_cabeza_gris">
                     <thead>
@@ -1184,8 +1223,16 @@
                 <p>Total superficie: dato '           'Valor del terreno total: dato </p>
                 <br>
                 <p>Indiviso de la unidad que se valua: dato</p>
-                <p>VALOR TOTAL DEL TERRENO PROPORCIONAL: dato</p>
-                <br>
+
+                <table class="tabla_gris_valor">
+                    <thead>
+                        <tr>
+                            <th>VALOR TOTAL DEL TERRENO PROPORCIONAL:</th>
+                            <th>datos</th>
+                        </tr>
+                    </thead> 
+                </table>
+                
                 <p><b>b) CÁLCULO DEL VALOR DE LAS CONTRUCCIONES</b></p>
                 <p><b>PRIVATIVAS: </b></p>
                 <table class="tabla_cabeza_gris">
@@ -1252,9 +1299,16 @@
                     </tbody>
                 </table>
                 <p>Total superficie: dato '                  ' Total construcciones comunes: dato</p>
-                <br>
-                <p>VALOR TOTAL DE LAS CONTRUCCIONES: dato</p>
-                <br>
+                
+                <table class="tabla_gris_valor">
+                    <thead>
+                        <tr>
+                            <th>VALOR TOTAL DE LAS CONTRUCCIONES:</th>
+                            <th>datos</th>
+                        </tr>
+                    </thead> 
+                </table>
+                
                 <p><b>c) DE LAS INSTALACIONES ESPECIALES, OBRAS COMPLEMENTARIOAS Y ELEMENTOS ACCESORIOS</b></p>
                 <br>
                 <p><b>PRIVATIVAS:</b></p>
@@ -1306,13 +1360,28 @@
                 </table>
                 <br>
                 <p>Indiviso de la unidad que se Valua: dato</p>
-                <p>TOTAL DE LAS INSTALACIONES: dato</p>
-                <br>
-                <br>
-                <p>ÍNDICE FÍSICO DIRECTO (Importe total de enfoque de costos):</p>
+
+                <table class="tabla_gris_valor">
+                    <thead>
+                        <tr>
+                            <th>TOTAL DE LAS INSTALACIONES:</th>
+                            <th>datos</th>
+                        </tr>
+                    </thead> 
+                </table>
+
+                <table class="tabla_gris_valor">
+                    <thead>
+                        <tr>
+                            <th>ÍNDICE FÍSICO DIRECTO (Importe total de enfoque de costos):</th>
+                            <th>datos</th>
+                        </tr>
+                    </thead> 
+                </table>
+               
                 
-                <!-- 9.- INDICE DE CAPITALIZACIÓN DE RENTAS -->
-                <div style="background-color: #9ACD32; color: #fff; border: 0px; text-align: right; margin: 2% 0 2% 0;"><b>IX.- INDICE DE CAPITALIZACIÓN DE RENTAS</b></div>
+                <!-- 9.- Índice de Capitalización de Rentas -->
+                <div class="pleca_verde"><b>IX.- INDICE DE CAPITALIZACIÓN DE RENTAS</b></div>
                 <p><b>RENTA ESTIMADA</b></p>
                 <table class="tabla_cabeza_gris">
                     <thead>
@@ -1336,35 +1405,86 @@
                 </table>
                 <br>
                 <p><b>ANÁLISIS DE DEDUCCIONES:</b></p>
-                <table style="border-collapse: collapse; width: 100%;">
-                    <thead>
-                        <tr>
-                            <th>Concepto</th>
-                            <th>Monto ($)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>dato</td>
-                            <td>dato</td>
-                        </tr>
-                    </tbody>
+
+                <table style="border-collapse: collapse; width: 100%; margin-bottom: 2%;">
+                    <tr>
+                        <td>
+                            <table class="tabla_doble">
+                                <thead>
+                                    <tr>
+                                        <th>Concepto</th>
+                                        <th>Monto ($)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>a) Vacíos:</td>
+                                        <td><b></b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>b) Impuesto predial:</td>
+                                        <td><b></b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>c) Servicio de agua:</td>
+                                        <td><b></b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>d) Conserv. y mant.:</td>
+                                        <td><b></b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>e) Administración:</td>
+                                        <td><b></b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>f) Energía eléctrica:</td>
+                                        <td><b></b></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td>
+                            <table class="tabla_doble">
+                                <thead>
+                                    <tr>
+                                        <th>Concepto</th>
+                                        <th>Monto ($)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>g) Seguros:</td>
+                                        <td><b></b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>h) Otros:</td>
+                                        <td><b></b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>i) Depreciación Fiscal:</td>
+                                        <td><b></b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>j) Deducc. Fiscales:</td>
+                                        <td><b></b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>k) I.S.R.</td>
+                                        <td><b></b></td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td>SUMA:</td>
+                                        <td><b></b></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </td>
+                    </tr>
                 </table>
-                <table style="border-collapse: collapse; width: 100%;">
-                    <thead>
-                        <tr>
-                            <th>Concepto</th>
-                            <th>Monto ($)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>dato</td>
-                            <td>dato</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br>
+                
                 <table style="border-collapse: collapse; width: 100%;">
                     <tbody>
                         <tr>
@@ -1386,21 +1506,55 @@
                     </tbody>
                 </table>
                 <p><span>La tasa de capitalización aplicable aquí referida deberá ser justificada en el apartado de consideracinoes propias.</span></p>
-                <br>
-                <p>RESULTADO DE LA APLICACIÓN DEL ENFOQUE DE INGRESOS (VALOR POR CAPITALIZACIÓN DE RENTAS): dato</p>
-                <br>
+
+                <table class="tabla_gris_valor">
+                    <thead>
+                        <tr>
+                            <th>RESULTADO DE LA APLICACIÓN DEL ENFOQUE DE INGRESOS (VALOR POR CAPITALIZACIÓN DE RENTAS):</th>
+                            <th>datos</th>
+                        </tr>
+                    </thead> 
+                </table>
                 
-                <!-- 10.- RESUMEN DE VALORES -->
-                <div style="background-color: #9ACD32; color: #fff; border: 0px; text-align: right; margin: 2% 0 2% 0;"><b>X.- RESUMEN DE VALORES</b></div>
-                <p>ÍNDICE FÍSICO DIRECTO: dato</p>
-                <p>VALOR POR CAPITALIZACIÓN DE RENTAS</p>
-                <p>VALOR DE MERCADO DE LAS CONSTRUCCIONES:</p>
-                <br>
-                <p>CONSIDERACIONES: </p>
-                <br>
                 
-                <!-- 11.- CONCLUSIONES SOBRE EL VALOR COMERCIAL -->
-                <div style="background-color: #9ACD32; color: #fff; border: 0px; text-align: right; margin: 2% 0 2% 0;"><b>XII.- CONCLUSIONES SOBRE EL VALOR COMERCIAL</b></div>
+                <!-- 10.- Resumen de Valores -->
+                <div class="pleca_verde"><b>X.- RESUMEN DE VALORES</b></div>
+
+                <table class="tabla_gris_valor">
+                    <thead>
+                        <tr>
+                            <th>ÍNDICE FÍSICO DIRECTO:</th>
+                            <th>datos</th>
+                        </tr>
+                    </thead> 
+                </table>
+
+                <table class="tabla_gris_valor">
+                    <thead>
+                        <tr>
+                            <th>VALOR POR CAPITALIZACIÓN DE RENTAS:</th>
+                            <th>datos</th>
+                        </tr>
+                    </thead> 
+                </table>
+
+                <table class="tabla_gris_valor">
+                    <thead>
+                        <tr>
+                            <th>VALOR DE MERCADO DE LAS CONSTRUCCIONES:</th>
+                            <th>datos</th>
+                        </tr>
+                    </thead> 
+                </table>
+
+                <!-- 11.- Consideraciones Previas a la Conclusión -->
+                <div class="pleca_verde"><b>XI.- CONSIDERACIONES PREVIAS A LA CONCLUSIÓN</b></div>
+
+                    <p class="letras_pequenas">Texto aquí</p>
+
+                
+                <!-- 12.- Conclusiones sobre el Valor Comercial -->
+                <div class="pleca_verde"><b>XII.- CONCLUSIONES SOBRE EL VALOR COMERCIAL</b></div>
                 <p>CONSIDERAMOS QUE EL VALOR COMERCIAL CORRESPONDE A: dato</p>
                 <br>
                 <p><span>Esta cantidad estimamos que representa el valor comercial del inmueble al día:</span></p>
