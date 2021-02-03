@@ -1037,7 +1037,7 @@ class BandejaEntradaController extends Controller
                     $numeroLinea = $arrElemento[3];
                     Log::info($textoLineaAnt." ".$textoLinea." | ".$numeroLineaAnt." ".$numeroLinea);
                     if($textoLinea === $textoLineaAnt && $numeroLinea === $numeroLineaAnt){
-                        unset($arrn[$idn]);
+                        unset($arrn[0][$idn]);
                     }else{
                         $textoLineaAnt = $textoLinea;
                         $numeroLineaAnt = $numeroLinea;
