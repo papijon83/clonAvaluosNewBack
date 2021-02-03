@@ -259,6 +259,13 @@
     </xs:restriction>    
   </xs:simpleType>
 
+  <!-- double: Admite double -->
+  <xs:simpleType name="DoublePositivo">
+    <xs:restriction base="xs:double">      
+      <xs:minInclusive value="0" />          
+    </xs:restriction>    
+  </xs:simpleType>
+
   <!-- NullableDecimalPositivo: Admite una cadena de texto vacÃ­a o cualquier decimal positivo-->
   <xs:simpleType name="NullableDecimalPositivo" >
     <xs:union memberTypes="DecimalPositivo NullString">
@@ -275,7 +282,7 @@
 
   <!-- DecimalPositivo06: Decimales positivos con 3 digitos en la parte entera y 0 decimales (No admite cadenas texto vacÃ­as) yvalor mÃ­nimo 0.6 -->
   <xs:simpleType name="DecimalPositivo06">
-    <xs:restriction base="DecimalPositivo">
+    <xs:restriction base="DoublePositivo">
       <xs:minInclusive value="0.6" />
     </xs:restriction>
   </xs:simpleType>
@@ -719,6 +726,14 @@
     </xs:restriction>
   </xs:simpleType>
 
+  <xs:simpleType name="Cat-TipoInmueble">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="P" />
+      <xs:enumeration value="C" />
+      <xs:enumeration value="B" />      
+    </xs:restriction>
+  </xs:simpleType>
+
   <xs:simpleType name="Cat-TipoFuenteInformacion">
     <xs:restriction base="xs:nonNegativeInteger">
       <xs:minInclusive value="1"/>
@@ -1124,7 +1139,7 @@
 
   <xs:complexType name="SUB-ImporteTotalValorCatastral">
     <xs:simpleContent>
-      <xs:extension base="DecimalPositivo">
+      <xs:extension base="DoublePositivo">
         <xs:attribute fixed="j.5" name="id" type="xs:string" use="required" />
       </xs:extension>
     </xs:simpleContent>
@@ -1234,7 +1249,7 @@
               <xs:element name="CUS">
                 <xs:complexType>
                   <xs:simpleContent>
-                    <xs:extension base="DecimalPositivo">
+                    <xs:extension base="DoublePositivo">
                       <xs:attribute fixed="h.1.1.n.8" name="id" type="xs:string" use="required" />
                     </xs:extension>
                   </xs:simpleContent>
@@ -1297,7 +1312,7 @@
               <xs:element name="Fre">
                 <xs:complexType>
                   <xs:simpleContent>
-                    <xs:extension base="DecimalPositivo">
+                    <xs:extension base="DoublePositivo">
                       <xs:attribute fixed="h.1.1.n.17" name="id" type="xs:string" use="required" />
                     </xs:extension>
                   </xs:simpleContent>
@@ -1309,7 +1324,7 @@
                     <xs:element name="Valor">
                       <xs:complexType>
                         <xs:simpleContent>
-                          <xs:extension base="DecimalPositivo">
+                          <xs:extension base="DoublePositivo">
                             <xs:attribute fixed="h.1.1.n.18.1" name="id" type="xs:string" use="required" />
                           </xs:extension>
                         </xs:simpleContent>
@@ -1331,7 +1346,7 @@
               <xs:element name="PrecioSolicitado">
                 <xs:complexType>
                   <xs:simpleContent>
-                    <xs:extension base="DecimalPositivo">
+                    <xs:extension base="DoublePositivo">
                       <xs:attribute fixed="h.1.1.n.15" name="id" type="xs:string" use="required" />
                     </xs:extension>
                   </xs:simpleContent>
@@ -1340,7 +1355,7 @@
               <xs:element name="FactorDeNegociacion">
                 <xs:complexType>
                   <xs:simpleContent>
-                    <xs:extension base="DecimalPositivo">
+                    <xs:extension base="DoublePositivo">
                       <xs:attribute fixed="h.1.1.n.16" name="id" type="xs:string" use="required" />
                     </xs:extension>
                   </xs:simpleContent>
@@ -1358,7 +1373,7 @@
               <xs:element name="ValorUnitarioDeTierraPromedio">
                 <xs:complexType>
                   <xs:simpleContent>
-                    <xs:extension base="DecimalPositivo">
+                    <xs:extension base="DoublePositivo">
                       <xs:attribute fixed="h.1.2.1" name="id" type="xs:string" use="required" />
                     </xs:extension>
                   </xs:simpleContent>
@@ -1367,7 +1382,7 @@
               <xs:element name="ValorUnitarioDeTierraHomologado">
                 <xs:complexType>
                   <xs:simpleContent>
-                    <xs:extension base="DecimalPositivo">
+                    <xs:extension base="DoublePositivo">
                       <xs:attribute fixed="h.1.2.2" name="id" type="xs:string" use="required" />
                     </xs:extension>
                   </xs:simpleContent>
@@ -1376,7 +1391,7 @@
               <xs:element name="ValorUnitarioSinHomologarMinimo">
                 <xs:complexType>
                   <xs:simpleContent>
-                    <xs:extension base="DecimalPositivo">
+                    <xs:extension base="DoublePositivo">
                       <xs:attribute fixed="h.1.2.3" name="id" type="xs:string" use="required" />
                     </xs:extension>
                   </xs:simpleContent>
@@ -1385,7 +1400,7 @@
               <xs:element name="ValorUnitarioSinHomologarMaximo">
                 <xs:complexType>
                   <xs:simpleContent>
-                    <xs:extension base="DecimalPositivo">
+                    <xs:extension base="DoublePositivo">
                       <xs:attribute fixed="h.1.2.4" name="id" type="xs:string" use="required" />
                     </xs:extension>
                   </xs:simpleContent>
@@ -1394,7 +1409,7 @@
               <xs:element name="ValorUnitarioHomologadoMinimo">
                 <xs:complexType>
                   <xs:simpleContent>
-                    <xs:extension base="DecimalPositivo">
+                    <xs:extension base="DoublePositivo">
                       <xs:attribute fixed="h.1.2.5" name="id" type="xs:string" use="required" />
                     </xs:extension>
                   </xs:simpleContent>
@@ -1403,7 +1418,7 @@
               <xs:element name="ValorUnitarioHomologadoMaximo">
                 <xs:complexType>
                   <xs:simpleContent>
-                    <xs:extension base="DecimalPositivo">
+                    <xs:extension base="DoublePositivo">
                       <xs:attribute fixed="h.1.2.6" name="id" type="xs:string" use="required" />
                     </xs:extension>
                   </xs:simpleContent>
@@ -1434,7 +1449,7 @@
             <xs:element minOccurs="0" maxOccurs="1" name="NumeroDeUnidadesVendibles">
               <xs:complexType>
                 <xs:simpleContent>
-                  <xs:extension base="DecimalPositivo">
+                  <xs:extension base="DoublePositivo">
                     <xs:attribute fixed="h.1.3.2" name="id" type="xs:string" use="required" />
                   </xs:extension>
                 </xs:simpleContent>
@@ -1443,7 +1458,7 @@
             <xs:element minOccurs="0" maxOccurs="1" name="SuperficieVendiblePorUnidad">
               <xs:complexType>
                 <xs:simpleContent>
-                  <xs:extension base="DecimalPositivo">
+                  <xs:extension base="DoublePositivo">
                     <xs:attribute fixed="h.1.3.3" name="id" type="xs:string" use="required" />
                   </xs:extension>
                 </xs:simpleContent>
@@ -1534,7 +1549,7 @@
                   <xs:element name="PrecioSolicitado">
                     <xs:complexType>
                       <xs:simpleContent>
-                        <xs:extension base="DecimalPositivo">
+                        <xs:extension base="DoublePositivo">
                           <xs:attribute fixed="h.1.3.4.n.8" name="id" type="xs:string" use="required" />
                         </xs:extension>
                       </xs:simpleContent>
@@ -1543,7 +1558,7 @@
                   <xs:element name="FactorDeNegociacion">
                     <xs:complexType>
                       <xs:simpleContent>
-                        <xs:extension base="DecimalPositivo">
+                        <xs:extension base="DoublePositivo">
                           <xs:attribute fixed="h.1.3.4.n.9" name="id" type="xs:string" use="required" />
                         </xs:extension>
                       </xs:simpleContent>
@@ -1559,7 +1574,7 @@
                   <xs:element name="ValorUnitarioPromedio">
                     <xs:complexType>
                       <xs:simpleContent>
-                        <xs:extension base="DecimalPositivo">
+                        <xs:extension base="DoublePositivo">
                           <xs:attribute fixed="h.1.3.5.1" name="id" type="xs:string" use="required" />
                         </xs:extension>
                       </xs:simpleContent>
@@ -1568,7 +1583,7 @@
                   <xs:element name="ValorUnitarioHomologado">
                     <xs:complexType>
                       <xs:simpleContent>
-                        <xs:extension base="DecimalPositivo">
+                        <xs:extension base="DoublePositivo">
                           <xs:attribute fixed="h.1.3.5.2" name="id" type="xs:string" use="required" />
                         </xs:extension>
                       </xs:simpleContent>
@@ -1577,7 +1592,7 @@
                   <xs:element name="ValorUnitarioSinHomologarMinimo">
                     <xs:complexType>
                       <xs:simpleContent>
-                        <xs:extension base="DecimalPositivo">
+                        <xs:extension base="DoublePositivo">
                           <xs:attribute fixed="h.1.3.5.3" name="id" type="xs:string" use="required" />
                         </xs:extension>
                       </xs:simpleContent>
@@ -1586,7 +1601,7 @@
                   <xs:element name="ValorUnitarioSinHomologarMaximo">
                     <xs:complexType>
                       <xs:simpleContent>
-                        <xs:extension base="DecimalPositivo">
+                        <xs:extension base="DoublePositivo">
                           <xs:attribute fixed="h.1.3.5.4" name="id" type="xs:string" use="required" />
                         </xs:extension>
                       </xs:simpleContent>
@@ -1595,7 +1610,7 @@
                   <xs:element name="ValorUnitarioHomologadoMinimo">
                     <xs:complexType>
                       <xs:simpleContent>
-                        <xs:extension base="DecimalPositivo">
+                        <xs:extension base="DoublePositivo">
                           <xs:attribute fixed="h.1.3.5.5" name="id" type="xs:string" use="required" />
                         </xs:extension>
                       </xs:simpleContent>
@@ -1604,7 +1619,7 @@
                   <xs:element name="ValorUnitarioHomologadoMaximo">
                     <xs:complexType>
                       <xs:simpleContent>
-                        <xs:extension base="DecimalPositivo">
+                        <xs:extension base="DoublePositivo">
                           <xs:attribute fixed="h.1.3.5.6" name="id" type="xs:string" use="required" />
                         </xs:extension>
                       </xs:simpleContent>
@@ -1613,7 +1628,7 @@
                   <xs:element name="ValorUnitarioAplicableAlResidual">
                     <xs:complexType>
                       <xs:simpleContent>
-                        <xs:extension base="DecimalPositivo">
+                        <xs:extension base="DoublePositivo">
                           <xs:attribute fixed="h.1.3.5.7" name="id" type="xs:string" use="required" />
                         </xs:extension>
                       </xs:simpleContent>
@@ -1629,7 +1644,7 @@
                   <xs:element name="TotalDeIngresos">
                     <xs:complexType>
                       <xs:simpleContent>
-                        <xs:extension base="DecimalPositivo">
+                        <xs:extension base="DoublePositivo">
                           <xs:attribute fixed="h.1.3.6.1" name="id" type="xs:string" use="required" />
                         </xs:extension>
                       </xs:simpleContent>
@@ -1638,7 +1653,7 @@
                   <xs:element name="TotalDeEgresos">
                     <xs:complexType>
                       <xs:simpleContent>
-                        <xs:extension base="DecimalPositivo">
+                        <xs:extension base="DoublePositivo">
                           <xs:attribute fixed="h.1.3.6.2" name="id" type="xs:string" use="required" />
                         </xs:extension>
                       </xs:simpleContent>
@@ -1656,7 +1671,7 @@
                   <xs:element name="ValorUnitarioDeTierraResidual">
                     <xs:complexType>
                       <xs:simpleContent>
-                        <xs:extension base="DecimalPositivo">
+                        <xs:extension base="DoublePositivo">
                           <xs:attribute fixed="h.1.3.6.4" name="id" type="xs:string" use="required" />
                         </xs:extension>
                       </xs:simpleContent>
@@ -2284,12 +2299,22 @@
       <xs:element name="RegimenDePropiedad">
         <xs:complexType>
           <xs:simpleContent>
-            <xs:extension base="String50">
+            <xs:extension base="Cat-RegimenPropiedad">
               <xs:attribute fixed="b.6" name="id" type="xs:string" use="required" />
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
       </xs:element>
+      <!-- Descomentar para nuevo XML -->
+      <!-- <xs:element name="TipoDeInmueble">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="Cat-TipoInmueble">
+              <xs:attribute fixed="b.7" name="id" type="xs:string" use="required" />
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element> -->
     </xs:sequence>
     <xs:attribute fixed="b" name="id" type="NonEmptyString" use="required" />
   </xs:complexType>
@@ -2655,12 +2680,21 @@
       <xs:element name="RegimenDePropiedad">
         <xs:complexType>
           <xs:simpleContent>
-            <xs:extension base="String50">
+            <xs:extension base="Cat-RegimenPropiedad">
               <xs:attribute fixed="b.6" name="id" type="xs:string" use="required" />
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
       </xs:element>
+      <!-- <xs:element name="TipoDeInmueble">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="Cat-TipoInmueble">
+              <xs:attribute fixed="b.7" name="id" type="xs:string" use="required" />
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element> -->
     </xs:sequence>
     <xs:attribute fixed="b" name="id" type="NonEmptyString" use="required" />
   </xs:complexType>
@@ -2687,7 +2721,7 @@
       <xs:element name="IndiceDeSaturacionDeLaZona">
         <xs:complexType>
           <xs:simpleContent>
-            <xs:extension base="DecimalPositivo">
+            <xs:extension base="DoublePositivo">
               <xs:attribute fixed="c.2" name="id" type="xs:string" use="required" />
             </xs:extension>
           </xs:simpleContent>
@@ -2753,7 +2787,7 @@
             <xs:element name="CoeficienteDeUsoDelSuelo">
               <xs:complexType>
                 <xs:simpleContent>
-                  <xs:extension base="DecimalPositivo">
+                  <xs:extension base="DoublePositivo">
                     <xs:attribute fixed="c.6.4" name="id" type="xs:string" use="required" />
                   </xs:extension>
                 </xs:simpleContent>
@@ -2931,7 +2965,7 @@
             <xs:element name="DistanciaTranporteUrbano">
               <xs:complexType>
                 <xs:simpleContent>
-                  <xs:extension base="DecimalPositivo">
+                  <xs:extension base="DoublePositivo">
                     <xs:attribute fixed="c.8.19" name="id" type="xs:string" use="required" />
                   </xs:extension>
                 </xs:simpleContent>
@@ -2940,7 +2974,7 @@
             <xs:element name="FrecuenciaTransporteUrbano">
               <xs:complexType>
                 <xs:simpleContent>
-                  <xs:extension base="DecimalPositivo">
+                  <xs:extension base="DoublePositivo">
                     <xs:attribute fixed="c.8.20" name="id" type="xs:string" use="required" />
                   </xs:extension>
                 </xs:simpleContent>
@@ -2949,7 +2983,7 @@
             <xs:element name="DistanciaTransporteSuburbano">
               <xs:complexType>
                 <xs:simpleContent>
-                  <xs:extension base="DecimalPositivo">
+                  <xs:extension base="DoublePositivo">
                     <xs:attribute fixed="c.8.21" name="id" type="xs:string" use="required" />
                   </xs:extension>
                 </xs:simpleContent>
@@ -2958,7 +2992,7 @@
             <xs:element name="FrecuenciaTransporteSuburbano">
               <xs:complexType>
                 <xs:simpleContent>
-                  <xs:extension base="DecimalPositivo">
+                  <xs:extension base="DoublePositivo">
                     <xs:attribute fixed="c.8.22" name="id" type="xs:string" use="required" />
                   </xs:extension>
                 </xs:simpleContent>
@@ -3113,7 +3147,7 @@
                         <xs:element name="NumeroDeEscritura">
                           <xs:complexType>
                             <xs:simpleContent>
-                              <xs:extension base="DecimalPositivo">
+                              <xs:extension base="DoublePositivo">
                                 <xs:attribute fixed="d.4.1.1.1" name="id" type="xs:string" use="required" />
                               </xs:extension>
                             </xs:simpleContent>
@@ -3140,7 +3174,7 @@
                         <xs:element name="NumeroNotaria">
                           <xs:complexType>
                             <xs:simpleContent>
-                              <xs:extension base="DecimalPositivo">
+                              <xs:extension base="DoublePositivo">
                                 <xs:attribute fixed="d.4.1.1.4" name="id" type="xs:string" use="required" />
                               </xs:extension>
                             </xs:simpleContent>
@@ -3404,7 +3438,7 @@
       <xs:element name="SuperficieTotalDelTerreno">
         <xs:complexType>
           <xs:simpleContent>
-            <xs:extension base="DecimalPositivo">
+            <xs:extension base="DoublePositivo">
               <xs:attribute fixed="d.11" name="id" type="xs:string" use="required" />
             </xs:extension>
           </xs:simpleContent>
@@ -3413,7 +3447,7 @@
       <xs:element name="ValorTotalDelTerreno">
         <xs:complexType>
           <xs:simpleContent>
-            <xs:extension base="DecimalPositivo">
+            <xs:extension base="DoublePositivo">
               <xs:attribute fixed="d.12" name="id" type="xs:string" use="required" />
             </xs:extension>
           </xs:simpleContent>
@@ -3422,7 +3456,7 @@
       <xs:element name="ValorTotalDelTerrenoProporcional">
         <xs:complexType>
           <xs:simpleContent>
-            <xs:extension base="DecimalPositivo">
+            <xs:extension base="DoublePositivo">
               <xs:attribute fixed="d.13" name="id" type="xs:string" use="required" />
             </xs:extension>
           </xs:simpleContent>
@@ -3474,7 +3508,7 @@
                         <xs:element name="NumeroDeEscritura">
                           <xs:complexType>
                             <xs:simpleContent>
-                              <xs:extension base="DecimalPositivo">
+                              <xs:extension base="DoublePositivo">
                                 <xs:attribute fixed="d.4.1.1.1" name="id" type="xs:string" use="required" />
                               </xs:extension>
                             </xs:simpleContent>
@@ -3501,7 +3535,7 @@
                         <xs:element name="NumeroNotaria">
                           <xs:complexType>
                             <xs:simpleContent>
-                              <xs:extension base="DecimalPositivo">
+                              <xs:extension base="DoublePositivo">
                                 <xs:attribute fixed="d.4.1.1.4" name="id" type="xs:string" use="required" />
                               </xs:extension>
                             </xs:simpleContent>
@@ -3752,7 +3786,7 @@
       <xs:element name="SuperficieTotalDelTerreno">
         <xs:complexType>
           <xs:simpleContent>
-            <xs:extension base="DecimalPositivo">
+            <xs:extension base="DoublePositivo">
               <xs:attribute fixed="d.11" name="id" type="xs:string" use="required" />
             </xs:extension>
           </xs:simpleContent>
@@ -3761,7 +3795,7 @@
       <xs:element name="ValorTotalDelTerreno">
         <xs:complexType>
           <xs:simpleContent>
-            <xs:extension base="DecimalPositivo">
+            <xs:extension base="DoublePositivo">
               <xs:attribute fixed="d.12" name="id" type="xs:string" use="required" />
             </xs:extension>
           </xs:simpleContent>
@@ -3770,7 +3804,7 @@
       <xs:element name="ValorTotalDelTerrenoProporcional" minOccurs="0">
         <xs:complexType>
           <xs:simpleContent>
-            <xs:extension base="DecimalPositivo">
+            <xs:extension base="DoublePositivo">
               <xs:attribute fixed="d.13" name="id" type="xs:string" use="required" />
             </xs:extension>
           </xs:simpleContent>
@@ -3781,7 +3815,7 @@
   </xs:complexType>
   <xs:complexType name="SUB-IdentificadorFraccionN1">
     <xs:simpleContent>
-      <xs:extension base="DecimalPositivo">
+      <xs:extension base="DoublePositivo">
         <xs:attribute fixed="d.5.n.1" name="id" type="xs:string" use="required" />
       </xs:extension>
     </xs:simpleContent>
@@ -3837,14 +3871,14 @@
   </xs:complexType>
   <xs:complexType name="SUB-ValorDeLaFraccionN">
     <xs:simpleContent>
-      <xs:extension base="DecimalPositivo">
+      <xs:extension base="DoublePositivo">
         <xs:attribute fixed="d.5.n.11" name="id" type="xs:string" use="required" />
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
   <xs:complexType name="SUB-ValorCatastralDeTierraAplicableALaFraccion">
     <xs:simpleContent>
-      <xs:extension base="DecimalPositivo">
+      <xs:extension base="DoublePositivo">
         <xs:attribute fixed="d.5.n.12" name="id" type="xs:string" use="required" />
       </xs:extension>
     </xs:simpleContent>
@@ -3879,7 +3913,7 @@
 
   <xs:complexType name="SUB-Fre">
     <xs:simpleContent>
-      <xs:extension base="DecimalPositivo">
+      <xs:extension base="DoublePositivo">
         <xs:attribute fixed="d.5.n.10" name="id" type="xs:string" use="required" />
       </xs:extension>
     </xs:simpleContent>
@@ -5195,7 +5229,7 @@
 
   <xs:complexType name="SUB-ValorUnitarioInstalacionEspecial-Comunes">
     <xs:simpleContent>
-      <xs:extension base="DecimalPositivo">
+      <xs:extension base="DoublePositivo">
         <xs:attribute fixed="f.9.2.n.7" name="id" type="xs:string" use="required" />
       </xs:extension>
     </xs:simpleContent>
@@ -5241,7 +5275,7 @@
 
   <xs:complexType name="SUB-EdadElementoAccesorio">
     <xs:simpleContent>
-      <xs:extension base="DecimalPositivo">
+      <xs:extension base="DoublePositivo">
         <xs:attribute fixed="f.10.1.n.5" name="id" type="xs:string" use="required" />
       </xs:extension>
     </xs:simpleContent>
@@ -5249,14 +5283,14 @@
 
   <xs:complexType name="SUB-VidaUtilTotalElementoAccesorio">
     <xs:simpleContent>
-      <xs:extension base="DecimalPositivo">
+      <xs:extension base="DoublePositivo">
         <xs:attribute fixed="f.10.1.n.6" name="id" type="xs:string" use="required" />
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
   <xs:complexType name="SUB-ValorUnitarioElementoAccesorio-Privativas">
     <xs:simpleContent>
-      <xs:extension base="DecimalPositivo">
+      <xs:extension base="DoublePositivo">
         <xs:attribute fixed="f.10.1.n.7" name="id" type="xs:string" use="required" />
       </xs:extension>
     </xs:simpleContent>
@@ -5270,7 +5304,7 @@
   </xs:complexType>
   <xs:complexType name="SUB-ImporteElementoAccesorio">
     <xs:simpleContent>
-      <xs:extension base="DecimalPositivo">
+      <xs:extension base="DoublePositivo">
         <xs:attribute fixed="f.10.1.n.9" name="id" type="xs:string" use="required" />
       </xs:extension>
     </xs:simpleContent>
@@ -5333,21 +5367,21 @@
   </xs:complexType>
   <xs:complexType name="SUB-EdadElementoAccesorio-Comunes">
     <xs:simpleContent>
-      <xs:extension base="DecimalPositivo">
+      <xs:extension base="DoublePositivo">
         <xs:attribute fixed="f.10.2.n.5" name="id" type="xs:string" use="required" />
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
   <xs:complexType name="SUB-VidaUtilTotalElementoAccesorioComunes">
     <xs:simpleContent>
-      <xs:extension base="DecimalPositivo">
+      <xs:extension base="DoublePositivo">
         <xs:attribute fixed="f.10.2.n.6" name="id" type="xs:string" use="required" />
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
   <xs:complexType name="SUB-ValorUnitarioElementoAccesorio-Comunes">
     <xs:simpleContent>
-      <xs:extension base="DecimalPositivo">
+      <xs:extension base="DoublePositivo">
         <xs:attribute fixed="f.10.2.n.7" name="id" type="xs:string" use="required" />
       </xs:extension>
     </xs:simpleContent>
@@ -5362,7 +5396,7 @@
   
   <xs:complexType name="SUB-ImporteElementoAccesorio-Comunes">
     <xs:simpleContent>
-      <xs:extension base="DecimalPositivo">
+      <xs:extension base="DoublePositivo">
         <xs:attribute fixed="f.10.2.n.9" name="id" type="xs:string" use="required" />
       </xs:extension>
     </xs:simpleContent>
@@ -5431,7 +5465,7 @@
 
   <xs:complexType name="SUB-EdadObraComplementaria-Privativas">
     <xs:simpleContent>
-      <xs:extension base="DecimalPositivo">
+      <xs:extension base="DoublePositivo">
         <xs:attribute fixed="f.11.1.n.5" name="id" type="xs:string" use="required" />
       </xs:extension>
     </xs:simpleContent>
@@ -5439,7 +5473,7 @@
 
   <xs:complexType name="SUB-ValorUnitarioObraComplementaria-Privativas">
     <xs:simpleContent>
-      <xs:extension base="DecimalPositivo">
+      <xs:extension base="DoublePositivo">
         <xs:attribute fixed="f.11.1.n.7" name="id" type="xs:string" use="required" />
       </xs:extension>
     </xs:simpleContent>
@@ -5453,7 +5487,7 @@
   </xs:complexType>
   <xs:complexType name="SUB-ImporteObraComplementaria-Privativas">
     <xs:simpleContent>
-      <xs:extension base="DecimalPositivo">
+      <xs:extension base="DoublePositivo">
         <xs:attribute fixed="f.11.1.n.9" name="id" type="xs:string" use="required" />
       </xs:extension>
     </xs:simpleContent>
@@ -5516,21 +5550,21 @@
   </xs:complexType>
   <xs:complexType name="SUB-EdadObraComplementaria-Comunes">
     <xs:simpleContent>
-      <xs:extension base="DecimalPositivo">
+      <xs:extension base="DoublePositivo">
         <xs:attribute fixed="f.11.2.n.5" name="id" type="xs:string" use="required" />
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
   <xs:complexType name="SUB-VidaUtilTotalObraComplementaria-Comunes">
     <xs:simpleContent>
-      <xs:extension base="DecimalPositivo">
+      <xs:extension base="DoublePositivo">
         <xs:attribute fixed="f.11.2.n.6" name="id" type="xs:string" use="required" />
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
   <xs:complexType name="SUB-ValorUnitarioObraComplementaria-Comunes">
     <xs:simpleContent>
-      <xs:extension base="DecimalPositivo">
+      <xs:extension base="DoublePositivo">
         <xs:attribute fixed="f.11.2.n.7" name="id" type="xs:string" use="required" />
       </xs:extension>
     </xs:simpleContent>
@@ -5617,7 +5651,7 @@
   </xs:complexType>
   <xs:complexType name="SUB-ValorDeMercadoDelInmueble">
     <xs:simpleContent>
-      <xs:extension base="DecimalPositivo">
+      <xs:extension base="DoublePositivo">
         <xs:attribute fixed="h.3" name="id" type="xs:string" use="required" />
       </xs:extension>
     </xs:simpleContent>
@@ -5725,7 +5759,7 @@
                   <xs:element name="PrecioSolicitado">
                     <xs:complexType>
                       <xs:simpleContent>
-                        <xs:extension base="DecimalPositivo">
+                        <xs:extension base="DoublePositivo">
                           <xs:attribute fixed="h.2.1.n.8" name="id" type="xs:string" use="required" />
                         </xs:extension>
                       </xs:simpleContent>
@@ -5734,7 +5768,7 @@
                   <xs:element name="FactorDeNegociacion">
                     <xs:complexType>
                       <xs:simpleContent>
-                        <xs:extension base="DecimalPositivo">
+                        <xs:extension base="DoublePositivo">
                           <xs:attribute fixed="h.2.1.n.9" name="id" type="xs:string" use="required" />
                         </xs:extension>
                       </xs:simpleContent>
@@ -5793,7 +5827,7 @@
                   <xs:element name="ValorUnitarioPromedio">
                     <xs:complexType>
                       <xs:simpleContent>
-                        <xs:extension base="DecimalPositivo">
+                        <xs:extension base="DoublePositivo">
                           <xs:attribute fixed="h.2.2.1" name="id" type="xs:string" use="required" />
                         </xs:extension>
                       </xs:simpleContent>
@@ -5802,7 +5836,7 @@
                   <xs:element name="ValorUnitarioHomologado">
                     <xs:complexType>
                       <xs:simpleContent>
-                        <xs:extension base="DecimalPositivo">
+                        <xs:extension base="DoublePositivo">
                           <xs:attribute fixed="h.2.2.2" name="id" type="xs:string" use="required" />
                         </xs:extension>
                       </xs:simpleContent>
@@ -5811,7 +5845,7 @@
                   <xs:element name="ValorUnitarioSinHomologarMinimo">
                     <xs:complexType>
                       <xs:simpleContent>
-                        <xs:extension base="DecimalPositivo">
+                        <xs:extension base="DoublePositivo">
                           <xs:attribute fixed="h.2.2.3" name="id" type="xs:string" use="required" />
                         </xs:extension>
                       </xs:simpleContent>
@@ -5820,7 +5854,7 @@
                   <xs:element name="ValorUnitarioSinHomologarMaximo">
                     <xs:complexType>
                       <xs:simpleContent>
-                        <xs:extension base="DecimalPositivo">
+                        <xs:extension base="DoublePositivo">
                           <xs:attribute fixed="h.2.2.4" name="id" type="xs:string" use="required" />
                         </xs:extension>
                       </xs:simpleContent>
@@ -5829,7 +5863,7 @@
                   <xs:element name="ValorUnitarioHomologadoMinimo">
                     <xs:complexType>
                       <xs:simpleContent>
-                        <xs:extension base="DecimalPositivo">
+                        <xs:extension base="DoublePositivo">
                           <xs:attribute fixed="h.2.2.5" name="id" type="xs:string" use="required" />
                         </xs:extension>
                       </xs:simpleContent>
@@ -5838,7 +5872,7 @@
                   <xs:element name="ValorUnitarioHomologadoMaximo">
                     <xs:complexType>
                       <xs:simpleContent>
-                        <xs:extension base="DecimalPositivo">
+                        <xs:extension base="DoublePositivo">
                           <xs:attribute fixed="h.2.2.6" name="id" type="xs:string" use="required" />
                         </xs:extension>
                       </xs:simpleContent>
@@ -5847,7 +5881,7 @@
                   <xs:element name="ValorUnitarioAplicableAlAvaluo">
                     <xs:complexType>
                       <xs:simpleContent>
-                        <xs:extension base="DecimalPositivo">
+                        <xs:extension base="DoublePositivo">
                           <xs:attribute fixed="h.2.2.7" name="id" type="xs:string" use="required" />
                         </xs:extension>
                       </xs:simpleContent>
@@ -5950,7 +5984,7 @@
                   <xs:element name="PrecioSolicitado">
                     <xs:complexType>
                       <xs:simpleContent>
-                        <xs:extension base="DecimalPositivo">
+                        <xs:extension base="DoublePositivo">
                           <xs:attribute fixed="h.4.1.n.8" name="id" type="xs:string" use="required" />
                         </xs:extension>
                       </xs:simpleContent>
@@ -5959,7 +5993,7 @@
                   <xs:element name="FactorDeNegociacion">
                     <xs:complexType>
                       <xs:simpleContent>
-                        <xs:extension base="DecimalPositivo">
+                        <xs:extension base="DoublePositivo">
                           <xs:attribute fixed="h.4.1.n.9" name="id" type="xs:string" use="required" />
                         </xs:extension>
                       </xs:simpleContent>
@@ -6018,7 +6052,7 @@
                   <xs:element name="ValorUnitarioPromedio">
                     <xs:complexType>
                       <xs:simpleContent>
-                        <xs:extension base="DecimalPositivo">
+                        <xs:extension base="DoublePositivo">
                           <xs:attribute fixed="h.4.2.1" name="id" type="xs:string" use="required" />
                         </xs:extension>
                       </xs:simpleContent>
@@ -6027,7 +6061,7 @@
                   <xs:element name="ValorUnitarioHomologado">
                     <xs:complexType>
                       <xs:simpleContent>
-                        <xs:extension base="DecimalPositivo">
+                        <xs:extension base="DoublePositivo">
                           <xs:attribute fixed="h.4.2.2" name="id" type="xs:string" use="required" />
                         </xs:extension>
                       </xs:simpleContent>
@@ -6036,7 +6070,7 @@
                   <xs:element name="ValorUnitarioSinHomologarMinimo">
                     <xs:complexType>
                       <xs:simpleContent>
-                        <xs:extension base="DecimalPositivo">
+                        <xs:extension base="DoublePositivo">
                           <xs:attribute fixed="h.4.2.3" name="id" type="xs:string" use="required" />
                         </xs:extension>
                       </xs:simpleContent>
@@ -6045,7 +6079,7 @@
                   <xs:element name="ValorUnitarioSinHomologarMaximo">
                     <xs:complexType>
                       <xs:simpleContent>
-                        <xs:extension base="DecimalPositivo">
+                        <xs:extension base="DoublePositivo">
                           <xs:attribute fixed="h.4.2.4" name="id" type="xs:string" use="required" />
                         </xs:extension>
                       </xs:simpleContent>
@@ -6054,7 +6088,7 @@
                   <xs:element name="ValorUnitarioHomologadoMinimo">
                     <xs:complexType>
                       <xs:simpleContent>
-                        <xs:extension base="DecimalPositivo">
+                        <xs:extension base="DoublePositivo">
                           <xs:attribute fixed="h.4.2.5" name="id" type="xs:string" use="required" />
                         </xs:extension>
                       </xs:simpleContent>
@@ -6063,7 +6097,7 @@
                   <xs:element name="ValorUnitarioHomologadoMaximo">
                     <xs:complexType>
                       <xs:simpleContent>
-                        <xs:extension base="DecimalPositivo">
+                        <xs:extension base="DoublePositivo">
                           <xs:attribute fixed="h.4.2.6" name="id" type="xs:string" use="required" />
                         </xs:extension>
                       </xs:simpleContent>
@@ -6072,7 +6106,7 @@
                   <xs:element name="ValorUnitarioAplicableAlAvaluo">
                     <xs:complexType>
                       <xs:simpleContent>
-                        <xs:extension base="DecimalPositivo">
+                        <xs:extension base="DoublePositivo">
                           <xs:attribute fixed="h.4.2.7" name="id" type="xs:string" use="required" />
                         </xs:extension>
                       </xs:simpleContent>
@@ -6091,7 +6125,7 @@
   </xs:complexType>
   <xs:complexType name="SUB-ValorUnitarioDeTierraAplicableAlAvaluo">
     <xs:simpleContent>
-      <xs:extension base="DecimalPositivo">
+      <xs:extension base="DoublePositivo">
         <xs:attribute fixed="h.1.4" name="id" type="xs:string" use="required" />
       </xs:extension>
     </xs:simpleContent>
@@ -6134,7 +6168,7 @@
             <xs:element name="Vacios">
               <xs:complexType>
                 <xs:simpleContent>
-                  <xs:extension base="DecimalPositivo">
+                  <xs:extension base="DoublePositivo">
                     <xs:attribute fixed="k.2.1" name="id" type="xs:string" use="required" />
                   </xs:extension>
                 </xs:simpleContent>
@@ -6143,7 +6177,7 @@
             <xs:element name="ImpuestoPredial">
               <xs:complexType>
                 <xs:simpleContent>
-                  <xs:extension base="DecimalPositivo">
+                  <xs:extension base="DoublePositivo">
                     <xs:attribute fixed="k.2.2" name="id" type="xs:string" use="required" />
                   </xs:extension>
                 </xs:simpleContent>
@@ -6152,7 +6186,7 @@
             <xs:element name="ServicioDeAgua">
               <xs:complexType>
                 <xs:simpleContent>
-                  <xs:extension base="DecimalPositivo">
+                  <xs:extension base="DoublePositivo">
                     <xs:attribute fixed="k.2.3" name="id" type="xs:string" use="required" />
                   </xs:extension>
                 </xs:simpleContent>
@@ -6161,7 +6195,7 @@
             <xs:element name="ConservacionYMantenimiento">
               <xs:complexType>
                 <xs:simpleContent>
-                  <xs:extension base="DecimalPositivo">
+                  <xs:extension base="DoublePositivo">
                     <xs:attribute fixed="k.2.4" name="id" type="xs:string" use="required" />
                   </xs:extension>
                 </xs:simpleContent>
@@ -6170,7 +6204,7 @@
             <xs:element name="ServicioEnergiaElectrica">
               <xs:complexType>
                 <xs:simpleContent>
-                  <xs:extension base="DecimalPositivo">
+                  <xs:extension base="DoublePositivo">
                     <xs:attribute fixed="k.2.5" name="id" type="xs:string" use="required" />
                   </xs:extension>
                 </xs:simpleContent>
@@ -6179,7 +6213,7 @@
             <xs:element name="Administracion">
               <xs:complexType>
                 <xs:simpleContent>
-                  <xs:extension base="DecimalPositivo">
+                  <xs:extension base="DoublePositivo">
                     <xs:attribute fixed="k.2.6" name="id" type="xs:string" use="required" />
                   </xs:extension>
                 </xs:simpleContent>
@@ -6188,7 +6222,7 @@
             <xs:element name="Seguros">
               <xs:complexType>
                 <xs:simpleContent>
-                  <xs:extension base="DecimalPositivo">
+                  <xs:extension base="DoublePositivo">
                     <xs:attribute fixed="k.2.7" name="id" type="xs:string" use="required" />
                   </xs:extension>
                 </xs:simpleContent>
@@ -6197,7 +6231,7 @@
             <xs:element name="DepreciacionFiscal">
               <xs:complexType>
                 <xs:simpleContent>
-                  <xs:extension base="DecimalPositivo">
+                  <xs:extension base="DoublePositivo">
                     <xs:attribute fixed="k.2.8" name="id" type="xs:string" use="required" />
                   </xs:extension>
                 </xs:simpleContent>
@@ -6206,7 +6240,7 @@
             <xs:element name="Otros">
               <xs:complexType>
                 <xs:simpleContent>
-                  <xs:extension base="DecimalPositivo">
+                  <xs:extension base="DoublePositivo">
                     <xs:attribute fixed="k.2.9" name="id" type="xs:string" use="required" />
                   </xs:extension>
                 </xs:simpleContent>
@@ -6215,7 +6249,7 @@
             <xs:element name="DeduccionesFiscales">
               <xs:complexType>
                 <xs:simpleContent>
-                  <xs:extension base="DecimalPositivo">
+                  <xs:extension base="DoublePositivo">
                     <xs:attribute fixed="k.2.10" name="id" type="xs:string" use="required" />
                   </xs:extension>
                 </xs:simpleContent>
@@ -6224,7 +6258,7 @@
             <xs:element name="ImpuestoSobreLaRenta">
               <xs:complexType>
                 <xs:simpleContent>
-                  <xs:extension base="DecimalPositivo">
+                  <xs:extension base="DoublePositivo">
                     <xs:attribute fixed="k.2.11" name="id" type="xs:string" use="required" />
                   </xs:extension>
                 </xs:simpleContent>
@@ -6233,7 +6267,7 @@
             <xs:element name="DeduccionesMensuales">
               <xs:complexType>
                 <xs:simpleContent>
-                  <xs:extension base="DecimalPositivo">
+                  <xs:extension base="DoublePositivo">
                     <xs:attribute fixed="k.2.12" name="id" type="xs:string" use="required" />
                   </xs:extension>
                 </xs:simpleContent>
@@ -6264,7 +6298,7 @@
       <xs:element name="TasaDeCapitalizacionAplicable">
         <xs:complexType>
           <xs:simpleContent>
-            <xs:extension base="DecimalPositivo">
+            <xs:extension base="DoublePositivo">
               <xs:attribute fixed="k.4" name="id" type="xs:string" use="required" />
             </xs:extension>
           </xs:simpleContent>
@@ -6300,7 +6334,7 @@
       <xs:element name="ValorComercialDelInmueble">
         <xs:complexType>
           <xs:simpleContent>
-            <xs:extension base="DecimalPositivo">
+            <xs:extension base="DoublePositivo">
               <xs:attribute fixed="o.1" name="id" type="xs:string" use="required" />
             </xs:extension>
           </xs:simpleContent>
@@ -6314,7 +6348,7 @@
       <xs:element name="ValorCatastralDelInmueble">
         <xs:complexType>
           <xs:simpleContent>
-            <xs:extension base="DecimalPositivo">
+            <xs:extension base="DoublePositivo">
               <xs:attribute fixed="o.2" name="id" type="xs:string" use="required" />
             </xs:extension>
           </xs:simpleContent>
