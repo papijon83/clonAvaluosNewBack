@@ -1025,26 +1025,29 @@ class BandejaEntradaController extends Controller
     }
 
     public function limpiaRepetidos($arrn){
-        Log::info("ENtre");
+        //Log::info($arrn);
         $arrLimpio = array();
         $textoLineaAnt = '';
         $numeroLineaAnt = '';
-        foreach($arrn as $idn => $elementon){
-            $arrElemento = explode(' ',$elementon);
-            if(count($arrElemento) > 3){
-                $textoLinea = $arrElemento[2];
-                $numeroLinea = $arrElemento[3];
-                Log::info($textoLineaAnt." ".$textoLinea." | ".$numeroLineaAnt." ".$numeroLinea);
-                if($textoLinea === $textoLineaAnt && $numeroLinea === $numeroLineaAnt){
-                    unset($arrn[$idn]);
-                }else{
-                    $textoLineaAnt = $textoLinea;
-                    $numeroLineaAnt = $numeroLinea;
+        foreach($arrn[0] as $idn => $elementon){
+            if(trim($elementon) != ''){
+                $arrElemento = explode(' ',$elementon);
+                if(count($arrElemento) > 3){
+                    $textoLinea = $arrElemento[2];
+                    $numeroLinea = $arrElemento[3];
+                    //Log::info($textoLineaAnt." ".$textoLinea." | ".$numeroLineaAnt." ".$numeroLinea);
+                    if($textoLinea === $textoLineaAnt && $numeroLinea === $numeroLineaAnt){
+                        unset($arrn[$idn]);
+                    }else{
+                        $textoLineaAnt = $textoLinea;
+                        $numeroLineaAnt = $numeroLinea;
+                    }
                 }
-            }
+
+            }    
         }
 
-        foreach($arrn as $elementon){
+        foreach($arrn[0] as $elementon){
             if(trim($elementon) !== ''){
                 $arrLimpio[] = $elementon;
             }            
