@@ -1035,7 +1035,7 @@ class BandejaEntradaController extends Controller
                 if(count($arrElemento) > 3){
                     $textoLinea = $arrElemento[2];
                     $numeroLinea = $arrElemento[3];
-                    //Log::info($textoLineaAnt." ".$textoLinea." | ".$numeroLineaAnt." ".$numeroLinea);
+                    Log::info($textoLineaAnt." ".$textoLinea." | ".$numeroLineaAnt." ".$numeroLinea);
                     if($textoLinea === $textoLineaAnt && $numeroLinea === $numeroLineaAnt){
                         unset($arrn[$idn]);
                     }else{
