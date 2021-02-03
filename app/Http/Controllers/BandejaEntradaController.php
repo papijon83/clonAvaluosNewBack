@@ -1025,6 +1025,7 @@ class BandejaEntradaController extends Controller
     }
 
     public function limpiaRepetidos($arrn){
+        Log::info("ENtre");
         $arrLimpio = array();
         $textoLineaAnt = '';
         $numeroLineaAnt = '';
