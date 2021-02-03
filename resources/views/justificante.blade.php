@@ -35,22 +35,22 @@
                         <tr style="width: 100%;">
                             <td style="width: 50%;"></td>
                             <td><b>Fecha:</b></td>
-                            <td class="grises">15/08/2013</td>
+                            <td class="grises">{{$infoAvaluo['Encabezado']['Fecha']}}aqui</td>
                         </tr>
                         <tr>
                             <td></td>
                             <td><b>Avaluo:</b></td>
-                            <td class="grises">MRN-23-345</td>
+                            <td class="grises">{{$infoAvaluo['Encabezado']['Avaluo_No']}}</td>
                         </tr>
                         <tr>
                             <td></td>
                             <td><b>No. Único:</b></td>
-                            <td class="grises">{{$datosPDF['no_unico']}}</td>
+                            <td class="grises">{{$infoAvaluo['Encabezado']['No_Unico']}}</td>
                         </tr>
                         <tr>
                             <td></td>
                             <td><b>Registro T.D.F</b></td>
-                            <td class="grises">097654</td>
+                            <td class="grises">{{$infoAvaluo['Encabezado']['Registro_TDF']}}</td>
                         </tr>
                 </table>
                 <hr style="background-color: #00A346; height: 5px; border: 0px;">

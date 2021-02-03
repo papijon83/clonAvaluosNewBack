@@ -3732,11 +3732,14 @@ class BandejaEntradaController extends Controller
         try{
             $numero_unico = trim($request->query('no_unico'));
 
+            $this->modelDocumentos = new Documentos();    //echo $numero_unico; exit();         
+            $id_avaluo = $this->modelDocumentos->get_idavaluo_db($numero_unico);    
+            $this->modelReimpresion = new Reimpresion();
+            $infoAvaluo = $this->modelReimpresion->infoAvaluo($id_avaluo);
 
-
-            $datosPDF = [];
-            $datosPDF['no_unico'] =  $numero_unico;
-            $formato = view('justificante', compact("datosPDF"))->render();
+            // $datosPDF = [];
+            // $datosPDF['no_unico'] =  $numero_unico;
+            $formato = view('justificante', compact("infoAvaluo"))->render();
             $pdf = PDF::loadHTML($formato);
             $pdf->setOptions(['chroot' => 'public']);
             Storage::put('formato.pdf', $pdf->output());
