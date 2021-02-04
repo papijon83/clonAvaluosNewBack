@@ -170,7 +170,7 @@
                     <table style="width: 100%">
                         <tr>
                             <td style="width: 35%;"><b>CLASIFICACIÓN DE LA ZONA:</b></td>
-                            <td style="width: 65%;">{{$infoAvaluo['Clasificacion de la zona']}}</td>
+                            <td style="width: 65%;">{{$infoAvaluo['Clasificacion_de_la_zona']}}</td>
                         </tr>
                         <tr>
                             <td><b>ÍNDICE DE SATURACIÓN DE LA ZONA:</b></td>
@@ -1344,29 +1344,29 @@
                         <tr>
                             <td>{{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fracc'] }}</td>
                             <td>{{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Clave_Area_Valor'] }}</td>
-                            <td>{{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Superficie_m2'] }}</td>
-                            <td>{{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fzo'] }}</td>
-                            <td>{{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fub'] }}</td>
-                            <td>{{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['FFr'] }}</td>
-                            <td>{{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Ffo'] }}</td>
-                            <td>{{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fsu'] }}</td>
+                            <td>{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Superficie_m2'],2) }}</td>
+                            <td>{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fzo'],2) }}</td>
+                            <td>{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fub'],2) }}</td>
+                            <td>{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['FFr'],2) }}</td>
+                            <td>{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Ffo'],2) }}</td>
+                            <td>{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fsu'],2) }}</td>
                             <td>{{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fot'] }}</td>
-                            <td>{{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['F_Resultante'] }}</td>
-                            <td>{{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Valor_Fraccion'] }}</td>
+                            <td>{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['F_Resultante'],2) }}</td>
+                            <td>{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Valor_Fraccion'],2) }}</td>
                         </tr>
                     @endisset
                     </tbody>
                 </table>
                 <br>
-                <p><b>Total superficie: {{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Totales']['Total_Superficie'] }} '           'Valor del terreno total: {{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Totales']['Valor_Del_Terreno_Total'] }} </b></p>
+                <p><b>Total superficie: {{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Totales']['Total_Superficie'],2) }} '           'Valor del terreno total: {{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Totales']['Valor_Del_Terreno_Total'],2) }} </b></p>
                 <br>
-                <p>Indiviso de la unidad que se valua: {{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Totales']['Indiviso_Unidad_Que_Se_Valua'] }}</p>
+                <p>Indiviso de la unidad que se valua: {{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Totales']['Indiviso_Unidad_Que_Se_Valua'] }} %</p>
 
                 <table class="tabla_gris_valor">
                     <thead>
                         <tr>
                             <th>VALOR TOTAL DEL TERRENO PROPORCIONAL:</th>
-                            <th>{{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Totales']['Valor_Total_Del_Terreno_Proporcional'] }}</th>
+                            <th>${{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Totales']['Valor_Total_Del_Terreno_Proporcional'],2) }}</th>
                         </tr>
                     </thead> 
                 </table>
@@ -1394,16 +1394,16 @@
                             <td>{{ $infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Descripcion'] }}</td>
                             <td>{{ $infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Uso'] }}</td>
                             <td>{{ $infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Clase'] }}</td>
-                            <td>{{ $infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Superficie_m2'] }}</td>
-                            <td>{{ $infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Valor_Unitario'] }}</td>
-                            <td>{{ $infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Edad'] }}</td>
-                            <td>{{ $infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Fco'] }}</td>
-                            <td>{{ $infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['FRe'] }}</td>
-                            <td>{{ $infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Valor_Fraccion'] }}</td>
+                            <td>{{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Superficie_m2'],2) }}</td>
+                            <td>{{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Valor_Unitario'],2) }}</td>
+                            <td>{{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Edad'],2) }}</td>
+                            <td>{{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Fco'],2) }}</td>
+                            <td>{{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['FRe'],2) }}</td>
+                            <td>${{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Valor_Fraccion'],2) }}</td>
                         </tr>
                     </tbody>
                 </table>
-                <p>Total superficie: {{ $infoAvaluo['Calculo_Valor_Construcciones']['Totales_Privativas']['Total_Superficie'] }} '                  ' Total construcciones privativas: {{ $infoAvaluo['Calculo_Valor_Construcciones']['Totales_Privativas']['Total_Construcciones_Privativas'] }}</p>
+                <p>Total superficie: {{ $infoAvaluo['Calculo_Valor_Construcciones']['Totales_Privativas']['Total_Superficie'] }} '                  ' Total construcciones privativas: ${{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Privativas']['Total_Construcciones_Privativas'],2) }}</p>
                 <br>
                 <p><b>COMUNES: </b></p>
                 <table class="tabla_cabeza_gris">
@@ -1426,23 +1426,23 @@
                             <td>{{ $infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Fracc'] }}</td>
                             <td>{{ $infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Descripcion'] }}</td>
                             <td>{{ $infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Uso'] }}</td>
-                            <td>{{ $infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Superficie_m2'] }}</td>
-                            <td>{{ $infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Valor_Unitario'] }}</td>
-                            <td>{{ $infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Edad'] }}</td>
-                            <td>{{ $infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Fco'] }}</td>
-                            <td>{{ $infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['FRe'] }}</td>
-                            <td>{{ $infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Valor_Fraccion'] }}</td>
-                            <td>{{ $infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Indiviso'] }}</td>
+                            <td>{{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Superficie_m2'],2) }}</td>
+                            <td>{{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Valor_Unitario'],2) }}</td>
+                            <td>{{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Edad'],2) }}</td>
+                            <td>{{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Fco'],2) }}</td>
+                            <td>{{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['FRe'],2) }}</td>
+                            <td>{{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Valor_Fraccion'],2) }}</td>
+                            <td>{{ $infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Indiviso'] }}%</td>
                         </tr>
                     </tbody>
                 </table>
-                <p>Total superficie: {{ $infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Superficie'] }} '                  ' Total construcciones comunes: {{ $infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Construcciones_Comunes'] }}</p>
+                <p>Total superficie: {{ $infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Superficie'] }} '                  ' Total construcciones comunes: ${{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Construcciones_Comunes'],2) }}</p>
                 
                 <table class="tabla_gris_valor">
                     <thead>
                         <tr>
                             <th>VALOR TOTAL DE LAS CONTRUCCIONES:</th>
-                            <th>{{ $infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Valor_Total_De_Las_Construcciones'] }}</th>
+                            <th>${{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Valor_Total_De_Las_Construcciones'],2) }}</th>
                         </tr>
                     </thead> 
                 </table>
@@ -1469,17 +1469,17 @@
                             <td>{{ $valueEA_tablaPri['0'] }}</td>
                             <td>{{ $valueEA_tablaPri['Clave'] }}</td>
                             <td>{{ $valueEA_tablaPri['Concepto'] }} </td>
-                            <td>{{ $valueEA_tablaPri['Cantidad'] }}</td>
-                            <td>{{ $valueEA_tablaPri['Valor_Unitario'] }}</td>
+                            <td>{{ number_format($valueEA_tablaPri['Cantidad'],2) }}</td>
+                            <td>{{ number_format($valueEA_tablaPri['Valor_Unitario'],2) }}</td>
                             <td>{{ $valueEA_tablaPri['Edad'] }}</td>
-                            <td>{{ $valueEA_tablaPri['Importe'] }}</td>
+                            <td>${{ number_format($valueEA_tablaPri['Importe'],2) }}</td>
                         </tr>
                         @endforeach
                     @endisset
                     </tbody>
                 </table>
                 <br>
-                <p><b>Total de las instalaciones privativas:</b> {{ $infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Totales']['Total_De_Las_Instalaciones'] }}</p>
+                <p><b>Total de las instalaciones privativas:</b> ${{ number_format($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Totales']['Total_De_Las_Instalaciones'],2) }}</p>
                 <br>
                 <p><b>COMUNES: </b></p>
                 <!-- <table class="tabla_cabeza_gris">
@@ -1501,13 +1501,13 @@
                     </tbody>
                 </table> -->
                 <br>
-                <p>Indiviso de la unidad que se Valua: {{ $infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Totales']['Indiviso_Unidad_Que_Se_Valua'] }}</p>
+                <p>Indiviso de la unidad que se Valua: {{ number_format($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Totales']['Indiviso_Unidad_Que_Se_Valua'],2) }}%</p>
 
                 <table class="tabla_gris_valor">
                     <thead>
                         <tr>
                             <th>TOTAL DE LAS INSTALACIONES:</th>
-                            <th>NO VIENE EN EL ARRAY</th>
+                            <th>${{ number_format($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Totales']['Total_De_Las_Instalaciones'],2) }}</th>
                         </tr>
                     </thead> 
                 </table>
@@ -1516,7 +1516,7 @@
                     <thead>
                         <tr>
                             <th>ÍNDICE FÍSICO DIRECTO (Importe total de enfoque de costos):</th>
-                            <th>{{ $infoAvaluo['Indice_Fisico_Directo'] }}</th>
+                            <th>${{ number_format($infoAvaluo['Indice_Fisico_Directo'],2) }}</th>
                         </tr>
                     </thead> 
                 </table>
@@ -1545,8 +1545,8 @@
                             <td>{{ $i_EA++ }}</td>
                             <td>{{ $valueEA_tablaPri['Ubicacion'] }}</td>
                             <td>{{ $valueEA_tablaPri['Superficie_m2'] }}</td>
-                            <td>{{ $valueEA_tablaPri['Renta_Mensual'] }}</td>
-                            <td>{{ $valueEA_tablaPri['Renta_m2'] }}</td>
+                            <td>${{ number_format($valueEA_tablaPri['Renta_Mensual'],2) }}</td>
+                            <td>${{ number_format($valueEA_tablaPri['Renta_m2'],2) }}</td>
                         </tr>
                         @endforeach
                     @endisset
@@ -1568,27 +1568,27 @@
                                 <tbody>
                                     <tr>
                                         <td>a) Vacíos:</td>
-                                        <td><b>{{ $infoAvaluo['Analisis_Deducciones']['Vacios'] }}</b></td>
+                                        <td><b>${{ number_format($infoAvaluo['Analisis_Deducciones']['Vacios'],2) }}</b></td>
                                     </tr>
                                     <tr>
                                         <td>b) Impuesto predial:</td>
-                                        <td><b>{{ $infoAvaluo['Analisis_Deducciones']['Impuesto_Predial'] }}</b></td>
+                                        <td><b>${{ number_format($infoAvaluo['Analisis_Deducciones']['Impuesto_Predial'],2) }}</b></td>
                                     </tr>
                                     <tr>
                                         <td>c) Servicio de agua:</td>
-                                        <td><b>{{ $infoAvaluo['Analisis_Deducciones']['Servicio_Agua'] }}</b></td>
+                                        <td><b>${{ number_format($infoAvaluo['Analisis_Deducciones']['Servicio_Agua'],2) }}</b></td>
                                     </tr>
                                     <tr>
                                         <td>d) Conserv. y mant.:</td>
-                                        <td><b>{{ $infoAvaluo['Analisis_Deducciones']['Conserv_Mant'] }}</b></td>
+                                        <td><b>${{ number_format($infoAvaluo['Analisis_Deducciones']['Conserv_Mant'],2) }}</b></td>
                                     </tr>
                                     <tr>
                                         <td>e) Administración:</td>
-                                        <td><b>{{ $infoAvaluo['Analisis_Deducciones']['Administracion'] }}</b></td>
+                                        <td><b>${{ number_format($infoAvaluo['Analisis_Deducciones']['Administracion'],2) }}</b></td>
                                     </tr>
                                     <tr>
                                         <td>f) Energía eléctrica:</td>
-                                        <td><b>{{ $infoAvaluo['Analisis_Deducciones']['Energia_Electrica'] }}</b></td>
+                                        <td><b>${{ number_format($infoAvaluo['Analisis_Deducciones']['Energia_Electrica'],2) }}</b></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -1604,29 +1604,29 @@
                                 <tbody>
                                     <tr>
                                         <td>g) Seguros:</td>
-                                        <td><b>{{ $infoAvaluo['Analisis_Deducciones']['Seguros'] }}</b></td>
+                                        <td><b>${{ number_format($infoAvaluo['Analisis_Deducciones']['Seguros'],2) }}</b></td>
                                     </tr>
                                     <tr>
                                         <td>h) Otros:</td>
-                                        <td><b>{{ $infoAvaluo['Analisis_Deducciones']['Otros'] }}</b></td>
+                                        <td><b>${{ number_format($infoAvaluo['Analisis_Deducciones']['Otros'],2) }}</b></td>
                                     </tr>
                                     <tr>
                                         <td>i) Depreciación Fiscal:</td>
-                                        <td><b>{{ $infoAvaluo['Analisis_Deducciones']['Depreciacion_Fiscal'] }}</b></td>
+                                        <td><b>${{ number_format($infoAvaluo['Analisis_Deducciones']['Depreciacion_Fiscal'],2) }}</b></td>
                                     </tr>
                                     <tr>
                                         <td>j) Deducc. Fiscales:</td>
-                                        <td><b>{{ $infoAvaluo['Analisis_Deducciones']['Deducc_Fiscales'] }}</b></td>
+                                        <td><b>${{ number_format($infoAvaluo['Analisis_Deducciones']['Deducc_Fiscales'],2) }}</b></td>
                                     </tr>
                                     <tr>
                                         <td>k) I.S.R.</td>
-                                        <td><b>{{ $infoAvaluo['Analisis_Deducciones']['ISR'] }}</b></td>
+                                        <td><b>${{ number_format($infoAvaluo['Analisis_Deducciones']['ISR'],2) }}</b></td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
                                     <tr>
                                         <td>SUMA:</td>
-                                        <td><b>{{ $infoAvaluo['Analisis_Deducciones']['Totales']['Suma'] }}</b></td>
+                                        <td><b>${{ number_format($infoAvaluo['Analisis_Deducciones']['Totales']['Suma'],2) }}</b></td>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -1638,19 +1638,19 @@
                     <tbody>
                         <tr>
                             <td><b>DEDUCCIONES MENSUALES:</b></td>
-                            <td>{{ $infoAvaluo['Analisis_Deducciones']['Totales']['Deducciones_Mensuales'] }}</td>
+                            <td>${{ number_format($infoAvaluo['Analisis_Deducciones']['Totales']['Deducciones_Mensuales'],2) }}</td>
                         </tr>
                         <tr>
                             <td><b>PRODUCTO LIQUIDO MENSUAL:</b></td>
-                            <td>{{ $infoAvaluo['Analisis_Deducciones']['Totales']['Producto_Liquido_Mensual'] }}</td>
+                            <td>${{ number_format($infoAvaluo['Analisis_Deducciones']['Totales']['Producto_Liquido_Mensual'],2) }}</td>
                         </tr>
                         <tr>
                             <td><b>PRODUCTO LIQUIDO ANUAL:</b></td>
-                            <td>{{ $infoAvaluo['Analisis_Deducciones']['Totales']['Producto_Liquido_Anual'] }}</td>
+                            <td>${{ number_format($infoAvaluo['Analisis_Deducciones']['Totales']['Producto_Liquido_Anual'],2) }}</td>
                         </tr>
                         <tr>
                             <td><b>TASA DE CAPITALIZACIÓN APLICALE:</b></td>
-                            <td>{{ $infoAvaluo['Analisis_Deducciones']['Totales']['Tasa_Capitalizacion_Aplicable'] }}</td>
+                            <td>{{ number_format($infoAvaluo['Analisis_Deducciones']['Totales']['Tasa_Capitalizacion_Aplicable'],2) }}%</td>
                         </tr>
                     </tbody>
                 </table>
@@ -1660,7 +1660,7 @@
                     <thead>
                         <tr>
                             <th>RESULTADO DE LA APLICACIÓN DEL ENFOQUE DE INGRESOS (VALOR POR CAPITALIZACIÓN DE RENTAS):</th>
-                            <th>{{ $infoAvaluo['Resultado_Aplicacion_Enfoque_Ingresos'] }}</th>
+                            <th>${{ number_format($infoAvaluo['Resultado_Aplicacion_Enfoque_Ingresos'],2) }}</th>
                         </tr>
                     </thead> 
                 </table>
@@ -1673,7 +1673,7 @@
                     <thead>
                         <tr>
                             <th>ÍNDICE FÍSICO DIRECTO:</th>
-                            <th>NO VIENE EN EL ARRAY</th>
+                            <th>${{ number_format($infoAvaluo['Indice_Fisico_Directo']) }}</th>
                         </tr>
                     </thead> 
                 </table>
@@ -1682,7 +1682,7 @@
                     <thead>
                         <tr>
                             <th>VALOR POR CAPITALIZACIÓN DE RENTAS:</th>
-                            <th>NO VIENE EN EL ARRAY</th>
+                            <th>${{ number_format($infoAvaluo['Valor_Capitalizacion_Rentas'],2) }}</th>
                         </tr>
                     </thead> 
                 </table>
@@ -1691,7 +1691,7 @@
                     <thead>
                         <tr>
                             <th>VALOR DE MERCADO DE LAS CONSTRUCCIONES:</th>
-                            <th>{{ $infoAvaluo['Valor_Mercado_Construcciones'] }}</th>
+                            <th>${{ number_format($infoAvaluo['Valor_Mercado_Construcciones'],2) }}</th>
                         </tr>
                     </thead> 
                 </table>
@@ -1728,10 +1728,17 @@
                 
                 <!-- 12.- Conclusiones sobre el Valor Comercial -->
                 <div class="pleca_verde"><b>XII.- CONCLUSIONES SOBRE EL VALOR COMERCIAL</b></div>
-                <p>CONSIDERAMOS QUE EL VALOR COMERCIAL CORRESPONDE A: {{ $infoAvaluo['Consideramos_Que_Valor_Comercial_Corresponde'] }}</p>
+                <table class="tabla_gris_valor">
+                    <thead>
+                        <tr>
+                            <th>CONSIDERAMOS QUE EL VALOR COMERCIAL CORRESPONDE A:</th>
+                            <th>${{ number_format($infoAvaluo['Consideramos_Que_Valor_Comercial_Corresponde'],2) }}</th>
+                        </tr>
+                    </thead> 
+                </table>
                 <br>
                 <p><span>Esta cantidad estimamos que representa el valor comercial del inmueble al día:</span></p>
-                <p>VALOR REFERIDO: {{ $infoAvaluo['Valor_Referido']['Valor_Referido']}} '     ' FECHA: {{ $infoAvaluo['Valor_Referido']['Fecha']}} '        ' FACTOR: {{ $infoAvaluo['Valor_Referido']['Factor']}} '       '</p>
+                <p>VALOR REFERIDO: ${{ number_format($infoAvaluo['Valor_Referido']['Valor_Referido'],2)}} '     ' FECHA: {{ $infoAvaluo['Valor_Referido']['Fecha']}} '        ' FACTOR: {{ $infoAvaluo['Valor_Referido']['Factor']}} '       '</p>
                 <br>
                 <p>Perito valuador: {{ $infoAvaluo['Perito_Valuador'] }} '                    ' Registro T.D.F.: dato</p>
                 <br>
