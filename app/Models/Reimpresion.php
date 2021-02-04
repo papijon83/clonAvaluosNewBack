@@ -900,7 +900,7 @@ class Reimpresion
     
             $infoReimpresion['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Superficie'] = $tiposContruccion['SuperficieTotalDeConstruccionesComunes'];
             $infoReimpresion['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Construcciones_Comunes'] = $tiposContruccion['ValorTotalDeConstruccionesComunes'];
-
+            $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Totales']['Valor_Total_De_Las_Construcciones'] = $tiposContruccion['ValorTotalDeConstruccionesComunes'] + $tiposContruccion['ValorTotalDeLasConstruccionesComunesProIndiviso'];
             
 
         }else{
