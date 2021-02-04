@@ -3,11 +3,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <style>
-            @page { margin: 180px 50px; font-family: Arial, Helvetica, sans-serif!important; font-size: 13px;} 
+            @page { margin: 180px 50px; font-family: Arial, Helvetica, sans-serif!important; font-size: 9px;} 
             #header { position: fixed; left: 0px; top: -130px; right: 0px; height: 90px; text-align: center;} 
             #footer { position: fixed; left: 0px; bottom: -130px; right: 0px; height: 40px; text-align: center; } 
             #footer .page:after { content: counter(page, decimal); } 
             .grises{color: #8D8D8D;}
+            .negritas{font-weight: bolder;}
 
             .tabla_cabeza_gris{width: 100%; border-collapse: collapse!important; margin-top: 2%;}
                 .tabla_cabeza_gris>thead>tr>th, .tabla_cabeza_gris>tbody>tr>td {border: 1px solid #000; padding: 2px;}
@@ -35,7 +36,7 @@
                         <tr style="width: 100%;">
                             <td style="width: 50%;"></td>
                             <td><b>Fecha:</b></td>
-                            <td class="grises">{{$infoAvaluo['Encabezado']['Fecha']}}aqui</td>
+                            <td class="grises">{{$infoAvaluo['Encabezado']['Fecha']}}</td>
                         </tr>
                         <tr>
                             <td></td>
@@ -80,61 +81,85 @@
                         </tr>
                         <tr>
                             <td><b>VALUADOR:</b></td>
-                            <td>JFNVHF88</td>
+                            <td>{{$infoAvaluo['Sociedad_Participa']['Valuador']}}</td>
                         </tr>
                         <tr>
                             <td><b>FECHA DEL AVALÚO:</b></td>
-                            <td>JFNVHF88</td>
+                            <td>{{$infoAvaluo['Sociedad_Participa']['Fecha_del_Avaluo']}}</td>
                         </tr>
                         <tr>
-                            <td><b>SOLICITANTE:</b></td>
+                            <td valign="top"><b>SOLICITANTE:</b></td>
                             <td>
-                                Tipo persona: Física
-                                SRA. ELOÍSA LARA PORTAL
-                                ESCRITURACION
-                                CONOCER EL VALOR COMERCIAL.
-                                UBICACIÓN DEL INMUEBLE: Calle : CERRADA DE TOLUCA
-                                Delegación:
-                                Cuenta agua: 15-33-426-961-001-000-7
-                                Edificio:
-                                Lote:
-                                -
-                                0
-                                Nº Interior : DEPTO. 301
-                                01
-                                Colonia: OLIVAR DE LOS PADRES
-                                CP : 01780
-                                Nº Exterior: 40
-                                154-139-26-012 4
-                                Condominal
-                                SRA. LAILA MATUK MARTÍNEZ Y CORP.
-                                Nº Exterior: 3344
-                                Colonia: CD. JARDIN COYOACAN
+                                Tipo persona: {{$infoAvaluo['Sociedad_Participa']['Solicitante']['Tipo_persona']}} <br>
+                                {{$infoAvaluo['Sociedad_Participa']['Solicitante']['Nombre']}} <br>
+                                ESCRITURACION - no viene <br>
+                                CONOCER EL VALOR COMERCIAL. - no viene <br>
+                                UBICACIÓN DEL INMUEBLE: Calle : {{$infoAvaluo['Sociedad_Participa']['Solicitante']['Calle']}} <br>
+                                Delegación: {{$infoAvaluo['Sociedad_Participa']['Solicitante']['Delegacion']}} <br>
+                                Cuenta agua: - no viene <br>
+                                Edificio: - no viene <br>
+                                Lote: - no viene <br>
+                                Nº Interior : {{$infoAvaluo['Sociedad_Participa']['Solicitante']['No_Interior']}} <br>
+                                Colonia: OLIVAR DE LOS PADRES <br>
+                                CP : {{$infoAvaluo['Sociedad_Participa']['Solicitante']['CP']}} <br>
+                                Nº Exterior: 40 <br>
+                                154-139-26-012 4 <br>
+                                Condominal <br>
+                                SRA. LAILA MATUK MARTÍNEZ Y CORP. <br>
+                                Nº Exterior: {{$infoAvaluo['Sociedad_Participa']['Solicitante']['No_Exterior']}} <br>
+                                Colonia: {{$infoAvaluo['Sociedad_Participa']['Solicitante']['Colonia']}}
                             </td>
                         </tr>
                         <tr>
                             <td><b>INMUEBLE QUE SE EVALÚA:</b></td>
-                            <td>JFNVHF88</td>
+                            <td>{{$infoAvaluo['Sociedad_Participa']['inmuebleQueSeValua']}}</td>
                         </tr>
                         <tr>
                             <td><b>RÉGIMEN DE PROPIEDAD:</b></td>
-                            <td>JFNVHF88</td>
+                            <td>{{$infoAvaluo['Sociedad_Participa']['regimenDePropiedad']}}</td>
                         </tr>
                         <tr>
                             <td><b>PROPIETARIO DEL INMUEBLE:</b></td>
-                            <td>JFNVHF88</td>
+                            <td>{{$infoAvaluo['Sociedad_Participa']['Propietario']['Nombre']}}</td>
                         </tr>
                         <tr>
                             <td><b>OBJETO DEL AVALÚO:</b></td>
-                            <td>JFNVHF88</td>
+                            <td>{{$infoAvaluo['Sociedad_Participa']['Objeto_Avaluo']}}</td>
                         </tr>
                         <tr>
                             <td><b>PROPÓSITO DEL AVALÚO:</b></td>
-                            <td>JFNVHF88</td>
+                            <td>{{$infoAvaluo['Sociedad_Participa']['Proposito_Avaluo']}}</td>
                         </tr>
-                        <tr style="border: 1px solid black;">
-                            <td style="border: 1px solid #B5B5B5; border-right: 0px;"><b>UBICACIÓN DEL INMUEBLE:</b></td>
-                            <td style="border: 1px solid #B5B5B5; border-left: 0px;">JFNVHF88</td>
+                        <tr>
+                            <td colspan="2" style="border: 1px solid #B5B5B5; padding: 8px;">
+                                <table style="width: 100%;">
+                                    <tr>
+                                        <td valign="top" style="width: 35%;"><b>UBICACIÓN DEL INMUEBLE:</b></td>
+                                        <td style="width: 15%;" class="negritas">
+                                            Calle:<br>
+                                            <b>Nº Exterior:</b><br>
+                                            <b>Nº Interior:</b><br>
+                                            <b>Colonia:</b><br>
+                                            <b>CP:</b><br>
+                                            <b>Delegación:</b><br>
+                                            <b>Edificio:</b><br>
+                                            <b>Lote:</b><br>
+                                            <b>Cuenta agua:</b>
+                                        </td>
+                                        <td style="width: 50%;">
+                                            {{$infoAvaluo['Ubicacion_Inmueble']['Calle']}}<br>
+                                            {{$infoAvaluo['Ubicacion_Inmueble']['No_Exterior']}}<br>
+                                            {{$infoAvaluo['Ubicacion_Inmueble']['No_Interior']}}<br>
+                                            {{$infoAvaluo['Ubicacion_Inmueble']['Colonia']}}<br>
+                                            {{$infoAvaluo['Ubicacion_Inmueble']['CP']}}<br>
+                                            {{$infoAvaluo['Ubicacion_Inmueble']['Delegacion']}}<br>
+                                            {{$infoAvaluo['Ubicacion_Inmueble']['Edificio']}}<br>
+                                            {{$infoAvaluo['Ubicacion_Inmueble']['Lote']}}<br>
+                                            {{$infoAvaluo['Ubicacion_Inmueble']['Cuenta_agua']}}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
                         </tr>
                     </table>
 
@@ -142,46 +167,46 @@
                 <!-- 2.- Características Urbanas -->
                 <div class="pleca_verde"><b>II. CARACTERÍSTICAS URBANAS</b></div>
 
-                    <table>
+                    <table style="width: 100%">
                         <tr>
-                            <td><b>CLASIFICACIÓN DE LA ZONA:</b></td>
-                            <td>Habitación de segundo orden</td>
+                            <td style="width: 35%;"><b>CLASIFICACIÓN DE LA ZONA:</b></td>
+                            <td style="width: 65%;">{{$infoAvaluo['Clasificacion de la zona']}}</td>
                         </tr>
                         <tr>
                             <td><b>ÍNDICE DE SATURACIÓN DE LA ZONA:</b></td>
-                            <td>Habitación de segundo orden</td>
+                            <td>{{$infoAvaluo['Indice_Saturacion_Zona']}}</td>
                         </tr>
                         <tr>
                             <td><b>TIPO DE CONSTRUCCIÓN DOMINANTE:</b></td>
-                            <td>Habitación de segundo orden</td>
+                            <td>{{$infoAvaluo['Tipo_Construccion_Dominante']}}</td>
                         </tr>
                         <tr>
                             <td><b>DENSISAD DE LA POBLACIÓN:</b></td>
-                            <td>Habitación de segundo orden</td>
+                            <td>{{$infoAvaluo['Densidad_Poblacion']}}</td>
                         </tr>
                         <tr>
                             <td><b>NIVEL SOCIOECONÓMICO DE LA ZONA:</b></td>
-                            <td>Habitación de segundo orden</td>
+                            <td>{{$infoAvaluo['Nivel_Socioeconomico_Zona']}}</td>
                         </tr>
                         <tr>
                             <td><b>CONTAMINACIÓN DEL MEDIO AMBIENTE:</b></td>
-                            <td>Habitación de segundo orden</td>
+                            <td>{{$infoAvaluo['Contaminacion_Medio_Ambiente']}}</td>
                         </tr>
                         <tr>
                             <td><b>CLASE GENERAL DE INMUEBLES DE LA ZONA:</b></td>
-                            <td>Habitación de segundo orden</td>
+                            <td>--no viene--</td>
                         </tr>
                         <tr>
                             <td><b>USO DEL SUELO:</b></td>
-                            <td>Habitación de segundo orden</td>
+                            <td>{{$infoAvaluo['Uso_Suelo']}}</td>
                         </tr>
                         <tr>
                             <td><b>ÁREA LIBRE OBLIGATORIA:</b></td>
-                            <td>Habitación de segundo orden</td>
+                            <td>{{$infoAvaluo['Area_Libre_Obligatoria']}}</td>
                         </tr>
                         <tr>
-                            <td><b>VÍAS DE ACCESO E IMPORTANCIA DE LAS MISMAS:</b></td>
-                            <td>Habitación de segundo orden</td>
+                            <td valign="top"><b>VÍAS DE ACCESO E IMPORTANCIA DE LAS MISMAS:</b></td>
+                            <td>{{$infoAvaluo['Vias_Acceso_E_Importancia']}}</td>
                         </tr>
                     </table>
 
@@ -191,131 +216,131 @@
                         <table>
                             <tr>
                                 <td><b>Red de distribución agua potable:</b></td>
-                                <td>Habitación de segundo orden</td>
+                                <td>{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Red_Agua_Potable']}}</td>
                             </tr>
                             <tr>
                                 <td><b>Red de recolección de aguas residuales:</b></td>
-                                <td>Habitación de segundo orden</td>
+                                <td>{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Red_Aguas_Residuales']}}</td>
                             </tr>
                             <tr>
                                 <td><b>Red de drenaje de aguas pluviales en la calle:</b></td>
-                                <td>Habitación de segundo orden</td>
+                                <td>{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Red_Drenaje_Aguas_Pluviales_Calle']}}</td>
                             </tr>
                             <tr>
                                 <td><b>Red de drenaje de aguas pluviales en la zona:</b></td>
-                                <td>Habitación de segundo orden</td>
+                                <td>{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Red_Drenaje_Aguas_Pluviales_Zona']}}</td>
                             </tr>
                             <tr>
                                 <td><b>Sistema mixto (aguas pluviales y residuales):</b></td>
-                                <td>Habitación de segundo orden</td>
+                                <td>{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Sistema_Mixto']}}</td>
                             </tr>
                             <tr>
                                 <td><b>Suministro eléctrico:</b></td>
-                                <td>Habitación de segundo orden</td>
+                                <td>{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Suministro_Electrico']}}</td>
                             </tr>
                             <tr>
                                 <td><b>Acometida al inmueble:</b></td>
-                                <td>Habitación de segundo orden</td>
+                                <td>{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Acometida_Inmueble']}}</td>
                             </tr>
                             <tr>
                                 <td><b>Alumbrado público:</b></td>
-                                <td>Habitación de segundo orden</td>
+                                <td>{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Alumbrado_Publico']}}</td>
                             </tr>
                             <tr>
                                 <td><b>Vialidades:</b></td>
-                                <td>Habitación de segundo orden</td>
+                                <td>{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Vialidades']}}</td>
                             </tr>
                             <tr>
                                 <td><b>Banquetas:</b></td>
-                                <td>Habitación de segundo orden</td>
+                                <td>{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Banquetas']}}</td>
                             </tr>
                             <tr>
                                 <td><b>Guarniciones:</b></td>
-                                <td>Habitación de segundo orden</td>
+                                <td>{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Guarniciones']}}</td>
                             </tr>
                             <tr>
                                 <td><b>Nivel de infraestructura en la zona (%):</b></td>
-                                <td>Habitación de segundo orden</td>
+                                <td>{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Nivel_Infraestructura_Zona']}}</td>
                             </tr>
                             <tr>
                                 <td><b>Gas natural:</b></td>
-                                <td>Habitación de segundo orden</td>
+                                <td>{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Gas_Natutral']}}</td>
                             </tr>
                             <tr>
                                 <td><b>Teléfonos suministro:</b></td>
-                                <td>Habitación de segundo orden</td>
+                                <td>{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Telefonos_Suministro']}}</td>
                             </tr>
                             <tr>
                                 <td><b>Señalización de vías:</b></td>
-                                <td>Habitación de segundo orden</td>
+                                <td>{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Senalizacion_Vias']}}</td>
                             </tr>
                             <tr>
                                 <td><b>Acometida al inmueble tel.:</b></td>
-                                <td>Habitación de segundo orden</td>
+                                <td>{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Acometida_Inmueble_Tel']}}</td>
                             </tr>
                             <tr>
                                 <td><b>Distancia transporte urbano:</b></td>
-                                <td>Habitación de segundo orden</td>
+                                <td>{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Distancia_Transporte_Urbano']}}</td>
                             </tr>
                             <tr>
                                 <td><b>Frecuencia transporte urbano:</b></td>
-                                <td>Habitación de segundo orden</td>
+                                <td>{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Frecuencia_Transporte_Urbano']}}</td>
                             </tr>
                             <tr>
                                 <td><b>Distancia transporte suburbano:</b></td>
-                                <td>Habitación de segundo orden</td>
+                                <td>{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Distancia_Transporte_Suburbano']}}</td>
                             </tr>
                             <tr>
                                 <td><b>Frecuencia transporte suburbano:</b></td>
-                                <td>Habitación de segundo orden</td>
+                                <td>{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Frecuencia_Transporte_Suburbano']}}</td>
                             </tr>
                             <tr>
                                 <td><b>Vigilancia:</b></td>
-                                <td>Habitación de segundo orden</td>
+                                <td>{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Vigilancia']}}</td>
                             </tr>
                             <tr>
                                 <td><b>Recolección de basura:</b></td>
-                                <td>Habitación de segundo orden</td>
+                                <td>{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Recoleccion_Basura']}}</td>
                             </tr>
                             <tr>
                                 <td><b>Templo:</b></td>
-                                <td>Habitación de segundo orden</td>
+                                <td>{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Templo']}}</td>
                             </tr>
                             <tr>
                                 <td><b>Mercados:</b></td>
-                                <td>Habitación de segundo orden</td>
+                                <td>{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Mercados']}}</td>
                             </tr>
                             <tr>
                                 <td><b>Plazas públicas:</b></td>
-                                <td>Habitación de segundo orden</td>
+                                <td>{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Plazas_Publicas']}}</td>
                             </tr>
                             <tr>
                                 <td><b>Parques y jardines:</b></td>
-                                <td>Habitación de segundo orden</td>
+                                <td>{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Parques_Jardines']}}</td>
                             </tr>
                             <tr>
                                 <td><b>Escuelas:</b></td>
-                                <td>Habitación de segundo orden</td>
+                                <td>{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Escuelas']}}</td>
                             </tr>
                             <tr>
                                 <td><b>Hospitales:</b></td>
-                                <td>Habitación de segundo orden</td>
+                                <td>{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Hospitales']}}</td>
                             </tr>
                             <tr>
                                 <td><b>Bancos:</b></td>
-                                <td>Habitación de segundo orden</td>
+                                <td>{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Bancos']}}</td>
                             </tr>
                             <tr>
                                 <td><b>Estación de transporte:</b></td>
-                                <td>Habitación de segundo orden</td>
+                                <td>{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Estacion_Transporte']}}</td>
                             </tr>
                             <tr>
                                 <td><b>Nivel de equipamiento urbano:</b></td>
-                                <td>Habitación de segundo orden</td>
+                                <td>{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Nivel_Equipamiento_Urbano']}}</td>
                             </tr>
                             <tr>
                                 <td><b>Nomenclatura de calles</b></td>
-                                <td>Habitación de segundo orden</td>
+                                <td>{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Nomenclatura_Calles']}}</td>
                             </tr>
                         </table>
 
@@ -324,14 +349,14 @@
                 <div class="pleca_verde"><b>III. TERRENO</b></div>
 
                     <div><b>CALLES TRANSVERSALES, LIMÍTROFES Y ORIENTACIÓN:</b></div>
-                    <div>ACERA ORIENTADA AL NORTE ENTRE CALLE DON MANUELITO AL PONIENTE Y AV. ROMULO O' FARRIL AL SUR Y AL ORIENTE.</div>
+                    <div>{{$infoAvaluo['Calles_Transversales_Limitrofes']}}</div> 
 
                     <h4 style="margin-top: 4%;">CROQUIS DE LOCALIZACIÓN:</h4>
                         
                         <table style="width: 100%;">
                             <tr>
-                                <td style="width: 50%; padding: 10px;"><img src="https://es-static.z-dn.net/files/dc9/0eacbfcd7dccb90481b36cec81628392.png"></td>
-                                <td style="width: 50%; padding: 10px;"><img src="https://es-static.z-dn.net/files/dc9/0eacbfcd7dccb90481b36cec81628392.png"></td>
+                                <td style="width: 50%; padding: 10px;" class="centrado"><img style="max-width: 320px;" src="data:image/png;base64,{{$infoAvaluo['Croquis_Localizacion']['Microlocalizacion']}}"></td>
+                                <td style="width: 50%; padding: 10px;" class="centrado"><img style="max-width: 320px;" src="data:image/png;base64,{{$infoAvaluo['Croquis_Localizacion']['Macrolocalizacion']}}"></td>
                             </tr>
                         </table>
 
@@ -341,23 +366,23 @@
                         <table>
                             <tr>
                                 <td><b>Fuente:</b></td>
-                                <td>Escritura</td>
+                                <td>{{$infoAvaluo['Medidas_Colindancias']['Fuente']}}</td>
                             </tr>
                             <tr>
                                 <td><b>Número escritura:</b></td>
-                                <td>26354</td>
+                                <td>{{$infoAvaluo['Medidas_Colindancias']['Numero_Escritura']}}</td>
                                 <td><b>Número volumen:</b></td>
-                                <td>2635</td>
+                                <td>{{$infoAvaluo['Medidas_Colindancias']['Numero_Volumen']}}</td>
                             </tr>
                             <tr>
                                 <td><b>Número notaría:</b></td>
-                                <td>77</td>
+                                <td>{{$infoAvaluo['Medidas_Colindancias']['Numero_Notaria']}}</td>
                                 <td><b>Nombre de notario:</b></td>
-                                <td>LIC. JOSE DE JESUS NIÑO DE LA SELVA</td>
+                                <td>{{$infoAvaluo['Medidas_Colindancias']['Nombre_Notario']}}</td>
                             </tr>
                             <tr>
                                 <td><b>Entidad federativa:</b></td>
-                                <td>CDMX</td>
+                                <td>{{$infoAvaluo['Medidas_Colindancias']['Entidad_Federativa']}}</td>
                             </tr>
                         </table>
 
@@ -371,21 +396,13 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach($infoAvaluo['Colindancias'] as $value_colindancias)
                                 <tr>
-                                    <td>AL NORTE</td>
-                                    <td>10.80</td>
-                                    <td>CON CERRADA TOLUCA.</td>
+                                    <td>{{$value_colindancias['Orientacion']}}</td>
+                                    <td>{{$value_colindancias['MedidaEnMetros']}}</td>
+                                    <td>{{$value_colindancias['DescripcionColindante']}}</td>
                                 </tr>
-                                <tr>
-                                    <td>AL SUR</td>
-                                    <td>10.80</td>
-                                    <td>CON CERRADA TOLUCA.</td>
-                                </tr>
-                                <tr>
-                                    <td>AL ESTE</td>
-                                    <td>10.80</td>
-                                    <td>CON CERRADA TOLUCA.</td>
-                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
 
@@ -410,21 +427,21 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="centrado">x</td>
-                                    <td class="centrado">x</td>
-                                    <td class="centrado">x</td>
-                                    <td class="centrado">x</td>
-                                    <td class="centrado">x</td>
-                                    <td class="centrado">x</td>
-                                    <td class="centrado">x</td>
-                                    <td class="centrado">x</td>
-                                    <td class="centrado">x</td>
-                                    <td class="centrado">x</td>
-                                    <td class="centrado">x</td>
+                                    <td class="centrado">{{$infoAvaluo['Superficie_Total_Segun']['Ident_Fraccion']}}</td>
+                                    <td class="centrado">{{$infoAvaluo['Superficie_Total_Segun']['Sup_Fraccion']}}</td>
+                                    <td class="centrado">{{$infoAvaluo['Superficie_Total_Segun']['Fzo']}}</td>
+                                    <td class="centrado">{{$infoAvaluo['Superficie_Total_Segun']['Fub']}}</td>
+                                    <td class="centrado">{{$infoAvaluo['Superficie_Total_Segun']['FFr']}}</td>
+                                    <td class="centrado">{{$infoAvaluo['Superficie_Total_Segun']['Ffo']}}</td>
+                                    <td class="centrado">{{$infoAvaluo['Superficie_Total_Segun']['Fsu']}}</td>
+                                    <td class="centrado">{{$infoAvaluo['Superficie_Total_Segun']['Clave_Area_Valor']}}</td>
+                                    <td class="centrado">{{$infoAvaluo['Superficie_Total_Segun']['Valor']}}</td>
+                                    <td class="centrado">{{$infoAvaluo['Superficie_Total_Segun']['Descripcion']}}</td>
+                                    <td class="centrado">{{$infoAvaluo['Superficie_Total_Segun']['Fre']}}</td>
                                 </tr>
                             </tbody>
                         </table>
-                        <div style="text-align: right;"><b>SUPERFICIE TOTAL TERRENO: $46.00</b></div>
+                        <div style="text-align: right;"><b>SUPERFICIE TOTAL TERRENO: ${{$infoAvaluo['Superficie_Total_Segun']['Totales']['Superficie_Total_Terreno']}}</b></div>
 
 
                     <h4 style="margin-top: 4%;">TOPOGRAFÍA Y CONFIGURACIÓN:</h4>
@@ -432,15 +449,15 @@
                         <table>
                             <tr>
                                 <td><b>CARACTERÍSTICAS PANORÁMICAS:</b></td>
-                                <td>LA VISTA QUE TIENE ES A LA CALLE DE SU UBICACIÓN.</td>
+                                <td>{{$infoAvaluo['Topografia_Configuracion']['Caracteristicas_Panoramicas']}}</td>
                             </tr>
                             <tr>
                                 <td><b>DENSIDAD HABITACIONAL:</b></td>
-                                <td>Baja, 100 a 200 hab/ha una vivienda por lote de 250 m^2</td>
+                                <td>{{$infoAvaluo['Topografia_Configuracion']['Densidad_Habitacional']}}</td>
                             </tr>
                             <tr>
                                 <td><b>SERVIDUMBRE O RESTRICCIONES:</b></td>
-                                <td>LAS PROPIAS DEL RÉGIMEN DE PROPIEDAD EN CONDOMINIO.</td>
+                                <td>{{$infoAvaluo['Topografia_Configuracion']['Servidumbre_Restricciones']}}</td>
                             </tr>
                         </table>
 
@@ -449,8 +466,7 @@
                 <div class="pleca_verde"><b>IV.- DESCRIPCIÓN GENERAL DEL INMUEBLE</b></div>
 
                     <div><b>USO ACTUAL:</b></div>
-                    <div>DEPARTAMENTO MODERNO, DE BUENA CALIDAD, DE UN TIPO EN UNA PLANTA Y CONSTA DE: ACCESO, MEDIO BAÑO, SALA, COMEDOR, COCINA,
-                    ESTUDIO, 2 RECAMARAS CON BAÑO COMPLETO, ESCALERA ASCENDENTE, PLANTA AZOTEA, ROOF GARDEN Y CUARTO DE LAVADO.</div>
+                    <div>{{$infoAvaluo['Uso_Actual']}}</div>
 
 
                     <h4 style="margin-top: 4%;">CONSTRUCCIONES PRIVATIVAS</h4>
@@ -474,18 +490,18 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="centrado">x</td>
-                                    <td class="centrado">x</td>
-                                    <td class="centrado">x</td>
-                                    <td class="centrado">x</td>
-                                    <td class="centrado">x</td>
-                                    <td class="centrado">x</td>
-                                    <td class="centrado">x</td>
-                                    <td class="centrado">x</td>
-                                    <td class="centrado">x</td>
-                                    <td class="centrado">x</td>
-                                    <td class="centrado">x</td>
-                                    <td class="centrado">x</td>
+                                    <td class="centrado">{{$infoAvaluo['Construcciones_Privativas']['Tipo']}}</td>
+                                    <td class="centrado">{{$infoAvaluo['Construcciones_Privativas']['Descripcion']}}</td>
+                                    <td class="centrado">{{$infoAvaluo['Construcciones_Privativas']['Uso']}}</td>
+                                    <td class="centrado">{{$infoAvaluo['Construcciones_Privativas']['No_Niveles_Tipo']}}</td>
+                                    <td class="centrado">{{$infoAvaluo['Construcciones_Privativas']['Clave_Rango_Niveles']}}</td>
+                                    <td class="centrado">{{$infoAvaluo['Construcciones_Privativas']['Puntaje']}}</td>
+                                    <td class="centrado">{{$infoAvaluo['Construcciones_Privativas']['Clase']}}</td>
+                                    <td class="centrado">{{$infoAvaluo['Construcciones_Privativas']['Edad']}}</td>
+                                    <td class="centrado">{{$infoAvaluo['Construcciones_Privativas']['Vida_Util_Total_Tipo']}}</td>
+                                    <td class="centrado">{{$infoAvaluo['Construcciones_Privativas']['Vida_Util_Remanente']}}</td>
+                                    <td class="centrado">{{$infoAvaluo['Construcciones_Privativas']['Conservacion']}}</td>
+                                    <td class="centrado">{{$infoAvaluo['Construcciones_Privativas']['Sup']}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -512,18 +528,18 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="centrado">x</td>
-                                    <td class="centrado">x</td>
-                                    <td class="centrado">x</td>
-                                    <td class="centrado">x</td>
-                                    <td class="centrado">x</td>
-                                    <td class="centrado">x</td>
-                                    <td class="centrado">x</td>
-                                    <td class="centrado">x</td>
-                                    <td class="centrado">x</td>
-                                    <td class="centrado">x</td>
-                                    <td class="centrado">x</td>
-                                    <td class="centrado">x</td>
+                                    <td class="centrado">{{$infoAvaluo['Construcciones_Comunes']['Tipo']}}</td>
+                                    <td class="centrado">{{$infoAvaluo['Construcciones_Comunes']['Descripcion']}}</td>
+                                    <td class="centrado">{{$infoAvaluo['Construcciones_Comunes']['Uso']}}</td>
+                                    <td class="centrado">{{$infoAvaluo['Construcciones_Comunes']['No_Niveles_Tipo']}}</td>
+                                    <td class="centrado">{{$infoAvaluo['Construcciones_Comunes']['Clave_Rango_Niveles']}}</td>
+                                    <td class="centrado">{{$infoAvaluo['Construcciones_Comunes']['Puntaje']}}</td>
+                                    <td class="centrado">{{$infoAvaluo['Construcciones_Comunes']['Clase']}}</td>
+                                    <td class="centrado">{{$infoAvaluo['Construcciones_Comunes']['Edad']}}</td>
+                                    <td class="centrado">{{$infoAvaluo['Construcciones_Comunes']['Vida_Util_Total_Tipo']}}</td>
+                                    <td class="centrado">{{$infoAvaluo['Construcciones_Comunes']['Vida_Util_Remanente']}}</td>
+                                    <td class="centrado">{{$infoAvaluo['Construcciones_Comunes']['Conservacion']}}</td>
+                                    <td class="centrado">{{$infoAvaluo['Construcciones_Comunes']['Sup']}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -531,19 +547,19 @@
                         <table>
                             <tr>
                                 <td><b>INDIVISO</b></td>
-                                <td>100%</td>
+                                <td>{{$infoAvaluo['Indiviso']}}%</td>
                             </tr>
                             <tr>
                                 <td><b>VIDA ÚTIL PROMEDIO DEL INMUEBLE:</b></td>
-                                <td>79</td>
+                                <td>{{$infoAvaluo['Vida_Util_Promedio_Inmueble']}}</td>
                             </tr>
                             <tr>
                                 <td><b>EDAD APROXIMADA DE LA CONSTRUCCIÓN:</b></td>
-                                <td>1</td>
+                                <td>{{$infoAvaluo['Edad_Aproximada_Construccion']}}</td>
                             </tr>
                             <tr>
                                 <td><b>VIDA ÚTIL REMANENTE:</b></td>
-                                <td></td>
+                                <td>{{$infoAvaluo['Vida_Util_Remanente']}}</td>
                             </tr>
                         </table>
 
@@ -556,31 +572,31 @@
                         <table>
                             <tr>
                                 <td><b>CIMIENTOS:</b></td>
-                                <td>100%</td>
+                                <td>{{$infoAvaluo['Obra_Negra_Gruesa']['Cimientos']}}</td>
                             </tr>
                             <tr>
                                 <td><b>ESTRUCTURA:</b></td>
-                                <td>79</td>
+                                <td>{{$infoAvaluo['Obra_Negra_Gruesa']['Estructura']}}</td>
                             </tr>
                             <tr>
                                 <td><b>MUROS:</b></td>
-                                <td>1</td>
+                                <td>{{$infoAvaluo['Obra_Negra_Gruesa']['Muros']}}</td>
                             </tr>
                             <tr>
                                 <td><b>ENTREPISOS:</b></td>
-                                <td>x</td>
+                                <td>{{$infoAvaluo['Obra_Negra_Gruesa']['Entrepiso']}}</td>
                             </tr>
                             <tr>
                                 <td><b>TECHOS:</b></td>
-                                <td>x</td>
+                                <td>{{$infoAvaluo['Obra_Negra_Gruesa']['Techos']}}</td>
                             </tr>
                             <tr>
                                 <td><b>AZOTEAS:</b></td>
-                                <td>x</td>
+                                <td>{{$infoAvaluo['Obra_Negra_Gruesa']['Azoteas']}}</td>
                             </tr>
                             <tr>
                                 <td><b>BARDAS:</b></td>
-                                <td>x</td>
+                                <td>{{$infoAvaluo['Obra_Negra_Gruesa']['Bardas']}}</td>
                             </tr>
                         </table>
 
@@ -590,35 +606,35 @@
                         <table>
                             <tr>
                                 <td><b>APLANADOS:</b></td>
-                                <td>100%</td>
+                                <td>{{$infoAvaluo['Revestimientos_Acabados_Interiores']['Aplanados']}}</td>
                             </tr>
                             <tr>
                                 <td><b>PLAFONES:</b></td>
-                                <td>79</td>
+                                <td>{{$infoAvaluo['Revestimientos_Acabados_Interiores']['Plafones']}}</td>
                             </tr>
                             <tr>
                                 <td><b>LAMBRINES:</b></td>
-                                <td>1</td>
+                                <td>{{$infoAvaluo['Revestimientos_Acabados_Interiores']['Lambrines']}}</td>
                             </tr>
                             <tr>
                                 <td><b>PISOS:</b></td>
-                                <td>x</td>
+                                <td>{{$infoAvaluo['Revestimientos_Acabados_Interiores']['Pisos']}}</td>
                             </tr>
                             <tr>
                                 <td><b>ZOCLOS:</b></td>
-                                <td>x</td>
+                                <td>{{$infoAvaluo['Revestimientos_Acabados_Interiores']['Zoclos']}}</td>
                             </tr>
                             <tr>
                                 <td><b>ESCALERAS:</b></td>
-                                <td>x</td>
+                                <td>{{$infoAvaluo['Revestimientos_Acabados_Interiores']['Escaleras']}}</td>
                             </tr>
                             <tr>
                                 <td><b>PINTURA:</b></td>
-                                <td>x</td>
+                                <td>{{$infoAvaluo['Revestimientos_Acabados_Interiores']['Pintura']}}</td>
                             </tr>
                             <tr>
                                 <td><b>RECUBRIMIENTOS ESPECIALES:</b></td>
-                                <td>x</td>
+                                <td>{{$infoAvaluo['Revestimientos_Acabados_Interiores']['Recubrimientos_Especiales']}}</td>
                             </tr>
                         </table>
 
@@ -628,15 +644,15 @@
                         <table>
                             <tr>
                                 <td><b>PUERTAS INTERIORES:</b></td>
-                                <td>100%</td>
+                                <td>{{$infoAvaluo['Carpinteria']['Puertas_Interiores']}}</td>
                             </tr>
                             <tr>
                                 <td><b>GUARDARROPAS:</b></td>
-                                <td>79</td>
+                                <td>{{$infoAvaluo['Carpinteria']['Guardarropas']}}</td>
                             </tr>
                             <tr>
                                 <td><b>MUEBLES EMPOTRADOS O FIJOS:</b></td>
-                                <td>1</td>
+                                <td>{{$infoAvaluo['Carpinteria']['Muebles_Empotrados']}}</td>
                             </tr>
                         </table>
 
@@ -646,15 +662,15 @@
                         <table>
                             <tr>
                                 <td><b>MUEBLES DE BAÑO:</b></td>
-                                <td>100%</td>
+                                <td>{{$infoAvaluo['Instalaciones_Hidraulicas_Sanitrias']['Muebles_Banio']}}</td>
                             </tr>
                             <tr>
                                 <td><b>RAMALEOS HIDRÁULICOS:</b></td>
-                                <td>79</td>
+                                <td>{{$infoAvaluo['Instalaciones_Hidraulicas_Sanitrias']['Ramaleos_Hidraulicos']}}</td>
                             </tr>
                             <tr>
                                 <td><b>RAMALEOS SANITARIOS:</b></td>
-                                <td>1</td>
+                                <td>{{$infoAvaluo['Instalaciones_Hidraulicas_Sanitrias']['Ramaleos_Sanitarios']}}</td>
                             </tr>
                         </table>
 
@@ -662,7 +678,7 @@
                     <table>
                         <tr>
                             <td><b>e) INSTALACIONES ELÉCTRICAS Y ALUMBRADO</b></td>
-                            <td>100%</td>
+                            <td>{{$infoAvaluo['Instalaciones_Electricas_Alumbrados']}}</td>
                         </tr>
                     </table>
 
@@ -672,11 +688,11 @@
                         <table>
                             <tr>
                                 <td><b>HERRERÍA:</b></td>
-                                <td>100%</td>
+                                <td>{{$infoAvaluo['Puertas_Ventaneria_Metalica']['Herreria']}}</td>
                             </tr>
                             <tr>
                                 <td><b>VENTANERÍA:</b></td>
-                                <td>79</td>
+                                <td>{{$infoAvaluo['Puertas_Ventaneria_Metalica']['Ventaneria']}}</td>
                             </tr>
                         </table>
 
@@ -684,7 +700,7 @@
                     <table>
                         <tr>
                             <td><b>g) VIDRIERÍA</b></td>
-                            <td>100%</td>
+                            <td>{{$infoAvaluo['Vidrieria']}}</td>
                         </tr>
                     </table>
 
@@ -692,7 +708,7 @@
                     <table>
                         <tr>
                             <td><b>h) CERRAJERÍA</b></td>
-                            <td>100%</td>
+                            <td>{{$infoAvaluo['Cerrajeria']}}</td>
                         </tr>
                     </table>
 
@@ -700,7 +716,7 @@
                     <table>
                         <tr>
                             <td><b>i) FACHADAS</b></td>
-                            <td>100%</td>
+                            <td>{{$infoAvaluo['Fachadas']}}</td>
                         </tr>
                     </table>
 
@@ -725,13 +741,13 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="centrado">x</td>
-                                    <td>x</td>
-                                    <td>x</td>
-                                    <td>x</td>
-                                    <td>x</td>
-                                    <td>x</td>
-                                    <td>x</td>
+                                    <td class="centrado">{{$infoAvaluo['Elementos_Accesorios']['Privativas']['Clave']}}</td>
+                                    <td>{{$infoAvaluo['Elementos_Accesorios']['Privativas']['Descripcion']}}</td>
+                                    <td>{{$infoAvaluo['Elementos_Accesorios']['Privativas']['Unidad']}}</td>
+                                    <td>{{$infoAvaluo['Elementos_Accesorios']['Privativas']['Cantidad']}}</td>
+                                    <td>{{$infoAvaluo['Elementos_Accesorios']['Privativas']['Edad']}}</td>
+                                    <td>{{$infoAvaluo['Elementos_Accesorios']['Privativas']['Vida_Util_Total']}}</td>
+                                    <td>{{$infoAvaluo['Elementos_Accesorios']['Privativas']['Valor_Unitario']}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -753,24 +769,17 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach($infoAvaluo['Obras_Complementarias']['Privativas'] as $value_obras)
                                 <tr>
-                                    <td class="centrado">OC17</td>
-                                    <td>x</td>
-                                    <td>x</td>
-                                    <td>x</td>
-                                    <td>x</td>
-                                    <td>x</td>
-                                    <td>x</td>
+                                    <td class="centrado">{{$value_obras['Clave']}}</td>
+                                    <td>{{$value_obras['Descripcion']}}</td>
+                                    <td>{{$value_obras['Unidad']}}</td>
+                                    <td>{{$value_obras['Cantidad']}}</td>
+                                    <td>{{$value_obras['Edad']}}</td>
+                                    <td>{{$value_obras['Vida_Util_Total']}}</td>
+                                    <td>{{$value_obras['Valor_Unitario']}}</td>
                                 </tr>
-                                <tr>
-                                    <td class="centrado">OC17</td>
-                                    <td>x</td>
-                                    <td>x</td>
-                                    <td>x</td>
-                                    <td>x</td>
-                                    <td>x</td>
-                                    <td>x</td>
-                                </tr>
+                                @endforeach   
                             </tbody>
                         </table>
 
@@ -815,13 +824,14 @@
                     QUIENES INTERVENIMOS EN EL PRESENTE AVALÚO DECLARAMOS BAJO PROTESTA DE DECIR VERDAD QUE NO GUARDAMOS NINGÚN TIPO DE RELACIÓN O NEXO DE PARENTESCO O DE NEGOCIOS CON EL CLIENTE O PROPIETARIO DEL BIEN QUE SE VALÚA.<br><br>
                 </p>
 
+
                 <br>
                 <!-- 7.- Comparación de Mercado -->
                 <div style="background-color: #00A346; color: #fff; border: 0px; text-align: right;">VII. COMPARACIÓN DE MERCADO</div>
                 <h4 style="margin-top: 4%;">TERRENOS DIRECTOS</h4>
                 <h4 style="margin-top: 4%;">TERRENOS</h4>
                 <hr>
-                <span>Investigación productos comparables</span>
+                <span><b>Investigación productos comparables</b></span>
                 <table class="tabla_cabeza_gris">
                     <thead>
                         <tr>
@@ -833,13 +843,20 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                        $i_tUno = 1;
+                        @endphp
+                        @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno'])
+                            @foreach($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno'] as $value_tablaUno)
                         <tr>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
+                            <td>{{$i_tUno++}}</td>
+                            <td>{{$value_tablaUno['Ubicacion']}}</td>
+                            <td>{{$value_tablaUno['Descripcion']}}</td>
+                            <td>{{$value_tablaUno['C_U_S']}}</td>
+                            <td>{{$value_tablaUno['Uso_Suelo']}}</td>
                         </tr>
+                            @endforeach
+                        @endisset
                     </tbody>
                 </table>
                 <br>
@@ -860,19 +877,26 @@
                         </tr>
                     </thead>
                     <tbody>
+                    @php
+                        $i_tDos = 0;
+                    @endphp
+                    @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos'])
+                        @foreach($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos'] as $value_tablaDos)
                         <tr>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
+                            <td>{{ $i_tDos }}</td>
+                            <td>{{ $value_tablaDos['F_Negociacion'] }}</td>
+                            <td>{{ number_format($value_tablaDos['Superficie'],2) }}</td>
+                            <td>{{ $value_tablaDos['Fzo'] }}</td>
+                            <td>{{ $value_tablaDos['Fub'] }}</td>
+                            <td>{{ $value_tablaDos['FFr'] }}</td>
+                            <td>{{ $value_tablaDos['Ffo'] }}</td>
+                            <td>{{ $value_tablaDos['Fsu'] }}</td>
+                            <td>{{ $value_tablaDos['F_otro'] }}</td>
+                            <td>{{ number_format($value_tablaDos['Fre'],4) }}</td>
+                            <td>${{ number_format($value_tablaDos['Precio_Solicitado'],2) }}</td>
                         </tr>
+                        @endforeach
+                    @endisset
                     </tbody>
                 </table>
                 <br>
@@ -886,27 +910,51 @@
                     <tbody>
                         <tr>
                             <td><b>Valor unitario de tierra promedio</b></td>
-                            <td>dato</td>
+                            <td>
+                                @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Tierra_Promedio'])
+                                    {{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Tierra_Promedio'],2) }}
+                                @endisset
+                            </td>
                         </tr>
                         <tr>
                             <td><b>Valor unitario de tierra homologado</b></td>
-                            <td>dato</td>
+                            <td>
+                                @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Tierra_Homologado'])
+                                    {{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Tierra_Homologado'],2) }}
+                                @endisset
+                            </td>
                         </tr>
                         <tr>
                             <td><b>Valor unitario sin homologar mínimo</b></td>
-                            <td>dato</td>
+                            <td>
+                                @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Sin_Homologar_Minimo'])
+                                    {{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Sin_Homologar_Minimo'],2) }}
+                                @endisset
+                            </td>
                         </tr>
                         <tr>
                             <td><b>Valor unitario sin homologar máximo</b></td>
-                            <td>dato</td>
+                            <td>
+                                @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Sin_Homologar_Maximo'])
+                                    {{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Sin_Homologar_Maximo'],2) }}
+                                @endisset
+                            </td>
                         </tr>
                         <tr>
                             <td><b>Valor unitario homologado mínimo</b></td>
-                            <td>dato</td>
+                            <td>
+                                @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Homologado_Minimo'])
+                                    {{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Homologado_Minimo'],2) }}
+                                @endisset
+                            </td>
                         </tr>
                         <tr>
                             <td><b>Valor unitario homologado máximo</b></td>
-                            <td>dato</td>
+                            <td>
+                                @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Homologado_Maximo'])
+                                    {{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Homologado_Maximo'],2) }}
+                                @endisset
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -942,31 +990,31 @@
                     <tbody>
                         <tr>
                             <td><b>Valor unitario promedio</b></td>
-                            <td>dato</td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td><b>Valor unitario homologado</b></td>
-                            <td>dato</td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td><b>Valor unitario sin homologar mínimo</b></td>
-                            <td>dato</td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td><b>Valor unitario sin homologar máximo</b></td>
-                            <td>dato</td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td><b>Valor unitario homologado mínimo</b></td>
-                            <td>dato</td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td><b>Valor unitario homologado máximo</b></td>
-                            <td>dato</td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td><b>Valor unitario aplicable al residual</b></td>
-                            <td>dato</td>
+                            <td></td>
                         </tr>
                     </tbody>
                 </table>
@@ -981,19 +1029,19 @@
                     <tbody>
                         <tr>
                             <td><b>Total de ingresos</b></td>
-                            <td>dato</td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td><b>Total de egresos</b></td>
-                            <td>dato</td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td><b>Utilidad propuesta</b></td>
-                            <td>dato</td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td><b>Valor unitario de tierra resisdual</b></td>
-                            <td>dato</td>
+                            <td></td>
                         </tr>
                     </tbody>
                 </table>
@@ -1003,7 +1051,7 @@
                     <thead>
                         <tr>
                             <th>VALOR UNITARIO DE TIERRA DEL AVALUO</th>
-                            <th>datos</th>
+                            <th>{{ $infoAvaluo['Terrenos']['Valor_Unitario_Tierra_Del_Avaluo'] }}</th>
                         </tr>
                     </thead> 
                 </table>
@@ -1020,11 +1068,18 @@
                         </tr>
                     </thead>
                     <tbody>
+                    @php
+                        $iC_Uno = 1;
+                    @endphp
+                    @isset($infoAvaluo['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaUno'])
+                        @foreach($infoAvaluo['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaUno'] as $valueC_tablaUno)
                         <tr>
-                            <td>1</td>
-                            <td>DESIERTO DE LOS LEONES. TETELPAN. 01700</td>
-                            <td>2 RECÁMARAS, 2 BAÑOS Y 2 ESTACIONAMIENTO</td>
+                            <td>{{ $iC_Uno++ }}</td>
+                            <td>{{ $valueC_tablaUno['Ubicacion'] }}</td>
+                            <td>{{ $valueC_tablaUno['Descripcion'] }}</td>
                         </tr>
+                        @endforeach
+                    @endisset    
                     </tbody>
                 </table>
                 <table class="tabla_cabeza_gris">
@@ -1037,12 +1092,19 @@
                         </tr>
                     </thead>
                     <tbody>
+                    @php
+                        $iC_Dos = 1;
+                    @endphp
+                    @isset($infoAvaluo['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaDos'])
+                        @foreach($infoAvaluo['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaDos'] as $valueC_tablaDos)
                         <tr>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
+                            <td>{{ $iC_Dos++ }}</td>
+                            <td>{{ number_format($valueC_tablaDos['F_Negociacion'],2) }}</td>
+                            <td>{{ number_format($valueC_tablaDos['Superficie_Vendible'],2) }}</td>
+                            <td>${{ number_format($valueC_tablaDos['Precio_Solicitado'],2) }}</td>
                         </tr>
+                        @endforeach
+                    @endisset
                     </tbody>
                 </table>
                 <br>
@@ -1056,27 +1118,51 @@
                     <tbody>
                         <tr>
                             <td><b>Valor unitario promedio</b></td>
-                            <td>dato</td>
+                            <td>
+                            @isset($infoAvaluo['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Promedio'])
+                                {{ number_format($infoAvaluo['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Promedio'],2) }}
+                            @endisset
+                            </td>
                         </tr>
                         <tr>
                             <td><b>Valor unitario homologado</b></td>
-                            <td>dato</td>
+                            <td>
+                            @isset($infoAvaluo['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Homologado'])
+                                {{ number_format($infoAvaluo['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Homologado'],2) }}
+                            @endisset
+                            </td>
                         </tr>
                         <tr>
                             <td><b>Valor unitario sin homologar mínimo</b></td>
-                            <td>dato</td>
+                            <td>
+                            @isset($infoAvaluo['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Sin_Homolgar_Minimo'])
+                                {{ number_format($infoAvaluo['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Sin_Homolgar_Minimo'],2) }}
+                            @endisset
+                            </td>
                         </tr>
                         <tr>
                             <td><b>Valor unitario sin homologar máximo</b></td>
-                            <td>dato</td>
+                            <td>
+                            @isset($infoAvaluo['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Sin_Homolgar_Maximo'])
+                                {{ number_format($infoAvaluo['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Sin_Homolgar_Maximo'],2) }}
+                            @endisset
+                            </td>
                         </tr>
                         <tr>
                             <td><b>Valor unitario homologado mínimo</b></td>
-                            <td>dato</td>
+                            <td>
+                            @isset($infoAvaluo['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Homologado_Minimo'])
+                                {{ number_format($infoAvaluo['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Homologado_Minimo'],2) }}
+                            @endisset
+                            </td>
                         </tr>
                         <tr>
                             <td><b>Valor unitario homologado máximo</b></td>
-                            <td>dato</td>
+                            <td>
+                            @isset($infoAvaluo['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Homologado_Maximo'])
+                                {{ number_format($infoAvaluo['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Homologado_Maximo'],2) }}
+                            @endisset
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -1085,7 +1171,11 @@
                     <thead>
                         <tr>
                             <th>VALOR UNITARIO APLICABLE AL AVALUO:</th>
-                            <th>datos</th>
+                            <th>
+                            @isset($infoAvaluo['Construcciones_En_Venta']['Valor_Unitario_Aplicable_Avaluo'])
+                                ${{ number_format($infoAvaluo['Construcciones_En_Venta']['Valor_Unitario_Aplicable_Avaluo'],2) }}
+                            @endisset
+                            </th>
                         </tr>
                     </thead> 
                 </table>
@@ -1094,7 +1184,11 @@
                     <thead>
                         <tr>
                             <th>VALOR DE MERCADO DEL INMUEBLE:</th>
-                            <th>datos</th>
+                            <th>
+                            @isset($infoAvaluo['Construcciones_En_Venta']['Valor_Mercado_Del_Inmueble'])
+                                ${{ number_format($infoAvaluo['Construcciones_En_Venta']['Valor_Mercado_Del_Inmueble'],2) }}
+                            @endisset
+                            </th>
                         </tr>
                     </thead> 
                 </table>
@@ -1113,11 +1207,18 @@
                         </tr>
                     </thead>
                     <tbody>
+                    @php
+                        $iCR_Uno = 1;
+                    @endphp
+                    @isset($infoAvaluo['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaUno'])
+                        @foreach($infoAvaluo['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaUno'] as $valueCR_tablaUno)
                         <tr>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
+                            <td>{{ $iCR_Uno++ }}</td>
+                            <td>{{ $valueCR_tablaUno['Ubicacion'] }}</td>
+                            <td>{{ $valueCR_tablaUno['Descripcion'] }}</td>
                         </tr>
+                        @endforeach
+                    @endisset
                     </tbody>
                 </table>
                 <table class="tabla_cabeza_gris">
@@ -1130,12 +1231,19 @@
                         </tr>
                     </thead>
                     <tbody>
+                    @php
+                        $iCR_Dos = 1;
+                    @endphp
+                    @isset($infoAvaluo['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos'])
+                        @foreach($infoAvaluo['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos'] as $valueCR_tablaDos)
                         <tr>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
+                            <td>{{ $iCR_Dos++ }}</td>
+                            <td>{{ number_format($valueCR_tablaDos['F_Negociacion'],2) }}</td>
+                            <td>{{ $valueCR_tablaDos['Superficie_Vendible'] }}</td>
+                            <td>${{ number_format($valueCR_tablaDos['Precio_Solicitado'],2) }}</td>
                         </tr>
+                        @endforeach
+                    @endisset
                     </tbody>
                 </table>
                 <br>
@@ -1149,27 +1257,51 @@
                     <tbody>
                         <tr>
                             <td><b>Valor unitario promedio</b></td>
-                            <td>dato</td>
+                            <td>
+                            @isset($infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Promedio'])
+                                {{ $infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Promedio'] }}
+                            @endisset
+                            </td>
                         </tr>
                         <tr>
                             <td><b>Valor unitario homologado</b></td>
-                            <td>dato</td>
+                            <td>
+                            @isset($infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado'])
+                                {{ $infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado'] }}
+                            @endisset
+                            </td>
                         </tr>
                         <tr>
                             <td><b>Valor unitario sin homologar mínimo</b></td>
-                            <td>dato</td>
+                            <td>
+                            @isset($infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Sin_Homolgar_Minimo'])
+                                {{ $infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Sin_Homolgar_Minimo'] }}
+                            @endisset
+                            </td>
                         </tr>
                         <tr>
                             <td><b>Valor unitario sin homologar máximo</b></td>
-                            <td>dato</td>
+                            <td>
+                            @isset($infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Sin_Homolgar_Maximo'])
+                                {{ $infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Sin_Homolgar_Maximo'] }}
+                            @endisset
+                            </td>
                         </tr>
                         <tr>
                             <td><b>Valor unitario homologado mínimo</b></td>
-                            <td>dato</td>
+                            <td>
+                            @isset($infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado_Minimo'])
+                                {{ $infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado_Minimo'] }}
+                            @endisset
+                            </td>
                         </tr>
                         <tr>
                             <td><b>Valor unitario homologado máximo</b></td>
-                            <td>dato</td>
+                            <td>
+                            @isset($infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado_Maximo'])
+                                {{ $infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado_Maximo'] }}
+                            @endisset
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -1178,7 +1310,11 @@
                     <thead>
                         <tr>
                             <th>VALOR UNITARIO APLICABLE AL AVALUO:</th>
-                            <th>datos</th>
+                            <th>
+                            @isset($infoAvaluo['Construcciones_En_Renta']['Valor_Unitario_Aplicable_Avaluo'])
+                                ${{ number_format($infoAvaluo['Construcciones_En_Renta']['Valor_Unitario_Aplicable_Avaluo'],2) }}
+                            @endisset
+                            </th>
                         </tr>
                     </thead> 
                 </table>
@@ -1204,31 +1340,33 @@
                         </tr>
                     </thead>
                     <tbody>
+                    @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno'])
                         <tr>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
+                            <td>{{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fracc'] }}</td>
+                            <td>{{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Clave_Area_Valor'] }}</td>
+                            <td>{{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Superficie_m2'] }}</td>
+                            <td>{{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fzo'] }}</td>
+                            <td>{{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fub'] }}</td>
+                            <td>{{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['FFr'] }}</td>
+                            <td>{{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Ffo'] }}</td>
+                            <td>{{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fsu'] }}</td>
+                            <td>{{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fot'] }}</td>
+                            <td>{{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['F_Resultante'] }}</td>
+                            <td>{{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Valor_Fraccion'] }}</td>
                         </tr>
+                    @endisset
                     </tbody>
                 </table>
                 <br>
-                <p>Total superficie: dato '           'Valor del terreno total: dato </p>
+                <p><b>Total superficie: {{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Totales']['Total_Superficie'] }} '           'Valor del terreno total: {{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Totales']['Valor_Del_Terreno_Total'] }} </b></p>
                 <br>
-                <p>Indiviso de la unidad que se valua: dato</p>
+                <p>Indiviso de la unidad que se valua: {{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Totales']['Indiviso_Unidad_Que_Se_Valua'] }}</p>
 
                 <table class="tabla_gris_valor">
                     <thead>
                         <tr>
                             <th>VALOR TOTAL DEL TERRENO PROPORCIONAL:</th>
-                            <th>datos</th>
+                            <th>{{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Totales']['Valor_Total_Del_Terreno_Proporcional'] }}</th>
                         </tr>
                     </thead> 
                 </table>
@@ -1252,20 +1390,20 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
+                            <td>{{ $infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Fracc'] }}</td>
+                            <td>{{ $infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Descripcion'] }}</td>
+                            <td>{{ $infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Uso'] }}</td>
+                            <td>{{ $infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Clase'] }}</td>
+                            <td>{{ $infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Superficie_m2'] }}</td>
+                            <td>{{ $infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Valor_Unitario'] }}</td>
+                            <td>{{ $infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Edad'] }}</td>
+                            <td>{{ $infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Fco'] }}</td>
+                            <td>{{ $infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['FRe'] }}</td>
+                            <td>{{ $infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Valor_Fraccion'] }}</td>
                         </tr>
                     </tbody>
                 </table>
-                <p>Total superficie: dato '                  ' Total construcciones privativas: dato</p>
+                <p>Total superficie: {{ $infoAvaluo['Calculo_Valor_Construcciones']['Totales_Privativas']['Total_Superficie'] }} '                  ' Total construcciones privativas: {{ $infoAvaluo['Calculo_Valor_Construcciones']['Totales_Privativas']['Total_Construcciones_Privativas'] }}</p>
                 <br>
                 <p><b>COMUNES: </b></p>
                 <table class="tabla_cabeza_gris">
@@ -1285,26 +1423,26 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
+                            <td>{{ $infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Fracc'] }}</td>
+                            <td>{{ $infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Descripcion'] }}</td>
+                            <td>{{ $infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Uso'] }}</td>
+                            <td>{{ $infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Superficie_m2'] }}</td>
+                            <td>{{ $infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Valor_Unitario'] }}</td>
+                            <td>{{ $infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Edad'] }}</td>
+                            <td>{{ $infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Fco'] }}</td>
+                            <td>{{ $infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['FRe'] }}</td>
+                            <td>{{ $infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Valor_Fraccion'] }}</td>
+                            <td>{{ $infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Indiviso'] }}</td>
                         </tr>
                     </tbody>
                 </table>
-                <p>Total superficie: dato '                  ' Total construcciones comunes: dato</p>
+                <p>Total superficie: {{ $infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Superficie'] }} '                  ' Total construcciones comunes: {{ $infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Construcciones_Comunes'] }}</p>
                 
                 <table class="tabla_gris_valor">
                     <thead>
                         <tr>
                             <th>VALOR TOTAL DE LAS CONTRUCCIONES:</th>
-                            <th>datos</th>
+                            <th>{{ $infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Valor_Total_De_Las_Construcciones'] }}</th>
                         </tr>
                     </thead> 
                 </table>
@@ -1325,22 +1463,26 @@
                         </tr>
                     </thead>
                     <tbody>
+                    @isset($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'])
+                        @foreach($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'] as $valueEA_tablaPri)
                         <tr>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
+                            <td>{{ $valueEA_tablaPri['0'] }}</td>
+                            <td>{{ $valueEA_tablaPri['Clave'] }}</td>
+                            <td>{{ $valueEA_tablaPri['Concepto'] }} </td>
+                            <td>{{ $valueEA_tablaPri['Cantidad'] }}</td>
+                            <td>{{ $valueEA_tablaPri['Valor_Unitario'] }}</td>
+                            <td>{{ $valueEA_tablaPri['Edad'] }}</td>
+                            <td>{{ $valueEA_tablaPri['Importe'] }}</td>
                         </tr>
+                        @endforeach
+                    @endisset
                     </tbody>
                 </table>
                 <br>
-                <p>Total de las instalaciones privativas: dato</p>
+                <p><b>Total de las instalaciones privativas:</b> {{ $infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Totales']['Total_De_Las_Instalaciones'] }}</p>
                 <br>
                 <p><b>COMUNES: </b></p>
-                <table class="tabla_cabeza_gris">
+                <!-- <table class="tabla_cabeza_gris">
                     <thead>
                         <tr>
                             <th>Fracc.</th>
@@ -1357,15 +1499,15 @@
                             <td>dato</td>
                         </tr>
                     </tbody>
-                </table>
+                </table> -->
                 <br>
-                <p>Indiviso de la unidad que se Valua: dato</p>
+                <p>Indiviso de la unidad que se Valua: {{ $infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Totales']['Indiviso_Unidad_Que_Se_Valua'] }}</p>
 
                 <table class="tabla_gris_valor">
                     <thead>
                         <tr>
                             <th>TOTAL DE LAS INSTALACIONES:</th>
-                            <th>datos</th>
+                            <th>NO VIENE EN EL ARRAY</th>
                         </tr>
                     </thead> 
                 </table>
@@ -1374,7 +1516,7 @@
                     <thead>
                         <tr>
                             <th>ÍNDICE FÍSICO DIRECTO (Importe total de enfoque de costos):</th>
-                            <th>datos</th>
+                            <th>{{ $infoAvaluo['Indice_Fisico_Directo'] }}</th>
                         </tr>
                     </thead> 
                 </table>
@@ -1394,13 +1536,20 @@
                         </tr>
                     </thead>
                     <tbody>
+                    @php
+                        $i_EA = 1;
+                    @endphp
+                    @isset($infoAvaluo['Renta_Estimada'])
+                        @foreach($infoAvaluo['Renta_Estimada'] as $valueEA_tablaPri)
                         <tr>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
-                            <td>dato</td>
+                            <td>{{ $i_EA++ }}</td>
+                            <td>{{ $valueEA_tablaPri['Ubicacion'] }}</td>
+                            <td>{{ $valueEA_tablaPri['Superficie_m2'] }}</td>
+                            <td>{{ $valueEA_tablaPri['Renta_Mensual'] }}</td>
+                            <td>{{ $valueEA_tablaPri['Renta_m2'] }}</td>
                         </tr>
+                        @endforeach
+                    @endisset
                     </tbody>
                 </table>
                 <br>
@@ -1419,27 +1568,27 @@
                                 <tbody>
                                     <tr>
                                         <td>a) Vacíos:</td>
-                                        <td><b></b></td>
+                                        <td><b>{{ $infoAvaluo['Analisis_Deducciones']['Vacios'] }}</b></td>
                                     </tr>
                                     <tr>
                                         <td>b) Impuesto predial:</td>
-                                        <td><b></b></td>
+                                        <td><b>{{ $infoAvaluo['Analisis_Deducciones']['Impuesto_Predial'] }}</b></td>
                                     </tr>
                                     <tr>
                                         <td>c) Servicio de agua:</td>
-                                        <td><b></b></td>
+                                        <td><b>{{ $infoAvaluo['Analisis_Deducciones']['Servicio_Agua'] }}</b></td>
                                     </tr>
                                     <tr>
                                         <td>d) Conserv. y mant.:</td>
-                                        <td><b></b></td>
+                                        <td><b>{{ $infoAvaluo['Analisis_Deducciones']['Conserv_Mant'] }}</b></td>
                                     </tr>
                                     <tr>
                                         <td>e) Administración:</td>
-                                        <td><b></b></td>
+                                        <td><b>{{ $infoAvaluo['Analisis_Deducciones']['Administracion'] }}</b></td>
                                     </tr>
                                     <tr>
                                         <td>f) Energía eléctrica:</td>
-                                        <td><b></b></td>
+                                        <td><b>{{ $infoAvaluo['Analisis_Deducciones']['Energia_Electrica'] }}</b></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -1455,29 +1604,29 @@
                                 <tbody>
                                     <tr>
                                         <td>g) Seguros:</td>
-                                        <td><b></b></td>
+                                        <td><b>{{ $infoAvaluo['Analisis_Deducciones']['Seguros'] }}</b></td>
                                     </tr>
                                     <tr>
                                         <td>h) Otros:</td>
-                                        <td><b></b></td>
+                                        <td><b>{{ $infoAvaluo['Analisis_Deducciones']['Otros'] }}</b></td>
                                     </tr>
                                     <tr>
                                         <td>i) Depreciación Fiscal:</td>
-                                        <td><b></b></td>
+                                        <td><b>{{ $infoAvaluo['Analisis_Deducciones']['Depreciacion_Fiscal'] }}</b></td>
                                     </tr>
                                     <tr>
                                         <td>j) Deducc. Fiscales:</td>
-                                        <td><b></b></td>
+                                        <td><b>{{ $infoAvaluo['Analisis_Deducciones']['Deducc_Fiscales'] }}</b></td>
                                     </tr>
                                     <tr>
                                         <td>k) I.S.R.</td>
-                                        <td><b></b></td>
+                                        <td><b>{{ $infoAvaluo['Analisis_Deducciones']['ISR'] }}</b></td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
                                     <tr>
                                         <td>SUMA:</td>
-                                        <td><b></b></td>
+                                        <td><b>{{ $infoAvaluo['Analisis_Deducciones']['Totales']['Suma'] }}</b></td>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -1489,19 +1638,19 @@
                     <tbody>
                         <tr>
                             <td><b>DEDUCCIONES MENSUALES:</b></td>
-                            <td>dato</td>
+                            <td>{{ $infoAvaluo['Analisis_Deducciones']['Totales']['Deducciones_Mensuales'] }}</td>
                         </tr>
                         <tr>
                             <td><b>PRODUCTO LIQUIDO MENSUAL:</b></td>
-                            <td>dato</td>
+                            <td>{{ $infoAvaluo['Analisis_Deducciones']['Totales']['Producto_Liquido_Mensual'] }}</td>
                         </tr>
                         <tr>
                             <td><b>PRODUCTO LIQUIDO ANUAL:</b></td>
-                            <td>dato</td>
+                            <td>{{ $infoAvaluo['Analisis_Deducciones']['Totales']['Producto_Liquido_Anual'] }}</td>
                         </tr>
                         <tr>
                             <td><b>TASA DE CAPITALIZACIÓN APLICALE:</b></td>
-                            <td>dato</td>
+                            <td>{{ $infoAvaluo['Analisis_Deducciones']['Totales']['Tasa_Capitalizacion_Aplicable'] }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -1511,7 +1660,7 @@
                     <thead>
                         <tr>
                             <th>RESULTADO DE LA APLICACIÓN DEL ENFOQUE DE INGRESOS (VALOR POR CAPITALIZACIÓN DE RENTAS):</th>
-                            <th>datos</th>
+                            <th>{{ $infoAvaluo['Resultado_Aplicacion_Enfoque_Ingresos'] }}</th>
                         </tr>
                     </thead> 
                 </table>
@@ -1524,7 +1673,7 @@
                     <thead>
                         <tr>
                             <th>ÍNDICE FÍSICO DIRECTO:</th>
-                            <th>datos</th>
+                            <th>NO VIENE EN EL ARRAY</th>
                         </tr>
                     </thead> 
                 </table>
@@ -1533,7 +1682,7 @@
                     <thead>
                         <tr>
                             <th>VALOR POR CAPITALIZACIÓN DE RENTAS:</th>
-                            <th>datos</th>
+                            <th>NO VIENE EN EL ARRAY</th>
                         </tr>
                     </thead> 
                 </table>
@@ -1542,7 +1691,7 @@
                     <thead>
                         <tr>
                             <th>VALOR DE MERCADO DE LAS CONSTRUCCIONES:</th>
-                            <th>datos</th>
+                            <th>{{ $infoAvaluo['Valor_Mercado_Construcciones'] }}</th>
                         </tr>
                     </thead> 
                 </table>
@@ -1550,32 +1699,62 @@
                 <!-- 11.- Consideraciones Previas a la Conclusión -->
                 <div class="pleca_verde"><b>XI.- CONSIDERACIONES PREVIAS A LA CONCLUSIÓN</b></div>
 
-                    <p class="letras_pequenas">Texto aquí</p>
+                    <p class="letras_pequenas">
+                        PARA LOS EFECTOS DEL "MANUAL DE PROCEDIMIENTOS Y LINEAMIENTOS TÉCNICOS DE VALUACIÓN INMOBILIARIA, PUBLICADO POR LA SECRETARÍA DE FINANZAS EN LA
+                        GACETA OFICIAL DEL DISTRITO FEDERAL DE FECHA 06 DE DICIEMBRE DE 2013 CON EL NÚMERO VI.<br><br>
+                        <u>AVALÚO COMERCIAL:</u> EL DICTAMEN TÉCNICO PRACTICADO POR PERSONA AUTORIZADA O REGISTRADA ANTE LA AUTORIDAD FISCAL, QUE PERMITE ESTIMAR EL VALOR
+                        COMERCIAL DE UN BIEN INMUEBLE, CON BASE EN SU USO, CARACTERÍSTICAS FÍSICAS, ADEMÁS DE LAS CARACTERÍSTICAS URBANAS DE LA ZONA DONDE SE UBICA, ASÍ COMO
+                        LA INVESTIGACIÓN, ANÁLISIS Y PONDERACIÓN DEL MERCADO INMOBILIARIO, Y QUE CONTENIDO EN UN DOCUMENTO O ARCHIVO ELECTRÓNICO QUE REÚNA LOS REQUISITOS
+                        MÍNIMOS DE FORMA Y CONTENIDO ESTABLECIDOS EN EL PRESENTE MANUAL, SIRVE COMO BASE PARA DETERMINAR ALGUNA DE LAS CONTRIBUCIONES ESTABLECIDAS EN EL
+                        CÓDIGO.<br><br>
+                        <u>AVALÚO CATASTRAL:</u> EL DICTAMEN TÉCNICO PRACTICADO POR PERSONA AUTORIZADA O REGISTRADA ANTE LA AUTORIDAD FISCAL, QUE SIRVE PARA APOYAR AL
+                        CONTRIBUYENTE PARA SOLICITAR LA MODIFICACIÓN DE DATOS CATASTRALES Y PERMITE DETERMINAR EL VALOR CATASTRAL DE UN BIEN INMUEBLE CON BASE EN SUS
+                        CARACTERÍSTICAS FÍSICAS (USO, TIPO, CLASE, EDAD, INSTALACIONES ESPECIALES, OBRAS COMPLEMENTARIAS Y ELEMENTOS ACCESORIOS) APLICANDO LOS VALORES
+                        UNITARIOS DE SUELO Y CONSTRUCCIONES QUE LA ASAMBLEA LEGISLATIVA DEL D.F. EMITE EN EL CÓDIGO FISCAL QUE APLIQUE.”<br><br>
+                        EL PRESENTE AVALÚO ES DE USO EXCLUSIVO DEL(OS) SOLICITANTE(S) PARA EL DESTINO O PROPÓSITO EXPRESADO EN LA HOJA 1, CAPÍTULO I, POR LO QUE NO PODRÁ SER
+                        UTILIZADO PARA FINES DISTINTOS.<br><br>
+                        LA VIGENCIA DEL PRESENTE DOCUMENTO ESTARÁ DETERMINADA POR SU PROPÓSITO O DESTINO Y DEPENDERÁ BÁSICAMENTE DE LA TEMPORALIDAD QUE ESTABLEZCA EN SU
+                        CASO LA INSTITUCIÓN EMISORA DEL AVALÚO, LA AUTORIDAD COMPETENTE Ó LOS FACTORES EXTERNOS QUE INFLUYEN EN EL VALOR COMERCIAL.<br><br>
+                        LA EDAD CONSIDERADA EN EL PRESENTE AVALÚO CORRESPONDE A LA "APARENTE" O "ESTIMADA" POR EL PERITO VALUADOR EN RAZÓN DE LA OBSERVACIÓN DIRECTA DE LOS
+                        ACABADOS Y ESTADO DE CONSERVACIÓN, POR LO QUE NO ES NECESARIAMENTE LA EDAD CRONOLÓGICA PRECISA DEL INMUEBLE.<br><br>
+                        EL FACTOR DE DEMÉRITO APLICADO PARA LAS CONSTRUCCIONES EN EL ENFOQUE DE COSTOS, INCLUYE TANTO LA DEPRECIACIÓN POR EDAD COMO POR EL ESTADO DE
+                        CONSERVACIÓN.<br><br>
+                        SE ANALIZARON LOS VALORES OBTENIDOS EN EL PRESENTE AVALÚO Y EN FUNCIÓN DE LOS FACTORES DE COMERCIALIZACIÓN Y A LAS CONDICIONES QUE ACTUALMENTE
+                        PREVALECEN EN EL MERCADO INMOBILIARIO DE ESTA ZONA DE LA CIUDAD, SE LLEGA A LAS SIGUIENTES CONCLUSIONES.<br><br>
+                        CONSIDERACIONES:<br><br>
+                        {{ $infoAvaluo['Consideraciones'] }}
+                    </p>
 
                 
                 <!-- 12.- Conclusiones sobre el Valor Comercial -->
                 <div class="pleca_verde"><b>XII.- CONCLUSIONES SOBRE EL VALOR COMERCIAL</b></div>
-                <p>CONSIDERAMOS QUE EL VALOR COMERCIAL CORRESPONDE A: dato</p>
+                <p>CONSIDERAMOS QUE EL VALOR COMERCIAL CORRESPONDE A: {{ $infoAvaluo['Consideramos_Que_Valor_Comercial_Corresponde'] }}</p>
                 <br>
                 <p><span>Esta cantidad estimamos que representa el valor comercial del inmueble al día:</span></p>
-                <p>VALOR REFERIDO: dato '     ' FECHA: dato '        ' FACTOR: dato '       '</p>
+                <p>VALOR REFERIDO: {{ $infoAvaluo['Valor_Referido']['Valor_Referido']}} '     ' FECHA: {{ $infoAvaluo['Valor_Referido']['Fecha']}} '        ' FACTOR: {{ $infoAvaluo['Valor_Referido']['Factor']}} '       '</p>
                 <br>
-                <p>Perito valuador: dato '                    ' Registro T.D.F.: dato</p>
+                <p>Perito valuador: {{ $infoAvaluo['Perito_Valuador'] }} '                    ' Registro T.D.F.: dato</p>
                 <br>
                 <div style="background-color: #5d6d7e; color: #fff; border: 0px; text-align: right; margin: 2% 0 2% 0;"><b>ANEXO FOTOGRÁFICO SUJETO</b></div>
                 <br>
                 <p><b>INMUEBLE OBJETO DE ESTE AVALÚO</b></p>
-                <img>
-                <span>Cuenta: dato '        ' Número ext o int: dato</span>
+                @foreach($infoAvaluo['Inmueble_Objeto_Avaluo'] as $value_inmuebleOA)
+                <img src="data:image/png;base64,{{$value_inmuebleOA['Foto']}}" width="85" height="85" />
+                <span>Cuenta: {{ $value_inmuebleOA['Cuenta_Catastral'] }} '        ' @if($value_inmuebleOA['Interior_O_Exterior'] == 'E') Exterior @else Interior @endif</span>
+                @endforeach
                 <br>
                 <div style="background-color: #5d6d7e; color: #fff; border: 0px; text-align: right; margin: 2% 0 2% 0;"><b>ANEXO FOTOGRÁFICO COMPARABLES</b></div>
                 <p><b>INMUEBLES EN VENTA</b></p>
-                <img>
-                <span>Cuenta: dato '        ' Número ext o int: dato</span>
+                @foreach($infoAvaluo['Inmueble_Venta'] as $value_inmuebleEV)
+                <img src="data:image/png;base64,{{$value_inmuebleEV['Foto']}}" width="85" height="85" />
+                <span>Cuenta: {{ $value_inmuebleEV['Cuenta_Catastral'] }} '        ' @if($value_inmuebleEV['Interior_O_Exterior'] == 'E') Exterior @else Interior @endif</span>
+                @endforeach
+                <br>
                 <p><b>INMUEBLES EN RENTA</b></p>
-                <img>
-                <span>Cuenta: dato '        ' Número ext o int: dato</span>
-
+                @foreach($infoAvaluo['Inmueble_Renta'] as $value_inmuebleR)
+                <img src="data:image/png;base64,{{$value_inmuebleR['Foto']}}" width="85" height="85" />
+                <span>Cuenta: {{ $value_inmuebleR['Cuenta_Catastral'] }} '        ' @if($value_inmuebleR['Interior_O_Exterior'] == 'E') Exterior @else Interior @endif</span>
+                @endforeach
             </div>
         </div> 
         <!-- Fin de CONTENIDO -->
