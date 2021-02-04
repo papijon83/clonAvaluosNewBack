@@ -9,7 +9,7 @@
             #footer .page:after { content: counter(page, decimal); } 
             .grises{color: #8D8D8D;}
             .negritas{font-weight: bolder;}
-
+            
             .tabla_cabeza_gris{width: 100%; border-collapse: collapse!important; margin-top: 2%;}
                 .tabla_cabeza_gris>thead>tr>th, .tabla_cabeza_gris>tbody>tr>td {border: 1px solid #000; padding: 2px;}
                 .tabla_cabeza_gris>thead{background-color: #D3D3D3; font-size: 10px!important;}
@@ -17,12 +17,15 @@
             .tabla_gris_valor{width: 100%; margin-top: 2%; margin-bottom: 2%; border-collapse: separate; border-spacing: 10px 5px;}
                 .tabla_gris_valor>thead>tr>th{background-color: #D3D3D3; font-size: 10px!important; text-align: right; padding: 4px; font-size: 12px;}
 
+            .tabla_gris_valor_no_bold{width: 100%; margin-top: 2%; margin-bottom: 2%; border-collapse: separate; border-spacing: 10px 5px;}
+                .tabla_gris_valor_no_bold>thead>tr>th{background-color: #D3D3D3; font-size: 10px!important; text-align: left; padding: 4px; font-size: 12px; font-weight: lighter;}
+
             .tabla_doble{width: 80%; border-collapse: collapse!important;}
                  .tabla_doble>thead>tr>th{border-bottom: 2px solid #000;}
                  .tabla_doble>tfoot>tr>td{border-top: 2px solid #000;}
             
             .centrado{text-align: center;}
-            .pleca_verde{background-color: #00A346; color: #fff; border: 0px; text-align: right; margin: 2% 0 2% 0; pading: 5px; font-size: 15px;}
+            .pleca_verde{background-color: #00A346; color: #fff; border: 0px; text-align: right; margin: 2% 0 2% 0; padding: 5px; font-size: 15px;}
             .letras_pequenas{font-weight: lighter; font-size: 10px;}
         </style>
     </head>
@@ -92,22 +95,12 @@
                             <td>
                                 Tipo persona: {{$infoAvaluo['Sociedad_Participa']['Solicitante']['Tipo_persona']}} <br>
                                 {{$infoAvaluo['Sociedad_Participa']['Solicitante']['Nombre']}} <br>
-                                ESCRITURACION - no viene <br>
-                                CONOCER EL VALOR COMERCIAL. - no viene <br>
                                 UBICACIÓN DEL INMUEBLE: Calle : {{$infoAvaluo['Sociedad_Participa']['Solicitante']['Calle']}} <br>
-                                Delegación: {{$infoAvaluo['Sociedad_Participa']['Solicitante']['Delegacion']}} <br>
-                                Cuenta agua: - no viene <br>
-                                Edificio: - no viene <br>
-                                Lote: - no viene <br>
-                                Nº Interior : {{$infoAvaluo['Sociedad_Participa']['Solicitante']['No_Interior']}} <br>
-                                Colonia: OLIVAR DE LOS PADRES <br>
-                                CP : {{$infoAvaluo['Sociedad_Participa']['Solicitante']['CP']}} <br>
-                                Nº Exterior: 40 <br>
-                                154-139-26-012 4 <br>
-                                Condominal <br>
-                                SRA. LAILA MATUK MARTÍNEZ Y CORP. <br>
                                 Nº Exterior: {{$infoAvaluo['Sociedad_Participa']['Solicitante']['No_Exterior']}} <br>
+                                Nº Interior: {{$infoAvaluo['Sociedad_Participa']['Solicitante']['No_Interior']}} <br>
                                 Colonia: {{$infoAvaluo['Sociedad_Participa']['Solicitante']['Colonia']}}
+                                CP : {{$infoAvaluo['Sociedad_Participa']['Solicitante']['CP']}} <br>
+                                Delegación: {{$infoAvaluo['Sociedad_Participa']['Solicitante']['Delegacion']}}
                             </td>
                         </tr>
                         <tr>
@@ -119,8 +112,17 @@
                             <td>{{$infoAvaluo['Sociedad_Participa']['regimenDePropiedad']}}</td>
                         </tr>
                         <tr>
-                            <td><b>PROPIETARIO DEL INMUEBLE:</b></td>
-                            <td>{{$infoAvaluo['Sociedad_Participa']['Propietario']['Nombre']}}</td>
+                            <td valign="top"><b>PROPIETARIO DEL INMUEBLE:</b></td>
+                            <td>
+                                Tipo persona: {{$infoAvaluo['Sociedad_Participa']['Propietario']['Tipo_persona']}} <br>
+                                {{$infoAvaluo['Sociedad_Participa']['Propietario']['Nombre']}} <br>
+                                UBICACIÓN DEL INMUEBLE: Calle : {{$infoAvaluo['Sociedad_Participa']['Propietario']['Calle']}} <br>
+                                Nº Exterior: {{$infoAvaluo['Sociedad_Participa']['Propietario']['No_Exterior']}} <br>
+                                Nº Interior: {{$infoAvaluo['Sociedad_Participa']['Propietario']['No_Interior']}} <br>
+                                Colonia: {{$infoAvaluo['Sociedad_Participa']['Propietario']['Colonia']}}
+                                CP : {{$infoAvaluo['Sociedad_Participa']['Propietario']['CP']}} <br>
+                                Delegación: {{$infoAvaluo['Sociedad_Participa']['Propietario']['Delegacion']}}
+                            </td>
                         </tr>
                         <tr>
                             <td><b>OBJETO DEL AVALÚO:</b></td>
@@ -194,7 +196,7 @@
                         </tr>
                         <tr>
                             <td><b>CLASE GENERAL DE INMUEBLES DE LA ZONA:</b></td>
-                            <td>--no viene--</td>
+                            <td>{{$infoAvaluo['Clase_General_De_Inmuebles_Zona']}}</td>
                         </tr>
                         <tr>
                             <td><b>USO DEL SUELO:</b></td>
@@ -825,6 +827,7 @@
                 </p>
 
 
+
                 <br>
                 <!-- 7.- Comparación de Mercado -->
                 <div style="background-color: #00A346; color: #fff; border: 0px; text-align: right;">VII. COMPARACIÓN DE MERCADO</div>
@@ -878,12 +881,12 @@
                     </thead>
                     <tbody>
                     @php
-                        $i_tDos = 0;
+                        $i_tDos = 1;
                     @endphp
                     @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos'])
                         @foreach($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos'] as $value_tablaDos)
                         <tr>
-                            <td>{{ $i_tDos }}</td>
+                            <td>{{ $i_tDos++ }}</td>
                             <td>{{ $value_tablaDos['F_Negociacion'] }}</td>
                             <td>{{ number_format($value_tablaDos['Superficie'],2) }}</td>
                             <td>{{ $value_tablaDos['Fzo'] }}</td>
@@ -1568,27 +1571,27 @@
                                 <tbody>
                                     <tr>
                                         <td>a) Vacíos:</td>
-                                        <td><b>${{ number_format($infoAvaluo['Analisis_Deducciones']['Vacios'],2) }}</b></td>
+                                        <td>${{ number_format($infoAvaluo['Analisis_Deducciones']['Vacios'],2) }}</td>
                                     </tr>
                                     <tr>
                                         <td>b) Impuesto predial:</td>
-                                        <td><b>${{ number_format($infoAvaluo['Analisis_Deducciones']['Impuesto_Predial'],2) }}</b></td>
+                                        <td>${{ number_format($infoAvaluo['Analisis_Deducciones']['Impuesto_Predial'],2) }}</td>
                                     </tr>
                                     <tr>
                                         <td>c) Servicio de agua:</td>
-                                        <td><b>${{ number_format($infoAvaluo['Analisis_Deducciones']['Servicio_Agua'],2) }}</b></td>
+                                        <td>${{ number_format($infoAvaluo['Analisis_Deducciones']['Servicio_Agua'],2) }}</td>
                                     </tr>
                                     <tr>
                                         <td>d) Conserv. y mant.:</td>
-                                        <td><b>${{ number_format($infoAvaluo['Analisis_Deducciones']['Conserv_Mant'],2) }}</b></td>
+                                        <td>${{ number_format($infoAvaluo['Analisis_Deducciones']['Conserv_Mant'],2) }}</td>
                                     </tr>
                                     <tr>
                                         <td>e) Administración:</td>
-                                        <td><b>${{ number_format($infoAvaluo['Analisis_Deducciones']['Administracion'],2) }}</b></td>
+                                        <td>${{ number_format($infoAvaluo['Analisis_Deducciones']['Administracion'],2) }}</td>
                                     </tr>
                                     <tr>
                                         <td>f) Energía eléctrica:</td>
-                                        <td><b>${{ number_format($infoAvaluo['Analisis_Deducciones']['Energia_Electrica'],2) }}</b></td>
+                                        <td>${{ number_format($infoAvaluo['Analisis_Deducciones']['Energia_Electrica'],2) }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -1604,28 +1607,28 @@
                                 <tbody>
                                     <tr>
                                         <td>g) Seguros:</td>
-                                        <td><b>${{ number_format($infoAvaluo['Analisis_Deducciones']['Seguros'],2) }}</b></td>
+                                        <td>${{ number_format($infoAvaluo['Analisis_Deducciones']['Seguros'],2) }}</td>
                                     </tr>
                                     <tr>
                                         <td>h) Otros:</td>
-                                        <td><b>${{ number_format($infoAvaluo['Analisis_Deducciones']['Otros'],2) }}</b></td>
+                                        <td>${{ number_format($infoAvaluo['Analisis_Deducciones']['Otros'],2) }}</td>
                                     </tr>
                                     <tr>
                                         <td>i) Depreciación Fiscal:</td>
-                                        <td><b>${{ number_format($infoAvaluo['Analisis_Deducciones']['Depreciacion_Fiscal'],2) }}</b></td>
+                                        <td>${{ number_format($infoAvaluo['Analisis_Deducciones']['Depreciacion_Fiscal'],2) }}</td>
                                     </tr>
                                     <tr>
                                         <td>j) Deducc. Fiscales:</td>
-                                        <td><b>${{ number_format($infoAvaluo['Analisis_Deducciones']['Deducc_Fiscales'],2) }}</b></td>
+                                        <td>${{ number_format($infoAvaluo['Analisis_Deducciones']['Deducc_Fiscales'],2) }}</td>
                                     </tr>
                                     <tr>
                                         <td>k) I.S.R.</td>
-                                        <td><b>${{ number_format($infoAvaluo['Analisis_Deducciones']['ISR'],2) }}</b></td>
+                                        <td>${{ number_format($infoAvaluo['Analisis_Deducciones']['ISR'],2) }}</td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td>SUMA:</td>
+                                        <td><b>SUMA:</b></td>
                                         <td><b>${{ number_format($infoAvaluo['Analisis_Deducciones']['Totales']['Suma'],2) }}</b></td>
                                     </tr>
                                 </tfoot>
@@ -1738,23 +1741,39 @@
                 </table>
                 <br>
                 <p><span>Esta cantidad estimamos que representa el valor comercial del inmueble al día:</span></p>
-                <p>VALOR REFERIDO: ${{ number_format($infoAvaluo['Valor_Referido']['Valor_Referido'],2)}} '     ' FECHA: {{ $infoAvaluo['Valor_Referido']['Fecha']}} '        ' FACTOR: {{ $infoAvaluo['Valor_Referido']['Factor']}} '       '</p>
+                <table class="tabla_gris_valor_no_bold">
+                    <thead>
+                        <tr>
+                            <th>VALOR REFERIDO: ${{ number_format($infoAvaluo['Valor_Referido']['Valor_Referido'],2)}}</th>
+                            <th>FECHA: {{ $infoAvaluo['Valor_Referido']['Fecha']}}</th>
+                            <th>FACTOR: {{ $infoAvaluo['Valor_Referido']['Factor']}}</th>
+                        </tr>
+                    </thead>
+                </table>
                 <br>
-                <p>Perito valuador: {{ $infoAvaluo['Perito_Valuador'] }} '                    ' Registro T.D.F.: dato</p>
+                <table style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th style="border-top: 2px solid #000;">Perito valuador: {{ $infoAvaluo['Perito_Valuador'] }}</th>
+                            <th style="width: 5%;"></th>
+                            <th style="border-top: 2px solid #000;">Registro T.D.F.:</th>
+                        </tr>
+                    </thead>
+                </table>
                 <br>
                 <div style="background-color: #5d6d7e; color: #fff; border: 0px; text-align: right; margin: 2% 0 2% 0;"><b>ANEXO FOTOGRÁFICO SUJETO</b></div>
                 <br>
                 <p><b>INMUEBLE OBJETO DE ESTE AVALÚO</b></p>
                 @foreach($infoAvaluo['Inmueble_Objeto_Avaluo'] as $value_inmuebleOA)
                 <img src="data:image/png;base64,{{$value_inmuebleOA['Foto']}}" width="85" height="85" />
-                <span>Cuenta: {{ $value_inmuebleOA['Cuenta_Catastral'] }} '        ' @if($value_inmuebleOA['Interior_O_Exterior'] == 'E') Exterior @else Interior @endif</span>
+                <span>Cuenta: {{ $value_inmuebleOA['Cuenta_Catastral'] }}  @if($value_inmuebleOA['Interior_O_Exterior'] == 'E') Exterior @else Interior @endif</span>
                 @endforeach
                 <br>
                 <div style="background-color: #5d6d7e; color: #fff; border: 0px; text-align: right; margin: 2% 0 2% 0;"><b>ANEXO FOTOGRÁFICO COMPARABLES</b></div>
                 <p><b>INMUEBLES EN VENTA</b></p>
                 @foreach($infoAvaluo['Inmueble_Venta'] as $value_inmuebleEV)
                 <img src="data:image/png;base64,{{$value_inmuebleEV['Foto']}}" width="85" height="85" />
-                <span>Cuenta: {{ $value_inmuebleEV['Cuenta_Catastral'] }} '        ' @if($value_inmuebleEV['Interior_O_Exterior'] == 'E') Exterior @else Interior @endif</span>
+                <span>Cuenta: {{ $value_inmuebleEV['Cuenta_Catastral'] }}  @if($value_inmuebleEV['Interior_O_Exterior'] == 'E') Exterior @else Interior @endif</span>
                 @endforeach
                 <br>
                 <p><b>INMUEBLES EN RENTA</b></p>
