@@ -802,7 +802,7 @@ class Reimpresion
             $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Fsu'] = $superficieDelTerreno['Fsu'];            
         }
         if(isset($superficieDelTerreno['Fot'])){
-            $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Fot'] = floatval($superficieDelTerreno['Fot']['Valor'])." ".$superficieDelTerreno['Fot']['Descripcion'];
+            $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Fot'] = $superficieDelTerreno['Fot']['Valor'] === '1' ? $superficieDelTerreno['Fot']['Valor'].".00"." ".$superficieDelTerreno['Fot']['Descripcion'] : $superficieDelTerreno['Fot']['Valor']." ".$superficieDelTerreno['Fot']['Descripcion'];
         }
         if(isset($superficieDelTerreno['Fre'])){
             $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['F_Resultante'] = $superficieDelTerreno['Fre'];
