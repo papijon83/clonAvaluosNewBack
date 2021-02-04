@@ -640,9 +640,9 @@ class Reimpresion
                 $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Ffo'] = $terrenoDirecto['Ffo'];
                 $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Fsu'] = $terrenoDirecto['Fsu'];
                 if(isset($terrenoDirecto['Fot'])){
-                    $infoReimpresioN['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['F_otro'] = $terrenoDirecto['Fot']['Valor'];                    
+                    $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['F_otro'] = $terrenoDirecto['Fot']['Valor'];                    
                 }else{
-                    $infoReimpresioN['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['F_otro'] = '';
+                    $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['F_otro'] = '';
                 }                
                 $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Fre'] = $terrenoDirecto['Fre'];
                 $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Precio_Solicitado'] = $terrenoDirecto['PrecioSolicitado'];
