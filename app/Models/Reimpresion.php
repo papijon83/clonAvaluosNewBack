@@ -625,7 +625,7 @@ class Reimpresion
             $terrenos = $enfoqueMercado['Terrenos'];
             $terrenosDirectos = $terrenos['TerrenosDirectos'];
             
-            $control = 0;
+            $control = 0; 
             foreach($terrenosDirectos as $terrenoDirecto){
                 $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaUno'][$control]['Ubicacion'] = $terrenoDirecto['Calle'].". ".$terrenoDirecto['Colonia'].". ".$terrenoDirecto['CodigoPostal'].".";
                 $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaUno'][$control]['Descripcion'] = $terrenoDirecto['DescripcionDelPredio'];
@@ -640,7 +640,7 @@ class Reimpresion
                 $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Ffo'] = $terrenoDirecto['Ffo'];
                 $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Fsu'] = $terrenoDirecto['Fsu'];
                 if(isset($terrenoDirecto['Fot'])){
-                    $infoReimpresioN['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['F_otro'] = $terrenoDirecto['Fot']['Valor'];
+                    $infoReimpresioN['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['F_otro'] = $terrenoDirecto['Fot']['Valor'];                    
                 }else{
                     $infoReimpresioN['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['F_otro'] = '';
                 }                
@@ -648,7 +648,7 @@ class Reimpresion
                 $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Precio_Solicitado'] = $terrenoDirecto['PrecioSolicitado'];
 
                 $control = $control + 1;
-            }
+            } //print_r($infoReimpresion); exit();
 
             $conclusionHomologacionTerrenos = $terrenos['ConclusionesHomologacionTerrenos'];
 
@@ -900,7 +900,7 @@ class Reimpresion
     
             $infoReimpresion['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Superficie'] = $tiposContruccion['SuperficieTotalDeConstruccionesComunes'];
             $infoReimpresion['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Construcciones_Comunes'] = $tiposContruccion['ValorTotalDeConstruccionesComunes'];
-            $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Totales']['Valor_Total_De_Las_Construcciones'] = $tiposContruccion['ValorTotalDeConstruccionesComunes'] + $tiposContruccion['ValorTotalDeLasConstruccionesComunesProIndiviso'];
+            $infoReimpresion['Calculo_Valor_Construcciones']['Totales_Comunes']['Valor_Total_De_Las_Construcciones'] = $tiposContruccion['ValorTotalDeConstruccionesComunes'] + $tiposContruccion['ValorTotalDeLasConstruccionesComunesProIndiviso'];
             
 
         }else{
