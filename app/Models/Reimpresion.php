@@ -1151,10 +1151,10 @@ class Reimpresion
         }    
 
         $enfoqueCostos = $elementoPrincipal['EnfoqueDeCostos'];
-        if(isset($enfoqueCostos['ImporteTotalDelEnfoqueDeCostos'])){
+        if(isset($enfoqueCostos['ImporteTotalDelEnfoqueDeCostos'])){ 
             $infoReimpresion['Indice_Fisico_Directo'] = $enfoqueCostos['ImporteTotalDelEnfoqueDeCostos'];
         }
-
+        //print_r($infoReimpresion); exit();
         if($tipoDeAvaluo == 'Catastral'){
             $infoReimpresion['Importe_Instalaciones_Especiales_Elementos_Accesorios_Obras_Comp'] = $enfoqueCostos['ImporteInstalacionesEspeciales'];
             $infoReimpresion['Importe_Total_Valor_Catastral'] = $enfoqueCostos['ImporteTotalValorCatastral'];
@@ -1212,6 +1212,10 @@ class Reimpresion
             $infoReimpresion['Resultado_Aplicacion_Enfoque_Ingresos'] = $enfoqueIngresos['ImporteEnfoqueDeIngresos'];
         }
         
+        if(isset($elementoPrincipal['EnfoqueDeIngresos']['ImporteEnfoqueDeIngresos'])){
+            $infoReimpresion['Valor_Capitalizacion_Rentas'] = $elementoPrincipal['EnfoqueDeIngresos']['ImporteEnfoqueDeIngresos']; 
+        }
+
         if(isset($elementoPrincipal['EnfoqueDeMercado'])){
             $infoReimpresion['Valor_Mercado_Construcciones'] = $enfoqueMercado['ValorDeMercadoDelInmueble'];    
         }
