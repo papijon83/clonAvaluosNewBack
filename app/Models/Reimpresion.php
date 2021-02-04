@@ -151,7 +151,7 @@ class Reimpresion
         $infoReimpresion['Ubicacion_Inmueble']['Lote'] = 0;
         $infoReimpresion['Ubicacion_Inmueble']['Cuenta_agua'] = $ubicacionInmueble['CuentaDeAgua'];
 
-        $infoReimpresion['Clasificacion de la zona'] = $this->modelDocumentos->get_clasificacion_zona($arrFexava['cucodclasificacionzona']);
+        $infoReimpresion['Clasificacion_de_la_zona'] = $this->modelDocumentos->get_clasificacion_zona($arrFexava['cucodclasificacionzona']);
         $infoReimpresion['Indice_Saturacion_Zona'] = $arrFexava['cuindicesaturacionzona'] <= 1 ? $arrFexava['cuindicesaturacionzona'] * 100 : $arrFexava['cuindicesaturacionzona'];
         
         $caracterisiticasUrbanas = $elementoPrincipal['CaracteristicasUrbanas'];
