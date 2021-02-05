@@ -945,7 +945,7 @@
                                         </td>
                                     </tr>
                                 @endforeach
-                            @elseif(!isset($infoAvaluo['Construcciones_Privativas'][0] && isset($infoAvaluo['Construcciones_Privativas'])
+                            @elseif(!isset($infoAvaluo['Construcciones_Privativas'][0]) && isset($infoAvaluo['Construcciones_Privativas']))
                                     <tr>
                                         <td class="centrado">
                                         @isset($infoAvaluo['Construcciones_Privativas']['Tipo'])
