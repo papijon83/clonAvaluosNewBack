@@ -880,68 +880,135 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="centrado">
-                                    @isset($infoAvaluo['Construcciones_Privativas']['Tipo'])
-                                        {{$infoAvaluo['Construcciones_Privativas']['Tipo']}}
-                                    @endisset
-                                    </td>
-                                    <td class="centrado">
-                                    @isset($infoAvaluo['Construcciones_Privativas']['Descripcion'])
-                                        {{$infoAvaluo['Construcciones_Privativas']['Descripcion']}}
-                                    @endisset
-                                    </td>
-                                    <td class="centrado">
-                                    @isset($infoAvaluo['Construcciones_Privativas']['Uso'])
-                                        {{$infoAvaluo['Construcciones_Privativas']['Uso']}}
-                                    @endisset
-                                    </td>
-                                    <td class="centrado">
-                                    @isset($infoAvaluo['Construcciones_Privativas']['No_Niveles_Tipo'])
-                                        {{$infoAvaluo['Construcciones_Privativas']['No_Niveles_Tipo']}}
-                                    @endisset
-                                    </td>
-                                    <td class="centrado">
-                                    @isset($infoAvaluo['Construcciones_Privativas']['Clave_Rango_Niveles'])
-                                        {{$infoAvaluo['Construcciones_Privativas']['Clave_Rango_Niveles']}}
-                                    @endisset
-                                    </td>
-                                    <td class="centrado">
-                                    @isset($infoAvaluo['Construcciones_Privativas']['Puntaje'])
-                                        {{$infoAvaluo['Construcciones_Privativas']['Puntaje']}}
-                                    @endisset
-                                    </td>
-                                    <td class="centrado">
-                                    @isset($infoAvaluo['Construcciones_Privativas']['Clase'])
-                                        {{$infoAvaluo['Construcciones_Privativas']['Clase']}}
-                                    @endisset
-                                    </td>
-                                    <td class="centrado">
-                                    @isset($infoAvaluo['Construcciones_Privativas']['Edad'])
-                                        {{$infoAvaluo['Construcciones_Privativas']['Edad']}}
-                                    @endisset
-                                    </td>
-                                    <td class="centrado">
-                                    @isset($infoAvaluo['Construcciones_Privativas']['Vida_Util_Total_Tipo'])
-                                        {{$infoAvaluo['Construcciones_Privativas']['Vida_Util_Total_Tipo']}}
-                                    @endisset
-                                    </td>
-                                    <td class="centrado">
-                                    @isset($infoAvaluo['Construcciones_Privativas']['Vida_Util_Remanente'])
-                                        {{$infoAvaluo['Construcciones_Privativas']['Vida_Util_Remanente']}}
-                                    @endisset
-                                    </td>
-                                    <td class="centrado">
-                                    @isset($infoAvaluo['Construcciones_Privativas']['Conservacion'])
-                                        {{$infoAvaluo['Construcciones_Privativas']['Conservacion']}}
-                                    @endisset
-                                    </td>
-                                    <td class="centrado">
-                                    @isset($infoAvaluo['Construcciones_Privativas']['Sup'])
-                                        {{$infoAvaluo['Construcciones_Privativas']['Sup']}}
-                                    @endisset
-                                    </td>
-                                </tr>
+                            @if(isset($infoAvaluo['Construcciones_Privativas'][0]) && is_array($infoAvaluo['Construcciones_Privativas'][0]))
+                                @foreach($infoAvaluo['Construcciones_Privativas'] as $value_construccionesP)
+                                    <tr>
+                                        <td class="centrado">
+                                        @isset($value_construccionesP['Tipo'])
+                                            {{$value_construccionesP['Tipo']}}
+                                        @endisset
+                                        </td>
+                                        <td class="centrado">
+                                        @isset($value_construccionesP['Descripcion'])
+                                            {{$value_construccionesP['Descripcion']}}
+                                        @endisset
+                                        </td>
+                                        <td class="centrado">
+                                        @isset($value_construccionesP['Uso'])
+                                            {{$value_construccionesP['Uso']}}
+                                        @endisset
+                                        </td>
+                                        <td class="centrado">
+                                        @isset($value_construccionesP['No_Niveles_Tipo'])
+                                            {{$value_construccionesP['No_Niveles_Tipo']}}
+                                        @endisset
+                                        </td>
+                                        <td class="centrado">
+                                        @isset($value_construccionesP['Clave_Rango_Niveles'])
+                                            {{$value_construccionesP['Clave_Rango_Niveles']}}
+                                        @endisset
+                                        </td>
+                                        <td class="centrado">
+                                        @isset($value_construccionesP['Puntaje'])
+                                            {{$value_construccionesP['Puntaje']}}
+                                        @endisset
+                                        </td>
+                                        <td class="centrado">
+                                        @isset($value_construccionesP['Clase'])
+                                            {{$value_construccionesP['Clase']}}
+                                        @endisset
+                                        </td>
+                                        <td class="centrado">
+                                        @isset($value_construccionesP['Edad'])
+                                            {{$value_construccionesP['Edad']}}
+                                        @endisset
+                                        </td>
+                                        <td class="centrado">
+                                        @isset($value_construccionesP['Vida_Util_Total_Tipo'])
+                                            {{$value_construccionesP['Vida_Util_Total_Tipo']}}
+                                        @endisset
+                                        </td>
+                                        <td class="centrado">
+                                        @isset($value_construccionesP['Vida_Util_Remanente'])
+                                            {{$value_construccionesP['Vida_Util_Remanente']}}
+                                        @endisset
+                                        </td>
+                                        <td class="centrado">
+                                        @isset($value_construccionesP['Conservacion'])
+                                            {{$value_construccionesP['Conservacion']}}
+                                        @endisset
+                                        </td>
+                                        <td class="centrado">
+                                        @isset($value_construccionesP['Sup'])
+                                            {{$value_construccionesP['Sup']}}
+                                        @endisset
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @elseif(!isset($infoAvaluo['Construcciones_Privativas'][0]) && isset($infoAvaluo['Construcciones_Privativas']))
+                                    <tr>
+                                        <td class="centrado">
+                                        @isset($infoAvaluo['Construcciones_Privativas']['Tipo'])
+                                            {{$infoAvaluo['Construcciones_Privativas']['Tipo']}}
+                                        @endisset
+                                        </td>
+                                        <td class="centrado">
+                                        @isset($infoAvaluo['Construcciones_Privativas']['Descripcion'])
+                                            {{$infoAvaluo['Construcciones_Privativas']['Descripcion']}}
+                                        @endisset
+                                        </td>
+                                        <td class="centrado">
+                                        @isset($infoAvaluo['Construcciones_Privativas']['Uso'])
+                                            {{$infoAvaluo['Construcciones_Privativas']['Uso']}}
+                                        @endisset
+                                        </td>
+                                        <td class="centrado">
+                                        @isset($infoAvaluo['Construcciones_Privativas']['No_Niveles_Tipo'])
+                                            {{$infoAvaluo['Construcciones_Privativas']['No_Niveles_Tipo']}}
+                                        @endisset
+                                        </td>
+                                        <td class="centrado">
+                                        @isset($infoAvaluo['Construcciones_Privativas']['Clave_Rango_Niveles'])
+                                            {{$infoAvaluo['Construcciones_Privativas']['Clave_Rango_Niveles']}}
+                                        @endisset
+                                        </td>
+                                        <td class="centrado">
+                                        @isset($infoAvaluo['Construcciones_Privativas']['Puntaje'])
+                                            {{$infoAvaluo['Construcciones_Privativas']['Puntaje']}}
+                                        @endisset
+                                        </td>
+                                        <td class="centrado">
+                                        @isset($infoAvaluo['Construcciones_Privativas']['Clase'])
+                                            {{$infoAvaluo['Construcciones_Privativas']['Clase']}}
+                                        @endisset
+                                        </td>
+                                        <td class="centrado">
+                                        @isset($infoAvaluo['Construcciones_Privativas']['Edad'])
+                                            {{$infoAvaluo['Construcciones_Privativas']['Edad']}}
+                                        @endisset
+                                        </td>
+                                        <td class="centrado">
+                                        @isset($infoAvaluo['Construcciones_Privativas']['Vida_Util_Total_Tipo'])
+                                            {{$infoAvaluo['Construcciones_Privativas']['Vida_Util_Total_Tipo']}}
+                                        @endisset
+                                        </td>
+                                        <td class="centrado">
+                                        @isset($infoAvaluo['Construcciones_Privativas']['Vida_Util_Remanente'])
+                                            {{$infoAvaluo['Construcciones_Privativas']['Vida_Util_Remanente']}}
+                                        @endisset
+                                        </td>
+                                        <td class="centrado">
+                                        @isset($infoAvaluo['Construcciones_Privativas']['Conservacion'])
+                                            {{$infoAvaluo['Construcciones_Privativas']['Conservacion']}}
+                                        @endisset
+                                        </td>
+                                        <td class="centrado">
+                                        @isset($infoAvaluo['Construcciones_Privativas']['Sup'])
+                                            {{$infoAvaluo['Construcciones_Privativas']['Sup']}}
+                                        @endisset
+                                        </td>
+                                    </tr>
+                            @endif
                             </tbody>
                         </table>
 
