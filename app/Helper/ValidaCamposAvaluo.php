@@ -2492,14 +2492,14 @@ function valida_Calculos($data, $letra, $dataextra = false, $dataextrados = fals
 
         if(isset($data[0]['ImporteIndivisoInstalacionesEspecialesObrasComplementariasYElementosAccesoriosComunes'])){
             $f_14 = $data[0]['ImporteIndivisoInstalacionesEspecialesObrasComplementariasYElementosAccesoriosComunes'];
-
-            if($b_6 == 2){
+            //error_log("valor_de_b6 ".$b_6);
+            if(trim($b_6) === '2'){ //error_log("Cuando es 2 ".truncate($f_14,2)." != ".truncate($para_f_14,2));
                 if(truncate($f_14,2) != truncate($para_f_14,2)){
                     $mensajesf[] =  "f.14 - El cálculo de ImporteIndivisoInstalacionesEspecialesObrasComplementariasYElementosAccesoriosComunes es erróneo ";
                 }
             }else{
                 $calc_f_14 = $data[0]['ImporteTotalInstalacionesAccesoriosComplementariasComunes'] * $dataextra[0]['Indiviso'];
-                if(truncate($f_14,2) != truncate($calc_f_14,2)){ //echo truncate($f_14,2)." != ".truncate($calc_f_14,2)."\n";
+                if(truncate($f_14,2) != truncate($calc_f_14,2)){ //error_log(truncate($f_14,2)." != ".truncate($calc_f_14,2));
                     $mensajesf[] =  "f.14 - El cálculo de ImporteIndivisoInstalacionesEspecialesObrasComplementariasYElementosAccesoriosComunes es erróneo ";
                 }
             }
@@ -2651,7 +2651,7 @@ function valida_Calculos_i($data,$letra, $datad13, $datae2, $dataf12, $dataf14){
     $i_6 = $data[0]['ImporteTotalDelEnfoqueDeCostos'];
     $calc_i_6 = $d_13 + $e_2_3 + $e_2_8 + $f_12 + $f_14;
 
-    if((String)(round($i_6,6)) != (String)(round($calc_i_6,6))){ //echo round($i_6,6)." != ".round($calc_i_6,6)."\n";
+    if((String)(truncate($i_6,2)) != (String)(truncate($calc_i_6,2))){ error_log(truncate($i_6,2)." != ".truncate($calc_i_6,2));
         return  "i.6 - El cálculo de ImporteTotalDelEnfoqueDeCostos es erróneo ";
     }
 
