@@ -1411,13 +1411,41 @@
                             @isset($infoAvaluo['Obras_Complementarias']['Privativas'])
                                 @foreach($infoAvaluo['Obras_Complementarias']['Privativas'] as $value_obras)
                                 <tr>
-                                    <td class="centrado">{{$value_obras['Clave']}}</td>
-                                    <td>{{$value_obras['Descripcion']}}</td>
-                                    <td>{{$value_obras['Unidad']}}</td>
-                                    <td>{{$value_obras['Cantidad']}}</td>
-                                    <td>{{$value_obras['Edad']}}</td>
-                                    <td>{{$value_obras['Vida_Util_Total']}}</td>
-                                    <td>{{$value_obras['Valor_Unitario']}}</td>
+                                    <td class="centrado">
+                                    @isset($value_obras['Clave'])
+                                        {{$value_obras['Clave']}}
+                                    @endisset
+                                    </td>
+                                    <td>
+                                    @isset($value_obras['Descripcion'])
+                                        {{$value_obras['Descripcion']}}
+                                    @endisset
+                                    </td>
+                                    <td>
+                                    @isset($value_obras['Unidad'])
+                                        {{$value_obras['Unidad']}}
+                                    @endisset
+                                    </td>
+                                    <td>
+                                    @isset($value_obras['Cantidad'])
+                                        {{$value_obras['Cantidad']}}
+                                    @endisset
+                                    </td>
+                                    <td>
+                                    @isset($value_obras['Edad'])
+                                        {{$value_obras['Edad']}}
+                                    @endisset
+                                    </td>
+                                    <td>
+                                    @isset($value_obras['Vida_Util_Total'])
+                                        {{$value_obras['Vida_Util_Total']}}
+                                    @endisset
+                                    </td>
+                                    <td>
+                                    @isset($value_obras['Valor_Unitario'])
+                                        {{$value_obras['Valor_Unitario']}}
+                                    @endisset
+                                    </td>
                                 </tr>
                                 @endforeach
                             @endisset
@@ -1492,10 +1520,26 @@
                             @foreach($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno'] as $value_tablaUno)
                         <tr>
                             <td>{{$i_tUno++}}</td>
-                            <td>{{$value_tablaUno['Ubicacion']}}</td>
-                            <td>{{$value_tablaUno['Descripcion']}}</td>
-                            <td>{{$value_tablaUno['C_U_S']}}</td>
-                            <td>{{$value_tablaUno['Uso_Suelo']}}</td>
+                            <td>
+                            @isset($value_tablaUno['Ubicacion'])
+                                {{$value_tablaUno['Ubicacion']}}
+                            @endisset
+                            </td>
+                            <td>
+                            @isset($value_tablaUno['Descripcion'])
+                                {{$value_tablaUno['Descripcion']}}
+                            @endisset
+                            </td>
+                            <td>
+                            @isset($value_tablaUno['C_U_S'])
+                                {{$value_tablaUno['C_U_S']}}
+                            @endisset
+                            </td>
+                            <td>
+                            @isset($value_tablaUno['Uso_Suelo'])
+                                {{$value_tablaUno['Uso_Suelo']}}
+                            @endisset
+                            </td>
                         </tr>
                             @endforeach
                         @endisset
@@ -2293,13 +2337,41 @@
                     @isset($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'])
                         @foreach($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'] as $valueEA_tablaPri)
                         <tr>
-                            <td>{{ $valueEA_tablaPri['0'] }}</td>
-                            <td>{{ $valueEA_tablaPri['Clave'] }}</td>
-                            <td>{{ $valueEA_tablaPri['Concepto'] }} </td>
-                            <td>{{ number_format($valueEA_tablaPri['Cantidad'],2) }}</td>
-                            <td>{{ number_format($valueEA_tablaPri['Valor_Unitario'],2) }}</td>
-                            <td>{{ $valueEA_tablaPri['Edad'] }}</td>
-                            <td>${{ number_format($valueEA_tablaPri['Importe'],2) }}</td>
+                            <td>
+                            @isset($valueEA_tablaPri['0'])
+                            {{ $valueEA_tablaPri['0'] }}
+                            @endisset
+                            </td>
+                            <td>
+                            @isset($valueEA_tablaPri['Clave'])
+                            {{ $valueEA_tablaPri['Clave'] }}
+                            @endisset
+                            </td>
+                            <td>
+                            @isset($valueEA_tablaPri['Concepto'])
+                            {{ $valueEA_tablaPri['Concepto'] }} 
+                            @endisset
+                            </td>
+                            <td>
+                            @isset($valueEA_tablaPri['Cantidad'])
+                            {{ number_format($valueEA_tablaPri['Cantidad'],2) }}
+                            @endisset
+                            </td>
+                            <td>
+                            @isset($valueEA_tablaPri['Valor_Unitario'])
+                            {{ number_format($valueEA_tablaPri['Valor_Unitario'],2) }}
+                            @endisset
+                            </td>
+                            <td>
+                            @isset($valueEA_tablaPri['Edad'])
+                            {{ $valueEA_tablaPri['Edad'] }}
+                            @endisset
+                            </td>
+                            <td>$
+                            @isset($valueEA_tablaPri['Importe'])
+                            {{ number_format($valueEA_tablaPri['Importe'],2) }}
+                            @endisset
+                            </td>
                         </tr>
                         @endforeach
                     @endisset
