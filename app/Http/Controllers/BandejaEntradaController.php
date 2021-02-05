@@ -33,6 +33,7 @@ class BandejaEntradaController extends Controller
     protected $modelReimpresion;
     private $errors;
     private $doc;
+    private $fileXML;
 
     public function __construct()
     {
@@ -862,7 +863,7 @@ class BandejaEntradaController extends Controller
             
             $idPersona = empty($resToken['id_anterior']) ? $resToken['id_usuario']: $resToken['id_anterior']; //$idPersona = 264;
 
-            $file = $request->file('files');    
+            $file = $request->file('files');
             $myfile = fopen($file, "r");
             $contents = fread($myfile, filesize($file));    
             fclose($myfile);    
@@ -881,6 +882,7 @@ class BandejaEntradaController extends Controller
                     
             //$xml = new \SimpleXMLElement($contents);
             $xml = simplexml_load_string($contents,'SimpleXMLElement', LIBXML_NOCDATA);
+            $this->fileXML = $xml;
                           
             $esComercial = $xml->xpath('//Comercial');
             if(count($esComercial) > 0){
@@ -927,9 +929,7 @@ class BandejaEntradaController extends Controller
                 $idDocumentoDigital = $this->modelDocumentos->tran_InsertAvaluo($descripcionXMLAvaluo,2,$fechaAvaluo,$idPersona);
             }else{
                 $idDocumentoDigital = $this->modelDocumentos->tran_InsertAvaluo($descripcionXMLAvaluo,13,$fechaAvaluo,$idPersona);
-            }
-            $archivoComprimido = $this->comprimir($file);
-            $ficheroAvaluo = $this->modelDocumentos->tran_InsertFicheroAvaluo($idDocumentoDigital, $nombreXMLAvaluo, null, $archivoComprimido);
+            }            
             $camposFexavaAvaluo['IDAVALUO'] = $idDocumentoDigital;
 
             $camposFexavaAvaluo = $this->guardarAvaluoTerreno($xml, $camposFexavaAvaluo,$elementoPrincipal,$idDocumentoDigital);
@@ -952,7 +952,7 @@ class BandejaEntradaController extends Controller
             $this->guardaAvance($nombreArchivo,30);
             $camposFexavaAvaluo = $this->guardarAvaluoAnexoFotografico($xml, $camposFexavaAvaluo,$elementoPrincipal);
             $this->guardaAvance($nombreArchivo,50);
-            //print_r($camposFexavaAvaluo);
+            //print_r($camposFexavaAvaluo); exit();
             if(count($camposFexavaAvaluo['ERRORES']) > 0){  
                 foreach($camposFexavaAvaluo['ERRORES'] as $idElementoError => $elementoError){
                     if(is_array($elementoError) === true){
@@ -1003,6 +1003,17 @@ class BandejaEntradaController extends Controller
                 return response()->json(['mensaje' => $arrn], 500);
             }
             $this->guardaAvance($nombreArchivo,55);
+            //echo $this->fileXML->asXML(); exit();
+            $mynewfile = fopen($file, "w");
+            $fwrite = fwrite($mynewfile, $this->fileXML->asXML());    
+            fclose($mynewfile);
+
+            /*$myfile = fopen($file, "r");
+            $contents = fread($myfile, filesize($file));    
+            fclose($myfile);*/
+            //echo "AHORA SOY CONTENIDO "; echo $contents; exit();
+            $archivoComprimido = $this->comprimir($file);
+            $ficheroAvaluo = $this->modelDocumentos->tran_InsertFicheroAvaluo($idDocumentoDigital, $nombreXMLAvaluo, null, $archivoComprimido);
             $resInsert = $this->modelGuardaenBD->insertAvaluo($camposFexavaAvaluo);
             $this->guardaAvance($nombreArchivo,100);
             /*return $resInsert; 
@@ -1560,7 +1571,7 @@ class BandejaEntradaController extends Controller
         if(count($errores) > 0){
             //return array('ERROR' => $errores);
             $camposFexavaAvaluo['ERRORES'][] = $errores;            
-        }
+        } 
         $infoXmlCallesTransversalesLimitrofesYOrientacion = $infoXmlTerreno->xpath($elementoPrincipal.'//Terreno[@id="d"]//CallesTransversalesLimitrofesYOrientacion[@id="d.1"]');        
         $query = (String)($infoXmlCallesTransversalesLimitrofesYOrientacion[0]);
 
@@ -1585,11 +1596,22 @@ class BandejaEntradaController extends Controller
         $fotoMicro = $queryMicro;
         $idFichero = $this->modelDocumentos->tran_InsertFichero($idDocumentoDigital, 'CroquisMicroLocalizacion', 'CroquisMicroLocalizacion', $fotoMicro);
         $listaIdFicheros[] = $idFichero;
-
+        if($elementoPrincipal == "//Comercial"){
+            $this->fileXML->Comercial->Terreno->CroquisMicroLocalizacion = $idFichero;
+        }else{
+            $this->fileXML->Catastral->Terreno->CroquisMicroLocalizacion = $idFichero;
+        }
+        
         $fotoMacro = $queryMacro;
         $idFichero = $this->modelDocumentos->tran_InsertFichero($idDocumentoDigital, 'CroquisMacroLocalizacion', 'CroquisMacroLocalizacion', $fotoMacro);
         $listaIdFicheros[] = $idFichero;
-
+        if($elementoPrincipal == "//Comercial"){            
+            $this->fileXML->Comercial->Terreno->CroquisMacroLocalizacion = $idFichero;
+        }else{
+            $this->fileXML->Catastral->Terreno->CroquisMacroLocalizacion = $idFichero;
+        }
+        
+        //xpath($elementoPrincipal.'//Terreno[@id="d"]//CroquisMicroLocalizacion[@id="d.2"]');        
         $infoXmlEscritura = $infoXmlTerreno->xpath($elementoPrincipal.'//Terreno[@id="d"]//MedidasYColindancias[@id="d.4"]//FuenteDeInformacionLegal[@id="d.4.1"]//Escritura[@id="d.4.1.1"]');
         $arrEscritura = array();
         $controlElemntos = 0;
@@ -3490,12 +3512,20 @@ class BandejaEntradaController extends Controller
                     $idUsuario = $camposFexavaAvaluo['IDPERSONAPERITO'];
                     
                     $idFoto = $this->modelDocumentos->tran_InsertFotoInmueble($fichero, $nombreFoto, $descripcion, $fechaAvaluo, $tipoFoto, $idUsuario);
+                    if($elementoPrincipal == "//Comercial"){            
+                        $this->fileXML->Comercial->AnexoFotografico->Sujeto->FotosInmuebleAvaluo[$i]->Foto = $idFoto;
+                    }
+
+                    if($elementoPrincipal == "//Catastral"){            
+                        $this->fileXML->Catastral->AnexoFotografico->Sujeto->FotosInmuebleAvaluo[$i]->Foto = $idFoto;
+                    }
                 }
                 $indiceCuentaCatastral = $indiceCuentaCatastral +1;
                 /****Pendiente******/
                 //Reemplazamos en el XML del avaluo, la foto por el id obtenido de documental.
                 $camposFexavaAvaluo['FEXAVA_FOTOAVALUO'][$i]['IDDOCUMENTOFOTO'] = $idFoto;
-            }
+                
+            } 
             
            
         }
@@ -3542,6 +3572,13 @@ class BandejaEntradaController extends Controller
                             $idUsuario = $camposFexavaAvaluo['IDPERSONAPERITO'];
                     
                             $idFoto = $this->modelDocumentos->tran_InsertFotoInmueble($fichero, $nombreFoto, $descripcion, $fechaAvaluo, $tipoFoto, $idUsuario);
+
+                            if($elementoPrincipal == "//Comercial"){            
+                                $this->fileXML->Comercial->AnexoFotografico->ComparableRentas[$i]->FotosInmuebleAvaluo->Foto = $idFoto;
+                            }
+                            if($elementoPrincipal == "//Catastral"){            
+                                $this->fileXML->Catastral->AnexoFotografico->ComparableRentas[$i]->FotosInmuebleAvaluo->Foto = $idFoto;
+                            }
                             
                             $indiceCuentaCatastral = $indiceCuentaCatastral + 1;
 
@@ -3562,10 +3599,9 @@ class BandejaEntradaController extends Controller
                                 
                             }
                         }
-                    }  
-
+                    }                    
                     //print_r($camposFexavaAvaluo); exit();
-                }
+                } 
 
             }
             
@@ -3613,6 +3649,13 @@ class BandejaEntradaController extends Controller
                                 $idUsuario = $camposFexavaAvaluo['IDPERSONAPERITO'];
                         
                                 $idFoto = $this->modelDocumentos->tran_InsertFotoInmueble($fichero, $nombreFoto, $descripcion, $fechaAvaluo, $tipoFoto, $idUsuario);
+
+                                if($elementoPrincipal == "//Comercial"){            
+                                    $this->fileXML->Comercial->AnexoFotografico->ComparableVentas[$i]->FotosInmuebleAvaluo->Foto = $idFoto;
+                                }
+                                if($elementoPrincipal == "//Catastral"){            
+                                    $this->fileXML->Catastral->AnexoFotografico->ComparableVentas[$i]->FotosInmuebleAvaluo->Foto = $idFoto;
+                                }
 
                                 $indiceCuentaCatastral = $indiceCuentaCatastral + 1;
 
@@ -3744,10 +3787,10 @@ class BandejaEntradaController extends Controller
             $pdf->setOptions(['chroot' => 'public']);
             Storage::put('formato.pdf', $pdf->output());
             return response()->json(['pdfbase64' => base64_encode(Storage::get('formato.pdf')), 'nombre' =>  $numero_unico . '.pdf'], 200);
+            
 
 
-
-           /* $this->modelDocumentos = new Documentos();    //echo $numero_unico; exit();         
+            /*$this->modelDocumentos = new Documentos();    //echo $numero_unico; exit();         
             $id_avaluo = $this->modelDocumentos->get_idavaluo_db($numero_unico);    
             $this->modelReimpresion = new Reimpresion();
             $infoAvaluo = $this->modelReimpresion->infoAvaluo($id_avaluo);

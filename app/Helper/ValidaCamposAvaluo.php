@@ -1933,11 +1933,15 @@ function valida_Calculos_e($data, $dataextra = false, $dataextrados = false, $b_
         }        
 
         
-        return $mensajese;
+        if(count($mensajese) > 0){
+            return $mensajese;
+        }else{
+            return "Correcto";
+        }
     
 }
 
-function valida_Calculos($data, $letra, $dataextra = false, $dataextrados = false){
+function valida_Calculos($data, $letra, $dataextra = false, $dataextrados = false){    
     if($letra == 'c'){
         if(isset($data[0]['UsoDelSuelo'])){
             $c_6_4 = $data[0]['UsoDelSuelo']['CoeficienteDeUsoDelSuelo'];
@@ -1997,6 +2001,12 @@ function valida_Calculos($data, $letra, $dataextra = false, $dataextrados = fals
             if((String)(truncate($d_13,2)) != (String)(truncate($calc_d_13,2))){ //echo "COMPARACION |".truncate($d_13,2)."| != |".truncate($calc_d_13,2)."|\n";
                 $mensajesd[] =  "d.13 - El cálculo de ValorTotalDelTerrenoProporcional es erróneo ";
             }
+        }
+
+        if(count($mensajesd) > 0){
+            return $mensajesd;
+        }else{
+            return "Correcto";
         }
         
     }
@@ -2504,7 +2514,11 @@ function valida_Calculos($data, $letra, $dataextra = false, $dataextrados = fals
             }
         }
 
-        return $mensajesf;
+        if(count($mensajesf) > 0){
+            return $mensajesf;
+        }else{
+            return "Correcto";
+        }
         
     }
 
@@ -2522,7 +2536,7 @@ function valida_Calculos($data, $letra, $dataextra = false, $dataextrados = fals
                     }
                     
                     if(truncate($h_1_1_n_17,2) != truncate($calc_h_1_1_n_17,2)){
-                        $mensajesf[] =  "h.1.1.n.17 - El cálculo de Fre es erróneo ";
+                        return  "h.1.1.n.17 - El cálculo de Fre es erróneo ";
                     }
                 }
             }
@@ -2532,6 +2546,7 @@ function valida_Calculos($data, $letra, $dataextra = false, $dataextrados = fals
     }
 
     if($letra == 'k'){
+        $mensajesk = array();
         //echo "SOY DATA DE K ".print_r($data); exit();
         $k_2_1 = $data[0]['Deducciones']['Vacios'];
         $k_2_2 = $data[0]['Deducciones']['ImpuestoPredial'];
@@ -2546,7 +2561,7 @@ function valida_Calculos($data, $letra, $dataextra = false, $dataextrados = fals
         $calc_k_2_12 = $k_2_1 + $k_2_2 + $k_2_3 + $k_2_4 + $k_2_5 + $k_2_6 + $k_2_7 + $k_2_9 + $k_2_11;
 
         if(truncate($k_2_12,2) != truncate($calc_k_2_12,2)){
-            return  "k.2.12 - El cálculo de DeduccionesMensuales es erróneo ";
+            $mensajesk[] =  "k.2.12 - El cálculo de DeduccionesMensuales es erróneo ";
         }
 
         $k_2_13 = $data[0]['Deducciones']['PorcentajeDeduccionesMensuales'];
@@ -2554,14 +2569,14 @@ function valida_Calculos($data, $letra, $dataextra = false, $dataextrados = fals
         $calc_k_2_13 = ($k_2_12 / $k_1) / 100;
 
         if(truncate($k_2_13,4) != truncate($calc_k_2_13,4)){ //echo truncate($k_2_13,4)." != ".truncate($calc_k_2_13,4)."\n";
-            return  "k.2.13 - El cálculo de PorcentajeDeduccionesMensuales es erróneo ";
+            $mensajesk[] = "k.2.13 - El cálculo de PorcentajeDeduccionesMensuales es erróneo ";
         }
 
         $k_3 = $data[0]['ProductoLiquidoAnual'];
         $calc_k_3 = ($k_1 - $k_2_12) * 12;
 
         if(truncate($k_3,2) != truncate($calc_k_3,2)){
-            return  "k.3 - El cálculo de ProductoLiquidoAnual es erróneo ";
+            $mensajesk[] =  "k.3 - El cálculo de ProductoLiquidoAnual es erróneo ";
         }
 
         $k_5 = $data[0]['ImporteEnfoqueDeIngresos'];
@@ -2569,11 +2584,17 @@ function valida_Calculos($data, $letra, $dataextra = false, $dataextrados = fals
         $calc_k_5 = $k_3 / $k_4;
 
         if(truncate($k_5,2) != truncate($calc_k_5,2)){ //echo truncate($k_5,2)." != ".truncate($calc_k_5,2)."\n";
-            return  "k.5 - El cálculo de ImporteEnfoqueDeIngresos es erróneo ";
+            $mensajesk[] = "k.5 - El cálculo de ImporteEnfoqueDeIngresos es erróneo ";
+        }
+        if(count($mensajesk) > 0){
+            return $mensajesk;
+        }else{
+            return "Correcto";
         }
     }
 
     if($letra == 'p'){
+        $mensajesp = array();
         $p_2 = $data[0]['IndiceAntiguo'];
         $p_3 = $data[0]['IndiceActual'];
         $p_4 = $data[0]['FactorDeConversion'];
@@ -2581,7 +2602,7 @@ function valida_Calculos($data, $letra, $dataextra = false, $dataextrados = fals
         $calc_p_4 = $p_3 / $p_2;
 
         if(truncate($p_4,2) != truncate($calc_p_4,2)){
-            return  "p.4 - El cálculo de FactorDeConversion es erróneo ";
+            $mensajesp[] = "p.4 - El cálculo de FactorDeConversion es erróneo ";
         }
 
         $p_1 = $data[0]['FechaDeValorReferido'];
@@ -2599,7 +2620,12 @@ function valida_Calculos($data, $letra, $dataextra = false, $dataextrados = fals
         //$calc_p_5 = $p_4 * $o_1;
 
         if(truncate($p_5,2) != truncate($calc_p_5,2)){
-            return  "p.5 - El cálculo de ValorReferido es erróneo ";
+            $mensajesp[] = "p.5 - El cálculo de ValorReferido es erróneo ";
+        }
+        if(count($mensajesp) > 0){
+            return $mensajesp;
+        }else{
+            return "Correcto";
         }
     }
 
@@ -2634,6 +2660,7 @@ function valida_Calculos_i($data,$letra, $datad13, $datae2, $dataf12, $dataf14){
 }
 
 function valida_Calculos_j($data, $letra, $datae23, $datae27, $datab6, $datad6, $datad13, $existef9, $existef10, $existef11){
+    $mensajesj = array();
     $datae23 = array_map("convierte_a_arreglo",$datae23);
     $datae27 = array_map("convierte_a_arreglo",$datae27);
     $datab6 = array_map("convierte_a_arreglo",$datab6);
@@ -2657,7 +2684,7 @@ function valida_Calculos_j($data, $letra, $datae23, $datae27, $datab6, $datad6, 
     }
     //echo "OPERACION ".truncate($j_4,6)." != ".truncate($calc_j_4,6)."\n"; exit();
     if(truncate($j_4,6) != truncate($calc_j_4,6)){ //echo "OPERACION ".round($j_4,6)." != ".round($calc_j_4,6)."\n";
-        return  "j.4 - El cálculo de ImporteInstalacionesEspeciales es erróneo ";
+        $mensajesj[] =  "j.4 - El cálculo de ImporteInstalacionesEspeciales es erróneo ";
     }
     
     $j_5 = $data[0]['ImporteTotalValorCatastral'];
@@ -2667,19 +2694,24 @@ function valida_Calculos_j($data, $letra, $datae23, $datae27, $datab6, $datad6, 
         $calc_j_5 = $d_13 + $e_2_3 + $e_2_7 + $j_4;
     }
 
-    if(truncate($j_5,6) != truncate($calc_j_5,6)){ //echo "OPERACION ".round($j_5,6)." != ".round($calc_j_5,6)."\n";
-        return  "j.5 - El cálculo de ImporteTotalValorCatastral es erróneo ";
+    if(truncate($j_5,2) !== truncate($calc_j_5,2)){ echo "OPERACION ".truncate($j_5,2)." != ".truncate($calc_j_5,2)."\n";
+        $mensajesj[] =  "j.5 - El cálculo de ImporteTotalValorCatastral es erróneo ";
     }
     
     $j_7 = $data[0]['ImporteTotalValorCatastralObraEnProceso'];
     $j_6 = $data[0]['AvanceDeObra'];
     $calc_j_7 = $j_5 * $j_6;
 
-    if(truncate($j_7,6) != truncate($calc_j_7,6)){ //echo "OPERACION ".round($j_7,6)." != ".round($calc_j_7,6)."\n";
-        return  "j.7 - El cálculo de ImporteTotalValorCatastralObraEnProceso es erróneo ";
+    if(truncate($j_7,2) != truncate($calc_j_7,2)){ //echo "OPERACION ".round($j_7,6)." != ".round($calc_j_7,6)."\n";
+        $mensajesj[] =  "j.7 - El cálculo de ImporteTotalValorCatastralObraEnProceso es erróneo ";
     }
 
-    return "Correcto";
+    if(count($mensajesj) > 0){
+        return $mensajesj;
+    }else{
+        return "Correcto";
+    }
+    
 }
 
 function valida_AvaluoCaracteristicasUrbanas($data){
