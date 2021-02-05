@@ -681,9 +681,9 @@ class Reimpresion
                 $infoReimpresion['Terrenos']['Terrenos_Residuales']['Investigacion_Productos_Comparables'] = array();
 
                 $control = 0;
-                foreach($terrenosResidual as $terrenoResidual){
-                    $infoReimpresion['Terrenos']['Terrenos_Residuales']['Investigacion_Productos_Comparables'][$control]['Ubicacion'] = $terrenoDirecto['Calle'].". ".$terrenoDirecto['Colonia'].". ".$terrenoDirecto['CodigoPostal'].".";
-                    $infoReimpresion['Terrenos']['Terrenos_Residuales']['Investigacion_Productos_Comparables'][$control]['Descripcion'] = $terrenoDirecto['DescripcionDelComparable'];   
+                foreach($terrenosResidual['InvestigacionProductosComparables'] as $terrenoResidualInvestigacionProductos){
+                    $infoReimpresion['Terrenos']['Terrenos_Residuales']['Investigacion_Productos_Comparables'][$control]['Ubicacion'] = $terrenoResidualInvestigacionProductos['Calle'].". ".$terrenoResidualInvestigacionProductos['Colonia'].". ".$terrenoResidualInvestigacionProductos['CodigoPostal'].".";
+                    $infoReimpresion['Terrenos']['Terrenos_Residuales']['Investigacion_Productos_Comparables'][$control]['Descripcion'] = $terrenoResidualInvestigacionProductos['DescripcionDelComparable'];   
 
                     $control = $control + 1;
                 }
