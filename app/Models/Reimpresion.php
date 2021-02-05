@@ -57,17 +57,25 @@ class Reimpresion
         $myfile = fopen($rutaArchivos."/".$nombreArchivo, "a+");
         fwrite($myfile,$archivoComprimido);
         fclose($myfile);
-        $comandoDescomprimir = "7z e ".$rutaArchivos."/".$nombreArchivo;        
-        shell_exec($comandoDescomprimir); 
+        $comandoNombre = "7z l ".$rutaArchivos."/".$nombreArchivo;
+        $datosNombre = shell_exec($comandoNombre);
+        $comandoDescomprimir = "7z e ".$rutaArchivos."/".$nombreArchivo;   
+        shell_exec($comandoDescomprimir);
         $comandoRm = "rm ".$rutaArchivos."/".$nombreArchivo;
         shell_exec($comandoRm);
+        $comandols = "ls php*";
+        $archphp = shell_exec($comandols);
+        if(substr(trim($archphp),0,3) == 'php'){
+            $comandoMv = "mv ".$rutaArchivos."/"."php* ".$rutaArchivos."/"."default";
+            system($comandoMv);
+        }     
         $myfile = fopen($rutaArchivos."/default", "r");
         $contenidoArchivo = fread($myfile, filesize($rutaArchivos."/default"));
         fclose($myfile);        
         $xml = simplexml_load_string($contenidoArchivo,'SimpleXMLElement', LIBXML_NOCDATA);
         $comandoRmDefault = "rm ".$rutaArchivos."/default";
         shell_exec($comandoRmDefault);
-        $arrXML = convierte_a_arreglo($xml); //print_r($arrXML); exit();
+        $arrXML = convierte_a_arreglo($xml);
 
         $infoFexava = DB::select("SELECT * FROM FEXAVA_AVALUO WHERE IDAVALUO = $idAvaluo");
         $arrInfoFexava = array_map("convierte_a_arreglo",$infoFexava);
@@ -163,7 +171,7 @@ class Reimpresion
         $infoReimpresion['Uso_Suelo'] = $arrFexava['cuuso'];
         $infoReimpresion['Area_Libre_Obligatoria'] = $arrFexava['cuarealibreobligatorio'];
         $infoReimpresion['Vias_Acceso_E_Importancia'] = $caracterisiticasUrbanas['ViasDeAccesoEImportancia'];
-
+        
         /************************************************************************************************************************************************************************/
 
         $infoReimpresion['Servicios_Publicos_Equipamiento'] = array();
@@ -204,13 +212,13 @@ class Reimpresion
         $terreno = $elementoPrincipal['Terreno'];
 
         $infoReimpresion['Calles_Transversales_Limitrofes'] = $terreno['CallesTransversalesLimitrofesYOrientacion'];
-
+        
         /************************************************************************************************************************************************************************/
-
+        
         $infoReimpresion['Croquis_Localizacion'] = array();
         $infoReimpresion['Croquis_Localizacion']['Microlocalizacion'] = base64_encode($this->modelDocumentos->get_fichero_documento($terreno['CroquisMicroLocalizacion']));
         $infoReimpresion['Croquis_Localizacion']['Macrolocalizacion'] = base64_encode($this->modelDocumentos->get_fichero_documento($terreno['CroquisMacroLocalizacion']));
-
+        
         /************************************************************************************************************************************************************************/
 
         $infoReimpresion['Medidas_Colindancias'] = array();
@@ -222,7 +230,7 @@ class Reimpresion
         $infoReimpresion['Medidas_Colindancias']['Entidad_Federativa'] = $fuenteDeInformacion['Escritura']['DistritoJudicialNotario'];
         $infoReimpresion['Medidas_Colindancias']['Numero_Volumen'] = $fuenteDeInformacion['Escritura']['NumeroDeVolumen'];
         $infoReimpresion['Medidas_Colindancias']['Nombre_Notario'] = $fuenteDeInformacion['Escritura']['NombreDelNotario'];
-
+        
         /************************************************************************************************************************************************************************/
 
         $colindancias = $terreno['MedidasYColindancias']['Colindancias'];
