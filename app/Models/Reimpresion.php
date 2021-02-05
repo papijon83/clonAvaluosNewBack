@@ -63,19 +63,29 @@ class Reimpresion
         shell_exec($comandoDescomprimir);
         $comandoRm = "rm ".$rutaArchivos."/".$nombreArchivo;
         shell_exec($comandoRm);
-        $comandols = "ls php*";
-        $archphp = shell_exec($comandols);
-        if(substr(trim($archphp),0,3) == 'php'){
-            $comandoMv = "mv ".$rutaArchivos."/"."php* ".$rutaArchivos."/"."default";
-            system($comandoMv);
-        }     
-        $myfile = fopen($rutaArchivos."/default", "r");
-        $contenidoArchivo = fread($myfile, filesize($rutaArchivos."/default"));
-        fclose($myfile);        
+        if(file_exists($rutaArchivos."/default") === TRUE){    
+            $myfile = fopen($rutaArchivos."/default", "r");
+            $contenidoArchivo = fread($myfile, filesize($rutaArchivos."/default"));
+            fclose($myfile);  
+
+        }else{
+
+            $comandols = "ls php*";
+            $archphp = shell_exec($comandols);
+            if(substr(trim($archphp),0,3) == 'php'){
+                $comandoMv = "mv ".$rutaArchivos."/"."php* ".$rutaArchivos."/"."default";
+                system($comandoMv);
+            }
+
+            $myfile = fopen($rutaArchivos."/default", "r");
+            $contenidoArchivo = fread($myfile, filesize($rutaArchivos."/default"));
+            fclose($myfile);
+        }
+                
         $xml = simplexml_load_string($contenidoArchivo,'SimpleXMLElement', LIBXML_NOCDATA);
         $comandoRmDefault = "rm ".$rutaArchivos."/default";
         shell_exec($comandoRmDefault);
-        $arrXML = convierte_a_arreglo($xml);
+        $arrXML = convierte_a_arreglo($xml); //print_r($arrXML); exit();
 
         $infoFexava = DB::select("SELECT * FROM FEXAVA_AVALUO WHERE IDAVALUO = $idAvaluo");
         $arrInfoFexava = array_map("convierte_a_arreglo",$infoFexava);
@@ -446,7 +456,51 @@ class Reimpresion
         $infoReimpresion['Fachadas'] = $elementosConstruccion['Fachadas'];
 
         /************************************************************************************************************************************************************************/
-        $infoReimpresion['Instalaciones_Especiales'] = array();
+        if(isset($elementosConstruccion['InstalacionesEspeciales'])){
+            $infoReimpresion['Instalaciones_Especiales'] = array();
+            $instalacionesEspeciales = $elementosConstruccion['InstalacionesEspeciales'];
+
+            if(isset($instalacionesEspeciales['Privativas']['@attributes'])){
+                $infoReimpresion['Instalaciones_Especiales']['Privativas'] = array();
+                $infoReimpresion['Instalaciones_Especiales']['Privativas']['Clave'] = $instalacionesEspeciales['Privativas']['ClaveInstalacionEspecial'];
+                $infoReimpresion['Instalaciones_Especiales']['Privativas']['Descripcion'] = $instalacionesEspeciales['Privativas']['DescripcionInstalacionEspecial'];
+                $infoReimpresion['Instalaciones_Especiales']['Privativas']['Unidad'] = $instalacionesEspeciales['Privativas']['UnidadInstalacionEspecial'];
+                $infoReimpresion['Instalaciones_Especiales']['Privativas']['Cantidad'] = $instalacionesEspeciales['Privativas']['CantidadInstalacionEspecial'];
+            }
+
+            if(isset($instalacionesEspeciales['Privativas'][0])){
+                $infoReimpresion['Instalaciones_Especiales']['Privativas'] = array();
+                $control = 0;
+                foreach($instalacionesEspeciales['Privativas'] as $instalacionEspecial){
+                    $infoReimpresion['Instalaciones_Especiales']['Privativas'][$control]['Clave'] = $instalacionEspecial['ClaveInstalacionEspecial'];
+                    $infoReimpresion['Instalaciones_Especiales']['Privativas'][$control]['Descripcion'] = $instalacionEspecial['DescripcionInstalacionEspecial'];
+                    $infoReimpresion['Instalaciones_Especiales']['Privativas'][$control]['Unidad'] = $instalacionEspecial['UnidadInstalacionEspecial'];
+                    $infoReimpresion['Instalaciones_Especiales']['Privativas'][$control]['Cantidad'] = $instalacionEspecial['CantidadInstalacionEspecial'];
+                    $control = $control + 1;
+                }
+            }
+
+            if(isset($instalacionesEspeciales['Comunes']['@attributes'])){
+                $infoReimpresion['Instalaciones_Especiales']['Comunes'] = array();
+                $infoReimpresion['Instalaciones_Especiales']['Comunes']['Clave'] = $instalacionesEspeciales['Comunes']['ClaveInstalacionEspecial'];
+                $infoReimpresion['Instalaciones_Especiales']['Comunes']['Descripcion'] = $instalacionesEspeciales['Comunes']['DescripcionInstalacionEspecial'];
+                $infoReimpresion['Instalaciones_Especiales']['Comunes']['Unidad'] = $instalacionesEspeciales['Comunes']['UnidadInstalacionEspecial'];
+                $infoReimpresion['Instalaciones_Especiales']['Comunes']['Cantidad'] = $instalacionesEspeciales['Comunes']['CantidadInstalacionEspecial'];
+            }
+
+            if(isset($instalacionesEspeciales['Comunes'][0])){
+                $infoReimpresion['Instalaciones_Especiales']['Comunes'] = array();
+                $control = 0;
+                foreach($instalacionesEspeciales['Comunes'] as $instalacionEspecial){
+                    $infoReimpresion['Instalaciones_Especiales']['Comunes'][$control]['Clave'] = $instalacionEspecial['ClaveInstalacionEspecial'];
+                    $infoReimpresion['Instalaciones_Especiales']['Comunes'][$control]['Descripcion'] = $instalacionEspecial['DescripcionInstalacionEspecial'];
+                    $infoReimpresion['Instalaciones_Especiales']['Comunes'][$control]['Unidad'] = $instalacionEspecial['UnidadInstalacionEspecial'];
+                    $infoReimpresion['Instalaciones_Especiales']['Comunes'][$control]['Cantidad'] = $instalacionEspecial['CantidadInstalacionEspecial'];
+                    $control = $control + 1;
+                }
+            }
+
+        }
 
         /************************************************************************************************************************************************************************/
 
@@ -1179,8 +1233,12 @@ class Reimpresion
 
         if(isset($elementoPrincipal['ConsideracionesPreviasAlAvaluo'])){
             $consideraciones = $elementoPrincipal['ConsideracionesPreviasAlAvaluo'];
-            if(isset($consideraciones['ConsideracionesPreviasAlAvaluo']) && trim($consideraciones['ConsideracionesPreviasAlAvaluo']) != ''){
-                $infoReimpresion['Consideraciones_Previas_Al_Avaluo'] = $consideraciones['ConsideracionesPreviasAlAvaluo'];
+            if(isset($consideraciones['ConsideracionesPreviasAlAvaluo'])){
+                if(is_array($consideraciones['ConsideracionesPreviasAlAvaluo'])){
+
+                }else{
+                    $infoReimpresion['Consideraciones_Previas_Al_Avaluo'] = $consideraciones['ConsideracionesPreviasAlAvaluo'];
+                }                
             }    
         }
         
