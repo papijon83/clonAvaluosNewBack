@@ -312,7 +312,7 @@ class Reimpresion
         $tiposContruccion = $descripcionInmueble['TiposDeConstruccion'];
 
         if(isset($tiposContruccion['ConstruccionesPrivativas']['@attributes'])){
-            $infoReimpresion['Construcciones_Privativas']['Tipo'] = '';
+            $infoReimpresion['Construcciones_Privativas']['Tipo'] = 'P';
             $infoReimpresion['Construcciones_Privativas']['Descripcion'] = $tiposContruccion['ConstruccionesPrivativas']['Descripcion'];
             $infoReimpresion['Construcciones_Privativas']['Uso'] = $tiposContruccion['ConstruccionesPrivativas']['ClaveUso'];
             $infoReimpresion['Construcciones_Privativas']['No_Niveles_Tipo'] = $tiposContruccion['ConstruccionesPrivativas']['NumeroDeNivelesDelTipo'];
@@ -329,7 +329,7 @@ class Reimpresion
         if(isset($tiposContruccion['ConstruccionesPrivativas'][0])){
             $control = 0;
             foreach($tiposContruccion['ConstruccionesPrivativas'] as $construccionPrivativa){
-                $infoReimpresion['Construcciones_Privativas'][$control]['Tipo'] = '';
+                $infoReimpresion['Construcciones_Privativas'][$control]['Tipo'] = 'P';
                 $infoReimpresion['Construcciones_Privativas'][$control]['Descripcion'] = $construccionPrivativa['Descripcion'];
                 $infoReimpresion['Construcciones_Privativas'][$control]['Uso'] = $construccionPrivativa['ClaveUso'];
                 $infoReimpresion['Construcciones_Privativas'][$control]['No_Niveles_Tipo'] = $construccionPrivativa['NumeroDeNivelesDelTipo'];
@@ -346,7 +346,7 @@ class Reimpresion
         }
         
         if(isset($tiposContruccion['ConstruccionesComunes']['@attributes'])){
-            $infoReimpresion['Construcciones_Comunes']['Tipo'] = '';
+            $infoReimpresion['Construcciones_Comunes']['Tipo'] = 'C';
             $infoReimpresion['Construcciones_Comunes']['Descripcion'] = $tiposContruccion['ConstruccionesComunes']['Descripcion'];
             $infoReimpresion['Construcciones_Comunes']['Uso'] = $tiposContruccion['ConstruccionesComunes']['ClaveUso'];
             $infoReimpresion['Construcciones_Comunes']['No_Niveles_Tipo'] = $tiposContruccion['ConstruccionesComunes']['NumeroDeNivelesDelTipo'];
@@ -363,7 +363,7 @@ class Reimpresion
         if(isset($tiposContruccion['ConstruccionesComunes'][0])){
             $control = 0;
             foreach($tiposContruccion['ConstruccionesComunes'] as $construccionComun){
-                $infoReimpresion['Construcciones_Comunes'][$control]['Tipo'] = '';
+                $infoReimpresion['Construcciones_Comunes'][$control]['Tipo'] = 'C';
                 $infoReimpresion['Construcciones_Comunes'][$control]['Descripcion'] = $construccionComun['Descripcion'];
                 $infoReimpresion['Construcciones_Comunes'][$control]['Uso'] = $construccionComun['ClaveUso'];
                 $infoReimpresion['Construcciones_Comunes'][$control]['No_Niveles_Tipo'] = $construccionComun['NumeroDeNivelesDelTipo'];
