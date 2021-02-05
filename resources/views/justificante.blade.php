@@ -2631,6 +2631,10 @@
                                             </div>
                                         </div>
                                     </td>
+                                @if(count($infoAvaluo['Inmueble_Objeto_Avaluo']) < 2)
+                                    <td style="width: 50%!important; text-align:center">
+                                    </td>
+                                @endif
                             @else
                                     <td style="width: 50%; text-align:center">
                                         <div class="card">
@@ -2640,6 +2644,10 @@
                                             </div>
                                         </div>
                                     </td>
+                                @if(count($infoAvaluo['Inmueble_Objeto_Avaluo']) < 2)
+                                    <td style="width: 50%!important; text-align:center">
+                                    </td>
+                                @endif
                                 </tr>
                             @endif
                         @endforeach
@@ -2648,7 +2656,8 @@
                 <br>
                 <div style="background-color: #5d6d7e; color: #fff; border: 0px; text-align: right; margin: 2% 0 2% 0;"><b>ANEXO FOTOGRÁFICO COMPARABLES</b></div>
                 <p><b>INMUEBLES EN VENTA</b></p>
-                <table style="width: 100%" style="border-collapse: separate; border-spacing: 10px 5px;">
+                <br><br><br>
+                <table style="width: 100%" style="border-collapse: separate; border-spacing: 10px 5px; margin-top: 5%;">
                 @isset($infoAvaluo['Inmueble_Venta'])    
                     @foreach($infoAvaluo['Inmueble_Venta'] as $value_inmuebleEV)
                         @if($loop->iteration & 1)
@@ -2661,6 +2670,10 @@
                                         </div>
                                     </div>
                                 </td>
+                                @if(count($infoAvaluo['Inmueble_Venta']) < 2)
+                                    <td style="width: 50%!important; text-align:center">
+                                    </td>
+                                @endif
                         @else
                                 <td style="width: 50%; text-align:center">
                                     <div class="card">
@@ -2670,6 +2683,10 @@
                                         </div>
                                     </div>
                                 </td>
+                                @if(count($infoAvaluo['Inmueble_Venta']) < 2)
+                                    <td style="width: 50%!important; text-align:center">
+                                    </td>
+                                @endif
                             </tr>
                         @endif
                     @endforeach
@@ -2677,28 +2694,37 @@
                 </table>
                 <br>
                 <p><b>INMUEBLES EN RENTA</b></p>
-                <table style="width: 100%" style="border-collapse: separate; border-spacing: 10px 5px;">
+                <br>
+                <table style="width: 100%" style="border-collapse: separate; border-spacing: 10px 5px; margin-top: 5%;">
                 @isset($infoAvaluo['Inmueble_Renta'])    
                     @foreach($infoAvaluo['Inmueble_Renta'] as $value_inmuebleR)
                         @if($loop->iteration & 1)
                             <tr>
                                 <td style="width: 50%; text-align:center">
                                     <div class="card">
-                                        <img src="data:image/png;base64,{{$value_inmuebleR['Foto']}}" style="width: 100%;" />
+                                        <img src="data:image/png;base64,{{$value_inmuebleR['Foto']}}" style="width: 320px;" />
                                         <div class="container2">
                                             Cuenta: {{ $value_inmuebleR['Cuenta_Catastral'] }} '        ' @if($value_inmuebleR['Interior_O_Exterior'] == 'E') Exterior @else Interior @endif 
                                         </div>
                                     </div>
                                 </td>
+                                @if(count($infoAvaluo['Inmueble_Renta']) < 2)
+                                    <td style="width: 50%!important; text-align:center">
+                                    </td>
+                                @endif
                         @else
                                 <td style="width: 50%; text-align:center">
                                     <div class="card">
-                                        <img src="data:image/png;base64,{{$value_inmuebleR['Foto']}}" style="width: 100%;" />
+                                        <img src="data:image/png;base64,{{$value_inmuebleR['Foto']}}" style="width: 320px;" />
                                         <div class="container2">
                                             Cuenta: {{ $value_inmuebleR['Cuenta_Catastral'] }} '        ' @if($value_inmuebleR['Interior_O_Exterior'] == 'E') Exterior @else Interior @endif 
                                         </div>
                                     </div>
                                 </td>
+                                @if(count($infoAvaluo['Inmueble_Renta']) < 2)
+                                    <td style="width: 50%!important; text-align:center">
+                                    </td>
+                                @endif
                             </tr>
                         @endif
                     @endforeach
