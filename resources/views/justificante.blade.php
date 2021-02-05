@@ -1526,16 +1526,56 @@
                         @foreach($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos'] as $value_tablaDos)
                         <tr>
                             <td>{{ $i_tDos++ }}</td>
-                            <td>{{ $value_tablaDos['F_Negociacion'] }}</td>
-                            <td>{{ number_format($value_tablaDos['Superficie'],2) }}</td>
-                            <td>{{ $value_tablaDos['Fzo'] }}</td>
-                            <td>{{ $value_tablaDos['Fub'] }}</td>
-                            <td>{{ $value_tablaDos['FFr'] }}</td>
-                            <td>{{ $value_tablaDos['Ffo'] }}</td>
-                            <td>{{ $value_tablaDos['Fsu'] }}</td>
-                            <td>{{ $value_tablaDos['F_otro'] }}</td>
-                            <td>{{ number_format($value_tablaDos['Fre'],4) }}</td>
-                            <td>${{ number_format($value_tablaDos['Precio_Solicitado'],2) }}</td>
+                            <td>
+                            @isset($value_tablaDos['F_Negociacion'])
+                                {{ $value_tablaDos['F_Negociacion'] }}
+                            @endisset
+                            </td>
+                            <td>
+                            @isset($value_tablaDos['Superficie'])
+                                {{ number_format($value_tablaDos['Superficie'],2) }}
+                            @endisset
+                            </td>
+                            <td>
+                            @isset($value_tablaDos['Fzo'])
+                                {{ $value_tablaDos['Fzo'] }}
+                            @endisset
+                            </td>
+                            <td>
+                            @isset($value_tablaDos['Fub'])
+                                {{ $value_tablaDos['Fub'] }}
+                            @endisset
+                            </td>
+                            <td>
+                            @isset($value_tablaDos['FFr'])
+                                {{ $value_tablaDos['FFr'] }}
+                            @endisset
+                            </td>
+                            <td>
+                            @isset($value_tablaDos['Ffo'])
+                                {{ $value_tablaDos['Ffo'] }}
+                            @endisset
+                            </td>
+                            <td>
+                            @isset($value_tablaDos['Fsu'])
+                                {{ $value_tablaDos['Fsu'] }}
+                            @endisset
+                            </td>
+                            <td>
+                            @isset($value_tablaDos['F_otro'])
+                                {{ $value_tablaDos['F_otro'] }}
+                            @endisset
+                            </td>
+                            <td>
+                            @isset($value_tablaDos['Fre'])
+                                {{ number_format($value_tablaDos['Fre'],4) }}
+                            @endisset
+                            </td>
+                            <td>$
+                            @isset($value_tablaDos['Precio_Solicitado'])
+                                {{ number_format($value_tablaDos['Precio_Solicitado'],2) }}
+                            @endisset
+                            </td>
                         </tr>
                         @endforeach
                     @endisset
@@ -1988,17 +2028,61 @@
                     <tbody>
                     @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno'])
                         <tr>
-                            <td>{{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fracc'] }}</td>
-                            <td>{{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Clave_Area_Valor'] }}</td>
-                            <td>{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Superficie_m2'],2) }}</td>
-                            <td>{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fzo'],2) }}</td>
-                            <td>{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fub'],2) }}</td>
-                            <td>{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['FFr'],2) }}</td>
-                            <td>{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Ffo'],2) }}</td>
-                            <td>{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fsu'],2) }}</td>
-                            <td>{{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fot'] }}</td>
-                            <td>{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['F_Resultante'],2) }}</td>
-                            <td>{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Valor_Fraccion'],2) }}</td>
+                            <td>
+                            @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fracc'])
+                                {{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fracc'] }}
+                            @endisset
+                            </td>
+                            <td>
+                            @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Clave_Area_Valor'])
+                                {{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Clave_Area_Valor'] }}
+                            @endisset
+                            </td>
+                            <td>
+                            @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Superficie_m2'])
+                                {{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Superficie_m2'],2) }}
+                            @endisset
+                            </td>
+                            <td>
+                            @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fzo'])
+                                {{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fzo'],2) }}
+                            @endisset
+                            </td>
+                            <td>
+                            @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fub'])
+                                {{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fub'],2) }}
+                            @endisset
+                            </td>
+                            <td>
+                            @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['FFr'])
+                                {{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['FFr'],2) }}
+                            @endisset
+                            </td>
+                            <td>
+                            @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Ffo'])
+                                {{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Ffo'],2) }}
+                            @endisset
+                            </td>
+                            <td>
+                            @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fsu'])
+                                {{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fsu'],2) }}
+                            @endisset
+                            </td>
+                            <td>
+                            @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fot'])
+                                {{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fot'] }}
+                            @endisset
+                            </td>
+                            <td>
+                            @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['F_Resultante'])
+                                {{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['F_Resultante'],2) }}
+                            @endisset
+                            </td>
+                            <td>
+                            @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Valor_Fraccion'])
+                                {{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Valor_Fraccion'],2) }}
+                            @endisset
+                            </td>
                         </tr>
                     @endisset
                     </tbody>
@@ -2429,7 +2513,12 @@
                                 <tfoot>
                                     <tr>
                                         <td><b>SUMA:</b></td>
-                                        <td><b>${{ number_format($infoAvaluo['Analisis_Deducciones']['Totales']['Suma'],2) }}</b></td>
+                                        <td><b>$
+                                        @isset($infoAvaluo['Analisis_Deducciones']['Totales']['Suma'])
+                                            {{ number_format($infoAvaluo['Analisis_Deducciones']['Totales']['Suma'],2) }}
+                                        @endisset
+                                        </b>
+                                        </td>
                                     </tr>
                                 </tfoot>
                             </table>
