@@ -2651,7 +2651,7 @@ function valida_Calculos_i($data,$letra, $datad13, $datae2, $dataf12, $dataf14){
     $i_6 = $data[0]['ImporteTotalDelEnfoqueDeCostos'];
     $calc_i_6 = $d_13 + $e_2_3 + $e_2_8 + $f_12 + $f_14;
 
-    if((String)(truncate($i_6,2)) != (String)(truncate($calc_i_6,2))){ error_log(truncate($i_6,2)." != ".truncate($calc_i_6,2));
+    if((String)(truncate($i_6,2)) != (String)(truncate($calc_i_6,2))){ //error_log(truncate($i_6,2)." != ".truncate($calc_i_6,2));
         return  "i.6 - El cálculo de ImporteTotalDelEnfoqueDeCostos es erróneo ";
     }
 
