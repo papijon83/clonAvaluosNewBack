@@ -784,6 +784,9 @@ class Reimpresion
             $infoReimpresion['Construcciones_En_Renta']['Valor_Unitario_Aplicable_Avaluo'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioAplicableAlAvaluo'];
 
     }
+        /************************************************************************************************************************************************************************/
+
+
 
         /************************************************************************************************************************************************************************/
 
@@ -829,8 +832,8 @@ class Reimpresion
         
         $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Totales']['Valor_Total_Del_Terreno_Proporcional'] = $terreno['ValorTotalDelTerrenoProporcional'];
 
+        
         /*********************************************************************************************************************************************************************************/
-
         $infoReimpresion['Calculo_Valor_Construcciones'] = array();
         $infoReimpresion['Calculo_Valor_Construcciones']['Privativas'] = array();
         $infoReimpresion['Calculo_Valor_Construcciones']['Totales_Privativas'] = array();
@@ -1169,11 +1172,17 @@ class Reimpresion
             $infoReimpresion['Avance_Obra'] = $enfoqueCostos['AvanceDeObra'] <= 1 ? $enfoqueCostos['AvanceDeObra'] * 100 : $enfoqueCostos['AvanceDeObra'];
             $infoReimpresion['Importe_Total_Valor_Catastral_Obra_Proceso'] = $enfoqueCostos['ImporteTotalValorCatastralObraEnProceso'];
 
-            $consideraciones = $elementoPrincipal['ConsideracionesPreviasAlAvaluo'];
+            /*$consideraciones = $elementoPrincipal['ConsideracionesPreviasAlAvaluo'];
 
-            $infoReimpresion['Consideraciones'] = $consideraciones['ConsideracionesPreviasAlAvaluo'];
+            $infoReimpresion['Consideraciones_Previas_Al_Avaluo'] = $consideraciones['ConsideracionesPreviasAlAvaluo'];*/
         }        
 
+        if(isset($elementoPrincipal['ConsideracionesPreviasAlAvaluo'])){
+            $consideraciones = $elementoPrincipal['ConsideracionesPreviasAlAvaluo'];
+            if(isset($consideraciones['ConsideracionesPreviasAlAvaluo']) && trim($consideraciones['ConsideracionesPreviasAlAvaluo']) != ''){
+                $infoReimpresion['Consideraciones_Previas_Al_Avaluo'] = $consideraciones['ConsideracionesPreviasAlAvaluo'];
+            }    
+        }
         
 
         /*************************************************************************************************************************************************************/
