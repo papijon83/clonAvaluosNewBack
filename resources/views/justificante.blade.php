@@ -1412,37 +1412,37 @@
                                 @foreach($infoAvaluo['Obras_Complementarias']['Privativas'] as $value_obras)
                                 <tr>
                                     <td class="centrado">
-                                    @isset(value_obras['Clave'])
+                                    @isset($value_obras['Clave'])
                                         {{$value_obras['Clave']}}
                                     @endisset
                                     </td>
                                     <td>
-                                    @isset(value_obras['Descripcion'])
+                                    @isset($value_obras['Descripcion'])
                                         {{$value_obras['Descripcion']}}
                                     @endisset
                                     </td>
                                     <td>
-                                    @isset(value_obras['Unidad'])
+                                    @isset($value_obras['Unidad'])
                                         {{$value_obras['Unidad']}}
                                     @endisset
                                     </td>
                                     <td>
-                                    @isset(value_obras['Cantidad'])
+                                    @isset($value_obras['Cantidad'])
                                         {{$value_obras['Cantidad']}}
                                     @endisset
                                     </td>
                                     <td>
-                                    @isset(value_obras['Edad'])
+                                    @isset($value_obras['Edad'])
                                         {{$value_obras['Edad']}}
                                     @endisset
                                     </td>
                                     <td>
-                                    @isset(value_obras['Vida_Util_Total'])
+                                    @isset($value_obras['Vida_Util_Total'])
                                         {{$value_obras['Vida_Util_Total']}}
                                     @endisset
                                     </td>
                                     <td>
-                                    @isset(value_obras['Valor_Unitario'])
+                                    @isset($value_obras['Valor_Unitario'])
                                         {{$value_obras['Valor_Unitario']}}
                                     @endisset
                                     </td>
