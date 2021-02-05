@@ -880,13 +880,14 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            @if(isset($infoAvaluo['Construcciones_Privativas'][0]) && is_array($infoAvaluo['Construcciones_Privativas'][0]))
+                            @php
+                                $i_construccionesP = 1;
+                            @endphp
+                            @if(isset($infoAvaluo['Construcciones_Privativas'][0]))
                                 @foreach($infoAvaluo['Construcciones_Privativas'] as $value_construccionesP)
                                     <tr>
                                         <td class="centrado">
-                                        @isset($value_construccionesP['Tipo'])
-                                            {{$value_construccionesP['Tipo']}}
-                                        @endisset
+                                            {{$i_construccionesP++}}
                                         </td>
                                         <td class="centrado">
                                         @isset($value_construccionesP['Descripcion'])
@@ -945,12 +946,10 @@
                                         </td>
                                     </tr>
                                 @endforeach
-                            @elseif(!isset($infoAvaluo['Construcciones_Privativas'][0]) && isset($infoAvaluo['Construcciones_Privativas']))
+                            @else
                                     <tr>
                                         <td class="centrado">
-                                        @isset($infoAvaluo['Construcciones_Privativas']['Tipo'])
-                                            {{$infoAvaluo['Construcciones_Privativas']['Tipo']}}
-                                        @endisset
+                                        1
                                         </td>
                                         <td class="centrado">
                                         @isset($infoAvaluo['Construcciones_Privativas']['Descripcion'])
@@ -1033,6 +1032,73 @@
                                 </tr>
                             </thead>
                             <tbody>
+                            @php
+                                $i_construccionesC = 1;
+                            @endphp
+                            @if(isset($infoAvaluo['Construcciones_Comunes'][0]))
+                                @foreach($infoAvaluo['Construcciones_Comunes'] as $value_construccionesC)
+                                    <tr>
+                                        <td class="centrado">
+                                            {{$i_construccionesC++}}
+                                        </td>
+                                        <td class="centrado">
+                                        @isset($value_construccionesC['Descripcion'])
+                                            {{$value_construccionesC['Descripcion']}}
+                                        @endisset
+                                        </td>
+                                        <td class="centrado">
+                                        @isset($value_construccionesC['Uso'])
+                                            {{$value_construccionesC['Uso']}}
+                                        @endisset
+                                        </td>
+                                        <td class="centrado">
+                                        @isset($value_construccionesC['No_Niveles_Tipo'])
+                                            {{$value_construccionesC['No_Niveles_Tipo']}}
+                                        @endisset
+                                        </td>
+                                        <td class="centrado">
+                                        @isset($value_construccionesC['Clave_Rango_Niveles'])
+                                            {{$value_construccionesC['Clave_Rango_Niveles']}}
+                                        @endisset
+                                        </td>
+                                        <td class="centrado">
+                                        @isset($value_construccionesC['Puntaje'])
+                                            {{$value_construccionesC['Puntaje']}}
+                                        @endisset
+                                        </td>
+                                        <td class="centrado">
+                                        @isset($value_construccionesC['Clase'])
+                                            {{$value_construccionesC['Clase']}}
+                                        @endisset
+                                        </td>
+                                        <td class="centrado">
+                                        @isset($value_construccionesC['Edad'])
+                                            {{$value_construccionesC['Edad']}}
+                                        @endisset
+                                        </td>
+                                        <td class="centrado">
+                                        @isset($value_construccionesC['Vida_Util_Total_Tipo'])
+                                            {{$value_construccionesC['Vida_Util_Total_Tipo']}}
+                                        @endisset
+                                        </td>
+                                        <td class="centrado">
+                                        @isset($value_construccionesC['Vida_Util_Remanente'])
+                                            {{$value_construccionesC['Vida_Util_Remanente']}}
+                                        @endisset
+                                        </td>
+                                        <td class="centrado">
+                                        @isset($value_construccionesC['Conservacion'])
+                                            {{$value_construccionesC['Conservacion']}}
+                                        @endisset
+                                        </td>
+                                        <td class="centrado">
+                                        @isset($value_construccionesC['Sup'])
+                                            {{$value_construccionesC['Sup']}}
+                                        @endisset
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @else
                                 <tr>
                                     <td class="centrado">
                                     @isset($infoAvaluo['Construcciones_Comunes']['Tipo'])
@@ -1095,6 +1161,7 @@
                                     @endisset
                                     </td>
                                 </tr>
+                            @endif
                             </tbody>
                         </table>
 
@@ -1103,7 +1170,7 @@
                                 <td><b>INDIVISO</b></td>
                                 <td>
                                 @isset($infoAvaluo['Indiviso'])
-                                    {{$infoAvaluo['Indiviso']}}
+                                    {{$infoAvaluo['Indiviso']}} %
                                 @endisset
                                 </td>
                             </tr>
@@ -1403,11 +1470,10 @@
 
 
                     <h4 style="margin-top: 4%;"><b>k) ELEMENTOS ACCESORIOS</b></h4>
-
-                    <table class="tabla_cabeza_gris" style="">
+                        <span><b>Privativas</b></span>
+                        <table class="tabla_cabeza_gris" style="">
                             <thead>
                                 <tr>
-                                    <th rowspan="2" style="background-color: #FFF; border-top: 1px solid white; border-bottom: 0px; border-left: 1px solid white!important;" valign="top"><br><br>Privativas</th>
                                     <th>Clave</th>
                                     <th>Descripción</th>
                                     <th>Unidad</th>
@@ -1418,6 +1484,47 @@
                                 </tr>
                             </thead>
                             <tbody>
+                            @if(isset($infoAvaluo['Elementos_Accesorios']['Privativas'][0]))
+                                @foreach($infoAvaluo['Elementos_Accesorios']['Privativas'] as $value_elementoAccP)
+                                    <tr>
+                                        <td class="centrado">
+                                        @isset($value_elementoAccP['Clave'])
+                                            {{$value_elementoAccP['Clave']}}
+                                        @endisset
+                                        </td>
+                                        <td>
+                                        @isset($value_elementoAccP['Descripcion'])
+                                            {{$value_elementoAccP['Descripcion']}}
+                                        @endisset
+                                        </td>
+                                        <td>
+                                        @isset($value_elementoAccP['Unidad'])
+                                            {{$value_elementoAccP['Unidad']}}
+                                        @endisset
+                                        </td>
+                                        <td>
+                                        @isset($value_elementoAccP['Cantidad'])
+                                            {{$value_elementoAccP['Cantidad']}}
+                                        @endisset
+                                        </td>
+                                        <td>
+                                        @isset($value_elementoAccP['Edad'])
+                                            {{$value_elementoAccP['Edad']}}
+                                        @endisset
+                                        </td>
+                                        <td>
+                                        @isset($value_elementoAccP['Vida_Util_Total'])
+                                            {{$value_elementoAccP['Vida_Util_Total']}}
+                                        @endisset
+                                        </td>
+                                        <td>
+                                        @isset($value_elementoAccP['Valor_Unitario'])
+                                            {{$value_elementoAccP['Valor_Unitario']}}
+                                        @endisset
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @else
                                 <tr>
                                     <td class="centrado">
                                     @isset($infoAvaluo['Elementos_Accesorios']['Privativas']['Clave'])
@@ -1455,16 +1562,15 @@
                                     @endisset
                                     </td>
                                 </tr>
+                            @endif    
                             </tbody>
                         </table>
 
-
                     <h4 style="margin-top: 4%;"><b>l) OBRAS COMPLEMENTARIAS</b></h4>
-
-                    <table class="tabla_cabeza_gris" style="">
+                        <span><b>Privativas</b></span>
+                        <table class="tabla_cabeza_gris" style="">
                             <thead>
                                 <tr>
-                                    <th rowspan="3" style="background-color: #FFF; border-top: 1px solid white; border-bottom: 0px; border-left: 1px solid white!important;" valign="top"><br><br>Privativas</th>
                                     <th>Clave</th>
                                     <th>Descripción</th>
                                     <th>Unidad</th>
@@ -1475,47 +1581,85 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            @isset($infoAvaluo['Obras_Complementarias']['Privativas'])
+                            @if(isset($infoAvaluo['Obras_Complementarias']['Privativas'][0]))
                                 @foreach($infoAvaluo['Obras_Complementarias']['Privativas'] as $value_obras)
+                                    <tr>
+                                        <td class="centrado">
+                                        @isset($value_obras['Clave'])
+                                            {{$value_obras['Clave']}}
+                                        @endisset
+                                        </td>
+                                        <td>
+                                        @isset($value_obras['Descripcion'])
+                                            {{$value_obras['Descripcion']}}
+                                        @endisset
+                                        </td>
+                                        <td>
+                                        @isset($value_obras['Unidad'])
+                                            {{$value_obras['Unidad']}}
+                                        @endisset
+                                        </td>
+                                        <td>
+                                        @isset($value_obras['Cantidad'])
+                                            {{$value_obras['Cantidad']}}
+                                        @endisset
+                                        </td>
+                                        <td>
+                                        @isset($value_obras['Edad'])
+                                            {{$value_obras['Edad']}}
+                                        @endisset
+                                        </td>
+                                        <td>
+                                        @isset($value_obras['Vida_Util_Total'])
+                                            {{$value_obras['Vida_Util_Total']}}
+                                        @endisset
+                                        </td>
+                                        <td>
+                                        @isset($value_obras['Valor_Unitario'])
+                                            {{$value_obras['Valor_Unitario']}}
+                                        @endisset
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @else
                                 <tr>
                                     <td class="centrado">
-                                    @isset($value_obras['Clave'])
-                                        {{$value_obras['Clave']}}
+                                    @isset($infoAvaluo['Obras_Complementarias']['Privativas']['Clave'])
+                                        {{$infoAvaluo['Obras_Complementarias']['Privativas']['Clave']}}
                                     @endisset
                                     </td>
                                     <td>
-                                    @isset($value_obras['Descripcion'])
-                                        {{$value_obras['Descripcion']}}
+                                    @isset($infoAvaluo['Obras_Complementarias']['Privativas']['Descripcion'])
+                                        {{$infoAvaluo['Obras_Complementarias']['Privativas']['Descripcion']}}
                                     @endisset
                                     </td>
                                     <td>
-                                    @isset($value_obras['Unidad'])
-                                        {{$value_obras['Unidad']}}
+                                    @isset($infoAvaluo['Obras_Complementarias']['Privativas']['Unidad'])
+                                        {{$infoAvaluo['Obras_Complementarias']['Privativas']['Unidad']}}
                                     @endisset
                                     </td>
                                     <td>
-                                    @isset($value_obras['Cantidad'])
-                                        {{$value_obras['Cantidad']}}
+                                    @isset($infoAvaluo['Obras_Complementarias']['Privativas']['Cantidad'])
+                                        {{$infoAvaluo['Obras_Complementarias']['Privativas']['Cantidad']}}
                                     @endisset
                                     </td>
                                     <td>
-                                    @isset($value_obras['Edad'])
-                                        {{$value_obras['Edad']}}
+                                    @isset($infoAvaluo['Obras_Complementarias']['Privativas']['Edad'])
+                                        {{$infoAvaluo['Obras_Complementarias']['Privativas']['Edad']}}
                                     @endisset
                                     </td>
                                     <td>
-                                    @isset($value_obras['Vida_Util_Total'])
-                                        {{$value_obras['Vida_Util_Total']}}
+                                    @isset($infoAvaluo['Obras_Complementarias']['Privativas']['Vida_Util_Total'])
+                                        {{$infoAvaluo['Obras_Complementarias']['Privativas']['Vida_Util_Total']}}
                                     @endisset
                                     </td>
                                     <td>
-                                    @isset($value_obras['Valor_Unitario'])
-                                        {{$value_obras['Valor_Unitario']}}
+                                    @isset($infoAvaluo['Obras_Complementarias']['Privativas']['Valor_Unitario'])
+                                        {{$infoAvaluo['Obras_Complementarias']['Privativas']['Valor_Unitario']}}
                                     @endisset
                                     </td>
-                                </tr>
-                                @endforeach
-                            @endisset
+                                </tr>                                
+                            @endif
                             </tbody>
                         </table>
 
@@ -1633,63 +1777,117 @@
                     @php
                         $i_tDos = 1;
                     @endphp
-                    @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos'])
+                    @if(isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos'][0]))
                         @foreach($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos'] as $value_tablaDos)
-                        <tr>
-                            <td>{{ $i_tDos++ }}</td>
+                            <tr>
+                                <td>{{ $i_tDos++ }}</td>
+                                <td>
+                                @isset($value_tablaDos['F_Negociacion'])
+                                    {{ $value_tablaDos['F_Negociacion'] }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($value_tablaDos['Superficie'])
+                                    {{ number_format($value_tablaDos['Superficie'],2) }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($value_tablaDos['Fzo'])
+                                    {{ $value_tablaDos['Fzo'] }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($value_tablaDos['Fub'])
+                                    {{ $value_tablaDos['Fub'] }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($value_tablaDos['FFr'])
+                                    {{ $value_tablaDos['FFr'] }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($value_tablaDos['Ffo'])
+                                    {{ $value_tablaDos['Ffo'] }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($value_tablaDos['Fsu'])
+                                    {{ $value_tablaDos['Fsu'] }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($value_tablaDos['F_otro'])
+                                    {{ $value_tablaDos['F_otro'] }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($value_tablaDos['Fre'])
+                                    {{ number_format($value_tablaDos['Fre'],4) }}
+                                @endisset
+                                </td>
+                                <td>$
+                                @isset($value_tablaDos['Precio_Solicitado'])
+                                    {{ number_format($value_tablaDos['Precio_Solicitado'],2) }}
+                                @endisset
+                                </td>
+                            </tr>
+                        @endforeach
+                    @else
+                         <tr>
+                            <td>1</td>
                             <td>
-                            @isset($value_tablaDos['F_Negociacion'])
-                                {{ $value_tablaDos['F_Negociacion'] }}
+                            @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['F_Negociacion'])
+                                {{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['F_Negociacion'] }}
                             @endisset
                             </td>
                             <td>
-                            @isset($value_tablaDos['Superficie'])
-                                {{ number_format($value_tablaDos['Superficie'],2) }}
+                            @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Superficie'])
+                                {{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Superficie'],2) }}
                             @endisset
                             </td>
                             <td>
-                            @isset($value_tablaDos['Fzo'])
-                                {{ $value_tablaDos['Fzo'] }}
+                            @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Fzo'])
+                                {{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Fzo'] }}
                             @endisset
                             </td>
                             <td>
-                            @isset($value_tablaDos['Fub'])
-                                {{ $value_tablaDos['Fub'] }}
+                            @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Fub'])
+                                {{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Fub'] }}
                             @endisset
                             </td>
                             <td>
-                            @isset($value_tablaDos['FFr'])
-                                {{ $value_tablaDos['FFr'] }}
+                            @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['FFr'])
+                                {{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['FFr'] }}
                             @endisset
                             </td>
                             <td>
-                            @isset($value_tablaDos['Ffo'])
-                                {{ $value_tablaDos['Ffo'] }}
+                            @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Ffo'])
+                                {{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Ffo'] }}
                             @endisset
                             </td>
                             <td>
-                            @isset($value_tablaDos['Fsu'])
-                                {{ $value_tablaDos['Fsu'] }}
+                            @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Fsu'])
+                                {{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Fsu'] }}
                             @endisset
                             </td>
                             <td>
-                            @isset($value_tablaDos['F_otro'])
-                                {{ $value_tablaDos['F_otro'] }}
+                            @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['F_otro'])
+                                {{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['F_otro'] }}
                             @endisset
                             </td>
                             <td>
-                            @isset($value_tablaDos['Fre'])
-                                {{ number_format($value_tablaDos['Fre'],4) }}
+                            @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Fre'])
+                                {{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Fre'],4) }}
                             @endisset
                             </td>
                             <td>$
-                            @isset($value_tablaDos['Precio_Solicitado'])
-                                {{ number_format($value_tablaDos['Precio_Solicitado'],2) }}
+                            @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Precio_Solicitado'])
+                                {{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Precio_Solicitado'],2) }}
                             @endisset
                             </td>
                         </tr>
-                        @endforeach
-                    @endisset
+                    @endif
                     </tbody>
                 </table>
                 <br>
