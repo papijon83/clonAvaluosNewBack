@@ -225,9 +225,11 @@ class Reimpresion
         
         /************************************************************************************************************************************************************************/
         
-        $infoReimpresion['Croquis_Localizacion'] = array();
-        $infoReimpresion['Croquis_Localizacion']['Microlocalizacion'] = base64_encode($this->modelDocumentos->get_fichero_documento($terreno['CroquisMicroLocalizacion']));
-        $infoReimpresion['Croquis_Localizacion']['Macrolocalizacion'] = base64_encode($this->modelDocumentos->get_fichero_documento($terreno['CroquisMacroLocalizacion']));
+        $infoReimpresion['Croquis_Localizacion'] = array(); //echo var_dump(base64_decode($this->modelDocumentos->get_fichero_documento($terreno['CroquisMicroLocalizacion']))); exit();
+        $microlocalizacion = $this->modelDocumentos->get_fichero_documento($terreno['CroquisMicroLocalizacion']);
+        $macrolocalizacion = $this->modelDocumentos->get_fichero_documento($terreno['CroquisMacroLocalizacion']);
+        $infoReimpresion['Croquis_Localizacion']['Microlocalizacion'] = $microlocalizacion == base64_encode(base64_decode($microlocalizacion)) ? $microlocalizacion : base64_encode($microlocalizacion);
+        $infoReimpresion['Croquis_Localizacion']['Macrolocalizacion'] = $macrolocalizacion == base64_encode(base64_decode($macrolocalizacion)) ? $macrolocalizacion : base64_encode($macrolocalizacion);
         
         /************************************************************************************************************************************************************************/
 
