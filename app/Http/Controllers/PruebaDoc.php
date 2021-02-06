@@ -184,9 +184,12 @@ class PruebaDoc extends Controller
         //$info = DB::select("SELECT * FROM FEXAVA_AVALUO WHERE IDAVALUO = 17197900");
         //$claveValuador = DB::select("SELECT REGISTRO FROM RCON.RCON_PERITO WHERE IDPERSONA = 264");
 
-        $info = DB::select("SELECT BINARIODATOS FROM DOC.DOC_FICHERODOCUMENTO WHERE IDFICHERODOCUMENTO = 17197891");
+        //$info = DB::select("SELECT BINARIODATOS FROM DOC.DOC_FICHERODOCUMENTO WHERE IDFICHERODOCUMENTO = 17197891");
         
-        print_r($info);
+        //print_r($info);
+
+        $foto = $this->modelDocumentos->get_fichero_foto(17203361);
+        echo $foto;
     }
     
 }
