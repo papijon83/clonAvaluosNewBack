@@ -85,7 +85,7 @@ class Reimpresion
         $xml = simplexml_load_string($contenidoArchivo,'SimpleXMLElement', LIBXML_NOCDATA);
         $comandoRmDefault = "rm ".$rutaArchivos."/default";
         shell_exec($comandoRmDefault);
-        $arrXML = convierte_a_arreglo($xml); //print_r($arrXML); exit();
+        $arrXML = convierte_a_arreglo($xml); //echo $contenidoArchivo; exit();
 
         $infoFexava = DB::select("SELECT * FROM FEXAVA_AVALUO WHERE IDAVALUO = $idAvaluo");
         $arrInfoFexava = array_map("convierte_a_arreglo",$infoFexava);
@@ -727,7 +727,7 @@ class Reimpresion
             /************************************************************************************************************************************************************************/
 
             if(isset($terrenos['TerrenosResidual'])){
-                $infoReimpresion['Terrenos']['Terrenos_Residuales'] = array();
+                $infoReimpresion['Terrenos']['Terrenos_Residuales'] = array();                
                 $terrenosResidual = $terrenos['TerrenosResidual'];
 
                 $infoReimpresion['Terrenos']['Terrenos_Residuales']['Tipo_Producto_Inmoviliario_Propuesto'] = $terrenosResidual['TipoDeProductoInmobiliarioPropuesto'];
@@ -735,11 +735,18 @@ class Reimpresion
                 $infoReimpresion['Terrenos']['Terrenos_Residuales']['Superficie_Vendible_Unidad'] = $terrenosResidual['SuperficieVendiblePorUnidad'];
 
                 $infoReimpresion['Terrenos']['Terrenos_Residuales']['Investigacion_Productos_Comparables'] = array();
+                $infoReimpresion['Terrenos']['Terrenos_Residuales']['Investigacion_Productos_Comparables_2'] = array();
 
                 $control = 0;
                 foreach($terrenosResidual['InvestigacionProductosComparables'] as $terrenoResidualInvestigacionProductos){
                     $infoReimpresion['Terrenos']['Terrenos_Residuales']['Investigacion_Productos_Comparables'][$control]['Ubicacion'] = $terrenoResidualInvestigacionProductos['Calle'].". ".$terrenoResidualInvestigacionProductos['Colonia'].". ".$terrenoResidualInvestigacionProductos['CodigoPostal'].".";
                     $infoReimpresion['Terrenos']['Terrenos_Residuales']['Investigacion_Productos_Comparables'][$control]['Descripcion'] = $terrenoResidualInvestigacionProductos['DescripcionDelComparable'];   
+
+                    if(isset($terrenoResidualInvestigacionProductos['SuperficieVendiblePorUnidad']) && isset($terrenoResidualInvestigacionProductos['PrecioSolicitado']) && isset($terrenoResidualInvestigacionProductos['FactorDeNegociacion'])){
+                        $infoReimpresion['Terrenos']['Terrenos_Residuales']['Investigacion_Productos_Comparables_2'][$control]['F_Negociacion'] = $terrenoResidualInvestigacionProductos['FactorDeNegociacion'];
+                        $infoReimpresion['Terrenos']['Terrenos_Residuales']['Investigacion_Productos_Comparables_2'][$control]['Superficie'] = $terrenoResidualInvestigacionProductos['SuperficieVendiblePorUnidad'];
+                        $infoReimpresion['Terrenos']['Terrenos_Residuales']['Investigacion_Productos_Comparables_2'][$control]['Precio_Solicitado'] = $terrenoResidualInvestigacionProductos['PrecioSolicitado'];
+                    }
 
                     $control = $control + 1;
                 }
@@ -1338,7 +1345,8 @@ class Reimpresion
 
         $control = 0;
         foreach($fotosInmuebleAvaluo as $fotoInmuebleAvaluo){
-            $infoReimpresion['Inmueble_Objeto_Avaluo'][$control]['Foto'] = base64_encode($this->modelDocumentos->get_fichero_documento($fotoInmuebleAvaluo['Foto']));
+            $foto = $this->modelDocumentos->get_fichero_foto($fotoInmuebleAvaluo['Foto']);           
+            $infoReimpresion['Inmueble_Objeto_Avaluo'][$control]['Foto'] = $foto == base64_encode(base64_decode($foto)) ? $foto : base64_encode($foto);
             $infoReimpresion['Inmueble_Objeto_Avaluo'][$control]['Cuenta_Catastral'] = $cuentaAvaluo;
             $infoReimpresion['Inmueble_Objeto_Avaluo'][$control]['Interior_O_Exterior'] = $fotoInmuebleAvaluo['InteriorOExterior'];
             $control = $control + 1;
@@ -1349,10 +1357,12 @@ class Reimpresion
             $infoReimpresion['Inmueble_Venta'] = array();
 
             $control = 0;
-            foreach($fotosVenta as $fotoVenta){
-                $infoReimpresion['Inmueble_Venta'][$control]['Foto'] = base64_encode($this->modelDocumentos->get_fichero_documento($fotoVenta['FotosInmuebleAvaluo']['Foto']));
+            foreach($fotosVenta as $fotoVenta){ //echo $fotoVenta['FotosInmuebleAvaluo']['Foto']."\n";
+                $foto = $this->modelDocumentos->get_fichero_foto($fotoVenta['FotosInmuebleAvaluo']['Foto']);
+                $infoReimpresion['Inmueble_Venta'][$control]['Foto'] = $foto == base64_encode(base64_decode($foto)) ? $foto : base64_encode($foto);
                 $infoReimpresion['Inmueble_Venta'][$control]['Cuenta_Catastral'] = $fotoVenta['CuentaCatastral']['Region']."-".$fotoVenta['CuentaCatastral']['Manzana']."-".$fotoVenta['CuentaCatastral']['Lote']."-".$fotoVenta['CuentaCatastral']['Localidad'];
                 $infoReimpresion['Inmueble_Venta'][$control]['Interior_O_Exterior'] = $fotoVenta['FotosInmuebleAvaluo']['InteriorOExterior'];
+                $control = $control + 1;
             }
         }
         
@@ -1361,12 +1371,14 @@ class Reimpresion
             $infoReimpresion['Inmueble_Renta'] = array();
 
             $control = 0;
-            foreach($fotosRenta as $fotoRenta){
-                $infoReimpresion['Inmueble_Renta'][$control]['Foto'] = base64_encode($this->modelDocumentos->get_fichero_documento($fotoRenta['FotosInmuebleAvaluo']['Foto']));
+            foreach($fotosRenta as $fotoRenta){ //echo $fotoRenta['FotosInmuebleAvaluo']['Foto']."\n";
+                $foto = $this->modelDocumentos->get_fichero_foto($fotoRenta['FotosInmuebleAvaluo']['Foto']);
+                $infoReimpresion['Inmueble_Renta'][$control]['Foto'] = $foto == base64_encode(base64_decode($foto)) ? $foto : base64_encode($foto);
                 $infoReimpresion['Inmueble_Renta'][$control]['Cuenta_Catastral'] = $fotoRenta['CuentaCatastral']['Region']."-".$fotoRenta['CuentaCatastral']['Manzana']."-".$fotoRenta['CuentaCatastral']['Lote']."-".$fotoRenta['CuentaCatastral']['Localidad'];
                 $infoReimpresion['Inmueble_Renta'][$control]['Interior_O_Exterior'] = $fotoRenta['FotosInmuebleAvaluo']['InteriorOExterior'];
+                $control = $control + 1;
             }
-        }        
+        }  //exit();      
 
         return $infoReimpresion;
         
