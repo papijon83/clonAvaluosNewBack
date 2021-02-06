@@ -1056,7 +1056,7 @@ class Reimpresion
 
         $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios'] = array();
         $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Totales'] = array();
-
+        $control = 0;
         if(isset($elementosAccesorios['Privativas']['@attributes'])){
             $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'] = array();
             $control = 0;
@@ -1100,7 +1100,7 @@ class Reimpresion
             }
         }
 
-        if(isset($obrasComplementarias['Privativas']['@attributes'])){
+        if(isset($obrasComplementarias['Privativas']['@attributes'])){  
             $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'][$control][0] = 'O';
             $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'][$control]['Clave'] = $obrasComplementarias['Privativas']['ClaveObraComplementaria'];
             $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'][$control]['Concepto'] = $obrasComplementarias['Privativas']['DescripcionObraComplementaria'];
