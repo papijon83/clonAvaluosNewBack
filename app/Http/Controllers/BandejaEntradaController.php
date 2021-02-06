@@ -855,13 +855,13 @@ class BandejaEntradaController extends Controller
             $this->modelAva = new Ava();
             $this->modelFis = new Fis();
             //Id Persona de usuarios migrados es el id anterior
-            $authToken = $request->header('Authorization');
+            /*$authToken = $request->header('Authorization');
             if (!$authToken) {
                 return response()->json(['mensaje' => 'Sin acceso a la aplicación'], 403);
             } 
             $resToken = Crypt::decrypt($authToken);
             
-            $idPersona = empty($resToken['id_anterior']) ? $resToken['id_usuario']: $resToken['id_anterior']; //$idPersona = 264;
+            $idPersona = empty($resToken['id_anterior']) ? $resToken['id_usuario']: $resToken['id_anterior'];*/ $idPersona = 264;
 
             $file = $request->file('files');
             $myfile = fopen($file, "r");
@@ -3552,10 +3552,38 @@ class BandejaEntradaController extends Controller
                     }                
                     
                 }                
-                $indiceCuentaCatastral = 1;
+                $indiceCuentaCatastral = $i+1;
 
                 if(isset($arrComparableRentas['arrIds'][$i]['q.2.n.2'])){
-                    $fotosInmuebleAvaluo = $xmlAnexoFotografico->xpath($elementoPrincipal.'//AnexoFotografico[@id="q"]//'.$arrAnexoFotografico['arrIds']['q.2'].'[@id="q.2"]//FotosInmuebleAvaluo[@id="q.2.n.2"]');
+                    if(isset($arrComparableRentas['arrElementos'][$i]['FotosInmuebleAvaluo']->Foto)){
+                        $idFoto = 0;
+                        $nombreFoto = $indiceCuentaCatastral."_".".jpg";
+                        $descripcion = "Foto_".$nombreFoto;
+                        $fichero = (String)($arrComparableRentas['arrElementos'][$i]['FotosInmuebleAvaluo']->Foto);
+                        $tipoFoto = $this->tipoInmueble((String)($arrComparableRentas['arrElementos'][$i]['FotosInmuebleAvaluo']->InteriorOExterior)); //error_log("TIPO_FOTO |".$tipoFoto."|");
+                        $fechaAvaluo = $camposFexavaAvaluo['FECHAAVALUO'];
+                        $idUsuario = $camposFexavaAvaluo['IDPERSONAPERITO'];
+                        //error_log($nombreFoto);
+                        $idFoto = $this->modelDocumentos->tran_InsertFotoInmueble($fichero, $nombreFoto, $descripcion, $fechaAvaluo, $tipoFoto, $idUsuario);
+
+                        if($elementoPrincipal == "//Comercial"){            
+                            $this->fileXML->Comercial->AnexoFotografico->ComparableRentas[$i]->FotosInmuebleAvaluo->Foto = $idFoto;
+                        }
+                        if($elementoPrincipal == "//Catastral"){            
+                            $this->fileXML->Catastral->AnexoFotografico->ComparableRentas[$i]->FotosInmuebleAvaluo->Foto = $idFoto;
+                        }
+
+                        if(count($listCuentaCatastral) == 4){
+                            $cadenaSelect = "REGION = '".$listCuentaCatastral[0]."' AND MANZANA = '".$listCuentaCatastral[1]."' AND LOTE = '".$listCuentaCatastral[2]."' AND UNIDADPRIVATIVA = '".$listCuentaCatastral[3]."' AND ROWNUM = 1";
+                            $arrInvestProductosCompRow = DB::select("SELECT * FROM FEXAVA_INVESTPRODUCTOSCOMP WHERE ".$cadenaSelect);                                
+                            $camposFexavaAvaluo['FEXAVA_FOTOCOMPARABLE'][$i]['FEXAVA_INVESTPRODUCTOSCOMP'] = $arrInvestProductosCompRow[0];
+                            $camposFexavaAvaluo['FEXAVA_FOTOCOMPARABLE'][$i]['IDDOCUMENTOFOTO'] = $idFoto;
+                            
+                            
+                        }
+                    }
+
+                    /*$fotosInmuebleAvaluo = $xmlAnexoFotografico->xpath($elementoPrincipal.'//AnexoFotografico[@id="q"]//'.$arrAnexoFotografico['arrIds']['q.2'].'[@id="q.2"]//FotosInmuebleAvaluo[@id="q.2.n.2"]');
                     $arrFotosInmuebleAvaluo = $this->obtenElementos($fotosInmuebleAvaluo);
 
                     for($e=0;$e<count($fotosInmuebleAvaluo);$e++){
@@ -3586,21 +3614,15 @@ class BandejaEntradaController extends Controller
 
                             if(count($listCuentaCatastral) == 4){
                                 $cadenaSelect = "REGION = '".$listCuentaCatastral[0]."' AND MANZANA = '".$listCuentaCatastral[1]."' AND LOTE = '".$listCuentaCatastral[2]."' AND UNIDADPRIVATIVA = '".$listCuentaCatastral[3]."' AND ROWNUM = 1";
-                                //echo "SELECT * FROM FEXAVA_INVESTPRODUCTOSCOMP WHERE ".$cadenaSelect;
-                                $arrInvestProductosCompRow = DB::select("SELECT * FROM FEXAVA_INVESTPRODUCTOSCOMP WHERE ".$cadenaSelect);
-                                //print_r($investProductosCompRow); exit();
-                                /*$arrInvestProductosCompRow = array();
-                                foreach($arrInvestProductosCompRow[0] as $llaveRenglon => $elementoRenglon){
-                                    $arrInvestProductosCompRow[$llaveRenglon] = $elementoRenglon;
-                                }*/
+                                $arrInvestProductosCompRow = DB::select("SELECT * FROM FEXAVA_INVESTPRODUCTOSCOMP WHERE ".$cadenaSelect);                                
                                 $camposFexavaAvaluo['FEXAVA_FOTOCOMPARABLE'][$e]['FEXAVA_INVESTPRODUCTOSCOMP'] = $arrInvestProductosCompRow[0];
                                 $camposFexavaAvaluo['FEXAVA_FOTOCOMPARABLE'][$e]['IDDOCUMENTOFOTO'] = $idFoto;
                                 
                                 
                             }
                         }
-                    }                    
-                    //print_r($camposFexavaAvaluo); exit();
+                    }*/                    
+                    
                 } 
 
             }
@@ -3629,10 +3651,38 @@ class BandejaEntradaController extends Controller
                         $cuentaCatastralStr .= $elementoCuenta;
                     }
                     
-                    $indiceCuentaCatastral = 1;
+                    $indiceCuentaCatastral = $i+1;
                     
                     if(isset($arrComparableVentas['arrIds'][$i]['q.3.n.2'])){
-                        $fotosInmuebleAvaluoVentas = $xmlAnexoFotografico->xpath($elementoPrincipal.'//AnexoFotografico[@id="q"]//'.$arrAnexoFotografico['arrIds']['q.3'].'[@id="q.3"]//FotosInmuebleAvaluo[@id="q.3.n.2"]');
+                        if(isset($arrComparableVentas['arrElementos'][$i]['FotosInmuebleAvaluo']->Foto)){
+                            $idFoto = 0;
+                            $nombreFoto = $indiceCuentaCatastral."_".$cuentaCatastralStr.".jpg";
+                            $descripcion = "Foto_".$nombreFoto;
+                            $fichero = (String)($arrComparableVentas['arrElementos'][$i]['FotosInmuebleAvaluo']->Foto);
+                            $tipoFoto = $this->tipoInmueble((String)($arrComparableVentas['arrElementos'][$i]['FotosInmuebleAvaluo']->InteriorOExterior));
+                            $fechaAvaluo = $camposFexavaAvaluo['FECHAAVALUO'];
+                            $idUsuario = $camposFexavaAvaluo['IDPERSONAPERITO'];
+                            //error_log($nombreFoto);   
+                            $idFoto = $this->modelDocumentos->tran_InsertFotoInmueble($fichero, $nombreFoto, $descripcion, $fechaAvaluo, $tipoFoto, $idUsuario);
+    
+                            if($elementoPrincipal == "//Comercial"){            
+                                $this->fileXML->Comercial->AnexoFotografico->ComparableVentas[$i]->FotosInmuebleAvaluo->Foto = $idFoto;
+                            }
+                            if($elementoPrincipal == "//Catastral"){            
+                                $this->fileXML->Catastral->AnexoFotografico->ComparableVentas[$i]->FotosInmuebleAvaluo->Foto = $idFoto;
+                            }
+    
+                            if(count($listCuentaCatastral) == 4){
+                                $cadenaSelect = "REGION = '".$listCuentaCatastral[0]."' AND MANZANA = '".$listCuentaCatastral[1]."' AND LOTE = '".$listCuentaCatastral[2]."' AND UNIDADPRIVATIVA = '".$listCuentaCatastral[3]."' AND ROWNUM = 1";
+                                $investProductosCompRow = DB::select("SELECT * FROM FEXAVA_INVESTPRODUCTOSCOMP WHERE ".$cadenaSelect);                                
+                                $camposFexavaAvaluo['FEXAVA_FOTOCOMPARABLE'][$i]['FEXAVA_INVESTPRODUCTOSCOMP'] = $arrInvestProductosCompRow[0];
+                                $camposFexavaAvaluo['FEXAVA_FOTOCOMPARABLE'][$i]['IDDOCUMENTOFOTO'] = $idFoto;
+                                
+                                
+                            }
+                        }
+
+                        /*$fotosInmuebleAvaluoVentas = $xmlAnexoFotografico->xpath($elementoPrincipal.'//AnexoFotografico[@id="q"]//'.$arrAnexoFotografico['arrIds']['q.3'].'[@id="q.3"]//FotosInmuebleAvaluo[@id="q.3.n.2"]');
                         $arrFotosInmuebleAvaluoVentas = $this->obtenElementos($fotosInmuebleAvaluoVentas);
                         $controlElementos = count($camposFexavaAvaluo['FEXAVA_FOTOCOMPARABLE']);
                         for($e=0;$e<count($fotosInmuebleAvaluoVentas);$e++){
@@ -3664,23 +3714,18 @@ class BandejaEntradaController extends Controller
                                 if(count($listCuentaCatastral) == 4){
                                     
                                     $cadenaSelect = "REGION = '".$listCuentaCatastral[0]."' AND MANZANA = '".$listCuentaCatastral[1]."' AND LOTE = '".$listCuentaCatastral[2]."' AND UNIDADPRIVATIVA = '".$listCuentaCatastral[3]."' AND ROWNUM = 1";
-                                    $investProductosCompRow = DB::select("SELECT * FROM FEXAVA_INVESTPRODUCTOSCOMP WHERE ".$cadenaSelect);
-                                    //print_r($investProductosCompRow);
-                                    /*$arrInvestProductosCompRow = array();
-                                    foreach($investProductosCompRow[0] as $llaveRenglon => $elementoRenglon){
-                                        $arrInvestProductosCompRow[$llaveRenglon] = $elementoRenglon;
-                                    }*/
+                                    $investProductosCompRow = DB::select("SELECT * FROM FEXAVA_INVESTPRODUCTOSCOMP WHERE ".$cadenaSelect);                                    
                                     $camposFexavaAvaluo['FEXAVA_FOTOCOMPARABLE'][$controlElementos]['FEXAVA_INVESTPRODUCTOSCOMP'] = $investProductosCompRow[0];
                                     $camposFexavaAvaluo['FEXAVA_FOTOCOMPARABLE'][$controlElementos]['IDDOCUMENTOFOTO'] = $idFoto;
                                     
                                 }
                             }
-                        }
+                        }*/
                     }
                 }
             }
         }
-        
+        //print_r($this->fileXML); exit();
         return $camposFexavaAvaluo;
     }
     

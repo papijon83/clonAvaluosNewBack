@@ -190,8 +190,8 @@ class Documentos
 
     public function tran_InsertFotoInmueble($fichero, $nombreFoto, $descripcion, $fechaAvaluo, $tipoFoto, $idUsuario){
         //$descripcion = "Foto_".$nombreFoto;
-        $idDocumentoDigital = $this->insertDocumentoDigitalFoto($descripcion,3,$fechaAvaluo,$idUsuario);
-        $idficherodoc = $this->tran_InsertFichero($idDocumentoDigital,$nombreFoto,$nombreFoto,$fichero);
+        $idDocumentoDigital = $this->insertDocumentoDigitalFoto($descripcion,3,$fechaAvaluo,$idUsuario); //error_log("IDDOCUMENTODIG ".$idDocumentoDigital);
+        $idficherodoc = $this->tran_InsertFichero($idDocumentoDigital,$nombreFoto,$nombreFoto,$fichero); //error_log("idficherodoc ".$idficherodoc);
         $this->InsertFotoInmueble($idDocumentoDigital, $tipoFoto);
         return $idDocumentoDigital ? $idDocumentoDigital : 0;
     }

@@ -1345,7 +1345,7 @@ class Reimpresion
 
         $control = 0;
         foreach($fotosInmuebleAvaluo as $fotoInmuebleAvaluo){
-            $foto = $this->modelDocumentos->get_fichero_documento($fotoInmuebleAvaluo['Foto']);           
+            $foto = $this->modelDocumentos->get_fichero_foto($fotoInmuebleAvaluo['Foto']);           
             $infoReimpresion['Inmueble_Objeto_Avaluo'][$control]['Foto'] = $foto == base64_encode(base64_decode($foto)) ? $foto : base64_encode($foto);
             $infoReimpresion['Inmueble_Objeto_Avaluo'][$control]['Cuenta_Catastral'] = $cuentaAvaluo;
             $infoReimpresion['Inmueble_Objeto_Avaluo'][$control]['Interior_O_Exterior'] = $fotoInmuebleAvaluo['InteriorOExterior'];
@@ -1358,7 +1358,7 @@ class Reimpresion
 
             $control = 0;
             foreach($fotosVenta as $fotoVenta){ //echo $fotoVenta['FotosInmuebleAvaluo']['Foto']."\n";
-                $foto = $this->modelDocumentos->get_fichero_documento($fotoVenta['FotosInmuebleAvaluo']['Foto']);
+                $foto = $this->modelDocumentos->get_fichero_foto($fotoVenta['FotosInmuebleAvaluo']['Foto']);
                 $infoReimpresion['Inmueble_Venta'][$control]['Foto'] = $foto == base64_encode(base64_decode($foto)) ? $foto : base64_encode($foto);
                 $infoReimpresion['Inmueble_Venta'][$control]['Cuenta_Catastral'] = $fotoVenta['CuentaCatastral']['Region']."-".$fotoVenta['CuentaCatastral']['Manzana']."-".$fotoVenta['CuentaCatastral']['Lote']."-".$fotoVenta['CuentaCatastral']['Localidad'];
                 $infoReimpresion['Inmueble_Venta'][$control]['Interior_O_Exterior'] = $fotoVenta['FotosInmuebleAvaluo']['InteriorOExterior'];
@@ -1372,7 +1372,7 @@ class Reimpresion
 
             $control = 0;
             foreach($fotosRenta as $fotoRenta){ //echo $fotoRenta['FotosInmuebleAvaluo']['Foto']."\n";
-                $foto = $this->modelDocumentos->get_fichero_documento($fotoRenta['FotosInmuebleAvaluo']['Foto']);
+                $foto = $this->modelDocumentos->get_fichero_foto($fotoRenta['FotosInmuebleAvaluo']['Foto']);
                 $infoReimpresion['Inmueble_Renta'][$control]['Foto'] = $foto == base64_encode(base64_decode($foto)) ? $foto : base64_encode($foto);
                 $infoReimpresion['Inmueble_Renta'][$control]['Cuenta_Catastral'] = $fotoRenta['CuentaCatastral']['Region']."-".$fotoRenta['CuentaCatastral']['Manzana']."-".$fotoRenta['CuentaCatastral']['Lote']."-".$fotoRenta['CuentaCatastral']['Localidad'];
                 $infoReimpresion['Inmueble_Renta'][$control]['Interior_O_Exterior'] = $fotoRenta['FotosInmuebleAvaluo']['InteriorOExterior'];
