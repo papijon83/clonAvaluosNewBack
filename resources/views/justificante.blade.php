@@ -1467,6 +1467,8 @@
 
 
                     <h4 style="margin-top: 4%;"><b>j) INSTALACIONES ESPECIALES</b></h4>
+                        <!-- PRIVATIVAS -->
+                        <span><b>Privativas</b></span>
                         <table class="tabla_cabeza_gris" style="">
                             <thead>
                                 <tr>
@@ -1522,6 +1524,70 @@
                                         <td>
                                         @isset($infoAvaluo['Instalaciones_Especiales']['Privativas']['Cantidad'])
                                             {{$infoAvaluo['Instalaciones_Especiales']['Privativas']['Cantidad']}}
+                                        @endisset
+                                        </td>
+                                    </tr>
+                                @endif
+                            </tbody>
+                        </table>
+                        <br>
+                        <!-- COMUNES -->
+                        <span><b>Comunes</b></span>
+                        <table class="tabla_cabeza_gris" style="">
+                            <thead>
+                                <tr>
+                                    <th>Clave</th>
+                                    <th>Descripción</th>
+                                    <th>Unidad</th>
+                                    <th>Cantidad</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if(isset($infoAvaluo['Instalaciones_Especiales']['Comunes'][0]))
+                                    @foreach($infoAvaluo['Instalaciones_Especiales']['Comunes'] as $value_instalacionesEspeciales)
+                                        <tr>
+                                            <td class="centrado">
+                                            @isset($value_instalacionesEspeciales['Clave'])
+                                                {{$value_instalacionesEspeciales['Clave']}}
+                                            @endisset
+                                            </td>
+                                            <td>
+                                            @isset($value_instalacionesEspeciales['Descripcion'])
+                                                {{$value_instalacionesEspeciales['Descripcion']}}
+                                            @endisset
+                                            </td>
+                                            <td>
+                                            @isset($value_instalacionesEspeciales['Unidad'])
+                                                {{$value_instalacionesEspeciales['Unidad']}}
+                                            @endisset
+                                            </td>
+                                            <td>
+                                            @isset($value_instalacionesEspeciales['Cantidad'])
+                                                {{$value_instalacionesEspeciales['Cantidad']}}
+                                            @endisset
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <tr>
+                                        <td class="centrado">
+                                        @isset($infoAvaluo['Instalaciones_Especiales']['Comunes']['Clave'])
+                                            {{$infoAvaluo['Instalaciones_Especiales']['Comunes']['Clave']}}
+                                        @endisset
+                                        </td>
+                                        <td>
+                                        @isset($infoAvaluo['Instalaciones_Especiales']['Comunes']['Descripcion'])
+                                            {{$infoAvaluo['Instalaciones_Especiales']['Comunes']['Descripcion']}}
+                                        @endisset
+                                        </td>
+                                        <td>
+                                        @isset($infoAvaluo['Instalaciones_Especiales']['Comunes']['Unidad'])
+                                            {{$infoAvaluo['Instalaciones_Especiales']['Comunes']['Unidad']}}
+                                        @endisset
+                                        </td>
+                                        <td>
+                                        @isset($infoAvaluo['Instalaciones_Especiales']['Comunes']['Cantidad'])
+                                            {{$infoAvaluo['Instalaciones_Especiales']['Comunes']['Cantidad']}}
                                         @endisset
                                         </td>
                                     </tr>
