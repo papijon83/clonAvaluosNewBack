@@ -107,4 +107,10 @@ class Fis
         
     }
 
+    function getClase($codigo){
+        $infoClase = DB::select("SELECT CLASE FROM FIS.FIS_CATCLASES WHERE CODCLASE = '$codigo'");
+        $arrInfo = $infoClase[0];
+        return $arrInfo->clase;
+    }
+
 }
