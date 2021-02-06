@@ -2330,7 +2330,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><b>Valor unitario de tierra residual</b></td>
+                            <td><b>Valor unitario de tierra resisdual</b></td>
                             <td>
                                 @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Analisis_Residual']['Valor_Unitario_Tierra_Residual'])
                                     {{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Analisis_Residual']['Valor_Unitario_Tierra_Residual']}}
@@ -2905,16 +2905,16 @@
                 <table class="tabla_cabeza_gris">
                     <thead>
                         <tr>
-                            <th>Tipo.</th>
+                            <th>Fracc.</th>
                             <th>Descripción</th>
                             <th>Uso</th>
-                            <th>N° Niveles Del Tipo</th>
-                            <th>Clave Rango De Niveles</th>
                             <th>Clase</th>
-                            <th>Valor Unitario Cat.</th>
-                            <th>Depreciación por Edad</th>
-                            <th>Valor</th>
-                            <th>Sup.</th>
+                            <th>Superficie (m2)</th>
+                            <th>Valor unitario</th>
+                            <th>Edad</th>
+                            <th>Fco</th>
+                            <th>FRe</th>
+                            <th>VALOR FRACCIÓN</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -2922,8 +2922,8 @@
                         @foreach($infoAvaluo['Calculo_Valor_Construcciones']['Privativas'] as $value_valorContruccionesP)
                         <tr>
                                 <td>
-                                @isset($value_valorContruccionesP['Tipo'])
-                                    {{ $value_valorContruccionesP['Tipo'] }}
+                                @isset($value_valorContruccionesP['Fracc'])
+                                    {{ $value_valorContruccionesP['Fracc'] }}
                                 @endisset
                                 </td>
                                 <td>
@@ -2937,18 +2937,13 @@
                                 @endisset
                                 </td>
                                 <td>
-                                @isset($value_valorContruccionesP['Numero_Niveles_Tipo'])
-                                    {{ $value_valorContruccionesP['Numero_Niveles_Tipo'] }}
-                                @endisset
-                                </td>
-                                <td>
-                                @isset($value_valorContruccionesP['Clave_Rango_Niveles'])
-                                    {{ $value_valorContruccionesP['Clave_Rango_Niveles'] }}
-                                @endisset
-                                </td>
-                                <td>
                                 @isset($value_valorContruccionesP['Clase'])
                                     {{ $value_valorContruccionesP['Clase'] }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($value_valorContruccionesP['Superficie_m2'])
+                                    {{ number_format($value_valorContruccionesP['Superficie_m2'],2) }}
                                 @endisset
                                 </td>
                                 <td>
@@ -2957,18 +2952,23 @@
                                 @endisset
                                 </td>
                                 <td>
-                                @isset($value_valorContruccionesP['Depreciacion_Por_Edad'])
-                                    {{ number_format($value_valorContruccionesP['Depreciacion_Por_Edad'],2) }}
+                                @isset($value_valorContruccionesP['Edad'])
+                                    {{ number_format($value_valorContruccionesP['Edad'],2) }}
                                 @endisset
                                 </td>
                                 <td>
-                                @isset($value_valorContruccionesP['Valor'])
-                                    {{ number_format($value_valorContruccionesP['Valor'],2) }}
+                                @isset($value_valorContruccionesP['Fco'])
+                                    {{ number_format($value_valorContruccionesP['Fco'],2) }}
                                 @endisset
                                 </td>
                                 <td>
-                                @isset($value_valorContruccionesP['Sup'])
-                                    {{ number_format($value_valorContruccionesP['Sup'],2) }}
+                                @isset($value_valorContruccionesP['FRe'])
+                                    {{ number_format($value_valorContruccionesP['FRe'],2) }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($value_valorContruccionesP['Valor_Fraccion'])
+                                    $ {{ number_format($value_valorContruccionesP['Valor_Fraccion'],2) }}
                                 @endisset
                                 </td>
                             </tr>
@@ -2976,8 +2976,8 @@
                     @else
                         <tr>
                             <td>
-                            @isset($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Tipo'])
-                                {{ $infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Tipo'] }}
+                            @isset($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Fracc'])
+                                {{ $infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Fracc'] }}
                             @endisset
                             </td>
                             <td>
@@ -2991,18 +2991,13 @@
                             @endisset
                             </td>
                             <td>
-                            @isset($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Numero_Niveles_Tipo'])
-                                {{ $infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Numero_Niveles_Tipo'] }}
-                            @endisset
-                            </td>
-                            <td>
-                            @isset($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Clave_Rango_Niveles'])
-                                {{ $infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Clave_Rango_Niveles'] }}
-                            @endisset
-                            </td>
-                            <td>
                             @isset($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Clase'])
                                 {{ $infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Clase'] }}
+                            @endisset
+                            </td>
+                            <td>
+                            @isset($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Superficie_m2'])
+                                {{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Superficie_m2'],2) }}
                             @endisset
                             </td>
                             <td>
@@ -3011,18 +3006,23 @@
                             @endisset
                             </td>
                             <td>
-                            @isset($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Depreciacion_Por_Edad'])
-                                {{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Depreciacion_Por_Edad'],2) }}
+                            @isset($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Edad'])
+                                {{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Edad'],2) }}
                             @endisset
                             </td>
                             <td>
-                            @isset($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Valor'])
-                                {{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Valor'],2) }}
+                            @isset($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Fco'])
+                                {{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Fco'],2) }}
                             @endisset
                             </td>
                             <td>
-                            @isset($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Sup'])
-                                {{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Sup'],2) }}
+                            @isset($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['FRe'])
+                                {{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['FRe'],2) }}
+                            @endisset
+                            </td>
+                            <td>
+                            @isset($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Valor_Fraccion'])
+                                $ {{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Valor_Fraccion'],2) }}
                             @endisset
                             </td>
                         </tr>
