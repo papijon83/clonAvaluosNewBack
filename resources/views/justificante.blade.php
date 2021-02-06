@@ -1467,8 +1467,67 @@
 
 
                     <h4 style="margin-top: 4%;"><b>j) INSTALACIONES ESPECIALES</b></h4>
-
-
+                        <table class="tabla_cabeza_gris" style="">
+                            <thead>
+                                <tr>
+                                    <th>Clave</th>
+                                    <th>Descripción</th>
+                                    <th>Unidad</th>
+                                    <th>Cantidad</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if(isset($infoAvaluo['Instalaciones_Especiales']['Privativas'][0]))
+                                    @foreach($infoAvaluo['Instalaciones_Especiales']['Privativas'] as $value_instalacionesEspeciales)
+                                        <tr>
+                                            <td class="centrado">
+                                            @isset($value_instalacionesEspeciales['Clave'])
+                                                {{$value_instalacionesEspeciales['Clave']}}
+                                            @endisset
+                                            </td>
+                                            <td>
+                                            @isset($value_instalacionesEspeciales['Descripcion'])
+                                                {{$value_instalacionesEspeciales['Descripcion']}}
+                                            @endisset
+                                            </td>
+                                            <td>
+                                            @isset($value_instalacionesEspeciales['Unidad'])
+                                                {{$value_instalacionesEspeciales['Unidad']}}
+                                            @endisset
+                                            </td>
+                                            <td>
+                                            @isset($value_instalacionesEspeciales['Cantidad'])
+                                                {{$value_instalacionesEspeciales['Cantidad']}}
+                                            @endisset
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <tr>
+                                        <td class="centrado">
+                                        @isset($infoAvaluo['Instalaciones_Especiales']['Privativas']['Clave'])
+                                            {{$infoAvaluo['Instalaciones_Especiales']['Privativas']['Clave']}}
+                                        @endisset
+                                        </td>
+                                        <td>
+                                        @isset($infoAvaluo['Instalaciones_Especiales']['Privativas']['Descripcion'])
+                                            {{$infoAvaluo['Instalaciones_Especiales']['Privativas']['Descripcion']}}
+                                        @endisset
+                                        </td>
+                                        <td>
+                                        @isset($infoAvaluo['Instalaciones_Especiales']['Privativas']['Unidad'])
+                                            {{$infoAvaluo['Instalaciones_Especiales']['Privativas']['Unidad']}}
+                                        @endisset
+                                        </td>
+                                        <td>
+                                        @isset($infoAvaluo['Instalaciones_Especiales']['Privativas']['Cantidad'])
+                                            {{$infoAvaluo['Instalaciones_Especiales']['Privativas']['Cantidad']}}
+                                        @endisset
+                                        </td>
+                                    </tr>
+                                @endif
+                            </tbody>
+                        </table>
                     <h4 style="margin-top: 4%;"><b>k) ELEMENTOS ACCESORIOS</b></h4>
                         <span><b>Privativas</b></span>
                         <table class="tabla_cabeza_gris" style="">
@@ -1668,47 +1727,16 @@
                 <div class="pleca_verde"><b>VI.- CONSIDERACIONES PREVIAS AL AVALÚO</b></div>
 
                 <p class="letras_pequenas">
-                    CON FUNDAMENTO EN LO ESTABLECIDO EN EL ARTÍCULO 20 DEL MANUAL DE PROCEDIMIENTOS Y LINEAMIENTOS TÉCNICOS DE VALUACIÓN INMOBILIARIA, PUBLICADO EL 06 DE DICIEMBRE DE 2013 EN LA GACETA OFICIAL DEL DISTRITO FEDERAL, DÉCIMA SEXTA ÉPOCA NO. 1749, Y CONSIDERANDO QUE EL INMUEBLE MOTIVO DEL PRESENTE AVALÚO DEBE SER VALUADO EN FUNCIÓN DE LA OFERTA Y DEMANDA DE INMUEBLES SIMILARES OFERTADOS EN EL MERCADO ABIERTO INMOBILIARIO Y A QUE TAMBIÉN DEBERÁ VALUARSE ATENDIENDO AL PRINCIPIO ECONÓMICO DE SUSTITUCIÓN, POR LO QUE DEBERÁ VALUARSE TAMBIÉN EN FUNCIÓN DE SU VALOR DE REPOSICIÓN NETO Y A QUE EXISTEN INMUEBLES SIMILARES OFERTADOS EN EL MERCADO INMOBILIARIO EN VENTA Y RENTA POR LO QUE RESULTA IMPORTANTE CONOCER EL VALOR PRESENTE NETO DE LOS INGRESOS QUE SERÁ CAPAZ DE PRODUCIR.<br><br>
-
-                    ADICIONALMENTE Y PARTIENDO DE QUE LOS TRES ANÁLISIS ARRIBA DESCRITOS SON DISTINTOS A LOS UTILIZADOS POR LA AUTORIDAD FISCAL PARA LA REVISIÓN Y CONSIDERANDO LO ESTABLECIDO EN EL PÁRRAFO III DEL MISMO ARTÍCULO 20 DEL MANUAL DE PROCEDIMIENTOS Y LINEAMIENTOS TÉCNICOS DE VALUACIÓN INMOBILIARIA, PUBLICADO EL 06 DE DICIEMBRE DE 2013 EN LA GACETA OFICIAL DEL DISTRITO FEDERAL, DÉCIMA SEXTA ÉPOCA NO. 1749 SE ANEXA COMO PARTE INTEGRANTE DEL AVALÚO LA SIGUIENTE MEMORIA TÉCNICA.<br><br>
-
-                    I. EXPOSICIÓN DE MOTIVOS:<br><br>
-
-                    a. EL INMUEBLE MOTIVO DEL PRESENTE AVALUÓ DEBE SER VALUADO EN FUNCIÓN DE LA OFERTA Y DEMANDA DE INMUEBLES SIMILARES OFERTADOS EN EL MERCADO ABIERTO INMOBILIARIO.<br>
-                    I. MÉTODO COMPARATIVO O ENFOQUE DE MERCADO, ES EL DESARROLLO ANALÍTICO A TRAVÉS DEL CUAL SE OBTIENE UN VALOR QUE RESULTA DE COMPARAR EL BIEN QUE SE VALÚA (SUJETO) CON EL PRECIO OFERTADO BIENES SIMILARES (COMPARABLES), AJUSTADOS POR SUS PRINCIPALES FACTORES DIFERENCIALES (HOMOLOGACIÓN).<br>
-                    II. VALOR COMERCIAL O DE MERCADO: ES LA CANTIDAD ESTIMADA DE DINERO CIRCULANTE A CAMBIO DE LA CUAL EL VENDEDOR Y EL COMPRADOR DEL BIEN QUE SE VALÚA, ESTANDO BIEN INFORMADOS Y SIN NINGÚN TIPO DE PRESIÓN O APREMIO, ESTARÍAN DISPUESTOS A ACEPTAR EN EFECTIVO POR SU ENAJENACIÓN, EN UN PERIODO RAZONABLE.<br>
-                    III. LOS FACTORES ESPECÍFICOS APLICABLES A ESTA METODOLOGÍA SE DESGLOSAN EN EL SIGUIENTE CAPÍTULO EN EL DESARROLLO DEL MÉTODO.<br><br>
-
-                    b. DEBERÁ VALUARSE ATENDIENDO AL PRINCIPIO ECONÓMICO QUE DICE QUE NINGÚN COMPRADOR PAGARA POR UN BIEN UNA CANTIDAD SUPERIOR A LA QUE LE COSTARÍA REPRODUCIRLO, POR LO QUE DEBERÁ VALUARSE TAMBIÉN EN FUNCIÓN DE SU VALOR DE REPOSICIÓN NETO.<br>
-                    i. MÉTODO FÍSICO, DIRECTO O ENFOQUE DE COSTOS, ES EL PROCESO TÉCNICO NECESARIO PARA ESTIMAR EL COSTO DE REPRODUCCIÓN O DE REEMPLAZO DE UN BIEN SIMILAR AL QUE SE VALÚA, AFECTADO POR LA DEPRECIACIÓN ATRIBUIBLE A LOS FACTORES DE EDAD Y ESTADO DE CONSERVACIÓN Y EN SU CASO, LA OBSOLESCENCIA ECONÓMICA, FUNCIONAL Y TECNOLÓGICA DEL BIEN.<br>
-                    ii. COSTO DE REPOSICIÓN NUEVO, (V.R.N.): ES EL COSTO DIRECTO ACTUAL DE REPRODUCIR DE MODO EFICIENTE UN DETERMINADO BIEN. PARA EL CASO DE LOS INMUEBLES EN RAZÓN DE SU ESTRUCTURA Y ACABADOS, INCLUYENDO ÚNICAMENTE LOS COSTOS INDIRECTOS PROPIOS DEL CONSTRUCTOR O CONTRATISTA.<br>
-                    iii. COSTO NETO DE REPOSICIÓN, (V.N.R.): ES EL QUE RESULTA DE DESCONTAR AL COSTO DE REPOSICIÓN NUEVO (V.R.N.) LOS DEMÉRITOS ATRIBUIBLES A LA DEPRECIACIÓN POR EDAD Y ESTADO DE CONSERVACIÓN Ó SU EQUIVALENTE EN COSTOS DIRECTOS A INCURRIR PARA DEVOLVER A LA CONSTRUCCIÓN SU ESTADO ORIGINAL O NUEVO PARA EL CASO DE LOS INMUEBLES.<br>
-                    iv. LOS COSTOS DE REPOSICIÓN FUERON TOMADOS DE LOS PRONTUARIOS Y ADAPTADOS AL CASO EN PARTICULAR.<br><br>
-
-                    c. EXISTEN INMUEBLES SIMILARES OFERTADOS EN EL MERCADO INMOBILIARIO EN RENTA POR LO QUE RESULTA IMPORTANTE CONOCER EL VALOR PRESENTE NETO DE LOS INGRESOS QUE EN EL FUTURO SEA CAPAZ DE GENERAR EL INMUEBLE.<br>
-                    i. MÉTODO TRADICIONAL DE CAPITALIZACIÓN DE RENTAS O ENFOQUE DE INGRESOS, ES EL PROCEDIMIENTO MEDIANTE EL CUAL SE ESTIMA EL VALOR PRESENTE O CAPITALIZADO DE LOS INGRESOS NETOS POR RENTAS QUE PRODUCE O ES SUSCEPTIBLE DE PRODUCIR UN INMUEBLE A LA FECHA DEL AVALÚO DURANTE UN LARGO PLAZO (MAYOR A 50 AÑOS) DE MODO CONSTANTE (A PERPETUIDAD), DESCONTADOS POR UNA DETERMINADA TASA DE CAPITALIZACIÓN (REAL) APLICABLE AL CASO EN ESTUDIO.<br>
-                    ii. TASA DE CAPITALIZACIÓN (%): ES EL RENDIMIENTO PORCENTUAL NETO ANUAL O TASA DE DESCUENTO REAL QUE LE SERÍA EXIGIBLE A UN DETERMINADO GÉNERO DE INMUEBLES, CLASIFICADOS EN RAZÓN DE SU USO, ESTO ES, A SU NIVEL DE RIESGO (PLAZO DE RETORNO DE LA INVERSIÓN) Y GRADO DE LIQUIDEZ OBTENIDA MEDIANTE LA COMPARACIÓN DE INMUEBLES COMPARABLES CON EL OBJETO DEL AVALÚO TANTO EN VENTA COMO EN RENTA.<br><br>
-
-                    II. DESGLOSE DE LA INFORMACIÓN QUE SUSTENTA LOS CÁLCULOS EFECTUADOS.<br><br>
-
-                    a. LA INFORMACIÓN QUE SE UTILIZA EN LOS TRES MÉTODOS DE VALUACIÓN EMPLEADOS SE DESCRIBE EN EL DESARROLLO DE LA METODOLOGÍA Y SU APLICACIÓN POR LO QUE ESTE CAPÍTULO DE LA MEMORIA DE ANÁLISIS A QUE OBLIGA EL MANUAL DE PROCEDIMIENTOS Y LINEAMIENTOS TÉCNICOS DE VALUACIÓN INMOBILIARIA, EN SU ARTÍCULO 21 SE CONSIDERA CUBIERTO CON EL PROPIO DESARROLLO DE LA METODOLOGÍA.<br><br>
-
-                    III. DESCRIPCIÓN DE LOS CÁLCULOS REALIZADOS.<br><br>
-
-                    a. LOS CÁLCULOS REALIZADOS EN LOS TRES MÉTODOS DE VALUACIÓN EMPLEADOS SE DESCRIBEN EN EL DESARROLLO DE LA METODOLOGÍA Y SU APLICACIÓN POR LO QUE ESTE CAPÍTULO DE LA MEMORIA DE ANÁLISIS A QUE OBLIGA EL MANUAL DE PROCEDIMIENTOS Y LINEAMIENTOS TÉCNICOS DE VALUACIÓN INMOBILIARIA, EN SU ARTÍCULO 21 SE CONSIDERA CUBIERTO CON EL PROPIO DESARROLLO DE LA METODOLOGÍA.<br><br>
-
-                    CONDICIONANTES Y SALVEDADES DEL AVALÚO<br><br>
-                    
-                    LA INFORMACIÓN Y ANTECEDENTES DE PROPIEDAD ASENTADOS EN EL PRESENTE AVALÚO ES LA CONTENIDA EN LA DOCUMENTACIÓN OFICIAL ROPORCIONADA POR EL SOLICITANTE Y/O PROPIETARIO DEL BIEN A VALUAR, LA CUAL ASUMIMOS COMO CORRECTA. ENTRE ELLA, PODEMOS MENCIONAR A LA ESCRITURA DE PROPIEDAD O DOCUMENTO QUE LO IDENTIFICA LEGALMENTE, LOS PLANOS ARQUITECTÓNICOS Y EL REGISTRO CATASTRAL (BOLETA PREDIAL).<br>
-                    LA PROBABLE EXISTENCIA DE GRAVÁMENES, RESERVAS DE DOMINIO, ADEUDOS FISCALES O DE CUALQUIER OTRO TIPO QUE PUDIERAN AFECTAR EL BIEN QUE SE VALÚA, QUE NO HAYAN SIDO DECLARADOS POR EL SOLICITANTE Y/O PROPIETARIO DEL MISMO, NO SERÁN CAUSA DE RESPONSABILIDAD ALGUNA PARA EL PERITO VALUADOR POR INFORMACIÓN OMITIDA EN LA SOLICITUD DEL AVALÚO.<br>
-                    QUIENES INTERVENIMOS EN EL PRESENTE AVALÚO DECLARAMOS BAJO PROTESTA DE DECIR VERDAD QUE NO GUARDAMOS NINGÚN TIPO DE RELACIÓN O NEXO DE PARENTESCO O DE NEGOCIOS CON EL CLIENTE O PROPIETARIO DEL BIEN QUE SE VALÚA.<br><br>
+                    @isset($infoAvaluo['Consideraciones_Previas_Al_Avaluo'])
+                        {{$infoAvaluo['Consideraciones_Previas_Al_Avaluo']}}
+                    @endisset
                 </p>
 
 
 
                 <br>
                 <!-- 7.- Comparación de Mercado -->
-                <div style="background-color: #00A346; color: #fff; border: 0px; text-align: right;">VII. COMPARACIÓN DE MERCADO</div>
+                <div class="pleca_verde">VII. COMPARACIÓN DE MERCADO</div>
                 <h4 style="margin-top: 4%;">TERRENOS DIRECTOS</h4>
                 <h4 style="margin-top: 4%;">TERRENOS</h4>
                 <hr>
