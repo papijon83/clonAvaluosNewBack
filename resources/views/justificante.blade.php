@@ -3,9 +3,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <style>
-            @page { margin: 180px 50px; font-family: Arial, Helvetica, sans-serif!important; font-size: 9px;} 
-            #header { position: fixed; left: 0px; top: -130px; right: 0px; height: 90px; text-align: center;} 
-            #footer { position: fixed; left: 0px; bottom: -130px; right: 0px; height: 40px; text-align: center; } 
+            @page { margin: 120px 50px 80px 50px; font-family: Arial, Helvetica, sans-serif!important; font-size: 9px;} 
+            #header { position: fixed; left: 0px; top: -75px; right: 0px; height: 70px; text-align: center;} 
+            #footer { position: fixed; left: 0px; bottom: -25px; right: 0px; height: 40px; text-align: center; } 
             #footer .page:after { content: counter(page, decimal); } 
             .grises{color: #8D8D8D;}
             .negritas{font-weight: bolder;}
@@ -89,7 +89,7 @@
         <div id="content">
             <div class="page_break" style="font-family: Montserrat; margin-top: 0px; margin-bottom: 0px;">
 
-                <div style="text-align: right; padding-bottom: 10px;">AVALÚO</div>
+                <div style="text-align: right; padding-top: 10px;">AVALÚO</div>
 
                 <!-- 1.- ANTECEDENTES -->
                 <div class="pleca_verde"><b>I. ANTECEDENTES</b></div>
@@ -1712,6 +1712,7 @@
                 <h4 style="margin-top: 4%;">TERRENOS DIRECTOS</h4>
                 <h4 style="margin-top: 4%;">TERRENOS</h4>
                 <hr>
+                <!-- TABLA UNO TERRENOS DIRECTOS -->
                 <span><b>Investigación productos comparables</b></span>
                 <table class="tabla_cabeza_gris">
                     <thead>
@@ -1727,36 +1728,65 @@
                         @php
                         $i_tUno = 1;
                         @endphp
-                        @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno'])
+                        @if(isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno'][0]))
                             @foreach($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno'] as $value_tablaUno)
-                        <tr>
-                            <td>{{$i_tUno++}}</td>
-                            <td>
-                            @isset($value_tablaUno['Ubicacion'])
-                                {{$value_tablaUno['Ubicacion']}}
-                            @endisset
-                            </td>
-                            <td>
-                            @isset($value_tablaUno['Descripcion'])
-                                {{$value_tablaUno['Descripcion']}}
-                            @endisset
-                            </td>
-                            <td>
-                            @isset($value_tablaUno['C_U_S'])
-                                {{$value_tablaUno['C_U_S']}}
-                            @endisset
-                            </td>
-                            <td>
-                            @isset($value_tablaUno['Uso_Suelo'])
-                                {{$value_tablaUno['Uso_Suelo']}}
-                            @endisset
-                            </td>
-                        </tr>
+                                <tr>
+                                    <td>{{$i_tUno++}}</td>
+                                    <td>
+                                    @isset($value_tablaUno['Ubicacion'])
+                                        {{$value_tablaUno['Ubicacion']}}
+                                    @endisset
+                                    </td>
+                                    <td>
+                                    @isset($value_tablaUno['Descripcion'])
+                                        {{$value_tablaUno['Descripcion']}}
+                                    @endisset
+                                    </td>
+                                    <td>
+                                    @isset($value_tablaUno['C_U_S'])
+                                        {{$value_tablaUno['C_U_S']}}
+                                    @endisset
+                                    </td>
+                                    <td>
+                                    @isset($value_tablaUno['Uso_Suelo'])
+                                        {{$value_tablaUno['Uso_Suelo']}}
+                                    @endisset
+                                    </td>
+                                </tr>
                             @endforeach
-                        @endisset
+                        @else
+                            <tr>
+                                <td>
+                                @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno'])
+                                1
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno']['Ubicacion'])
+                                    {{$infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno']['Ubicacion']}}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno']['Descripcion'])
+                                    {{$infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno']['Descripcion']}}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno']['C_U_S'])
+                                    {{$infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno']['C_U_S']}}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno']['Uso_Suelo'])
+                                    {{$infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno']['Uso_Suelo']}}
+                                @endisset
+                                </td>
+                            </tr>
+                        @endif
                     </tbody>
                 </table>
                 <br>
+                <!-- TABLA DOS TERRENOS DIRECTOS -->
                 <table class="tabla_cabeza_gris">
                     <thead>
                         <tr>
@@ -1835,7 +1865,11 @@
                         @endforeach
                     @else
                          <tr>
-                            <td>1</td>
+                            <td>
+                            @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos'])
+                                1
+                            @endisset
+                            </td>
                             <td>
                             @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['F_Negociacion'])
                                 {{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['F_Negociacion'] }}
@@ -1881,9 +1915,9 @@
                                 {{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Fre'],4) }}
                             @endisset
                             </td>
-                            <td>$
+                            <td>
                             @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Precio_Solicitado'])
-                                {{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Precio_Solicitado'],2) }}
+                                $ {{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Precio_Solicitado'],2) }}
                             @endisset
                             </td>
                         </tr>
@@ -2066,15 +2100,43 @@
                     @php
                         $iC_Uno = 1;
                     @endphp
-                    @isset($infoAvaluo['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaUno'])
+                    @if(isset($infoAvaluo['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaUno'][0]))
                         @foreach($infoAvaluo['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaUno'] as $valueC_tablaUno)
-                        <tr>
-                            <td>{{ $iC_Uno++ }}</td>
-                            <td>{{ $valueC_tablaUno['Ubicacion'] }}</td>
-                            <td>{{ $valueC_tablaUno['Descripcion'] }}</td>
-                        </tr>
+                            <tr>
+                                <td>
+                                    {{ $iC_Uno++ }}
+                                </td>
+                                <td>
+                                @isset($valueC_tablaUno['Ubicacion'])
+                                    {{ $valueC_tablaUno['Ubicacion'] }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($valueC_tablaUno['Descripcion'])
+                                    {{ $valueC_tablaUno['Descripcion'] }}
+                                @endisset
+                                </td>
+                            </tr>
                         @endforeach
-                    @endisset    
+                    @else
+                        <tr>
+                            <td>
+                            @isset($infoAvaluo['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaUno'])
+                                1
+                            @endisset
+                            </td>
+                            <td>
+                            @isset($infoAvaluo['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaUno']['Ubicacion'])
+                                {{ $infoAvaluo['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaUno']['Ubicacion'] }}
+                            @endisset
+                            </td>
+                            <td>
+                            @isset($infoAvaluo['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaUno']['Descripcion'])
+                                {{ $infoAvaluo['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaUno']['Descripcion'] }}
+                            @endisset
+                            </td>
+                        </tr>                        
+                    @endif    
                     </tbody>
                 </table>
                 <table class="tabla_cabeza_gris">
@@ -2090,16 +2152,51 @@
                     @php
                         $iC_Dos = 1;
                     @endphp
-                    @isset($infoAvaluo['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaDos'])
+                    @if(isset($infoAvaluo['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaDos'][0]))
                         @foreach($infoAvaluo['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaDos'] as $valueC_tablaDos)
-                        <tr>
-                            <td>{{ $iC_Dos++ }}</td>
-                            <td>{{ number_format($valueC_tablaDos['F_Negociacion'],2) }}</td>
-                            <td>{{ number_format($valueC_tablaDos['Superficie_Vendible'],2) }}</td>
-                            <td>${{ number_format($valueC_tablaDos['Precio_Solicitado'],2) }}</td>
-                        </tr>
+                            <tr>
+                                <td>{{ $iC_Dos++ }}</td>
+                                <td>
+                                @isset($valueC_tablaDos['F_Negociacion'])
+                                    {{ number_format($valueC_tablaDos['F_Negociacion'],2) }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($valueC_tablaDos['Superficie_Vendible'])
+                                    {{ number_format($valueC_tablaDos['Superficie_Vendible'],2) }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($valueC_tablaDos['Precio_Solicitado'])
+                                    ${{ number_format($valueC_tablaDos['Precio_Solicitado'],2) }}
+                                @endisset
+                                </td>
+                            </tr>
                         @endforeach
-                    @endisset
+                    @else
+                        <tr>
+                            <td>
+                            @isset($infoAvaluo['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaDos'])
+                                1
+                            @endisset
+                            </td>
+                            <td>
+                            @isset($infoAvaluo['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaDos']['F_Negociacion'])
+                                {{ number_format($infoAvaluo['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaDos']['F_Negociacion'],2) }}
+                            @endisset
+                            </td>
+                            <td>
+                            @isset($infoAvaluo['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaDos']['Superficie_Vendible'])
+                                {{ number_format($infoAvaluo['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaDos']['Superficie_Vendible'],2) }}
+                            @endisset
+                            </td>
+                            <td>
+                            @isset($infoAvaluo['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaDos']['Precio_Solicitado'])
+                                ${{ number_format($infoAvaluo['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaDos']['Precio_Solicitado'],2) }}
+                            @endisset
+                            </td>
+                        </tr>
+                    @endif
                     </tbody>
                 </table>
                 <br>
@@ -2205,17 +2302,45 @@
                     @php
                         $iCR_Uno = 1;
                     @endphp
-                    @isset($infoAvaluo['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaUno'])
+                    @if(isset($infoAvaluo['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaUno'][0]))
                         @foreach($infoAvaluo['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaUno'] as $valueCR_tablaUno)
-                        <tr>
-                            <td>{{ $iCR_Uno++ }}</td>
-                            <td>{{ $valueCR_tablaUno['Ubicacion'] }}</td>
-                            <td>{{ $valueCR_tablaUno['Descripcion'] }}</td>
-                        </tr>
+                            <tr>
+                                <td>{{ $iCR_Uno++ }}</td>
+                                <td>
+                                @isset($valueCR_tablaUno['Ubicacion'])
+                                    {{ $valueCR_tablaUno['Ubicacion'] }}
+                                @endisset                                
+                                </td>
+                                <td>
+                                @isset($valueCR_tablaUno['Descripcion'])
+                                    {{ $valueCR_tablaUno['Descripcion'] }}
+                                @endisset                                
+                                </td>
+                            </tr>
                         @endforeach
+                    @else
+                        <tr>
+                            <td>
+                            @isset($infoAvaluo['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaUno'])
+                                1
+                            @endisset
+                            </td>
+                            <td>
+                            @isset($infoAvaluo['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaUno']['Ubicacion'])
+                                {{ $infoAvaluo['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaUno']['Ubicacion'] }}
+                            @endisset
+                            </td>
+                            <td>
+                            @isset($infoAvaluo['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaUno']['Descripcion'])
+                                {{ $infoAvaluo['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaUno']['Descripcion'] }}
+                            @endisset
+                            </td>
+                        </tr>
                     @endisset
                     </tbody>
                 </table>
+                <br>
+                <!-- TABLA DOS -->
                 <table class="tabla_cabeza_gris">
                     <thead>
                         <tr>
@@ -2229,16 +2354,51 @@
                     @php
                         $iCR_Dos = 1;
                     @endphp
-                    @isset($infoAvaluo['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos'])
+                    @if(isset($infoAvaluo['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos'][0]))
                         @foreach($infoAvaluo['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos'] as $valueCR_tablaDos)
-                        <tr>
-                            <td>{{ $iCR_Dos++ }}</td>
-                            <td>{{ number_format($valueCR_tablaDos['F_Negociacion'],2) }}</td>
-                            <td>{{ $valueCR_tablaDos['Superficie_Vendible'] }}</td>
-                            <td>${{ number_format($valueCR_tablaDos['Precio_Solicitado'],2) }}</td>
-                        </tr>
+                            <tr>
+                                <td>{{ $iCR_Dos++ }}</td>
+                                <td>
+                                @isset($valueCR_tablaDos['F_Negociacion'])
+                                    {{ number_format($valueCR_tablaDos['F_Negociacion'],2) }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($valueCR_tablaDos['Superficie_Vendible'])
+                                    {{ $valueCR_tablaDos['Superficie_Vendible'] }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($valueCR_tablaDos['Precio_Solicitado'])
+                                    ${{ number_format($valueCR_tablaDos['Precio_Solicitado'],2) }}
+                                @endisset
+                                </td>
+                            </tr>
                         @endforeach
-                    @endisset
+                    @else
+                        <tr>
+                            <td>
+                            @isset($infoAvaluo['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos'])                                
+                                1
+                            @endisset
+                            </td>
+                            <td>
+                            @isset($infoAvaluo['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos']['F_Negociacion'])                                
+                                {{ number_format($infoAvaluo['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos']['F_Negociacion'],2) }}
+                            @endisset
+                            </td>
+                            <td>
+                            @isset($infoAvaluo['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos']['Superficie_Vendible'])                                
+                                {{ $infoAvaluo['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos']['Superficie_Vendible'] }}
+                            @endisset
+                            </td>
+                            <td>
+                            @isset($infoAvaluo['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos']['Precio_Solicitado'])                                
+                                ${{ number_format($infoAvaluo['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos']['Precio_Solicitado'],2) }}
+                            @endisset
+                            </td>
+                        </tr>
+                    @endif
                     </tbody>
                 </table>
                 <br>
@@ -2335,7 +2495,67 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno'])
+                    @if(isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno'][0]))
+                        @foreach($infoAvaluo['Calculo_Del_Valor_Del_Terreno'] as $value_valorTerreno)
+                            <tr>
+                                <td>
+                                @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fracc'])
+                                    {{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fracc'] }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Clave_Area_Valor'])
+                                    {{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Clave_Area_Valor'] }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Superficie_m2'])
+                                    {{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Superficie_m2'],2) }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fzo'])
+                                    {{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fzo'],2) }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fub'])
+                                    {{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fub'],2) }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['FFr'])
+                                    {{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['FFr'],2) }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Ffo'])
+                                    {{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Ffo'],2) }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fsu'])
+                                    {{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fsu'],2) }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fot'])
+                                    {{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fot'] }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['F_Resultante'])
+                                    {{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['F_Resultante'],2) }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Valor_Fraccion'])
+                                    {{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Valor_Fraccion'],2) }}
+                                @endisset
+                                </td>
+                            </tr>
+                        @endforeach                            
+                    @else
                         <tr>
                             <td>
                             @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fracc'])
@@ -2393,7 +2613,7 @@
                             @endisset
                             </td>
                         </tr>
-                    @endisset
+                    @endif
                     </tbody>
                 </table>
                 <br>
@@ -2411,6 +2631,7 @@
                 </table>
                 
                 <p><b>b) CÁLCULO DEL VALOR DE LAS CONTRUCCIONES</b></p>
+                <!-- PRIVATIVAS -->
                 <p><b>PRIVATIVAS: </b></p>
                 <table class="tabla_cabeza_gris">
                     <thead>
@@ -2428,6 +2649,62 @@
                         </tr>
                     </thead>
                     <tbody>
+                    @if(isset($infoAvaluo['Calculo_Valor_Construcciones']['Privativas'][0]))
+                        @foreach($infoAvaluo['Calculo_Valor_Construcciones']['Privativas'] as $value_valorContruccionesP)
+                        <tr>
+                                <td>
+                                @isset($value_valorContruccionesP['Fracc'])
+                                    {{ $value_valorContruccionesP['Fracc'] }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($value_valorContruccionesP['Descripcion'])
+                                    {{ $value_valorContruccionesP['Descripcion'] }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($value_valorContruccionesP['Uso'])
+                                    {{ $value_valorContruccionesP['Uso'] }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($value_valorContruccionesP['Clase'])
+                                    {{ $value_valorContruccionesP['Clase'] }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($value_valorContruccionesP['Superficie_m2'])
+                                    {{ number_format($value_valorContruccionesP['Superficie_m2'],2) }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($value_valorContruccionesP['Valor_Unitario'])
+                                    {{ number_format($value_valorContruccionesP['Valor_Unitario'],2) }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($value_valorContruccionesP['Edad'])
+                                    {{ number_format($value_valorContruccionesP['Edad'],2) }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($value_valorContruccionesP['Fco'])
+                                    {{ number_format($value_valorContruccionesP['Fco'],2) }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($value_valorContruccionesP['FRe'])
+                                    {{ number_format($value_valorContruccionesP['FRe'],2) }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($value_valorContruccionesP['Valor_Fraccion'])
+                                    $ {{ number_format($value_valorContruccionesP['Valor_Fraccion'],2) }}
+                                @endisset
+                                </td>
+                            </tr>
+                        @endforeach
+                    @else
                         <tr>
                             <td>
                             @isset($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Fracc'])
@@ -2474,12 +2751,13 @@
                                 {{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['FRe'],2) }}
                             @endisset
                             </td>
-                            <td>$
+                            <td>
                             @isset($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Valor_Fraccion'])
-                                {{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Valor_Fraccion'],2) }}
+                                $ {{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Valor_Fraccion'],2) }}
                             @endisset
                             </td>
                         </tr>
+                    @endif
                     </tbody>
                 </table>
                 <p>Total superficie: 
@@ -2491,6 +2769,7 @@
                     ${{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Privativas']['Total_Construcciones_Privativas'],2) }}</p>
                 @endisset
                 <br>
+                <!-- COMUNES -->
                 <p><b>COMUNES: </b></p>
                 <table class="tabla_cabeza_gris">
                     <thead>
@@ -2508,6 +2787,62 @@
                         </tr>
                     </thead>
                     <tbody>
+                    @if(isset($infoAvaluo['Calculo_Valor_Construcciones']['Comunes'][0]))
+                        @foreach($infoAvaluo['Calculo_Valor_Construcciones']['Comunes'] as $value_valorConstruccionesC)
+                            <tr>
+                                <td>
+                                @isset($value_valorConstruccionesC['Fracc'])
+                                    {{ $value_valorConstruccionesC['Fracc'] }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($value_valorConstruccionesC['Descripcion'])
+                                    {{ $value_valorConstruccionesC['Descripcion'] }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($value_valorConstruccionesC['Uso'])
+                                    {{ $value_valorConstruccionesC['Uso'] }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($value_valorConstruccionesC['Superficie_m2'])
+                                    {{ number_format($value_valorConstruccionesC['Superficie_m2'],2) }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($value_valorConstruccionesC['Valor_Unitario'])
+                                    {{ number_format($value_valorConstruccionesC['Valor_Unitario'],2) }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($value_valorConstruccionesC['Edad'])
+                                    {{ number_format($value_valorConstruccionesC['Edad'],2) }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($value_valorConstruccionesC['Fco'])
+                                    {{ number_format($value_valorConstruccionesC['Fco'],2) }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($value_valorConstruccionesC['FRe'])
+                                    {{ number_format($value_valorConstruccionesC['FRe'],2) }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($value_valorConstruccionesC['Valor_Fraccion'])
+                                    {{ number_format($value_valorConstruccionesC['Valor_Fraccion'],2) }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($value_valorConstruccionesC['Indiviso'])
+                                    {{ $value_valorConstruccionesC['Indiviso'] }}%
+                                @endisset
+                                </td>
+                            </tr>
+                        @endforeach
+                    @else
                         <tr>
                             <td>
                             @isset($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Fracc'])
@@ -2560,23 +2895,24 @@
                             @endisset
                             </td>
                         </tr>
+                    @endif
                     </tbody>
                 </table>
                 <p>Total superficie: 
                 @isset($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Superficie'])
                     {{ $infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Superficie'] }}
                 @endisset
-                Total construcciones comunes: $
+                Total construcciones comunes: 
                 @isset($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Construcciones_Comunes'])
-                    {{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Construcciones_Comunes'],2) }}</p>
+                    $ {{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Construcciones_Comunes'],2) }}</p>
                 @endisset
                 <table class="tabla_gris_valor">
                     <thead>
                         <tr>
                             <th>VALOR TOTAL DE LAS CONTRUCCIONES:</th>
-                            <th>$
+                            <th>
                             @isset($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Valor_Total_De_Las_Construcciones'])
-                                {{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Valor_Total_De_Las_Construcciones'],2) }}
+                                $ {{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Valor_Total_De_Las_Construcciones'],2) }}
                             @endisset
                             </th>
                         </tr>
@@ -2586,6 +2922,7 @@
                 <p><b>c) DE LAS INSTALACIONES ESPECIALES, OBRAS COMPLEMENTARIOAS Y ELEMENTOS ACCESORIOS</b></p>
                 <br>
                 <p><b>PRIVATIVAS:</b></p>
+                <!-- PRIVATIVAS -->
                 <table class="tabla_cabeza_gris">
                     <thead>
                         <tr>
@@ -2599,53 +2936,91 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @isset($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'])
+                    @if(isset($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'][0]))
                         @foreach($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'] as $valueEA_tablaPri)
+                            <tr>
+                                <td>
+                                @isset($valueEA_tablaPri['0'])
+                                    {{ $valueEA_tablaPri['0'] }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($valueEA_tablaPri['Clave'])
+                                    {{ $valueEA_tablaPri['Clave'] }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($valueEA_tablaPri['Concepto'])
+                                    {{ $valueEA_tablaPri['Concepto'] }} 
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($valueEA_tablaPri['Cantidad'])
+                                    {{ number_format($valueEA_tablaPri['Cantidad'],2) }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($valueEA_tablaPri['Valor_Unitario'])
+                                    {{ number_format($valueEA_tablaPri['Valor_Unitario'],2) }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($valueEA_tablaPri['Edad'])
+                                    {{ $valueEA_tablaPri['Edad'] }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($valueEA_tablaPri['Importe'])
+                                    $ {{ number_format($valueEA_tablaPri['Importe'],2) }}
+                                @endisset
+                                </td>
+                            </tr>
+                        @endforeach
+                    @else
                         <tr>
                             <td>
-                            @isset($valueEA_tablaPri['0'])
-                            {{ $valueEA_tablaPri['0'] }}
+                            @isset($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['0'])
+                                {{ $infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['0'] }}
                             @endisset
                             </td>
                             <td>
-                            @isset($valueEA_tablaPri['Clave'])
-                            {{ $valueEA_tablaPri['Clave'] }}
+                            @isset($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Clave'])
+                                {{ $infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Clave'] }}
                             @endisset
                             </td>
                             <td>
-                            @isset($valueEA_tablaPri['Concepto'])
-                            {{ $valueEA_tablaPri['Concepto'] }} 
+                            @isset($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Concepto'])
+                                {{ $infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Concepto'] }} 
                             @endisset
                             </td>
                             <td>
-                            @isset($valueEA_tablaPri['Cantidad'])
-                            {{ number_format($valueEA_tablaPri['Cantidad'],2) }}
+                            @isset($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Cantidad'])
+                                {{ number_format($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Cantidad'],2) }}
                             @endisset
                             </td>
                             <td>
-                            @isset($valueEA_tablaPri['Valor_Unitario'])
-                            {{ number_format($valueEA_tablaPri['Valor_Unitario'],2) }}
+                            @isset($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Valor_Unitario'])
+                                {{ number_format($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Valor_Unitario'],2) }}
                             @endisset
                             </td>
                             <td>
-                            @isset($valueEA_tablaPri['Edad'])
-                            {{ $valueEA_tablaPri['Edad'] }}
+                            @isset($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Edad'])
+                                {{ $infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Edad'] }}
                             @endisset
                             </td>
-                            <td>$
-                            @isset($valueEA_tablaPri['Importe'])
-                            {{ number_format($valueEA_tablaPri['Importe'],2) }}
+                            <td>
+                            @isset($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Importe'])
+                                $ {{ number_format($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Importe'],2) }}
                             @endisset
                             </td>
                         </tr>
-                        @endforeach
-                    @endisset
+                    @endif
                     </tbody>
                 </table>
                 <br>
-                <p><b>Total de las instalaciones privativas:</b> $
+                <p><b>Total de las instalaciones privativas:</b> 
                 @isset($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Totales']['Total_De_Las_Instalaciones'])
-                    {{ number_format($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Totales']['Total_De_Las_Instalaciones'],2) }}
+                    $ {{ number_format($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Totales']['Total_De_Las_Instalaciones'],2) }}
                 @endisset
                 </p>
                 <br>
@@ -2719,16 +3094,60 @@
                     @php
                         $i_EA = 1;
                     @endphp
-                    @isset($infoAvaluo['Renta_Estimada'])
+                    @if(isset($infoAvaluo['Renta_Estimada'][0]))
                         @foreach($infoAvaluo['Renta_Estimada'] as $valueEA_tablaPri)
-                        <tr>
-                            <td>{{ $i_EA++ }}</td>
-                            <td>{{ $valueEA_tablaPri['Ubicacion'] }}</td>
-                            <td>{{ $valueEA_tablaPri['Superficie_m2'] }}</td>
-                            <td>${{ number_format($valueEA_tablaPri['Renta_Mensual'],2) }}</td>
-                            <td>${{ number_format($valueEA_tablaPri['Renta_m2'],2) }}</td>
-                        </tr>
+                            <tr>
+                                <td>{{ $i_EA++ }}</td>
+                                <td>
+                                @isset($valueEA_tablaPri['Ubicacion'])                                
+                                    {{ $valueEA_tablaPri['Ubicacion'] }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($valueEA_tablaPri['Superficie_m2'])                                
+                                    {{ $valueEA_tablaPri['Superficie_m2'] }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($valueEA_tablaPri['Renta_Mensual'])                                
+                                    ${{ number_format($valueEA_tablaPri['Renta_Mensual'],2) }}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($valueEA_tablaPri['Renta_m2'])                                
+                                    ${{ number_format($valueEA_tablaPri['Renta_m2'],2) }}
+                                @endisset
+                                </td>
+                            </tr>
                         @endforeach
+                    @else
+                        <tr>
+                            <td>
+                            @isset($infoAvaluo['Renta_Estimada'])
+                                1
+                            @endisset
+                            </td>
+                            <td>
+                            @isset($infoAvaluo['Renta_Estimada']['Ubicacion'])
+                                {{ $infoAvaluo['Renta_Estimada']['Ubicacion'] }}
+                            @endisset
+                            </td>
+                            <td>
+                            @isset($infoAvaluo['Renta_Estimada']['Superficie_m2'])
+                                {{ $infoAvaluo['Renta_Estimada']['Superficie_m2'] }}
+                            @endisset
+                            </td>
+                            <td>
+                            @isset($infoAvaluo['Renta_Estimada']['Renta_Mensual'])
+                                ${{ number_format($infoAvaluo['Renta_Estimada']['Renta_Mensual'],2) }}
+                            @endisset
+                            </td>
+                            <td>
+                            @isset($infoAvaluo['Renta_Estimada']['Renta_m2'])
+                                ${{ number_format($infoAvaluo['Renta_Estimada']['Renta_m2'],2) }}
+                            @endisset
+                            </td>
+                        </tr>
                     @endisset
                     </tbody>
                 </table>
@@ -2850,9 +3269,9 @@
                                 <tfoot>
                                     <tr>
                                         <td><b>SUMA:</b></td>
-                                        <td><b>$
+                                        <td><b>
                                         @isset($infoAvaluo['Analisis_Deducciones']['Totales']['Suma'])
-                                            {{ number_format($infoAvaluo['Analisis_Deducciones']['Totales']['Suma'],2) }}
+                                            $ {{ number_format($infoAvaluo['Analisis_Deducciones']['Totales']['Suma'],2) }}
                                         @endisset
                                         </b>
                                         </td>
