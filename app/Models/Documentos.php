@@ -347,6 +347,12 @@ class Documentos
         return $arrInfo->binariodatos;
     }
 
+    public function get_fichero_foto($idFichero){ //echo "SELECT BINARIODATOS FROM DOC.DOC_FICHERODOCUMENTO WHERE IDFICHERODOCUMENTO = $idFichero"; exit();
+        $info = DB::select("SELECT BINARIODATOS FROM DOC.DOC_FICHERODOCUMENTO WHERE IDDOCUMENTODIGITAL = $idFichero");
+        $arrInfo = $info[0]; //print_r($arrInfo->binariodatos); exit();
+        return $arrInfo->binariodatos;
+    }
+
     public function get_nombre_perito($claveValuador){
         $info = DB::select("SELECT IDPERSONA FROM RCON.RCON_PERITO WHERE REGISTRO = '$claveValuador'");
         $arrInfo = convierte_a_arreglo($info); //print_r($arrInfo->binariodatos); exit();
