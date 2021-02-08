@@ -167,7 +167,7 @@ class Reimpresion
         $infoReimpresion['Ubicacion_Inmueble']['No_Interior'] = $ubicacionInmueble['NumeroInterior'];
         $infoReimpresion['Ubicacion_Inmueble']['Colonia'] = $ubicacionInmueble['Colonia'];
         $infoReimpresion['Ubicacion_Inmueble']['CP'] = $ubicacionInmueble['CodigoPostal'];
-        $infoReimpresion['Ubicacion_Inmueble']['Delegacion'] = $ubicacionInmueble['Delegacion'];
+        $infoReimpresion['Ubicacion_Inmueble']['Delegacion'] = $ubicacionInmueble['Alcaldia'];
         $infoReimpresion['Ubicacion_Inmueble']['Edificio'] = "-";
         $infoReimpresion['Ubicacion_Inmueble']['Lote'] = 0;
         $infoReimpresion['Ubicacion_Inmueble']['Cuenta_agua'] = $ubicacionInmueble['CuentaDeAgua'];
