@@ -176,7 +176,7 @@
   <!--ValClaveValuador: Cadenas de texto con 4 caracteres minimo y 20 carÃ¡cteres mÃ¡ximo(No acepta cadenas vacÃ­as) -->
   <xs:simpleType name="ValClaveValuador">
     <xs:restriction base="NonEmptyString">
-      <xs:minLength value="4" />
+      <xs:minLength value="1" />
       <xs:maxLength value="20"/>
     </xs:restriction>
   </xs:simpleType>
