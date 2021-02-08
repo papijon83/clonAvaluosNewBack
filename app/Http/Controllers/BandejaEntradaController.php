@@ -602,7 +602,7 @@ class BandejaEntradaController extends Controller
             if (count($notarios) > 0) {            
                 return $notarios;
             } else {
-                return [];
+                return ['mensaje' => 'No se encontro información del Notario'];
             }
         } catch (\Throwable $th) {
             //Log::info($th);
