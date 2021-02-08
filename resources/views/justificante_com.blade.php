@@ -37,7 +37,7 @@
         <div id="header">
                 <table style="width: 100%;">
                         <tr style="width: 100%;">
-                            <td style="width: 50%;"></td>
+                            <td style="width: 50%;"><img src="./public/img/logo_dependencia.png" alt=""></td>
                             <td><b>Fecha:</b></td>
                             <td class="grises">
                                 @isset($infoAvaluo['Encabezado']['Fecha'])
@@ -102,7 +102,7 @@
                             <td><b>VALUADOR:</b></td>
                             <td>
                             @isset($infoAvaluo['Sociedad_Participa']['Valuador'])
-                                {{$infoAvaluo['Sociedad_Participa']['Valuador']}}
+                                <span class="grises">{{$infoAvaluo['Sociedad_Participa']['Valuador']}}</span>
                             @endisset
                             </td>
                         </tr>
@@ -110,7 +110,7 @@
                             <td><b>FECHA DEL AVALÚO:</b></td>
                             <td>
                             @isset($infoAvaluo['Sociedad_Participa']['Fecha_del_Avaluo'])
-                                {{$infoAvaluo['Sociedad_Participa']['Fecha_del_Avaluo']}}
+                                <span class="grises">{{$infoAvaluo['Sociedad_Participa']['Fecha_del_Avaluo']}}</span>
                             @endisset
                             </td>
                         </tr>
@@ -119,40 +119,40 @@
                             <td>
                                 Tipo persona: 
                                 @isset($infoAvaluo['Sociedad_Participa']['Solicitante']['Tipo_persona'])
-                                    {{$infoAvaluo['Sociedad_Participa']['Solicitante']['Tipo_persona']}}
+                                    <span class="grises">{{$infoAvaluo['Sociedad_Participa']['Solicitante']['Tipo_persona']}}</span>
                                 @endisset
                                 <br>
                                 @isset($infoAvaluo['Sociedad_Participa']['Solicitante']['Nombre'])
-                                    {{$infoAvaluo['Sociedad_Participa']['Solicitante']['Nombre']}} 
+                                    <span class="grises">{{$infoAvaluo['Sociedad_Participa']['Solicitante']['Nombre']}}</span> 
                                 @endisset
                                 <br>
                                 UBICACIÓN DEL INMUEBLE: Calle : 
                                 @isset($infoAvaluo['Sociedad_Participa']['Solicitante']['Calle'])
-                                    {{$infoAvaluo['Sociedad_Participa']['Solicitante']['Calle']}} 
+                                    <span class="grises">{{$infoAvaluo['Sociedad_Participa']['Solicitante']['Calle']}}</span> 
                                 @endisset
                                 <br>
                                 Nº Exterior: 
                                 @isset($infoAvaluo['Sociedad_Participa']['Solicitante']['No_Exterior'])
-                                    {{$infoAvaluo['Sociedad_Participa']['Solicitante']['No_Exterior']}} 
+                                    <span class="grises">{{$infoAvaluo['Sociedad_Participa']['Solicitante']['No_Exterior']}}</span> 
                                 @endisset
                                 <br>
                                 Nº Interior: 
                                 @isset($infoAvaluo['Sociedad_Participa']['Solicitante']['No_Interior'])
-                                    {{$infoAvaluo['Sociedad_Participa']['Solicitante']['No_Interior']}} 
+                                    <span class="grises">{{$infoAvaluo['Sociedad_Participa']['Solicitante']['No_Interior']}}</span> 
                                 @endisset
                                 <br>
                                 Colonia: 
                                 @isset($infoAvaluo['Sociedad_Participa']['Solicitante']['Colonia'])
-                                    {{$infoAvaluo['Sociedad_Participa']['Solicitante']['Colonia']}}
+                                    <span class="grises">{{$infoAvaluo['Sociedad_Participa']['Solicitante']['Colonia']}}</span>
                                 @endisset
                                 CP : 
                                 @isset($infoAvaluo['Sociedad_Participa']['Solicitante']['CP'])
-                                    {{$infoAvaluo['Sociedad_Participa']['Solicitante']['CP']}} 
+                                    <span class="grises">{{$infoAvaluo['Sociedad_Participa']['Solicitante']['CP']}}</span> 
                                 @endisset
                                 <br>
                                 Delegación: 
                                 @isset($infoAvaluo['Sociedad_Participa']['Solicitante']['Delegacion'])
-                                    {{$infoAvaluo['Sociedad_Participa']['Solicitante']['Delegacion']}}
+                                    <span class="grises">{{$infoAvaluo['Sociedad_Participa']['Solicitante']['Delegacion']}}</span>
                                 @endisset
                             </td>
                         </tr>
