@@ -1488,23 +1488,23 @@ function valida_AvaluoIdentificacion($data){
 }
 
 function valida_AvaluoAntecedentes($data, $elementoPrincipal){
-    $arrIDS = array('PropositoDelAvaluo' => 'b.4', 'ObjetoDelAvaluo' => 'b.5', 'RegimenDePropiedad' => 'b.6','A.Paterno' => 'b.1.1','A.Materno' => 'b.1.2','Nombre' => 'b.1.3','Calle' => 'b.1.4','NumeroInterior' => 'b.1.5', 'NumeroExterior' => 'b.1.6','Colonia' =>'b.1.7', 'CodigoPostal' => 'b.1.8', 'Delegacion' => 'b.1.9','TipoPersona' => 'b.1.10',
-    'Calle' => 'b.3.1','NumeroInterior' => 'b.3.2','NumeroExterior' => 'b.3.3','Manzana' => 'b.3.4','Lote' => 'b.3.5', 'Edificio' => 'b.3.6','Colonia' =>'b.3.7', 'CodigoPostal' => 'b.3.8', 'Delegacion' => 'b.3.9', 'CuentaCatastral' => 'b.3.10', 'CuentaDeAgua' => 'b.3.11',
+    $arrIDS = array('PropositoDelAvaluo' => 'b.4', 'ObjetoDelAvaluo' => 'b.5', 'RegimenDePropiedad' => 'b.6','A.Paterno' => 'b.1.1','A.Materno' => 'b.1.2','Nombre' => 'b.1.3','Calle' => 'b.1.4','NumeroInterior' => 'b.1.5', 'NumeroExterior' => 'b.1.6','Colonia' =>'b.1.7', 'CodigoPostal' => 'b.1.8', 'Alcaldia' => 'b.1.9','TipoPersona' => 'b.1.10',
+    'Calle' => 'b.3.1','NumeroInterior' => 'b.3.2','NumeroExterior' => 'b.3.3','Manzana' => 'b.3.4','Lote' => 'b.3.5', 'Edificio' => 'b.3.6','Colonia' =>'b.3.7', 'CodigoPostal' => 'b.3.8', 'Alcaldia' => 'b.3.9', 'CuentaCatastral' => 'b.3.10', 'CuentaDeAgua' => 'b.3.11',
     'Region' => 'b.3.10.1', 'Manzana' => 'b.3.10.2', 'Lote' => 'b.3.10.3', 'Localidad' => 'b.3.10.4', 'DigitoVerificador' => 'b.3.10.5');
 
-    $arrIDSb2 = array('A.Paterno' => 'b.2.1','A.Materno' => 'b.2.2','Nombre' => 'b.2.3','Calle' => 'b.2.4','NumeroInterior' => 'b.2.5', 'NumeroExterior' => 'b.2.6','Colonia' =>'b.2.7', 'CodigoPostal' => 'b.2.8', 'Delegacion' => 'b.2.9','TipoPersona' => 'b.2.10');
+    $arrIDSb2 = array('A.Paterno' => 'b.2.1','A.Materno' => 'b.2.2','Nombre' => 'b.2.3','Calle' => 'b.2.4','NumeroInterior' => 'b.2.5', 'NumeroExterior' => 'b.2.6','Colonia' =>'b.2.7', 'CodigoPostal' => 'b.2.8', 'Alcaldia' => 'b.2.9','TipoPersona' => 'b.2.10');
 
     if($elementoPrincipal == '//Comercial'){
         $validacionesb = array('PropositoDelAvaluo' => 'nonEmptyString_70', 'ObjetoDelAvaluo' => 'nonEmptyString_70', 'RegimenDePropiedad' => 'catRegimen');    
-        $validacionesb1 = array('A.Paterno' => 'string_35','A.Materno' => 'string_35','Nombre' => 'nonEmptyString_50','Calle' => 'nonEmptyString_50','NumeroInterior' => 'nonEmptyString_30', 'NumeroExterior' => 'nonEmptyString_25','Colonia' =>'catColonia', 'CodigoPostal' => 'nonEmptyString_5', 'Delegacion' => 'catDelegacion','TipoPersona' => 'subTipoPersona');
-        $validacionesb2 = array('A.Paterno' => 'string_35','A.Materno' => 'string_35','Nombre' => 'nonEmptyString_50','Calle' => 'nonEmptyString_50','NumeroInterior' => 'nonEmptyString_30', 'NumeroExterior' => 'nonEmptyString_25','Colonia' =>'catColonia', 'CodigoPostal' => 'nonEmptyString_5', 'Delegacion' => 'catDelegacion','TipoPersona' => 'subTipoPersona');
-        $validacionesb3 = array('Calle' => 'nonEmptyString_50','NumeroInterior' => 'nonEmptyString_30','NumeroExterior' => 'nonEmptyString_25','Manzana' => 'string_50','Lote' => 'string_50', 'Edificio' => 'string_50','Colonia' =>'catColonia', 'CodigoPostal' => 'nonEmptyString_5', 'Delegacion' => 'catDelegacion', 'CuentaCatastral' => 'validacionesb310', 'CuentaDeAgua' => '');
+        $validacionesb1 = array('A.Paterno' => 'string_35','A.Materno' => 'string_35','Nombre' => 'nonEmptyString_50','Calle' => 'nonEmptyString_50','NumeroInterior' => 'nonEmptyString_30', 'NumeroExterior' => 'nonEmptyString_25','Colonia' =>'catColonia', 'CodigoPostal' => 'nonEmptyString_5', 'Alcaldia' => 'catDelegacion','TipoPersona' => 'subTipoPersona');
+        $validacionesb2 = array('A.Paterno' => 'string_35','A.Materno' => 'string_35','Nombre' => 'nonEmptyString_50','Calle' => 'nonEmptyString_50','NumeroInterior' => 'nonEmptyString_30', 'NumeroExterior' => 'nonEmptyString_25','Colonia' =>'catColonia', 'CodigoPostal' => 'nonEmptyString_5', 'Alcaldia' => 'catDelegacion','TipoPersona' => 'subTipoPersona');
+        $validacionesb3 = array('Calle' => 'nonEmptyString_50','NumeroInterior' => 'nonEmptyString_30','NumeroExterior' => 'nonEmptyString_25','Manzana' => 'string_50','Lote' => 'string_50', 'Edificio' => 'string_50','Colonia' =>'catColonia', 'CodigoPostal' => 'nonEmptyString_5', 'Alcaldia' => 'catDelegacion', 'CuentaCatastral' => 'validacionesb310', 'CuentaDeAgua' => '');
         $validacionesb310 = array('Region' => 'regionManzanaUp', 'Manzana' => 'regionManzanaUp', 'Lote' => 'lote', 'Localidad' => 'regionManzanaUp', 'DigitoVerificador' => 'digitoVerificador');
     }else{
         $validacionesb = array('PropositoDelAvaluo' => 'nonEmptyString_70', 'ObjetoDelAvaluo' => 'nonEmptyString_70', 'RegimenDePropiedad' => 'catRegimen');
-        $validacionesb1 = array('A.Paterno' => 'string_35','A.Materno' => 'string_35','Nombre' => 'nonEmptyString_50','Calle' => 'nonEmptyString_50','NumeroInterior' => 'nonEmptyString_30', 'NumeroExterior' => 'nonEmptyString_25','Colonia' =>'catColonia', 'CodigoPostal' => 'nonEmptyString_5', 'Delegacion' => 'catDelegacion','TipoPersona' => 'subTipoPersona');
-        $validacionesb2 = array('A.Paterno' => 'string_35','A.Materno' => 'string_35','Nombre' => 'nonEmptyString_50','Calle' => 'nonEmptyString_50','NumeroInterior' => 'nonEmptyString_30', 'NumeroExterior' => 'nonEmptyString_25','Colonia' =>'catColonia', 'CodigoPostal' => 'nonEmptyString_5', 'Delegacion' => 'catDelegacion','TipoPersona' => 'subTipoPersonaProp');
-        $validacionesb3 = array('Calle' => 'nonEmptyString_50','NumeroInterior' => 'nonEmptyString_30','NumeroExterior' => 'nonEmptyString_25','Manzana' => 'string_50','Lote' => 'string_50', 'Edificio' => 'string_50','Colonia' =>'catColonia', 'CodigoPostal' => 'nonEmptyString_5', 'Delegacion' => 'catDelegacion', 'CuentaCatastral' => 'validacionesb310', 'CuentaDeAgua' => '');
+        $validacionesb1 = array('A.Paterno' => 'string_35','A.Materno' => 'string_35','Nombre' => 'nonEmptyString_50','Calle' => 'nonEmptyString_50','NumeroInterior' => 'nonEmptyString_30', 'NumeroExterior' => 'nonEmptyString_25','Colonia' =>'catColonia', 'CodigoPostal' => 'nonEmptyString_5', 'Alcaldia' => 'catDelegacion','TipoPersona' => 'subTipoPersona');
+        $validacionesb2 = array('A.Paterno' => 'string_35','A.Materno' => 'string_35','Nombre' => 'nonEmptyString_50','Calle' => 'nonEmptyString_50','NumeroInterior' => 'nonEmptyString_30', 'NumeroExterior' => 'nonEmptyString_25','Colonia' =>'catColonia', 'CodigoPostal' => 'nonEmptyString_5', 'Alcaldia' => 'catDelegacion','TipoPersona' => 'subTipoPersonaProp');
+        $validacionesb3 = array('Calle' => 'nonEmptyString_50','NumeroInterior' => 'nonEmptyString_30','NumeroExterior' => 'nonEmptyString_25','Manzana' => 'string_50','Lote' => 'string_50', 'Edificio' => 'string_50','Colonia' =>'catColonia', 'CodigoPostal' => 'nonEmptyString_5', 'Alcaldia' => 'catDelegacion', 'CuentaCatastral' => 'validacionesb310', 'CuentaDeAgua' => '');
         $validacionesb310 = array('Region' => 'regionManzanaUp', 'Manzana' => 'regionManzanaUp', 'Lote' => 'lote', 'Localidad' => 'regionManzanaUp', 'DigitoVerificador' => 'digitoVerificador');
     }
     
@@ -3884,21 +3884,21 @@ function valida_AvaluoEnfoqueMercado($data){
 
     $validacionesh1 = array('ValorUnitarioDeTierraAplicableAlAvaluo' => 'SUB-ValorUnitarioDeTierraAplicableAlAvaluo');    
 
-    $validacionesh11 = array('Calle' => 'nonEmptyString_100', 'Colonia' => 'catColonia', 'Delegacion' => 'catDelegacion', 'CodigoPostal' => 'nonEmptyString_5', 'DescripcionDelPredio' => 'nonEmptyString_250', 'UsoDelSuelo' => 'nonEmptyString_50', 'UsoDelSuelo' => 'nonEmptyString_50', 'CUS' => 'decimalPositivo', 'Superficie' => 'decimalPositivo_222', 'Fzo' => 'decimalPositivo_32', 'Fub' => 'decimalPositivo_32', 'FFr' => 'decimalPositivo_32', 'Ffo' => 'decimalPositivo_32', 'Fsu' => 'decimalPositivo_32', 'Fre' => 'decimalPositivo', 'PrecioSolicitado' => 'decimalPositivo', 'FactorDeNegociacion' => 'decimalPositivo');
+    $validacionesh11 = array('Calle' => 'nonEmptyString_100', 'Colonia' => 'catColonia', 'Alcaldia' => 'catDelegacion', 'CodigoPostal' => 'nonEmptyString_5', 'DescripcionDelPredio' => 'nonEmptyString_250', 'UsoDelSuelo' => 'nonEmptyString_50', 'UsoDelSuelo' => 'nonEmptyString_50', 'CUS' => 'decimalPositivo', 'Superficie' => 'decimalPositivo_222', 'Fzo' => 'decimalPositivo_32', 'Fub' => 'decimalPositivo_32', 'FFr' => 'decimalPositivo_32', 'Ffo' => 'decimalPositivo_32', 'Fsu' => 'decimalPositivo_32', 'Fre' => 'decimalPositivo', 'PrecioSolicitado' => 'decimalPositivo', 'FactorDeNegociacion' => 'decimalPositivo');
     $validacionesh11n5 = array('Telefono' => 'nonEmptyString_20', 'Informante' => 'nonEmptyString_100');
     $validacionesh11n18 = array('Valor' => 'decimalPositivo', 'Descripcion' => 'nonEmptyString_50');
 
     $validacionesh12 = array('ValorUnitarioDeTierraPromedio' => 'decimalPositivo', 'ValorUnitarioDeTierraHomologado' => 'decimalPositivo', 'ValorUnitarioSinHomologarMinimo' => 'decimalPositivo', 'ValorUnitarioSinHomologarMaximo' => 'decimalPositivo', 'ValorUnitarioHomologadoMinimo' => 'decimalPositivo', 'ValorUnitarioHomologadoMaximo' => 'decimalPositivo');
 
     $validacionesh13 = array('TipoDeProductoInmobiliarioPropuesto' => 'nonEmptyString', 'NumeroDeUnidadesVendibles' => 'decimalPositivo', 'SuperficieVendiblePorUnidad' => 'decimalPositivo');
-    $validacionesh134 = array('Calle' => 'nonEmptyString_50', 'Colonia' => 'catColonia', 'Delegacion' => 'catDelegacion', 'CodigoPostal' => 'nonEmptyString_5', 'DescripcionDelComparable' => 'nonEmptyString_250', 'SuperficieVendiblePorUnidad' => 'decimalPositivo_222', 'PrecioSolicitado' => 'decimalPositivo', 'FactorDeNegociacion' => 'decimalPositivo');
+    $validacionesh134 = array('Calle' => 'nonEmptyString_50', 'Colonia' => 'catColonia', 'Alcaldia' => 'catDelegacion', 'CodigoPostal' => 'nonEmptyString_5', 'DescripcionDelComparable' => 'nonEmptyString_250', 'SuperficieVendiblePorUnidad' => 'decimalPositivo_222', 'PrecioSolicitado' => 'decimalPositivo', 'FactorDeNegociacion' => 'decimalPositivo');
     $validacionesh134n5 = array('Telefono' => 'nonEmptyString_20', 'Informante' => 'nonEmptyString_100');
 
     $validacionesh135 = array('ValorUnitarioPromedio' => 'decimalPositivo', 'ValorUnitarioHomologado' => 'decimalPositivo', 'ValorUnitarioSinHomologarMinimo' => 'decimalPositivo', 'ValorUnitarioSinHomologarMaximo' => 'decimalPositivo', 'ValorUnitarioHomologadoMinimo' => 'decimalPositivo', 'ValorUnitarioHomologadoMaximo' => 'decimalPositivo', 'ValorUnitarioAplicableAlResidual' => 'decimalPositivo');
 
     $validacionesh136 = array('TotalDeIngresos' => 'decimalPositivo', 'TotalDeEgresos' => 'decimalPositivo', 'UtilidadPropuesta' => 'nonEmptyString', 'ValorUnitarioDeTierraResidual' => 'decimalPositivo');
 
-    $validacionesh21 = array('Calle' => 'nonEmptyString_50', 'Colonia' => 'catColonia', 'Delegacion' => 'catDelegacion', 'CodigoPostal' => 'nonEmptyString_5', 'DescripcionDelComparable' => 'nonEmptyString_250', 'SuperficieVendiblePorUnidad' => 'decimalPositivo_222', 'PrecioSolicitado' => 'decimalPositivo', 'FactorDeNegociacion' => 'decimalPositivo');
+    $validacionesh21 = array('Calle' => 'nonEmptyString_50', 'Colonia' => 'catColonia', 'Alcaldia' => 'catDelegacion', 'CodigoPostal' => 'nonEmptyString_5', 'DescripcionDelComparable' => 'nonEmptyString_250', 'SuperficieVendiblePorUnidad' => 'decimalPositivo_222', 'PrecioSolicitado' => 'decimalPositivo', 'FactorDeNegociacion' => 'decimalPositivo');
 
     $validacionesh21n5 = array('Telefono' => 'nonEmptyString_20', 'Informante' => 'nonEmptyString_100');
 
@@ -3906,7 +3906,7 @@ function valida_AvaluoEnfoqueMercado($data){
 
     $validacionesh22 = array('ValorUnitarioPromedio' => 'decimalPositivo', 'ValorUnitarioHomologado' => 'decimalPositivo', 'ValorUnitarioSinHomologarMinimo' => 'decimalPositivo', 'ValorUnitarioSinHomologarMaximo' => 'decimalPositivo', 'ValorUnitarioHomologadoMinimo' => 'decimalPositivo', 'ValorUnitarioHomologadoMaximo' => 'decimalPositivo', 'ValorUnitarioAplicableAlAvaluo' => 'decimalPositivo');
 
-    $validacionesh41 = array('Calle' => 'nonEmptyString_50', 'Colonia' => 'catColonia', 'Delegacion' => 'catDelegacion', 'CodigoPostal' => 'nonEmptyString_5', 'DescripcionDelComparable' => 'nonEmptyString_250', 'SuperficieVendiblePorUnidad' => 'decimalPositivo_222', 'PrecioSolicitado' => 'decimalPositivo', 'FactorDeNegociacion' => 'decimalPositivo');
+    $validacionesh41 = array('Calle' => 'nonEmptyString_50', 'Colonia' => 'catColonia', 'Alcaldia' => 'catDelegacion', 'CodigoPostal' => 'nonEmptyString_5', 'DescripcionDelComparable' => 'nonEmptyString_250', 'SuperficieVendiblePorUnidad' => 'decimalPositivo_222', 'PrecioSolicitado' => 'decimalPositivo', 'FactorDeNegociacion' => 'decimalPositivo');
 
     $validacionesh41n5 = array('Telefono' => 'nonEmptyString_20', 'Informante' => 'nonEmptyString_100');
 
