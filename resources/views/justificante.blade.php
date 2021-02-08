@@ -102,7 +102,7 @@
                             <td><b>VALUADOR:</b></td>
                             <td>
                             @isset($infoAvaluo['Sociedad_Participa']['Valuador'])
-                                {{$infoAvaluo['Sociedad_Participa']['Valuador']}}
+                            <span class="grises">{{$infoAvaluo['Sociedad_Participa']['Valuador']}}</span>
                             @endisset
                             </td>
                         </tr>
@@ -110,7 +110,7 @@
                             <td><b>FECHA DEL AVALÚO:</b></td>
                             <td>
                             @isset($infoAvaluo['Sociedad_Participa']['Fecha_del_Avaluo'])
-                                {{$infoAvaluo['Sociedad_Participa']['Fecha_del_Avaluo']}}
+                                <span class="grises">{{$infoAvaluo['Sociedad_Participa']['Fecha_del_Avaluo']}}</span>
                             @endisset
                             </td>
                         </tr>
@@ -119,40 +119,40 @@
                             <td>
                                 Tipo persona: 
                                 @isset($infoAvaluo['Sociedad_Participa']['Solicitante']['Tipo_persona'])
-                                    {{$infoAvaluo['Sociedad_Participa']['Solicitante']['Tipo_persona']}}
+                                    <span class="grises">{{$infoAvaluo['Sociedad_Participa']['Solicitante']['Tipo_persona']}}</span>
                                 @endisset
                                 <br>
                                 @isset($infoAvaluo['Sociedad_Participa']['Solicitante']['Nombre'])
-                                    {{$infoAvaluo['Sociedad_Participa']['Solicitante']['Nombre']}} 
+                                    <span class="grises">{{$infoAvaluo['Sociedad_Participa']['Solicitante']['Nombre']}}</span> 
                                 @endisset
                                 <br>
                                 UBICACIÓN DEL INMUEBLE: Calle : 
                                 @isset($infoAvaluo['Sociedad_Participa']['Solicitante']['Calle'])
-                                    {{$infoAvaluo['Sociedad_Participa']['Solicitante']['Calle']}} 
+                                    <span class="grises">{{$infoAvaluo['Sociedad_Participa']['Solicitante']['Calle']}}</span> 
                                 @endisset
                                 <br>
                                 Nº Exterior: 
                                 @isset($infoAvaluo['Sociedad_Participa']['Solicitante']['No_Exterior'])
-                                    {{$infoAvaluo['Sociedad_Participa']['Solicitante']['No_Exterior']}} 
+                                    <span class="grises">{{$infoAvaluo['Sociedad_Participa']['Solicitante']['No_Exterior']}}</span> 
                                 @endisset
                                 <br>
                                 Nº Interior: 
                                 @isset($infoAvaluo['Sociedad_Participa']['Solicitante']['No_Interior'])
-                                    {{$infoAvaluo['Sociedad_Participa']['Solicitante']['No_Interior']}} 
+                                    <span class="grises">{{$infoAvaluo['Sociedad_Participa']['Solicitante']['No_Interior']}}</span> 
                                 @endisset
                                 <br>
                                 Colonia: 
                                 @isset($infoAvaluo['Sociedad_Participa']['Solicitante']['Colonia'])
-                                    {{$infoAvaluo['Sociedad_Participa']['Solicitante']['Colonia']}}
+                                    <span class="grises">{{$infoAvaluo['Sociedad_Participa']['Solicitante']['Colonia']}}</span>
                                 @endisset
                                 CP : 
                                 @isset($infoAvaluo['Sociedad_Participa']['Solicitante']['CP'])
-                                    {{$infoAvaluo['Sociedad_Participa']['Solicitante']['CP']}} 
+                                    <span class="grises">{{$infoAvaluo['Sociedad_Participa']['Solicitante']['CP']}}</span> 
                                 @endisset
                                 <br>
-                                Delegación: 
+                                Alcaldía: 
                                 @isset($infoAvaluo['Sociedad_Participa']['Solicitante']['Delegacion'])
-                                    {{$infoAvaluo['Sociedad_Participa']['Solicitante']['Delegacion']}}
+                                    <span class="grises">{{$infoAvaluo['Sociedad_Participa']['Solicitante']['Delegacion']}}</span>
                                 @endisset
                             </td>
                         </tr>
@@ -160,7 +160,7 @@
                             <td><b>INMUEBLE QUE SE EVALÚA:</b></td>
                             <td>
                             @isset($infoAvaluo['Sociedad_Participa']['inmuebleQueSeValua'])
-                                {{$infoAvaluo['Sociedad_Participa']['inmuebleQueSeValua']}}
+                                <span class="grises">{{$infoAvaluo['Sociedad_Participa']['inmuebleQueSeValua']}}</span>
                             @endisset                            
                             </td>
                         </tr>
@@ -168,7 +168,7 @@
                             <td><b>RÉGIMEN DE PROPIEDAD:</b></td>
                             <td>
                             @isset($infoAvaluo['Sociedad_Participa']['regimenDePropiedad'])
-                                {{$infoAvaluo['Sociedad_Participa']['regimenDePropiedad']}}
+                                <span class="grises">{{$infoAvaluo['Sociedad_Participa']['regimenDePropiedad']}}</span>
                             @endisset                            
                             </td>
                         </tr>
@@ -177,41 +177,41 @@
                             <td>
                                 Tipo persona: 
                                 @isset($infoAvaluo['Sociedad_Participa']['Propietario']['Tipo_persona'])
-                                    {{$infoAvaluo['Sociedad_Participa']['Propietario']['Tipo_persona']}}
+                                    <span class="grises">{{$infoAvaluo['Sociedad_Participa']['Propietario']['Tipo_persona']}}</span>
                                 @endisset
                                 <br>
                                 
                                 @isset($infoAvaluo['Sociedad_Participa']['Propietario']['Nombre'])
-                                    {{$infoAvaluo['Sociedad_Participa']['Propietario']['Nombre']}}
+                                    <span class="grises">{{$infoAvaluo['Sociedad_Participa']['Propietario']['Nombre']}}</span>
                                 @endisset
                                 <br>
                                 UBICACIÓN DEL INMUEBLE: Calle : 
                                 @isset($infoAvaluo['Sociedad_Participa']['Propietario']['Calle'])
-                                    {{$infoAvaluo['Sociedad_Participa']['Propietario']['Calle']}}
+                                    <span class="grises">{{$infoAvaluo['Sociedad_Participa']['Propietario']['Calle']}}</span>
                                 @endisset
                                 <br>
                                 Nº Exterior: 
                                 @isset($infoAvaluo['Sociedad_Participa']['Propietario']['No_Exterior'])
-                                    {{$infoAvaluo['Sociedad_Participa']['Propietario']['No_Exterior']}}
+                                    <span class="grises">{{$infoAvaluo['Sociedad_Participa']['Propietario']['No_Exterior']}}</span>
                                 @endisset
                                 <br>
                                 Nº Interior: 
                                 @isset($infoAvaluo['Sociedad_Participa']['Propietario']['No_Interior'])
-                                    {{$infoAvaluo['Sociedad_Participa']['Propietario']['No_Interior']}}
+                                    <span class="grises">{{$infoAvaluo['Sociedad_Participa']['Propietario']['No_Interior']}}</span>
                                 @endisset
                                 <br>
                                 Colonia: 
                                 @isset($infoAvaluo['Sociedad_Participa']['Propietario']['Colonia'])
-                                    {{$infoAvaluo['Sociedad_Participa']['Propietario']['Colonia']}}
+                                    <span class="grises">{{$infoAvaluo['Sociedad_Participa']['Propietario']['Colonia']}}</span>
                                 @endisset
                                 CP : 
                                 @isset($infoAvaluo['Sociedad_Participa']['Propietario']['CP'])
-                                    {{$infoAvaluo['Sociedad_Participa']['Propietario']['CP']}}
+                                    <span class="grises">{{$infoAvaluo['Sociedad_Participa']['Propietario']['CP']}}</span>
                                 @endisset
                                 <br>
                                 Delegación: 
                                 @isset($infoAvaluo['Sociedad_Participa']['Propietario']['Delegacion'])
-                                    {{$infoAvaluo['Sociedad_Participa']['Propietario']['Delegacion']}}
+                                    <span class="grises">{{$infoAvaluo['Sociedad_Participa']['Propietario']['Delegacion']}}</span>
                                 @endisset
                             </td>
                         </tr>
@@ -219,7 +219,7 @@
                             <td><b>OBJETO DEL AVALÚO:</b></td>
                             <td>
                             @isset($infoAvaluo['Sociedad_Participa']['Objeto_Avaluo'])
-                                {{$infoAvaluo['Sociedad_Participa']['Objeto_Avaluo']}}
+                                <span class="grises">{{$infoAvaluo['Sociedad_Participa']['Objeto_Avaluo']}}</span>
                             @endisset
                             </td>
                         </tr>
@@ -227,7 +227,7 @@
                             <td><b>PROPÓSITO DEL AVALÚO:</b></td>
                             <td>
                             @isset($infoAvaluo['Sociedad_Participa']['Proposito_Avaluo'])
-                                {{$infoAvaluo['Sociedad_Participa']['Proposito_Avaluo']}}
+                                <span class="grises">{{$infoAvaluo['Sociedad_Participa']['Proposito_Avaluo']}}</span>
                             @endisset
                             </td>
                         </tr>
@@ -249,39 +249,39 @@
                                         </td>
                                         <td style="width: 50%;">
                                             @isset($infoAvaluo['Ubicacion_Inmueble']['Calle'])
-                                                {{$infoAvaluo['Ubicacion_Inmueble']['Calle']}}
+                                                <span class="grises">{{$infoAvaluo['Ubicacion_Inmueble']['Calle']}}</span>
                                             @endisset
                                             <br>
                                             @isset($infoAvaluo['Ubicacion_Inmueble']['No_Exterior'])
-                                                {{$infoAvaluo['Ubicacion_Inmueble']['No_Exterior']}}
+                                                <span class="grises">{{$infoAvaluo['Ubicacion_Inmueble']['No_Exterior']}}</span>
                                             @endisset
                                             <br>
                                             @isset($infoAvaluo['Ubicacion_Inmueble']['No_Interior'])
-                                                {{$infoAvaluo['Ubicacion_Inmueble']['No_Interior']}}
+                                                <span class="grises">{{$infoAvaluo['Ubicacion_Inmueble']['No_Interior']}}</span>
                                             @endisset
                                             <br>
                                             @isset($infoAvaluo['Ubicacion_Inmueble']['Colonia'])
-                                                {{$infoAvaluo['Ubicacion_Inmueble']['Colonia']}}
+                                                <span class="grises">{{$infoAvaluo['Ubicacion_Inmueble']['Colonia']}}</span>
                                             @endisset
                                             <br>
                                             @isset($infoAvaluo['Ubicacion_Inmueble']['CP'])
-                                                {{$infoAvaluo['Ubicacion_Inmueble']['CP']}}
+                                                <span class="grises">{{$infoAvaluo['Ubicacion_Inmueble']['CP']}}</span>
                                             @endisset
                                             <br>
                                             @isset($infoAvaluo['Ubicacion_Inmueble']['Delegacion'])
-                                                {{$infoAvaluo['Ubicacion_Inmueble']['Delegacion']}}
+                                                <span class="grises">{{$infoAvaluo['Ubicacion_Inmueble']['Delegacion']}}</span>
                                             @endisset
                                             <br>
                                             @isset($infoAvaluo['Ubicacion_Inmueble']['Edificio'])
-                                                {{$infoAvaluo['Ubicacion_Inmueble']['Edificio']}}
+                                                <span class="grises">{{$infoAvaluo['Ubicacion_Inmueble']['Edificio']}}</span>
                                             @endisset
                                             <br>
                                             @isset($infoAvaluo['Ubicacion_Inmueble']['Lote'])
-                                                {{$infoAvaluo['Ubicacion_Inmueble']['Lote']}}
+                                                <span class="grises">{{$infoAvaluo['Ubicacion_Inmueble']['Lote']}}</span>
                                             @endisset
                                             <br>
                                             @isset($infoAvaluo['Ubicacion_Inmueble']['Cuenta_agua'])
-                                                {{$infoAvaluo['Ubicacion_Inmueble']['Cuenta_agua']}}
+                                                <span class="grises">{{$infoAvaluo['Ubicacion_Inmueble']['Cuenta_agua']}}</span>
                                             @endisset
                                         </td>
                                     </tr>
@@ -299,7 +299,7 @@
                             <td style="width: 35%;"><b>CLASIFICACIÓN DE LA ZONA:</b></td>
                             <td style="width: 65%;">
                             @isset($infoAvaluo['Clasificacion_de_la_zona'])
-                                {{$infoAvaluo['Clasificacion_de_la_zona']}}
+                                <span class="grises">{{$infoAvaluo['Clasificacion_de_la_zona']}}</span>
                             @endisset
                             </td>
                         </tr>
@@ -307,7 +307,7 @@
                             <td><b>ÍNDICE DE SATURACIÓN DE LA ZONA:</b></td>
                             <td>
                             @isset($infoAvaluo['Indice_Saturacion_Zona'])
-                                {{$infoAvaluo['Indice_Saturacion_Zona']}}
+                                <span class="grises">{{$infoAvaluo['Indice_Saturacion_Zona']}}</span>
                             @endisset
                             </td>
                         </tr>
@@ -315,7 +315,7 @@
                             <td><b>TIPO DE CONSTRUCCIÓN DOMINANTE:</b></td>
                             <td>
                             @isset($infoAvaluo['Tipo_Construccion_Dominante'])
-                                {{$infoAvaluo['Tipo_Construccion_Dominante']}}
+                                <span class="grises">{{$infoAvaluo['Tipo_Construccion_Dominante']}}</span>
                             @endisset
                             </td>
                         </tr>
@@ -323,7 +323,7 @@
                             <td><b>DENSISAD DE LA POBLACIÓN:</b></td>
                             <td>
                             @isset($infoAvaluo['Densidad_Poblacion'])
-                                {{$infoAvaluo['Densidad_Poblacion']}}
+                                <span class="grises">{{$infoAvaluo['Densidad_Poblacion']}}</span>
                             @endisset
                             </td>
                         </tr>
@@ -331,7 +331,7 @@
                             <td><b>NIVEL SOCIOECONÓMICO DE LA ZONA:</b></td>
                             <td>
                             @isset($infoAvaluo['Nivel_Socioeconomico_Zona'])
-                                {{$infoAvaluo['Nivel_Socioeconomico_Zona']}}
+                                <span class="grises">{{$infoAvaluo['Nivel_Socioeconomico_Zona']}}</span>
                             @endisset
                             </td>
                         </tr>
@@ -339,7 +339,7 @@
                             <td><b>CONTAMINACIÓN DEL MEDIO AMBIENTE:</b></td>
                             <td>
                             @isset($infoAvaluo['Contaminacion_Medio_Ambiente'])
-                                {{$infoAvaluo['Contaminacion_Medio_Ambiente']}}
+                                <span class="grises">{{$infoAvaluo['Contaminacion_Medio_Ambiente']}}</span>
                             @endisset
                             </td>
                         </tr>
@@ -347,7 +347,7 @@
                             <td><b>CLASE GENERAL DE INMUEBLES DE LA ZONA:</b></td>
                             <td>
                             @isset($infoAvaluo['Clase_General_De_Inmuebles_Zona'])
-                                {{$infoAvaluo['Clase_General_De_Inmuebles_Zona']}}
+                                <span class="grises">{{$infoAvaluo['Clase_General_De_Inmuebles_Zona']}}</span>
                             @endisset
                             </td>
                         </tr>
@@ -355,7 +355,7 @@
                             <td><b>USO DEL SUELO:</b></td>
                             <td>
                             @isset($infoAvaluo['Uso_Suelo'])
-                                {{$infoAvaluo['Uso_Suelo']}}
+                                <span class="grises">{{$infoAvaluo['Uso_Suelo']}}</span>
                             @endisset
                             </td>
                         </tr>
@@ -363,7 +363,7 @@
                             <td><b>ÁREA LIBRE OBLIGATORIA:</b></td>
                             <td>
                             @isset($infoAvaluo['Area_Libre_Obligatoria'])
-                                {{$infoAvaluo['Area_Libre_Obligatoria']}}
+                                <span class="grises">{{$infoAvaluo['Area_Libre_Obligatoria']}}</span>
                             @endisset
                             </td>
                         </tr>
@@ -371,7 +371,7 @@
                             <td valign="top"><b>VÍAS DE ACCESO E IMPORTANCIA DE LAS MISMAS:</b></td>
                             <td>
                             @isset($infoAvaluo['Vias_Acceso_E_Importancia'])
-                                {{$infoAvaluo['Vias_Acceso_E_Importancia']}}
+                                <span class="grises">{{$infoAvaluo['Vias_Acceso_E_Importancia']}}</span>
                             @endisset
                             </td>
                         </tr>
@@ -385,7 +385,7 @@
                                 <td><b>Red de distribución agua potable:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Red_Agua_Potable'])
-                                    {{$infoAvaluo['Servicios_Publicos_Equipamiento']['Red_Agua_Potable']}}
+                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Red_Agua_Potable']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -393,7 +393,7 @@
                                 <td><b>Red de recolección de aguas residuales:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Red_Aguas_Residuales'])
-                                    {{$infoAvaluo['Servicios_Publicos_Equipamiento']['Red_Aguas_Residuales']}}
+                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Red_Aguas_Residuales']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -401,7 +401,7 @@
                                 <td><b>Red de drenaje de aguas pluviales en la calle:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Red_Drenaje_Aguas_Pluviales_Calle'])
-                                    {{$infoAvaluo['Servicios_Publicos_Equipamiento']['Red_Drenaje_Aguas_Pluviales_Calle']}}
+                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Red_Drenaje_Aguas_Pluviales_Calle']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -409,7 +409,7 @@
                                 <td><b>Red de drenaje de aguas pluviales en la zona:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Red_Drenaje_Aguas_Pluviales_Zona'])
-                                    {{$infoAvaluo['Servicios_Publicos_Equipamiento']['Red_Drenaje_Aguas_Pluviales_Zona']}}
+                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Red_Drenaje_Aguas_Pluviales_Zona']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -417,7 +417,7 @@
                                 <td><b>Sistema mixto (aguas pluviales y residuales):</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Sistema_Mixto'])
-                                    {{$infoAvaluo['Servicios_Publicos_Equipamiento']['Sistema_Mixto']}}
+                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Sistema_Mixto']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -425,7 +425,7 @@
                                 <td><b>Suministro eléctrico:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Suministro_Electrico'])
-                                    {{$infoAvaluo['Servicios_Publicos_Equipamiento']['Suministro_Electrico']}}
+                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Suministro_Electrico']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -433,7 +433,7 @@
                                 <td><b>Acometida al inmueble:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Acometida_Inmueble'])
-                                    {{$infoAvaluo['Servicios_Publicos_Equipamiento']['Acometida_Inmueble']}}
+                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Acometida_Inmueble']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -441,7 +441,7 @@
                                 <td><b>Alumbrado público:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Alumbrado_Publico'])
-                                    {{$infoAvaluo['Servicios_Publicos_Equipamiento']['Alumbrado_Publico']}}
+                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Alumbrado_Publico']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -449,7 +449,7 @@
                                 <td><b>Vialidades:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Vialidades'])
-                                    {{$infoAvaluo['Servicios_Publicos_Equipamiento']['Vialidades']}}
+                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Vialidades']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -457,7 +457,7 @@
                                 <td><b>Banquetas:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Banquetas'])
-                                    {{$infoAvaluo['Servicios_Publicos_Equipamiento']['Banquetas']}}
+                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Banquetas']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -465,7 +465,7 @@
                                 <td><b>Guarniciones:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Guarniciones'])
-                                    {{$infoAvaluo['Servicios_Publicos_Equipamiento']['Guarniciones']}}
+                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Guarniciones']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -473,7 +473,7 @@
                                 <td><b>Nivel de infraestructura en la zona (%):</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Nivel_Infraestructura_Zona'])
-                                    {{$infoAvaluo['Servicios_Publicos_Equipamiento']['Nivel_Infraestructura_Zona']}}
+                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Nivel_Infraestructura_Zona']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -481,7 +481,7 @@
                                 <td><b>Gas natural:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Gas_Natutral'])
-                                    {{$infoAvaluo['Servicios_Publicos_Equipamiento']['Gas_Natutral']}}
+                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Gas_Natutral']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -489,7 +489,7 @@
                                 <td><b>Teléfonos suministro:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Telefonos_Suministro'])
-                                    {{$infoAvaluo['Servicios_Publicos_Equipamiento']['Telefonos_Suministro']}}
+                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Telefonos_Suministro']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -497,7 +497,7 @@
                                 <td><b>Señalización de vías:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Senalizacion_Vias'])
-                                    {{$infoAvaluo['Servicios_Publicos_Equipamiento']['Senalizacion_Vias']}}
+                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Senalizacion_Vias']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -505,7 +505,7 @@
                                 <td><b>Acometida al inmueble tel.:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Acometida_Inmueble_Tel'])
-                                    {{$infoAvaluo['Servicios_Publicos_Equipamiento']['Acometida_Inmueble_Tel']}}
+                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Acometida_Inmueble_Tel']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -513,7 +513,7 @@
                                 <td><b>Distancia transporte urbano:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Distancia_Transporte_Urbano'])
-                                    {{$infoAvaluo['Servicios_Publicos_Equipamiento']['Distancia_Transporte_Urbano']}}
+                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Distancia_Transporte_Urbano']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -521,7 +521,7 @@
                                 <td><b>Frecuencia transporte urbano:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Frecuencia_Transporte_Urbano'])
-                                    {{$infoAvaluo['Servicios_Publicos_Equipamiento']['Frecuencia_Transporte_Urbano']}}
+                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Frecuencia_Transporte_Urbano']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -529,7 +529,7 @@
                                 <td><b>Distancia transporte suburbano:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Distancia_Transporte_Suburbano'])
-                                    {{$infoAvaluo['Servicios_Publicos_Equipamiento']['Distancia_Transporte_Suburbano']}}
+                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Distancia_Transporte_Suburbano']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -537,7 +537,7 @@
                                 <td><b>Frecuencia transporte suburbano:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Frecuencia_Transporte_Suburbano'])
-                                    {{$infoAvaluo['Servicios_Publicos_Equipamiento']['Frecuencia_Transporte_Suburbano']}}
+                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Frecuencia_Transporte_Suburbano']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -545,7 +545,7 @@
                                 <td><b>Vigilancia:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Vigilancia'])
-                                    {{$infoAvaluo['Servicios_Publicos_Equipamiento']['Vigilancia']}}
+                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Vigilancia']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -553,7 +553,7 @@
                                 <td><b>Recolección de basura:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Recoleccion_Basura'])
-                                    {{$infoAvaluo['Servicios_Publicos_Equipamiento']['Recoleccion_Basura']}}
+                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Recoleccion_Basura']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -561,7 +561,7 @@
                                 <td><b>Templo:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Templo'])
-                                    {{$infoAvaluo['Servicios_Publicos_Equipamiento']['Templo']}}
+                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Templo']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -569,7 +569,7 @@
                                 <td><b>Mercados:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Mercados'])
-                                    {{$infoAvaluo['Servicios_Publicos_Equipamiento']['Mercados']}}
+                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Mercados']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -577,7 +577,7 @@
                                 <td><b>Plazas públicas:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Plazas_Publicas'])
-                                    {{$infoAvaluo['Servicios_Publicos_Equipamiento']['Plazas_Publicas']}}
+                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Plazas_Publicas']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -585,7 +585,7 @@
                                 <td><b>Parques y jardines:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Parques_Jardines'])
-                                    {{$infoAvaluo['Servicios_Publicos_Equipamiento']['Parques_Jardines']}}
+                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Parques_Jardines']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -593,7 +593,7 @@
                                 <td><b>Escuelas:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Escuelas'])
-                                    {{$infoAvaluo['Servicios_Publicos_Equipamiento']['Escuelas']}}
+                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Escuelas']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -601,7 +601,7 @@
                                 <td><b>Hospitales:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Hospitales'])
-                                    {{$infoAvaluo['Servicios_Publicos_Equipamiento']['Hospitales']}}
+                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Hospitales']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -609,7 +609,7 @@
                                 <td><b>Bancos:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Bancos'])
-                                    {{$infoAvaluo['Servicios_Publicos_Equipamiento']['Bancos']}}
+                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Bancos']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -617,7 +617,7 @@
                                 <td><b>Estación de transporte:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Estacion_Transporte'])
-                                    {{$infoAvaluo['Servicios_Publicos_Equipamiento']['Estacion_Transporte']}}
+                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Estacion_Transporte']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -625,7 +625,7 @@
                                 <td><b>Nivel de equipamiento urbano:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Nivel_Equipamiento_Urbano'])
-                                    {{$infoAvaluo['Servicios_Publicos_Equipamiento']['Nivel_Equipamiento_Urbano']}}
+                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Nivel_Equipamiento_Urbano']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -633,7 +633,7 @@
                                 <td><b>Nomenclatura de calles</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Nomenclatura_Calles'])
-                                    {{$infoAvaluo['Servicios_Publicos_Equipamiento']['Nomenclatura_Calles']}}
+                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Nomenclatura_Calles']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -646,7 +646,7 @@
                     <div><b>CALLES TRANSVERSALES, LIMÍTROFES Y ORIENTACIÓN:</b></div>
                     <div>
                     @isset($infoAvaluo['Calles_Transversales_Limitrofes'])
-                        {{$infoAvaluo['Calles_Transversales_Limitrofes']}}
+                    <span class="grises">{{$infoAvaluo['Calles_Transversales_Limitrofes']}}</span>
                     @endisset
                     </div> 
 
@@ -667,7 +667,7 @@
                                 <td><b>Fuente:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Medidas_Colindancias']['Fuente'])
-                                    {{$infoAvaluo['Medidas_Colindancias']['Fuente']}}
+                                    <span class="grises">{{$infoAvaluo['Medidas_Colindancias']['Fuente']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -675,13 +675,13 @@
                                 <td><b>Número escritura:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Medidas_Colindancias']['Numero_Escritura'])
-                                    {{$infoAvaluo['Medidas_Colindancias']['Numero_Escritura']}}
+                                    <span class="grises">{{$infoAvaluo['Medidas_Colindancias']['Numero_Escritura']}}</span>
                                 @endisset
                                 </td>
                                 <td><b>Número volumen:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Medidas_Colindancias']['Numero_Volumen'])
-                                    {{$infoAvaluo['Medidas_Colindancias']['Numero_Volumen']}}
+                                    <span class="grises">{{$infoAvaluo['Medidas_Colindancias']['Numero_Volumen']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -689,13 +689,13 @@
                                 <td><b>Número notaría:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Medidas_Colindancias']['Numero_Notaria'])
-                                    {{$infoAvaluo['Medidas_Colindancias']['Numero_Notaria']}}
+                                    <span class="grises">{{$infoAvaluo['Medidas_Colindancias']['Numero_Notaria']}}</span>
                                 @endisset
                                 </td>
                                 <td><b>Nombre de notario:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Medidas_Colindancias']['Nombre_Notario'])
-                                    {{$infoAvaluo['Medidas_Colindancias']['Nombre_Notario']}}
+                                    <span class="grises">{{$infoAvaluo['Medidas_Colindancias']['Nombre_Notario']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -703,7 +703,7 @@
                                 <td><b>Entidad federativa:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Medidas_Colindancias']['Entidad_Federativa'])
-                                    {{$infoAvaluo['Medidas_Colindancias']['Entidad_Federativa']}}
+                                    <span class="grises">{{$infoAvaluo['Medidas_Colindancias']['Entidad_Federativa']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -722,9 +722,9 @@
                             @isset($infoAvaluo['Colindancias'])
                                 @foreach($infoAvaluo['Colindancias'] as $value_colindancias)
                                 <tr>
-                                    <td>{{$value_colindancias['Orientacion']}}</td>
-                                    <td>{{$value_colindancias['MedidaEnMetros']}}</td>
-                                    <td>{{$value_colindancias['DescripcionColindante']}}</td>
+                                    <td><span class="grises">{{$value_colindancias['Orientacion']}}</span></td>
+                                    <td><span class="grises">{{$value_colindancias['MedidaEnMetros']}}</span></td>
+                                    <td><span class="grises">{{$value_colindancias['DescripcionColindante']}}</span></td>
                                 </tr>
                                 @endforeach
                             @endisset
@@ -754,57 +754,57 @@
                                 <tr>
                                     <td class="centrado">
                                     @isset($infoAvaluo['Superficie_Total_Segun']['Ident_Fraccion'])
-                                        {{$infoAvaluo['Superficie_Total_Segun']['Ident_Fraccion']}}
+                                        <span class="grises">{{$infoAvaluo['Superficie_Total_Segun']['Ident_Fraccion']}}</span>
                                     @endisset
                                     </td>
                                     <td class="centrado">
                                     @isset($infoAvaluo['Superficie_Total_Segun']['Sup_Fraccion'])
-                                        {{$infoAvaluo['Superficie_Total_Segun']['Sup_Fraccion']}}
+                                        <span class="grises">{{$infoAvaluo['Superficie_Total_Segun']['Sup_Fraccion']}}</span>
                                     @endisset
                                     </td>
                                     <td class="centrado">
                                     @isset($infoAvaluo['Superficie_Total_Segun']['Fzo'])
-                                        {{$infoAvaluo['Superficie_Total_Segun']['Fzo']}}
+                                        <span class="grises">{{$infoAvaluo['Superficie_Total_Segun']['Fzo']}}</span>
                                     @endisset
                                     </td>
                                     <td class="centrado">
                                     @isset($infoAvaluo['Superficie_Total_Segun']['Fub'])
-                                        {{$infoAvaluo['Superficie_Total_Segun']['Fub']}}
+                                        <span class="grises">{{$infoAvaluo['Superficie_Total_Segun']['Fub']}}</span>
                                     @endisset
                                     </td>
                                     <td class="centrado">
                                     @isset($infoAvaluo['Superficie_Total_Segun']['FFr'])
-                                        {{$infoAvaluo['Superficie_Total_Segun']['FFr']}}
+                                        <span class="grises">{{$infoAvaluo['Superficie_Total_Segun']['FFr']}}</span>
                                     @endisset
                                     </td>
                                     <td class="centrado">
                                     @isset($infoAvaluo['Superficie_Total_Segun']['Ffo'])
-                                        {{$infoAvaluo['Superficie_Total_Segun']['Ffo']}}
+                                        <span class="grises">{{$infoAvaluo['Superficie_Total_Segun']['Ffo']}}</span>
                                     @endisset
                                     </td>
                                     <td class="centrado">
                                     @isset($infoAvaluo['Superficie_Total_Segun']['Fsu'])
-                                        {{$infoAvaluo['Superficie_Total_Segun']['Fsu']}}
+                                        <span class="grises">{{$infoAvaluo['Superficie_Total_Segun']['Fsu']}}</span>
                                     @endisset
                                     </td>
                                     <td class="centrado">
                                     @isset($infoAvaluo['Superficie_Total_Segun']['Clave_Area_Valor'])
-                                        {{$infoAvaluo['Superficie_Total_Segun']['Clave_Area_Valor']}}
+                                        <span class="grises">{{$infoAvaluo['Superficie_Total_Segun']['Clave_Area_Valor']}}</span>
                                     @endisset
                                     </td>
                                     <td class="centrado">
                                     @isset($infoAvaluo['Superficie_Total_Segun']['Valor'])
-                                        {{$infoAvaluo['Superficie_Total_Segun']['Valor']}}
+                                        <span class="grises">{{$infoAvaluo['Superficie_Total_Segun']['Valor']}}</span>
                                     @endisset
                                     </td>
                                     <td class="centrado">
                                     @isset($infoAvaluo['Superficie_Total_Segun']['Descripcion'])
-                                        {{$infoAvaluo['Superficie_Total_Segun']['Descripcion']}}
+                                        <span class="grises">{{$infoAvaluo['Superficie_Total_Segun']['Descripcion']}}</span>
                                     @endisset
                                     </td>
                                     <td class="centrado">
                                     @isset($infoAvaluo['Superficie_Total_Segun']['Fre'])
-                                        {{$infoAvaluo['Superficie_Total_Segun']['Fre']}}
+                                        <span class="grises">{{$infoAvaluo['Superficie_Total_Segun']['Fre']}}</span>
                                     @endisset
                                     </td>
                                 </tr>
@@ -813,7 +813,7 @@
                         <div style="text-align: right;">
                             <b>SUPERFICIE TOTAL TERRENO: 
                             @isset($infoAvaluo['Superficie_Total_Segun']['Totales']['Superficie_Total_Terreno'])
-                                ${{$infoAvaluo['Superficie_Total_Segun']['Totales']['Superficie_Total_Terreno']}}
+                                <span class="grises">${{$infoAvaluo['Superficie_Total_Segun']['Totales']['Superficie_Total_Terreno']}}</span>
                             @endisset                        
                             </b>
                         </div>
@@ -826,7 +826,7 @@
                                 <td><b>CARACTERÍSTICAS PANORÁMICAS:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Topografia_Configuracion']['Caracteristicas_Panoramicas'])
-                                    {{$infoAvaluo['Topografia_Configuracion']['Caracteristicas_Panoramicas']}}
+                                    <span class="grises">{{$infoAvaluo['Topografia_Configuracion']['Caracteristicas_Panoramicas']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -834,7 +834,7 @@
                                 <td><b>DENSIDAD HABITACIONAL:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Topografia_Configuracion']['Densidad_Habitacional'])
-                                    {{$infoAvaluo['Topografia_Configuracion']['Densidad_Habitacional']}}
+                                    <span class="grises">{{$infoAvaluo['Topografia_Configuracion']['Densidad_Habitacional']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -842,7 +842,7 @@
                                 <td><b>SERVIDUMBRE O RESTRICCIONES:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Topografia_Configuracion']['Servidumbre_Restricciones'])
-                                    {{$infoAvaluo['Topografia_Configuracion']['Servidumbre_Restricciones']}}
+                                    <span class="grises">{{$infoAvaluo['Topografia_Configuracion']['Servidumbre_Restricciones']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -855,7 +855,7 @@
                     <div><b>USO ACTUAL:</b></div>
                     <div>
                     @isset($infoAvaluo['Uso_Actual'])
-                        {{$infoAvaluo['Uso_Actual']}}
+                        <span class="grises">{{$infoAvaluo['Uso_Actual']}}</span>
                     @endisset
                     </div>
 
@@ -887,61 +887,61 @@
                                 @foreach($infoAvaluo['Construcciones_Privativas'] as $value_construccionesP)
                                     <tr>
                                         <td class="centrado">
-                                            {{$i_construccionesP++}}
+                                            <span class="grises">{{$i_construccionesP++}}</span>
                                         </td>
                                         <td class="centrado">
                                         @isset($value_construccionesP['Descripcion'])
-                                            {{$value_construccionesP['Descripcion']}}
+                                            <span class="grises">{{$value_construccionesP['Descripcion']}}</span>
                                         @endisset
                                         </td>
                                         <td class="centrado">
                                         @isset($value_construccionesP['Uso'])
-                                            {{$value_construccionesP['Uso']}}
+                                            <span class="grises">{{$value_construccionesP['Uso']}}</span>
                                         @endisset
                                         </td>
                                         <td class="centrado">
                                         @isset($value_construccionesP['No_Niveles_Tipo'])
-                                            {{$value_construccionesP['No_Niveles_Tipo']}}
+                                            <span class="grises">{{$value_construccionesP['No_Niveles_Tipo']}}</span>
                                         @endisset
                                         </td>
                                         <td class="centrado">
                                         @isset($value_construccionesP['Clave_Rango_Niveles'])
-                                            {{$value_construccionesP['Clave_Rango_Niveles']}}
+                                            <span class="grises">{{$value_construccionesP['Clave_Rango_Niveles']}}</span>
                                         @endisset
                                         </td>
                                         <td class="centrado">
                                         @isset($value_construccionesP['Puntaje'])
-                                            {{$value_construccionesP['Puntaje']}}
+                                            <span class="grises">{{$value_construccionesP['Puntaje']}}</span>
                                         @endisset
                                         </td>
                                         <td class="centrado">
                                         @isset($value_construccionesP['Clase'])
-                                            {{$value_construccionesP['Clase']}}
+                                            <span class="grises">{{$value_construccionesP['Clase']}}</span>
                                         @endisset
                                         </td>
                                         <td class="centrado">
                                         @isset($value_construccionesP['Edad'])
-                                            {{$value_construccionesP['Edad']}}
+                                            <span class="grises">{{$value_construccionesP['Edad']}}</span>
                                         @endisset
                                         </td>
                                         <td class="centrado">
                                         @isset($value_construccionesP['Vida_Util_Total_Tipo'])
-                                            {{$value_construccionesP['Vida_Util_Total_Tipo']}}
+                                            <span class="grises">{{$value_construccionesP['Vida_Util_Total_Tipo']}}</span>
                                         @endisset
                                         </td>
                                         <td class="centrado">
                                         @isset($value_construccionesP['Vida_Util_Remanente'])
-                                            {{$value_construccionesP['Vida_Util_Remanente']}}
+                                            <span class="grises">{{$value_construccionesP['Vida_Util_Remanente']}}</span>
                                         @endisset
                                         </td>
                                         <td class="centrado">
                                         @isset($value_construccionesP['Conservacion'])
-                                            {{$value_construccionesP['Conservacion']}}
+                                            <span class="grises">{{$value_construccionesP['Conservacion']}}</span>
                                         @endisset
                                         </td>
                                         <td class="centrado">
                                         @isset($value_construccionesP['Sup'])
-                                            {{$value_construccionesP['Sup']}}
+                                            <span class="grises">{{$value_construccionesP['Sup']}}</span>
                                         @endisset
                                         </td>
                                     </tr>
@@ -953,57 +953,57 @@
                                         </td>
                                         <td class="centrado">
                                         @isset($infoAvaluo['Construcciones_Privativas']['Descripcion'])
-                                            {{$infoAvaluo['Construcciones_Privativas']['Descripcion']}}
+                                            <span class="grises">{{$infoAvaluo['Construcciones_Privativas']['Descripcion']}}</span>
                                         @endisset
                                         </td>
                                         <td class="centrado">
                                         @isset($infoAvaluo['Construcciones_Privativas']['Uso'])
-                                            {{$infoAvaluo['Construcciones_Privativas']['Uso']}}
+                                            <span class="grises">{{$infoAvaluo['Construcciones_Privativas']['Uso']}}</span>
                                         @endisset
                                         </td>
                                         <td class="centrado">
                                         @isset($infoAvaluo['Construcciones_Privativas']['No_Niveles_Tipo'])
-                                            {{$infoAvaluo['Construcciones_Privativas']['No_Niveles_Tipo']}}
+                                            <span class="grises">{{$infoAvaluo['Construcciones_Privativas']['No_Niveles_Tipo']}}</span>
                                         @endisset
                                         </td>
                                         <td class="centrado">
                                         @isset($infoAvaluo['Construcciones_Privativas']['Clave_Rango_Niveles'])
-                                            {{$infoAvaluo['Construcciones_Privativas']['Clave_Rango_Niveles']}}
+                                            <span class="grises">{{$infoAvaluo['Construcciones_Privativas']['Clave_Rango_Niveles']}}</span>
                                         @endisset
                                         </td>
                                         <td class="centrado">
                                         @isset($infoAvaluo['Construcciones_Privativas']['Puntaje'])
-                                            {{$infoAvaluo['Construcciones_Privativas']['Puntaje']}}
+                                            <span class="grises">{{$infoAvaluo['Construcciones_Privativas']['Puntaje']}}</span>
                                         @endisset
                                         </td>
                                         <td class="centrado">
                                         @isset($infoAvaluo['Construcciones_Privativas']['Clase'])
-                                            {{$infoAvaluo['Construcciones_Privativas']['Clase']}}
+                                            <span class="grises">{{$infoAvaluo['Construcciones_Privativas']['Clase']}}</span>
                                         @endisset
                                         </td>
                                         <td class="centrado">
                                         @isset($infoAvaluo['Construcciones_Privativas']['Edad'])
-                                            {{$infoAvaluo['Construcciones_Privativas']['Edad']}}
+                                            <span class="grises">{{$infoAvaluo['Construcciones_Privativas']['Edad']}}</span>
                                         @endisset
                                         </td>
                                         <td class="centrado">
                                         @isset($infoAvaluo['Construcciones_Privativas']['Vida_Util_Total_Tipo'])
-                                            {{$infoAvaluo['Construcciones_Privativas']['Vida_Util_Total_Tipo']}}
+                                            <span class="grises">{{$infoAvaluo['Construcciones_Privativas']['Vida_Util_Total_Tipo']}}</span>
                                         @endisset
                                         </td>
                                         <td class="centrado">
                                         @isset($infoAvaluo['Construcciones_Privativas']['Vida_Util_Remanente'])
-                                            {{$infoAvaluo['Construcciones_Privativas']['Vida_Util_Remanente']}}
+                                            <span class="grises">{{$infoAvaluo['Construcciones_Privativas']['Vida_Util_Remanente']}}</span>
                                         @endisset
                                         </td>
                                         <td class="centrado">
                                         @isset($infoAvaluo['Construcciones_Privativas']['Conservacion'])
-                                            {{$infoAvaluo['Construcciones_Privativas']['Conservacion']}}
+                                            <span class="grises">{{$infoAvaluo['Construcciones_Privativas']['Conservacion']}}</span>
                                         @endisset
                                         </td>
                                         <td class="centrado">
                                         @isset($infoAvaluo['Construcciones_Privativas']['Sup'])
-                                            {{$infoAvaluo['Construcciones_Privativas']['Sup']}}
+                                            <span class="grises">{{$infoAvaluo['Construcciones_Privativas']['Sup']}}</span>
                                         @endisset
                                         </td>
                                     </tr>
@@ -1039,61 +1039,61 @@
                                 @foreach($infoAvaluo['Construcciones_Comunes'] as $value_construccionesC)
                                     <tr>
                                         <td class="centrado">
-                                            {{$i_construccionesC++}}
+                                            <span class="grises">{{$i_construccionesC++}}</span>
                                         </td>
                                         <td class="centrado">
                                         @isset($value_construccionesC['Descripcion'])
-                                            {{$value_construccionesC['Descripcion']}}
+                                            <span class="grises">{{$value_construccionesC['Descripcion']}}</span>
                                         @endisset
                                         </td>
                                         <td class="centrado">
                                         @isset($value_construccionesC['Uso'])
-                                            {{$value_construccionesC['Uso']}}
+                                            <span class="grises">{{$value_construccionesC['Uso']}}</span>
                                         @endisset
                                         </td>
                                         <td class="centrado">
                                         @isset($value_construccionesC['No_Niveles_Tipo'])
-                                            {{$value_construccionesC['No_Niveles_Tipo']}}
+                                            <span class="grises">{{$value_construccionesC['No_Niveles_Tipo']}}</span>
                                         @endisset
                                         </td>
                                         <td class="centrado">
                                         @isset($value_construccionesC['Clave_Rango_Niveles'])
-                                            {{$value_construccionesC['Clave_Rango_Niveles']}}
+                                            <span class="grises">{{$value_construccionesC['Clave_Rango_Niveles']}}</span>
                                         @endisset
                                         </td>
                                         <td class="centrado">
                                         @isset($value_construccionesC['Puntaje'])
-                                            {{$value_construccionesC['Puntaje']}}
+                                            <span class="grises">{{$value_construccionesC['Puntaje']}}</span>
                                         @endisset
                                         </td>
                                         <td class="centrado">
                                         @isset($value_construccionesC['Clase'])
-                                            {{$value_construccionesC['Clase']}}
+                                            <span class="grises">{{$value_construccionesC['Clase']}}</span>
                                         @endisset
                                         </td>
                                         <td class="centrado">
                                         @isset($value_construccionesC['Edad'])
-                                            {{$value_construccionesC['Edad']}}
+                                            <span class="grises">{{$value_construccionesC['Edad']}}</span>
                                         @endisset
                                         </td>
                                         <td class="centrado">
                                         @isset($value_construccionesC['Vida_Util_Total_Tipo'])
-                                            {{$value_construccionesC['Vida_Util_Total_Tipo']}}
+                                            <span class="grises">{{$value_construccionesC['Vida_Util_Total_Tipo']}}</span>
                                         @endisset
                                         </td>
                                         <td class="centrado">
                                         @isset($value_construccionesC['Vida_Util_Remanente'])
-                                            {{$value_construccionesC['Vida_Util_Remanente']}}
+                                            <span class="grises">{{$value_construccionesC['Vida_Util_Remanente']}}</span>
                                         @endisset
                                         </td>
                                         <td class="centrado">
                                         @isset($value_construccionesC['Conservacion'])
-                                            {{$value_construccionesC['Conservacion']}}
+                                            <span class="grises">{{$value_construccionesC['Conservacion']}}</span>
                                         @endisset
                                         </td>
                                         <td class="centrado">
                                         @isset($value_construccionesC['Sup'])
-                                            {{$value_construccionesC['Sup']}}
+                                            <span class="grises">{{$value_construccionesC['Sup']}}</span>
                                         @endisset
                                         </td>
                                     </tr>
@@ -1102,62 +1102,62 @@
                                 <tr>
                                     <td class="centrado">
                                     @isset($infoAvaluo['Construcciones_Comunes']['Tipo'])
-                                        {{$infoAvaluo['Construcciones_Comunes']['Tipo']}}
+                                        <span class="grises">{{$infoAvaluo['Construcciones_Comunes']['Tipo']}}</span>
                                     @endisset
                                     </td>
                                     <td class="centrado">
                                     @isset($infoAvaluo['Construcciones_Comunes']['Descripcion'])
-                                        {{$infoAvaluo['Construcciones_Comunes']['Descripcion']}}
+                                        <span class="grises">{{$infoAvaluo['Construcciones_Comunes']['Descripcion']}}</span>
                                     @endisset
                                     </td>
                                     <td class="centrado">
                                     @isset($infoAvaluo['Construcciones_Comunes']['Uso'])
-                                        {{$infoAvaluo['Construcciones_Comunes']['Uso']}}
+                                        <span class="grises">{{$infoAvaluo['Construcciones_Comunes']['Uso']}}</span>
                                     @endisset
                                     </td>
                                     <td class="centrado">
                                     @isset($infoAvaluo['Construcciones_Comunes']['No_Niveles_Tipo'])
-                                        {{$infoAvaluo['Construcciones_Comunes']['No_Niveles_Tipo']}}
+                                        <span class="grises">{{$infoAvaluo['Construcciones_Comunes']['No_Niveles_Tipo']}}</span>
                                     @endisset
                                     </td>
                                     <td class="centrado">
                                     @isset($infoAvaluo['Construcciones_Comunes']['Clave_Rango_Niveles'])
-                                        {{$infoAvaluo['Construcciones_Comunes']['Clave_Rango_Niveles']}}
+                                        <span class="grises">{{$infoAvaluo['Construcciones_Comunes']['Clave_Rango_Niveles']}}</span>
                                     @endisset
                                     </td>
                                     <td class="centrado">
                                     @isset($infoAvaluo['Construcciones_Comunes']['Puntaje'])
-                                        {{$infoAvaluo['Construcciones_Comunes']['Puntaje']}}
+                                        <span class="grises">{{$infoAvaluo['Construcciones_Comunes']['Puntaje']}}</span>
                                     @endisset
                                     </td>
                                     <td class="centrado">
                                     @isset($infoAvaluo['Construcciones_Comunes']['Clase'])
-                                        {{$infoAvaluo['Construcciones_Comunes']['Clase']}}
+                                        <span class="grises">{{$infoAvaluo['Construcciones_Comunes']['Clase']}}</span>
                                     @endisset
                                     </td>
                                     <td class="centrado">
                                     @isset($infoAvaluo['Construcciones_Comunes']['Edad'])
-                                        {{$infoAvaluo['Construcciones_Comunes']['Edad']}}
+                                        <span class="grises">{{$infoAvaluo['Construcciones_Comunes']['Edad']}}</span>
                                     @endisset
                                     </td>
                                     <td class="centrado">
                                     @isset($infoAvaluo['Construcciones_Comunes']['Vida_Util_Total_Tipo'])
-                                        {{$infoAvaluo['Construcciones_Comunes']['Vida_Util_Total_Tipo']}}
+                                        <span class="grises">{{$infoAvaluo['Construcciones_Comunes']['Vida_Util_Total_Tipo']}}</span>
                                     @endisset
                                     </td>
                                     <td class="centrado">
                                     @isset($infoAvaluo['Construcciones_Comunes']['Vida_Util_Remanente'])
-                                        {{$infoAvaluo['Construcciones_Comunes']['Vida_Util_Remanente']}}
+                                        <span class="grises">{{$infoAvaluo['Construcciones_Comunes']['Vida_Util_Remanente']}}</span>
                                     @endisset
                                     </td>
                                     <td class="centrado">
                                     @isset($infoAvaluo['Construcciones_Comunes']['Conservacion'])
-                                        {{$infoAvaluo['Construcciones_Comunes']['Conservacion']}}
+                                        <span class="grises">{{$infoAvaluo['Construcciones_Comunes']['Conservacion']}}</span>
                                     @endisset
                                     </td>
                                     <td class="centrado">
                                     @isset($infoAvaluo['Construcciones_Comunes']['Sup'])
-                                        {{$infoAvaluo['Construcciones_Comunes']['Sup']}}
+                                        <span class="grises">{{$infoAvaluo['Construcciones_Comunes']['Sup']}}</span>
                                     @endisset
                                     </td>
                                 </tr>
@@ -1170,7 +1170,7 @@
                                 <td><b>INDIVISO</b></td>
                                 <td>
                                 @isset($infoAvaluo['Indiviso'])
-                                    {{$infoAvaluo['Indiviso']}} %
+                                    <span class="grises">{{$infoAvaluo['Indiviso']}} %</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -1178,7 +1178,7 @@
                                 <td><b>VIDA ÚTIL PROMEDIO DEL INMUEBLE:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Vida_Util_Promedio_Inmueble'])
-                                    {{$infoAvaluo['Vida_Util_Promedio_Inmueble']}}
+                                    <span class="grises">{{$infoAvaluo['Vida_Util_Promedio_Inmueble']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -1186,7 +1186,7 @@
                                 <td><b>EDAD APROXIMADA DE LA CONSTRUCCIÓN:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Edad_Aproximada_Construccion'])
-                                    {{$infoAvaluo['Edad_Aproximada_Construccion']}}
+                                    <span class="grises">{{$infoAvaluo['Edad_Aproximada_Construccion']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -1194,7 +1194,7 @@
                                 <td><b>VIDA ÚTIL REMANENTE:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Vida_Util_Remanente'])
-                                    {{$infoAvaluo['Vida_Util_Remanente']}}
+                                    <span class="grises">{{$infoAvaluo['Vida_Util_Remanente']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -1211,7 +1211,7 @@
                                 <td><b>CIMIENTOS:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Obra_Negra_Gruesa']['Cimientos'])
-                                    {{$infoAvaluo['Obra_Negra_Gruesa']['Cimientos']}}
+                                    <span class="grises">{{$infoAvaluo['Obra_Negra_Gruesa']['Cimientos']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -1219,7 +1219,7 @@
                                 <td><b>ESTRUCTURA:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Obra_Negra_Gruesa']['Estructura'])
-                                    {{$infoAvaluo['Obra_Negra_Gruesa']['Estructura']}}
+                                    <span class="grises">{{$infoAvaluo['Obra_Negra_Gruesa']['Estructura']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -1227,7 +1227,7 @@
                                 <td><b>MUROS:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Obra_Negra_Gruesa']['Muros'])
-                                    {{$infoAvaluo['Obra_Negra_Gruesa']['Muros']}}
+                                    <span class="grises">{{$infoAvaluo['Obra_Negra_Gruesa']['Muros']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -1235,7 +1235,7 @@
                                 <td><b>ENTREPISOS:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Obra_Negra_Gruesa']['Entrepiso'])
-                                    {{$infoAvaluo['Obra_Negra_Gruesa']['Entrepiso']}}
+                                    <span class="grises">{{$infoAvaluo['Obra_Negra_Gruesa']['Entrepiso']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -1243,7 +1243,7 @@
                                 <td><b>TECHOS:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Obra_Negra_Gruesa']['Techos'])
-                                    {{$infoAvaluo['Obra_Negra_Gruesa']['Techos']}}
+                                    <span class="grises">{{$infoAvaluo['Obra_Negra_Gruesa']['Techos']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -1251,7 +1251,7 @@
                                 <td><b>AZOTEAS:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Obra_Negra_Gruesa']['Azoteas'])
-                                    {{$infoAvaluo['Obra_Negra_Gruesa']['Azoteas']}}
+                                    <span class="grises">{{$infoAvaluo['Obra_Negra_Gruesa']['Azoteas']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -1259,7 +1259,7 @@
                                 <td><b>BARDAS:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Obra_Negra_Gruesa']['Bardas'])
-                                    {{$infoAvaluo['Obra_Negra_Gruesa']['Bardas']}}
+                                    <span class="grises">{{$infoAvaluo['Obra_Negra_Gruesa']['Bardas']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -1273,7 +1273,7 @@
                                 <td><b>APLANADOS:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Revestimientos_Acabados_Interiores']['Aplanados'])
-                                    {{$infoAvaluo['Revestimientos_Acabados_Interiores']['Aplanados']}}
+                                    <span class="grises">{{$infoAvaluo['Revestimientos_Acabados_Interiores']['Aplanados']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -1281,7 +1281,7 @@
                                 <td><b>PLAFONES:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Revestimientos_Acabados_Interiores']['Plafones'])
-                                    {{$infoAvaluo['Revestimientos_Acabados_Interiores']['Plafones']}}
+                                    <span class="grises">{{$infoAvaluo['Revestimientos_Acabados_Interiores']['Plafones']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -1289,7 +1289,7 @@
                                 <td><b>LAMBRINES:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Revestimientos_Acabados_Interiores']['Lambrines'])
-                                    {{$infoAvaluo['Revestimientos_Acabados_Interiores']['Lambrines']}}
+                                    <span class="grises">{{$infoAvaluo['Revestimientos_Acabados_Interiores']['Lambrines']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -1297,7 +1297,7 @@
                                 <td><b>PISOS:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Revestimientos_Acabados_Interiores']['Pisos'])
-                                    {{$infoAvaluo['Revestimientos_Acabados_Interiores']['Pisos']}}
+                                    <span class="grises">{{$infoAvaluo['Revestimientos_Acabados_Interiores']['Pisos']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -1305,7 +1305,7 @@
                                 <td><b>ZOCLOS:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Revestimientos_Acabados_Interiores']['Zoclos'])
-                                    {{$infoAvaluo['Revestimientos_Acabados_Interiores']['Zoclos']}}
+                                    <span class="grises">{{$infoAvaluo['Revestimientos_Acabados_Interiores']['Zoclos']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -1313,7 +1313,7 @@
                                 <td><b>ESCALERAS:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Revestimientos_Acabados_Interiores']['Escaleras'])
-                                    {{$infoAvaluo['Revestimientos_Acabados_Interiores']['Escaleras']}}
+                                    <span class="grises">{{$infoAvaluo['Revestimientos_Acabados_Interiores']['Escaleras']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -1321,7 +1321,7 @@
                                 <td><b>PINTURA:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Revestimientos_Acabados_Interiores']['Pintura'])
-                                    {{$infoAvaluo['Revestimientos_Acabados_Interiores']['Pintura']}}
+                                    <span class="grises">{{$infoAvaluo['Revestimientos_Acabados_Interiores']['Pintura']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -1329,7 +1329,7 @@
                                 <td><b>RECUBRIMIENTOS ESPECIALES:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Revestimientos_Acabados_Interiores']['Recubrimientos_Especiales'])
-                                    {{$infoAvaluo['Revestimientos_Acabados_Interiores']['Recubrimientos_Especiales']}}
+                                    <span class="grises">{{$infoAvaluo['Revestimientos_Acabados_Interiores']['Recubrimientos_Especiales']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -1343,7 +1343,7 @@
                                 <td><b>PUERTAS INTERIORES:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Carpinteria']['Puertas_Interiores'])
-                                    {{$infoAvaluo['Carpinteria']['Puertas_Interiores']}}
+                                    <span class="grises">{{$infoAvaluo['Carpinteria']['Puertas_Interiores']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -1351,7 +1351,7 @@
                                 <td><b>GUARDARROPAS:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Carpinteria']['Guardarropas'])
-                                    {{$infoAvaluo['Carpinteria']['Guardarropas']}}
+                                    <span class="grises">{{$infoAvaluo['Carpinteria']['Guardarropas']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -1359,7 +1359,7 @@
                                 <td><b>MUEBLES EMPOTRADOS O FIJOS:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Carpinteria']['Muebles_Empotrados'])
-                                    {{$infoAvaluo['Carpinteria']['Muebles_Empotrados']}}
+                                    <span class="grises">{{$infoAvaluo['Carpinteria']['Muebles_Empotrados']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -1373,7 +1373,7 @@
                                 <td><b>MUEBLES DE BAÑO:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Instalaciones_Hidraulicas_Sanitrias']['Muebles_Banio'])
-                                    {{$infoAvaluo['Instalaciones_Hidraulicas_Sanitrias']['Muebles_Banio']}}
+                                    <span class="grises">{{$infoAvaluo['Instalaciones_Hidraulicas_Sanitrias']['Muebles_Banio']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -1381,7 +1381,7 @@
                                 <td><b>RAMALEOS HIDRÁULICOS:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Instalaciones_Hidraulicas_Sanitrias']['Ramaleos_Hidraulicos'])
-                                    {{$infoAvaluo['Instalaciones_Hidraulicas_Sanitrias']['Ramaleos_Hidraulicos']}}
+                                    <span class="grises">{{$infoAvaluo['Instalaciones_Hidraulicas_Sanitrias']['Ramaleos_Hidraulicos']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -1389,7 +1389,7 @@
                                 <td><b>RAMALEOS SANITARIOS:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Instalaciones_Hidraulicas_Sanitrias']['Ramaleos_Sanitarios'])
-                                    {{$infoAvaluo['Instalaciones_Hidraulicas_Sanitrias']['Ramaleos_Sanitarios']}}
+                                    <span class="grises">{{$infoAvaluo['Instalaciones_Hidraulicas_Sanitrias']['Ramaleos_Sanitarios']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -1401,7 +1401,7 @@
                             <td><b>e) INSTALACIONES ELÉCTRICAS Y ALUMBRADO</b></td>
                             <td>
                             @isset($infoAvaluo['Instalaciones_Electricas_Alumbrados'])
-                                {{$infoAvaluo['Instalaciones_Electricas_Alumbrados']}}
+                                <span class="grises">{{$infoAvaluo['Instalaciones_Electricas_Alumbrados']}}</span>
                             @endisset
                             </td>
                         </tr>
@@ -1415,7 +1415,7 @@
                                 <td><b>HERRERÍA:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Puertas_Ventaneria_Metalica']['Herreria'])
-                                    {{$infoAvaluo['Puertas_Ventaneria_Metalica']['Herreria']}}
+                                    <span class="grises">{{$infoAvaluo['Puertas_Ventaneria_Metalica']['Herreria']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -1423,7 +1423,7 @@
                                 <td><b>VENTANERÍA:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Puertas_Ventaneria_Metalica']['Ventaneria'])
-                                    {{$infoAvaluo['Puertas_Ventaneria_Metalica']['Ventaneria']}}
+                                    <span class="grises">{{$infoAvaluo['Puertas_Ventaneria_Metalica']['Ventaneria']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -1435,7 +1435,7 @@
                             <td><b>g) VIDRIERÍA</b></td>
                             <td>
                             @isset($infoAvaluo['Vidrieria'])
-                                {{$infoAvaluo['Vidrieria']}}
+                                <span class="grises">{{$infoAvaluo['Vidrieria']}}</span>
                             @endisset
                             </td>
                         </tr>
@@ -1447,7 +1447,7 @@
                             <td><b>h) CERRAJERÍA</b></td>
                             <td>
                             @isset($infoAvaluo['Cerrajeria'])
-                                {{$infoAvaluo['Cerrajeria']}}
+                                <span class="grises">{{$infoAvaluo['Cerrajeria']}}</span>
                             @endisset
                             </td>
                         </tr>
@@ -1459,7 +1459,7 @@
                             <td><b>i) FACHADAS</b></td>
                             <td>
                             @isset($infoAvaluo['Fachadas'])
-                                {{$infoAvaluo['Fachadas']}}
+                                <span class="grises">{{$infoAvaluo['Fachadas']}}</span>
                             @endisset
                             </td>
                         </tr>
@@ -1484,22 +1484,22 @@
                                         <tr>
                                             <td class="centrado">
                                             @isset($value_instalacionesEspeciales['Clave'])
-                                                {{$value_instalacionesEspeciales['Clave']}}
+                                                <span class="grises">{{$value_instalacionesEspeciales['Clave']}}</span>
                                             @endisset
                                             </td>
                                             <td>
                                             @isset($value_instalacionesEspeciales['Descripcion'])
-                                                {{$value_instalacionesEspeciales['Descripcion']}}
+                                                <span class="grises">{{$value_instalacionesEspeciales['Descripcion']}}</span>
                                             @endisset
                                             </td>
                                             <td>
                                             @isset($value_instalacionesEspeciales['Unidad'])
-                                                {{$value_instalacionesEspeciales['Unidad']}}
+                                                <span class="grises">{{$value_instalacionesEspeciales['Unidad']}}</span>
                                             @endisset
                                             </td>
                                             <td>
                                             @isset($value_instalacionesEspeciales['Cantidad'])
-                                                {{$value_instalacionesEspeciales['Cantidad']}}
+                                                <span class="grises">{{$value_instalacionesEspeciales['Cantidad']}}</span>
                                             @endisset
                                             </td>
                                         </tr>
@@ -1508,22 +1508,22 @@
                                     <tr>
                                         <td class="centrado">
                                         @isset($infoAvaluo['Instalaciones_Especiales']['Privativas']['Clave'])
-                                            {{$infoAvaluo['Instalaciones_Especiales']['Privativas']['Clave']}}
+                                            <span class="grises">{{$infoAvaluo['Instalaciones_Especiales']['Privativas']['Clave']}}</span>
                                         @endisset
                                         </td>
                                         <td>
                                         @isset($infoAvaluo['Instalaciones_Especiales']['Privativas']['Descripcion'])
-                                            {{$infoAvaluo['Instalaciones_Especiales']['Privativas']['Descripcion']}}
+                                            <span class="grises">{{$infoAvaluo['Instalaciones_Especiales']['Privativas']['Descripcion']}}</span>
                                         @endisset
                                         </td>
                                         <td>
                                         @isset($infoAvaluo['Instalaciones_Especiales']['Privativas']['Unidad'])
-                                            {{$infoAvaluo['Instalaciones_Especiales']['Privativas']['Unidad']}}
+                                            <span class="grises">{{$infoAvaluo['Instalaciones_Especiales']['Privativas']['Unidad']}}</span>
                                         @endisset
                                         </td>
                                         <td>
                                         @isset($infoAvaluo['Instalaciones_Especiales']['Privativas']['Cantidad'])
-                                            {{$infoAvaluo['Instalaciones_Especiales']['Privativas']['Cantidad']}}
+                                            <span class="grises">{{$infoAvaluo['Instalaciones_Especiales']['Privativas']['Cantidad']}}</span>
                                         @endisset
                                         </td>
                                     </tr>
@@ -1548,22 +1548,22 @@
                                         <tr>
                                             <td class="centrado">
                                             @isset($value_instalacionesEspeciales['Clave'])
-                                                {{$value_instalacionesEspeciales['Clave']}}
+                                                <span class="grises">{{$value_instalacionesEspeciales['Clave']}}</span>
                                             @endisset
                                             </td>
                                             <td>
                                             @isset($value_instalacionesEspeciales['Descripcion'])
-                                                {{$value_instalacionesEspeciales['Descripcion']}}
+                                                <span class="grises">{{$value_instalacionesEspeciales['Descripcion']}}</span>
                                             @endisset
                                             </td>
                                             <td>
                                             @isset($value_instalacionesEspeciales['Unidad'])
-                                                {{$value_instalacionesEspeciales['Unidad']}}
+                                                <span class="grises">{{$value_instalacionesEspeciales['Unidad']}}</span>
                                             @endisset
                                             </td>
                                             <td>
                                             @isset($value_instalacionesEspeciales['Cantidad'])
-                                                {{$value_instalacionesEspeciales['Cantidad']}}
+                                                <span class="grises">{{$value_instalacionesEspeciales['Cantidad']}}</span>
                                             @endisset
                                             </td>
                                         </tr>
@@ -1572,22 +1572,22 @@
                                     <tr>
                                         <td class="centrado">
                                         @isset($infoAvaluo['Instalaciones_Especiales']['Comunes']['Clave'])
-                                            {{$infoAvaluo['Instalaciones_Especiales']['Comunes']['Clave']}}
+                                            <span class="grises">{{$infoAvaluo['Instalaciones_Especiales']['Comunes']['Clave']}}</span>
                                         @endisset
                                         </td>
                                         <td>
                                         @isset($infoAvaluo['Instalaciones_Especiales']['Comunes']['Descripcion'])
-                                            {{$infoAvaluo['Instalaciones_Especiales']['Comunes']['Descripcion']}}
+                                            <span class="grises">{{$infoAvaluo['Instalaciones_Especiales']['Comunes']['Descripcion']}}</span>
                                         @endisset
                                         </td>
                                         <td>
                                         @isset($infoAvaluo['Instalaciones_Especiales']['Comunes']['Unidad'])
-                                            {{$infoAvaluo['Instalaciones_Especiales']['Comunes']['Unidad']}}
+                                            <span class="grises">{{$infoAvaluo['Instalaciones_Especiales']['Comunes']['Unidad']}}</span>
                                         @endisset
                                         </td>
                                         <td>
                                         @isset($infoAvaluo['Instalaciones_Especiales']['Comunes']['Cantidad'])
-                                            {{$infoAvaluo['Instalaciones_Especiales']['Comunes']['Cantidad']}}
+                                            <span class="grises">{{$infoAvaluo['Instalaciones_Especiales']['Comunes']['Cantidad']}}</span>
                                         @endisset
                                         </td>
                                     </tr>
@@ -1614,37 +1614,37 @@
                                     <tr>
                                         <td class="centrado">
                                         @isset($value_elementoAccP['Clave'])
-                                            {{$value_elementoAccP['Clave']}}
+                                            <span class="grises">{{$value_elementoAccP['Clave']}}</span>
                                         @endisset
                                         </td>
                                         <td>
                                         @isset($value_elementoAccP['Descripcion'])
-                                            {{$value_elementoAccP['Descripcion']}}
+                                            <span class="grises">{{$value_elementoAccP['Descripcion']}}</span>
                                         @endisset
                                         </td>
                                         <td>
                                         @isset($value_elementoAccP['Unidad'])
-                                            {{$value_elementoAccP['Unidad']}}
+                                            <span class="grises">{{$value_elementoAccP['Unidad']}}</span>
                                         @endisset
                                         </td>
                                         <td>
                                         @isset($value_elementoAccP['Cantidad'])
-                                            {{$value_elementoAccP['Cantidad']}}
+                                            <span class="grises">{{$value_elementoAccP['Cantidad']}}</span>
                                         @endisset
                                         </td>
                                         <td>
                                         @isset($value_elementoAccP['Edad'])
-                                            {{$value_elementoAccP['Edad']}}
+                                            <span class="grises">{{$value_elementoAccP['Edad']}}</span>
                                         @endisset
                                         </td>
                                         <td>
                                         @isset($value_elementoAccP['Vida_Util_Total'])
-                                            {{$value_elementoAccP['Vida_Util_Total']}}
+                                            <span class="grises">{{$value_elementoAccP['Vida_Util_Total']}}</span>
                                         @endisset
                                         </td>
                                         <td>
                                         @isset($value_elementoAccP['Valor_Unitario'])
-                                            {{$value_elementoAccP['Valor_Unitario']}}
+                                            <span class="grises">{{$value_elementoAccP['Valor_Unitario']}}</span>
                                         @endisset
                                         </td>
                                     </tr>
@@ -1653,37 +1653,37 @@
                                 <tr>
                                     <td class="centrado">
                                     @isset($infoAvaluo['Elementos_Accesorios']['Privativas']['Clave'])
-                                        {{$infoAvaluo['Elementos_Accesorios']['Privativas']['Clave']}}
+                                        <span class="grises">{{$infoAvaluo['Elementos_Accesorios']['Privativas']['Clave']}}</span>
                                     @endisset
                                     </td>
                                     <td>
                                     @isset($infoAvaluo['Elementos_Accesorios']['Privativas']['Descripcion'])
-                                        {{$infoAvaluo['Elementos_Accesorios']['Privativas']['Descripcion']}}
+                                        <span class="grises">{{$infoAvaluo['Elementos_Accesorios']['Privativas']['Descripcion']}}</span>
                                     @endisset
                                     </td>
                                     <td>
                                     @isset($infoAvaluo['Elementos_Accesorios']['Privativas']['Unidad'])
-                                        {{$infoAvaluo['Elementos_Accesorios']['Privativas']['Unidad']}}
+                                        <span class="grises">{{$infoAvaluo['Elementos_Accesorios']['Privativas']['Unidad']}}</span>
                                     @endisset
                                     </td>
                                     <td>
                                     @isset($infoAvaluo['Elementos_Accesorios']['Privativas']['Cantidad'])
-                                        {{$infoAvaluo['Elementos_Accesorios']['Privativas']['Cantidad']}}
+                                        <span class="grises">{{$infoAvaluo['Elementos_Accesorios']['Privativas']['Cantidad']}}</span>
                                     @endisset
                                     </td>
                                     <td>
                                     @isset($infoAvaluo['Elementos_Accesorios']['Privativas']['Edad'])
-                                        {{$infoAvaluo['Elementos_Accesorios']['Privativas']['Edad']}}
+                                        <span class="grises">{{$infoAvaluo['Elementos_Accesorios']['Privativas']['Edad']}}</span>
                                     @endisset
                                     </td>
                                     <td>
                                     @isset($infoAvaluo['Elementos_Accesorios']['Privativas']['Vida_Util_Total'])
-                                        {{$infoAvaluo['Elementos_Accesorios']['Privativas']['Vida_Util_Total']}}
+                                        <span class="grises">{{$infoAvaluo['Elementos_Accesorios']['Privativas']['Vida_Util_Total']}}</span>
                                     @endisset
                                     </td>
                                     <td>
                                     @isset($infoAvaluo['Elementos_Accesorios']['Privativas']['Valor_Unitario'])
-                                        {{$infoAvaluo['Elementos_Accesorios']['Privativas']['Valor_Unitario']}}
+                                        <span class="grises">{{$infoAvaluo['Elementos_Accesorios']['Privativas']['Valor_Unitario']}}</span>
                                     @endisset
                                     </td>
                                 </tr>
@@ -1711,37 +1711,37 @@
                                     <tr>
                                         <td class="centrado">
                                         @isset($value_obras['Clave'])
-                                            {{$value_obras['Clave']}}
+                                            <span class="grises">{{$value_obras['Clave']}}</span>
                                         @endisset
                                         </td>
                                         <td>
                                         @isset($value_obras['Descripcion'])
-                                            {{$value_obras['Descripcion']}}
+                                            <span class="grises">{{$value_obras['Descripcion']}}</span>
                                         @endisset
                                         </td>
                                         <td>
                                         @isset($value_obras['Unidad'])
-                                            {{$value_obras['Unidad']}}
+                                            <span class="grises">{{$value_obras['Unidad']}}</span>
                                         @endisset
                                         </td>
                                         <td>
                                         @isset($value_obras['Cantidad'])
-                                            {{$value_obras['Cantidad']}}
+                                            <span class="grises">{{$value_obras['Cantidad']}}</span>
                                         @endisset
                                         </td>
                                         <td>
                                         @isset($value_obras['Edad'])
-                                            {{$value_obras['Edad']}}
+                                            <span class="grises">{{$value_obras['Edad']}}</span>
                                         @endisset
                                         </td>
                                         <td>
                                         @isset($value_obras['Vida_Util_Total'])
-                                            {{$value_obras['Vida_Util_Total']}}
+                                            <span class="grises">{{$value_obras['Vida_Util_Total']}}</span>
                                         @endisset
                                         </td>
                                         <td>
                                         @isset($value_obras['Valor_Unitario'])
-                                            {{$value_obras['Valor_Unitario']}}
+                                            <span class="grises">{{$value_obras['Valor_Unitario']}}</span>
                                         @endisset
                                         </td>
                                     </tr>
@@ -1750,37 +1750,37 @@
                                 <tr>
                                     <td class="centrado">
                                     @isset($infoAvaluo['Obras_Complementarias']['Privativas']['Clave'])
-                                        {{$infoAvaluo['Obras_Complementarias']['Privativas']['Clave']}}
+                                        <span class="grises">{{$infoAvaluo['Obras_Complementarias']['Privativas']['Clave']}}</span>
                                     @endisset
                                     </td>
                                     <td>
                                     @isset($infoAvaluo['Obras_Complementarias']['Privativas']['Descripcion'])
-                                        {{$infoAvaluo['Obras_Complementarias']['Privativas']['Descripcion']}}
+                                        <span class="grises">{{$infoAvaluo['Obras_Complementarias']['Privativas']['Descripcion']}}</span>
                                     @endisset
                                     </td>
                                     <td>
                                     @isset($infoAvaluo['Obras_Complementarias']['Privativas']['Unidad'])
-                                        {{$infoAvaluo['Obras_Complementarias']['Privativas']['Unidad']}}
+                                        <span class="grises">{{$infoAvaluo['Obras_Complementarias']['Privativas']['Unidad']}}</span>
                                     @endisset
                                     </td>
                                     <td>
                                     @isset($infoAvaluo['Obras_Complementarias']['Privativas']['Cantidad'])
-                                        {{$infoAvaluo['Obras_Complementarias']['Privativas']['Cantidad']}}
+                                        <span class="grises">{{$infoAvaluo['Obras_Complementarias']['Privativas']['Cantidad']}}</span>
                                     @endisset
                                     </td>
                                     <td>
                                     @isset($infoAvaluo['Obras_Complementarias']['Privativas']['Edad'])
-                                        {{$infoAvaluo['Obras_Complementarias']['Privativas']['Edad']}}
+                                        <span class="grises">{{$infoAvaluo['Obras_Complementarias']['Privativas']['Edad']}}</span>
                                     @endisset
                                     </td>
                                     <td>
                                     @isset($infoAvaluo['Obras_Complementarias']['Privativas']['Vida_Util_Total'])
-                                        {{$infoAvaluo['Obras_Complementarias']['Privativas']['Vida_Util_Total']}}
+                                        <span class="grises">{{$infoAvaluo['Obras_Complementarias']['Privativas']['Vida_Util_Total']}}</span>
                                     @endisset
                                     </td>
                                     <td>
                                     @isset($infoAvaluo['Obras_Complementarias']['Privativas']['Valor_Unitario'])
-                                        {{$infoAvaluo['Obras_Complementarias']['Privativas']['Valor_Unitario']}}
+                                        <span class="grises">{{$infoAvaluo['Obras_Complementarias']['Privativas']['Valor_Unitario']}}</span>
                                     @endisset
                                     </td>
                                 </tr>                                
@@ -1794,7 +1794,7 @@
 
                 <p class="letras_pequenas">
                     @isset($infoAvaluo['Consideraciones_Previas_Al_Avaluo'])
-                        {{$infoAvaluo['Consideraciones_Previas_Al_Avaluo']}}
+                        <span class="grises">{{$infoAvaluo['Consideraciones_Previas_Al_Avaluo']}}</span>
                     @endisset
                 </p>
 
@@ -1825,25 +1825,25 @@
                         @if(isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno'][0]))
                             @foreach($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno'] as $value_tablaUno)
                                 <tr>
-                                    <td>{{$i_tUno++}}</td>
+                                    <td><span class="grises">{{$i_tUno++}}</td></span>
                                     <td>
                                     @isset($value_tablaUno['Ubicacion'])
-                                        {{$value_tablaUno['Ubicacion']}}
+                                        <span class="grises">{{$value_tablaUno['Ubicacion']}}</span>
                                     @endisset
                                     </td>
                                     <td>
                                     @isset($value_tablaUno['Descripcion'])
-                                        {{$value_tablaUno['Descripcion']}}
+                                        <span class="grises">{{$value_tablaUno['Descripcion']}}</span>
                                     @endisset
                                     </td>
                                     <td>
                                     @isset($value_tablaUno['C_U_S'])
-                                        {{$value_tablaUno['C_U_S']}}
+                                        <span class="grises">{{$value_tablaUno['C_U_S']}}</span>
                                     @endisset
                                     </td>
                                     <td>
                                     @isset($value_tablaUno['Uso_Suelo'])
-                                        {{$value_tablaUno['Uso_Suelo']}}
+                                        <span class="grises">{{$value_tablaUno['Uso_Suelo']}}</span>
                                     @endisset
                                     </td>
                                 </tr>
@@ -1857,22 +1857,22 @@
                                 </td>
                                 <td>
                                 @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno']['Ubicacion'])
-                                    {{$infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno']['Ubicacion']}}
+                                    <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno']['Ubicacion']}}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno']['Descripcion'])
-                                    {{$infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno']['Descripcion']}}
+                                    <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno']['Descripcion']}}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno']['C_U_S'])
-                                    {{$infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno']['C_U_S']}}
+                                    <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno']['C_U_S']}}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno']['Uso_Suelo'])
-                                    {{$infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno']['Uso_Suelo']}}
+                                    <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno']['Uso_Suelo']}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -1904,55 +1904,55 @@
                     @if(isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos'][0]))
                         @foreach($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos'] as $value_tablaDos)
                             <tr>
-                                <td>{{ $i_tDos++ }}</td>
+                                <td><span class="grises">{{ $i_tDos++ }}</td></span>
                                 <td>
                                 @isset($value_tablaDos['F_Negociacion'])
-                                    {{ $value_tablaDos['F_Negociacion'] }}
+                                    <span class="grises">{{ $value_tablaDos['F_Negociacion'] }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($value_tablaDos['Superficie'])
-                                    {{ number_format($value_tablaDos['Superficie'],2) }}
+                                    <span class="grises">{{ number_format($value_tablaDos['Superficie'],2) }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($value_tablaDos['Fzo'])
-                                    {{ $value_tablaDos['Fzo'] }}
+                                    <span class="grises">{{ $value_tablaDos['Fzo'] }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($value_tablaDos['Fub'])
-                                    {{ $value_tablaDos['Fub'] }}
+                                    <span class="grises">{{ $value_tablaDos['Fub'] }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($value_tablaDos['FFr'])
-                                    {{ $value_tablaDos['FFr'] }}
+                                    <span class="grises">{{ $value_tablaDos['FFr'] }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($value_tablaDos['Ffo'])
-                                    {{ $value_tablaDos['Ffo'] }}
+                                    <span class="grises">{{ $value_tablaDos['Ffo'] }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($value_tablaDos['Fsu'])
-                                    {{ $value_tablaDos['Fsu'] }}
+                                    <span class="grises">{{ $value_tablaDos['Fsu'] }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($value_tablaDos['F_otro'])
-                                    {{ $value_tablaDos['F_otro'] }}
+                                    <span class="grises">{{ $value_tablaDos['F_otro'] }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($value_tablaDos['Fre'])
-                                    {{ number_format($value_tablaDos['Fre'],4) }}
+                                    <span class="grises">{{ number_format($value_tablaDos['Fre'],4) }}</span>
                                 @endisset
                                 </td>
                                 <td>$
                                 @isset($value_tablaDos['Precio_Solicitado'])
-                                    {{ number_format($value_tablaDos['Precio_Solicitado'],2) }}
+                                    <span class="grises">{{ number_format($value_tablaDos['Precio_Solicitado'],2) }}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -1966,52 +1966,52 @@
                             </td>
                             <td>
                             @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['F_Negociacion'])
-                                {{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['F_Negociacion'] }}
+                                <span class="grises">{{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['F_Negociacion'] }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Superficie'])
-                                {{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Superficie'],2) }}
+                                <span class="grises">{{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Superficie'],2) }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Fzo'])
-                                {{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Fzo'] }}
+                                <span class="grises">{{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Fzo'] }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Fub'])
-                                {{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Fub'] }}
+                                <span class="grises">{{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Fub'] }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['FFr'])
-                                {{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['FFr'] }}
+                                <span class="grises">{{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['FFr'] }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Ffo'])
-                                {{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Ffo'] }}
+                                <span class="grises">{{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Ffo'] }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Fsu'])
-                                {{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Fsu'] }}
+                                <span class="grises">{{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Fsu'] }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['F_otro'])
-                                {{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['F_otro'] }}
+                                <span class="grises">{{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['F_otro'] }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Fre'])
-                                {{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Fre'],4) }}
+                                <span class="grises">{{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Fre'],4) }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Precio_Solicitado'])
-                                $ {{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Precio_Solicitado'],2) }}
+                                $ <span class="grises">{{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Precio_Solicitado'],2) }}</span>
                             @endisset
                             </td>
                         </tr>
@@ -2031,7 +2031,7 @@
                             <td><b>Valor unitario de tierra promedio</b></td>
                             <td>
                                 @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Tierra_Promedio'])
-                                    {{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Tierra_Promedio'],2) }}
+                                    <span class="grises">{{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Tierra_Promedio'],2) }}</span>
                                 @endisset
                             </td>
                         </tr>
@@ -2039,7 +2039,7 @@
                             <td><b>Valor unitario de tierra homologado</b></td>
                             <td>
                                 @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Tierra_Homologado'])
-                                    {{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Tierra_Homologado'],2) }}
+                                    <span class="grises">{{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Tierra_Homologado'],2) }}</span>
                                 @endisset
                             </td>
                         </tr>
@@ -2047,7 +2047,7 @@
                             <td><b>Valor unitario sin homologar mínimo</b></td>
                             <td>
                                 @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Sin_Homologar_Minimo'])
-                                    {{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Sin_Homologar_Minimo'],2) }}
+                                    <span class="grises">{{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Sin_Homologar_Minimo'],2) }}</span>
                                 @endisset
                             </td>
                         </tr>
@@ -2055,7 +2055,7 @@
                             <td><b>Valor unitario sin homologar máximo</b></td>
                             <td>
                                 @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Sin_Homologar_Maximo'])
-                                    {{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Sin_Homologar_Maximo'],2) }}
+                                    <span class="grises">{{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Sin_Homologar_Maximo'],2) }}</span>
                                 @endisset
                             </td>
                         </tr>
@@ -2063,7 +2063,7 @@
                             <td><b>Valor unitario homologado mínimo</b></td>
                             <td>
                                 @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Homologado_Minimo'])
-                                    {{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Homologado_Minimo'],2) }}
+                                    <span class="grises">{{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Homologado_Minimo'],2) }}</span>
                                 @endisset
                             </td>
                         </tr>
@@ -2071,7 +2071,7 @@
                             <td><b>Valor unitario homologado máximo</b></td>
                             <td>
                                 @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Homologado_Maximo'])
-                                    {{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Homologado_Maximo'],2) }}
+                                    <span class="grises">{{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Homologado_Maximo'],2) }}</span>
                                 @endisset
                             </td>
                         </tr>
@@ -2087,7 +2087,7 @@
                             <td><b>Tipo de producto inmobilario propuesto</b></td>
                             <td>
                                 @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Tipo_Producto_Inmoviliario_Propuesto'])
-                                    {{ $infoAvaluo['Terrenos']['Terrenos_Residuales']['Tipo_Producto_Inmoviliario_Propuesto'] }}
+                                    <span class="grises">{{ $infoAvaluo['Terrenos']['Terrenos_Residuales']['Tipo_Producto_Inmoviliario_Propuesto'] }}</span>
                                 @endisset
                             </td>
                         </tr>
@@ -2095,7 +2095,7 @@
                             <td><b>Número de unidades vendibles</b></td>
                             <td>
                                 @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Numero_Unidades_Vendibles'])
-                                    {{ $infoAvaluo['Terrenos']['Terrenos_Residuales']['Numero_Unidades_Vendibles'] }}
+                                    <span class="grises">{{ $infoAvaluo['Terrenos']['Terrenos_Residuales']['Numero_Unidades_Vendibles'] }}</span>
                                 @endisset
                             </td>
                         </tr>
@@ -2103,7 +2103,7 @@
                             <td><b>Superficie vendible por unidad</b></td>
                             <td>
                                 @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Superficie_Vendible_Unidad'])
-                                    {{ $infoAvaluo['Terrenos']['Terrenos_Residuales']['Superficie_Vendible_Unidad'] }}
+                                    <span class="grises">{{ $infoAvaluo['Terrenos']['Terrenos_Residuales']['Superficie_Vendible_Unidad'] }}</span>
                                 @endisset
                             </td>
                         </tr>
@@ -2127,16 +2127,16 @@
                                     @foreach($infoAvaluo['Terrenos']['Terrenos_Residuales']['Investigacion_Productos_Comparables'] as $value_terrenosResidualesIPC)
                                         <tr>
                                             <td class="centrado">
-                                                {{$iTR++}}
+                                                <span class="grises">{{$iTR++}}</span>
                                             </td>
                                             <td>
                                             @isset($value_terrenosResidualesIPC['Ubicacion'])
-                                                {{$value_terrenosResidualesIPC['Ubicacion']}}
+                                                <span class="grises">{{$value_terrenosResidualesIPC['Ubicacion']}}</span>
                                             @endisset
                                             </td>
                                             <td>
                                             @isset($value_terrenosResidualesIPC['Descripcion'])
-                                                {{$value_terrenosResidualesIPC['Descripcion']}}
+                                                <span class="grises">{{$value_terrenosResidualesIPC['Descripcion']}}</span>
                                             @endisset
                                             </td>
                                         </tr>
@@ -2150,12 +2150,12 @@
                                         </td>
                                         <td>
                                         @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Investigacion_Productos_Comparables']['Ubicacion'])
-                                            {{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Investigacion_Productos_Comparables']['Ubicacion']}}
+                                            <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Investigacion_Productos_Comparables']['Ubicacion']}}</span>
                                         @endisset
                                         </td>
                                         <td>
                                         @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Investigacion_Productos_Comparables']['Descripcion'])
-                                            {{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Investigacion_Productos_Comparables']['Descripcion']}}
+                                            <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Investigacion_Productos_Comparables']['Descripcion']}}</span>
                                         @endisset
                                         </td>
                                     </tr>
@@ -2181,21 +2181,21 @@
                                     @foreach($infoAvaluo['Terrenos']['Terrenos_Residuales']['Investigacion_Productos_Comparables_2'] as $value_terrenosResidualesIPC_2)
                                         <tr>
                                             <td class="centrado">
-                                                {{$iTR_2++}}
+                                                <span class="grises">{{$iTR_2++}}</span>
                                             </td>
                                             <td>
                                             @isset($value_terrenosResidualesIPC_2['F_Negociacion'])
-                                                {{$value_terrenosResidualesIPC_2['F_Negociacion']}}
+                                                <span class="grises">{{$value_terrenosResidualesIPC_2['F_Negociacion']}}</span>
                                             @endisset
                                             </td>
                                             <td>
                                             @isset($value_terrenosResidualesIPC_2['Superficie'])
-                                                {{$value_terrenosResidualesIPC_2['Superficie']}}
+                                                <span class="grises">{{$value_terrenosResidualesIPC_2['Superficie']}}</span>
                                             @endisset
                                             </td>
                                             <td>
                                             @isset($value_terrenosResidualesIPC_2['Precio_Solicitado'])
-                                                {{$value_terrenosResidualesIPC_2['Precio_Solicitado']}}
+                                                <span class="grises">{{$value_terrenosResidualesIPC_2['Precio_Solicitado']}}</span>
                                             @endisset
                                             </td>
                                         </tr>
@@ -2209,17 +2209,17 @@
                                         </td>
                                         <td>
                                         @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Investigacion_Productos_Comparables_2']['F_Negociacion'])
-                                            {{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Investigacion_Productos_Comparables_2']['F_Negociacion']}}
+                                            <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Investigacion_Productos_Comparables_2']['F_Negociacion']}}</span>
                                         @endisset
                                         </td>
                                         <td>
                                         @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Investigacion_Productos_Comparables_2']['Superficie'])
-                                            {{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Investigacion_Productos_Comparables_2']['Superficie']}}
+                                            <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Investigacion_Productos_Comparables_2']['Superficie']}}</span>
                                         @endisset
                                         </td>
                                         <td>
                                         @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Investigacion_Productos_Comparables_2']['Precio_Solicitado'])
-                                            {{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Investigacion_Productos_Comparables_2']['Precio_Solicitado']}}
+                                            <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Investigacion_Productos_Comparables_2']['Precio_Solicitado']}}</span>
                                         @endisset
                                         </td>
                                     </tr>
@@ -2242,7 +2242,7 @@
                             <td><b>Valor unitario promedio</b></td>
                             <td>
                                 @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Promedio'])
-                                    {{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Promedio']}}
+                                    <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Promedio']}}</span>
                                 @endisset
                             </td>
                         </tr>
@@ -2250,7 +2250,7 @@
                             <td><b>Valor unitario homologado</b></td>
                             <td>
                                 @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Homologado'])
-                                    {{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Homologado']}}
+                                    <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Homologado']}}</span>
                                 @endisset
                             </td>
                         </tr>
@@ -2258,7 +2258,7 @@
                             <td><b>Valor unitario sin homologar mínimo</b></td>
                             <td>
                                 @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Sin_Homologar_Minimo'])
-                                    {{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Sin_Homologar_Minimo']}}
+                                    <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Sin_Homologar_Minimo']}}</span>
                                 @endisset
                             </td>
                         </tr>
@@ -2266,7 +2266,7 @@
                             <td><b>Valor unitario sin homologar máximo</b></td>
                             <td>
                                 @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Sin_Homologar_Maximo'])
-                                    {{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Sin_Homologar_Maximo']}}
+                                    <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Sin_Homologar_Maximo']}}</span>
                                 @endisset
                             </td>
                         </tr>
@@ -2274,7 +2274,7 @@
                             <td><b>Valor unitario homologado mínimo</b></td>
                             <td>
                                 @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Homologado_Minimo'])
-                                    {{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Homologado_Minimo']}}
+                                    <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Homologado_Minimo']}}</span>
                                 @endisset
                             </td>
                         </tr>
@@ -2282,7 +2282,7 @@
                             <td><b>Valor unitario homologado máximo</b></td>
                             <td>
                                 @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Homologado_Maximo'])
-                                    {{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Homologado_Maximo']}}
+                                    <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Homologado_Maximo']}}</span>
                                 @endisset
                             </td>
                         </tr>
@@ -2290,7 +2290,7 @@
                             <td><b>Valor unitario aplicable al residual</b></td>
                             <td>
                                 @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Aplicable_Residual'])
-                                    {{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Aplicable_Residual']}}
+                                    <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Aplicable_Residual']}}</span>
                                 @endisset
                             </td>
                         </tr>
@@ -2309,7 +2309,7 @@
                             <td><b>Total de ingresos</b></td>
                             <td>
                                 @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Analisis_Residual']['Total_Ingresos'])
-                                    {{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Analisis_Residual']['Total_Ingresos']}}
+                                    <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Analisis_Residual']['Total_Ingresos']}}</span>
                                 @endisset
                             </td>
                         </tr>
@@ -2317,7 +2317,7 @@
                             <td><b>Total de egresos</b></td>
                             <td>
                                 @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Analisis_Residual']['Total_Egresos'])
-                                    {{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Analisis_Residual']['Total_Egresos']}}
+                                    <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Analisis_Residual']['Total_Egresos']}}</span>
                                 @endisset
                             </td>
                         </tr>
@@ -2325,7 +2325,7 @@
                             <td><b>Utilidad propuesta</b></td>
                             <td>
                                 @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Analisis_Residual']['Unidad_Propuesta'])
-                                    {{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Analisis_Residual']['Unidad_Propuesta']}}
+                                    <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Analisis_Residual']['Unidad_Propuesta']}}</span>
                                 @endisset
                             </td>
                         </tr>
@@ -2333,7 +2333,7 @@
                             <td><b>Valor unitario de tierra residual</b></td>
                             <td>
                                 @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Analisis_Residual']['Valor_Unitario_Tierra_Residual'])
-                                    {{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Analisis_Residual']['Valor_Unitario_Tierra_Residual']}}
+                                    <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Analisis_Residual']['Valor_Unitario_Tierra_Residual']}}</span>
                                 @endisset
                             </td>
                         </tr>
@@ -2347,7 +2347,7 @@
                             <th>VALOR UNITARIO DE TIERRA DEL AVALUO</th>
                             <th>
                             @isset($infoAvaluo['Terrenos']['Valor_Unitario_Tierra_Del_Avaluo'])
-                                {{ $infoAvaluo['Terrenos']['Valor_Unitario_Tierra_Del_Avaluo'] }}
+                                <span class="grises">{{ $infoAvaluo['Terrenos']['Valor_Unitario_Tierra_Del_Avaluo'] }}</span>
                             @endisset
                             </th>
                         </tr>
@@ -2373,16 +2373,16 @@
                         @foreach($infoAvaluo['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaUno'] as $valueC_tablaUno)
                             <tr>
                                 <td>
-                                    {{ $iC_Uno++ }}
+                                    <span class="grises">{{ $iC_Uno++ }}</span>
                                 </td>
                                 <td>
                                 @isset($valueC_tablaUno['Ubicacion'])
-                                    {{ $valueC_tablaUno['Ubicacion'] }}
+                                    <span class="grises">{{ $valueC_tablaUno['Ubicacion'] }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($valueC_tablaUno['Descripcion'])
-                                    {{ $valueC_tablaUno['Descripcion'] }}
+                                    <span class="grises">{{ $valueC_tablaUno['Descripcion'] }}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -2396,12 +2396,12 @@
                             </td>
                             <td>
                             @isset($infoAvaluo['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaUno']['Ubicacion'])
-                                {{ $infoAvaluo['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaUno']['Ubicacion'] }}
+                                <span class="grises">{{ $infoAvaluo['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaUno']['Ubicacion'] }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaUno']['Descripcion'])
-                                {{ $infoAvaluo['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaUno']['Descripcion'] }}
+                                <span class="grises">{{ $infoAvaluo['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaUno']['Descripcion'] }}</span>
                             @endisset
                             </td>
                         </tr>                        
@@ -2424,20 +2424,20 @@
                     @if(isset($infoAvaluo['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaDos'][0]))
                         @foreach($infoAvaluo['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaDos'] as $valueC_tablaDos)
                             <tr>
-                                <td>{{ $iC_Dos++ }}</td>
+                                <td><span class="grises">{{ $iC_Dos++ }}</td></span>
                                 <td>
                                 @isset($valueC_tablaDos['F_Negociacion'])
-                                    {{ number_format($valueC_tablaDos['F_Negociacion'],2) }}
+                                    <span class="grises">{{ number_format($valueC_tablaDos['F_Negociacion'],2) }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($valueC_tablaDos['Superficie_Vendible'])
-                                    {{ number_format($valueC_tablaDos['Superficie_Vendible'],2) }}
+                                    <span class="grises">{{ number_format($valueC_tablaDos['Superficie_Vendible'],2) }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($valueC_tablaDos['Precio_Solicitado'])
-                                    ${{ number_format($valueC_tablaDos['Precio_Solicitado'],2) }}
+                                    $<span class="grises">{{ number_format($valueC_tablaDos['Precio_Solicitado'],2) }}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -2451,17 +2451,17 @@
                             </td>
                             <td>
                             @isset($infoAvaluo['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaDos']['F_Negociacion'])
-                                {{ number_format($infoAvaluo['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaDos']['F_Negociacion'],2) }}
+                                <span class="grises">{{ number_format($infoAvaluo['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaDos']['F_Negociacion'],2) }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaDos']['Superficie_Vendible'])
-                                {{ number_format($infoAvaluo['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaDos']['Superficie_Vendible'],2) }}
+                                <span class="grises">{{ number_format($infoAvaluo['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaDos']['Superficie_Vendible'],2) }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaDos']['Precio_Solicitado'])
-                                ${{ number_format($infoAvaluo['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaDos']['Precio_Solicitado'],2) }}
+                                $<span class="grises">{{ number_format($infoAvaluo['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaDos']['Precio_Solicitado'],2) }}</span>
                             @endisset
                             </td>
                         </tr>
@@ -2481,7 +2481,7 @@
                             <td><b>Valor unitario promedio</b></td>
                             <td>
                             @isset($infoAvaluo['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Promedio'])
-                                {{ number_format($infoAvaluo['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Promedio'],2) }}
+                                <span class="grises">{{ number_format($infoAvaluo['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Promedio'],2) }}</span>
                             @endisset
                             </td>
                         </tr>
@@ -2489,7 +2489,7 @@
                             <td><b>Valor unitario homologado</b></td>
                             <td>
                             @isset($infoAvaluo['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Homologado'])
-                                {{ number_format($infoAvaluo['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Homologado'],2) }}
+                                <span class="grises">{{ number_format($infoAvaluo['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Homologado'],2) }}</span>
                             @endisset
                             </td>
                         </tr>
@@ -2497,7 +2497,7 @@
                             <td><b>Valor unitario sin homologar mínimo</b></td>
                             <td>
                             @isset($infoAvaluo['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Sin_Homolgar_Minimo'])
-                                {{ number_format($infoAvaluo['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Sin_Homolgar_Minimo'],2) }}
+                                <span class="grises">{{ number_format($infoAvaluo['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Sin_Homolgar_Minimo'],2) }}</span>
                             @endisset
                             </td>
                         </tr>
@@ -2505,7 +2505,7 @@
                             <td><b>Valor unitario sin homologar máximo</b></td>
                             <td>
                             @isset($infoAvaluo['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Sin_Homolgar_Maximo'])
-                                {{ number_format($infoAvaluo['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Sin_Homolgar_Maximo'],2) }}
+                                <span class="grises">{{ number_format($infoAvaluo['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Sin_Homolgar_Maximo'],2) }}</span>
                             @endisset
                             </td>
                         </tr>
@@ -2513,7 +2513,7 @@
                             <td><b>Valor unitario homologado mínimo</b></td>
                             <td>
                             @isset($infoAvaluo['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Homologado_Minimo'])
-                                {{ number_format($infoAvaluo['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Homologado_Minimo'],2) }}
+                                <span class="grises">{{ number_format($infoAvaluo['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Homologado_Minimo'],2) }}</span>
                             @endisset
                             </td>
                         </tr>
@@ -2521,7 +2521,7 @@
                             <td><b>Valor unitario homologado máximo</b></td>
                             <td>
                             @isset($infoAvaluo['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Homologado_Maximo'])
-                                {{ number_format($infoAvaluo['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Homologado_Maximo'],2) }}
+                                <span class="grises">{{ number_format($infoAvaluo['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Homologado_Maximo'],2) }}</span>
                             @endisset
                             </td>
                         </tr>
@@ -2534,7 +2534,7 @@
                             <th>VALOR UNITARIO APLICABLE AL AVALUO:</th>
                             <th>
                             @isset($infoAvaluo['Construcciones_En_Venta']['Valor_Unitario_Aplicable_Avaluo'])
-                                ${{ number_format($infoAvaluo['Construcciones_En_Venta']['Valor_Unitario_Aplicable_Avaluo'],2) }}
+                                <span class="grises">${{ number_format($infoAvaluo['Construcciones_En_Venta']['Valor_Unitario_Aplicable_Avaluo'],2) }}</span>
                             @endisset
                             </th>
                         </tr>
@@ -2547,7 +2547,7 @@
                             <th>VALOR DE MERCADO DEL INMUEBLE:</th>
                             <th>
                             @isset($infoAvaluo['Construcciones_En_Venta']['Valor_Mercado_Del_Inmueble'])
-                                ${{ number_format($infoAvaluo['Construcciones_En_Venta']['Valor_Mercado_Del_Inmueble'],2) }}
+                            <span class="grises">${{ number_format($infoAvaluo['Construcciones_En_Venta']['Valor_Mercado_Del_Inmueble'],2) }}</span>
                             @endisset
                             </th>
                         </tr>
@@ -2577,12 +2577,12 @@
                                 <td>{{ $iCR_Uno++ }}</td>
                                 <td>
                                 @isset($valueCR_tablaUno['Ubicacion'])
-                                    {{ $valueCR_tablaUno['Ubicacion'] }}
+                                    <span class="grises">{{ $valueCR_tablaUno['Ubicacion'] }}</span>
                                 @endisset                                
                                 </td>
                                 <td>
                                 @isset($valueCR_tablaUno['Descripcion'])
-                                    {{ $valueCR_tablaUno['Descripcion'] }}
+                                    <span class="grises">{{ $valueCR_tablaUno['Descripcion'] }}</span>
                                 @endisset                                
                                 </td>
                             </tr>
@@ -2596,12 +2596,12 @@
                             </td>
                             <td>
                             @isset($infoAvaluo['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaUno']['Ubicacion'])
-                                {{ $infoAvaluo['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaUno']['Ubicacion'] }}
+                                <span class="grises">{{ $infoAvaluo['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaUno']['Ubicacion'] }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaUno']['Descripcion'])
-                                {{ $infoAvaluo['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaUno']['Descripcion'] }}
+                                <span class="grises">{{ $infoAvaluo['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaUno']['Descripcion'] }}</span>
                             @endisset
                             </td>
                         </tr>
@@ -2626,20 +2626,20 @@
                     @if(isset($infoAvaluo['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos'][0]))
                         @foreach($infoAvaluo['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos'] as $valueCR_tablaDos)
                             <tr>
-                                <td>{{ $iCR_Dos++ }}</td>
+                                <td><span class="grises">{{ $iCR_Dos++ }}</td></span>
                                 <td>
                                 @isset($valueCR_tablaDos['F_Negociacion'])
-                                    {{ number_format($valueCR_tablaDos['F_Negociacion'],2) }}
+                                    <span class="grises">{{ number_format($valueCR_tablaDos['F_Negociacion'],2) }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($valueCR_tablaDos['Superficie_Vendible'])
-                                    {{ $valueCR_tablaDos['Superficie_Vendible'] }}
+                                    <span class="grises">{{ $valueCR_tablaDos['Superficie_Vendible'] }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($valueCR_tablaDos['Precio_Solicitado'])
-                                    ${{ number_format($valueCR_tablaDos['Precio_Solicitado'],2) }}
+                                    <span class="grises">${{ number_format($valueCR_tablaDos['Precio_Solicitado'],2) }}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -2653,17 +2653,17 @@
                             </td>
                             <td>
                             @isset($infoAvaluo['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos']['F_Negociacion'])                                
-                                {{ number_format($infoAvaluo['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos']['F_Negociacion'],2) }}
+                                <span class="grises">{{ number_format($infoAvaluo['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos']['F_Negociacion'],2) }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos']['Superficie_Vendible'])                                
-                                {{ $infoAvaluo['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos']['Superficie_Vendible'] }}
+                                <span class="grises">{{ $infoAvaluo['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos']['Superficie_Vendible'] }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos']['Precio_Solicitado'])                                
-                                ${{ number_format($infoAvaluo['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos']['Precio_Solicitado'],2) }}
+                                <span class="grises">${{ number_format($infoAvaluo['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos']['Precio_Solicitado'],2) }}</span>
                             @endisset
                             </td>
                         </tr>
@@ -2683,7 +2683,7 @@
                             <td><b>Valor unitario promedio</b></td>
                             <td>
                             @isset($infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Promedio'])
-                                {{ $infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Promedio'] }}
+                                <span class="grises">{{ $infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Promedio'] }}</span>
                             @endisset
                             </td>
                         </tr>
@@ -2691,7 +2691,7 @@
                             <td><b>Valor unitario homologado</b></td>
                             <td>
                             @isset($infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado'])
-                                {{ $infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado'] }}
+                                <span class="grises">{{ $infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado'] }}</span>
                             @endisset
                             </td>
                         </tr>
@@ -2699,7 +2699,7 @@
                             <td><b>Valor unitario sin homologar mínimo</b></td>
                             <td>
                             @isset($infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Sin_Homolgar_Minimo'])
-                                {{ $infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Sin_Homolgar_Minimo'] }}
+                                <span class="grises">{{ $infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Sin_Homolgar_Minimo'] }}</span>
                             @endisset
                             </td>
                         </tr>
@@ -2707,7 +2707,7 @@
                             <td><b>Valor unitario sin homologar máximo</b></td>
                             <td>
                             @isset($infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Sin_Homolgar_Maximo'])
-                                {{ $infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Sin_Homolgar_Maximo'] }}
+                                <span class="grises">{{ $infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Sin_Homolgar_Maximo'] }}</span>
                             @endisset
                             </td>
                         </tr>
@@ -2715,7 +2715,7 @@
                             <td><b>Valor unitario homologado mínimo</b></td>
                             <td>
                             @isset($infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado_Minimo'])
-                                {{ $infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado_Minimo'] }}
+                                <span class="grises">{{ $infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado_Minimo'] }}</span>
                             @endisset
                             </td>
                         </tr>
@@ -2723,7 +2723,7 @@
                             <td><b>Valor unitario homologado máximo</b></td>
                             <td>
                             @isset($infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado_Maximo'])
-                                {{ $infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado_Maximo'] }}
+                                <span class="grises">{{ $infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado_Maximo'] }}</span>
                             @endisset
                             </td>
                         </tr>
@@ -2736,7 +2736,7 @@
                             <th>VALOR UNITARIO APLICABLE AL AVALUO:</th>
                             <th>
                             @isset($infoAvaluo['Construcciones_En_Renta']['Valor_Unitario_Aplicable_Avaluo'])
-                                ${{ number_format($infoAvaluo['Construcciones_En_Renta']['Valor_Unitario_Aplicable_Avaluo'],2) }}
+                                <span class="grises">${{ number_format($infoAvaluo['Construcciones_En_Renta']['Valor_Unitario_Aplicable_Avaluo'],2) }}</span>
                             @endisset
                             </th>
                         </tr>
@@ -2769,57 +2769,57 @@
                             <tr>
                                 <td>
                                 @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fracc'])
-                                    {{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fracc'] }}
+                                    <span class="grises">{{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fracc'] }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Clave_Area_Valor'])
-                                    {{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Clave_Area_Valor'] }}
+                                    <span class="grises">{{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Clave_Area_Valor'] }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Superficie_m2'])
-                                    {{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Superficie_m2'],2) }}
+                                    <span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Superficie_m2'],2) }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fzo'])
-                                    {{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fzo'],2) }}
+                                    <span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fzo'],2) }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fub'])
-                                    {{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fub'],2) }}
+                                    <span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fub'],2) }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['FFr'])
-                                    {{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['FFr'],2) }}
+                                    <span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['FFr'],2) }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Ffo'])
-                                    {{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Ffo'],2) }}
+                                    <span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Ffo'],2) }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fsu'])
-                                    {{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fsu'],2) }}
+                                    <span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fsu'],2) }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fot'])
-                                    {{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fot'] }}
+                                    <span class="grises">{{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fot'] }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['F_Resultante'])
-                                    {{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['F_Resultante'],2) }}
+                                    <span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['F_Resultante'],2) }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Valor_Fraccion'])
-                                    {{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Valor_Fraccion'],2) }}
+                                    <span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Valor_Fraccion'],2) }}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -2828,57 +2828,57 @@
                         <tr>
                             <td>
                             @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fracc'])
-                                {{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fracc'] }}
+                                <span class="grises">{{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fracc'] }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Clave_Area_Valor'])
-                                {{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Clave_Area_Valor'] }}
+                                <span class="grises">{{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Clave_Area_Valor'] }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Superficie_m2'])
-                                {{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Superficie_m2'],2) }}
+                                <span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Superficie_m2'],2) }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fzo'])
-                                {{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fzo'],2) }}
+                                <span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fzo'],2) }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fub'])
-                                {{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fub'],2) }}
+                                <span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fub'],2) }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['FFr'])
-                                {{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['FFr'],2) }}
+                                <span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['FFr'],2) }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Ffo'])
-                                {{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Ffo'],2) }}
+                                <span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Ffo'],2) }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fsu'])
-                                {{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fsu'],2) }}
+                                <span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fsu'],2) }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fot'])
-                                {{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fot'] }}
+                                <span class="grises">{{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Fot'] }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['F_Resultante'])
-                                {{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['F_Resultante'],2) }}
+                                <span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['F_Resultante'],2) }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Valor_Fraccion'])
-                                {{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Valor_Fraccion'],2) }}
+                                <span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Valor_Fraccion'],2) }}</span>
                             @endisset
                             </td>
                         </tr>
@@ -2886,15 +2886,15 @@
                     </tbody>
                 </table>
                 <br>
-                <p><b>Total superficie: {{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Totales']['Total_Superficie'],2) }} '           'Valor del terreno total: {{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Totales']['Valor_Del_Terreno_Total'],2) }} </b></p>
+                <p><b>Total superficie: <span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Totales']['Total_Superficie'],2) }}</span> '           'Valor del terreno total: <span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Totales']['Valor_Del_Terreno_Total'],2) }}</span> </b></p>
                 <br>
-                <p>Indiviso de la unidad que se valua: {{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Totales']['Indiviso_Unidad_Que_Se_Valua'] }} %</p>
+                <p>Indiviso de la unidad que se valua: <span class="grises">{{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Totales']['Indiviso_Unidad_Que_Se_Valua'] }}</span> %</p>
 
                 <table class="tabla_gris_valor">
                     <thead>
                         <tr>
                             <th>VALOR TOTAL DEL TERRENO PROPORCIONAL:</th>
-                            <th>${{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Totales']['Valor_Total_Del_Terreno_Proporcional'],2) }}</th>
+                            <th><span class="grises">${{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Totales']['Valor_Total_Del_Terreno_Proporcional'],2) }}</span></th>
                         </tr>
                     </thead> 
                 </table>
@@ -2923,52 +2923,52 @@
                         <tr>
                                 <td>
                                 @isset($value_valorContruccionesP['Tipo'])
-                                    {{ $value_valorContruccionesP['Tipo'] }}
+                                    <span class="grises">{{ $value_valorContruccionesP['Tipo'] }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($value_valorContruccionesP['Descripcion'])
-                                    {{ $value_valorContruccionesP['Descripcion'] }}
+                                    <span class="grises">{{ $value_valorContruccionesP['Descripcion'] }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($value_valorContruccionesP['Uso'])
-                                    {{ $value_valorContruccionesP['Uso'] }}
+                                    <span class="grises">{{ $value_valorContruccionesP['Uso'] }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($value_valorContruccionesP['Numero_Niveles_Tipo'])
-                                    {{ $value_valorContruccionesP['Numero_Niveles_Tipo'] }}
+                                    <span class="grises">{{ $value_valorContruccionesP['Numero_Niveles_Tipo'] }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($value_valorContruccionesP['Clave_Rango_Niveles'])
-                                    {{ $value_valorContruccionesP['Clave_Rango_Niveles'] }}
+                                    <span class="grises">{{ $value_valorContruccionesP['Clave_Rango_Niveles'] }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($value_valorContruccionesP['Clase'])
-                                    {{ $value_valorContruccionesP['Clase'] }}
+                                    <span class="grises">{{ $value_valorContruccionesP['Clase'] }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($value_valorContruccionesP['Valor_Unitario'])
-                                    {{ number_format($value_valorContruccionesP['Valor_Unitario'],2) }}
+                                    <span class="grises">{{ number_format($value_valorContruccionesP['Valor_Unitario'],2) }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($value_valorContruccionesP['Depreciacion_Por_Edad'])
-                                    {{ number_format($value_valorContruccionesP['Depreciacion_Por_Edad'],2) }}
+                                    <span class="grises">{{ number_format($value_valorContruccionesP['Depreciacion_Por_Edad'],2) }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($value_valorContruccionesP['Valor'])
-                                    {{ number_format($value_valorContruccionesP['Valor'],2) }}
+                                    <span class="grises">{{ number_format($value_valorContruccionesP['Valor'],2) }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($value_valorContruccionesP['Sup'])
-                                    {{ number_format($value_valorContruccionesP['Sup'],2) }}
+                                    <span class="grises">{{ number_format($value_valorContruccionesP['Sup'],2) }}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -2977,52 +2977,52 @@
                         <tr>
                             <td>
                             @isset($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Tipo'])
-                                {{ $infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Tipo'] }}
+                                <span class="grises">{{ $infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Tipo'] }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Descripcion'])
-                                {{ $infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Descripcion'] }}
+                                <span class="grises">{{ $infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Descripcion'] }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Uso'])
-                                {{ $infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Uso'] }}
+                                <span class="grises">{{ $infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Uso'] }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Numero_Niveles_Tipo'])
-                                {{ $infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Numero_Niveles_Tipo'] }}
+                                <span class="grises">{{ $infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Numero_Niveles_Tipo'] }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Clave_Rango_Niveles'])
-                                {{ $infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Clave_Rango_Niveles'] }}
+                                <span class="grises">{{ $infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Clave_Rango_Niveles'] }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Clase'])
-                                {{ $infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Clase'] }}
+                                <span class="grises">{{ $infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Clase'] }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Valor_Unitario'])
-                                {{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Valor_Unitario'],2) }}
+                                <span class="grises">{{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Valor_Unitario'],2) }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Depreciacion_Por_Edad'])
-                                {{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Depreciacion_Por_Edad'],2) }}
+                                <span class="grises">{{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Depreciacion_Por_Edad'],2) }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Valor'])
-                                {{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Valor'],2) }}
+                                <span class="grises">{{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Valor'],2) }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Sup'])
-                                {{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Sup'],2) }}
+                                <span class="grises">{{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Privativas']['Sup'],2) }}</span>
                             @endisset
                             </td>
                         </tr>
@@ -3030,7 +3030,7 @@
                         <tr>
                             <td colspan="10" style="text-align: right; padding-right: 10px;">
                             @isset($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Privativas']['Total_Superficie'])
-                                SUPERFICIE TOTAL DE LAS CONSTRUCCIONES PRIVATIVAS: {{ $infoAvaluo['Calculo_Valor_Construcciones']['Totales_Privativas']['Total_Superficie'] }}
+                                SUPERFICIE TOTAL DE LAS CONSTRUCCIONES PRIVATIVAS: <span class="grises">{{ $infoAvaluo['Calculo_Valor_Construcciones']['Totales_Privativas']['Total_Superficie'] }}</span>
                             @endisset
                             </td>
                         </tr>
@@ -3042,7 +3042,7 @@
                             <th>VALOR TOTAL DE LAS CONSTRUCCIONES PRIVATIVAS:</th>
                             <th>
                             @isset($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Privativas']['Total_Construcciones_Privativas'])
-                                ${{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Privativas']['Total_Construcciones_Privativas'],2) }}</p>
+                                <span class="grises">${{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Privativas']['Total_Construcciones_Privativas'],2) }}</span>
                             @endisset
                             </th>
                         </tr>
@@ -3072,52 +3072,52 @@
                             <tr>
                                 <td>
                                 @isset($value_valorConstruccionesC['Fracc'])
-                                    {{ $value_valorConstruccionesC['Fracc'] }}
+                                    <span class="grises">{{ $value_valorConstruccionesC['Fracc'] }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($value_valorConstruccionesC['Descripcion'])
-                                    {{ $value_valorConstruccionesC['Descripcion'] }}
+                                    <span class="grises">{{ $value_valorConstruccionesC['Descripcion'] }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($value_valorConstruccionesC['Uso'])
-                                    {{ $value_valorConstruccionesC['Uso'] }}
+                                    <span class="grises">{{ $value_valorConstruccionesC['Uso'] }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($value_valorConstruccionesC['Superficie_m2'])
-                                    {{ number_format($value_valorConstruccionesC['Superficie_m2'],2) }}
+                                    <span class="grises">{{ number_format($value_valorConstruccionesC['Superficie_m2'],2) }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($value_valorConstruccionesC['Valor_Unitario'])
-                                    {{ number_format($value_valorConstruccionesC['Valor_Unitario'],2) }}
+                                    <span class="grises">{{ number_format($value_valorConstruccionesC['Valor_Unitario'],2) }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($value_valorConstruccionesC['Edad'])
-                                    {{ number_format($value_valorConstruccionesC['Edad'],2) }}
+                                    <span class="grises">{{ number_format($value_valorConstruccionesC['Edad'],2) }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($value_valorConstruccionesC['Fco'])
-                                    {{ number_format($value_valorConstruccionesC['Fco'],2) }}
+                                    <span class="grises">{{ number_format($value_valorConstruccionesC['Fco'],2) }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($value_valorConstruccionesC['FRe'])
-                                    {{ number_format($value_valorConstruccionesC['FRe'],2) }}
+                                    <span class="grises">{{ number_format($value_valorConstruccionesC['FRe'],2) }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($value_valorConstruccionesC['Valor_Fraccion'])
-                                    {{ number_format($value_valorConstruccionesC['Valor_Fraccion'],2) }}
+                                    <span class="grises">{{ number_format($value_valorConstruccionesC['Valor_Fraccion'],2) }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($value_valorConstruccionesC['Indiviso'])
-                                    {{ $value_valorConstruccionesC['Indiviso'] }}%
+                                    <span class="grises">{{ $value_valorConstruccionesC['Indiviso'] }}%</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -3126,52 +3126,52 @@
                         <tr>
                             <td>
                             @isset($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Fracc'])
-                                {{ $infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Fracc'] }}
+                                <span class="grises">{{ $infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Fracc'] }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Descripcion'])
-                                {{ $infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Descripcion'] }}
+                                <span class="grises">{{ $infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Descripcion'] }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Uso'])
-                                {{ $infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Uso'] }}
+                                <span class="grises">{{ $infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Uso'] }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Superficie_m2'])
-                                {{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Superficie_m2'],2) }}
+                                <span class="grises">{{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Superficie_m2'],2) }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Valor_Unitario'])
-                                {{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Valor_Unitario'],2) }}
+                                <span class="grises">{{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Valor_Unitario'],2) }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Edad'])
-                                {{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Edad'],2) }}
+                                <span class="grises">{{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Edad'],2) }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Fco'])
-                                {{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Fco'],2) }}
+                                <span class="grises">{{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Fco'],2) }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['FRe'])
-                                {{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['FRe'],2) }}
+                                <span class="grises">{{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['FRe'],2) }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Valor_Fraccion'])
-                                {{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Valor_Fraccion'],2) }}
+                                <span class="grises">{{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Valor_Fraccion'],2) }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Indiviso'])
-                                {{ $infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Indiviso'] }}%
+                                <span class="grises">{{ $infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Indiviso'] }}%</span>
                             @endisset
                             </td>
                         </tr>
@@ -3180,11 +3180,11 @@
                 </table>
                 <p>Total superficie: 
                 @isset($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Superficie'])
-                    {{ $infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Superficie'] }}
+                    <span class="grises">{{ $infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Superficie'] }}</span>
                 @endisset
                 Total construcciones comunes: 
                 @isset($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Construcciones_Comunes'])
-                    $ {{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Construcciones_Comunes'],2) }}</p>
+                    <span class="grises">$ {{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Construcciones_Comunes'],2) }}</span></p>
                 @endisset
                 <table class="tabla_gris_valor">
                     <thead>
@@ -3192,7 +3192,7 @@
                             <th>VALOR TOTAL DE LAS CONTRUCCIONES:</th>
                             <th>
                             @isset($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Valor_Total_De_Las_Construcciones'])
-                                $ {{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Valor_Total_De_Las_Construcciones'],2) }}
+                                <span class="grises">$ {{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Valor_Total_De_Las_Construcciones'],2) }}</span>
                             @endisset
                             </th>
                         </tr>
@@ -3221,37 +3221,37 @@
                             <tr>
                                 <td>
                                 @isset($valueEA_tablaPri['0'])
-                                    {{ $valueEA_tablaPri['0'] }}
+                                    <span class="grises">{{ $valueEA_tablaPri['0'] }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($valueEA_tablaPri['Clave'])
-                                    {{ $valueEA_tablaPri['Clave'] }}
+                                    <span class="grises">{{ $valueEA_tablaPri['Clave'] }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($valueEA_tablaPri['Concepto'])
-                                    {{ $valueEA_tablaPri['Concepto'] }} 
+                                    <span class="grises">{{ $valueEA_tablaPri['Concepto'] }} </span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($valueEA_tablaPri['Cantidad'])
-                                    {{ number_format($valueEA_tablaPri['Cantidad'],2) }}
+                                    <span class="grises">{{ number_format($valueEA_tablaPri['Cantidad'],2) }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($valueEA_tablaPri['Valor_Unitario'])
-                                    {{ number_format($valueEA_tablaPri['Valor_Unitario'],2) }}
+                                    <span class="grises">{{ number_format($valueEA_tablaPri['Valor_Unitario'],2) }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($valueEA_tablaPri['Edad'])
-                                    {{ $valueEA_tablaPri['Edad'] }}
+                                    <span class="grises">{{ $valueEA_tablaPri['Edad'] }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($valueEA_tablaPri['Importe'])
-                                    $ {{ number_format($valueEA_tablaPri['Importe'],2) }}
+                                    $ <span class="grises">{{ number_format($valueEA_tablaPri['Importe'],2) }}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -3260,37 +3260,37 @@
                         <tr>
                             <td>
                             @isset($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['0'])
-                                {{ $infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['0'] }}
+                                <span class="grises">{{ $infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['0'] }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Clave'])
-                                {{ $infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Clave'] }}
+                                <span class="grises">{{ $infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Clave'] }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Concepto'])
-                                {{ $infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Concepto'] }} 
+                                <span class="grises">{{ $infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Concepto'] }} </span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Cantidad'])
-                                {{ number_format($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Cantidad'],2) }}
+                                <span class="grises">{{ number_format($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Cantidad'],2) }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Valor_Unitario'])
-                                {{ number_format($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Valor_Unitario'],2) }}
+                                <span class="grises">{{ number_format($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Valor_Unitario'],2) }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Edad'])
-                                {{ $infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Edad'] }}
+                                <span class="grises">{{ $infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Edad'] }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Importe'])
-                                $ {{ number_format($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Importe'],2) }}
+                                <span class="grises">${{ number_format($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Importe'],2) }}</span>
                             @endisset
                             </td>
                         </tr>
@@ -3300,7 +3300,7 @@
                 <br>
                 <p><b>Total de las instalaciones privativas:</b> 
                 @isset($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Totales']['Total_De_Las_Instalaciones'])
-                    $ {{ number_format($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Totales']['Total_De_Las_Instalaciones'],2) }}
+                    <span class="grises">${{ number_format($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Totales']['Total_De_Las_Instalaciones'],2) }}</span>
                 @endisset
                 </p>
                 <br>
@@ -3330,7 +3330,7 @@
                             <th>VALOR TOTAL DE LAS CONSTRUCCIONES COMUNES:</th>
                             <th>
                             @isset($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Construcciones_Comunes'])
-                                ${{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Construcciones_Comunes'],2) }}</p>
+                                <span class="grises">${{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Construcciones_Comunes'],2) }}</span>
                             @endisset
                             </th>
                         </tr>
@@ -3342,7 +3342,7 @@
                             <th>VALOR TOTAL DE LAS CONSTRUCCIONES COMUNES POR INDIVISO:</th>
                             <th>
                             @isset($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Construcciones_Comunes_Por_Indiviso'])
-                                ${{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Construcciones_Comunes_Por_Indiviso'],2) }}</p>
+                                <span class="grises">${{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Construcciones_Comunes_Por_Indiviso'],2) }}</span>
                             @endisset
                             </th>
                         </tr>
@@ -3365,22 +3365,22 @@
                             <tr>
                                 <td>
                                 @isset($value_obrasCEA['0'])
-                                    {{ $value_obrasCEA['0'] }}
+                                    <span class="grises">{{ $value_obrasCEA['0'] }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($value_obrasCEA['Clave'])
-                                    {{ $value_obrasCEA['Clave'] }}
+                                    <span class="grises">{{ $value_obrasCEA['Clave'] }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($value_obrasCEA['Concepto'])
-                                    {{ $value_obrasCEA['Concepto'] }}
+                                    <span class="grises">{{ $value_obrasCEA['Concepto'] }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($value_obrasCEA['Cantidad'])
-                                    {{ $value_obrasCEA['Cantidad'] }}
+                                    <span class="grises">{{ $value_obrasCEA['Cantidad'] }}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -3389,22 +3389,22 @@
                         <tr>
                             <td>
                             @isset($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['0'])
-                                {{ $infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['0'] }}
+                                <span class="grises">{{ $infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['0'] }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Clave'])
-                                {{ $infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Clave'] }}
+                                <span class="grises">{{ $infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Clave'] }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Concepto'])
-                                {{ $infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Concepto'] }}
+                                <span class="grises">{{ $infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Concepto'] }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Cantidad'])
-                                {{ $infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Cantidad'] }}
+                                <span class="grises">{{ $infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Cantidad'] }}</span>
                             @endisset
                             </td>
                         </tr>
@@ -3413,7 +3413,7 @@
                 </table>
                 <p>Indiviso de la unidad que se Valua: 
                 @isset($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Totales']['Indiviso_Unidad_Que_Se_Valua'])
-                    {{ number_format($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Totales']['Indiviso_Unidad_Que_Se_Valua'],2) }}%
+                    <span class="grises">{{ number_format($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Totales']['Indiviso_Unidad_Que_Se_Valua'],2) }}%</span>
                 @endisset
                 </p>
 
@@ -3423,7 +3423,7 @@
                             <th>TOTAL DE LAS INSTALACIONES:</th>
                             <th>
                             @isset($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Totales']['Total_De_Las_Instalaciones'])
-                                ${{ number_format($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Totales']['Total_De_Las_Instalaciones'],2) }}
+                                <span class="grises">${{ number_format($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Totales']['Total_De_Las_Instalaciones'],2) }}</span>
                             @endisset
                             </th>
                         </tr>
@@ -3436,7 +3436,7 @@
                             <th>ÍNDICE FÍSICO DIRECTO (Importe total de enfoque de costos):</th>
                             <th>
                             @isset($infoAvaluo['Indice_Fisico_Directo'])
-                                ${{ number_format($infoAvaluo['Indice_Fisico_Directo'],2) }}
+                                <span class="grises">${{ number_format($infoAvaluo['Indice_Fisico_Directo'],2) }}</span>
                             @endisset
                             </th>
                         </tr>
@@ -3464,25 +3464,25 @@
                     @if(isset($infoAvaluo['Renta_Estimada'][0]))
                         @foreach($infoAvaluo['Renta_Estimada'] as $valueEA_tablaPri)
                             <tr>
-                                <td>{{ $i_EA++ }}</td>
+                                <td><span class="grises">{{ $i_EA++ }}</td></span>
                                 <td>
                                 @isset($valueEA_tablaPri['Ubicacion'])                                
-                                    {{ $valueEA_tablaPri['Ubicacion'] }}
+                                    <span class="grises">{{ $valueEA_tablaPri['Ubicacion'] }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($valueEA_tablaPri['Superficie_m2'])                                
-                                    {{ $valueEA_tablaPri['Superficie_m2'] }}
+                                    <span class="grises">{{ $valueEA_tablaPri['Superficie_m2'] }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($valueEA_tablaPri['Renta_Mensual'])                                
-                                    ${{ number_format($valueEA_tablaPri['Renta_Mensual'],2) }}
+                                    $<span class="grises">{{ number_format($valueEA_tablaPri['Renta_Mensual'],2) }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($valueEA_tablaPri['Renta_m2'])                                
-                                    ${{ number_format($valueEA_tablaPri['Renta_m2'],2) }}
+                                    $<span class="grises">{{ number_format($valueEA_tablaPri['Renta_m2'],2) }}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -3496,22 +3496,22 @@
                             </td>
                             <td>
                             @isset($infoAvaluo['Renta_Estimada']['Ubicacion'])
-                                {{ $infoAvaluo['Renta_Estimada']['Ubicacion'] }}
+                                <span class="grises">{{ $infoAvaluo['Renta_Estimada']['Ubicacion'] }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Renta_Estimada']['Superficie_m2'])
-                                {{ $infoAvaluo['Renta_Estimada']['Superficie_m2'] }}
+                                <span class="grises">{{ $infoAvaluo['Renta_Estimada']['Superficie_m2'] }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Renta_Estimada']['Renta_Mensual'])
-                                ${{ number_format($infoAvaluo['Renta_Estimada']['Renta_Mensual'],2) }}
+                                <span class="grises">${{ number_format($infoAvaluo['Renta_Estimada']['Renta_Mensual'],2) }}</span>
                             @endisset
                             </td>
                             <td>
                             @isset($infoAvaluo['Renta_Estimada']['Renta_m2'])
-                                ${{ number_format($infoAvaluo['Renta_Estimada']['Renta_m2'],2) }}
+                                <span class="grises">${{ number_format($infoAvaluo['Renta_Estimada']['Renta_m2'],2) }}</span>
                             @endisset
                             </td>
                         </tr>
@@ -3536,7 +3536,7 @@
                                         <td>a) Vacíos:</td>
                                         <td>
                                         @isset($infoAvaluo['Analisis_Deducciones']['Vacios'])
-                                            ${{ number_format($infoAvaluo['Analisis_Deducciones']['Vacios'],2) }}
+                                            <span class="grises">${{ number_format($infoAvaluo['Analisis_Deducciones']['Vacios'],2) }}</span>
                                         @endisset
                                         </td>
                                     </tr>
@@ -3544,7 +3544,7 @@
                                         <td>b) Impuesto predial:</td>
                                         <td>
                                         @isset($infoAvaluo['Analisis_Deducciones']['Impuesto_Predial'])
-                                            ${{ number_format($infoAvaluo['Analisis_Deducciones']['Impuesto_Predial'],2) }}
+                                            <span class="grises">${{ number_format($infoAvaluo['Analisis_Deducciones']['Impuesto_Predial'],2) }}</span>
                                         @endisset
                                         </td>
                                     </tr>
@@ -3552,7 +3552,7 @@
                                         <td>c) Servicio de agua:</td>
                                         <td>
                                         @isset($infoAvaluo['Analisis_Deducciones']['Servicio_Agua'])
-                                            ${{ number_format($infoAvaluo['Analisis_Deducciones']['Servicio_Agua'],2) }}
+                                            <span class="grises">${{ number_format($infoAvaluo['Analisis_Deducciones']['Servicio_Agua'],2) }}</span>
                                         @endisset
                                         </td>
                                     </tr>
@@ -3560,7 +3560,7 @@
                                         <td>d) Conserv. y mant.:</td>
                                         <td>
                                         @isset($infoAvaluo['Analisis_Deducciones']['Conserv_Mant'])
-                                            ${{ number_format($infoAvaluo['Analisis_Deducciones']['Conserv_Mant'],2) }}
+                                            <span class="grises">${{ number_format($infoAvaluo['Analisis_Deducciones']['Conserv_Mant'],2) }}</span>
                                         @endisset
                                         </td>
                                     </tr>
@@ -3568,7 +3568,7 @@
                                         <td>e) Administración:</td>
                                         <td>
                                         @isset($infoAvaluo['Analisis_Deducciones']['Administracion'])
-                                            ${{ number_format($infoAvaluo['Analisis_Deducciones']['Administracion'],2) }}
+                                            <span class="grises">${{ number_format($infoAvaluo['Analisis_Deducciones']['Administracion'],2) }}</span>
                                         @endisset
                                         </td>
                                     </tr>
@@ -3576,7 +3576,7 @@
                                         <td>f) Energía eléctrica:</td>
                                         <td>
                                         @isset($infoAvaluo['Analisis_Deducciones']['Energia_Electrica'])
-                                            ${{ number_format($infoAvaluo['Analisis_Deducciones']['Energia_Electrica'],2) }}
+                                            <span class="grises">${{ number_format($infoAvaluo['Analisis_Deducciones']['Energia_Electrica'],2) }}</span>
                                         @endisset
                                         </td>
                                     </tr>
@@ -3596,7 +3596,7 @@
                                         <td>g) Seguros:</td>
                                         <td>
                                         @isset($infoAvaluo['Analisis_Deducciones']['Seguros'])
-                                            ${{ number_format($infoAvaluo['Analisis_Deducciones']['Seguros'],2) }}
+                                            <span class="grises">${{ number_format($infoAvaluo['Analisis_Deducciones']['Seguros'],2) }}</span>
                                         @endisset
                                         </td>
                                     </tr>
@@ -3604,7 +3604,7 @@
                                         <td>h) Otros:</td>
                                         <td>
                                         @isset($infoAvaluo['Analisis_Deducciones']['Otros'])
-                                            ${{ number_format($infoAvaluo['Analisis_Deducciones']['Otros'],2) }}
+                                            <span class="grises">${{ number_format($infoAvaluo['Analisis_Deducciones']['Otros'],2) }}</span>
                                         @endisset
                                         </td>
                                     </tr>
@@ -3612,7 +3612,7 @@
                                         <td>i) Depreciación Fiscal:</td>
                                         <td>
                                         @isset($infoAvaluo['Analisis_Deducciones']['Depreciacion_Fiscal'])
-                                            ${{ number_format($infoAvaluo['Analisis_Deducciones']['Depreciacion_Fiscal'],2) }}
+                                            <span class="grises">${{ number_format($infoAvaluo['Analisis_Deducciones']['Depreciacion_Fiscal'],2) }}</span>
                                         @endisset
                                         </td>
                                     </tr>
@@ -3620,7 +3620,7 @@
                                         <td>j) Deducc. Fiscales:</td>
                                         <td>
                                         @isset($infoAvaluo['Analisis_Deducciones']['Deducc_Fiscales'])
-                                            ${{ number_format($infoAvaluo['Analisis_Deducciones']['Deducc_Fiscales'],2) }}
+                                            <span class="grises">${{ number_format($infoAvaluo['Analisis_Deducciones']['Deducc_Fiscales'],2) }}</span>
                                         @endisset
                                         </td>
                                     </tr>
@@ -3628,7 +3628,7 @@
                                         <td>k) I.S.R.</td>
                                         <td>
                                         @isset($infoAvaluo['Analisis_Deducciones']['ISR'])
-                                            ${{ number_format($infoAvaluo['Analisis_Deducciones']['ISR'],2) }}
+                                            <span class="grises">${{ number_format($infoAvaluo['Analisis_Deducciones']['ISR'],2) }}</span>
                                         @endisset
                                         </td>
                                     </tr>
@@ -3638,7 +3638,7 @@
                                         <td><b>SUMA:</b></td>
                                         <td><b>
                                         @isset($infoAvaluo['Analisis_Deducciones']['Totales']['Suma'])
-                                            $ {{ number_format($infoAvaluo['Analisis_Deducciones']['Totales']['Suma'],2) }}
+                                            <span class="grises">${{ number_format($infoAvaluo['Analisis_Deducciones']['Totales']['Suma'],2) }}</span>
                                         @endisset
                                         </b>
                                         </td>
@@ -3655,7 +3655,7 @@
                             <td><b>DEDUCCIONES MENSUALES:</b></td>
                             <td>
                             @isset($infoAvaluo['Analisis_Deducciones']['Totales']['Deducciones_Mensuales'])
-                                ${{ number_format($infoAvaluo['Analisis_Deducciones']['Totales']['Deducciones_Mensuales'],2) }}
+                                <span class="grises">${{ number_format($infoAvaluo['Analisis_Deducciones']['Totales']['Deducciones_Mensuales'],2) }}</span>
                             @endisset
                             </td>
                         </tr>
@@ -3663,7 +3663,7 @@
                             <td><b>PRODUCTO LIQUIDO MENSUAL:</b></td>
                             <td>
                             @isset($infoAvaluo['Analisis_Deducciones']['Totales']['Producto_Liquido_Mensual'])
-                                ${{ number_format($infoAvaluo['Analisis_Deducciones']['Totales']['Producto_Liquido_Mensual'],2) }}
+                                <span class="grises">${{ number_format($infoAvaluo['Analisis_Deducciones']['Totales']['Producto_Liquido_Mensual'],2) }}</span>
                             @endisset
                             </td>
                         </tr>
@@ -3671,7 +3671,7 @@
                             <td><b>PRODUCTO LIQUIDO ANUAL:</b></td>
                             <td>
                             @isset($infoAvaluo['Analisis_Deducciones']['Totales']['Producto_Liquido_Anual'])
-                                ${{ number_format($infoAvaluo['Analisis_Deducciones']['Totales']['Producto_Liquido_Anual'],2) }}
+                                <span class="grises">${{ number_format($infoAvaluo['Analisis_Deducciones']['Totales']['Producto_Liquido_Anual'],2) }}</span>
                             @endisset
                             </td>
                         </tr>
@@ -3679,7 +3679,7 @@
                             <td><b>TASA DE CAPITALIZACIÓN APLICALE:</b></td>
                             <td>
                             @isset($infoAvaluo['Analisis_Deducciones']['Totales']['Tasa_Capitalizacion_Aplicable'])
-                                {{ number_format($infoAvaluo['Analisis_Deducciones']['Totales']['Tasa_Capitalizacion_Aplicable'],2) }}%
+                                <span class="grises">{{ number_format($infoAvaluo['Analisis_Deducciones']['Totales']['Tasa_Capitalizacion_Aplicable'],2) }}%</span>
                             @endisset
                             </td>
                         </tr>
@@ -3693,7 +3693,7 @@
                             <th>RESULTADO DE LA APLICACIÓN DEL ENFOQUE DE INGRESOS (VALOR POR CAPITALIZACIÓN DE RENTAS):</th>
                             <th>
                             @isset($infoAvaluo['Resultado_Aplicacion_Enfoque_Ingresos'])                                
-                                ${{ number_format($infoAvaluo['Resultado_Aplicacion_Enfoque_Ingresos'],2) }}
+                                <span class="grises">$ number_format($infoAvaluo['Resultado_Aplicacion_Enfoque_Ingresos'],2) }}</span>
                             @endisset
                             </th>
                         </tr>
@@ -3710,7 +3710,7 @@
                             <th>ÍNDICE FÍSICO DIRECTO:</th>
                             <th>
                             @isset($infoAvaluo['Resultado_Aplicacion_Enfoque_Ingresos'])
-                                ${{ number_format($infoAvaluo['Indice_Fisico_Directo'],2) }}
+                                <span class="grises">${{ number_format($infoAvaluo['Indice_Fisico_Directo'],2) }}</span>
                             @endisset
                             </th>
                         </tr>
@@ -3723,7 +3723,7 @@
                             <th>VALOR POR CAPITALIZACIÓN DE RENTAS:</th>
                             <th>
                             @isset($infoAvaluo['Resultado_Aplicacion_Enfoque_Ingresos'])
-                                ${{ number_format($infoAvaluo['Valor_Capitalizacion_Rentas'],2) }}
+                                <span class="grises">${{ number_format($infoAvaluo['Valor_Capitalizacion_Rentas'],2) }}</span>
                             @endisset
                             </th>
                         </tr>
@@ -3736,7 +3736,7 @@
                             <th>VALOR DE MERCADO DE LAS CONSTRUCCIONES:</th>
                             <th>
                             @isset($infoAvaluo['Resultado_Aplicacion_Enfoque_Ingresos'])
-                                ${{ number_format($infoAvaluo['Valor_Mercado_Construcciones'],2) }}
+                                <span class="grises">${{ number_format($infoAvaluo['Valor_Mercado_Construcciones'],2) }}</span>
                             @endisset
                             </th>
                         </tr>
@@ -3770,7 +3770,7 @@
                         PREVALECEN EN EL MERCADO INMOBILIARIO DE ESTA ZONA DE LA CIUDAD, SE LLEGA A LAS SIGUIENTES CONCLUSIONES.<br><br>
                         CONSIDERACIONES:<br><br>
                         @isset($infoAvaluo['Consideraciones'])
-                            {{ $infoAvaluo['Consideraciones'] }}
+                            <span class="grises">{{ $infoAvaluo['Consideraciones'] }}</span>
                         @endisset
                     </p>
 
@@ -3783,7 +3783,7 @@
                             <th>CONSIDERAMOS QUE EL VALOR COMERCIAL CORRESPONDE A:</th>
                             <th>
                             @isset($infoAvaluo['Consideramos_Que_Valor_Comercial_Corresponde'])
-                                ${{ number_format($infoAvaluo['Consideramos_Que_Valor_Comercial_Corresponde'],2) }}
+                                <span class="grises">${{ number_format($infoAvaluo['Consideramos_Que_Valor_Comercial_Corresponde'],2) }}</span>
                             @endisset
                             </th>
                         </tr>
@@ -3796,17 +3796,17 @@
                         <tr>
                             <th>VALOR REFERIDO: 
                             @isset($infoAvaluo['Valor_Referido']['Valor_Referido'])
-                                ${{ number_format($infoAvaluo['Valor_Referido']['Valor_Referido'],2)}}
+                                <span class="grises">${{ number_format($infoAvaluo['Valor_Referido']['Valor_Referido'],2)}}</span>
                             @endisset
                             </th>
                             <th>FECHA: 
                             @isset($infoAvaluo['Valor_Referido']['Fecha'])
-                                {{ $infoAvaluo['Valor_Referido']['Fecha'] }}
+                                <span class="grises">{{ $infoAvaluo['Valor_Referido']['Fecha'] }}</span>
                             @endisset
                             </th>
                             <th>FACTOR:
                             @isset($infoAvaluo['Valor_Referido']['Factor'])
-                                {{ $infoAvaluo['Valor_Referido']['Factor']}}
+                                <span class="grises">{{ $infoAvaluo['Valor_Referido']['Factor']}}</span>
                             @endisset
                             </th>
                         </tr>
@@ -3818,7 +3818,7 @@
                         <tr>
                             <th style="border-top: 2px solid #000;">Perito valuador:
                             @isset($infoAvaluo['Perito_Valuador'])
-                                {{ $infoAvaluo['Perito_Valuador'] }}
+                                <span class="grises">{{ $infoAvaluo['Perito_Valuador'] }}</span>
                             @endisset
                             </th>
                             <th style="width: 5%;"></th>
@@ -3839,7 +3839,7 @@
                                         <div class="card">
                                             <img src="data:image/png;base64,{{$value_inmuebleOA['Foto']}}" style="width: 100%;" />
                                             <div class="container2">
-                                                Cuenta: {{ $value_inmuebleOA['Cuenta_Catastral'] }} '        ' @if($value_inmuebleOA['Interior_O_Exterior'] == 'E') Exterior @else Interior @endif 
+                                                Cuenta: <span class="grises">{{ $value_inmuebleOA['Cuenta_Catastral'] }} '        ' @if($value_inmuebleOA['Interior_O_Exterior'] == 'E') Exterior @else Interior @endif </span>
                                             </div>
                                         </div>
                                     </td>
@@ -3852,7 +3852,7 @@
                                         <div class="card">
                                             <img src="data:image/png;base64,{{$value_inmuebleOA['Foto']}}" style="width: 100%;" />
                                             <div class="container2">
-                                                Cuenta: {{ $value_inmuebleOA['Cuenta_Catastral'] }} '        ' @if($value_inmuebleOA['Interior_O_Exterior'] == 'E') Exterior @else Interior @endif 
+                                                Cuenta: <span class="grises">{{ $value_inmuebleOA['Cuenta_Catastral'] }} '        ' @if($value_inmuebleOA['Interior_O_Exterior'] == 'E') Exterior @else Interior @endif </span>
                                             </div>
                                         </div>
                                     </td>
@@ -3878,7 +3878,7 @@
                                     <div class="card">
                                         <img src="data:image/png;base64,{{$value_inmuebleEV['Foto']}}" style="width: 100%;" />
                                         <div class="container2">
-                                            Cuenta: {{ $value_inmuebleEV['Cuenta_Catastral'] }} '        ' @if($value_inmuebleEV['Interior_O_Exterior'] == 'E') Exterior @else Interior @endif 
+                                            Cuenta: <span class="grises">{{ $value_inmuebleEV['Cuenta_Catastral'] }} '        ' @if($value_inmuebleEV['Interior_O_Exterior'] == 'E') Exterior @else Interior @endif </span>
                                         </div>
                                     </div>
                                 </td>
@@ -3891,7 +3891,7 @@
                                     <div class="card">
                                         <img src="data:image/png;base64,{{$value_inmuebleEV['Foto']}}" style="width: 100%;" />
                                         <div class="container2">
-                                            Cuenta: {{ $value_inmuebleEV['Cuenta_Catastral'] }} '        ' @if($value_inmuebleEV['Interior_O_Exterior'] == 'E') Exterior @else Interior @endif 
+                                            Cuenta: <span class="grises">{{ $value_inmuebleEV['Cuenta_Catastral'] }} '        ' @if($value_inmuebleEV['Interior_O_Exterior'] == 'E') Exterior @else Interior @endif </span>
                                         </div>
                                     </div>
                                 </td>
@@ -3916,7 +3916,7 @@
                                     <div class="card">
                                         <img src="data:image/png;base64,{{$value_inmuebleR['Foto']}}" style="width: 320px;" />
                                         <div class="container2">
-                                            Cuenta: {{ $value_inmuebleR['Cuenta_Catastral'] }} '        ' @if($value_inmuebleR['Interior_O_Exterior'] == 'E') Exterior @else Interior @endif 
+                                            Cuenta: <span class="grises">{{ $value_inmuebleR['Cuenta_Catastral'] }} '        ' @if($value_inmuebleR['Interior_O_Exterior'] == 'E') Exterior @else Interior @endif </span>
                                         </div>
                                     </div>
                                 </td>
@@ -3929,7 +3929,7 @@
                                     <div class="card">
                                         <img src="data:image/png;base64,{{$value_inmuebleR['Foto']}}" style="width: 320px;" />
                                         <div class="container2">
-                                            Cuenta: {{ $value_inmuebleR['Cuenta_Catastral'] }} '        ' @if($value_inmuebleR['Interior_O_Exterior'] == 'E') Exterior @else Interior @endif 
+                                            Cuenta: <span class="grises">{{ $value_inmuebleR['Cuenta_Catastral'] }} '        ' @if($value_inmuebleR['Interior_O_Exterior'] == 'E') Exterior @else Interior @endif </span>
                                         </div>
                                     </div>
                                 </td>
