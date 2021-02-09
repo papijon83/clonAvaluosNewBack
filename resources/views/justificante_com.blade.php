@@ -3674,7 +3674,7 @@
                         <tr>
                             <th>ÍNDICE FÍSICO DIRECTO:</th>
                             <th>
-                            @isset($infoAvaluo['Resultado_Aplicacion_Enfoque_Ingresos'])
+                            @isset($infoAvaluo['Indice_Fisico_Directo'])
                                 <span class="grises">${{ number_format($infoAvaluo['Indice_Fisico_Directo'],2) }}</span>
                             @endisset
                             </th>
@@ -3687,7 +3687,7 @@
                         <tr>
                             <th>VALOR POR CAPITALIZACIÓN DE RENTAS:</th>
                             <th>
-                            @isset($infoAvaluo['Resultado_Aplicacion_Enfoque_Ingresos'])
+                            @isset($infoAvaluo['Valor_Capitalizacion_Rentas'])
                                 <span class="grises">${{ number_format($infoAvaluo['Valor_Capitalizacion_Rentas'],2) }}</span>
                             @endisset
                             </th>
@@ -3700,7 +3700,7 @@
                         <tr>
                             <th>VALOR DE MERCADO DE LAS CONSTRUCCIONES:</th>
                             <th>
-                            @isset($infoAvaluo['Resultado_Aplicacion_Enfoque_Ingresos'])
+                            @isset($infoAvaluo['Valor_Mercado_Construcciones'])
                                 <span class="grises">${{ number_format($infoAvaluo['Valor_Mercado_Construcciones'],2) }}</span>
                             @endisset
                             </th>
@@ -3712,28 +3712,6 @@
                 <div class="pleca_verde"><b>XI.- CONSIDERACIONES PREVIAS A LA CONCLUSIÓN</b></div>
 
                     <p class="letras_pequenas">
-                        <!-- PARA LOS EFECTOS DEL "MANUAL DE PROCEDIMIENTOS Y LINEAMIENTOS TÉCNICOS DE VALUACIÓN INMOBILIARIA, PUBLICADO POR LA SECRETARÍA DE FINANZAS EN LA
-                        GACETA OFICIAL DEL DISTRITO FEDERAL DE FECHA 06 DE DICIEMBRE DE 2013 CON EL NÚMERO VI.<br><br>
-                        <u>AVALÚO COMERCIAL:</u> EL DICTAMEN TÉCNICO PRACTICADO POR PERSONA AUTORIZADA O REGISTRADA ANTE LA AUTORIDAD FISCAL, QUE PERMITE ESTIMAR EL VALOR
-                        COMERCIAL DE UN BIEN INMUEBLE, CON BASE EN SU USO, CARACTERÍSTICAS FÍSICAS, ADEMÁS DE LAS CARACTERÍSTICAS URBANAS DE LA ZONA DONDE SE UBICA, ASÍ COMO
-                        LA INVESTIGACIÓN, ANÁLISIS Y PONDERACIÓN DEL MERCADO INMOBILIARIO, Y QUE CONTENIDO EN UN DOCUMENTO O ARCHIVO ELECTRÓNICO QUE REÚNA LOS REQUISITOS
-                        MÍNIMOS DE FORMA Y CONTENIDO ESTABLECIDOS EN EL PRESENTE MANUAL, SIRVE COMO BASE PARA DETERMINAR ALGUNA DE LAS CONTRIBUCIONES ESTABLECIDAS EN EL
-                        CÓDIGO.<br><br>
-                        <u>AVALÚO CATASTRAL:</u> EL DICTAMEN TÉCNICO PRACTICADO POR PERSONA AUTORIZADA O REGISTRADA ANTE LA AUTORIDAD FISCAL, QUE SIRVE PARA APOYAR AL
-                        CONTRIBUYENTE PARA SOLICITAR LA MODIFICACIÓN DE DATOS CATASTRALES Y PERMITE DETERMINAR EL VALOR CATASTRAL DE UN BIEN INMUEBLE CON BASE EN SUS
-                        CARACTERÍSTICAS FÍSICAS (USO, TIPO, CLASE, EDAD, INSTALACIONES ESPECIALES, OBRAS COMPLEMENTARIAS Y ELEMENTOS ACCESORIOS) APLICANDO LOS VALORES
-                        UNITARIOS DE SUELO Y CONSTRUCCIONES QUE LA ASAMBLEA LEGISLATIVA DEL D.F. EMITE EN EL CÓDIGO FISCAL QUE APLIQUE.”<br><br>
-                        EL PRESENTE AVALÚO ES DE USO EXCLUSIVO DEL(OS) SOLICITANTE(S) PARA EL DESTINO O PROPÓSITO EXPRESADO EN LA HOJA 1, CAPÍTULO I, POR LO QUE NO PODRÁ SER
-                        UTILIZADO PARA FINES DISTINTOS.<br><br>
-                        LA VIGENCIA DEL PRESENTE DOCUMENTO ESTARÁ DETERMINADA POR SU PROPÓSITO O DESTINO Y DEPENDERÁ BÁSICAMENTE DE LA TEMPORALIDAD QUE ESTABLEZCA EN SU
-                        CASO LA INSTITUCIÓN EMISORA DEL AVALÚO, LA AUTORIDAD COMPETENTE Ó LOS FACTORES EXTERNOS QUE INFLUYEN EN EL VALOR COMERCIAL.<br><br>
-                        LA EDAD CONSIDERADA EN EL PRESENTE AVALÚO CORRESPONDE A LA "APARENTE" O "ESTIMADA" POR EL PERITO VALUADOR EN RAZÓN DE LA OBSERVACIÓN DIRECTA DE LOS
-                        ACABADOS Y ESTADO DE CONSERVACIÓN, POR LO QUE NO ES NECESARIAMENTE LA EDAD CRONOLÓGICA PRECISA DEL INMUEBLE.<br><br>
-                        EL FACTOR DE DEMÉRITO APLICADO PARA LAS CONSTRUCCIONES EN EL ENFOQUE DE COSTOS, INCLUYE TANTO LA DEPRECIACIÓN POR EDAD COMO POR EL ESTADO DE
-                        CONSERVACIÓN.<br><br>
-                        SE ANALIZARON LOS VALORES OBTENIDOS EN EL PRESENTE AVALÚO Y EN FUNCIÓN DE LOS FACTORES DE COMERCIALIZACIÓN Y A LAS CONDICIONES QUE ACTUALMENTE
-                        PREVALECEN EN EL MERCADO INMOBILIARIO DE ESTA ZONA DE LA CIUDAD, SE LLEGA A LAS SIGUIENTES CONCLUSIONES.<br><br>
-                        CONSIDERACIONES:<br><br> -->
                         @isset($infoAvaluo['Consideraciones'])
                             <span class="grises">{{ $infoAvaluo['Consideraciones'] }}</span>
                         @endisset
