@@ -1315,7 +1315,11 @@ class Reimpresion
         $conclusionAvaluo = $elementoPrincipal['ConclusionDelAvaluo'];
         if(isset($conclusionAvaluo['ValorComercialDelInmueble'])){
             $infoReimpresion['Consideramos_Que_Valor_Comercial_Corresponde'] = $conclusionAvaluo['ValorComercialDelInmueble'];
-        }    
+        }
+        
+        if(isset($conclusionAvaluo['ValorCatastralDelInmueble'])){
+            $infoReimpresion['Consideramos_Que_Valor_Catastral_Corresponde'] = $conclusionAvaluo['ValorCatastralDelInmueble'];
+        } 
 
         if(isset($elementoPrincipal['ValorReferido'])){
             $infoReimpresion['Valor_Referido'] = array();
