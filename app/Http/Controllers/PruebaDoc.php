@@ -208,5 +208,36 @@ class PruebaDoc extends Controller
         echo $foto;*/
         $info = DB::select("UPDATE DOC.DOC_FICHERODOCUMENTO SET BINARIODATOS = NULL WHERE IDDOCUMENTODIGITAL = 17203118");
     }
+
+    function comprimir($archivo){
+        try{
+            if ($archivo) {
+                $nombreArchivo = $archivo->getClientOriginalName(); // OK WORK!
+                $nombreArchivo = str_replace(' ','_',$nombreArchivo);
+                $rutaArchivos = getcwd();
+            }
+            
+            $ext = pathinfo($nombreArchivo, PATHINFO_EXTENSION);
+    
+            $nombreComprimido = str_replace($ext,'7z',$nombreArchivo);
+            
+            $xmlComprimido = shell_exec("7z a $nombreComprimido $archivo");
+    
+           return $nombreComprimido;
+        } catch (\Throwable $th) {
+            //Log::info($th);
+            error_log($th);
+            return response()->json(['mensaje' => 'Error al comprimir archivo'], 500);
+        }
+        
+    }
+    
+    function actualizaAvaluo()
+    {        
+        $ficheroAvaluo = $this->modelDocumentos->tran_UpdateFicheroAvaluo(18487476, 'Avaluo-Cat-060-505-01-000.xml', null, 'Avaluo-Cat-060-505-01-000.7z','2021-02-09');
+    }
     
 }
+
+
+

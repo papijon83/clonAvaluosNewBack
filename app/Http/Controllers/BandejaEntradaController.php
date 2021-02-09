@@ -3824,7 +3824,9 @@ class BandejaEntradaController extends Controller
             $id_avaluo = $this->modelDocumentos->get_idavaluo_db($numero_unico);    
             $this->modelReimpresion = new Reimpresion();
             $infoAvaluo = $this->modelReimpresion->infoAvaluo($id_avaluo);
-
+            if(!is_array($infoAvaluo)){
+                return $infoAvaluo;
+            }
             // $datosPDF = [];
             // $datosPDF['no_unico'] =  $numero_unico;
             $tipo_avaluo = substr($infoAvaluo['Encabezado']['No_Unico'], 0, 5);
@@ -3849,7 +3851,7 @@ class BandejaEntradaController extends Controller
         }catch (\Throwable $th) {
             //Log::info($th);
             error_log($th);
-            return response()->json(['mensaje' => 'Error en el servidor'], 500);
+            return response()->json(['mensaje' => 'Error al obtener la información del avalúo'], 500);
         }    
     }
 

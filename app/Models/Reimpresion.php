@@ -95,7 +95,7 @@ class Reimpresion
         $arrInfoAcuse['Ubicacion_Inmueble']['Edificio'] = "-";
         $arrInfoAcuse['Ubicacion_Inmueble']['Lote'] = 0;
         $arrInfoAcuse['Ubicacion_Inmueble']['Cuenta_agua'] = $ubicacionInmueble['CuentaDeAgua'];
-            
+
         
         $infoEscritura = DB::select("SELECT * FROM FEXAVA_ESCRITURA WHERE IDAVALUO = $idavaluo");
         $arrInfoEscritura = array_map("convierte_a_arreglo",$infoEscritura);
@@ -109,6 +109,7 @@ class Reimpresion
 
     public function infoAvaluo($idAvaluo){
 
+        try{
         $this->modelFis = new Fis();
         $this->modelDocumentos = new Documentos();
 
@@ -1446,7 +1447,12 @@ class Reimpresion
                 $infoReimpresion['Inmueble_Renta'][$control]['Interior_O_Exterior'] = $fotoRenta['FotosInmuebleAvaluo']['InteriorOExterior'];
                 $control = $control + 1;
             }
-        }  //exit();      
+            }
+        }  catch (\Throwable $th) {
+            //Log::info($th);
+            error_log($th);
+            return response()->json(['mensaje' => 'Error al obtener Información del avalúo'], 500);
+        }//exit();      
 
         return $infoReimpresion;
         

@@ -129,35 +129,7 @@ class Documentos
         DB::reconnect();
         return $idficherodoc ? $idficherodoc : 0;    
 
-    }
-
-    public function tran_UpdateFichero($idFicheroDocumento,$nombre,$descripcion,$binarioDatos,$fecha){
-        
-        $idficherodoc = 0;     
-        $procedure = 'BEGIN
-        DOC.DOC_DOCUMENTOS_DIGITALES_PCKG.DOC_UPDATEFICHERODOCUMENTO_P(
-            :P_IDFICHERODOCUMENTO,
-            :P_FICHERO,
-            :P_NOMBREFICHERO,
-            :P_DESCRIPCION,            
-            :P_FECHA
-        ); END;';
-        $pdo = DB::getPdo();
-        $stmt = $pdo->prepare($procedure);
-        $stmt->bindParam(':P_IDFICHERODOCUMENTO', $idFicheroDocumento, \PDO::PARAM_INT);
-        $stmt->bindParam(':P_FICHERO',$binarioDatos,\PDO::PARAM_LOB);
-        $stmt->bindParam(':P_NOMBREFICHERO',$nombre, \PDO::PARAM_STR);
-        $stmt->bindParam(':P_DESCRIPCION',$descripcion,\PDO::PARAM_STR);        
-        $stmt->bindParam(':P_FECHA',$fecha,\PDO::PARAM_STR);
-        $stmt->execute();
-        $stmt->closeCursor();
-        $pdo->commit();
-        $pdo->close();
-        DB::commit();
-        DB::reconnect();
-        //return $idficherodoc ? $idficherodoc : 0;    
-
-    }
+    }    
 
     public function tran_DeleteFichero($idFicheroDocumento){
         
@@ -214,6 +186,41 @@ class Documentos
         shell_exec("rm -f ".$rutaArchivos."/".str_replace(" ","\ ",$nombreDes));
 
         return $idficherodoc ? $idficherodoc : 0;    
+
+    }
+
+    public function tran_UpdateFicheroAvaluo($idFicheroDocumento,$nombre,$descripcion,$binarioDatos,$fecha){
+        
+        $rutaArchivos = getcwd();
+        $nombreDes = $binarioDatos;
+
+        $myfile = fopen($rutaArchivos."/".$nombreDes, "r");
+        $binarioDatos = fread($myfile, filesize($rutaArchivos."/".$nombreDes));        
+        fclose($myfile);
+
+        $procedure = 'BEGIN
+        DOC.DOC_DOCUMENTOS_DIGITALES_PCKG.DOC_UPDATEFICHERODOCUMENTO_P(
+            :P_IDFICHERODOCUMENTO,
+            :P_FICHERO,
+            :P_NOMBREFICHERO,
+            :P_DESCRIPCION,            
+            :P_FECHA
+        ); END;';
+        $pdo = DB::getPdo();
+        $stmt = $pdo->prepare($procedure);
+        $stmt->bindParam(':P_IDFICHERODOCUMENTO', $idFicheroDocumento, \PDO::PARAM_INT);
+        $stmt->bindParam(':P_FICHERO',$binarioDatos,\PDO::PARAM_LOB);
+        $stmt->bindParam(':P_NOMBREFICHERO',$nombre, \PDO::PARAM_STR);
+        $stmt->bindParam(':P_DESCRIPCION',$descripcion,\PDO::PARAM_STR);        
+        $stmt->bindParam(':P_FECHA',$fecha,\PDO::PARAM_STR);
+        $stmt->execute();
+        $stmt->closeCursor();
+        $pdo->commit();
+        $pdo->close();
+        DB::commit();
+        DB::reconnect();
+
+        shell_exec("rm -f ".$rutaArchivos."/".str_replace(" ","\ ",$nombreDes));    
 
     }
 
