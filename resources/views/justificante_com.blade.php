@@ -378,267 +378,269 @@
                     </table>
 
 
-                    <h4 style="margin-top: 4%;">SERVICIOS PÚBLICOS Y EQUIPAMIENTO URBANO:</h4>
+                    @if(isset($infoAvaluo['Servicios_Publicos_Equipamiento']))
+                        <h4 style="margin-top: 4%;">SERVICIOS PÚBLICOS Y EQUIPAMIENTO URBANO:</h4>
 
-                        <table>
-                            <tr>
-                                <td><b>Red de distribución agua potable:</b></td>
-                                <td>
-                                @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Red_Agua_Potable'])
-                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Red_Agua_Potable']}}</span>
-                                @endisset
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>Red de recolección de aguas residuales:</b></td>
-                                <td>
-                                @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Red_Aguas_Residuales'])
-                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Red_Aguas_Residuales']}}</span>
-                                @endisset
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>Red de drenaje de aguas pluviales en la calle:</b></td>
-                                <td>
-                                @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Red_Drenaje_Aguas_Pluviales_Calle'])
-                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Red_Drenaje_Aguas_Pluviales_Calle']}}</span>
-                                @endisset
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>Red de drenaje de aguas pluviales en la zona:</b></td>
-                                <td>
-                                @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Red_Drenaje_Aguas_Pluviales_Zona'])
-                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Red_Drenaje_Aguas_Pluviales_Zona']}}</span>
-                                @endisset
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>Sistema mixto (aguas pluviales y residuales):</b></td>
-                                <td>
-                                @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Sistema_Mixto'])
-                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Sistema_Mixto']}}</span>
-                                @endisset
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>Suministro eléctrico:</b></td>
-                                <td>
-                                @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Suministro_Electrico'])
-                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Suministro_Electrico']}}</span>
-                                @endisset
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>Acometida al inmueble:</b></td>
-                                <td>
-                                @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Acometida_Inmueble'])
-                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Acometida_Inmueble']}}</span>
-                                @endisset
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>Alumbrado público:</b></td>
-                                <td>
-                                @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Alumbrado_Publico'])
-                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Alumbrado_Publico']}}</span>
-                                @endisset
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>Vialidades:</b></td>
-                                <td>
-                                @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Vialidades'])
-                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Vialidades']}}</span>
-                                @endisset
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>Banquetas:</b></td>
-                                <td>
-                                @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Banquetas'])
-                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Banquetas']}}</span>
-                                @endisset
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>Guarniciones:</b></td>
-                                <td>
-                                @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Guarniciones'])
-                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Guarniciones']}}</span>
-                                @endisset
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>Nivel de infraestructura en la zona (%):</b></td>
-                                <td>
-                                @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Nivel_Infraestructura_Zona'])
-                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Nivel_Infraestructura_Zona']}}</span>
-                                @endisset
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>Gas natural:</b></td>
-                                <td>
-                                @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Gas_Natutral'])
-                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Gas_Natutral']}}</span>
-                                @endisset
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>Teléfonos suministro:</b></td>
-                                <td>
-                                @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Telefonos_Suministro'])
-                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Telefonos_Suministro']}}</span>
-                                @endisset
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>Señalización de vías:</b></td>
-                                <td>
-                                @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Senalizacion_Vias'])
-                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Senalizacion_Vias']}}</span>
-                                @endisset
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>Acometida al inmueble tel.:</b></td>
-                                <td>
-                                @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Acometida_Inmueble_Tel'])
-                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Acometida_Inmueble_Tel']}}</span>
-                                @endisset
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>Distancia transporte urbano:</b></td>
-                                <td>
-                                @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Distancia_Transporte_Urbano'])
-                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Distancia_Transporte_Urbano']}}</span>
-                                @endisset
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>Frecuencia transporte urbano:</b></td>
-                                <td>
-                                @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Frecuencia_Transporte_Urbano'])
-                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Frecuencia_Transporte_Urbano']}}</span>
-                                @endisset
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>Distancia transporte suburbano:</b></td>
-                                <td>
-                                @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Distancia_Transporte_Suburbano'])
-                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Distancia_Transporte_Suburbano']}}</span>
-                                @endisset
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>Frecuencia transporte suburbano:</b></td>
-                                <td>
-                                @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Frecuencia_Transporte_Suburbano'])
-                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Frecuencia_Transporte_Suburbano']}}</span>
-                                @endisset
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>Vigilancia:</b></td>
-                                <td>
-                                @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Vigilancia'])
-                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Vigilancia']}}</span>
-                                @endisset
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>Recolección de basura:</b></td>
-                                <td>
-                                @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Recoleccion_Basura'])
-                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Recoleccion_Basura']}}</span>
-                                @endisset
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>Templo:</b></td>
-                                <td>
-                                @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Templo'])
-                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Templo']}}</span>
-                                @endisset
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>Mercados:</b></td>
-                                <td>
-                                @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Mercados'])
-                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Mercados']}}</span>
-                                @endisset
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>Plazas públicas:</b></td>
-                                <td>
-                                @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Plazas_Publicas'])
-                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Plazas_Publicas']}}</span>
-                                @endisset
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>Parques y jardines:</b></td>
-                                <td>
-                                @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Parques_Jardines'])
-                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Parques_Jardines']}}</span>
-                                @endisset
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>Escuelas:</b></td>
-                                <td>
-                                @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Escuelas'])
-                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Escuelas']}}</span>
-                                @endisset
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>Hospitales:</b></td>
-                                <td>
-                                @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Hospitales'])
-                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Hospitales']}}</span>
-                                @endisset
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>Bancos:</b></td>
-                                <td>
-                                @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Bancos'])
-                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Bancos']}}</span>
-                                @endisset
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>Estación de transporte:</b></td>
-                                <td>
-                                @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Estacion_Transporte'])
-                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Estacion_Transporte']}}</span>
-                                @endisset
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>Nivel de equipamiento urbano:</b></td>
-                                <td>
-                                @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Nivel_Equipamiento_Urbano'])
-                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Nivel_Equipamiento_Urbano']}}</span>
-                                @endisset
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>Nomenclatura de calles</b></td>
-                                <td>
-                                @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Nomenclatura_Calles'])
-                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Nomenclatura_Calles']}}</span>
-                                @endisset
-                                </td>
-                            </tr>
-                        </table>
-
+                            <table>
+                                <tr>
+                                    <td><b>Red de distribución agua potable:</b></td>
+                                    <td>
+                                    @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Red_Agua_Potable'])
+                                        <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Red_Agua_Potable']}}</span>
+                                    @endisset
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Red de recolección de aguas residuales:</b></td>
+                                    <td>
+                                    @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Red_Aguas_Residuales'])
+                                        <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Red_Aguas_Residuales']}}</span>
+                                    @endisset
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Red de drenaje de aguas pluviales en la calle:</b></td>
+                                    <td>
+                                    @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Red_Drenaje_Aguas_Pluviales_Calle'])
+                                        <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Red_Drenaje_Aguas_Pluviales_Calle']}}</span>
+                                    @endisset
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Red de drenaje de aguas pluviales en la zona:</b></td>
+                                    <td>
+                                    @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Red_Drenaje_Aguas_Pluviales_Zona'])
+                                        <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Red_Drenaje_Aguas_Pluviales_Zona']}}</span>
+                                    @endisset
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Sistema mixto (aguas pluviales y residuales):</b></td>
+                                    <td>
+                                    @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Sistema_Mixto'])
+                                        <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Sistema_Mixto']}}</span>
+                                    @endisset
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Suministro eléctrico:</b></td>
+                                    <td>
+                                    @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Suministro_Electrico'])
+                                        <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Suministro_Electrico']}}</span>
+                                    @endisset
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Acometida al inmueble:</b></td>
+                                    <td>
+                                    @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Acometida_Inmueble'])
+                                        <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Acometida_Inmueble']}}</span>
+                                    @endisset
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Alumbrado público:</b></td>
+                                    <td>
+                                    @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Alumbrado_Publico'])
+                                        <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Alumbrado_Publico']}}</span>
+                                    @endisset
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Vialidades:</b></td>
+                                    <td>
+                                    @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Vialidades'])
+                                        <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Vialidades']}}</span>
+                                    @endisset
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Banquetas:</b></td>
+                                    <td>
+                                    @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Banquetas'])
+                                        <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Banquetas']}}</span>
+                                    @endisset
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Guarniciones:</b></td>
+                                    <td>
+                                    @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Guarniciones'])
+                                        <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Guarniciones']}}</span>
+                                    @endisset
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Nivel de infraestructura en la zona (%):</b></td>
+                                    <td>
+                                    @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Nivel_Infraestructura_Zona'])
+                                        <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Nivel_Infraestructura_Zona']}}</span>
+                                    @endisset
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Gas natural:</b></td>
+                                    <td>
+                                    @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Gas_Natutral'])
+                                        <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Gas_Natutral']}}</span>
+                                    @endisset
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Teléfonos suministro:</b></td>
+                                    <td>
+                                    @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Telefonos_Suministro'])
+                                        <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Telefonos_Suministro']}}</span>
+                                    @endisset
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Señalización de vías:</b></td>
+                                    <td>
+                                    @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Senalizacion_Vias'])
+                                        <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Senalizacion_Vias']}}</span>
+                                    @endisset
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Acometida al inmueble tel.:</b></td>
+                                    <td>
+                                    @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Acometida_Inmueble_Tel'])
+                                        <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Acometida_Inmueble_Tel']}}</span>
+                                    @endisset
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Distancia transporte urbano:</b></td>
+                                    <td>
+                                    @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Distancia_Transporte_Urbano'])
+                                        <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Distancia_Transporte_Urbano']}}</span>
+                                    @endisset
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Frecuencia transporte urbano:</b></td>
+                                    <td>
+                                    @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Frecuencia_Transporte_Urbano'])
+                                        <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Frecuencia_Transporte_Urbano']}}</span>
+                                    @endisset
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Distancia transporte suburbano:</b></td>
+                                    <td>
+                                    @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Distancia_Transporte_Suburbano'])
+                                        <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Distancia_Transporte_Suburbano']}}</span>
+                                    @endisset
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Frecuencia transporte suburbano:</b></td>
+                                    <td>
+                                    @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Frecuencia_Transporte_Suburbano'])
+                                        <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Frecuencia_Transporte_Suburbano']}}</span>
+                                    @endisset
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Vigilancia:</b></td>
+                                    <td>
+                                    @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Vigilancia'])
+                                        <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Vigilancia']}}</span>
+                                    @endisset
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Recolección de basura:</b></td>
+                                    <td>
+                                    @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Recoleccion_Basura'])
+                                        <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Recoleccion_Basura']}}</span>
+                                    @endisset
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Templo:</b></td>
+                                    <td>
+                                    @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Templo'])
+                                        <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Templo']}}</span>
+                                    @endisset
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Mercados:</b></td>
+                                    <td>
+                                    @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Mercados'])
+                                        <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Mercados']}}</span>
+                                    @endisset
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Plazas públicas:</b></td>
+                                    <td>
+                                    @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Plazas_Publicas'])
+                                        <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Plazas_Publicas']}}</span>
+                                    @endisset
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Parques y jardines:</b></td>
+                                    <td>
+                                    @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Parques_Jardines'])
+                                        <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Parques_Jardines']}}</span>
+                                    @endisset
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Escuelas:</b></td>
+                                    <td>
+                                    @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Escuelas'])
+                                        <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Escuelas']}}</span>
+                                    @endisset
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Hospitales:</b></td>
+                                    <td>
+                                    @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Hospitales'])
+                                        <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Hospitales']}}</span>
+                                    @endisset
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Bancos:</b></td>
+                                    <td>
+                                    @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Bancos'])
+                                        <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Bancos']}}</span>
+                                    @endisset
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Estación de transporte:</b></td>
+                                    <td>
+                                    @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Estacion_Transporte'])
+                                        <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Estacion_Transporte']}}</span>
+                                    @endisset
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Nivel de equipamiento urbano:</b></td>
+                                    <td>
+                                    @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Nivel_Equipamiento_Urbano'])
+                                        <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Nivel_Equipamiento_Urbano']}}</span>
+                                    @endisset
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Nomenclatura de calles</b></td>
+                                    <td>
+                                    @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Nomenclatura_Calles'])
+                                        <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Nomenclatura_Calles']}}</span>
+                                    @endisset
+                                    </td>
+                                </tr>
+                            </table>
+                    @endif
+                    
 
                 <!-- 3.- Terreno -->
                 <div class="pleca_verde"><b>III. TERRENO</b></div>
@@ -860,310 +862,315 @@
                     </div>
 
 
-                    <h4 style="margin-top: 4%;">CONSTRUCCIONES PRIVATIVAS</h4>
+                    @if(isset($infoAvaluo['Construcciones_Privativas']))
+                        <h4 style="margin-top: 4%;">CONSTRUCCIONES PRIVATIVAS</h4>
 
-                        <table  class="tabla_cabeza_gris">
-                            <thead>
-                                <tr>
-                                    <th>Tipo</th>
-                                    <th>Descripción</th>
-                                    <th>Uso</th>
-                                    <th>Nº Niveles Del Tipo</th>
-                                    <th>Clave Rango De Niveles</th>
-                                    <th>Puntaje</th>
-                                    <th>Clase</th>
-                                    <th>Edad</th>
-                                    <th>Vida Util Total Del Tipo</th>
-                                    <th>Vida Util Remanente</th>
-                                    <th>Conservación</th>
-                                    <th>Sup.</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            @php
-                                $i_construccionesP = 1;
-                            @endphp
-                            @if(isset($infoAvaluo['Construcciones_Privativas'][0]))
-                                @foreach($infoAvaluo['Construcciones_Privativas'] as $value_construccionesP)
+                            <table  class="tabla_cabeza_gris">
+                                <thead>
+                                    <tr>
+                                        <th>Tipo</th>
+                                        <th>Descripción</th>
+                                        <th>Uso</th>
+                                        <th>Nº Niveles Del Tipo</th>
+                                        <th>Clave Rango De Niveles</th>
+                                        <th>Puntaje</th>
+                                        <th>Clase</th>
+                                        <th>Edad</th>
+                                        <th>Vida Util Total Del Tipo</th>
+                                        <th>Vida Util Remanente</th>
+                                        <th>Conservación</th>
+                                        <th>Sup.</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @php
+                                    $i_construccionesP = 1;
+                                @endphp
+                                @if(isset($infoAvaluo['Construcciones_Privativas'][0]))
+                                    @foreach($infoAvaluo['Construcciones_Privativas'] as $value_construccionesP)
+                                        <tr>
+                                            <td class="centrado">
+                                                {{$i_construccionesP++}}
+                                            </td>
+                                            <td class="centrado">
+                                            @isset($value_construccionesP['Descripcion'])
+                                                <span class="grises">{{$value_construccionesP['Descripcion']}}</span>
+                                            @endisset
+                                            </td>
+                                            <td class="centrado">
+                                            @isset($value_construccionesP['Uso'])
+                                                <span class="grises">{{$value_construccionesP['Uso']}}</span>
+                                            @endisset
+                                            </td>
+                                            <td class="centrado">
+                                            @isset($value_construccionesP['No_Niveles_Tipo'])
+                                                <span class="grises">{{$value_construccionesP['No_Niveles_Tipo']}}</span>
+                                            @endisset
+                                            </td>
+                                            <td class="centrado">
+                                            @isset($value_construccionesP['Clave_Rango_Niveles'])
+                                                <span class="grises">{{$value_construccionesP['Clave_Rango_Niveles']}}</span>
+                                            @endisset
+                                            </td>
+                                            <td class="centrado">
+                                            @isset($value_construccionesP['Puntaje'])
+                                                <span class="grises">{{$value_construccionesP['Puntaje']}}</span>
+                                            @endisset
+                                            </td>
+                                            <td class="centrado">
+                                            @isset($value_construccionesP['Clase'])
+                                                <span class="grises">{{$value_construccionesP['Clase']}}</span>
+                                            @endisset
+                                            </td>
+                                            <td class="centrado">
+                                            @isset($value_construccionesP['Edad'])
+                                                <span class="grises">{{$value_construccionesP['Edad']}}</span>
+                                            @endisset
+                                            </td>
+                                            <td class="centrado">
+                                            @isset($value_construccionesP['Vida_Util_Total_Tipo'])
+                                                <span class="grises">{{$value_construccionesP['Vida_Util_Total_Tipo']}}</span>
+                                            @endisset
+                                            </td>
+                                            <td class="centrado">
+                                            @isset($value_construccionesP['Vida_Util_Remanente'])
+                                                <span class="grises">{{$value_construccionesP['Vida_Util_Remanente']}}</span>
+                                            @endisset
+                                            </td>
+                                            <td class="centrado">
+                                            @isset($value_construccionesP['Conservacion'])
+                                                <span class="grises">{{$value_construccionesP['Conservacion']}}</span>
+                                            @endisset
+                                            </td>
+                                            <td class="centrado">
+                                            @isset($value_construccionesP['Sup'])
+                                                <span class="grises">{{$value_construccionesP['Sup']}}</span>
+                                            @endisset
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                        <tr>
+                                            <td class="centrado">
+                                            1
+                                            </td>
+                                            <td class="centrado">
+                                            @isset($infoAvaluo['Construcciones_Privativas']['Descripcion'])
+                                                <span class="grises">{{$infoAvaluo['Construcciones_Privativas']['Descripcion']}}</span>
+                                            @endisset
+                                            </td>
+                                            <td class="centrado">
+                                            @isset($infoAvaluo['Construcciones_Privativas']['Uso'])
+                                                <span class="grises">{{$infoAvaluo['Construcciones_Privativas']['Uso']}}</span>
+                                            @endisset
+                                            </td>
+                                            <td class="centrado">
+                                            @isset($infoAvaluo['Construcciones_Privativas']['No_Niveles_Tipo'])
+                                                <span class="grises">{{$infoAvaluo['Construcciones_Privativas']['No_Niveles_Tipo']}}</span>
+                                            @endisset
+                                            </td>
+                                            <td class="centrado">
+                                            @isset($infoAvaluo['Construcciones_Privativas']['Clave_Rango_Niveles'])
+                                                <span class="grises">{{$infoAvaluo['Construcciones_Privativas']['Clave_Rango_Niveles']}}</span>
+                                            @endisset
+                                            </td>
+                                            <td class="centrado">
+                                            @isset($infoAvaluo['Construcciones_Privativas']['Puntaje'])
+                                                <span class="grises">{{$infoAvaluo['Construcciones_Privativas']['Puntaje']}}</span>
+                                            @endisset
+                                            </td>
+                                            <td class="centrado">
+                                            @isset($infoAvaluo['Construcciones_Privativas']['Clase'])
+                                                <span class="grises">{{$infoAvaluo['Construcciones_Privativas']['Clase']}}</span>
+                                            @endisset
+                                            </td>
+                                            <td class="centrado">
+                                            @isset($infoAvaluo['Construcciones_Privativas']['Edad'])
+                                                <span class="grises">{{$infoAvaluo['Construcciones_Privativas']['Edad']}}</span>
+                                            @endisset
+                                            </td>
+                                            <td class="centrado">
+                                            @isset($infoAvaluo['Construcciones_Privativas']['Vida_Util_Total_Tipo'])
+                                                <span class="grises">{{$infoAvaluo['Construcciones_Privativas']['Vida_Util_Total_Tipo']}}</span>
+                                            @endisset
+                                            </td>
+                                            <td class="centrado">
+                                            @isset($infoAvaluo['Construcciones_Privativas']['Vida_Util_Remanente'])
+                                                <span class="grises">{{$infoAvaluo['Construcciones_Privativas']['Vida_Util_Remanente']}}</span>
+                                            @endisset
+                                            </td>
+                                            <td class="centrado">
+                                            @isset($infoAvaluo['Construcciones_Privativas']['Conservacion'])
+                                                <span class="grises">{{$infoAvaluo['Construcciones_Privativas']['Conservacion']}}</span>
+                                            @endisset
+                                            </td>
+                                            <td class="centrado">
+                                            @isset($infoAvaluo['Construcciones_Privativas']['Sup'])
+                                                <span class="grises">{{$infoAvaluo['Construcciones_Privativas']['Sup']}}</span>
+                                            @endisset
+                                            </td>
+                                        </tr>
+                                @endif
+                                </tbody>
+                            </table>
+                    @endif
+
+
+                    @if(isset($infoAvaluo['Construcciones_Comunes']))
+                        <h4 style="margin-top: 4%;">CONSTRUCCIONES COMUNES</h4>
+
+                            <table  class="tabla_cabeza_gris">
+                                <thead>
+                                    <tr>
+                                        <th>Tipo</th>
+                                        <th>Descripción</th>
+                                        <th>Uso</th>
+                                        <th>Nº Niveles Del Tipo</th>
+                                        <th>Clave Rango De Niveles</th>
+                                        <th>Puntaje</th>
+                                        <th>Clase</th>
+                                        <th>Edad</th>
+                                        <th>Vida Util Total Del Tipo</th>
+                                        <th>Vida Util Remanente</th>
+                                        <th>Conservación</th>
+                                        <th>Sup.</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @php
+                                    $i_construccionesC = 1;
+                                @endphp
+                                @if(isset($infoAvaluo['Construcciones_Comunes'][0]))
+                                    @foreach($infoAvaluo['Construcciones_Comunes'] as $value_construccionesC)
+                                        <tr>
+                                            <td class="centrado">
+                                                {{$i_construccionesC++}}
+                                            </td>
+                                            <td class="centrado">
+                                            @isset($value_construccionesC['Descripcion'])
+                                                <span class="grises">{{$value_construccionesC['Descripcion']}}</span>
+                                            @endisset
+                                            </td>
+                                            <td class="centrado">
+                                            @isset($value_construccionesC['Uso'])
+                                                <span class="grises">{{$value_construccionesC['Uso']}}</span>
+                                            @endisset
+                                            </td>
+                                            <td class="centrado">
+                                            @isset($value_construccionesC['No_Niveles_Tipo'])
+                                                <span class="grises">{{$value_construccionesC['No_Niveles_Tipo']}}</span>
+                                            @endisset
+                                            </td>
+                                            <td class="centrado">
+                                            @isset($value_construccionesC['Clave_Rango_Niveles'])
+                                                <span class="grises">{{$value_construccionesC['Clave_Rango_Niveles']}}</span>
+                                            @endisset
+                                            </td>
+                                            <td class="centrado">
+                                            @isset($value_construccionesC['Puntaje'])
+                                                <span class="grises">{{$value_construccionesC['Puntaje']}}</span>
+                                            @endisset
+                                            </td>
+                                            <td class="centrado">
+                                            @isset($value_construccionesC['Clase'])
+                                                <span class="grises">{{$value_construccionesC['Clase']}}</span>
+                                            @endisset
+                                            </td>
+                                            <td class="centrado">
+                                            @isset($value_construccionesC['Edad'])
+                                                <span class="grises">{{$value_construccionesC['Edad']}}</span>
+                                            @endisset
+                                            </td>
+                                            <td class="centrado">
+                                            @isset($value_construccionesC['Vida_Util_Total_Tipo'])
+                                                <span class="grises">{{$value_construccionesC['Vida_Util_Total_Tipo']}}</span>
+                                            @endisset
+                                            </td>
+                                            <td class="centrado">
+                                            @isset($value_construccionesC['Vida_Util_Remanente'])
+                                                <span class="grises">{{$value_construccionesC['Vida_Util_Remanente']}}</span>
+                                            @endisset
+                                            </td>
+                                            <td class="centrado">
+                                            @isset($value_construccionesC['Conservacion'])
+                                                <span class="grises">{{$value_construccionesC['Conservacion']}}</span>
+                                            @endisset
+                                            </td>
+                                            <td class="centrado">
+                                            @isset($value_construccionesC['Sup'])
+                                                <span class="grises">{{$value_construccionesC['Sup']}}</span>
+                                            @endisset
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
                                     <tr>
                                         <td class="centrado">
-                                            {{$i_construccionesP++}}
-                                        </td>
-                                        <td class="centrado">
-                                        @isset($value_construccionesP['Descripcion'])
-                                            <span class="grises">{{$value_construccionesP['Descripcion']}}</span>
+                                        @isset($infoAvaluo['Construcciones_Comunes']['Tipo'])
+                                            <span class="grises">{{$infoAvaluo['Construcciones_Comunes']['Tipo']}}</span>
                                         @endisset
                                         </td>
                                         <td class="centrado">
-                                        @isset($value_construccionesP['Uso'])
-                                            <span class="grises">{{$value_construccionesP['Uso']}}</span>
+                                        @isset($infoAvaluo['Construcciones_Comunes']['Descripcion'])
+                                            <span class="grises">{{$infoAvaluo['Construcciones_Comunes']['Descripcion']}}</span>
                                         @endisset
                                         </td>
                                         <td class="centrado">
-                                        @isset($value_construccionesP['No_Niveles_Tipo'])
-                                            <span class="grises">{{$value_construccionesP['No_Niveles_Tipo']}}</span>
+                                        @isset($infoAvaluo['Construcciones_Comunes']['Uso'])
+                                            <span class="grises">{{$infoAvaluo['Construcciones_Comunes']['Uso']}}</span>
                                         @endisset
                                         </td>
                                         <td class="centrado">
-                                        @isset($value_construccionesP['Clave_Rango_Niveles'])
-                                            <span class="grises">{{$value_construccionesP['Clave_Rango_Niveles']}}</span>
+                                        @isset($infoAvaluo['Construcciones_Comunes']['No_Niveles_Tipo'])
+                                            <span class="grises">{{$infoAvaluo['Construcciones_Comunes']['No_Niveles_Tipo']}}</span>
                                         @endisset
                                         </td>
                                         <td class="centrado">
-                                        @isset($value_construccionesP['Puntaje'])
-                                            <span class="grises">{{$value_construccionesP['Puntaje']}}</span>
+                                        @isset($infoAvaluo['Construcciones_Comunes']['Clave_Rango_Niveles'])
+                                            <span class="grises">{{$infoAvaluo['Construcciones_Comunes']['Clave_Rango_Niveles']}}</span>
                                         @endisset
                                         </td>
                                         <td class="centrado">
-                                        @isset($value_construccionesP['Clase'])
-                                            <span class="grises">{{$value_construccionesP['Clase']}}</span>
+                                        @isset($infoAvaluo['Construcciones_Comunes']['Puntaje'])
+                                            <span class="grises">{{$infoAvaluo['Construcciones_Comunes']['Puntaje']}}</span>
                                         @endisset
                                         </td>
                                         <td class="centrado">
-                                        @isset($value_construccionesP['Edad'])
-                                            <span class="grises">{{$value_construccionesP['Edad']}}</span>
+                                        @isset($infoAvaluo['Construcciones_Comunes']['Clase'])
+                                            <span class="grises">{{$infoAvaluo['Construcciones_Comunes']['Clase']}}</span>
                                         @endisset
                                         </td>
                                         <td class="centrado">
-                                        @isset($value_construccionesP['Vida_Util_Total_Tipo'])
-                                            <span class="grises">{{$value_construccionesP['Vida_Util_Total_Tipo']}}</span>
+                                        @isset($infoAvaluo['Construcciones_Comunes']['Edad'])
+                                            <span class="grises">{{$infoAvaluo['Construcciones_Comunes']['Edad']}}</span>
                                         @endisset
                                         </td>
                                         <td class="centrado">
-                                        @isset($value_construccionesP['Vida_Util_Remanente'])
-                                            <span class="grises">{{$value_construccionesP['Vida_Util_Remanente']}}</span>
+                                        @isset($infoAvaluo['Construcciones_Comunes']['Vida_Util_Total_Tipo'])
+                                            <span class="grises">{{$infoAvaluo['Construcciones_Comunes']['Vida_Util_Total_Tipo']}}</span>
                                         @endisset
                                         </td>
                                         <td class="centrado">
-                                        @isset($value_construccionesP['Conservacion'])
-                                            <span class="grises">{{$value_construccionesP['Conservacion']}}</span>
+                                        @isset($infoAvaluo['Construcciones_Comunes']['Vida_Util_Remanente'])
+                                            <span class="grises">{{$infoAvaluo['Construcciones_Comunes']['Vida_Util_Remanente']}}</span>
                                         @endisset
                                         </td>
                                         <td class="centrado">
-                                        @isset($value_construccionesP['Sup'])
-                                            <span class="grises">{{$value_construccionesP['Sup']}}</span>
+                                        @isset($infoAvaluo['Construcciones_Comunes']['Conservacion'])
+                                            <span class="grises">{{$infoAvaluo['Construcciones_Comunes']['Conservacion']}}</span>
+                                        @endisset
+                                        </td>
+                                        <td class="centrado">
+                                        @isset($infoAvaluo['Construcciones_Comunes']['Sup'])
+                                            <span class="grises">{{$infoAvaluo['Construcciones_Comunes']['Sup']}}</span>
                                         @endisset
                                         </td>
                                     </tr>
-                                @endforeach
-                            @else
-                                    <tr>
-                                        <td class="centrado">
-                                        1
-                                        </td>
-                                        <td class="centrado">
-                                        @isset($infoAvaluo['Construcciones_Privativas']['Descripcion'])
-                                            <span class="grises">{{$infoAvaluo['Construcciones_Privativas']['Descripcion']}}</span>
-                                        @endisset
-                                        </td>
-                                        <td class="centrado">
-                                        @isset($infoAvaluo['Construcciones_Privativas']['Uso'])
-                                            <span class="grises">{{$infoAvaluo['Construcciones_Privativas']['Uso']}}</span>
-                                        @endisset
-                                        </td>
-                                        <td class="centrado">
-                                        @isset($infoAvaluo['Construcciones_Privativas']['No_Niveles_Tipo'])
-                                            <span class="grises">{{$infoAvaluo['Construcciones_Privativas']['No_Niveles_Tipo']}}</span>
-                                        @endisset
-                                        </td>
-                                        <td class="centrado">
-                                        @isset($infoAvaluo['Construcciones_Privativas']['Clave_Rango_Niveles'])
-                                            <span class="grises">{{$infoAvaluo['Construcciones_Privativas']['Clave_Rango_Niveles']}}</span>
-                                        @endisset
-                                        </td>
-                                        <td class="centrado">
-                                        @isset($infoAvaluo['Construcciones_Privativas']['Puntaje'])
-                                            <span class="grises">{{$infoAvaluo['Construcciones_Privativas']['Puntaje']}}</span>
-                                        @endisset
-                                        </td>
-                                        <td class="centrado">
-                                        @isset($infoAvaluo['Construcciones_Privativas']['Clase'])
-                                            <span class="grises">{{$infoAvaluo['Construcciones_Privativas']['Clase']}}</span>
-                                        @endisset
-                                        </td>
-                                        <td class="centrado">
-                                        @isset($infoAvaluo['Construcciones_Privativas']['Edad'])
-                                            <span class="grises">{{$infoAvaluo['Construcciones_Privativas']['Edad']}}</span>
-                                        @endisset
-                                        </td>
-                                        <td class="centrado">
-                                        @isset($infoAvaluo['Construcciones_Privativas']['Vida_Util_Total_Tipo'])
-                                            <span class="grises">{{$infoAvaluo['Construcciones_Privativas']['Vida_Util_Total_Tipo']}}</span>
-                                        @endisset
-                                        </td>
-                                        <td class="centrado">
-                                        @isset($infoAvaluo['Construcciones_Privativas']['Vida_Util_Remanente'])
-                                            <span class="grises">{{$infoAvaluo['Construcciones_Privativas']['Vida_Util_Remanente']}}</span>
-                                        @endisset
-                                        </td>
-                                        <td class="centrado">
-                                        @isset($infoAvaluo['Construcciones_Privativas']['Conservacion'])
-                                            <span class="grises">{{$infoAvaluo['Construcciones_Privativas']['Conservacion']}}</span>
-                                        @endisset
-                                        </td>
-                                        <td class="centrado">
-                                        @isset($infoAvaluo['Construcciones_Privativas']['Sup'])
-                                            <span class="grises">{{$infoAvaluo['Construcciones_Privativas']['Sup']}}</span>
-                                        @endisset
-                                        </td>
-                                    </tr>
-                            @endif
-                            </tbody>
-                        </table>
-
-
-                    <h4 style="margin-top: 4%;">CONSTRUCCIONES COMUNES</h4>
-
-                        <table  class="tabla_cabeza_gris">
-                            <thead>
-                                <tr>
-                                    <th>Tipo</th>
-                                    <th>Descripción</th>
-                                    <th>Uso</th>
-                                    <th>Nº Niveles Del Tipo</th>
-                                    <th>Clave Rango De Niveles</th>
-                                    <th>Puntaje</th>
-                                    <th>Clase</th>
-                                    <th>Edad</th>
-                                    <th>Vida Util Total Del Tipo</th>
-                                    <th>Vida Util Remanente</th>
-                                    <th>Conservación</th>
-                                    <th>Sup.</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            @php
-                                $i_construccionesC = 1;
-                            @endphp
-                            @if(isset($infoAvaluo['Construcciones_Comunes'][0]))
-                                @foreach($infoAvaluo['Construcciones_Comunes'] as $value_construccionesC)
-                                    <tr>
-                                        <td class="centrado">
-                                            {{$i_construccionesC++}}
-                                        </td>
-                                        <td class="centrado">
-                                        @isset($value_construccionesC['Descripcion'])
-                                            <span class="grises">{{$value_construccionesC['Descripcion']}}</span>
-                                        @endisset
-                                        </td>
-                                        <td class="centrado">
-                                        @isset($value_construccionesC['Uso'])
-                                            <span class="grises">{{$value_construccionesC['Uso']}}</span>
-                                        @endisset
-                                        </td>
-                                        <td class="centrado">
-                                        @isset($value_construccionesC['No_Niveles_Tipo'])
-                                            <span class="grises">{{$value_construccionesC['No_Niveles_Tipo']}}</span>
-                                        @endisset
-                                        </td>
-                                        <td class="centrado">
-                                        @isset($value_construccionesC['Clave_Rango_Niveles'])
-                                            <span class="grises">{{$value_construccionesC['Clave_Rango_Niveles']}}</span>
-                                        @endisset
-                                        </td>
-                                        <td class="centrado">
-                                        @isset($value_construccionesC['Puntaje'])
-                                            <span class="grises">{{$value_construccionesC['Puntaje']}}</span>
-                                        @endisset
-                                        </td>
-                                        <td class="centrado">
-                                        @isset($value_construccionesC['Clase'])
-                                            <span class="grises">{{$value_construccionesC['Clase']}}</span>
-                                        @endisset
-                                        </td>
-                                        <td class="centrado">
-                                        @isset($value_construccionesC['Edad'])
-                                            <span class="grises">{{$value_construccionesC['Edad']}}</span>
-                                        @endisset
-                                        </td>
-                                        <td class="centrado">
-                                        @isset($value_construccionesC['Vida_Util_Total_Tipo'])
-                                            <span class="grises">{{$value_construccionesC['Vida_Util_Total_Tipo']}}</span>
-                                        @endisset
-                                        </td>
-                                        <td class="centrado">
-                                        @isset($value_construccionesC['Vida_Util_Remanente'])
-                                            <span class="grises">{{$value_construccionesC['Vida_Util_Remanente']}}</span>
-                                        @endisset
-                                        </td>
-                                        <td class="centrado">
-                                        @isset($value_construccionesC['Conservacion'])
-                                            <span class="grises">{{$value_construccionesC['Conservacion']}}</span>
-                                        @endisset
-                                        </td>
-                                        <td class="centrado">
-                                        @isset($value_construccionesC['Sup'])
-                                            <span class="grises">{{$value_construccionesC['Sup']}}</span>
-                                        @endisset
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            @else
-                                <tr>
-                                    <td class="centrado">
-                                    @isset($infoAvaluo['Construcciones_Comunes']['Tipo'])
-                                        <span class="grises">{{$infoAvaluo['Construcciones_Comunes']['Tipo']}}</span>
-                                    @endisset
-                                    </td>
-                                    <td class="centrado">
-                                    @isset($infoAvaluo['Construcciones_Comunes']['Descripcion'])
-                                        <span class="grises">{{$infoAvaluo['Construcciones_Comunes']['Descripcion']}}</span>
-                                    @endisset
-                                    </td>
-                                    <td class="centrado">
-                                    @isset($infoAvaluo['Construcciones_Comunes']['Uso'])
-                                        <span class="grises">{{$infoAvaluo['Construcciones_Comunes']['Uso']}}</span>
-                                    @endisset
-                                    </td>
-                                    <td class="centrado">
-                                    @isset($infoAvaluo['Construcciones_Comunes']['No_Niveles_Tipo'])
-                                        <span class="grises">{{$infoAvaluo['Construcciones_Comunes']['No_Niveles_Tipo']}}</span>
-                                    @endisset
-                                    </td>
-                                    <td class="centrado">
-                                    @isset($infoAvaluo['Construcciones_Comunes']['Clave_Rango_Niveles'])
-                                        <span class="grises">{{$infoAvaluo['Construcciones_Comunes']['Clave_Rango_Niveles']}}</span>
-                                    @endisset
-                                    </td>
-                                    <td class="centrado">
-                                    @isset($infoAvaluo['Construcciones_Comunes']['Puntaje'])
-                                        <span class="grises">{{$infoAvaluo['Construcciones_Comunes']['Puntaje']}}</span>
-                                    @endisset
-                                    </td>
-                                    <td class="centrado">
-                                    @isset($infoAvaluo['Construcciones_Comunes']['Clase'])
-                                        <span class="grises">{{$infoAvaluo['Construcciones_Comunes']['Clase']}}</span>
-                                    @endisset
-                                    </td>
-                                    <td class="centrado">
-                                    @isset($infoAvaluo['Construcciones_Comunes']['Edad'])
-                                        <span class="grises">{{$infoAvaluo['Construcciones_Comunes']['Edad']}}</span>
-                                    @endisset
-                                    </td>
-                                    <td class="centrado">
-                                    @isset($infoAvaluo['Construcciones_Comunes']['Vida_Util_Total_Tipo'])
-                                        <span class="grises">{{$infoAvaluo['Construcciones_Comunes']['Vida_Util_Total_Tipo']}}</span>
-                                    @endisset
-                                    </td>
-                                    <td class="centrado">
-                                    @isset($infoAvaluo['Construcciones_Comunes']['Vida_Util_Remanente'])
-                                        <span class="grises">{{$infoAvaluo['Construcciones_Comunes']['Vida_Util_Remanente']}}</span>
-                                    @endisset
-                                    </td>
-                                    <td class="centrado">
-                                    @isset($infoAvaluo['Construcciones_Comunes']['Conservacion'])
-                                        <span class="grises">{{$infoAvaluo['Construcciones_Comunes']['Conservacion']}}</span>
-                                    @endisset
-                                    </td>
-                                    <td class="centrado">
-                                    @isset($infoAvaluo['Construcciones_Comunes']['Sup'])
-                                        <span class="grises">{{$infoAvaluo['Construcciones_Comunes']['Sup']}}</span>
-                                    @endisset
-                                    </td>
-                                </tr>
-                            @endif
-                            </tbody>
-                        </table>
+                                @endif
+                                </tbody>
+                            </table>
+                    @endif
+                    
 
                         <table>
                             <tr>
