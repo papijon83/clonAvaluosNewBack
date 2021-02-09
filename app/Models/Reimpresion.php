@@ -301,7 +301,7 @@ class Reimpresion
         
         $infoReimpresion['Superficie_Total_Segun']['Clave_Area_Valor'] = $superficieDelTerreno['ClaveDeAreaDeValor'];
 
-        if(isset($superficieDelTerreno['Fsu'])){
+        if(isset($superficieDelTerreno['Fot'])){
             $infoReimpresion['Superficie_Total_Segun']['Valor'] = $superficieDelTerreno['Fot']['Valor'];
             $infoReimpresion['Superficie_Total_Segun']['Descripcion'] = $superficieDelTerreno['Fot']['Descripcion'];
         }
