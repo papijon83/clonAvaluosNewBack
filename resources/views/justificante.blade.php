@@ -1609,9 +1609,6 @@
                                     <th>Descripción</th>
                                     <th>Unidad</th>
                                     <th>Cantidad</th>
-                                    <th>Edad</th>
-                                    <th>Vida Útil Total</th>
-                                    <th>Valor Unitario</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -1638,21 +1635,6 @@
                                             <span class="grises">{{$value_elementoAccP['Cantidad']}}</span>
                                         @endisset
                                         </td>
-                                        <td>
-                                        @isset($value_elementoAccP['Edad'])
-                                            <span class="grises">{{$value_elementoAccP['Edad']}}</span>
-                                        @endisset
-                                        </td>
-                                        <td>
-                                        @isset($value_elementoAccP['Vida_Util_Total'])
-                                            <span class="grises">{{$value_elementoAccP['Vida_Util_Total']}}</span>
-                                        @endisset
-                                        </td>
-                                        <td>
-                                        @isset($value_elementoAccP['Valor_Unitario'])
-                                            <span class="grises">{{$value_elementoAccP['Valor_Unitario']}}</span>
-                                        @endisset
-                                        </td>
                                     </tr>
                                 @endforeach
                             @else
@@ -1677,21 +1659,6 @@
                                         <span class="grises">{{$infoAvaluo['Elementos_Accesorios']['Privativas']['Cantidad']}}</span>
                                     @endisset
                                     </td>
-                                    <td>
-                                    @isset($infoAvaluo['Elementos_Accesorios']['Privativas']['Edad'])
-                                        <span class="grises">{{$infoAvaluo['Elementos_Accesorios']['Privativas']['Edad']}}</span>
-                                    @endisset
-                                    </td>
-                                    <td>
-                                    @isset($infoAvaluo['Elementos_Accesorios']['Privativas']['Vida_Util_Total'])
-                                        <span class="grises">{{$infoAvaluo['Elementos_Accesorios']['Privativas']['Vida_Util_Total']}}</span>
-                                    @endisset
-                                    </td>
-                                    <td>
-                                    @isset($infoAvaluo['Elementos_Accesorios']['Privativas']['Valor_Unitario'])
-                                        <span class="grises">{{$infoAvaluo['Elementos_Accesorios']['Privativas']['Valor_Unitario']}}</span>
-                                    @endisset
-                                    </td>
                                 </tr>
                             @endif    
                             </tbody>
@@ -1708,9 +1675,6 @@
                                     <th>Descripción</th>
                                     <th>Unidad</th>
                                     <th>Cantidad</th>
-                                    <th>Edad</th>
-                                    <th>Vida Útil Total</th>
-                                    <th>Valor Unitario</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -1737,21 +1701,6 @@
                                             <span class="grises">{{$value_obras['Cantidad']}}</span>
                                         @endisset
                                         </td>
-                                        <td>
-                                        @isset($value_obras['Edad'])
-                                            <span class="grises">{{$value_obras['Edad']}}</span>
-                                        @endisset
-                                        </td>
-                                        <td>
-                                        @isset($value_obras['Vida_Util_Total'])
-                                            <span class="grises">{{$value_obras['Vida_Util_Total']}}</span>
-                                        @endisset
-                                        </td>
-                                        <td>
-                                        @isset($value_obras['Valor_Unitario'])
-                                            <span class="grises">{{$value_obras['Valor_Unitario']}}</span>
-                                        @endisset
-                                        </td>
                                     </tr>
                                 @endforeach
                             @else
@@ -1774,21 +1723,6 @@
                                     <td>
                                     @isset($infoAvaluo['Obras_Complementarias']['Privativas']['Cantidad'])
                                         <span class="grises">{{$infoAvaluo['Obras_Complementarias']['Privativas']['Cantidad']}}</span>
-                                    @endisset
-                                    </td>
-                                    <td>
-                                    @isset($infoAvaluo['Obras_Complementarias']['Privativas']['Edad'])
-                                        <span class="grises">{{$infoAvaluo['Obras_Complementarias']['Privativas']['Edad']}}</span>
-                                    @endisset
-                                    </td>
-                                    <td>
-                                    @isset($infoAvaluo['Obras_Complementarias']['Privativas']['Vida_Util_Total'])
-                                        <span class="grises">{{$infoAvaluo['Obras_Complementarias']['Privativas']['Vida_Util_Total']}}</span>
-                                    @endisset
-                                    </td>
-                                    <td>
-                                    @isset($infoAvaluo['Obras_Complementarias']['Privativas']['Valor_Unitario'])
-                                        <span class="grises">{{$infoAvaluo['Obras_Complementarias']['Privativas']['Valor_Unitario']}}</span>
                                     @endisset
                                     </td>
                                 </tr>                                
@@ -3249,80 +3183,7 @@
                 
                 <p><b>c) CÁLCULO DEL VALOR DE LAS CONSTRUCCIONES COMUNES</b></p>
                 <br>
-                @if(isset($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']))
-                    <p><b>PRIVATIVAS:</b></p>
-                    <!-- PRIVATIVAS -->
-                    <table class="tabla_cabeza_gris">
-                        <thead>
-                            <tr>
-                                <th> </th>
-                                <th>Clave</th>
-                                <th>Concepto</th>
-                                <th>Cantidad</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        @if(isset($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'][0]))
-                            @foreach($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas'] as $value_obrasCEA)
-                                <tr>
-                                    <td>
-                                    @isset($value_obrasCEA['0'])
-                                        <span class="grises">{{ $value_obrasCEA['0'] }}</span>
-                                    @endisset
-                                    </td>
-                                    <td>
-                                    @isset($value_obrasCEA['Clave'])
-                                        <span class="grises">{{ $value_obrasCEA['Clave'] }}</span>
-                                    @endisset
-                                    </td>
-                                    <td>
-                                    @isset($value_obrasCEA['Concepto'])
-                                        <span class="grises">{{ $value_obrasCEA['Concepto'] }}</span>
-                                    @endisset
-                                    </td>
-                                    <td>
-                                    @isset($value_obrasCEA['Cantidad'])
-                                        <span class="grises">{{ $value_obrasCEA['Cantidad'] }}</span>
-                                    @endisset
-                                    </td>
-                                </tr>
-                            @endforeach
-                        @else                        
-                            <tr>
-                                <td>
-                                @isset($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['0'])
-                                    <span class="grises">{{ $infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['0'] }}</span>
-                                @endisset
-                                </td>
-                                <td>
-                                @isset($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Clave'])
-                                    <span class="grises">{{ $infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Clave'] }}</span>
-                                @endisset
-                                </td>
-                                <td>
-                                @isset($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Concepto'])
-                                    <span class="grises">{{ $infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Concepto'] }}</span>
-                                @endisset
-                                </td>
-                                <td>
-                                @isset($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Cantidad'])
-                                    <span class="grises">{{ $infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Cantidad'] }}</span>
-                                @endisset
-                                </td>
-                            </tr>
-                        @endif
-                        </tbody>
-                    </table>
-                    <br>
-                    <p><b>Total de las instalaciones privativas:</b> 
-                    @isset($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Totales']['Total_De_Las_Instalaciones'])
-                        <span class="grises">${{ number_format($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Totales']['Total_De_Las_Instalaciones'],2) }}</span>
-                    @endisset
-                    </p>
-                    <br>
-                @endif
-
-                @if(isset($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Comunes']))
+                @if(isset($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']))
                     <p><b>COMUNES: </b></p>
                     <!-- <table class="tabla_cabeza_gris">
                         <thead>
