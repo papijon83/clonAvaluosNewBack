@@ -3738,19 +3738,19 @@
                     <thead>
                         <tr>
                             <th>VALOR REFERIDO: 
-                            @isset($infoAvaluo['Valor_Referido']['Valor_Referido'])
+                            @if(!is_array($infoAvaluo['Valor_Referido']['Valor_Referido']) && isset($infoAvaluo['Valor_Referido']['Valor_Referido']))
                                 <span class="grises">${{ number_format($infoAvaluo['Valor_Referido']['Valor_Referido'],2)}}</span>
-                            @endisset
+                            @endif
                             </th>
                             <th>FECHA: 
-                            @isset($infoAvaluo['Valor_Referido']['Fecha'])
+                            @if(!is_array($infoAvaluo['Valor_Referido']['Fecha']) && isset($infoAvaluo['Valor_Referido']['Fecha']))
                                 <span class="grises">{{ $infoAvaluo['Valor_Referido']['Fecha'] }}</span>
-                            @endisset
+                            @endif
                             </th>
                             <th>FACTOR:
-                            @isset($infoAvaluo['Valor_Referido']['Factor'])
+                            @if(!is_array($infoAvaluo['Valor_Referido']['Factor']) && isset($infoAvaluo['Valor_Referido']['Factor']))
                                 <span class="grises">{{ $infoAvaluo['Valor_Referido']['Factor']}}</span>
-                            @endisset
+                            @endif
                             </th>
                         </tr>
                     </thead>
