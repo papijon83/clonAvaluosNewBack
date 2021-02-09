@@ -37,7 +37,7 @@
             }
             .col-md-1 {
                 display:inline-block;
-                width: 50px;
+                width: 40px;
             }
             .gris {
                 color: #8D8D8D;
