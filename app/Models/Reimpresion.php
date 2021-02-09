@@ -13,6 +13,54 @@ class Reimpresion
     protected $modelFis;
 
     public function infoAcuse($idavaluo){
+
+        $infoArchivo = DB::select("SELECT NOMBRE, BINARIODATOS FROM DOC.DOC_FICHERODOCUMENTO WHERE IDDOCUMENTODIGITAL = $idavaluo AND NOMBRE LIKE 'Avaluo_%'");
+        //$arrInfoArchivo = convierte_a_arreglo($infoArchivo);
+        $rutaArchivos = getcwd();
+        $nombreArchivo = $infoArchivo[0]->nombre;
+        $archivoComprimido = $infoArchivo[0]->binariodatos;
+        $myfile = fopen($rutaArchivos."/".$nombreArchivo, "a+");
+        fwrite($myfile,$archivoComprimido);
+        fclose($myfile);
+        $comandoNombre = "7z l ".$rutaArchivos."/".$nombreArchivo;
+        $datosNombre = shell_exec($comandoNombre);
+        $comandoDescomprimir = "7z e ".$rutaArchivos."/".$nombreArchivo;   
+        shell_exec($comandoDescomprimir);
+        $comandoRm = "rm ".$rutaArchivos."/".$nombreArchivo;
+        shell_exec($comandoRm);
+        if(file_exists($rutaArchivos."/default") === TRUE){    
+            $myfile = fopen($rutaArchivos."/default", "r");
+            $contenidoArchivo = fread($myfile, filesize($rutaArchivos."/default"));
+            fclose($myfile);  
+
+        }else{
+
+            $comandols = "ls php*";
+            $archphp = shell_exec($comandols);
+            if(substr(trim($archphp),0,3) == 'php'){
+                $comandoMv = "mv ".$rutaArchivos."/"."php* ".$rutaArchivos."/"."default";
+                system($comandoMv);
+            }
+
+            $myfile = fopen($rutaArchivos."/default", "r");
+            $contenidoArchivo = fread($myfile, filesize($rutaArchivos."/default"));
+            fclose($myfile);
+        }
+                
+        $xml = simplexml_load_string($contenidoArchivo,'SimpleXMLElement', LIBXML_NOCDATA);
+        $comandoRmDefault = "rm ".$rutaArchivos."/default";
+        shell_exec($comandoRmDefault);
+        $arrXML = convierte_a_arreglo($xml); //echo $contenidoArchivo; exit();           
+
+        if(isset($arrXML['Comercial'])){
+            $elementoPrincipal = $arrXML['Comercial'];
+            $tipoDeAvaluo =  "Comercial";
+        }
+
+        if(isset($arrXML['Catastral'])){
+            $elementoPrincipal = $arrXML['Catastral'];
+            $tipoDeAvaluo =  "Catastral";
+        }
         
         $arrInfoAcuse = array();
         $numeroUnico = DB::select("SELECT NUMEROUNICO FROM FEXAVA_AVALUO WHERE IDAVALUO = $idavaluo");
@@ -25,8 +73,8 @@ class Reimpresion
             $infoCuentaCatastral[$campoBuscar] = $arrDato[0]->$campoBuscar;            
         }
         $arrInfoAcuse['cuentaCatastral'] = $infoCuentaCatastral;
-        $cuentaAgua = 'NO SE PROPORCIONO.';
-        $arrInfoAcuse['cuentaAgua'] = $cuentaAgua;
+        /* $cuentaAgua = 'NO SE PROPORCIONO.';
+        $arrInfoAcuse['cuentaAgua'] = $cuentaAgua;*/
 
         $infoPropietario = DB::select("SELECT * FROM FEXAVA_DATOSPERSONAS WHERE IDAVALUO = $idavaluo AND CODTIPOFUNCION = 'P'");
         $arrInfoPropietario = array_map("convierte_a_arreglo",$infoPropietario);
@@ -35,6 +83,19 @@ class Reimpresion
         $arrInfoSolicitante = array_map("convierte_a_arreglo",$infoSolicitante);
         $arrInfoAcuse['solicitante'] = $arrInfoSolicitante[0];
 
+        $arrInfoAcuse['Ubicacion_Inmueble'] = array();
+        $ubicacionInmueble = $elementoPrincipal['Antecedentes']['InmuebleQueSeValua'];
+
+        $arrInfoAcuse['Ubicacion_Inmueble']['Calle'] = $ubicacionInmueble['Calle'];
+        $arrInfoAcuse['Ubicacion_Inmueble']['No_Exterior'] = $ubicacionInmueble['NumeroExterior'];
+        $arrInfoAcuse['Ubicacion_Inmueble']['No_Interior'] = $ubicacionInmueble['NumeroInterior'];
+        $arrInfoAcuse['Ubicacion_Inmueble']['Colonia'] = $ubicacionInmueble['Colonia'];
+        $arrInfoAcuse['Ubicacion_Inmueble']['CP'] = $ubicacionInmueble['CodigoPostal'];
+        $arrInfoAcuse['Ubicacion_Inmueble']['Delegacion'] = isset($ubicacionInmueble['Delegacion']) ? $ubicacionInmueble['Delegacion'] : $ubicacionInmueble['Alcaldia'];
+        $arrInfoAcuse['Ubicacion_Inmueble']['Edificio'] = "-";
+        $arrInfoAcuse['Ubicacion_Inmueble']['Lote'] = 0;
+        $arrInfoAcuse['Ubicacion_Inmueble']['Cuenta_agua'] = $ubicacionInmueble['CuentaDeAgua'];
+            
         
         $infoEscritura = DB::select("SELECT * FROM FEXAVA_ESCRITURA WHERE IDAVALUO = $idavaluo");
         $arrInfoEscritura = array_map("convierte_a_arreglo",$infoEscritura);
