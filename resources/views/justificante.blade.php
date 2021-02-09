@@ -861,7 +861,7 @@
 
 
                     <h4 style="margin-top: 4%;">CONSTRUCCIONES PRIVATIVAS</h4>
-
+                    @if(isset($infoAvaluo['Construcciones_Privativas']))
                         <table  class="tabla_cabeza_gris">
                             <thead>
                                 <tr>
@@ -1010,10 +1010,10 @@
                             @endif
                             </tbody>
                         </table>
-
+                    @endif
 
                     <h4 style="margin-top: 4%;">CONSTRUCCIONES COMUNES</h4>
-
+                    @if(isset($infoAvaluo['Construcciones_Comunes']))
                         <table  class="tabla_cabeza_gris">
                             <thead>
                                 <tr>
@@ -1164,7 +1164,8 @@
                             @endif
                             </tbody>
                         </table>
-
+                    @endif
+                    <br>
                         <table>
                             <tr>
                                 <td><b>INDIVISO</b></td>
@@ -1199,7 +1200,6 @@
                                 </td>
                             </tr>
                         </table>
-
 
                 <!-- 5.- Elementos de la Construcción -->
                 <div class="pleca_verde"><b>V.- ELEMENTOS DE LA CONSTRUCCIÓN</b></div>
@@ -1469,6 +1469,7 @@
                     <h4 style="margin-top: 4%;"><b>j) INSTALACIONES ESPECIALES</b></h4>
                         <!-- PRIVATIVAS -->
                         <span><b>Privativas</b></span>
+                        @if(isset($infoAvaluo['Instalaciones_Especiales']['Privativas']))
                         <table class="tabla_cabeza_gris" style="">
                             <thead>
                                 <tr>
@@ -1530,9 +1531,11 @@
                                 @endif
                             </tbody>
                         </table>
+                        @endif
                         <br>
                         <!-- COMUNES -->
                         <span><b>Comunes</b></span>
+                        @if(isset($infoAvaluo['Instalaciones_Especiales']['Comunes']))
                         <table class="tabla_cabeza_gris" style="">
                             <thead>
                                 <tr>
@@ -1594,8 +1597,11 @@
                                 @endif
                             </tbody>
                         </table>
+                        @endif
+
                     <h4 style="margin-top: 4%;"><b>k) ELEMENTOS ACCESORIOS</b></h4>
                         <span><b>Privativas</b></span>
+                        @if(isset($infoAvaluo['Elementos_Accesorios']['Privativas']))
                         <table class="tabla_cabeza_gris" style="">
                             <thead>
                                 <tr>
@@ -1690,9 +1696,11 @@
                             @endif    
                             </tbody>
                         </table>
+                        @endif
 
                     <h4 style="margin-top: 4%;"><b>l) OBRAS COMPLEMENTARIAS</b></h4>
                         <span><b>Privativas</b></span>
+                        @if(isset($infoAvaluo['Obras_Complementarias']['Privativas']))
                         <table class="tabla_cabeza_gris" style="">
                             <thead>
                                 <tr>
@@ -1787,63 +1795,176 @@
                             @endif
                             </tbody>
                         </table>
-
+                        @endif
 
                 <!-- 6.- Consideraciones Previas al Avalúo -->
                 <div class="pleca_verde"><b>VI.- CONSIDERACIONES PREVIAS AL AVALÚO</b></div>
-
+                @if(isset($infoAvaluo['Consideraciones_Previas_Al_Avaluo']))
                 <p class="letras_pequenas">
                     @isset($infoAvaluo['Consideraciones_Previas_Al_Avaluo'])
                         <span class="grises">{{$infoAvaluo['Consideraciones_Previas_Al_Avaluo']}}</span>
                     @endisset
                 </p>
-
+                @endif
 
 
                 <br>
                 <!-- 7.- Comparación de Mercado -->
                 <div class="pleca_verde">VII. COMPARACIÓN DE MERCADO</div>
                 <h4 style="margin-top: 4%;">TERRENOS DIRECTOS</h4>
+                @if(isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno']) || isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']))
                 <h4 style="margin-top: 4%;">TERRENOS</h4>
                 <hr>
                 <!-- TABLA UNO TERRENOS DIRECTOS -->
                 <span><b>Investigación productos comparables</b></span>
-                <table class="tabla_cabeza_gris">
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>Ubicación</th>
-                            <th>Descripción</th>
-                            <th>C.U.S</th>
-                            <th>Uso del suelo</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @php
-                        $i_tUno = 1;
-                        @endphp
-                        @if(isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno'][0]))
-                            @foreach($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno'] as $value_tablaUno)
+                    @if(isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno']))
+                    <table class="tabla_cabeza_gris">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Ubicación</th>
+                                <th>Descripción</th>
+                                <th>C.U.S</th>
+                                <th>Uso del suelo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @php
+                            $i_tUno = 1;
+                            @endphp
+                            @if(isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno'][0]))
+                                @foreach($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno'] as $value_tablaUno)
+                                    <tr>
+                                        <td><span class="grises">{{$i_tUno++}}</td></span>
+                                        <td>
+                                        @isset($value_tablaUno['Ubicacion'])
+                                            <span class="grises">{{$value_tablaUno['Ubicacion']}}</span>
+                                        @endisset
+                                        </td>
+                                        <td>
+                                        @isset($value_tablaUno['Descripcion'])
+                                            <span class="grises">{{$value_tablaUno['Descripcion']}}</span>
+                                        @endisset
+                                        </td>
+                                        <td>
+                                        @isset($value_tablaUno['C_U_S'])
+                                            <span class="grises">{{$value_tablaUno['C_U_S']}}</span>
+                                        @endisset
+                                        </td>
+                                        <td>
+                                        @isset($value_tablaUno['Uso_Suelo'])
+                                            <span class="grises">{{$value_tablaUno['Uso_Suelo']}}</span>
+                                        @endisset
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @else
                                 <tr>
-                                    <td><span class="grises">{{$i_tUno++}}</td></span>
                                     <td>
-                                    @isset($value_tablaUno['Ubicacion'])
-                                        <span class="grises">{{$value_tablaUno['Ubicacion']}}</span>
+                                    @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno'])
+                                    1
                                     @endisset
                                     </td>
                                     <td>
-                                    @isset($value_tablaUno['Descripcion'])
-                                        <span class="grises">{{$value_tablaUno['Descripcion']}}</span>
+                                    @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno']['Ubicacion'])
+                                        <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno']['Ubicacion']}}</span>
                                     @endisset
                                     </td>
                                     <td>
-                                    @isset($value_tablaUno['C_U_S'])
-                                        <span class="grises">{{$value_tablaUno['C_U_S']}}</span>
+                                    @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno']['Descripcion'])
+                                        <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno']['Descripcion']}}</span>
                                     @endisset
                                     </td>
                                     <td>
-                                    @isset($value_tablaUno['Uso_Suelo'])
-                                        <span class="grises">{{$value_tablaUno['Uso_Suelo']}}</span>
+                                    @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno']['C_U_S'])
+                                        <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno']['C_U_S']}}</span>
+                                    @endisset
+                                    </td>
+                                    <td>
+                                    @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno']['Uso_Suelo'])
+                                        <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno']['Uso_Suelo']}}</span>
+                                    @endisset
+                                    </td>
+                                </tr>
+                            @endif
+                        </tbody>
+                    </table>
+                    @endif
+                    <br>
+                    <!-- TABLA DOS TERRENOS DIRECTOS -->
+                    @if(isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']))
+                    <table class="tabla_cabeza_gris">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>F. Negociación</th>
+                                <th>Superficie</th>
+                                <th>Fzo</th>
+                                <th>Fub</th>
+                                <th>FFr</th>
+                                <th>Ffo</th>
+                                <th>Fsu</th>
+                                <th>F(otro)</th>
+                                <th>Fre</th>
+                                <th>Precio solicitado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @php
+                            $i_tDos = 1;
+                        @endphp
+                        @if(isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos'][0]))
+                            @foreach($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos'] as $value_tablaDos)
+                                <tr>
+                                    <td><span class="grises">{{ $i_tDos++ }}</td></span>
+                                    <td>
+                                    @isset($value_tablaDos['F_Negociacion'])
+                                        <span class="grises">{{ $value_tablaDos['F_Negociacion'] }}</span>
+                                    @endisset
+                                    </td>
+                                    <td>
+                                    @isset($value_tablaDos['Superficie'])
+                                        <span class="grises">{{ number_format($value_tablaDos['Superficie'],2) }}</span>
+                                    @endisset
+                                    </td>
+                                    <td>
+                                    @isset($value_tablaDos['Fzo'])
+                                        <span class="grises">{{ $value_tablaDos['Fzo'] }}</span>
+                                    @endisset
+                                    </td>
+                                    <td>
+                                    @isset($value_tablaDos['Fub'])
+                                        <span class="grises">{{ $value_tablaDos['Fub'] }}</span>
+                                    @endisset
+                                    </td>
+                                    <td>
+                                    @isset($value_tablaDos['FFr'])
+                                        <span class="grises">{{ $value_tablaDos['FFr'] }}</span>
+                                    @endisset
+                                    </td>
+                                    <td>
+                                    @isset($value_tablaDos['Ffo'])
+                                        <span class="grises">{{ $value_tablaDos['Ffo'] }}</span>
+                                    @endisset
+                                    </td>
+                                    <td>
+                                    @isset($value_tablaDos['Fsu'])
+                                        <span class="grises">{{ $value_tablaDos['Fsu'] }}</span>
+                                    @endisset
+                                    </td>
+                                    <td>
+                                    @isset($value_tablaDos['F_otro'])
+                                        <span class="grises">{{ $value_tablaDos['F_otro'] }}</span>
+                                    @endisset
+                                    </td>
+                                    <td>
+                                    @isset($value_tablaDos['Fre'])
+                                        <span class="grises">{{ number_format($value_tablaDos['Fre'],4) }}</span>
+                                    @endisset
+                                    </td>
+                                    <td>$
+                                    @isset($value_tablaDos['Precio_Solicitado'])
+                                        <span class="grises">{{ number_format($value_tablaDos['Precio_Solicitado'],2) }}</span>
                                     @endisset
                                     </td>
                                 </tr>
@@ -1851,232 +1972,126 @@
                         @else
                             <tr>
                                 <td>
-                                @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno'])
-                                1
+                                @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos'])
+                                    1
                                 @endisset
                                 </td>
                                 <td>
-                                @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno']['Ubicacion'])
-                                    <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno']['Ubicacion']}}</span>
+                                @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['F_Negociacion'])
+                                    <span class="grises">{{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['F_Negociacion'] }}</span>
                                 @endisset
                                 </td>
                                 <td>
-                                @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno']['Descripcion'])
-                                    <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno']['Descripcion']}}</span>
+                                @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Superficie'])
+                                    <span class="grises">{{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Superficie'],2) }}</span>
                                 @endisset
                                 </td>
                                 <td>
-                                @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno']['C_U_S'])
-                                    <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno']['C_U_S']}}</span>
+                                @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Fzo'])
+                                    <span class="grises">{{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Fzo'] }}</span>
                                 @endisset
                                 </td>
                                 <td>
-                                @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno']['Uso_Suelo'])
-                                    <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno']['Uso_Suelo']}}</span>
+                                @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Fub'])
+                                    <span class="grises">{{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Fub'] }}</span>
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['FFr'])
+                                    <span class="grises">{{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['FFr'] }}</span>
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Ffo'])
+                                    <span class="grises">{{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Ffo'] }}</span>
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Fsu'])
+                                    <span class="grises">{{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Fsu'] }}</span>
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['F_otro'])
+                                    <span class="grises">{{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['F_otro'] }}</span>
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Fre'])
+                                    <span class="grises">{{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Fre'],4) }}</span>
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Precio_Solicitado'])
+                                    $ <span class="grises">{{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Precio_Solicitado'],2) }}</span>
                                 @endisset
                                 </td>
                             </tr>
                         @endif
-                    </tbody>
-                </table>
-                <br>
-                <!-- TABLA DOS TERRENOS DIRECTOS -->
-                <table class="tabla_cabeza_gris">
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>F. Negociación</th>
-                            <th>Superficie</th>
-                            <th>Fzo</th>
-                            <th>Fub</th>
-                            <th>FFr</th>
-                            <th>Ffo</th>
-                            <th>Fsu</th>
-                            <th>F(otro)</th>
-                            <th>Fre</th>
-                            <th>Precio solicitado</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    @php
-                        $i_tDos = 1;
-                    @endphp
-                    @if(isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos'][0]))
-                        @foreach($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos'] as $value_tablaDos)
+                        </tbody>
+                    </table>
+                    @endif
+                    <br>
+                
+                    <table>
+                        <thead>
                             <tr>
-                                <td><span class="grises">{{ $i_tDos++ }}</td></span>
+                                <th><b>Conclusiones de homologación terrenos:</b></th>
+                                <th>  </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>Valor unitario de tierra promedio</b></td>
                                 <td>
-                                @isset($value_tablaDos['F_Negociacion'])
-                                    <span class="grises">{{ $value_tablaDos['F_Negociacion'] }}</span>
-                                @endisset
-                                </td>
-                                <td>
-                                @isset($value_tablaDos['Superficie'])
-                                    <span class="grises">{{ number_format($value_tablaDos['Superficie'],2) }}</span>
-                                @endisset
-                                </td>
-                                <td>
-                                @isset($value_tablaDos['Fzo'])
-                                    <span class="grises">{{ $value_tablaDos['Fzo'] }}</span>
-                                @endisset
-                                </td>
-                                <td>
-                                @isset($value_tablaDos['Fub'])
-                                    <span class="grises">{{ $value_tablaDos['Fub'] }}</span>
-                                @endisset
-                                </td>
-                                <td>
-                                @isset($value_tablaDos['FFr'])
-                                    <span class="grises">{{ $value_tablaDos['FFr'] }}</span>
-                                @endisset
-                                </td>
-                                <td>
-                                @isset($value_tablaDos['Ffo'])
-                                    <span class="grises">{{ $value_tablaDos['Ffo'] }}</span>
-                                @endisset
-                                </td>
-                                <td>
-                                @isset($value_tablaDos['Fsu'])
-                                    <span class="grises">{{ $value_tablaDos['Fsu'] }}</span>
-                                @endisset
-                                </td>
-                                <td>
-                                @isset($value_tablaDos['F_otro'])
-                                    <span class="grises">{{ $value_tablaDos['F_otro'] }}</span>
-                                @endisset
-                                </td>
-                                <td>
-                                @isset($value_tablaDos['Fre'])
-                                    <span class="grises">{{ number_format($value_tablaDos['Fre'],4) }}</span>
-                                @endisset
-                                </td>
-                                <td>$
-                                @isset($value_tablaDos['Precio_Solicitado'])
-                                    <span class="grises">{{ number_format($value_tablaDos['Precio_Solicitado'],2) }}</span>
-                                @endisset
+                                    @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Tierra_Promedio'])
+                                        <span class="grises">{{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Tierra_Promedio'],2) }}</span>
+                                    @endisset
                                 </td>
                             </tr>
-                        @endforeach
-                    @else
-                         <tr>
-                            <td>
-                            @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos'])
-                                1
-                            @endisset
-                            </td>
-                            <td>
-                            @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['F_Negociacion'])
-                                <span class="grises">{{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['F_Negociacion'] }}</span>
-                            @endisset
-                            </td>
-                            <td>
-                            @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Superficie'])
-                                <span class="grises">{{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Superficie'],2) }}</span>
-                            @endisset
-                            </td>
-                            <td>
-                            @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Fzo'])
-                                <span class="grises">{{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Fzo'] }}</span>
-                            @endisset
-                            </td>
-                            <td>
-                            @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Fub'])
-                                <span class="grises">{{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Fub'] }}</span>
-                            @endisset
-                            </td>
-                            <td>
-                            @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['FFr'])
-                                <span class="grises">{{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['FFr'] }}</span>
-                            @endisset
-                            </td>
-                            <td>
-                            @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Ffo'])
-                                <span class="grises">{{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Ffo'] }}</span>
-                            @endisset
-                            </td>
-                            <td>
-                            @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Fsu'])
-                                <span class="grises">{{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Fsu'] }}</span>
-                            @endisset
-                            </td>
-                            <td>
-                            @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['F_otro'])
-                                <span class="grises">{{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['F_otro'] }}</span>
-                            @endisset
-                            </td>
-                            <td>
-                            @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Fre'])
-                                <span class="grises">{{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Fre'],4) }}</span>
-                            @endisset
-                            </td>
-                            <td>
-                            @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Precio_Solicitado'])
-                                $ <span class="grises">{{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Precio_Solicitado'],2) }}</span>
-                            @endisset
-                            </td>
-                        </tr>
-                    @endif
-                    </tbody>
-                </table>
-                <br>
-                <table>
-                    <thead>
-                        <tr>
-                            <th><b>Conclusiones de homologación terrenos:</b></th>
-                            <th>  </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><b>Valor unitario de tierra promedio</b></td>
-                            <td>
-                                @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Tierra_Promedio'])
-                                    <span class="grises">{{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Tierra_Promedio'],2) }}</span>
-                                @endisset
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><b>Valor unitario de tierra homologado</b></td>
-                            <td>
-                                @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Tierra_Homologado'])
-                                    <span class="grises">{{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Tierra_Homologado'],2) }}</span>
-                                @endisset
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><b>Valor unitario sin homologar mínimo</b></td>
-                            <td>
-                                @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Sin_Homologar_Minimo'])
-                                    <span class="grises">{{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Sin_Homologar_Minimo'],2) }}</span>
-                                @endisset
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><b>Valor unitario sin homologar máximo</b></td>
-                            <td>
-                                @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Sin_Homologar_Maximo'])
-                                    <span class="grises">{{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Sin_Homologar_Maximo'],2) }}</span>
-                                @endisset
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><b>Valor unitario homologado mínimo</b></td>
-                            <td>
-                                @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Homologado_Minimo'])
-                                    <span class="grises">{{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Homologado_Minimo'],2) }}</span>
-                                @endisset
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><b>Valor unitario homologado máximo</b></td>
-                            <td>
-                                @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Homologado_Maximo'])
-                                    <span class="grises">{{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Homologado_Maximo'],2) }}</span>
-                                @endisset
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                            <tr>
+                                <td><b>Valor unitario de tierra homologado</b></td>
+                                <td>
+                                    @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Tierra_Homologado'])
+                                        <span class="grises">{{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Tierra_Homologado'],2) }}</span>
+                                    @endisset
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Valor unitario sin homologar mínimo</b></td>
+                                <td>
+                                    @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Sin_Homologar_Minimo'])
+                                        <span class="grises">{{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Sin_Homologar_Minimo'],2) }}</span>
+                                    @endisset
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Valor unitario sin homologar máximo</b></td>
+                                <td>
+                                    @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Sin_Homologar_Maximo'])
+                                        <span class="grises">{{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Sin_Homologar_Maximo'],2) }}</span>
+                                    @endisset
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Valor unitario homologado mínimo</b></td>
+                                <td>
+                                    @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Homologado_Minimo'])
+                                        <span class="grises">{{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Homologado_Minimo'],2) }}</span>
+                                    @endisset
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Valor unitario homologado máximo</b></td>
+                                <td>
+                                    @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Homologado_Maximo'])
+                                        <span class="grises">{{ number_format($infoAvaluo['Terrenos']['Terrenos_Directos']['Conclusiones_Homologacion_Terrenos']['Valor_Unitario_Homologado_Maximo'],2) }}</span>
+                                    @endisset
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                @endif
                 <br>
                 <!-- RESIDUALES -->
                 <h4 style="margin-top: 4%;">TERRENOS RESIDUALES</h4>
@@ -2437,7 +2452,7 @@
                                 </td>
                                 <td>
                                 @isset($valueC_tablaDos['Precio_Solicitado'])
-                                    $<span class="grises">{{ number_format($valueC_tablaDos['Precio_Solicitado'],2) }}</span>
+                                    <span class="grises">${{ number_format($valueC_tablaDos['Precio_Solicitado'],2) }}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -2461,7 +2476,7 @@
                             </td>
                             <td>
                             @isset($infoAvaluo['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaDos']['Precio_Solicitado'])
-                                $<span class="grises">{{ number_format($infoAvaluo['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaDos']['Precio_Solicitado'],2) }}</span>
+                                <span class="grises">${{ number_format($infoAvaluo['Construcciones_En_Venta']['Investigacion_Productos_Comparables']['TablaDos']['Precio_Solicitado'],2) }}</span>
                             @endisset
                             </td>
                         </tr>
@@ -3477,12 +3492,12 @@
                                 </td>
                                 <td>
                                 @isset($valueEA_tablaPri['Renta_Mensual'])                                
-                                    $<span class="grises">{{ number_format($valueEA_tablaPri['Renta_Mensual'],2) }}</span>
+                                    <span class="grises">${{ number_format($valueEA_tablaPri['Renta_Mensual'],2) }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($valueEA_tablaPri['Renta_m2'])                                
-                                    $<span class="grises">{{ number_format($valueEA_tablaPri['Renta_m2'],2) }}</span>
+                                    <span class="grises">${{ number_format($valueEA_tablaPri['Renta_m2'],2) }}</span>
                                 @endisset
                                 </td>
                             </tr>
