@@ -3738,18 +3738,24 @@
                     <thead>
                         <tr>
                             <th>VALOR REFERIDO: 
-                            @if(!is_array($infoAvaluo['Valor_Referido']['Valor_Referido']) && isset($infoAvaluo['Valor_Referido']['Valor_Referido']))
-                                <span class="grises">${{ number_format($infoAvaluo['Valor_Referido']['Valor_Referido'],2)}}</span>
+                            @if(isset($infoAvaluo['Valor_Referido']['Valor_Referido']))
+                                @if(!is_array($infoAvaluo['Valor_Referido']['Valor_Referido']))
+                                    <span class="grises">${{ number_format($infoAvaluo['Valor_Referido']['Valor_Referido'],2)}}</span>
+                                @endif
                             @endif
                             </th>
-                            <th>FECHA: 
-                            @if(!is_array($infoAvaluo['Valor_Referido']['Fecha']) && isset($infoAvaluo['Valor_Referido']['Fecha']))
-                                <span class="grises">{{ $infoAvaluo['Valor_Referido']['Fecha'] }}</span>
+                            <th>FECHA:
+                            @if(isset($infoAvaluo['Valor_Referido']['Valor_Referido']))
+                                @if(!is_array($infoAvaluo['Valor_Referido']['Fecha']))
+                                    <span class="grises">{{ $infoAvaluo['Valor_Referido']['Fecha'] }}</span>
+                                @endif
                             @endif
                             </th>
                             <th>FACTOR:
-                            @if(!is_array($infoAvaluo['Valor_Referido']['Factor']) && isset($infoAvaluo['Valor_Referido']['Factor']))
-                                <span class="grises">{{ $infoAvaluo['Valor_Referido']['Factor']}}</span>
+                            @if(isset($infoAvaluo['Valor_Referido']['Factor']))
+                                @if(!is_array($infoAvaluo['Valor_Referido']['Factor']))
+                                    <span class="grises">{{ $infoAvaluo['Valor_Referido']['Factor']}}</span>
+                                @endif
                             @endif
                             </th>
                         </tr>
