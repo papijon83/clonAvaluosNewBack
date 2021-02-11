@@ -1372,9 +1372,11 @@
                             <tr>
                                 <td><b>MUEBLES EMPOTRADOS O FIJOS:</b></td>
                                 <td>
-                                @isset($infoAvaluo['Carpinteria']['Muebles_Empotrados'])
-                                    <span class="grises">{{$infoAvaluo['Carpinteria']['Muebles_Empotrados']}}</span>
-                                @endisset
+                                @if(isset($infoAvaluo['Carpinteria']['Muebles_Empotrados']))
+                                    @if(!is_array($infoAvaluo['Carpinteria']['Muebles_Empotrados']))
+                                        <span class="grises">{{$infoAvaluo['Carpinteria']['Muebles_Empotrados']}}</span>
+                                    @endif
+                                @endif
                                 </td>
                             </tr>
                         </table>
