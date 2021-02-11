@@ -3714,9 +3714,11 @@
                 <div class="pleca_verde"><b>XI.- CONSIDERACIONES PREVIAS A LA CONCLUSIÓN</b></div>
 
                     <p class="letras_pequenas">
-                        @isset($infoAvaluo['Consideraciones'])
-                            <span class="grises">{{ $infoAvaluo['Consideraciones'] }}</span>
-                        @endisset
+                        @if(isset($infoAvaluo['Consideraciones']))
+                            @if(!is_array($infoAvaluo['Consideraciones']))
+                                <span class="grises">{{ $infoAvaluo['Consideraciones'] }}</span>
+                            @endif
+                        @endif
                     </p>
 
                 
