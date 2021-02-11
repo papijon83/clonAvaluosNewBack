@@ -878,38 +878,53 @@ class Reimpresion
 
             /************************************************************************************************************************************************************************/
 
-            $infoReimpresion['Construcciones_En_Renta'] = array();
-            $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables'] = array();
-            $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaUno'] = array();
-            $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos'] = array();
+            if(isset($enfoqueMercado['ConstruccionesEnRenta'])){
+                $infoReimpresion['Construcciones_En_Renta'] = array();
+                $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables'] = array();
+                $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaUno'] = array();
+                $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos'] = array();
 
-            $construccionesEnRenta = $enfoqueMercado['ConstruccionesEnRenta'];
-            $investigacionProductosComparables = $construccionesEnRenta['InvestigacionProductosComparables'];
+                $construccionesEnRenta = $enfoqueMercado['ConstruccionesEnRenta'];
+                $investigacionProductosComparables = $construccionesEnRenta['InvestigacionProductosComparables'];
+                $control = 0;
+                if(isset($investigacionProductosComparables['@attributes'])){
+                    $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaUno'][$control]['Ubicacion'] = $investigacionProductosComparables['Calle'].". ".$investigacionProductosComparables['Colonia'].". ".$investigacionProductosComparables['CodigoPostal'];
+                    $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaUno'][$control]['Descripcion'] = $investigacionProductosComparables['DescripcionDelComparable'];
 
-            $control = 0;
-            foreach($investigacionProductosComparables as $productoComparable){
-                $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaUno'][$control]['Ubicacion'] = $productoComparable['Calle'].". ".$productoComparable['Colonia'].". ".$productoComparable['CodigoPostal'];
-                $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaUno'][$control]['Descripcion'] = $productoComparable['DescripcionDelComparable'];
+                    $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos'][$control]['F_Negociacion'] = $investigacionProductosComparables['FactorDeNegociacion'];
+                    $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos'][$control]['Superficie_Vendible'] = $investigacionProductosComparables['SuperficieVendiblePorUnidad'];
+                    $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos'][$control]['Precio_Solicitado'] = $investigacionProductosComparables['PrecioSolicitado'];
+                }else{
+                    if(isset($investigacionProductosComparables[0])){
+                        
+                        foreach($investigacionProductosComparables as $productoComparable){
+                            $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaUno'][$control]['Ubicacion'] = $productoComparable['Calle'].". ".$productoComparable['Colonia'].". ".$productoComparable['CodigoPostal'];
+                            $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaUno'][$control]['Descripcion'] = $productoComparable['DescripcionDelComparable'];
 
-                $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos'][$control]['F_Negociacion'] = $productoComparable['FactorDeNegociacion'];
-                $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos'][$control]['Superficie_Vendible'] = $productoComparable['SuperficieVendiblePorUnidad'];
-                $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos'][$control]['Precio_Solicitado'] = $productoComparable['PrecioSolicitado'];
+                            $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos'][$control]['F_Negociacion'] = $productoComparable['FactorDeNegociacion'];
+                            $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos'][$control]['Superficie_Vendible'] = $productoComparable['SuperficieVendiblePorUnidad'];
+                            $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos'][$control]['Precio_Solicitado'] = $productoComparable['PrecioSolicitado'];
 
-                $control = $control + 1;
-            }
+                            $control = $control + 1;
+                        }
+                    }
+                }
+                
 
-            $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta'] = array();
-            //Se usa ConclusionesHomologacionConstruccionesEnVenta porque asi llega en el XML
-            $conclusionesHomologacionContruccionesRenta = $construccionesEnRenta['ConclusionesHomologacionConstruccionesEnVenta'];
+                $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta'] = array();
+                //Se usa ConclusionesHomologacionConstruccionesEnVenta porque asi llega en el XML
+                $conclusionesHomologacionContruccionesRenta = $construccionesEnRenta['ConclusionesHomologacionConstruccionesEnVenta'];
 
-            $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Promedio'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioPromedio'];
-            $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologado'];
-            $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Sin_Homolgar_Minimo'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioSinHomologarMinimo'];
-            $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Sin_Homolgar_Maximo'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioSinHomologarMaximo'];
-            $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado_Minimo'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologadoMinimo'];
-            $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado_Maximo']  = $conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologadoMaximo'];
+                $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Promedio'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioPromedio'];
+                $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologado'];
+                $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Sin_Homolgar_Minimo'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioSinHomologarMinimo'];
+                $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Sin_Homolgar_Maximo'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioSinHomologarMaximo'];
+                $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado_Minimo'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologadoMinimo'];
+                $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado_Maximo']  = $conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologadoMaximo'];
 
-            $infoReimpresion['Construcciones_En_Renta']['Valor_Unitario_Aplicable_Avaluo'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioAplicableAlAvaluo'];
+                $infoReimpresion['Construcciones_En_Renta']['Valor_Unitario_Aplicable_Avaluo'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioAplicableAlAvaluo'];
+
+            }        
 
     }
         /************************************************************************************************************************************************************************/
@@ -1322,16 +1337,36 @@ class Reimpresion
         if(isset($enfoqueMercado['ConstruccionesEnRenta'])){
             $infoReimpresion['Renta_Estimada'] = array();
             $construccionesEnRenta = $enfoqueMercado['ConstruccionesEnRenta'];
-            $investigacionProductosComparables = $construccionesEnRenta['InvestigacionProductosComparables'];
+            $investigacionProductosComparables = $construccionesEnRenta['InvestigacionProductosComparables']; 
             $control = 0;
-            foreach($investigacionProductosComparables as $productoComparable){
-                $infoReimpresion['Renta_Estimada'][$control]['Ubicacion'] = $productoComparable['Calle'].". ".$productoComparable['Colonia'].". ".$productoComparable['CodigoPostal'];
-                $infoReimpresion['Renta_Estimada'][$control]['Superficie_m2'] = $productoComparable['SuperficieVendiblePorUnidad'];
-                $infoReimpresion['Renta_Estimada'][$control]['Renta_Mensual'] = $productoComparable['PrecioSolicitado'];
-                $infoReimpresion['Renta_Estimada'][$control]['Renta_m2'] = $productoComparable['PrecioSolicitado'] / $productoComparable['SuperficieVendiblePorUnidad'];    
+            if(isset($investigacionProductosComparables['@attributes'])){
+                $infoReimpresion['Renta_Estimada'][$control]['Ubicacion'] = $investigacionProductosComparables['Calle'].". ".$investigacionProductosComparables['Colonia'].". ".$investigacionProductosComparables['CodigoPostal'];
+                $infoReimpresion['Renta_Estimada'][$control]['Superficie_m2'] = $investigacionProductosComparables['SuperficieVendiblePorUnidad'];
+                $infoReimpresion['Renta_Estimada'][$control]['Renta_Mensual'] = $investigacionProductosComparables['PrecioSolicitado'];
+                if(trim($investigacionProductosComparables['PrecioSolicitado']) == 0 && trim($investigacionProductosComparables['SuperficieVendiblePorUnidad']) == 0){
+                    $infoReimpresion['Renta_Estimada'][$control]['Renta_m2'] = 0;    
+                }else{
+                    $infoReimpresion['Renta_Estimada'][$control]['Renta_m2'] = $investigacionProductosComparables['PrecioSolicitado'] / $investigacionProductosComparables['SuperficieVendiblePorUnidad'];    
+                }
+                //$infoReimpresion['Renta_Estimada'][$control]['Renta_m2'] = $investigacionProductosComparables['PrecioSolicitado'] / $investigacionProductosComparables['SuperficieVendiblePorUnidad'];
+            }else{
+                if(isset($investigacionProductosComparables[0])){                    
+                    foreach($investigacionProductosComparables as $productoComparable){
+                        $infoReimpresion['Renta_Estimada'][$control]['Ubicacion'] = $productoComparable['Calle'].". ".$productoComparable['Colonia'].". ".$productoComparable['CodigoPostal'];
+                        $infoReimpresion['Renta_Estimada'][$control]['Superficie_m2'] = $productoComparable['SuperficieVendiblePorUnidad'];
+                        $infoReimpresion['Renta_Estimada'][$control]['Renta_Mensual'] = $productoComparable['PrecioSolicitado'];
+                        if(trim($productoComparable['PrecioSolicitado']) === 0 && trim($productoComparable['SuperficieVendiblePorUnidad']) === 0){
+                            $infoReimpresion['Renta_Estimada'][$control]['Renta_m2'] = 0;    
+                        }else{
+                            $infoReimpresion['Renta_Estimada'][$control]['Renta_m2'] = $productoComparable['PrecioSolicitado'] / $productoComparable['SuperficieVendiblePorUnidad'];    
+                        }
+                        
 
-                $control = $control + 1;
+                        $control = $control + 1;
+                    }
+                }
             }
+            
         }
         
         if(isset($elementoPrincipal['EnfoqueDeIngresos'])){
