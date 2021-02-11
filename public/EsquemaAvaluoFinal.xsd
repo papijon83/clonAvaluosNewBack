@@ -280,6 +280,12 @@
     </xs:union>
   </xs:simpleType>
 
+  <!-- NullableDoublePositivo: Admite una cadena de texto vacÃ­a o cualquier double positivo-->
+  <xs:simpleType name="NullableDoublePositivo" >
+    <xs:union memberTypes="DoublePositivo NullString">
+    </xs:union>
+  </xs:simpleType>
+
   <!-- NullableDecimalPositivo06: Admite una cadena de texto vacÃ­a o cualquier decimal positivo, con valor mÃ­mino 0.6-->
   <xs:simpleType name="NullableDecimalPositivo06" >
     <xs:union memberTypes="DecimalPositivo06 NullString">
@@ -5184,14 +5190,14 @@
   </xs:complexType>
   <xs:complexType name="SUB-ImporteTotalInstalacionesEspecialesPrivativas">
     <xs:simpleContent>
-      <xs:extension base="NullableDecimalPositivo">
+      <xs:extension base="NullableDoublePositivo">
         <xs:attribute fixed="f.9.3" name="id" type="xs:string" use="required" />
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
   <xs:complexType name="SUB-ImporteTotalInstalacionesEspecialesComunes">
     <xs:simpleContent>
-      <xs:extension base="NullableDecimalPositivo">
+      <xs:extension base="NullableDoublePositivo">
         <xs:attribute fixed="f.9.4" name="id" type="xs:string" use="required" />
       </xs:extension>
     </xs:simpleContent>
@@ -5420,14 +5426,14 @@
   
   <xs:complexType name="SUB-ImporteTotalElementosAccesoriosPrivativas">
     <xs:simpleContent>
-      <xs:extension base="NullableDecimalPositivo">
+      <xs:extension base="NullableDoublePositivo">
         <xs:attribute fixed="f.10.3" name="id" type="xs:string" use="required" />
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
   <xs:complexType name="SUB-ImporteTotalElementosAccesoriosComunes-Comunes">
     <xs:simpleContent>
-      <xs:extension base="NullableDecimalPositivo">
+      <xs:extension base="NullableDoublePositivo">
         <xs:attribute fixed="f.10.4" name="id" type="xs:string" use="required" />
       </xs:extension>
     </xs:simpleContent>
@@ -5603,21 +5609,21 @@
   
   <xs:complexType name="SUB-ImporteTotalObrasComplementariasPrivativas">
     <xs:simpleContent>
-      <xs:extension base="NullableDecimalPositivo">
+      <xs:extension base="NullableDoublePositivo">
         <xs:attribute fixed="f.11.3" name="id" type="xs:string" use="required" />
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
   <xs:complexType name="SUB-ImporteTotalObrasComplementariasComunes">
     <xs:simpleContent>
-      <xs:extension base="NullableDecimalPositivo">
+      <xs:extension base="NullableDoublePositivo">
         <xs:attribute fixed="f.11.4" name="id" type="xs:string" use="required" />
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
   <xs:complexType name="SUB-ImporteTotalInstalacionesAccesoriosComplementariasPrivativas">
     <xs:simpleContent>
-      <xs:extension base="NullableDecimalPositivo">
+      <xs:extension base="NullableDoublePositivo">
         <xs:attribute fixed="f.12" name="id" type="xs:string" use="required" />
       </xs:extension>
     </xs:simpleContent>
