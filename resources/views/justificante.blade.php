@@ -341,7 +341,9 @@
                             <td><b>CONTAMINACIÓN DEL MEDIO AMBIENTE:</b></td>
                             <td>
                             @isset($infoAvaluo['Contaminacion_Medio_Ambiente'])
-                                <span class="grises">{{$infoAvaluo['Contaminacion_Medio_Ambiente']}}</span>
+                                @if(!is_array($infoAvaluo['Contaminacion_Medio_Ambiente']))
+                                    <span class="grises">{{$infoAvaluo['Contaminacion_Medio_Ambiente']}}</span>
+                                @endif
                             @endisset
                             </td>
                         </tr>
@@ -1361,7 +1363,9 @@
                             <td><b>e) INSTALACIONES ELÉCTRICAS Y ALUMBRADO</b></td>
                             <td>
                             @isset($infoAvaluo['Instalaciones_Electricas_Alumbrados'])
-                                <span class="grises">{{$infoAvaluo['Instalaciones_Electricas_Alumbrados']}}</span>
+                                @if(!is_array($infoAvaluo['Instalaciones_Electricas_Alumbrados']))
+                                    <span class="grises">{{$infoAvaluo['Instalaciones_Electricas_Alumbrados']}}</span>
+                                @endif
                             @endisset
                             </td>
                         </tr>
@@ -1395,7 +1399,9 @@
                             <td><b>g) VIDRIERÍA</b></td>
                             <td>
                             @isset($infoAvaluo['Vidrieria'])
-                                <span class="grises">{{$infoAvaluo['Vidrieria']}}</span>
+                                @if(!is_array($infoAvaluo['Vidrieria']))
+                                    <span class="grises">{{$infoAvaluo['Vidrieria']}}</span>
+                                @endif
                             @endisset
                             </td>
                         </tr>
@@ -1407,7 +1413,9 @@
                             <td><b>h) CERRAJERÍA</b></td>
                             <td>
                             @isset($infoAvaluo['Cerrajeria'])
-                                <span class="grises">{{$infoAvaluo['Cerrajeria']}}</span>
+                                @if(!is_array($infoAvaluo['Cerrajeria']))
+                                    <span class="grises">{{$infoAvaluo['Cerrajeria']}}</span>
+                                @endif
                             @endisset
                             </td>
                         </tr>
@@ -1419,7 +1427,9 @@
                             <td><b>i) FACHADAS</b></td>
                             <td>
                             @isset($infoAvaluo['Fachadas'])
-                                <span class="grises">{{$infoAvaluo['Fachadas']}}</span>
+                                @if(!is_array($infoAvaluo['Fachadas']))
+                                    <span class="grises">{{$infoAvaluo['Fachadas']}}</span>
+                                @endif
                             @endisset
                             </td>
                         </tr>
