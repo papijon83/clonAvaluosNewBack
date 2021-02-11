@@ -398,7 +398,7 @@ class ReimpresionNuevo
             $infoReimpresion['Construcciones_Privativas']['Clase'] = $this->modelFis->getClase($tiposContruccion['ConstruccionesPrivativas']['ClaveClase']);
             $infoReimpresion['Construcciones_Privativas']['Edad'] = $tiposContruccion['ConstruccionesPrivativas']['Edad'];
             $infoReimpresion['Construcciones_Privativas']['Vida_Util_Total_Tipo'] = $tiposContruccion['ConstruccionesPrivativas']['VidaUtilTotalDelTipo'];
-            $infoReimpresion['Construcciones_Privativas']['Vida_Util_Remanente'] = $tiposContruccion['ConstruccionesPrivativas']['VidaUtilRemanente'];
+            $infoReimpresion['Construcciones_Privativas']['Vida_Util_Remanente'] = isset($tiposContruccion['ConstruccionesPrivativas']['VidaUtilRemanente']) ? $tiposContruccion['ConstruccionesPrivativas']['VidaUtilRemanente'] : $tiposContruccion['ConstruccionesPrivativas']['VidaMinimaRemanente'];
             $infoReimpresion['Construcciones_Privativas']['Conservacion'] = $tiposContruccion['ConstruccionesPrivativas']['ClaveConservacion'];
             $infoReimpresion['Construcciones_Privativas']['Sup'] = $tiposContruccion['ConstruccionesPrivativas']['Superficie'];
         }
@@ -415,7 +415,7 @@ class ReimpresionNuevo
                 $infoReimpresion['Construcciones_Privativas'][$control]['Clase'] = $this->modelFis->getClase($construccionPrivativa['ClaveClase']);
                 $infoReimpresion['Construcciones_Privativas'][$control]['Edad'] = $construccionPrivativa['Edad'];
                 $infoReimpresion['Construcciones_Privativas'][$control]['Vida_Util_Total_Tipo'] = $construccionPrivativa['VidaUtilTotalDelTipo'];
-                $infoReimpresion['Construcciones_Privativas'][$control]['Vida_Util_Remanente'] = $construccionPrivativa['VidaUtilRemanente'];
+                $infoReimpresion['Construcciones_Privativas'][$control]['Vida_Util_Remanente'] = isset($construccionPrivativa['VidaUtilRemanente']) ? $construccionPrivativa['VidaUtilRemanente'] : $construccionPrivativa['VidaMinimaRemanente'];
                 $infoReimpresion['Construcciones_Privativas'][$control]['Conservacion'] = $construccionPrivativa['ClaveConservacion'];
                 $infoReimpresion['Construcciones_Privativas'][$control]['Sup'] = $construccionPrivativa['Superficie'];
                 $control = $control + 1;
@@ -432,7 +432,7 @@ class ReimpresionNuevo
             $infoReimpresion['Construcciones_Comunes']['Clase'] = $this->modelFis->getClase($tiposContruccion['ConstruccionesComunes']['ClaveClase']);
             $infoReimpresion['Construcciones_Comunes']['Edad'] = $tiposContruccion['ConstruccionesComunes']['Edad'];
             $infoReimpresion['Construcciones_Comunes']['Vida_Util_Total_Tipo'] = $tiposContruccion['ConstruccionesComunes']['VidaUtilTotalDelTipo'];
-            $infoReimpresion['Construcciones_Comunes']['Vida_Util_Remanente'] = $tiposContruccion['ConstruccionesComunes']['VidaUtilRemanente'];
+            $infoReimpresion['Construcciones_Comunes']['Vida_Util_Remanente'] = isset($tiposContruccion['ConstruccionesComunes']['VidaUtilRemanente']) ? $tiposContruccion['ConstruccionesComunes']['VidaUtilRemanente'] : $tiposContruccion['ConstruccionesComunes']['VidaMinimaRemanente'];
             $infoReimpresion['Construcciones_Comunes']['Conservacion'] = $tiposContruccion['ConstruccionesComunes']['ClaveConservacion'];
             $infoReimpresion['Construcciones_Comunes']['Sup'] = $tiposContruccion['ConstruccionesComunes']['Superficie'];
         }
@@ -449,7 +449,7 @@ class ReimpresionNuevo
                 $infoReimpresion['Construcciones_Comunes'][$control]['Clase'] = $this->modelFis->getClase($construccionComun['ClaveClase']);
                 $infoReimpresion['Construcciones_Comunes'][$control]['Edad'] = $construccionComun['Edad'];
                 $infoReimpresion['Construcciones_Comunes'][$control]['Vida_Util_Total_Tipo'] = $construccionComun['VidaUtilTotalDelTipo'];
-                $infoReimpresion['Construcciones_Comunes'][$control]['Vida_Util_Remanente'] = $construccionComun['VidaUtilRemanente'];
+                $infoReimpresion['Construcciones_Comunes'][$control]['Vida_Util_Remanente'] = isset($construccionComun['VidaUtilRemanente']) ? $construccionComun['VidaUtilRemanente'] : $construccionComun['VidaMinimaRemanente'];
                 $infoReimpresion['Construcciones_Comunes'][$control]['Conservacion'] = $construccionComun['ClaveConservacion'];
                 $infoReimpresion['Construcciones_Comunes'][$control]['Sup'] = $construccionComun['Superficie'];
                 $control = $control + 1;
@@ -976,8 +976,8 @@ class ReimpresionNuevo
                 $infoReimpresion['Calculo_Valor_Construcciones']['Privativas']['Uso'] = $tiposContruccion['ConstruccionesPrivativas']['ClaveUso'];
                 $infoReimpresion['Calculo_Valor_Construcciones']['Privativas']['Clase'] = $this->modelFis->getClase($tiposContruccion['ConstruccionesPrivativas']['ClaveClase']);
                 $infoReimpresion['Calculo_Valor_Construcciones']['Privativas']['Superficie_m2'] = $tiposContruccion['ConstruccionesPrivativas']['Superficie'];
-                $infoReimpresion['Calculo_Valor_Construcciones']['Privativas']['Valor_Unitario'] = $tiposContruccion['ConstruccionesPrivativas']['ValorunitariodereposicionNuevo'];
-                $infoReimpresion['Calculo_Valor_Construcciones']['Privativas']['Edad'] = $tiposContruccion['ConstruccionesPrivativas']['Edad'];
+                $infoReimpresion['Calculo_Valor_Construcciones']['Privativas']['Valor_Unitario'] = isset($tiposContruccion['ConstruccionesPrivativas']['ValorunitariodereposicionNuevo']) ? $tiposContruccion['ConstruccionesPrivativas']['ValorunitariodereposicionNuevo'] : $tiposContruccion['ConstruccionesPrivativas']['CostounitariodereposicionNuevo'];
+                $infoReimpresion['Calculo_Valor_Construcciones']['Privativas']['Edad'] = isset($tiposContruccion['ConstruccionesPrivativas']['Edad']) ? $tiposContruccion['ConstruccionesPrivativas']['Edad'] : $tiposContruccion['ConstruccionesPrivativas']['IndicedelcostoRemanente'];
                 $infoReimpresion['Calculo_Valor_Construcciones']['Privativas']['Fco'] = $tiposContruccion['ConstruccionesPrivativas']['ClaveConservacion'];
                 $infoReimpresion['Calculo_Valor_Construcciones']['Privativas']['FRe'] = $tiposContruccion['ConstruccionesPrivativas']['FactorResultante'];
                 $infoReimpresion['Calculo_Valor_Construcciones']['Privativas']['Valor_Fraccion'] = $tiposContruccion['ConstruccionesPrivativas']['ValorDeLaFraccionN'];            
@@ -991,8 +991,8 @@ class ReimpresionNuevo
                     $infoReimpresion['Calculo_Valor_Construcciones']['Privativas'][$control]['Uso'] = $construccionPrivativa['ClaveUso'];
                     $infoReimpresion['Calculo_Valor_Construcciones']['Privativas'][$control]['Clase'] = $this->modelFis->getClase($construccionPrivativa['ClaveClase']);
                     $infoReimpresion['Calculo_Valor_Construcciones']['Privativas'][$control]['Superficie_m2'] = $construccionPrivativa['Superficie'];
-                    $infoReimpresion['Calculo_Valor_Construcciones']['Privativas'][$control]['Valor_Unitario'] = $construccionPrivativa['ValorunitariodereposicionNuevo'];
-                    $infoReimpresion['Calculo_Valor_Construcciones']['Privativas'][$control]['Edad'] = $construccionPrivativa['Edad'];
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Privativas'][$control]['Valor_Unitario'] = isset($construccionPrivativa['ValorunitariodereposicionNuevo']) ? $construccionPrivativa['ValorunitariodereposicionNuevo'] : $construccionPrivativa['CostounitariodereposicionNuevo'];
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Privativas'][$control]['Edad'] = isset($construccionPrivativa['Edad']) ? $construccionPrivativa['Edad'] : $construccionPrivativa['IndicedelcostoRemanente'];
                     $infoReimpresion['Calculo_Valor_Construcciones']['Privativas'][$control]['Fco'] = $construccionPrivativa['ClaveConservacion'];
                     $infoReimpresion['Calculo_Valor_Construcciones']['Privativas'][$control]['FRe'] = $construccionPrivativa['FactorResultante'];
                     $infoReimpresion['Calculo_Valor_Construcciones']['Privativas'][$control]['Valor_Fraccion'] = $construccionPrivativa['ValorDeLaFraccionN'];
@@ -1010,8 +1010,8 @@ class ReimpresionNuevo
                 $infoReimpresion['Calculo_Valor_Construcciones']['Comunes']['Uso'] = $tiposContruccion['ConstruccionesComunes']['ClaveUso'];
                 $infoReimpresion['Calculo_Valor_Construcciones']['Comunes']['Clase'] = $this->modelFis->getClase($tiposContruccion['ConstruccionesComunes']['ClaveClase']);
                 $infoReimpresion['Calculo_Valor_Construcciones']['Comunes']['Superficie_m2'] = $tiposContruccion['ConstruccionesComunes']['Superficie'];
-                $infoReimpresion['Calculo_Valor_Construcciones']['Comunes']['Valor_Unitario'] = $tiposContruccion['ConstruccionesComunes']['ValorunitariodereposicionNuevo'];
-                $infoReimpresion['Calculo_Valor_Construcciones']['Comunes']['Edad'] = $tiposContruccion['ConstruccionesComunes']['Edad'];
+                $infoReimpresion['Calculo_Valor_Construcciones']['Comunes']['Valor_Unitario'] = isset($tiposContruccion['ConstruccionesComunes']['ValorunitariodereposicionNuevo']) ? $tiposContruccion['ConstruccionesComunes']['ValorunitariodereposicionNuevo'] : $tiposContruccion['ConstruccionesComunes']['CostounitariodereposicionNuevo'];
+                $infoReimpresion['Calculo_Valor_Construcciones']['Comunes']['Edad'] = isset($tiposContruccion['ConstruccionesComunes']['Edad']) ? $tiposContruccion['ConstruccionesComunes']['Edad'] : $tiposContruccion['ConstruccionesComunes']['IndicedelcostoRemanente'];
                 $infoReimpresion['Calculo_Valor_Construcciones']['Comunes']['Fco'] = $tiposContruccion['ConstruccionesComunes']['ClaveConservacion'];
                 $infoReimpresion['Calculo_Valor_Construcciones']['Comunes']['FRe'] = $tiposContruccion['ConstruccionesComunes']['FactorResultante'];
                 $infoReimpresion['Calculo_Valor_Construcciones']['Comunes']['Valor_Fraccion'] = $tiposContruccion['ConstruccionesComunes']['ValorDeLaFraccionN'];
@@ -1026,8 +1026,8 @@ class ReimpresionNuevo
                     $infoReimpresion['Calculo_Valor_Construcciones']['Comunes'][$control]['Uso'] = $construccionComun['ClaveUso'];
                     $infoReimpresion['Calculo_Valor_Construcciones']['Comunes'][$control]['Clase'] = $this->modelFis->getClase($construccionComun['ClaveClase']);
                     $infoReimpresion['Calculo_Valor_Construcciones']['Comunes'][$control]['Superficie_m2'] = $construccionComun['Superficie'];
-                    $infoReimpresion['Calculo_Valor_Construcciones']['Comunes'][$control]['Valor_Unitario'] = $construccionComun['ValorunitariodereposicionNuevo'];
-                    $infoReimpresion['Calculo_Valor_Construcciones']['Comunes'][$control]['Edad'] = $construccionComun['Edad'];
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Comunes'][$control]['Valor_Unitario'] = isset($construccionComun['ValorunitariodereposicionNuevo']) ? $construccionComun['ValorunitariodereposicionNuevo'] : $construccionComun['CostounitariodereposicionNuevo'];
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Comunes'][$control]['Edad'] = isset($construccionComun['Edad']) ? $construccionComun['Edad'] : $construccionComun['IndicedelcostoRemanente'];
                     $infoReimpresion['Calculo_Valor_Construcciones']['Comunes'][$control]['Fco'] = $construccionComun['ClaveConservacion'];
                     $infoReimpresion['Calculo_Valor_Construcciones']['Comunes'][$control]['FRe'] = $construccionComun['FactorResultante'];
                     $infoReimpresion['Calculo_Valor_Construcciones']['Comunes'][$control]['Valor_Fraccion'] = $construccionComun['ValorDeLaFraccionN'];
