@@ -1976,7 +1976,7 @@ function valida_Calculos($data, $letra, $dataextra = false, $dataextrados = fals
                 $dataextra = array_map("convierte_a_arreglo",$dataextra);
                 $h_1_4 = $dataextra[0]['Terrenos']['ValorUnitarioDeTierraAplicableAlAvaluo'];
                 $calc_d_5_n_11 = $h_1_4 * $data[0]['SuperficieDelTerreno']['SuperficieFraccionN1'] * $d_5_n_10;
-                $d_5_n_11 = $data[0]['SuperficieDelTerreno']['ValorDeLaFraccionN']; //echo truncate($calc_d_5_n_11,2)." != ".truncate($d_5_n_11,2); exit();
+                $d_5_n_11 = $data[0]['SuperficieDelTerreno']['ValorDeLaFraccionN']; //error_log($h_1_4." * ".$data[0]['SuperficieDelTerreno']['SuperficieFraccionN1']." * ".$d_5_n_10); error_log($calc_d_5_n_11." != ".$d_5_n_11); error_log(truncate($calc_d_5_n_11,2)." != ".truncate($d_5_n_11,2));
                 if(truncate($calc_d_5_n_11,2) != truncate($d_5_n_11,2)){
                     $mensajesd[] =  "d.5.n.11 - El cálculo de ValorDeLaFraccionN es erróneo ";
                 }
@@ -2635,9 +2635,13 @@ function valida_Calculos($data, $letra, $dataextra = false, $dataextrados = fals
 }
 
 function truncate($number, $decimals)
-{
-     $point_index = strrpos($number, '.'); 
-     return substr($number, 0, $point_index + $decimals+ 1);
+{       
+     $point_index = strrpos($number, '.');
+     if($point_index === false){
+        return $number;
+     }else{
+        return substr($number, 0, $point_index + $decimals+ 1);
+     }     
 }
 
 function valida_Calculos_i($data,$letra, $datad13, $datae2, $dataf12, $dataf14){
