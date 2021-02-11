@@ -1449,13 +1449,14 @@ function val_nullable_cat_estado_conservacion($valor){
 }
 
 function val_cat_instalaciones_especiales($valor){
-    $estado = 'correcto';
+    return 'correcto';
+    /*$estado = 'correcto';
     $arrInstalacionesEspeciales = array('IE01','IE02','IE03','IE04','IE05','IE06','IE07','IE08','IE09','IE10','IE11','IE12','IE13','IE14','IE15','IE16','IE17','IE18','IE19','EA01','EA02','EA03','EA04','EA05','EA06','EA07','EA08','EA09','EA10','EA11','EA12','OC01','OC02','OC03','OC04','OC05','OC06','OC07','OC08','OC09','OC10','OC11','OC12','OC13','OC14','OC15','OC16','OC17');
     if(in_array($valor,$arrInstalacionesEspeciales)){
         return $estado;
     }else{
         return "el codigo de instalaciones especiales ".$valor." no existe en el catalogo de instalaciones especiales";
-    }
+    }*/
 }
 
 /**************************************************************************************************************************************************************************/
@@ -1831,15 +1832,18 @@ function valida_Calculos_e($data, $dataextra = false, $dataextrados = false, $b_
                         }
                     }
 
-                    if(isset($elemento['DepreciacionPorEdad'])){
-                        $e_2_5_n_17 = $elemento['DepreciacionPorEdad'];
-                        $e_2_5_n_7 = $elemento['Edad'];
-                        //$calc_e_2_5_n_17 = (100-min(50,$e_2_5_n_7 * 1)) / 100; //echo "COMPARACION DepreciacionPorEdad ".truncate($e_2_5_n_17,2)." != ".truncate($calc_e_2_5_n_17,2)."\n";
-                        $calc_e_2_5_n_17 = $e_2_5_n_7 >= 50 ? (100-(50 * 0.8)) / 100 : (100-(0.8 * $e_2_5_n_7)) / 100;
-                        if(truncate($e_2_5_n_17,2) != truncate($calc_e_2_5_n_17,2)){
-                            $mensajese[] =  "e.2.5.n.17 - El cálculo de DepreciacionPorEdad es erróneo ";
+                    if($dataextra == '//Catastral'){
+                        if(isset($elemento['DepreciacionPorEdad'])){
+                            $e_2_5_n_17 = $elemento['DepreciacionPorEdad'];
+                            $e_2_5_n_7 = $elemento['Edad'];
+                            //$calc_e_2_5_n_17 = (100-min(50,$e_2_5_n_7 * 1)) / 100; //echo "COMPARACION DepreciacionPorEdad ".truncate($e_2_5_n_17,2)." != ".truncate($calc_e_2_5_n_17,2)."\n";
+                            $calc_e_2_5_n_17 = $e_2_5_n_7 >= 50 ? (100-(50 * 0.8)) / 100 : (100-(0.8 * $e_2_5_n_7)) / 100;
+                            if(truncate($e_2_5_n_17,2) != truncate($calc_e_2_5_n_17,2)){
+                                $mensajese[] =  "e.2.5.n.17 - El cálculo de DepreciacionPorEdad es erróneo ";
+                            }
                         }
                     }
+                    
                     
                 }else{
                     if(isset($elemento['id']) && $elemento['id'] == 'e.2.5'){
@@ -1900,15 +1904,18 @@ function valida_Calculos_e($data, $dataextra = false, $dataextrados = false, $b_
                             }
                         }
 
-                        if(isset($data[0]['TiposDeConstruccion']['ConstruccionesComunes']['DepreciacionPorEdad'])){
-                            $e_2_5_n_17 = $data[0]['TiposDeConstruccion']['ConstruccionesComunes']['DepreciacionPorEdad'];
-                            $e_2_5_n_7 = $data[0]['TiposDeConstruccion']['ConstruccionesComunes']['Edad'];
-                            //$calc_e_2_5_n_17 = (100-min(40,$e_2_5_n_7 * 1)) / 100; //echo "COMPARACION DepreciacionPorEdad ".truncate($e_2_1_n_17,2)." != ".truncate($calc_e_2_1_n_17,2)."\n";
-                            $calc_e_2_5_n_17 = $e_2_5_n_7 >= 50 ? (100-(50 * 0.8)) / 100 : (100-(0.8 * $e_2_5_n_7)) / 100;
-                            if(truncate($e_2_5_n_17,2) != truncate($calc_e_2_5_n_17,2)){
-                                $mensajese[] =  "e.2.5.n.17 - El cálculo de DepreciacionPorEdad es erróneo ";
+                        if($dataextra == '//Catastral'){
+                            if(isset($data[0]['TiposDeConstruccion']['ConstruccionesComunes']['DepreciacionPorEdad'])){
+                                $e_2_5_n_17 = $data[0]['TiposDeConstruccion']['ConstruccionesComunes']['DepreciacionPorEdad'];
+                                $e_2_5_n_7 = $data[0]['TiposDeConstruccion']['ConstruccionesComunes']['Edad'];
+                                //$calc_e_2_5_n_17 = (100-min(40,$e_2_5_n_7 * 1)) / 100; //echo "COMPARACION DepreciacionPorEdad ".truncate($e_2_1_n_17,2)." != ".truncate($calc_e_2_1_n_17,2)."\n";
+                                $calc_e_2_5_n_17 = $e_2_5_n_7 >= 50 ? (100-(50 * 0.8)) / 100 : (100-(0.8 * $e_2_5_n_7)) / 100;
+                                if(truncate($e_2_5_n_17,2) != truncate($calc_e_2_5_n_17,2)){
+                                    $mensajese[] =  "e.2.5.n.17 - El cálculo de DepreciacionPorEdad es erróneo ";
+                                }
                             }
                         }
+                        
                     }
                     
                 }            
@@ -1960,11 +1967,12 @@ function valida_Calculos($data, $letra, $dataextra = false, $dataextrados = fals
         if(isset($data[0]['SuperficieDelTerreno'])){
             if(isset($data[0]['SuperficieDelTerreno']['Fre']) && trim($data[0]['SuperficieDelTerreno']['Fre']) != ''){
                 $d_5_n_10 = $data[0]['SuperficieDelTerreno']['Fre'];
-                if(isset($data[0]['SuperficieDelTerreno']['Fot']['Valor']) && trim($data[0]['SuperficieDelTerreno']['Fot']['Valor']) != ''){
+                /*if(isset($data[0]['SuperficieDelTerreno']['Fot']['Valor']) && trim($data[0]['SuperficieDelTerreno']['Fot']['Valor']) != ''){
                     $calc_d_5_n_10 = $data[0]['SuperficieDelTerreno']['Fzo'] * $data[0]['SuperficieDelTerreno']['Fub'] * $data[0]['SuperficieDelTerreno']['FFr'] * $data[0]['SuperficieDelTerreno']['Ffo'] * $data[0]['SuperficieDelTerreno']['Fsu'] * $data[0]['SuperficieDelTerreno']['Fot']['Valor'];
                 }else{
                     $calc_d_5_n_10 = $data[0]['SuperficieDelTerreno']['Fzo'] * $data[0]['SuperficieDelTerreno']['Fub'] * $data[0]['SuperficieDelTerreno']['FFr'] * $data[0]['SuperficieDelTerreno']['Ffo'] * $data[0]['SuperficieDelTerreno']['Fsu'];
-                }
+                }*/
+                $calc_d_5_n_10 = $data[0]['SuperficieDelTerreno']['Factor1']['Valor'] * $data[0]['SuperficieDelTerreno']['Factor2']['Valor'] * $data[0]['SuperficieDelTerreno']['Factor3']['Valor'] * $data[0]['SuperficieDelTerreno']['Factor4']['Valor'] * $data[0]['SuperficieDelTerreno']['Factor5']['Valor'] * $data[0]['SuperficieDelTerreno']['Factor6']['Valor'] * $data[0]['SuperficieDelTerreno']['Factor7']['Valor'];
                 if(truncate($d_5_n_10,2) > truncate($calc_d_5_n_10,2)){
                     $mensajesd[] =  "d.5.n.10 - El cálculo de Fre es erróneo ";
                 }
@@ -2530,12 +2538,12 @@ function valida_Calculos($data, $letra, $dataextra = false, $dataextrados = fals
                 if(isset($elemento['@attributes']['id']) && $elemento['@attributes']['id'] == 'h.1.1'){
                     $h_1_1_n_17 = $elemento['Fre'];
 
-                    if(isset($elemento['Fot']) && trim($elemento['Fot']['Valor'] != '') && $elemento['Fot']['Valor'] > 0){
+                    /*if(isset($elemento['Fot']) && trim($elemento['Fot']['Valor'] != '') && $elemento['Fot']['Valor'] > 0){
                         $calc_h_1_1_n_17 = 1/($elemento['Fzo'] * $elemento['Fub'] * $elemento['FFr'] * $elemento['Ffo'] * $elemento['Fsu'] *  $elemento['Fot']['Valor']);
                     }else{
                         $calc_h_1_1_n_17 = 1/($elemento['Fzo'] * $elemento['Fub'] * $elemento['FFr'] * $elemento['Ffo'] * $elemento['Fsu']);
-                    }
-                    
+                    }*/
+                    $calc_h_1_1_n_17 = 1/($elemento['Factor1']['Valor'] * $elemento['Factor2']['Valor'] * $elemento['Factor3']['Valor'] * $elemento['Factor4']['Valor'] * $elemento['Factor5']['Valor']);
                     if(truncate($h_1_1_n_17,2) != truncate($calc_h_1_1_n_17,2)){
                         return  "h.1.1.n.17 - El cálculo de Fre es erróneo ";
                     }
