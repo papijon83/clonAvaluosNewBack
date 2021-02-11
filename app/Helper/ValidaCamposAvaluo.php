@@ -1745,7 +1745,8 @@ function valida_Calculos_e($data, $dataextra = false, $dataextrados = false, $b_
                     if(isset($data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['DepreciacionPorEdad'])){
                         $e_2_1_n_17 = $data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['DepreciacionPorEdad'];
                         $e_2_1_n_7 = $data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['Edad'];
-                        $calc_e_2_1_n_17 = (100-min(40,$e_2_1_n_7 * 1)) / 100; 
+                        //$calc_e_2_1_n_17 = (100-min(40,$e_2_1_n_7 * 1)) / 100;
+                        $calc_e_2_1_n_17 = $e_2_1_n_7 >= 50 ? (100-(50 * 0.8)) / 100 : (100-(0.8 * $e_2_1_n_7)) / 100;
                         if(truncate($e_2_1_n_17,2) != truncate($calc_e_2_1_n_17,2)){ //echo "COMPARACION DepreciacionPorEdad ".truncate($e_2_1_n_17,2)." != ".truncate($calc_e_2_1_n_17,2)."\n";
                             $mensajese[] =  "e.2.1.n.15 - El cálculo de ValorDeLaFraccionN es erróneo ";
                         }
