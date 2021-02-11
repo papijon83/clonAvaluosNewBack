@@ -1414,9 +1414,11 @@
                         <tr>
                             <td><b>e) INSTALACIONES ELÉCTRICAS Y ALUMBRADO</b></td>
                             <td>
-                            @isset($infoAvaluo['Instalaciones_Electricas_Alumbrados'])
-                                <span class="grises">{{$infoAvaluo['Instalaciones_Electricas_Alumbrados']}}</span>
-                            @endisset
+                            @if(isset($infoAvaluo['Instalaciones_Electricas_Alumbrados']))
+                                @if(!is_array($infoAvaluo['Instalaciones_Electricas_Alumbrados']))
+                                    <span class="grises">{{$infoAvaluo['Instalaciones_Electricas_Alumbrados']}}</span>
+                                @endif
+                            @endif
                             </td>
                         </tr>
                     </table>
