@@ -1001,7 +1001,7 @@ class BandejaEntradaController extends Controller
                     }
                 }
                 //Log::info($arrn);
-                return response()->json(['mensajes' => $this->reordenaErrores($arrn)], 500);
+                return response()->json(['mensaje' => $this->reordenaErrores($arrn)], 500);
             }
             $this->guardaAvance($nombreArchivo,55);
             //echo $this->fileXML->asXML(); exit();
