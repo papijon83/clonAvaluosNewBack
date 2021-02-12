@@ -3481,7 +3481,9 @@
 
                     <p class="letras_pequenas">
                         @if(isset($infoAvaluo['Consideraciones']))
-                            <span class="grises">{{ $infoAvaluo['Consideraciones'] }}</span>
+                            @if(!is_array($infoAvaluo['Consideraciones']))
+                                <span class="grises">{{ $infoAvaluo['Consideraciones'] }}</span>
+                            @endif
                         @endif
                     </p>
 
