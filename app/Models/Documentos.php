@@ -76,7 +76,7 @@ class Documentos
         $idDocumentoDigital = 0;
         //$descripcion = $nombreFoto;
         $fecha_ini = new Carbon($fechaAvaluo);
-        $fecha = $fecha_ini->format('d/m/y');
+        $fecha = $fecha_ini->format('Y/m/d');
         //echo "SOY FECHA ".$fecha; exit();
         $procedure = 'BEGIN
         DOC.DOC_DOCUMENTOS_DIGITALES_PCKG.DOC_INSERTDOCUMENTODIGITAL_P(
