@@ -410,14 +410,21 @@ class Documentos
         return $arrInfo->binariodatos;
     }
 
-    public function get_nombre_perito($claveValuador){
+    public function get_nombre_perito($claveValuador){ //echo "SELECT IDPERSONA FROM RCON.RCON_PERITO WHERE REGISTRO = '$claveValuador'"; exit();
         $info = DB::select("SELECT IDPERSONA FROM RCON.RCON_PERITO WHERE REGISTRO = '$claveValuador'");
         $arrInfo = convierte_a_arreglo($info); //print_r($arrInfo->binariodatos); exit();
-        $idpersona = $arrInfo[0]['idpersona'];
-        $infoNombre = DB::select("SELECT APELLIDOPATERNO, APELLIDOMATERNO, NOMBRE FROM RCON.RCON_PERSONAFISICA WHERE IDPERSONA = $idpersona");
-        $arrInfoPersona = convierte_a_arreglo($infoNombre); //print_r($arrInfo->binariodatos); exit();
-        $nombrePerito = $arrInfoPersona[0]['apellidopaterno']." ".$arrInfoPersona[0]['apellidomaterno']." ".$arrInfoPersona[0]['nombre'];
-        return $nombrePerito;
+        
+        if(count($arrInfo) > 0){
+            $idpersona = $arrInfo[0]['idpersona'];
+            $infoNombre = DB::select("SELECT APELLIDOPATERNO, APELLIDOMATERNO, NOMBRE FROM RCON.RCON_PERSONAFISICA WHERE IDPERSONA = $idpersona");
+            $arrInfoPersona = convierte_a_arreglo($infoNombre); //print_r($arrInfo->binariodatos); exit();
+            $nombrePerito = $arrInfoPersona[0]['apellidopaterno']." ".$arrInfoPersona[0]['apellidomaterno']." ".$arrInfoPersona[0]['nombre'];
+            return $nombrePerito;
+        }else{
+            //Esto puede suceder debido a que en algunos XML ya cargados la clave del valuador tiene ceros de mas o ceros de menos comparadas con las claves que estan en la BD
+            return '';
+        }
+        
     }
     
 }
