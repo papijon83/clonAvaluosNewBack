@@ -376,7 +376,7 @@ class Reimpresion
 
         $infoReimpresion['Topografia_Configuracion'] = array();
         $infoReimpresion['Topografia_Configuracion']['Caracteristicas_Panoramicas'] = $arrFexava['tecaracteristicasparonamicas'];
-        $infoReimpresion['Topografia_Configuracion']['Densidad_Habitacional'] = $arrFexava['tecoddensidadhabitacional'];
+        $infoReimpresion['Topografia_Configuracion']['Densidad_Habitacional'] = $this->modelDocumentos->get_densidad_habitacional($arrFexava['tecoddensidadhabitacional']);
         $infoReimpresion['Topografia_Configuracion']['Servidumbre_Restricciones'] = $arrFexava['teservidumbresorestricciones'];
 
         $infoReimpresion['Uso_Actual'] = $arrFexava['diusoactual'];

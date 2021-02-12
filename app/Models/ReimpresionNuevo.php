@@ -302,11 +302,11 @@ class ReimpresionNuevo
         $fuenteDeInformacion = $terreno['MedidasYColindancias']['FuenteDeInformacionLegal'];
 
         $infoReimpresion['Medidas_Colindancias']['Fuente'] = isset($fuenteDeInformacion['Escritura']) ? 'Escritura' : '';
-        $infoReimpresion['Medidas_Colindancias']['Numero_Escritura'] = $fuenteDeInformacion['Escritura']['NumeroDeEscritura'];
-        $infoReimpresion['Medidas_Colindancias']['Numero_Notaria'] = $fuenteDeInformacion['Escritura']['NumeroNotaria'];
-        $infoReimpresion['Medidas_Colindancias']['Entidad_Federativa'] = $fuenteDeInformacion['Escritura']['DistritoJudicialNotario'];
-        $infoReimpresion['Medidas_Colindancias']['Numero_Volumen'] = $fuenteDeInformacion['Escritura']['NumeroDeVolumen'];
-        $infoReimpresion['Medidas_Colindancias']['Nombre_Notario'] = $fuenteDeInformacion['Escritura']['NombreDelNotario'];
+        $infoReimpresion['Medidas_Colindancias']['Numero_Escritura'] = isset($fuenteDeInformacion['Escritura']['NumeroDeEscritura']) ? $fuenteDeInformacion['Escritura']['NumeroDeEscritura'] : '';
+        $infoReimpresion['Medidas_Colindancias']['Numero_Notaria'] = isset($fuenteDeInformacion['Escritura']['NumeroNotaria']) ? $fuenteDeInformacion['Escritura']['NumeroNotaria'] : '';
+        $infoReimpresion['Medidas_Colindancias']['Entidad_Federativa'] = isset($fuenteDeInformacion['Escritura']['DistritoJudicialNotario']) ? $fuenteDeInformacion['Escritura']['DistritoJudicialNotario'] : '';
+        $infoReimpresion['Medidas_Colindancias']['Numero_Volumen'] = isset($fuenteDeInformacion['Escritura']['NumeroDeVolumen']) ? $fuenteDeInformacion['Escritura']['NumeroDeVolumen'] : '';
+        $infoReimpresion['Medidas_Colindancias']['Nombre_Notario'] = isset($fuenteDeInformacion['Escritura']['NombreDelNotario']) ? $fuenteDeInformacion['Escritura']['NombreDelNotario'] : '';
         
         /************************************************************************************************************************************************************************/
 
@@ -376,7 +376,7 @@ class ReimpresionNuevo
 
         $infoReimpresion['Topografia_Configuracion'] = array();
         $infoReimpresion['Topografia_Configuracion']['Caracteristicas_Panoramicas'] = $arrFexava['tecaracteristicasparonamicas'];
-        $infoReimpresion['Topografia_Configuracion']['Densidad_Habitacional'] = $arrFexava['tecoddensidadhabitacional'];
+        $infoReimpresion['Topografia_Configuracion']['Densidad_Habitacional'] = $this->modelDocumentos->get_densidad_habitacional($arrFexava['tecoddensidadhabitacional']);
         $infoReimpresion['Topografia_Configuracion']['Servidumbre_Restricciones'] = $arrFexava['teservidumbresorestricciones'];
 
         $infoReimpresion['Uso_Actual'] = $arrFexava['diusoactual'];
@@ -398,7 +398,7 @@ class ReimpresionNuevo
             $infoReimpresion['Construcciones_Privativas']['Clase'] = $this->modelFis->getClase($tiposContruccion['ConstruccionesPrivativas']['ClaveClase']);
             $infoReimpresion['Construcciones_Privativas']['Edad'] = $tiposContruccion['ConstruccionesPrivativas']['Edad'];
             $infoReimpresion['Construcciones_Privativas']['Vida_Util_Total_Tipo'] = $tiposContruccion['ConstruccionesPrivativas']['VidaUtilTotalDelTipo'];
-            $infoReimpresion['Construcciones_Privativas']['Vida_Util_Remanente'] = isset($tiposContruccion['ConstruccionesPrivativas']['VidaUtilRemanente']) ? $tiposContruccion['ConstruccionesPrivativas']['VidaUtilRemanente'] : $tiposContruccion['ConstruccionesPrivativas']['VidaMinimaRemanente'];
+            $infoReimpresion['Construcciones_Privativas']['Vida_Util_Remanente'] = $tiposContruccion['ConstruccionesPrivativas']['VidaUtilRemanente'];
             $infoReimpresion['Construcciones_Privativas']['Conservacion'] = $tiposContruccion['ConstruccionesPrivativas']['ClaveConservacion'];
             $infoReimpresion['Construcciones_Privativas']['Sup'] = $tiposContruccion['ConstruccionesPrivativas']['Superficie'];
         }
@@ -415,7 +415,7 @@ class ReimpresionNuevo
                 $infoReimpresion['Construcciones_Privativas'][$control]['Clase'] = $this->modelFis->getClase($construccionPrivativa['ClaveClase']);
                 $infoReimpresion['Construcciones_Privativas'][$control]['Edad'] = $construccionPrivativa['Edad'];
                 $infoReimpresion['Construcciones_Privativas'][$control]['Vida_Util_Total_Tipo'] = $construccionPrivativa['VidaUtilTotalDelTipo'];
-                $infoReimpresion['Construcciones_Privativas'][$control]['Vida_Util_Remanente'] = isset($construccionPrivativa['VidaUtilRemanente']) ? $construccionPrivativa['VidaUtilRemanente'] : $construccionPrivativa['VidaMinimaRemanente'];
+                $infoReimpresion['Construcciones_Privativas'][$control]['Vida_Util_Remanente'] = $construccionPrivativa['VidaUtilRemanente'];
                 $infoReimpresion['Construcciones_Privativas'][$control]['Conservacion'] = $construccionPrivativa['ClaveConservacion'];
                 $infoReimpresion['Construcciones_Privativas'][$control]['Sup'] = $construccionPrivativa['Superficie'];
                 $control = $control + 1;
@@ -432,7 +432,7 @@ class ReimpresionNuevo
             $infoReimpresion['Construcciones_Comunes']['Clase'] = $this->modelFis->getClase($tiposContruccion['ConstruccionesComunes']['ClaveClase']);
             $infoReimpresion['Construcciones_Comunes']['Edad'] = $tiposContruccion['ConstruccionesComunes']['Edad'];
             $infoReimpresion['Construcciones_Comunes']['Vida_Util_Total_Tipo'] = $tiposContruccion['ConstruccionesComunes']['VidaUtilTotalDelTipo'];
-            $infoReimpresion['Construcciones_Comunes']['Vida_Util_Remanente'] = isset($tiposContruccion['ConstruccionesComunes']['VidaUtilRemanente']) ? $tiposContruccion['ConstruccionesComunes']['VidaUtilRemanente'] : $tiposContruccion['ConstruccionesComunes']['VidaMinimaRemanente'];
+            $infoReimpresion['Construcciones_Comunes']['Vida_Util_Remanente'] = $tiposContruccion['ConstruccionesComunes']['VidaUtilRemanente'];
             $infoReimpresion['Construcciones_Comunes']['Conservacion'] = $tiposContruccion['ConstruccionesComunes']['ClaveConservacion'];
             $infoReimpresion['Construcciones_Comunes']['Sup'] = $tiposContruccion['ConstruccionesComunes']['Superficie'];
         }
@@ -449,7 +449,7 @@ class ReimpresionNuevo
                 $infoReimpresion['Construcciones_Comunes'][$control]['Clase'] = $this->modelFis->getClase($construccionComun['ClaveClase']);
                 $infoReimpresion['Construcciones_Comunes'][$control]['Edad'] = $construccionComun['Edad'];
                 $infoReimpresion['Construcciones_Comunes'][$control]['Vida_Util_Total_Tipo'] = $construccionComun['VidaUtilTotalDelTipo'];
-                $infoReimpresion['Construcciones_Comunes'][$control]['Vida_Util_Remanente'] = isset($construccionComun['VidaUtilRemanente']) ? $construccionComun['VidaUtilRemanente'] : $construccionComun['VidaMinimaRemanente'];
+                $infoReimpresion['Construcciones_Comunes'][$control]['Vida_Util_Remanente'] = $construccionComun['VidaUtilRemanente'];
                 $infoReimpresion['Construcciones_Comunes'][$control]['Conservacion'] = $construccionComun['ClaveConservacion'];
                 $infoReimpresion['Construcciones_Comunes'][$control]['Sup'] = $construccionComun['Superficie'];
                 $control = $control + 1;
@@ -507,8 +507,9 @@ class ReimpresionNuevo
         $infoReimpresion['Instalaciones_Hidraulicas_Sanitrias']['Muebles_Banio'] = $hidraulicasSanitarias['MueblesDeBanno'];
         $infoReimpresion['Instalaciones_Hidraulicas_Sanitrias']['Ramaleos_Hidraulicos'] = $hidraulicasSanitarias['RamaleosHidraulicos'];
         $infoReimpresion['Instalaciones_Hidraulicas_Sanitrias']['Ramaleos_Sanitarios'] = $hidraulicasSanitarias['RamaleosSanitarios'];
-
-        $infoReimpresion['Instalaciones_Electricas_Alumbrados'] = $elementosConstruccion['InstalacionesElectricasYAlumbrado'];
+        if(isset($elementosConstruccion['InstalacionesElectricasYAlumbrado'])){
+            $infoReimpresion['Instalaciones_Electricas_Alumbrados'] = $elementosConstruccion['InstalacionesElectricasYAlumbrado'];
+        }    
 
         /************************************************************************************************************************************************************************/
 
@@ -878,38 +879,53 @@ class ReimpresionNuevo
 
             /************************************************************************************************************************************************************************/
 
-            $infoReimpresion['Construcciones_En_Renta'] = array();
-            $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables'] = array();
-            $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaUno'] = array();
-            $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos'] = array();
+            if(isset($enfoqueMercado['ConstruccionesEnRenta'])){
+                $infoReimpresion['Construcciones_En_Renta'] = array();
+                $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables'] = array();
+                $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaUno'] = array();
+                $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos'] = array();
 
-            $construccionesEnRenta = $enfoqueMercado['ConstruccionesEnRenta'];
-            $investigacionProductosComparables = $construccionesEnRenta['InvestigacionProductosComparables'];
+                $construccionesEnRenta = $enfoqueMercado['ConstruccionesEnRenta'];
+                $investigacionProductosComparables = $construccionesEnRenta['InvestigacionProductosComparables'];
+                $control = 0;
+                if(isset($investigacionProductosComparables['@attributes'])){
+                    $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaUno'][$control]['Ubicacion'] = $investigacionProductosComparables['Calle'].". ".$investigacionProductosComparables['Colonia'].". ".$investigacionProductosComparables['CodigoPostal'];
+                    $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaUno'][$control]['Descripcion'] = $investigacionProductosComparables['DescripcionDelComparable'];
 
-            $control = 0;
-            foreach($investigacionProductosComparables as $productoComparable){
-                $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaUno'][$control]['Ubicacion'] = $productoComparable['Calle'].". ".$productoComparable['Colonia'].". ".$productoComparable['CodigoPostal'];
-                $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaUno'][$control]['Descripcion'] = $productoComparable['DescripcionDelComparable'];
+                    $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos'][$control]['F_Negociacion'] = $investigacionProductosComparables['FactorDeNegociacion'];
+                    $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos'][$control]['Superficie_Vendible'] = $investigacionProductosComparables['SuperficieVendiblePorUnidad'];
+                    $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos'][$control]['Precio_Solicitado'] = $investigacionProductosComparables['PrecioSolicitado'];
+                }else{
+                    if(isset($investigacionProductosComparables[0])){
+                        
+                        foreach($investigacionProductosComparables as $productoComparable){
+                            $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaUno'][$control]['Ubicacion'] = $productoComparable['Calle'].". ".$productoComparable['Colonia'].". ".$productoComparable['CodigoPostal'];
+                            $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaUno'][$control]['Descripcion'] = $productoComparable['DescripcionDelComparable'];
 
-                $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos'][$control]['F_Negociacion'] = $productoComparable['FactorDeNegociacion'];
-                $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos'][$control]['Superficie_Vendible'] = $productoComparable['SuperficieVendiblePorUnidad'];
-                $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos'][$control]['Precio_Solicitado'] = $productoComparable['PrecioSolicitado'];
+                            $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos'][$control]['F_Negociacion'] = $productoComparable['FactorDeNegociacion'];
+                            $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos'][$control]['Superficie_Vendible'] = $productoComparable['SuperficieVendiblePorUnidad'];
+                            $infoReimpresion['Construcciones_En_Renta']['Investigacion_Productos_Comparables']['TablaDos'][$control]['Precio_Solicitado'] = $productoComparable['PrecioSolicitado'];
 
-                $control = $control + 1;
-            }
+                            $control = $control + 1;
+                        }
+                    }
+                }
+                
 
-            $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta'] = array();
-            //Se usa ConclusionesHomologacionConstruccionesEnVenta porque asi llega en el XML
-            $conclusionesHomologacionContruccionesRenta = $construccionesEnRenta['ConclusionesHomologacionConstruccionesEnVenta'];
+                $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta'] = array();
+                //Se usa ConclusionesHomologacionConstruccionesEnVenta porque asi llega en el XML
+                $conclusionesHomologacionContruccionesRenta = $construccionesEnRenta['ConclusionesHomologacionConstruccionesEnVenta'];
 
-            $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Promedio'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioPromedio'];
-            $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologado'];
-            $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Sin_Homolgar_Minimo'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioSinHomologarMinimo'];
-            $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Sin_Homolgar_Maximo'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioSinHomologarMaximo'];
-            $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado_Minimo'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologadoMinimo'];
-            $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado_Maximo']  = $conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologadoMaximo'];
+                $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Promedio'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioPromedio'];
+                $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologado'];
+                $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Sin_Homolgar_Minimo'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioSinHomologarMinimo'];
+                $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Sin_Homolgar_Maximo'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioSinHomologarMaximo'];
+                $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado_Minimo'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologadoMinimo'];
+                $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado_Maximo']  = $conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologadoMaximo'];
 
-            $infoReimpresion['Construcciones_En_Renta']['Valor_Unitario_Aplicable_Avaluo'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioAplicableAlAvaluo'];
+                $infoReimpresion['Construcciones_En_Renta']['Valor_Unitario_Aplicable_Avaluo'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioAplicableAlAvaluo'];
+
+            }        
 
     }
         /************************************************************************************************************************************************************************/
@@ -976,8 +992,8 @@ class ReimpresionNuevo
                 $infoReimpresion['Calculo_Valor_Construcciones']['Privativas']['Uso'] = $tiposContruccion['ConstruccionesPrivativas']['ClaveUso'];
                 $infoReimpresion['Calculo_Valor_Construcciones']['Privativas']['Clase'] = $this->modelFis->getClase($tiposContruccion['ConstruccionesPrivativas']['ClaveClase']);
                 $infoReimpresion['Calculo_Valor_Construcciones']['Privativas']['Superficie_m2'] = $tiposContruccion['ConstruccionesPrivativas']['Superficie'];
-                $infoReimpresion['Calculo_Valor_Construcciones']['Privativas']['Valor_Unitario'] = isset($tiposContruccion['ConstruccionesPrivativas']['ValorunitariodereposicionNuevo']) ? $tiposContruccion['ConstruccionesPrivativas']['ValorunitariodereposicionNuevo'] : $tiposContruccion['ConstruccionesPrivativas']['CostounitariodereposicionNuevo'];
-                $infoReimpresion['Calculo_Valor_Construcciones']['Privativas']['Edad'] = isset($tiposContruccion['ConstruccionesPrivativas']['Edad']) ? $tiposContruccion['ConstruccionesPrivativas']['Edad'] : $tiposContruccion['ConstruccionesPrivativas']['IndicedelcostoRemanente'];
+                $infoReimpresion['Calculo_Valor_Construcciones']['Privativas']['Valor_Unitario'] = $tiposContruccion['ConstruccionesPrivativas']['ValorunitariodereposicionNuevo'];
+                $infoReimpresion['Calculo_Valor_Construcciones']['Privativas']['Edad'] = $tiposContruccion['ConstruccionesPrivativas']['Edad'];
                 $infoReimpresion['Calculo_Valor_Construcciones']['Privativas']['Fco'] = $tiposContruccion['ConstruccionesPrivativas']['ClaveConservacion'];
                 $infoReimpresion['Calculo_Valor_Construcciones']['Privativas']['FRe'] = $tiposContruccion['ConstruccionesPrivativas']['FactorResultante'];
                 $infoReimpresion['Calculo_Valor_Construcciones']['Privativas']['Valor_Fraccion'] = $tiposContruccion['ConstruccionesPrivativas']['ValorDeLaFraccionN'];            
@@ -991,8 +1007,8 @@ class ReimpresionNuevo
                     $infoReimpresion['Calculo_Valor_Construcciones']['Privativas'][$control]['Uso'] = $construccionPrivativa['ClaveUso'];
                     $infoReimpresion['Calculo_Valor_Construcciones']['Privativas'][$control]['Clase'] = $this->modelFis->getClase($construccionPrivativa['ClaveClase']);
                     $infoReimpresion['Calculo_Valor_Construcciones']['Privativas'][$control]['Superficie_m2'] = $construccionPrivativa['Superficie'];
-                    $infoReimpresion['Calculo_Valor_Construcciones']['Privativas'][$control]['Valor_Unitario'] = isset($construccionPrivativa['ValorunitariodereposicionNuevo']) ? $construccionPrivativa['ValorunitariodereposicionNuevo'] : $construccionPrivativa['CostounitariodereposicionNuevo'];
-                    $infoReimpresion['Calculo_Valor_Construcciones']['Privativas'][$control]['Edad'] = isset($construccionPrivativa['Edad']) ? $construccionPrivativa['Edad'] : $construccionPrivativa['IndicedelcostoRemanente'];
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Privativas'][$control]['Valor_Unitario'] = $construccionPrivativa['ValorunitariodereposicionNuevo'];
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Privativas'][$control]['Edad'] = $construccionPrivativa['Edad'];
                     $infoReimpresion['Calculo_Valor_Construcciones']['Privativas'][$control]['Fco'] = $construccionPrivativa['ClaveConservacion'];
                     $infoReimpresion['Calculo_Valor_Construcciones']['Privativas'][$control]['FRe'] = $construccionPrivativa['FactorResultante'];
                     $infoReimpresion['Calculo_Valor_Construcciones']['Privativas'][$control]['Valor_Fraccion'] = $construccionPrivativa['ValorDeLaFraccionN'];
@@ -1010,8 +1026,8 @@ class ReimpresionNuevo
                 $infoReimpresion['Calculo_Valor_Construcciones']['Comunes']['Uso'] = $tiposContruccion['ConstruccionesComunes']['ClaveUso'];
                 $infoReimpresion['Calculo_Valor_Construcciones']['Comunes']['Clase'] = $this->modelFis->getClase($tiposContruccion['ConstruccionesComunes']['ClaveClase']);
                 $infoReimpresion['Calculo_Valor_Construcciones']['Comunes']['Superficie_m2'] = $tiposContruccion['ConstruccionesComunes']['Superficie'];
-                $infoReimpresion['Calculo_Valor_Construcciones']['Comunes']['Valor_Unitario'] = isset($tiposContruccion['ConstruccionesComunes']['ValorunitariodereposicionNuevo']) ? $tiposContruccion['ConstruccionesComunes']['ValorunitariodereposicionNuevo'] : $tiposContruccion['ConstruccionesComunes']['CostounitariodereposicionNuevo'];
-                $infoReimpresion['Calculo_Valor_Construcciones']['Comunes']['Edad'] = isset($tiposContruccion['ConstruccionesComunes']['Edad']) ? $tiposContruccion['ConstruccionesComunes']['Edad'] : $tiposContruccion['ConstruccionesComunes']['IndicedelcostoRemanente'];
+                $infoReimpresion['Calculo_Valor_Construcciones']['Comunes']['Valor_Unitario'] = $tiposContruccion['ConstruccionesComunes']['ValorunitariodereposicionNuevo'];
+                $infoReimpresion['Calculo_Valor_Construcciones']['Comunes']['Edad'] = $tiposContruccion['ConstruccionesComunes']['Edad'];
                 $infoReimpresion['Calculo_Valor_Construcciones']['Comunes']['Fco'] = $tiposContruccion['ConstruccionesComunes']['ClaveConservacion'];
                 $infoReimpresion['Calculo_Valor_Construcciones']['Comunes']['FRe'] = $tiposContruccion['ConstruccionesComunes']['FactorResultante'];
                 $infoReimpresion['Calculo_Valor_Construcciones']['Comunes']['Valor_Fraccion'] = $tiposContruccion['ConstruccionesComunes']['ValorDeLaFraccionN'];
@@ -1026,8 +1042,8 @@ class ReimpresionNuevo
                     $infoReimpresion['Calculo_Valor_Construcciones']['Comunes'][$control]['Uso'] = $construccionComun['ClaveUso'];
                     $infoReimpresion['Calculo_Valor_Construcciones']['Comunes'][$control]['Clase'] = $this->modelFis->getClase($construccionComun['ClaveClase']);
                     $infoReimpresion['Calculo_Valor_Construcciones']['Comunes'][$control]['Superficie_m2'] = $construccionComun['Superficie'];
-                    $infoReimpresion['Calculo_Valor_Construcciones']['Comunes'][$control]['Valor_Unitario'] = isset($construccionComun['ValorunitariodereposicionNuevo']) ? $construccionComun['ValorunitariodereposicionNuevo'] : $construccionComun['CostounitariodereposicionNuevo'];
-                    $infoReimpresion['Calculo_Valor_Construcciones']['Comunes'][$control]['Edad'] = isset($construccionComun['Edad']) ? $construccionComun['Edad'] : $construccionComun['IndicedelcostoRemanente'];
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Comunes'][$control]['Valor_Unitario'] = $construccionComun['ValorunitariodereposicionNuevo'];
+                    $infoReimpresion['Calculo_Valor_Construcciones']['Comunes'][$control]['Edad'] = $construccionComun['Edad'];
                     $infoReimpresion['Calculo_Valor_Construcciones']['Comunes'][$control]['Fco'] = $construccionComun['ClaveConservacion'];
                     $infoReimpresion['Calculo_Valor_Construcciones']['Comunes'][$control]['FRe'] = $construccionComun['FactorResultante'];
                     $infoReimpresion['Calculo_Valor_Construcciones']['Comunes'][$control]['Valor_Fraccion'] = $construccionComun['ValorDeLaFraccionN'];
@@ -1322,16 +1338,36 @@ class ReimpresionNuevo
         if(isset($enfoqueMercado['ConstruccionesEnRenta'])){
             $infoReimpresion['Renta_Estimada'] = array();
             $construccionesEnRenta = $enfoqueMercado['ConstruccionesEnRenta'];
-            $investigacionProductosComparables = $construccionesEnRenta['InvestigacionProductosComparables'];
+            $investigacionProductosComparables = $construccionesEnRenta['InvestigacionProductosComparables']; 
             $control = 0;
-            foreach($investigacionProductosComparables as $productoComparable){
-                $infoReimpresion['Renta_Estimada'][$control]['Ubicacion'] = $productoComparable['Calle'].". ".$productoComparable['Colonia'].". ".$productoComparable['CodigoPostal'];
-                $infoReimpresion['Renta_Estimada'][$control]['Superficie_m2'] = $productoComparable['SuperficieVendiblePorUnidad'];
-                $infoReimpresion['Renta_Estimada'][$control]['Renta_Mensual'] = $productoComparable['PrecioSolicitado'];
-                $infoReimpresion['Renta_Estimada'][$control]['Renta_m2'] = $productoComparable['PrecioSolicitado'] / $productoComparable['SuperficieVendiblePorUnidad'];    
+            if(isset($investigacionProductosComparables['@attributes'])){
+                $infoReimpresion['Renta_Estimada'][$control]['Ubicacion'] = $investigacionProductosComparables['Calle'].". ".$investigacionProductosComparables['Colonia'].". ".$investigacionProductosComparables['CodigoPostal'];
+                $infoReimpresion['Renta_Estimada'][$control]['Superficie_m2'] = $investigacionProductosComparables['SuperficieVendiblePorUnidad'];
+                $infoReimpresion['Renta_Estimada'][$control]['Renta_Mensual'] = $investigacionProductosComparables['PrecioSolicitado'];
+                if(trim($investigacionProductosComparables['PrecioSolicitado']) == 0 && trim($investigacionProductosComparables['SuperficieVendiblePorUnidad']) == 0){
+                    $infoReimpresion['Renta_Estimada'][$control]['Renta_m2'] = 0;    
+                }else{
+                    $infoReimpresion['Renta_Estimada'][$control]['Renta_m2'] = $investigacionProductosComparables['PrecioSolicitado'] / $investigacionProductosComparables['SuperficieVendiblePorUnidad'];    
+                }
+                //$infoReimpresion['Renta_Estimada'][$control]['Renta_m2'] = $investigacionProductosComparables['PrecioSolicitado'] / $investigacionProductosComparables['SuperficieVendiblePorUnidad'];
+            }else{
+                if(isset($investigacionProductosComparables[0])){                    
+                    foreach($investigacionProductosComparables as $productoComparable){
+                        $infoReimpresion['Renta_Estimada'][$control]['Ubicacion'] = $productoComparable['Calle'].". ".$productoComparable['Colonia'].". ".$productoComparable['CodigoPostal'];
+                        $infoReimpresion['Renta_Estimada'][$control]['Superficie_m2'] = $productoComparable['SuperficieVendiblePorUnidad'];
+                        $infoReimpresion['Renta_Estimada'][$control]['Renta_Mensual'] = $productoComparable['PrecioSolicitado'];
+                        if(trim($productoComparable['PrecioSolicitado']) === 0 && trim($productoComparable['SuperficieVendiblePorUnidad']) === 0){
+                            $infoReimpresion['Renta_Estimada'][$control]['Renta_m2'] = 0;    
+                        }else{
+                            $infoReimpresion['Renta_Estimada'][$control]['Renta_m2'] = $productoComparable['SuperficieVendiblePorUnidad'] == 0 ? $productoComparable['PrecioSolicitado'] : $productoComparable['PrecioSolicitado'] / $productoComparable['SuperficieVendiblePorUnidad'];    
+                        }
+                        
 
-                $control = $control + 1;
+                        $control = $control + 1;
+                    }
+                }
             }
+            
         }
         
         if(isset($elementoPrincipal['EnfoqueDeIngresos'])){
@@ -1383,13 +1419,14 @@ class ReimpresionNuevo
             $infoReimpresion['Consideramos_Que_Valor_Catastral_Corresponde'] = $conclusionAvaluo['ValorCatastralDelInmueble'];
         } 
 
-        if(isset($elementoPrincipal['ValorReferido'])){
-            $infoReimpresion['Valor_Referido'] = array();
+        if(isset($elementoPrincipal['ValorReferido'])){            
             $valorReferido = $elementoPrincipal['ValorReferido'];
-
-            $infoReimpresion['Valor_Referido']['Valor_Referido'] = $valorReferido['ValorReferido'];
-            $infoReimpresion['Valor_Referido']['Fecha'] = $valorReferido['FechaDeValorReferido'];
-            $infoReimpresion['Valor_Referido']['Factor'] = $valorReferido['FactorDeConversion'];
+            if(isset($valorReferido['ValorReferido'])){
+                $infoReimpresion['Valor_Referido'] = array();
+                $infoReimpresion['Valor_Referido']['Valor_Referido'] = $valorReferido['ValorReferido'];
+                $infoReimpresion['Valor_Referido']['Fecha'] = $valorReferido['FechaDeValorReferido'];
+                $infoReimpresion['Valor_Referido']['Factor'] = $valorReferido['FactorDeConversion'];
+            }            
         }
 
         $infoReimpresion['Perito_Valuador'] = $this->modelDocumentos->get_nombre_perito($identificacion['ClaveValuador']);

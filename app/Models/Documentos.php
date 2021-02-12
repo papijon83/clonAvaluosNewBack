@@ -294,6 +294,12 @@ class Documentos
         return $arrDensidadPoblacion[0]['descripcion'];
     }
 
+    public function get_densidad_habitacional($codDensidadHabitacional){
+        $densidadHabitacional = DB::select("SELECT DESCRIPCION FROM FEXAVA_CATDENSIDADHAB WHERE CODDENSIDADHABITACIONAL = $codDensidadHabitacional");
+        $arrDensidadHabitacional = convierte_a_arreglo($densidadHabitacional);
+        return $arrDensidadHabitacional[0]['descripcion'];
+    }
+
     public function get_nivel_socioeconomico_zona($codNivelSocioeconomico){
         $nivelSocioecon = DB::select("SELECT DESCRIPCION FROM FEXAVA_CATNIVELSOCIOECON WHERE CODNIVELSOCIOECONOMICO = $codNivelSocioeconomico");
         $arrNivelSocioecon = convierte_a_arreglo($nivelSocioecon);

@@ -14,6 +14,7 @@ use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Hamcrest\Arrays\IsArray;
 use Log;
 
 class BandejaEntradaNuevoController extends Controller
@@ -855,13 +856,13 @@ class BandejaEntradaNuevoController extends Controller
             $this->modelAva = new Ava();
             $this->modelFis = new Fis();
             //Id Persona de usuarios migrados es el id anterior
-            /*$authToken = $request->header('Authorization');
+            $authToken = $request->header('Authorization');
             if (!$authToken) {
                 return response()->json(['mensaje' => 'Sin acceso a la aplicación'], 403);
             } 
             $resToken = Crypt::decrypt($authToken);
             
-            $idPersona = empty($resToken['id_anterior']) ? $resToken['id_usuario']: $resToken['id_anterior'];*/ $idPersona = 264;
+            $idPersona = empty($resToken['id_anterior']) ? $resToken['id_usuario']: $resToken['id_anterior']; //$idPersona = 264;
 
             $file = $request->file('files');
             $myfile = fopen($file, "r");
@@ -1000,7 +1001,7 @@ class BandejaEntradaNuevoController extends Controller
                     }
                 }
                 //Log::info($arrn);
-                return response()->json(['mensaje' => $arrn], 500);
+                return response()->json(['mensaje' => $this->reordenaErrores($arrn)], 500);
             }
             $this->guardaAvance($nombreArchivo,55);
             //echo $this->fileXML->asXML(); exit();
@@ -1033,6 +1034,28 @@ class BandejaEntradaNuevoController extends Controller
             return response()->json(['mensaje' => 'Error en el servidor'], 500);
         }
         
+    }
+
+    public function reordenaErrores($arrn){
+        $control = 0;
+        $arregloFinal = array();
+        foreach($arrn as $elemArr){
+            if(is_array($elemArr)){
+                foreach($elemArr as $elem){
+                    if(is_array($elem)){
+                        foreach($elem as $el){
+                            $arregloFinal[] = array($el);
+                        }
+                    }else{
+                        $arregloFinal[] = array($elem);
+                    }
+                }
+            }else{
+                $arregloFinal[] = array($elemArr);
+            }
+        }
+        //print_r($arregloFinal); exit();
+        return $arregloFinal;
     }
 
     public function limpiaRepetidos($arrn){
