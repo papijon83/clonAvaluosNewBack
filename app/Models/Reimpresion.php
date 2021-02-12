@@ -507,8 +507,9 @@ class Reimpresion
         $infoReimpresion['Instalaciones_Hidraulicas_Sanitrias']['Muebles_Banio'] = $hidraulicasSanitarias['MueblesDeBanno'];
         $infoReimpresion['Instalaciones_Hidraulicas_Sanitrias']['Ramaleos_Hidraulicos'] = $hidraulicasSanitarias['RamaleosHidraulicos'];
         $infoReimpresion['Instalaciones_Hidraulicas_Sanitrias']['Ramaleos_Sanitarios'] = $hidraulicasSanitarias['RamaleosSanitarios'];
-
-        $infoReimpresion['Instalaciones_Electricas_Alumbrados'] = $elementosConstruccion['InstalacionesElectricasYAlumbrado'];
+        if(isset($elementosConstruccion['InstalacionesElectricasYAlumbrado'])){
+            $infoReimpresion['Instalaciones_Electricas_Alumbrados'] = $elementosConstruccion['InstalacionesElectricasYAlumbrado'];
+        }    
 
         /************************************************************************************************************************************************************************/
 
@@ -1358,7 +1359,7 @@ class Reimpresion
                         if(trim($productoComparable['PrecioSolicitado']) === 0 && trim($productoComparable['SuperficieVendiblePorUnidad']) === 0){
                             $infoReimpresion['Renta_Estimada'][$control]['Renta_m2'] = 0;    
                         }else{
-                            $infoReimpresion['Renta_Estimada'][$control]['Renta_m2'] = $productoComparable['PrecioSolicitado'] / $productoComparable['SuperficieVendiblePorUnidad'];    
+                            $infoReimpresion['Renta_Estimada'][$control]['Renta_m2'] = $productoComparable['SuperficieVendiblePorUnidad'] == 0 ? $productoComparable['PrecioSolicitado'] : $productoComparable['PrecioSolicitado'] / $productoComparable['SuperficieVendiblePorUnidad'];    
                         }
                         
 
@@ -1418,13 +1419,14 @@ class Reimpresion
             $infoReimpresion['Consideramos_Que_Valor_Catastral_Corresponde'] = $conclusionAvaluo['ValorCatastralDelInmueble'];
         } 
 
-        if(isset($elementoPrincipal['ValorReferido'])){
-            $infoReimpresion['Valor_Referido'] = array();
+        if(isset($elementoPrincipal['ValorReferido'])){            
             $valorReferido = $elementoPrincipal['ValorReferido'];
-
-            $infoReimpresion['Valor_Referido']['Valor_Referido'] = $valorReferido['ValorReferido'];
-            $infoReimpresion['Valor_Referido']['Fecha'] = $valorReferido['FechaDeValorReferido'];
-            $infoReimpresion['Valor_Referido']['Factor'] = $valorReferido['FactorDeConversion'];
+            if(isset($valorReferido['ValorReferido'])){
+                $infoReimpresion['Valor_Referido'] = array();
+                $infoReimpresion['Valor_Referido']['Valor_Referido'] = $valorReferido['ValorReferido'];
+                $infoReimpresion['Valor_Referido']['Fecha'] = $valorReferido['FechaDeValorReferido'];
+                $infoReimpresion['Valor_Referido']['Factor'] = $valorReferido['FactorDeConversion'];
+            }            
         }
 
         $infoReimpresion['Perito_Valuador'] = $this->modelDocumentos->get_nombre_perito($identificacion['ClaveValuador']);
