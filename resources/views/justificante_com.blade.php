@@ -1502,9 +1502,11 @@
                         <tr>
                             <td><b>i) FACHADAS</b></td>
                             <td>
-                            @isset($infoAvaluo['Fachadas'])
-                                <span class="grises">{{$infoAvaluo['Fachadas']}}</span>
-                            @endisset
+                            @if(isset($infoAvaluo['Fachadas']))
+                                @if(!is_array($infoAvaluo['Fachadas']))
+                                    <span class="grises">{{$infoAvaluo['Fachadas']}}</span>
+                                @endif
+                            @endif
                             </td>
                         </tr>
                     </table>
