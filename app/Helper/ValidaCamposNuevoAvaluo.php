@@ -1749,7 +1749,7 @@ function valida_Calculos_e($data, $dataextra = false, $dataextrados = false, $b_
                         //$calc_e_2_1_n_17 = (100-min(40,$e_2_1_n_7 * 1)) / 100;
                         $calc_e_2_1_n_17 = $e_2_1_n_7 >= 50 ? (100-(50 * 0.8)) / 100 : (100-(0.8 * $e_2_1_n_7)) / 100;
                         if(truncate($e_2_1_n_17,2) != truncate($calc_e_2_1_n_17,2)){ //echo "COMPARACION DepreciacionPorEdad ".truncate($e_2_1_n_17,2)." != ".truncate($calc_e_2_1_n_17,2)."\n";
-                            $mensajese[] =  "e.2.1.n.15 - El cálculo de CostoDeLaFraccionN es erróneo ";
+                            $mensajese[] =  "e.2.1.n.17 - El cálculo de CostoDeLaFraccionN es erróneo ";
                         }
                     }
                 }
@@ -2646,8 +2646,18 @@ function valida_Calculos($data, $letra, $dataextra = false, $dataextrados = fals
 
 function truncate($number, $decimals)
 {
-     $point_index = strrpos($number, '.'); 
-     return substr($number, 0, $point_index + $decimals+ 1);
+    $point_index = strrpos($number, '.');
+     if($point_index === false){
+        return intval($number);
+     }else{
+         $arrCantidades = explode('.',$number);
+         if($arrCantidades[1]> 0){
+            return substr($number, 0, $point_index + $decimals+ 1);
+         }else{
+            return intval($number);  
+         }
+        
+     }
 }
 
 function valida_Calculos_i($data,$letra, $datad13, $datae2, $dataf12, $dataf14){

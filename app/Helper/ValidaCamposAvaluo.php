@@ -1650,7 +1650,7 @@ function valida_Calculos_e($data, $dataextra = false, $dataextrados = false, $b_
                     //echo "COMPARACION ValorDeLaFraccionN ".truncate($e_2_1_n_15,2)." != ".truncate($calc_e_2_1_n_15,2)."\n";
                     $sumatoria_e_2_1_n_11 = $sumatoria_e_2_1_n_11 + $e_2_1_n_11;
                     $sumatoria_e_2_1_n_15 = $sumatoria_e_2_1_n_15 + $e_2_1_n_15;
-                    if(truncate($e_2_1_n_15,2) != truncate($calc_e_2_1_n_15,2)){
+                    if(truncate($e_2_1_n_15,2) != truncate($calc_e_2_1_n_15,2)){ //error_log("1 ".truncate($e_2_1_n_15,2)." != ".truncate($calc_e_2_1_n_15,2));
                         $mensajese[] =  "e.2.1.n.15 - El cálculo de ValorDeLaFraccionN es erróneo ";
                     }
                 }
@@ -1737,7 +1737,7 @@ function valida_Calculos_e($data, $dataextra = false, $dataextrados = false, $b_
                         }
                         $sumatoria_e_2_1_n_11 = $sumatoria_e_2_1_n_11 + $e_2_1_n_11;
                         $sumatoria_e_2_1_n_15 = $sumatoria_e_2_1_n_15 + $e_2_1_n_15;
-                        if(truncate($e_2_1_n_15,2) != truncate($calc_e_2_1_n_15,2)){ //echo "COMPARACION DepreciacionPorEdad ".truncate($e_2_1_n_15,2)." != ".truncate($calc_e_2_1_n_15,2)."\n";
+                        if(truncate($e_2_1_n_15,2) != truncate($calc_e_2_1_n_15,2)){ //error_log("2 ".truncate($e_2_1_n_15,2)." != ".truncate($calc_e_2_1_n_15,2));
                             $mensajese[] =  "e.2.1.n.15 - El cálculo de ValorDeLaFraccionN es erróneo ";
                         }
                     }
@@ -1747,8 +1747,8 @@ function valida_Calculos_e($data, $dataextra = false, $dataextrados = false, $b_
                         $e_2_1_n_7 = $data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['Edad'];
                         //$calc_e_2_1_n_17 = (100-min(40,$e_2_1_n_7 * 1)) / 100;
                         $calc_e_2_1_n_17 = $e_2_1_n_7 >= 50 ? (100-(50 * 0.8)) / 100 : (100-(0.8 * $e_2_1_n_7)) / 100;
-                        if(truncate($e_2_1_n_17,2) != truncate($calc_e_2_1_n_17,2)){ //echo "COMPARACION DepreciacionPorEdad ".truncate($e_2_1_n_17,2)." != ".truncate($calc_e_2_1_n_17,2)."\n";
-                            $mensajese[] =  "e.2.1.n.15 - El cálculo de ValorDeLaFraccionN es erróneo ";
+                        if(truncate($e_2_1_n_17,2) != truncate($calc_e_2_1_n_17,2)){
+                            $mensajese[] =  "e.2.1.n.17 - El cálculo de ValorDeLaFraccionN es erróneo ";
                         }
                     }
                 }
@@ -2495,13 +2495,13 @@ function valida_Calculos($data, $letra, $dataextra = false, $dataextrados = fals
         if(isset($data[0]['ImporteIndivisoInstalacionesEspecialesObrasComplementariasYElementosAccesoriosComunes'])){
             $f_14 = $data[0]['ImporteIndivisoInstalacionesEspecialesObrasComplementariasYElementosAccesoriosComunes'];
             //error_log("valor_de_b6 ".$b_6);
-            if(trim($b_6) === '2'){ //error_log("Cuando es 2 ".truncate($f_14,2)." != ".truncate($para_f_14,2));
+            if(trim($b_6) === '2'){ error_log("Cuando es 2 ".truncate($f_14,2)." != ".truncate($para_f_14,2));
                 if(truncate($f_14,2) != truncate($para_f_14,2)){
                     $mensajesf[] =  "f.14 - El cálculo de ImporteIndivisoInstalacionesEspecialesObrasComplementariasYElementosAccesoriosComunes es erróneo ";
                 }
-            }else{
+            }else{ 
                 $calc_f_14 = $data[0]['ImporteTotalInstalacionesAccesoriosComplementariasComunes'] * $dataextra[0]['Indiviso'];
-                if(truncate($f_14,2) != truncate($calc_f_14,2)){ //error_log(truncate($f_14,2)." != ".truncate($calc_f_14,2));
+                if(truncate($f_14,2) != truncate($calc_f_14,2)){ error_log("Cuando no ".truncate($f_14,2)." != ".truncate($para_f_14,2));
                     $mensajesf[] =  "f.14 - El cálculo de ImporteIndivisoInstalacionesEspecialesObrasComplementariasYElementosAccesoriosComunes es erróneo ";
                 }
             }
@@ -2638,9 +2638,15 @@ function truncate($number, $decimals)
 {       
      $point_index = strrpos($number, '.');
      if($point_index === false){
-        return $number;
+        return intval($number);
      }else{
-        return substr($number, 0, $point_index + $decimals+ 1);
+         $arrCantidades = explode('.',$number);
+         if($arrCantidades[1] > 0){
+            return substr($number, 0, $point_index + $decimals+ 1);
+         }else{
+            return intval($number);  
+         }
+        
      }     
 }
 
