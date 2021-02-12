@@ -314,7 +314,7 @@
                             <td><b>ÍNDICE DE SATURACIÓN DE LA ZONA:</b></td>
                             <td>
                             @isset($infoAvaluo['Indice_Saturacion_Zona'])
-                                <span class="grises">{{$infoAvaluo['Indice_Saturacion_Zona']}}</span>
+                                <span class="grises">{{$infoAvaluo['Indice_Saturacion_Zona']}}%</span>
                             @endisset
                             </td>
                         </tr>
@@ -480,7 +480,7 @@
                                 <td><b>Nivel de infraestructura en la zona (%):</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Nivel_Infraestructura_Zona'])
-                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Nivel_Infraestructura_Zona']}}</span>
+                                    <span class="grises">{{number_format($infoAvaluo['Servicios_Publicos_Equipamiento']['Nivel_Infraestructura_Zona'],2)}} %</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -520,7 +520,7 @@
                                 <td><b>Distancia transporte urbano:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Distancia_Transporte_Urbano'])
-                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Distancia_Transporte_Urbano']}}</span>
+                                    <span class="grises">{{number_format($infoAvaluo['Servicios_Publicos_Equipamiento']['Distancia_Transporte_Urbano'],2)}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -528,7 +528,7 @@
                                 <td><b>Frecuencia transporte urbano:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Frecuencia_Transporte_Urbano'])
-                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Frecuencia_Transporte_Urbano']}}</span>
+                                    <span class="grises">{{number_format($infoAvaluo['Servicios_Publicos_Equipamiento']['Frecuencia_Transporte_Urbano'],2)}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -536,7 +536,7 @@
                                 <td><b>Distancia transporte suburbano:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Distancia_Transporte_Suburbano'])
-                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Distancia_Transporte_Suburbano']}}</span>
+                                    <span class="grises">{{number_format($infoAvaluo['Servicios_Publicos_Equipamiento']['Distancia_Transporte_Suburbano'],2)}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -544,7 +544,7 @@
                                 <td><b>Frecuencia transporte suburbano:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Frecuencia_Transporte_Suburbano'])
-                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Frecuencia_Transporte_Suburbano']}}</span>
+                                    <span class="grises">{{number_format($infoAvaluo['Servicios_Publicos_Equipamiento']['Frecuencia_Transporte_Suburbano'],2)}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -1687,7 +1687,7 @@
                                             </td>
                                             <td>
                                             @isset($value_elementoAccP['Cantidad'])
-                                                <span class="grises">{{$value_elementoAccP['Cantidad']}}</span>
+                                                <span class="grises">{{number_format($value_elementoAccP['Cantidad'],2)}}</span>
                                             @endisset
                                             </td>
                                             <td>
@@ -1702,7 +1702,7 @@
                                             </td>
                                             <td>
                                             @isset($value_elementoAccP['Valor_Unitario'])
-                                                <span class="grises">{{$value_elementoAccP['Valor_Unitario']}}</span>
+                                                <span class="grises">{{number_format($value_elementoAccP['Valor_Unitario'],2)}}</span>
                                             @endisset
                                             </td>
                                         </tr>
@@ -1726,7 +1726,7 @@
                                         </td>
                                         <td>
                                         @isset($infoAvaluo['Elementos_Accesorios']['Privativas']['Cantidad'])
-                                            <span class="grises">{{$infoAvaluo['Elementos_Accesorios']['Privativas']['Cantidad']}}</span>
+                                            <span class="grises">{{number_format($infoAvaluo['Elementos_Accesorios']['Privativas']['Cantidad'],2)}}</span>
                                         @endisset
                                         </td>
                                         <td>
@@ -1741,7 +1741,7 @@
                                         </td>
                                         <td>
                                         @isset($infoAvaluo['Elementos_Accesorios']['Privativas']['Valor_Unitario'])
-                                            <span class="grises">{{$infoAvaluo['Elementos_Accesorios']['Privativas']['Valor_Unitario']}}</span>
+                                            <span class="grises">{{number_format($infoAvaluo['Elementos_Accesorios']['Privativas']['Valor_Unitario'])}}</span>
                                         @endisset
                                         </td>
                                     </tr>
@@ -1788,7 +1788,7 @@
                                             </td>
                                             <td>
                                             @isset($value_obras['Cantidad'])
-                                                <span class="grises">{{$value_obras['Cantidad']}}</span>
+                                                <span class="grises">{{number_format($value_obras['Cantidad'],2)}}</span>
                                             @endisset
                                             </td>
                                             <td>
@@ -1803,7 +1803,7 @@
                                             </td>
                                             <td>
                                             @isset($value_obras['Valor_Unitario'])
-                                                <span class="grises">{{$value_obras['Valor_Unitario']}}</span>
+                                                <span class="grises">{{number_format($value_obras['Valor_Unitario'],2)}}</span>
                                             @endisset
                                             </td>
                                         </tr>
@@ -1827,7 +1827,7 @@
                                         </td>
                                         <td>
                                         @isset($infoAvaluo['Obras_Complementarias']['Privativas']['Cantidad'])
-                                            <span class="grises">{{$infoAvaluo['Obras_Complementarias']['Privativas']['Cantidad']}}</span>
+                                            <span class="grises">{{number_format($infoAvaluo['Obras_Complementarias']['Privativas']['Cantidad'],2)}}</span>
                                         @endisset
                                         </td>
                                         <td>
@@ -1842,7 +1842,7 @@
                                         </td>
                                         <td>
                                         @isset($infoAvaluo['Obras_Complementarias']['Privativas']['Valor_Unitario'])
-                                            <span class="grises">{{$infoAvaluo['Obras_Complementarias']['Privativas']['Valor_Unitario']}}</span>
+                                            <span class="grises">{{number_format($infoAvaluo['Obras_Complementarias']['Privativas']['Valor_Unitario'],2)}}</span>
                                         @endisset
                                         </td>
                                     </tr>                                
