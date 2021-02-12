@@ -2651,7 +2651,7 @@ function truncate($number, $decimals)
         return intval($number);
      }else{
          $arrCantidades = explode('.',$number);
-         if($arrCantidades[1]> 0){
+         if($arrCantidades[1] > 0){
             return substr($number, 0, $point_index + $decimals+ 1);
          }else{
             return intval($number);  
