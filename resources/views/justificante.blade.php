@@ -3220,9 +3220,11 @@
                                     @endisset
                                     </td>
                                     <td>
-                                    @isset($valueEA_tablaPri['Renta_Mensual'])                                
-                                        <span class="grises">${{ number_format($valueEA_tablaPri['Renta_Mensual'],2) }}</span>
-                                    @endisset
+                                    @if(isset($valueEA_tablaPri['Renta_Mensual']))
+                                        @if(!is_array($valueEA_tablaPri['Renta_Mensual']))
+                                            <span class="grises">${{ number_format($valueEA_tablaPri['Renta_Mensual'],2) }}</span>
+                                        @endif
+                                    @endif
                                     </td>
                                     <td>
                                     @isset($valueEA_tablaPri['Renta_m2'])                                
@@ -3481,7 +3483,9 @@
 
                     <p class="letras_pequenas">
                         @if(isset($infoAvaluo['Consideraciones']))
-                            <span class="grises">{{ $infoAvaluo['Consideraciones'] }}</span>
+                            @if(!is_array($infoAvaluo['Consideraciones']))
+                                <span class="grises">{{ $infoAvaluo['Consideraciones'] }}</span>
+                            @endif
                         @endif
                     </p>
 
