@@ -302,11 +302,11 @@ class Reimpresion
         $fuenteDeInformacion = $terreno['MedidasYColindancias']['FuenteDeInformacionLegal'];
 
         $infoReimpresion['Medidas_Colindancias']['Fuente'] = isset($fuenteDeInformacion['Escritura']) ? 'Escritura' : '';
-        $infoReimpresion['Medidas_Colindancias']['Numero_Escritura'] = $fuenteDeInformacion['Escritura']['NumeroDeEscritura'];
-        $infoReimpresion['Medidas_Colindancias']['Numero_Notaria'] = $fuenteDeInformacion['Escritura']['NumeroNotaria'];
-        $infoReimpresion['Medidas_Colindancias']['Entidad_Federativa'] = $fuenteDeInformacion['Escritura']['DistritoJudicialNotario'];
-        $infoReimpresion['Medidas_Colindancias']['Numero_Volumen'] = $fuenteDeInformacion['Escritura']['NumeroDeVolumen'];
-        $infoReimpresion['Medidas_Colindancias']['Nombre_Notario'] = $fuenteDeInformacion['Escritura']['NombreDelNotario'];
+        $infoReimpresion['Medidas_Colindancias']['Numero_Escritura'] = isset($fuenteDeInformacion['Escritura']['NumeroDeEscritura']) ? $fuenteDeInformacion['Escritura']['NumeroDeEscritura'] : '';
+        $infoReimpresion['Medidas_Colindancias']['Numero_Notaria'] = isset($fuenteDeInformacion['Escritura']['NumeroNotaria']) ? $fuenteDeInformacion['Escritura']['NumeroNotaria'] : '';
+        $infoReimpresion['Medidas_Colindancias']['Entidad_Federativa'] = isset($fuenteDeInformacion['Escritura']['DistritoJudicialNotario']) ? $fuenteDeInformacion['Escritura']['DistritoJudicialNotario'] : '';
+        $infoReimpresion['Medidas_Colindancias']['Numero_Volumen'] = isset($fuenteDeInformacion['Escritura']['NumeroDeVolumen']) ? $fuenteDeInformacion['Escritura']['NumeroDeVolumen'] : '';
+        $infoReimpresion['Medidas_Colindancias']['Nombre_Notario'] = isset($fuenteDeInformacion['Escritura']['NombreDelNotario']) ? $fuenteDeInformacion['Escritura']['NombreDelNotario'] : '';
         
         /************************************************************************************************************************************************************************/
 
