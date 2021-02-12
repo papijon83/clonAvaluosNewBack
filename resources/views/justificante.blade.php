@@ -477,7 +477,7 @@
                                 <td><b>Nivel de infraestructura en la zona (%):</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Nivel_Infraestructura_Zona'])
-                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Nivel_Infraestructura_Zona']}}</span>
+                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Nivel_Infraestructura_Zona']%}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -517,7 +517,7 @@
                                 <td><b>Distancia transporte urbano:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Distancia_Transporte_Urbano'])
-                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Distancia_Transporte_Urbano']}}</span>
+                                    <span class="grises">{{number_format($infoAvaluo['Servicios_Publicos_Equipamiento']['Distancia_Transporte_Urbano'],2)}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -525,7 +525,7 @@
                                 <td><b>Frecuencia transporte urbano:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Frecuencia_Transporte_Urbano'])
-                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Frecuencia_Transporte_Urbano']}}</span>
+                                    <span class="grises">{{number_format($infoAvaluo['Servicios_Publicos_Equipamiento']['Frecuencia_Transporte_Urbano'],2)}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -533,7 +533,7 @@
                                 <td><b>Distancia transporte suburbano:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Distancia_Transporte_Suburbano'])
-                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Distancia_Transporte_Suburbano']}}</span>
+                                    <span class="grises">{number_format({$infoAvaluo['Servicios_Publicos_Equipamiento']['Distancia_Transporte_Suburbano'],2)}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -541,7 +541,7 @@
                                 <td><b>Frecuencia transporte suburbano:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Frecuencia_Transporte_Suburbano'])
-                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Frecuencia_Transporte_Suburbano']}}</span>
+                                    <span class="grises">{{number_format($infoAvaluo['Servicios_Publicos_Equipamiento']['Frecuencia_Transporte_Suburbano'],2)}}</span>
                                 @endisset
                                 </td>
                             </tr>
@@ -756,12 +756,12 @@
                                     </td>
                                     <td class="centrado">
                                     @isset($infoAvaluo['Superficie_Total_Segun']['Sup_Fraccion'])
-                                        <span class="grises">{{$infoAvaluo['Superficie_Total_Segun']['Sup_Fraccion']}}</span>
+                                        <span class="grises">{{number_format($infoAvaluo['Superficie_Total_Segun']['Sup_Fraccion'],2)}}</span>
                                     @endisset
                                     </td>
                                     <td class="centrado">
                                     @isset($infoAvaluo['Superficie_Total_Segun']['Valor_Fraccion'])
-                                        <span class="grises">{{$infoAvaluo['Superficie_Total_Segun']['Valor_Fraccion']}}</span>
+                                        <span class="grises">{{number_format($infoAvaluo['Superficie_Total_Segun']['Valor_Fraccion'],2)}}</span>
                                     @endisset
                                     </td>
                                     <td class="centrado">
@@ -903,7 +903,7 @@
                                         </td>
                                         <td class="centrado">
                                         @isset($value_construccionesP['Sup'])
-                                            <span class="grises">{{$value_construccionesP['Sup']}}</span>
+                                            <span class="grises">{{number_format($value_construccionesP['Sup'],2)}}</span>
                                         @endisset
                                         </td>
                                     </tr>
@@ -965,7 +965,7 @@
                                         </td>
                                         <td class="centrado">
                                         @isset($infoAvaluo['Construcciones_Privativas']['Sup'])
-                                            <span class="grises">{{$infoAvaluo['Construcciones_Privativas']['Sup']}}</span>
+                                            <span class="grises">{{number_format($infoAvaluo['Construcciones_Privativas']['Sup'],2)}}</span>
                                         @endisset
                                         </td>
                                     </tr>
