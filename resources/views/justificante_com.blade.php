@@ -1266,9 +1266,11 @@
                             <tr>
                                 <td><b>AZOTEAS:</b></td>
                                 <td>
-                                @isset($infoAvaluo['Obra_Negra_Gruesa']['Azoteas'])
-                                    <span class="grises">{{$infoAvaluo['Obra_Negra_Gruesa']['Azoteas']}}</span>
-                                @endisset
+                                    @if(isset($infoAvaluo['Obra_Negra_Gruesa']['Azoteas']))
+                                        @if(!is_array($infoAvaluo['Obra_Negra_Gruesa']['Azoteas']))
+                                            <span class="grises">{{$infoAvaluo['Obra_Negra_Gruesa']['Azoteas']}}</span>
+                                        @endif
+                                    @endif
                                 </td>
                             </tr>
                             <tr>
