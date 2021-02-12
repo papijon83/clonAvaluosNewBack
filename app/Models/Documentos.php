@@ -303,8 +303,9 @@ class Documentos
     public function get_red_agua_potable($codRedAguaPotable){
         $aguaPotable = DB::select("SELECT DESCRIPCION FROM FEXAVA_CATAGUAPOTABLE WHERE CODAGUAPOTABLE = $codRedAguaPotable");
         $arrAguaPotable = convierte_a_arreglo($aguaPotable);
-        $res = $aguaPotable[0];
-        return $res->descripcion;
+        if(isset($arrAguaPotable[0]['descripcion'])){
+            return  $arrAguaPotable[0]['descripcion'];
+        }    
     }
 
     public function get_drenaje_pluvial_calle_zona($codDrenajePluvial){
