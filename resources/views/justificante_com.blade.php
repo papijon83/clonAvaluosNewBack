@@ -285,9 +285,11 @@
                                                 <span class="grises">{{$infoAvaluo['Ubicacion_Inmueble']['Lote']}}</span>
                                             @endisset
                                             <br>
-                                            @isset($infoAvaluo['Ubicacion_Inmueble']['Cuenta_agua'])
-                                                <span class="grises">{{$infoAvaluo['Ubicacion_Inmueble']['Cuenta_agua']}}</span>
-                                            @endisset
+                                            @if(isset($infoAvaluo['Ubicacion_Inmueble']['Cuenta_agua']))
+                                                @if(!is_array($infoAvaluo['Ubicacion_Inmueble']['Cuenta_agua']))
+                                                    <span class="grises">{{$infoAvaluo['Ubicacion_Inmueble']['Cuenta_agua']}}</span>
+                                                @endif
+                                            @endif
                                         </td>
                                     </tr>
                                 </table>
@@ -1286,9 +1288,11 @@
                             <tr>
                                 <td><b>APLANADOS:</b></td>
                                 <td>
-                                @isset($infoAvaluo['Revestimientos_Acabados_Interiores']['Aplanados'])
-                                    <span class="grises">{{$infoAvaluo['Revestimientos_Acabados_Interiores']['Aplanados']}}</span>
-                                @endisset
+                                @if(isset($infoAvaluo['Revestimientos_Acabados_Interiores']['Aplanados']))
+                                    @if(!is_array($infoAvaluo['Revestimientos_Acabados_Interiores']['Aplanados']))
+                                        <span class="grises">{{$infoAvaluo['Revestimientos_Acabados_Interiores']['Aplanados']}}</span>
+                                    @endif
+                                @endif
                                 </td>
                             </tr>
                             <tr>
@@ -1302,17 +1306,21 @@
                             <tr>
                                 <td><b>LAMBRINES:</b></td>
                                 <td>
-                                @isset($infoAvaluo['Revestimientos_Acabados_Interiores']['Lambrines'])
-                                    <span class="grises">{{$infoAvaluo['Revestimientos_Acabados_Interiores']['Lambrines']}}</span>
-                                @endisset
+                                @if(isset($infoAvaluo['Revestimientos_Acabados_Interiores']['Lambrines']))
+                                    @if(!is_array($infoAvaluo['Revestimientos_Acabados_Interiores']['Lambrines']))
+                                        <span class="grises">{{$infoAvaluo['Revestimientos_Acabados_Interiores']['Lambrines']}}</span>
+                                    @endif
+                                @endif
                                 </td>
                             </tr>
                             <tr>
                                 <td><b>PISOS:</b></td>
                                 <td>
-                                @isset($infoAvaluo['Revestimientos_Acabados_Interiores']['Pisos'])
-                                    <span class="grises">{{$infoAvaluo['Revestimientos_Acabados_Interiores']['Pisos']}}</span>
-                                @endisset
+                                @if(isset($infoAvaluo['Revestimientos_Acabados_Interiores']['Pisos']))
+                                    @if(!is_array($infoAvaluo['Revestimientos_Acabados_Interiores']['Pisos']))
+                                        <span class="grises">{{$infoAvaluo['Revestimientos_Acabados_Interiores']['Pisos']}}</span>
+                                    @endif
+                                @endif
                                 </td>
                             </tr>
                             <tr>
@@ -1342,9 +1350,11 @@
                             <tr>
                                 <td><b>RECUBRIMIENTOS ESPECIALES:</b></td>
                                 <td>
-                                @isset($infoAvaluo['Revestimientos_Acabados_Interiores']['Recubrimientos_Especiales'])
-                                    <span class="grises">{{$infoAvaluo['Revestimientos_Acabados_Interiores']['Recubrimientos_Especiales']}}</span>
-                                @endisset
+                                @if(isset($infoAvaluo['Revestimientos_Acabados_Interiores']['Recubrimientos_Especiales']))
+                                    @if(!is_array($infoAvaluo['Revestimientos_Acabados_Interiores']['Recubrimientos_Especiales']))
+                                        <span class="grises">{{$infoAvaluo['Revestimientos_Acabados_Interiores']['Recubrimientos_Especiales']}}</span>
+                                    @endif
+                                @endif
                                 </td>
                             </tr>
                         </table>
@@ -1364,9 +1374,11 @@
                             <tr>
                                 <td><b>GUARDARROPAS:</b></td>
                                 <td>
-                                @isset($infoAvaluo['Carpinteria']['Guardarropas'])
-                                    <span class="grises">{{$infoAvaluo['Carpinteria']['Guardarropas']}}</span>
-                                @endisset
+                                @if(isset($infoAvaluo['Carpinteria']['Guardarropas']))
+                                    @if(!is_array($infoAvaluo['Carpinteria']['Guardarropas']))
+                                        <span class="grises">{{$infoAvaluo['Carpinteria']['Guardarropas']}}</span>
+                                    @endif
+                                @endif
                                 </td>
                             </tr>
                             <tr>
@@ -1388,25 +1400,31 @@
                             <tr>
                                 <td><b>MUEBLES DE BAÑO:</b></td>
                                 <td>
-                                @isset($infoAvaluo['Instalaciones_Hidraulicas_Sanitrias']['Muebles_Banio'])
-                                    <span class="grises">{{$infoAvaluo['Instalaciones_Hidraulicas_Sanitrias']['Muebles_Banio']}}</span>
-                                @endisset
+                                @if(isset($infoAvaluo['Instalaciones_Hidraulicas_Sanitrias']['Muebles_Banio']))
+                                    @if(!is_array($infoAvaluo['Instalaciones_Hidraulicas_Sanitrias']['Muebles_Banio']))
+                                        <span class="grises">{{$infoAvaluo['Instalaciones_Hidraulicas_Sanitrias']['Muebles_Banio']}}</span>
+                                    @endif
+                                @endif
                                 </td>
                             </tr>
                             <tr>
                                 <td><b>RAMALEOS HIDRÁULICOS:</b></td>
                                 <td>
-                                @isset($infoAvaluo['Instalaciones_Hidraulicas_Sanitrias']['Ramaleos_Hidraulicos'])
-                                    <span class="grises">{{$infoAvaluo['Instalaciones_Hidraulicas_Sanitrias']['Ramaleos_Hidraulicos']}}</span>
-                                @endisset
+                                @if(isset($infoAvaluo['Instalaciones_Hidraulicas_Sanitrias']['Ramaleos_Hidraulicos']))
+                                    @if(!is_array($infoAvaluo['Instalaciones_Hidraulicas_Sanitrias']['Ramaleos_Hidraulicos']))
+                                        <span class="grises">{{$infoAvaluo['Instalaciones_Hidraulicas_Sanitrias']['Ramaleos_Hidraulicos']}}</span>
+                                    @endif
+                                @endif
                                 </td>
                             </tr>
                             <tr>
                                 <td><b>RAMALEOS SANITARIOS:</b></td>
                                 <td>
-                                @isset($infoAvaluo['Instalaciones_Hidraulicas_Sanitrias']['Ramaleos_Sanitarios'])
-                                    <span class="grises">{{$infoAvaluo['Instalaciones_Hidraulicas_Sanitrias']['Ramaleos_Sanitarios']}}</span>
-                                @endisset
+                                @if(isset($infoAvaluo['Instalaciones_Hidraulicas_Sanitrias']['Ramaleos_Sanitarios']))
+                                    @if(!is_array($infoAvaluo['Instalaciones_Hidraulicas_Sanitrias']['Ramaleos_Sanitarios']))
+                                        <span class="grises">{{$infoAvaluo['Instalaciones_Hidraulicas_Sanitrias']['Ramaleos_Sanitarios']}}</span>
+                                    @endif
+                                @endif
                                 </td>
                             </tr>
                         </table>
