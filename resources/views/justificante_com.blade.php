@@ -1458,9 +1458,11 @@
                             <tr>
                                 <td><b>HERRERÍA:</b></td>
                                 <td>
-                                @isset($infoAvaluo['Puertas_Ventaneria_Metalica']['Herreria'])
-                                    <span class="grises">{{$infoAvaluo['Puertas_Ventaneria_Metalica']['Herreria']}}</span>
-                                @endisset
+                                    @if(isset($infoAvaluo['Puertas_Ventaneria_Metalica']['Herreria']))
+                                        @if(!is_array($infoAvaluo['Puertas_Ventaneria_Metalica']['Herreria']))
+                                            <span class="grises">{{$infoAvaluo['Puertas_Ventaneria_Metalica']['Herreria']}}</span>
+                                        @endif
+                                    @endif
                                 </td>
                             </tr>
                             <tr>
@@ -1502,11 +1504,11 @@
                         <tr>
                             <td><b>i) FACHADAS</b></td>
                             <td>
-                            @if(isset($infoAvaluo['Fachadas']))
-                                @if(!is_array($infoAvaluo['Fachadas']))
-                                    <span class="grises">{{$infoAvaluo['Fachadas']}}</span>
+                                @if(isset($infoAvaluo['Fachadas']))
+                                    @if(!is_array($infoAvaluo['Fachadas']))
+                                        <span class="grises">{{$infoAvaluo['Fachadas']}}</span>
+                                    @endif
                                 @endif
-                            @endif
                             </td>
                         </tr>
                     </table>
