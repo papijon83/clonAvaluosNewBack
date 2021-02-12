@@ -2495,13 +2495,13 @@ function valida_Calculos($data, $letra, $dataextra = false, $dataextrados = fals
         if(isset($data[0]['ImporteIndivisoInstalacionesEspecialesObrasComplementariasYElementosAccesoriosComunes'])){
             $f_14 = $data[0]['ImporteIndivisoInstalacionesEspecialesObrasComplementariasYElementosAccesoriosComunes'];
             //error_log("valor_de_b6 ".$b_6);
-            if(trim($b_6) === '2'){ error_log("Cuando es 2 ".truncate($f_14,2)." != ".truncate($para_f_14,2));
+            if(trim($b_6) === '2'){ //error_log("Cuando es 2 ".truncate($f_14,2)." != ".truncate($para_f_14,2));
                 if(truncate($f_14,2) != truncate($para_f_14,2)){
                     $mensajesf[] =  "f.14 - El cálculo de ImporteIndivisoInstalacionesEspecialesObrasComplementariasYElementosAccesoriosComunes es erróneo ";
                 }
             }else{ 
                 $calc_f_14 = $data[0]['ImporteTotalInstalacionesAccesoriosComplementariasComunes'] * $dataextra[0]['Indiviso'];
-                if(truncate($f_14,2) != truncate($calc_f_14,2)){ error_log("Cuando no ".truncate($f_14,2)." != ".truncate($para_f_14,2));
+                if(truncate($f_14,2) != truncate($calc_f_14,2)){ //error_log("Cuando no ".truncate($f_14,2)." != ".truncate($para_f_14,2));
                     $mensajesf[] =  "f.14 - El cálculo de ImporteIndivisoInstalacionesEspecialesObrasComplementariasYElementosAccesoriosComunes es erróneo ";
                 }
             }
