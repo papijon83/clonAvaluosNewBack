@@ -44,7 +44,7 @@ class Documentos
         $idDocumentoDigital = 0;
         //$descripcion = "Avaluo_".$cuentaCatastral;
         $fecha_hoy = new Carbon($fecha);
-        $fecha = $fecha_hoy->format('d/m/y');
+        $fecha = $fecha_hoy->format('Y/m/d');
         //echo "SOY FECHA ".$fecha; exit();
         $procedure = 'BEGIN
         DOC.DOC_DOCUMENTOS_DIGITALES_PCKG.DOC_INSERTDOCUMENTODIGITAL_P(
