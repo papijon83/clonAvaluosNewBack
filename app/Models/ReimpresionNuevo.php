@@ -238,11 +238,11 @@ class ReimpresionNuevo
         $infoReimpresion['Indice_Saturacion_Zona'] = $arrFexava['cuindicesaturacionzona'] <= 1 ? $arrFexava['cuindicesaturacionzona'] * 100 : $arrFexava['cuindicesaturacionzona'];
         
         $caracterisiticasUrbanas = $elementoPrincipal['CaracteristicasUrbanas'];
-        $infoReimpresion['Tipo_Construccion_Dominante'] = $caracterisiticasUrbanas['ClaseGeneralDeInmueblesDeLaZona'];
+        $infoReimpresion['Tipo_Construccion_Dominante'] = $this->modelFis->getClase($caracterisiticasUrbanas['ClaseGeneralDeInmueblesDeLaZona']);
         $infoReimpresion['Densidad_Poblacion'] = $this->modelDocumentos->get_densidad_poblacion($arrFexava['cucoddensidadpoblacion']);
         $infoReimpresion['Nivel_Socioeconomico_Zona'] = $this->modelDocumentos->get_nivel_socioeconomico_zona($arrFexava['cucodnivelsocioeconomico']);
         $infoReimpresion['Contaminacion_Medio_Ambiente'] = $caracterisiticasUrbanas['ContaminacionAmbientalEnLaZona'];
-        $infoReimpresion['Clase_General_De_Inmuebles_Zona'] = $caracterisiticasUrbanas['ClaseGeneralDeInmueblesDeLaZona'];
+        $infoReimpresion['Clase_General_De_Inmuebles_Zona'] = $this->modelFis->getClase($caracterisiticasUrbanas['ClaseGeneralDeInmueblesDeLaZona']);
         $infoReimpresion['Uso_Suelo'] = $arrFexava['cuuso'];
         $infoReimpresion['Area_Libre_Obligatoria'] = $arrFexava['cuarealibreobligatorio'];
         $infoReimpresion['Vias_Acceso_E_Importancia'] = $caracterisiticasUrbanas['ViasDeAccesoEImportancia'];
