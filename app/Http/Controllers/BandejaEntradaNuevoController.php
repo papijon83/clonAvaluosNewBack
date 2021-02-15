@@ -822,7 +822,8 @@ class BandejaEntradaNuevoController extends Controller
         "this exceeds the allowed maximum length of" => "esto excede la longitud máxima permitida de",
         "The value" => "EL valor",
         "is less than the minimum value allowed" => "es menor que el valor mínimo permitido",
-        "{'F', 'M', 'f', 'm'}" => " F o M");
+        "{'F', 'M', 'f', 'm'}" => " F o M",
+        "This element is not expected" => "Este elemento no se espera");
 
         foreach($cadenas as $en => $es){
             $relacionErrores = str_replace($en,$es,$relacionErrores);
