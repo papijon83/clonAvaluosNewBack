@@ -477,7 +477,7 @@
                                 <td><b>Nivel de infraestructura en la zona (%):</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Nivel_Infraestructura_Zona'])
-                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Nivel_Infraestructura_Zona']%}}</span>
+                                    <span class="grises">{{$infoAvaluo['Servicios_Publicos_Equipamiento']['Nivel_Infraestructura_Zona']}} %</span>
                                 @endisset
                                 </td>
                             </tr>
