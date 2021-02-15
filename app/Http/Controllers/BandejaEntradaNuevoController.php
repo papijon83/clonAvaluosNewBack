@@ -776,9 +776,9 @@ class BandejaEntradaNuevoController extends Controller
         }
         //error_log($elementoPrincipal);
         if(isset($arrXML[$elementoPrincipal]['EnfoqueDeMercado']['Terrenos']['TerrenosDirectos']) && isset($arrXML[$elementoPrincipal]['EnfoqueDeMercado']['Terrenos']['TerrenosResidual'])){
-            $xsd = 'EsquemaAvaluoMixtoFinal.xsd';
+            $xsd = 'EsquemaAvaluoNuevoMixtoFinal.xsd';
         }else{
-            $xsd = 'EsquemaAvaluoFinal.xsd';
+            $xsd = 'EsquemaAvaluoNuevoFinal.xsd';
         }        
         
         if (!file_exists($xsd)) {
