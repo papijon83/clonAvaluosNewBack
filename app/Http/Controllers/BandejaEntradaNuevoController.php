@@ -3869,9 +3869,48 @@ class BandejaEntradaNuevoController extends Controller
 
             /*$this->modelDocumentos = new Documentos();    //echo $numero_unico; exit();         
             $id_avaluo = $this->modelDocumentos->get_idavaluo_db($numero_unico);    
-            $this->modelReimpresion = new Reimpresion();
-            $infoAvaluo = $this->modelReimpresion->infoAvaluo($id_avaluo);
+            $this->modelReimpresion = new ReimpresionNuevo();
+            $infoAvaluo = $this->modelReimpresion->infoAvaluoNuevo($id_avaluo);
             print_r($infoAvaluo); exit();*/
+            //return response()->json($infoAvaluo, 200);
+        }catch (\Throwable $th) {
+            //Log::info($th);
+            error_log($th);
+            return response()->json(['mensaje' => 'Error al obtener la información del avalúo'], 500);
+        }    
+    }
+
+    public function infoAvaluoNuevo(Request $request){
+        try{
+            $numero_unico = trim($request->query('no_unico'));
+
+            $this->modelDocumentos = new Documentos();    //echo $numero_unico; exit();         
+            $id_avaluo = $this->modelDocumentos->get_idavaluo_db($numero_unico);    
+            $this->modelReimpresionNuevo = new ReimpresionNuevo();
+            $infoAvaluo = $this->modelReimpresionNuevo->infoAvaluoNuevo($id_avaluo);
+            if(!is_array($infoAvaluo)){
+                return $infoAvaluo;
+            }
+            // $datosPDF = [];
+            // $datosPDF['no_unico'] =  $numero_unico;
+            $tipo_avaluo = substr($infoAvaluo['Encabezado']['No_Unico'], 0, 5);
+            if($tipo_avaluo == 'A-CAT'){
+                $formato = view('justificante', compact("infoAvaluo"))->render();
+            }else{
+                $formato = view('justificante_com', compact("infoAvaluo"))->render();
+            }
+            $pdf = PDF::loadHTML($formato);
+            $pdf->setOptions(['chroot' => 'public']);
+            Storage::put('formato.pdf', $pdf->output());
+            return response()->json(['pdfbase64' => base64_encode(Storage::get('formato.pdf')), 'nombre' =>  $numero_unico . '.pdf'], 200);
+            
+            //print_r($infoAvaluo);
+
+            /*$this->modelDocumentos = new Documentos();    //echo $numero_unico; exit();         
+            $id_avaluo = $this->modelDocumentos->get_idavaluo_db($numero_unico);    
+            $this->modelReimpresion = new ReimpresionNuevo();
+            $infoAvaluo = $this->modelReimpresion->infoAvaluoNuevo($id_avaluo);
+            print_r($infoAvaluo); exit(); */
             //return response()->json($infoAvaluo, 200);
         }catch (\Throwable $th) {
             //Log::info($th);

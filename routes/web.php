@@ -31,6 +31,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
             $router->post('guardarAvaluo', 'BandejaEntradaNuevoController@guardarAvaluo');
             $router->get('acuseAvaluo', 'BandejaEntradaNuevoController@acuseAvaluo');
             $router->get('reimprimeAvaluo', 'BandejaEntradaNuevoController@infoAvaluo');
+            $router->get('reimprimeAvaluoNuevo', 'BandejaEntradaNuevoController@infoAvaluoNuevo');
             $router->post('generaAcusePDF', 'FormatosController@generaAcusePDF');
 
             $router->post('pruebaDoc', 'PruebaDoc@pruebaGuardadoDB');
