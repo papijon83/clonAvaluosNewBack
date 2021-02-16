@@ -121,6 +121,13 @@
     </xs:restriction>
   </xs:simpleType>
 
+  <!--String10000: Cadenas de texto con 2000 carÃ¡cteres mÃ¡ximo(tambiÃ©n acepta cadenas vacÃ­as) -->
+  <xs:simpleType name="String10000">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="10000" />
+    </xs:restriction>
+  </xs:simpleType>
+
   <!-- LONGITUDES MAXIMAS NO VACIAS-->
 
   <!--NonEmptyString1: Cadenas de texto con 1 carÃ¡cteres mÃ¡ximo(No acepta cadenas vacÃ­as) -->
@@ -5897,60 +5904,69 @@
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
-
-  <xs:complexType name="SUB-Consideraciones">
-    <xs:simpleContent>
-      <xs:extension base="NonEmptyString2000">
-        <xs:attribute fixed="g.1.1" name="id" type="xs:string" use="required" />
-      </xs:extension>
-    </xs:simpleContent>
-  </xs:complexType>
-  <xs:complexType name="SUB-ExposicionDeMotivos">
-    <xs:simpleContent>
-      <xs:extension base="NonEmptyString2000">
-        <xs:attribute fixed="g.1.2" name="id" type="xs:string" use="required" />
-      </xs:extension>
-    </xs:simpleContent>
-  </xs:complexType>
-  <xs:complexType name="SUB-DesgloseDeInformacion">
-    <xs:simpleContent>
-      <xs:extension base="NonEmptyString2000">
-        <xs:attribute fixed="g.1.3" name="id" type="xs:string" use="required" />
-      </xs:extension>
-    </xs:simpleContent>
-  </xs:complexType>
-  <xs:complexType name="SUB-DescripcionDeCalculosRealizados">
-    <xs:simpleContent>
-      <xs:extension base="NonEmptyString2000">
-        <xs:attribute fixed="g.1.4" name="id" type="xs:string" use="required" />
-      </xs:extension>
-    </xs:simpleContent>
-  </xs:complexType>
-  <xs:complexType name="SUB-OtrosParaSustento">
-    <xs:simpleContent>
-      <xs:extension base="NonEmptyString2000">
-        <xs:attribute fixed="g.1.5" name="id" type="xs:string" use="required" />
-      </xs:extension>
-    </xs:simpleContent>
-  </xs:complexType>
-
+  
   <xs:complexType name="ConsideracionesPreviasAlAvaluo_AComercial">
     <xs:sequence>    
       <xs:element minOccurs="0" maxOccurs="1" name="ConsideracionesPreviasAlAvaluo">
         <xs:complexType>
           <xs:sequence>
-            <xs:element name="Consideraciones" Type="SUB-Consideraciones"/>
-            <xs:element name="ExposicionDeMotivos" Type="SUB-ExposicionDeMotivos"/>
-            <xs:element name="DesgloseDeInformacion" Type="SUB-DesgloseDeInformacion"/>
-            <xs:element name="DescripcionDeCalculosRealizados" Type="SUB-DescripcionDeCalculosRealizados"/>
-            <xs:element name="OtrosParaSustento" Type="SUB-OtrosParaSustento"/>
-          </xs:sequence>          
+
+            <xs:element name="Consideraciones">
+              <xs:complexType>
+                <xs:simpleContent>
+                  <xs:extension base="String10000">
+                    <xs:attribute fixed="g.1.1" name="id" type="xs:string" use="required" />
+                  </xs:extension>
+                </xs:simpleContent>
+              </xs:complexType>
+            </xs:element>
+
+            <xs:element name="MemoriaTecnicaExposicionDeMotivos">
+              <xs:complexType>
+                <xs:simpleContent>
+                  <xs:extension base="String10000">
+                    <xs:attribute fixed="g.1.2" name="id" type="xs:string" use="required" />
+                  </xs:extension>
+                </xs:simpleContent>
+              </xs:complexType>
+            </xs:element>
+
+            <xs:element name="MemoriaTecnicaDesgloceDeInformacion">
+              <xs:complexType>
+                <xs:simpleContent>
+                  <xs:extension base="String10000">
+                    <xs:attribute fixed="g.1.3" name="id" type="xs:string" use="required" />
+                  </xs:extension>
+                </xs:simpleContent>
+              </xs:complexType>
+            </xs:element>
+
+            <xs:element name="MemoriaTecnicaDescripcionDeCalculosRealizados">
+              <xs:complexType>
+                <xs:simpleContent>
+                  <xs:extension base="String10000">
+                    <xs:attribute fixed="g.1.4" name="id" type="xs:string" use="required" />
+                  </xs:extension>
+                </xs:simpleContent>
+              </xs:complexType>
+            </xs:element>
+
+            <xs:element name="MemoriaTecnicaOtrosParaSustento">
+              <xs:complexType>
+                <xs:simpleContent>
+                  <xs:extension base="String10000">
+                    <xs:attribute fixed="g.1.5" name="id" type="xs:string" use="required" />
+                  </xs:extension>
+                </xs:simpleContent>
+              </xs:complexType>
+            </xs:element>            
+          </xs:sequence>
           <xs:attribute fixed="g.1" name="id" type="xs:string" use="required" />
-        </xs:complexType>
+        </xs:complexType>        
       </xs:element>
     </xs:sequence>
     <xs:attribute fixed="g" name="id" type="xs:string" use="required" />
-  </xs:complexType>
+  </xs:complexType>  
 
   <xs:complexType name="ConsideracionesPreviasAlAvaluo">
     <xs:sequence>

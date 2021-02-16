@@ -3284,7 +3284,7 @@ class BandejaEntradaNuevoController extends Controller
         }
         $datad13 = $xmlEnfoqueDeCostos->xpath($elementoPrincipal.'//Terreno[@id="d"]//ValorTotalDelTerrenoProporcional[@id="d.13"]');
         $datae2 = $xmlEnfoqueDeCostos->xpath($elementoPrincipal.'//DescripcionDelInmueble[@id="e"]//TiposDeConstruccion[@id="e.2"]');
-        $dataf12 = $xmlEnfoqueDeCostos->xpath($elementoPrincipal.'//ElementosDeLaConstruccion[@id="f"]//ImporteTotalInstalacionesAccesoriosComplementariasPrivativas[@id="f.12"]');
+        $dataf12 = $xmlEnfoqueDeCostos->xpath($elementoPrincipal.'//ElementosDeLaConstruccion[@id="f"]//SumatoriaTotalInstalacionesAccesoriosComplementariasPrivativas[@id="f.12"]');
         $dataf14 = $xmlEnfoqueDeCostos->xpath($elementoPrincipal.'//ElementosDeLaConstruccion[@id="f"]//ImporteIndivisoInstalacionesEspecialesObrasComplementariasYElementosAccesoriosComunes[@id="f.14"]');
 
         $errores = valida_AvaluoEnfoqueCostosComercial($xmlEnfoqueDeCostos->xpath($elementoPrincipal.'//EnfoqueDeCostos[@id="i"]'), $elementoPrincipal, $datad13, $datae2, $dataf12, $dataf14);    

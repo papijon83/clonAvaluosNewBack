@@ -1593,14 +1593,14 @@ function valida_Calculos_e($data, $dataextra = false, $dataextrados = false, $b_
             if(isset($elemento['@attributes']['id']) && $elemento['@attributes']['id'] == 'e.2.1'){
                 $e_2_1_n_9 = $elemento['VidaMinimaRemanente'];
                 $e_2_1_n_8 = $elemento['VidaUtilTotalDelTipo'];
-                $e_2_1_n_7 = $elemento['Edad'];
+                /*$e_2_1_n_7 = $elemento['Edad'];
                 $calc_e_2_1_n_9 = $e_2_1_n_8 - $e_2_1_n_7;
-                /*if(truncate($e_2_1_n_9,2) != truncate($calc_e_2_1_n_9,2)){ //echo "COIMPARACION ".truncate($e_2_1_n_9,2)." != ".truncate($calc_e_2_1_n_9,2)."\n";
+                if(truncate($e_2_1_n_9,2) != truncate($calc_e_2_1_n_9,2)){ //echo "COIMPARACION ".truncate($e_2_1_n_9,2)." != ".truncate($calc_e_2_1_n_9,2)."\n";
                     $mensajese[] = "e.2.1.n.9 - El cálculo de VidaUtilRemanente es erróneo ";
                 }*/
 
-                if(isset($elemento['IndicedelcostoRemanente'])){
-                    $e_2_1_n_13 = $elemento['IndicedelcostoRemanente'];
+                if(isset($elemento['IndiceDelCostoRemanente'])){
+                    $e_2_1_n_13 = $elemento['IndiceDelCostoRemanente'];
                     $e_2_1_n_2 = $elemento['ClaveUso'];
                     if($e_2_1_n_2 != 'H'){
                         if($e_2_1_n_2 != 'W'){
@@ -1637,7 +1637,7 @@ function valida_Calculos_e($data, $dataextra = false, $dataextrados = false, $b_
                 if(isset($dataextra) && $dataextra != false){
                     if($dataextra == '//Comercial'){
                         $e_2_1_n_15 = $elemento['CostoDeLaFraccionN'];
-                        $e_2_1_n_12 = $elemento['CostounitariodereposicionNuevo'];
+                        $e_2_1_n_12 = $elemento['CostoUnitarioDeReposicionNuevo'];
                         $e_2_1_n_11 = $elemento['Superficie'];
                         $calc_e_2_1_n_15 = $e_2_1_n_12 * $e_2_1_n_13 * $e_2_1_n_11;
 
@@ -1656,16 +1656,19 @@ function valida_Calculos_e($data, $dataextra = false, $dataextrados = false, $b_
                     }
                 }
 
-                if(isset($elemento['DepreciacionPorEdad'])){
-                    $e_2_1_n_17 = $elemento['DepreciacionPorEdad'];
-                    $e_2_1_n_7 = $elemento['Edad'];
-                    //antes se tenia (100-min(40,$e_2_1_n_7 * 1)) / 100
-                    $calc_e_2_1_n_17 = $e_2_1_n_7 >= 50 ? (100-(50 * 0.8)) / 100 : (100-(0.8 * $e_2_1_n_7)) / 100;
-                    //echo "COMPARACION DepreciacionPorEdad ".truncate($e_2_1_n_17,2)." != ".truncate($calc_e_2_1_n_17,2)."\n"; exit();
-                    if(truncate($e_2_1_n_17,2) != truncate($calc_e_2_1_n_17,2)){ //echo "COMPARACION DepreciacionPorEdad ".truncate($e_2_1_n_17,2)." != ".truncate($calc_e_2_1_n_17,2)."\n"; exit();
-                        $mensajese[] =  "e.2.1.n.17 - El cálculo de DepreciacionPorEdad es erróneo ";
+                if($dataextra == '//Catastral'){
+                    if(isset($elemento['DepreciacionPorEdad'])){
+                        $e_2_1_n_17 = $elemento['DepreciacionPorEdad'];
+                        $e_2_1_n_7 = $elemento['Edad'];
+                        //antes se tenia (100-min(40,$e_2_1_n_7 * 1)) / 100
+                        $calc_e_2_1_n_17 = $e_2_1_n_7 >= 50 ? (100-(50 * 0.8)) / 100 : (100-(0.8 * $e_2_1_n_7)) / 100;
+                        //echo "COMPARACION DepreciacionPorEdad ".truncate($e_2_1_n_17,2)." != ".truncate($calc_e_2_1_n_17,2)."\n"; exit();
+                        if(truncate($e_2_1_n_17,2) != truncate($calc_e_2_1_n_17,2)){ //echo "COMPARACION DepreciacionPorEdad ".truncate($e_2_1_n_17,2)." != ".truncate($calc_e_2_1_n_17,2)."\n"; exit();
+                            $mensajese[] =  "e.2.1.n.17 - El cálculo de DepreciacionPorEdad es erróneo ";
+                        }
                     }
                 }
+                
                 
             }else{
                 if(isset($elemento['id']) && $elemento['id'] == 'e.2.1'){
@@ -1677,13 +1680,13 @@ function valida_Calculos_e($data, $dataextra = false, $dataextrados = false, $b_
                         $mensajese[] =  "e.2.1.n.9 - El cálculo de VidaUtilRemanente es erróneo ";
                     }*/
 
-                    if(isset($data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['IndicedelcostoRemanente'])){
-                        $e_2_1_n_13 = $data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['IndicedelcostoRemanente'];
+                    if(isset($data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['IndiceDelCostoRemanente'])){
+                        $e_2_1_n_13 = $data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['IndiceDelCostoRemanente'];
                         $e_2_1_n_2 = $data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['ClaveUso'];
                         if($e_2_1_n_2 != 'H'){
                             if($e_2_1_n_2 != 'W'){
                                 if($e_2_1_n_13 < 0.6){
-                                    $mensajese[] =  "e.2.1.n.13 - IndicedelcostoRemanente. El valor no debe ser inferior a 0.6.";
+                                    $mensajese[] =  "e.2.1.n.13 - IndiceDelCostoRemanente. El valor no debe ser inferior a 0.6.";
                                 }else{
     
                                     $usos_1 = array('PE','PC','J','P');
@@ -1725,7 +1728,7 @@ function valida_Calculos_e($data, $dataextra = false, $dataextrados = false, $b_
                     if(isset($dataextra) && $dataextra != false){
                         if($dataextra == '//Comercial'){
                             $e_2_1_n_15 = $data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['CostoDeLaFraccionN'];
-                            $e_2_1_n_12 = $data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['CostounitariodereposicionNuevo'];
+                            $e_2_1_n_12 = $data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['CostoUnitarioDeReposicionNuevo'];
                             $e_2_1_n_11 = $data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['Superficie'];
                             $calc_e_2_1_n_15 = $e_2_1_n_12 * $e_2_1_n_13 * $e_2_1_n_11;
     
@@ -1784,19 +1787,19 @@ function valida_Calculos_e($data, $dataextra = false, $dataextrados = false, $b_
                         $mensajese[] =  "e.2.5.n.9 - El cálculo de VidaMinimaRemanente es erróneo ";
                     }*/
 
-                    if(isset($elemento['IndicedelcostoRemanente'])){
-                        $e_2_5_n_13 = $elemento['IndicedelcostoRemanente'];
+                    if(isset($elemento['IndiceDelCostoRemanente'])){
+                        $e_2_5_n_13 = $elemento['IndiceDelCostoRemanente'];
                         $e_2_5_n_2 = $elemento['ClaveUso'];
                         $usos_1 = array('PE','PC','J','P');
                         /*if(in_array($e_2_5_n_2,$usos_1)){
                             if($e_2_5_n_13 != 1){
-                                $mensajese[] =  "e.2.5.n.13 - El cálculo de IndicedelcostoRemanente es erróneo ";
+                                $mensajese[] =  "e.2.5.n.13 - El cálculo de IndiceDelCostoRemanente es erróneo ";
                             }
                         }else{
                             $calc_e_2_5_n_13 = ((0.1 * $e_2_5_n_8) + (0.9 * ($e_2_5_n_8 - $e_2_5_n_7))) / $e_2_5_n_8;
                         } 
                         if(truncate($e_2_5_n_13,2) != truncate($calc_e_2_5_n_13,2)){
-                            $mensajese[] =  "e.2.5.n.13 - El cálculo de IndicedelcostoRemanente es erróneo ";
+                            $mensajese[] =  "e.2.5.n.13 - El cálculo de IndiceDelCostoRemanente es erróneo ";
                         }*/
                     }
 
@@ -1813,7 +1816,7 @@ function valida_Calculos_e($data, $dataextra = false, $dataextrados = false, $b_
                         if($dataextra == '//Comercial'){
                             $e_2_5_n_18 = $elemento['PorcentajeIndivisoComunes'];
                             $e_2_5_n_15 = $elemento['CostoDeLaFraccionN'];
-                            $e_2_5_n_12 = $elemento['CostounitariodereposicionNuevo'];
+                            $e_2_5_n_12 = $elemento['CostoUnitarioDeReposicionNuevo'];
                             $e_2_5_n_11 = $elemento['Superficie'];
                             //$calc_e_2_5_n_15 = $e_2_5_n_12 * $e_2_5_n_14 * $e_2_5_n_11;
                             $calc_e_2_5_n_15 = $e_2_5_n_12 * $e_2_5_n_13 * $e_2_5_n_11;
@@ -1851,14 +1854,16 @@ function valida_Calculos_e($data, $dataextra = false, $dataextrados = false, $b_
                     if(isset($elemento['id']) && $elemento['id'] == 'e.2.5'){
                         $e_2_5_n_9 = $data[0]['TiposDeConstruccion']['ConstruccionesComunes']['VidaMinimaRemanente'];
                         $e_2_5_n_8 = $data[0]['TiposDeConstruccion']['ConstruccionesComunes']['VidaUtilTotalDelTipo'];
-                        $e_2_5_n_7 = $data[0]['TiposDeConstruccion']['ConstruccionesComunes']['Edad'];
+                        if($dataextra == '//Catastral'){
+                            $e_2_5_n_7 = $data[0]['TiposDeConstruccion']['ConstruccionesComunes']['Edad'];
+                        }
                         /*$calc_e_2_5_n_9 = $e_2_5_n_8 - $e_2_5_n_7; //echo "OPERACION ".truncate($e_2_5_n_9,2)." != ".truncate($calc_e_2_5_n_9,2)."\n";
                         if(truncate($e_2_5_n_9,2) != truncate($calc_e_2_5_n_9,2)){
                             $mensajese[] =  "e.2.5.n.9 - El cálculo de VidaUtilRemanente es erróneo ";
                         }*/
 
-                        if(isset($data[0]['TiposDeConstruccion']['ConstruccionesComunes']['IndicedelcostoRemanente'])){
-                            $e_2_5_n_13 = $data[0]['TiposDeConstruccion']['ConstruccionesComunes']['IndicedelcostoRemanente'];
+                        if(isset($data[0]['TiposDeConstruccion']['ConstruccionesComunes']['IndiceDelCostoRemanente'])){
+                            $e_2_5_n_13 = $data[0]['TiposDeConstruccion']['ConstruccionesComunes']['IndiceDelCostoRemanente'];
                             $e_2_5_n_2 = $data[0]['TiposDeConstruccion']['ConstruccionesComunes']['ClaveUso'];
                             $usos_1 = array('PE','PC','J','P');
                             /*if(in_array($e_2_5_n_2,$usos_1)){
@@ -1869,7 +1874,7 @@ function valida_Calculos_e($data, $dataextra = false, $dataextrados = false, $b_
                                 $calc_e_2_5_n_13 = ((0.1 * $e_2_5_n_8) + (0.9 * ($e_2_5_n_8 - $e_2_5_n_7))) / $e_2_5_n_8;
                             } 
                             if(truncate($e_2_5_n_13,2) != truncate($calc_e_2_5_n_13,2)){
-                                $mensajese[] =  "El cálculo de IndicedelcostoRemanente es erróneo ";
+                                $mensajese[] =  "El cálculo de IndiceDelCostoRemanente es erróneo ";
                             }*/
                         }
 
@@ -1886,7 +1891,7 @@ function valida_Calculos_e($data, $dataextra = false, $dataextrados = false, $b_
                             if($dataextra == '//Comercial'){
                                 $e_2_5_n_18 = $data[0]['TiposDeConstruccion']['ConstruccionesComunes']['PorcentajeIndivisoComunes'];
                                 $e_2_5_n_15 = $data[0]['TiposDeConstruccion']['ConstruccionesComunes']['CostoDeLaFraccionN'];
-                                $e_2_5_n_12 = $data[0]['TiposDeConstruccion']['ConstruccionesComunes']['CostounitariodereposicionNuevo'];
+                                $e_2_5_n_12 = $data[0]['TiposDeConstruccion']['ConstruccionesComunes']['CostoUnitarioDeReposicionNuevo'];
                                 $e_2_5_n_11 = $data[0]['TiposDeConstruccion']['ConstruccionesComunes']['Superficie'];
                                 //$calc_e_2_5_n_15 = $e_2_5_n_12 * $e_2_5_n_14 * $e_2_5_n_11;
                                 $calc_e_2_5_n_15 = $e_2_5_n_12 * $e_2_5_n_13 * $e_2_5_n_11;
@@ -1975,7 +1980,7 @@ function valida_Calculos($data, $letra, $dataextra = false, $dataextrados = fals
                 }else{
                     $calc_d_5_n_10 = $data[0]['SuperficieDelTerreno']['Fzo'] * $data[0]['SuperficieDelTerreno']['Fub'] * $data[0]['SuperficieDelTerreno']['FFr'] * $data[0]['SuperficieDelTerreno']['Ffo'] * $data[0]['SuperficieDelTerreno']['Fsu'];
                 }*/
-                $calc_d_5_n_10 = $data[0]['SuperficieDelTerreno']['Factor1']['Valor'] * $data[0]['SuperficieDelTerreno']['Factor2']['Valor'] * $data[0]['SuperficieDelTerreno']['Factor3']['Valor'] * $data[0]['SuperficieDelTerreno']['Factor4']['Valor'] * $data[0]['SuperficieDelTerreno']['Factor5']['Valor'] * $data[0]['SuperficieDelTerreno']['Factor6']['Valor'] * $data[0]['SuperficieDelTerreno']['Factor7']['Valor'];
+                $calc_d_5_n_10 = $data[0]['SuperficieDelTerreno']['Factor1']['Valor'] * $data[0]['SuperficieDelTerreno']['Factor2']['Valor'] * $data[0]['SuperficieDelTerreno']['Factor3']['Valor'] * $data[0]['SuperficieDelTerreno']['Factor4']['Valor'] * $data[0]['SuperficieDelTerreno']['Factor5']['Valor'];
                 if(truncate($d_5_n_10,2) > truncate($calc_d_5_n_10,2)){
                     $mensajesd[] =  "d.5.n.10 - El cálculo de Fre es erróneo ";
                 }
@@ -2673,7 +2678,7 @@ function valida_Calculos_i($data,$letra, $datad13, $datae2, $dataf12, $dataf14){
     $i_6 = $data[0]['ImporteTotalDelEnfoqueDeCostos'];
     $calc_i_6 = $d_13 + $e_2_3 + $e_2_8 + $f_12 + $f_14;
 
-    if((String)(truncate($i_6,2)) != (String)(truncate($calc_i_6,2))){ //error_log(truncate($i_6,2)." != ".truncate($calc_i_6,2));
+    if((String)(truncate($i_6,2)) != (String)(truncate($calc_i_6,2))){ error_log(truncate($i_6,2)." != ".truncate($calc_i_6,2));
         return  "i.6 - El cálculo de ImporteTotalDelEnfoqueDeCostos es erróneo ";
     }
 
@@ -2811,8 +2816,8 @@ function valida_AvaluoTerreno($data, $elementoPrincipal, $datah = false){
         $validacionesd413 = array('Fecha' => 'date', 'NombreAdquirente' => 'nonEmptyString_50', 'Apellido1Adquirente' => 'nonEmptyString_100', 'Apellido2Adquirente' => 'nonEmptyString_50', 'NombreEnajenante' => 'nonEmptyString_50', 'Apellido1Enajenante' => 'nonEmptyString_100', 'Apellido2Enajenante' => 'nonEmptyString_50');
         $validacionesd414 = array('Fecha' => 'date', 'NumeroFolio' => 'nonEmptyString_20');
         $validacionesd42 = array('Orientacion' => 'nonEmptyString', 'MedidaEnMetros' => 'decimalPositivo_223', 'DescripcionColindante' => 'nonEmptyString');
-        $validacionesd5P = array('IdentificadorFraccionN1' => 'SUB-IdentificadorFraccionN1Priv', 'SuperficieFraccionN1' => 'SUB-SuperficieFraccionN1Priv', 'Fzo' => 'SUB-FzoPriv', 'Fub' => 'SUB-FubPriv', 'FFr' => 'SUB-FFrPriv', 'Ffo' => 'SUB-FfoPriv', 'Fsu' => 'SUB-FsuPriv', 'ClaveDeAreaDeValor' => 'SUB-ClaveDeAreaDeValorPriv', 'Fre' => 'SUB-FrePriv', 'ValorDeLaFraccionN' => 'SUB-ValorDeLaFraccionNPriv');
-        $validacionesd5C = array('IdentificadorFraccionN1' => 'SUB-IdentificadorFraccionN1Com', 'SuperficieFraccionN1' => 'SUB-SuperficieFraccionN1Com', 'Fzo' => 'SUB-FzoCom', 'Fub' => 'SUB-FubCom', 'FFr' => 'SUB-FFrCom', 'Ffo' => 'SUB-FfoCom', 'Fsu' => 'SUB-FsuCom', 'ClaveDeAreaDeValor' => 'SUB-ClaveDeAreaDeValorCom', 'Fre' => 'SUB-FreCom', 'ValorDeLaFraccionN' => 'SUB-ValorDeLaFraccionNCom');       
+        $validacionesd5P = array('IdentificadorFraccionN1' => 'SUB-IdentificadorFraccionN1Priv', 'SuperficieFraccionN1' => 'SUB-SuperficieFraccionN1Priv', 'ClaveDeAreaDeValor' => 'SUB-ClaveDeAreaDeValorPriv', 'Fre' => 'SUB-FrePriv', 'ValorDeLaFraccionN' => 'SUB-ValorDeLaFraccionNPriv');
+        $validacionesd5C = array('IdentificadorFraccionN1' => 'SUB-IdentificadorFraccionN1Com', 'SuperficieFraccionN1' => 'SUB-SuperficieFraccionN1Com', 'ClaveDeAreaDeValor' => 'SUB-ClaveDeAreaDeValorCom', 'Fre' => 'SUB-FreCom', 'ValorDeLaFraccionN' => 'SUB-ValorDeLaFraccionNCom');       
     }else{
         $validacionesd = array('CallesTransversalesLimitrofesYOrientacion' => 'nonEmptyString', 'CroquisMicroLocalizacion' => 'base64Binary', 'CroquisMacroLocalizacion' => 'base64Binary','Indiviso' => 'porcentaje_10', 'TopografiaYConfiguracion' => 'catTopografia', 'CaracteristicasPanoramicas' => 'nonEmptyString_250', 'DensidadHabitacional' => 'catDensidadHabitacional', 'ServidumbresORestricciones' => 'nonEmptyString_250', 'SuperficieTotalDelTerreno' => 'decimalPositivo', 'ValorTotalDelTerreno' => 'decimalPositivo', 'ValorTotalDelTerrenoProporcional' => 'decimalPositivo');
         $validacionesd411 = array('NumeroDeEscritura' => 'decimalPositivo', 'NumeroDeVolumen' => 'nonEmptyString_7', 'FechaEscritura' => 'date', 'NumeroNotaria' => 'decimalPositivo', 'NombreDelNotario' => 'nonEmptyString_50', 'DistritoJudicialNotario' => 'nonEmptyString_50');
@@ -2972,18 +2977,18 @@ function valida_AvaluoDescripcionImueble($data, $elementoPrincipal, $datad = fal
 
         $validacionese2 = array('SuperficieTotalDeConstruccionesPrivativas' => 'SUB-SuperficieTotalDeConstruccionesPrivativas', 'ValorTotalDeConstruccionesPrivativas' => 'SUB-ValorTotalDeConstruccionesPrivativas', 'ValorTotalDeLasConstruccionesProIndiviso' => 'SUB-ValorTotalDeLasConstruccionesProIndiviso', 'SuperficieTotalDeConstruccionesComunes' => 'SUB-SuperficieTotalDeConstruccionesComunes', 'ValorTotalDeConstruccionesComunes' => 'SUB-ValorTotalDeConstruccionesComunes', 'ValorTotalDeLasConstruccionesComunesProIndiviso' => 'SUB-ValorTotalDeLasConstruccionesProIndivisoComunes');
 
-        $validacionese21 = array('Descripcion' => 'SUB-Descripcion', 'ClaveUso' => 'SUB-ClaveUso', 'NumeroDeNivelesDelTipo' => 'SUB-NumeroDeNivelesDelTipo', 'ClaveRangoDeNiveles' => 'SUB-ClaveRangoDeNiveles', 'PuntajeDeClasificacion' => 'SUB-PuntajeDeClasificacion', 'ClaveClase' => 'SUB-ClaveClase', 'Edad' => 'SUB-Edad', 'VidaUtilTotalDelTipo' => 'SUB-VidaUtilTipo', 'VidaMinimaRemanente' => 'SUB-VidaUtilRemanente', 'ClaveConservacion' => 'SUB-ClaveConservacion', 'Superficie' => 'SUB-Superficie', 'CostounitariodereposicionNuevo' => 'SUB-ValorunitariodereposicionNuevo', 'FactorDeEdad' => 'SUB-FactorDeEdad', 'FactorResultante' => 'SUB-FactorResultante', 'ValorDeLaFraccionN' => 'SUB-ValorDeLaFraccionNDescInmueble');
+        $validacionese21 = array('Descripcion' => 'SUB-Descripcion', 'ClaveUso' => 'SUB-ClaveUso', 'NumeroDeNivelesDelTipo' => 'SUB-NumeroDeNivelesDelTipo', 'ClaveRangoDeNiveles' => 'SUB-ClaveRangoDeNiveles', 'PuntajeDeClasificacion' => 'SUB-PuntajeDeClasificacion', 'ClaveClase' => 'SUB-ClaveClase', 'VidaUtilTotalDelTipo' => 'SUB-VidaUtilTipo', 'VidaMinimaRemanente' => 'SUB-VidaUtilRemanente', 'Superficie' => 'SUB-Superficie', 'CostoUnitarioDeReposicionNuevo' => 'SUB-ValorunitariodereposicionNuevo', 'IndiceDelCostoRemanente' => 'decimalPositivo', 'CostoDeLaFraccionN' => 'SUB-ValorDeLaFraccionNDescInmueble');
 
-        $validacionese25 = array('Descripcion' => 'SUB-DescripcionComunes', 'ClaveUso' => 'SUB-ClaveUsoComunes', 'NumeroDeNivelesDelTipo' => 'SUB-NumeroDeNivelesDelTipoComunes', 'ClaveRangoDeNiveles' => 'SUB-ClaveRangoDeNivelesComunes', 'PuntajeDeClasificacion' => 'SUB-PuntajeDeClasificacionComunes', 'ClaveClase' => 'SUB-ClaveClaseComunes', 'Edad' => 'SUB-EdadComunes', 'VidaUtilTotalDelTipo' => 'SUB-VidaUtilTipoComunes', 'VidaMinimaRemanente' => 'SUB-VidaUtilRemanenteComunes', 'ClaveConservacion' => 'SUB-ClaveConservacionComunes', 'Superficie' => 'SUB-SuperficieComunes', 'CostounitariodereposicionNuevo' => 'SUB-ValorunitariodereposicionNuevoComunes', 'FactorDeEdad' => 'SUB-FactorDeEdadComunes', 'FactorResultante' => 'SUB-FactorResultanteComunes', 'ValorDeLaFraccionN' => 'SUB-ValorDeLaFraccionNDescInmuebleComunes','PorcentajeIndivisoComunes' => 'SUB-PorcentajeIndivisoComunes');
+        $validacionese25 = array('Descripcion' => 'SUB-DescripcionComunes', 'ClaveUso' => 'SUB-ClaveUsoComunes', 'NumeroDeNivelesDelTipo' => 'SUB-NumeroDeNivelesDelTipoComunes', 'ClaveRangoDeNiveles' => 'SUB-ClaveRangoDeNivelesComunes', 'PuntajeDeClasificacion' => 'SUB-PuntajeDeClasificacionComunes', 'ClaveClase' => 'SUB-ClaveClaseComunes', 'VidaUtilTotalDelTipo' => 'SUB-VidaUtilTipoComunes', 'VidaMinimaRemanente' => 'SUB-VidaUtilRemanenteComunes', 'Superficie' => 'SUB-SuperficieComunes', 'CostoUnitarioDeReposicionNuevo' => 'SUB-ValorunitariodereposicionNuevoComunes', 'IndiceDelCostoRemanente' => 'decimalPositivo', 'CostoDeLaFraccionN' => 'SUB-ValorDeLaFraccionNDescInmuebleComunes','PorcentajeIndivisoComunes' => 'SUB-PorcentajeIndivisoComunes');
     }else{
         //$validacionese = array('UsoActual' => 'nonEmptyString_2000', 'VidaUtilTotalPonderadaDelInmueble' => 'nullableDecimalPositivo', 'EdadPonderadaDelInmueble' => 'nullableDecimalPositivo', 'VidaUtilRemanentePonderadaDelInmueble' => 'nullableDecimalPositivo');
         $validacionese = array('UsoActual' => 'nonEmptyString_2000', 'VidaUtilTotalPonderadaDelInmueble' => 'nullableDecimalPositivo', 'EdadPonderadaDelInmueble' => 'nullableDecimalPositivo', 'VidaUtilRemanentePonderadaDelInmueble' => 'nullableDecimalPositivo', 'PorcentSuperfUltimNivelRespectoAnterior' => 'porcentaje_10');
 
         $validacionese2 = array('SuperficieTotalDeConstruccionesPrivativas' => 'SUB-SuperficieTotalDeConstruccionesPrivativas', 'ValorTotalDeConstruccionesPrivativas' => 'SUB-ValorTotalDeConstruccionesPrivativas', 'ValorTotalDeLasConstruccionesProIndiviso' => 'SUB-ValorTotalDeLasConstruccionesProIndiviso', 'SuperficieTotalDeConstruccionesComunes' => 'SUB-SuperficieTotalDeConstruccionesComunes', 'ValorTotalDeConstruccionesComunes' => 'SUB-ValorTotalDeConstruccionesComunes', 'ValorTotalDeLasConstruccionesComunesProIndiviso' => 'SUB-ValorTotalDeLasConstruccionesProIndivisoComunes');
         
-        $validacionese21 = array('Descripcion' => 'SUB-Descripcion', 'ClaveUso' => 'SUB-ClaveUso', 'NumeroDeNivelesDelTipo' => 'SUB-NumeroDeNivelesDelTipo', 'ClaveRangoDeNiveles' => 'SUB-ClaveRangoDeNiveles', 'PuntajeDeClasificacion' => 'SUB-PuntajeDeClasificacion', 'ClaveClase' => 'SUB-ClaveClase', 'Edad' => 'SUB-Edad', 'VidaUtilTotalDelTipo' => 'SUB-VidaUtilTipo', 'VidaMinimaRemanente' => 'SUB-VidaUtilRemanente', 'ClaveConservacion' => 'SUB-ClaveConservacion', 'Superficie' => 'SUB-Superficie', 'ValorDeLaFraccionN' => 'SUB-ValorDeLaFraccionNDescInmueble', 'ValorUnitarioCatastral' => 'SUB-ValorUnitarioCatastral', 'DepreciacionPorEdad' => 'SUB-DepreciacionPorEdad');
+        $validacionese21 = array('Descripcion' => 'SUB-Descripcion', 'ClaveUso' => 'SUB-ClaveUso', 'NumeroDeNivelesDelTipo' => 'SUB-NumeroDeNivelesDelTipo', 'ClaveRangoDeNiveles' => 'SUB-ClaveRangoDeNiveles', 'PuntajeDeClasificacion' => 'SUB-PuntajeDeClasificacion', 'ClaveClase' => 'SUB-ClaveClase', 'Edad' => 'SUB-Edad', 'VidaUtilTotalDelTipo' => 'SUB-VidaUtilTipo', 'VidaMinimaRemanente' => 'SUB-VidaUtilRemanente', 'Superficie' => 'SUB-Superficie', 'CostoDeLaFraccionN' => 'SUB-ValorDeLaFraccionNDescInmueble', 'ValorUnitarioCatastral' => 'SUB-ValorUnitarioCatastral', 'DepreciacionPorEdad' => 'SUB-DepreciacionPorEdad');
        
-        $validacionese25 = array('Descripcion' => 'SUB-Descripcion', 'ClaveUso' => 'SUB-ClaveUso', 'NumeroDeNivelesDelTipo' => 'SUB-NumeroDeNivelesDelTipo', 'ClaveRangoDeNiveles' => 'SUB-ClaveRangoDeNiveles', 'PuntajeDeClasificacion' => 'SUB-PuntajeDeClasificacion', 'ClaveClase' => 'SUB-ClaveClase', 'Edad' => 'SUB-Edad', 'VidaUtilTotalDelTipo' => 'SUB-VidaUtilTipo', 'VidaMinimaRemanente' => 'SUB-VidaUtilRemanente', 'ClaveConservacion' => 'SUB-ClaveConservacion', 'Superficie' => 'SUB-Superficie', 'ValorDeLaFraccionN' => 'SUB-ValorDeLaFraccionNDescInmueble', 'ValorUnitarioCatastral' => 'SUB-ValorUnitarioCatastral', 'DepreciacionPorEdad' => 'SUB-DepreciacionPorEdad', 'PorcentajeIndivisoComunes' => 'SUB-PorcentajeIndivisoComunes');
+        $validacionese25 = array('Descripcion' => 'SUB-Descripcion', 'ClaveUso' => 'SUB-ClaveUso', 'NumeroDeNivelesDelTipo' => 'SUB-NumeroDeNivelesDelTipo', 'ClaveRangoDeNiveles' => 'SUB-ClaveRangoDeNiveles', 'PuntajeDeClasificacion' => 'SUB-PuntajeDeClasificacion', 'ClaveClase' => 'SUB-ClaveClase', 'Edad' => 'SUB-Edad', 'VidaUtilTotalDelTipo' => 'SUB-VidaUtilTipo', 'VidaMinimaRemanente' => 'SUB-VidaUtilRemanente', 'Superficie' => 'SUB-Superficie', 'CostoDeLaFraccionN' => 'SUB-ValorDeLaFraccionNDescInmueble', 'ValorUnitarioCatastral' => 'SUB-ValorUnitarioCatastral', 'DepreciacionPorEdad' => 'SUB-DepreciacionPorEdad', 'PorcentajeIndivisoComunes' => 'SUB-PorcentajeIndivisoComunes');
     }
 
     $errores = array();
@@ -3080,7 +3085,7 @@ function valida_AvaluoDescripcionImueble($data, $elementoPrincipal, $datad = fal
                 $errores[] = $claveUso == 'W' ? "e.2.1.n.11 Campo obligatorio para el uso baldio" : "e.2.1.n.11 Campo obligatorio";                              
             }
 
-            if((!isset($data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['CostounitariodereposicionNuevo'])  || trim($data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['CostounitariodereposicionNuevo']) == '') && $elementoPrincipal == '//Comercial'){                
+            if((!isset($data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['CostoUnitarioDeReposicionNuevo'])  || trim($data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['CostoUnitarioDeReposicionNuevo']) == '') && $elementoPrincipal == '//Comercial'){                
                 $errores[] = $claveUso == 'W' ? "e.2.1.n.12 Campo obligatorio para el uso baldio" : "e.2.1.n.12 Campo obligatorio";                              
             }
 
@@ -3092,7 +3097,7 @@ function valida_AvaluoDescripcionImueble($data, $elementoPrincipal, $datad = fal
                 $errores[] = $claveUso == 'W' ? "e.2.1.n.14 Campo obligatorio para el uso baldio" : "e.2.1.n.14 Campo obligatorio";                              
             }
 
-            if(trim($data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['ValorDeLaFraccionN']) == ''){              
+            if(trim($data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['CostoDeLaFraccionN']) == ''){              
                 $errores[] = $claveUso == 'W' ? "e.2.1.n.15 Campo obligatorio para el uso baldio" : "e.2.1.n.15 Campo obligatorio";                              
             }
 
@@ -3145,7 +3150,7 @@ function valida_AvaluoDescripcionImueble($data, $elementoPrincipal, $datad = fal
                 $claveUso = $elementoPrin['ClaveUso'];
                 $numeroEtiqueta = 1;
                 $numeroArreglo = 0;
-                foreach($validacionese21 as $etiqueta => $validacion){                
+                foreach($validacionese21 as $etiqueta => $validacion){ //error_log("La etiqueta ".$etiqueta);               
                     if(trim($elementoPrin[$etiqueta]) == '' && $numeroArreglo < 6){
                         $errores[] = $claveUso == 'W' ? "e.2.1.n.$numeroEtiqueta Campo obligatorio para el uso baldio" : "e.2.1.n.$numeroEtiqueta Campo obligatorio";
                     }
@@ -3155,11 +3160,11 @@ function valida_AvaluoDescripcionImueble($data, $elementoPrincipal, $datad = fal
     
                 if($elementoPrincipal != '//Comercial' && trim($elementoPrin['Edad']) == ''){
                     $errores[] = $claveUso == 'W' ? "e.2.1.n.7 Campo obligatorio para el uso baldio" : "e.2.1.n.7 Campo obligatorio";
-                }else{
+                }/*else{
                     if($elementoPrincipal == '//Comercial' && trim($elementoPrin['Edad']) != '' && !is_numeric($elementoPrin['Edad'])){
                         $errores[] = "e.2.1.n.7 El dato no es correcto, se requiere asignar un valor.";
                     } 
-                }
+                }*/
     
                 if($elementoPrincipal != '//Comercial' && trim($elementoPrin['VidaUtilTotalDelTipo']) == ''){
                     if($claveUso != 'W'){
@@ -3179,19 +3184,19 @@ function valida_AvaluoDescripcionImueble($data, $elementoPrincipal, $datad = fal
                     $errores[] = $claveUso == 'W' ? "e.2.1.n.11 Campo obligatorio para el uso baldio" : "e.2.1.n.11 Campo obligatorio";                              
                 }
     
-                if((!isset($elementoPrin['CostounitariodereposicionNuevo']) || trim($elementoPrin['CostounitariodereposicionNuevo']) == '') && $elementoPrincipal == '//Comercial'){                
+                if((!isset($elementoPrin['CostoUnitarioDeReposicionNuevo']) || trim($elementoPrin['CostoUnitarioDeReposicionNuevo']) == '') && $elementoPrincipal == '//Comercial'){                
                     $errores[] = $claveUso == 'W' ? "e.2.1.n.12 Campo obligatorio para el uso baldio" : "e.2.1.n.12 Campo obligatorio";                              
                 }
     
-                if((!isset($elementoPrin['CostounitariodereposicionNuevo']) || trim($elementoPrin['FactorDeEdad']) == '') && $elementoPrincipal == '//Comercial' && $claveUso != 'H'){                
+                if((!isset($elementoPrin['CostoUnitarioDeReposicionNuevo']) || trim($elementoPrin['IndiceDelCostoRemanente']) == '') && $elementoPrincipal == '//Comercial' && $claveUso != 'H'){                
                     $errores[] = $claveUso == 'W' ? "e.2.1.n.13 Campo obligatorio para el uso baldio" : "e.2.1.n.13 Campo obligatorio";                              
                 }
     
-                if((!isset($elementoPrin['CostounitariodereposicionNuevo']) || trim($elementoPrin['FactorResultante']) == '') && $elementoPrincipal == '//Comercial' && $claveUso != 'H'){                
+                if(!isset($elementoPrin['CostoUnitarioDeReposicionNuevo']) && $elementoPrincipal == '//Comercial' && $claveUso != 'H'){                
                     $errores[] = $claveUso == 'W' ? "e.2.1.n.14 Campo obligatorio para el uso baldio" : "e.2.1.n.14 Campo obligatorio";                              
                 }
     
-                if(trim($elementoPrin['ValorDeLaFraccionN']) == ''){              
+                if(trim($elementoPrin['CostoDeLaFraccionN']) == ''){              
                     $errores[] = $claveUso == 'W' ? "e.2.1.n.15 Campo obligatorio para el uso baldio" : "e.2.1.n.15 Campo obligatorio";                              
                 }
     
@@ -3269,11 +3274,11 @@ function valida_AvaluoDescripcionImueble($data, $elementoPrincipal, $datad = fal
                 $errores[] = $claveUso == 'W' ? "e.2.5.n.9 Campo obligatorio para el uso baldio" : "e.2.5.n.9 Campo obligatorio";                              
             }
 
-            if($claveUso != 'W' && trim($data[0]['TiposDeConstruccion']['ConstruccionesComunes']['ClaveConservacion']) == ''){                
+            /*if($claveUso != 'W' && trim($data[0]['TiposDeConstruccion']['ConstruccionesComunes']['ClaveConservacion']) == ''){                
                 $errores[] = $claveUso == 'W' ? "e.2.5.n.10 Campo obligatorio para el uso baldio" : "e.2.5.n.10 Campo obligatorio";                              
-            }
+            }*/
 
-            if((!isset($data[0]['TiposDeConstruccion']['ConstruccionesComunes']['CostounitariodereposicionNuevo']) || trim($data[0]['TiposDeConstruccion']['ConstruccionesComunes']['CostounitariodereposicionNuevo']) == '') && $elementoPrincipal == '//Comercial'){                
+            if((!isset($data[0]['TiposDeConstruccion']['ConstruccionesComunes']['CostoUnitarioDeReposicionNuevo']) || trim($data[0]['TiposDeConstruccion']['ConstruccionesComunes']['CostoUnitarioDeReposicionNuevo']) == '') && $elementoPrincipal == '//Comercial'){                
                 $errores[] = $claveUso == 'W' ? "e.2.5.n.12 Campo obligatorio para el uso baldio" : "e.2.5.n.12 Campo obligatorio";                              
             }
 
@@ -3285,7 +3290,7 @@ function valida_AvaluoDescripcionImueble($data, $elementoPrincipal, $datad = fal
                 $errores[] = $claveUso == 'W' ? "e.2.5.n.14 Campo obligatorio para el uso baldio" : "e.2.5.n.14 Campo obligatorio";                              
             }
 
-            if(trim($data[0]['TiposDeConstruccion']['ConstruccionesComunes']['ValorDeLaFraccionN']) == ''){              
+            if(trim($data[0]['TiposDeConstruccion']['ConstruccionesComunes']['CostoDeLaFraccionN']) == ''){              
                 $errores[] = $claveUso == 'W' ? "e.2.5.n.15 Campo obligatorio para el uso baldio" : "e.2.5.n.15 Campo obligatorio";                              
             }
 
@@ -3362,7 +3367,7 @@ function valida_AvaluoDescripcionImueble($data, $elementoPrincipal, $datad = fal
                     $errores[] = $claveUso == 'W' ? "e.2.5.n.10 Campo obligatorio para el uso baldio" : "e.2.5.n.10 Campo obligatorio";                              
                 }
     
-                if((!isset($elementoPrin['CostounitariodereposicionNuevo']) || trim($elementoPrin['CostounitariodereposicionNuevo']) == '') && $elementoPrincipal == '//Comercial'){                
+                if((!isset($elementoPrin['CostoUnitarioDeReposicionNuevo']) || trim($elementoPrin['CostoUnitarioDeReposicionNuevo']) == '') && $elementoPrincipal == '//Comercial'){                
                     $errores[] = $claveUso == 'W' ? "e.2.5.n.12 Campo obligatorio para el uso baldio" : "e.2.5.n.12 Campo obligatorio";                              
                 }
     
@@ -3374,7 +3379,7 @@ function valida_AvaluoDescripcionImueble($data, $elementoPrincipal, $datad = fal
                     $errores[] = $claveUso == 'W' ? "e.2.5.n.14 Campo obligatorio para el uso baldio" : "e.2.5.n.14 Campo obligatorio";                              
                 }
     
-                if(trim($elementoPrin['ValorDeLaFraccionN']) == ''){              
+                if(trim($elementoPrin['CostoDeLaFraccionN']) == ''){              
                     $errores[] = $claveUso == 'W' ? "e.2.5.n.15 Campo obligatorio para el uso baldio" : "e.2.5.n.15 Campo obligatorio";                              
                 }
     
@@ -3906,7 +3911,7 @@ function valida_AvaluoEnfoqueMercado($data){
 
     $validacionesh1 = array('ValorUnitarioDeTierraAplicableAlAvaluo' => 'SUB-ValorUnitarioDeTierraAplicableAlAvaluo');    
 
-    $validacionesh11 = array('Calle' => 'nonEmptyString_100', 'Colonia' => 'catColonia', 'Alcaldia' => 'catDelegacion', 'CodigoPostal' => 'nonEmptyString_5', 'DescripcionDelPredio' => 'nonEmptyString_250', 'UsoDelSuelo' => 'nonEmptyString_50', 'UsoDelSuelo' => 'nonEmptyString_50', 'CUS' => 'decimalPositivo', 'Superficie' => 'decimalPositivo_222', 'Fzo' => 'decimalPositivo_32', 'Fub' => 'decimalPositivo_32', 'FFr' => 'decimalPositivo_32', 'Ffo' => 'decimalPositivo_32', 'Fsu' => 'decimalPositivo_32', 'Fre' => 'decimalPositivo', 'PrecioSolicitado' => 'decimalPositivo', 'FactorDeNegociacion' => 'decimalPositivo');
+    $validacionesh11 = array('Calle' => 'nonEmptyString_100', 'Colonia' => 'catColonia', 'Alcaldia' => 'catDelegacion', 'CodigoPostal' => 'nonEmptyString_5', 'DescripcionDelPredio' => 'nonEmptyString_250', 'UsoDelSuelo' => 'nonEmptyString_50', 'UsoDelSuelo' => 'nonEmptyString_50', 'CUS' => 'decimalPositivo', 'Superficie' => 'decimalPositivo_222', 'Fre' => 'decimalPositivo', 'PrecioSolicitado' => 'decimalPositivo', 'FactorDeNegociacion' => 'decimalPositivo');
     $validacionesh11n5 = array('Telefono' => 'nonEmptyString_20', 'Informante' => 'nonEmptyString_100');
     $validacionesh11n18 = array('Valor' => 'decimalPositivo', 'Descripcion' => 'nonEmptyString_50');
 

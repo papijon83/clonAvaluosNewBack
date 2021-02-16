@@ -7,7 +7,7 @@ use App\Models\Documentos;
 use App\Models\Fis;
 use Log;
 
-class ReimpresionNuevo
+class Reimpresion
 {
     protected $modelDocumentos;
     protected $modelFis;
