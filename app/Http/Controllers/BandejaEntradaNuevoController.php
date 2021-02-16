@@ -8,6 +8,7 @@ use App\Models\ElementosConstruccion;
 use App\Models\GuardaenBD;
 use App\Models\Ava;
 use App\Models\Fis;
+use App\Models\Reimpresion;
 use App\Models\ReimpresionNuevo;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade as PDF;
@@ -31,6 +32,7 @@ class BandejaEntradaNuevoController extends Controller
     protected $modelGuardaenBD;
     protected $modelAva;
     protected $modelFis;
+    protected $modelReimpresion;
     protected $modelReimpresionNuevo;
     private $errors;
     private $doc;
@@ -3830,8 +3832,8 @@ class BandejaEntradaNuevoController extends Controller
             $numero_unico = trim($request->query('no_unico'));
             $this->modelDocumentos = new Documentos();    //echo $numero_unico; exit();         
             $id_avaluo = $this->modelDocumentos->get_idavaluo_db($numero_unico);            
-            $this->modelReimpresionNuevo = new ReimpresionNuevo();
-            $infoAcuse = $this->modelReimpresionNuevo->infoAcuse($id_avaluo);
+            $this->modelReimpresion = new ReimpresionNuevo();
+            $infoAcuse = $this->modelReimpresion->infoAcuse($id_avaluo);
             $token_infoAcuse = Crypt::encrypt($infoAcuse); 
             return response()->json([$infoAcuse, $token_infoAcuse], 200);
         }catch (\Throwable $th) {
@@ -3847,8 +3849,8 @@ class BandejaEntradaNuevoController extends Controller
 
             $this->modelDocumentos = new Documentos();    //echo $numero_unico; exit();         
             $id_avaluo = $this->modelDocumentos->get_idavaluo_db($numero_unico);    
-            $this->modelReimpresionNuevo = new ReimpresionNuevo();
-            $infoAvaluo = $this->modelReimpresionNuevo->infoAvaluoNuevo($id_avaluo);
+            $this->modelReimpresion = new Reimpresion();
+            $infoAvaluo = $this->modelReimpresion->infoAvaluo($id_avaluo);
             if(!is_array($infoAvaluo)){
                 return $infoAvaluo;
             }
