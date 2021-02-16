@@ -20,17 +20,17 @@ $router->get('/', function () use ($router) {
 $router->group(['prefix' => 'api'], function () use ($router) {
     $router->group(['prefix' => 'v1'], function () use ($router) {
         $router->group(['prefix' => 'bandeja-entrada'], function () use ($router) {
-            $router->get('avaluos', 'BandejaEntradaController@avaluos');
-            $router->get('avaluos-perito', 'BandejaEntradaController@avaluosPerito');
+            $router->get('avaluos', 'BandejaEntradaNuevoController@avaluos');
+            $router->get('avaluos-perito', 'BandejaEntradaNuevoController@avaluosPerito');
            
-            $router->get('modificarestadoavaluo', 'BandejaEntradaController@ModificarEstadoAvaluo');
-            $router->get('avaluosProximos', 'BandejaEntradaController@avaluosProximos');
-            $router->get('buscaNotario', 'BandejaEntradaController@buscaNotario');
-            $router->get('asignaNotarioAvaluo', 'BandejaEntradaController@asignaNotarioAvaluo');
-            $router->post('esValidoAvaluo', 'BandejaEntradaController@esValidoAvaluo');
-            $router->post('guardarAvaluo', 'BandejaEntradaController@guardarAvaluo');
-            $router->get('acuseAvaluo', 'BandejaEntradaController@acuseAvaluo');
-            $router->get('reimprimeAvaluo', 'BandejaEntradaController@infoAvaluo');
+            $router->get('modificarestadoavaluo', 'BandejaEntradaNuevoController@ModificarEstadoAvaluo');
+            $router->get('avaluosProximos', 'BandejaEntradaNuevoController@avaluosProximos');
+            $router->get('buscaNotario', 'BandejaEntradaNuevoController@buscaNotario');
+            $router->get('asignaNotarioAvaluo', 'BandejaEntradaNuevoController@asignaNotarioAvaluo');
+            $router->post('esValidoAvaluo', 'BandejaEntradaNuevoController@esValidoAvaluo');
+            $router->post('guardarAvaluo', 'BandejaEntradaNuevoController@guardarAvaluo');
+            $router->get('acuseAvaluo', 'BandejaEntradaNuevoController@acuseAvaluo');
+            $router->get('reimprimeAvaluo', 'BandejaEntradaNuevoController@infoAvaluo');
             $router->post('generaAcusePDF', 'FormatosController@generaAcusePDF');
 
             $router->post('pruebaDoc', 'PruebaDoc@pruebaGuardadoDB');

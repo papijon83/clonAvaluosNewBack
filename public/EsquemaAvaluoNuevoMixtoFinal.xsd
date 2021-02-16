@@ -4051,7 +4051,7 @@
         <xs:complexType>
           <xs:simpleContent>
             <xs:extension base="DecimalPositivo12">
-              <xs:attribute fixed="d.5.n.4.2" name="id" type="xs:string" use="rrquired"/>
+              <xs:attribute fixed="d.5.n.4.2" name="id" type="xs:string" use="required"/>
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
@@ -4084,7 +4084,7 @@
         <xs:complexType>
           <xs:simpleContent>
             <xs:extension base="DecimalPositivo12">
-              <xs:attribute fixed="d.5.n.5.2" name="id" type="xs:string" use="rrquired"/>
+              <xs:attribute fixed="d.5.n.5.2" name="id" type="xs:string" use="required"/>
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
@@ -4117,7 +4117,7 @@
         <xs:complexType>
           <xs:simpleContent>
             <xs:extension base="DecimalPositivo12">
-              <xs:attribute fixed="d.5.n.6.2" name="id" type="xs:string" use="rrquired"/>
+              <xs:attribute fixed="d.5.n.6.2" name="id" type="xs:string" use="required"/>
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
@@ -4150,7 +4150,7 @@
         <xs:complexType>
           <xs:simpleContent>
             <xs:extension base="DecimalPositivo12">
-              <xs:attribute fixed="d.5.n.7.2" name="id" type="xs:string" use="rrquired"/>
+              <xs:attribute fixed="d.5.n.7.2" name="id" type="xs:string" use="required"/>
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>

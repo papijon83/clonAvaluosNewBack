@@ -776,11 +776,11 @@ class BandejaEntradaNuevoController extends Controller
         }
         //error_log($elementoPrincipal);
         if(isset($arrXML[$elementoPrincipal]['EnfoqueDeMercado']['Terrenos']['TerrenosDirectos']) && isset($arrXML[$elementoPrincipal]['EnfoqueDeMercado']['Terrenos']['TerrenosResidual'])){
-            $xsd = 'EsquemaAvaluoNuevoMixtoFinal.xsd';
+            $xsd = 'EsquemaAvaluoMixtoFinal.xsd';
         }else{
-            $xsd = 'EsquemaAvaluoNuevoFinal.xsd';
+            $xsd = 'EsquemaAvaluoFinal.xsd';
         }        
-        
+        //error_log("EL XSD ".$xsd);
         if (!file_exists($xsd)) {
             //$relacionErrores[] = "Archivo <b>$xsd</b> no existe.";
             return false;
@@ -808,7 +808,8 @@ class BandejaEntradaNuevoController extends Controller
     }
 
     function traduce($relacionErrores){
-        $cadenas = array("Element"=>"Elemento",
+        $cadenas = array("Element content is not allowed, because the content type is a simple type definition." => "El contenido del elemento no está permitido, porque el tipo de contenido es una definición de tipo simple.",
+        "Element"=>"Elemento",
         "is not a valid value of the atomic type" => "no es un valor válido de tipo",
         "[facet 'minLength'] The value has a length of" => "[faceta 'minLength'] El valor tiene una longitud de",
         "this underruns the allowed minimum length of" => "Longitud mínima requerida",

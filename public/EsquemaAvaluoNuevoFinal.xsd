@@ -1312,15 +1312,6 @@
                   </xs:simpleContent>
                 </xs:complexType>
               </xs:element>
-              <!-- <xs:element name="Fzo">
-                <xs:complexType>
-                  <xs:simpleContent>
-                    <xs:extension base="DecimalPositivo32">
-                      <xs:attribute fixed="h.1.1.n.10" name="id" type="xs:string" use="required" />
-                    </xs:extension>
-                  </xs:simpleContent>
-                </xs:complexType>
-              </xs:element> -->
               <xs:element name="Factor1" minOccurs="0" maxOccurs="1">
                 <xs:complexType>
                   <xs:sequence>
@@ -1346,15 +1337,7 @@
                   <xs:attribute fixed="h.1.1.n.10" name="id" type="xs:string" use="required" />
                 </xs:complexType>
               </xs:element>
-              <!-- <xs:element name="Fub">
-                <xs:complexType>
-                  <xs:simpleContent>
-                    <xs:extension base="DecimalPositivo32">
-                      <xs:attribute fixed="h.1.1.n.11" name="id" type="xs:string" use="required" />
-                    </xs:extension>
-                  </xs:simpleContent>
-                </xs:complexType>
-              </xs:element> -->
+
               <xs:element name="Factor2" minOccurs="0" maxOccurs="1">
                 <xs:complexType>
                   <xs:sequence>
@@ -1380,15 +1363,7 @@
                   <xs:attribute fixed="h.1.1.n.11" name="id" type="xs:string" use="required" />
                 </xs:complexType>
               </xs:element>
-              <!-- <xs:element name="FFr">
-                <xs:complexType>
-                  <xs:simpleContent>
-                    <xs:extension base="DecimalPositivo32">
-                      <xs:attribute fixed="h.1.1.n.12" name="id" type="xs:string" use="required" />
-                    </xs:extension>
-                  </xs:simpleContent>
-                </xs:complexType>
-              </xs:element> -->
+
               <xs:element name="Factor3" minOccurs="0" maxOccurs="1">
                 <xs:complexType>
                   <xs:sequence>
@@ -1414,15 +1389,7 @@
                   <xs:attribute fixed="h.1.1.n.12" name="id" type="xs:string" use="required" />
                 </xs:complexType>
               </xs:element>
-              <!-- <xs:element name="Ffo">
-                <xs:complexType>
-                  <xs:simpleContent>
-                    <xs:extension base="DecimalPositivo32">
-                      <xs:attribute fixed="h.1.1.n.13" name="id" type="xs:string" use="required" />
-                    </xs:extension>
-                  </xs:simpleContent>
-                </xs:complexType>
-              </xs:element> -->
+
               <xs:element name="Factor4" minOccurs="0" maxOccurs="1">
                 <xs:complexType>
                   <xs:sequence>
@@ -1448,16 +1415,8 @@
                   <xs:attribute fixed="h.1.1.n.13" name="id" type="xs:string" use="required" />
                 </xs:complexType>
               </xs:element>
-              <!-- <xs:element name="Fsu">
-                <xs:complexType>
-                  <xs:simpleContent>
-                    <xs:extension base="DecimalPositivo32">
-                      <xs:attribute fixed="h.1.1.n.14" name="id" type="xs:string" use="required" />
-                    </xs:extension>
-                  </xs:simpleContent>
-                </xs:complexType>
-              </xs:element> -->
-              <xs:element name="Factor5" minOccurs="0" maxOccurs="1">
+
+               <xs:element name="Factor5" minOccurs="0" maxOccurs="1">
                 <xs:complexType>
                   <xs:sequence>
                     <xs:element name="Siglas">
@@ -4051,16 +4010,16 @@
         <xs:complexType>
           <xs:simpleContent>
             <xs:extension base="DecimalPositivo12">
-              <xs:attribute fixed="d.5.n.4.2" name="id" type="xs:string" use="rrquired"/>
+              <xs:attribute fixed="d.5.n.4.2" name="id" type="xs:string" use="required"/>
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
       </xs:element>
-      <xs:element name="Descripcion">
+      <xs:element  name="Descripcion">
         <xs:complexType>
           <xs:simpleContent>
             <xs:extension base="NonEmptyString50">
-              <xs:attribute fixed="d.5.n.4.3" name="id" type="xs:string" use="required"/>
+              <xs:attribute fixed="d.5.n.4.3" name="id" type="xs:string" use="required" />
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
@@ -4084,16 +4043,16 @@
         <xs:complexType>
           <xs:simpleContent>
             <xs:extension base="DecimalPositivo12">
-              <xs:attribute fixed="d.5.n.5.2" name="id" type="xs:string" use="rrquired"/>
+              <xs:attribute fixed="d.5.n.5.2" name="id" type="xs:string" use="required"/>
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
       </xs:element>
-      <xs:element name="Descripcion">
+      <xs:element  name="Descripcion">
         <xs:complexType>
           <xs:simpleContent>
             <xs:extension base="NonEmptyString50">
-              <xs:attribute fixed="d.5.n.5.3" name="id" type="xs:string" use="required"/>
+              <xs:attribute fixed="d.5.n.5.3" name="id" type="xs:string" use="required" />
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
@@ -4117,16 +4076,16 @@
         <xs:complexType>
           <xs:simpleContent>
             <xs:extension base="DecimalPositivo12">
-              <xs:attribute fixed="d.5.n.6.2" name="id" type="xs:string" use="rrquired"/>
+              <xs:attribute fixed="d.5.n.6.2" name="id" type="xs:string" use="required"/>
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
       </xs:element>
-      <xs:element name="Descripcion">
+      <xs:element  name="Descripcion">
         <xs:complexType>
           <xs:simpleContent>
             <xs:extension base="NonEmptyString50">
-              <xs:attribute fixed="d.5.n.6.3" name="id" type="xs:string" use="required"/>
+              <xs:attribute fixed="d.5.n.6.3" name="id" type="xs:string" use="required" />
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
@@ -4150,16 +4109,16 @@
         <xs:complexType>
           <xs:simpleContent>
             <xs:extension base="DecimalPositivo12">
-              <xs:attribute fixed="d.5.n.7.2" name="id" type="xs:string" use="rrquired"/>
+              <xs:attribute fixed="d.5.n.7.2" name="id" type="xs:string" use="required"/>
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
       </xs:element>
-      <xs:element name="Descripcion">
+      <xs:element  name="Descripcion">
         <xs:complexType>
           <xs:simpleContent>
             <xs:extension base="NonEmptyString50">
-              <xs:attribute fixed="d.5.n.7.3" name="id" type="xs:string" use="required"/>
+              <xs:attribute fixed="d.5.n.7.3" name="id" type="xs:string" use="required" />
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
@@ -4261,8 +4220,8 @@
                   <xs:element name="VidaMinimaRemanente" type="SUB-VidaUtilRemanente"/>
                   <!-- <xs:element name="ClaveConservacion" type="SUB-ClaveConservacion"/> -->
                   <xs:element name="Superficie" type="SUB-Superficie" />
-                  <xs:element name="CostounitariodereposicionNuevo" type="SUB-ValorunitariodereposicionNuevo"/>
-                  <xs:element name="IndicedelcostoRemanente" type="SUB-IndicedelcostoRemanente"/>
+                  <xs:element name="CostoUnitarioDeReposicionNuevo" type="SUB-ValorunitariodereposicionNuevo"/>
+                  <xs:element name="IndiceDelCostoRemanente" type="SUB-IndicedelcostoRemanente"/>
                   <!-- <xs:element name="FactorResultante" type="SUB-FactorResultante"/> -->
                   <xs:element name="CostoDeLaFraccionN" type="SUB-ValorDeLaFraccionNDescInmueble"/>
                 </xs:sequence>
@@ -5973,7 +5932,7 @@
         <xs:attribute fixed="g.1.5" name="id" type="xs:string" use="required" />
       </xs:extension>
     </xs:simpleContent>
-  </xs:complextype>
+  </xs:complexType>
 
   <xs:complexType name="ConsideracionesPreviasAlAvaluo_AComercial">
     <xs:sequence>    
