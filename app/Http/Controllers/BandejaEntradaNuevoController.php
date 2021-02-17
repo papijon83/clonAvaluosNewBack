@@ -3897,9 +3897,9 @@ class BandejaEntradaNuevoController extends Controller
             // $datosPDF['no_unico'] =  $numero_unico;
             $tipo_avaluo = substr($infoAvaluo['Encabezado']['No_Unico'], 0, 5);
             if($tipo_avaluo == 'A-CAT'){
-                $formato = view('justificante', compact("infoAvaluo"))->render();
+                $formato = view('justificanteNew', compact("infoAvaluo"))->render();
             }else{
-                $formato = view('justificante_com', compact("infoAvaluo"))->render();
+                $formato = view('justificanteNew_com', compact("infoAvaluo"))->render();
             }
             $pdf = PDF::loadHTML($formato);
             $pdf->setOptions(['chroot' => 'public']);
