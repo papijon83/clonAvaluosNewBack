@@ -810,7 +810,7 @@ class BandejaEntradaNuevoController extends Controller
     }
 
     function traduce($relacionErrores){
-        $cadenas = array("Element content is not allowed, because the content type is a simple type definition." => "El contenido del elemento no está permitido, porque el tipo de contenido es una definición de tipo simple.",
+        $cadenas = array("("=>"'",")"=>"'","Element content is not allowed, because the content type is a simple type definition." => "El contenido del elemento no está permitido, porque el tipo de contenido es una definición de tipo simple.",
         "Element"=>"Elemento",
         "is not a valid value of the atomic type" => "no es un valor válido de tipo",
         "[facet 'minLength'] The value has a length of" => "[faceta 'minLength'] El valor tiene una longitud de",
@@ -820,7 +820,7 @@ class BandejaEntradaNuevoController extends Controller
         "[facet 'pattern'] The value" => "[faceta 'patrón'] El valor",
         "is not accepted by the pattern" => "no es aceptado por el patrón",
         "is not a valid value of the union type" => "no es un valor válido del tipo de unión",
-        "This element is not expected. Expected is" => "Este elemento no se espera. Se espera",
+        ": This element is not expected. Expected is" => " no válido. Lista esperada de elementos posibles: ",
         "[facet 'maxLength'] The value has a length of" => "[faceta 'maxLength'] EL valor tiene una longitud de",
         "this exceeds the allowed maximum length of" => "esto excede la longitud máxima permitida de",
         "The value" => "EL valor",

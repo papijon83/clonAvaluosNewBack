@@ -283,7 +283,7 @@
 
   <!-- NullableDecimalPositivo: Admite una cadena de texto vacÃ­a o cualquier decimal positivo-->
   <xs:simpleType name="NullableDecimalPositivo" >
-    <xs:union memberTypes="DecimalPositivo NullString">
+    <xs:union memberTypes="DoublePositivo NullString">
     </xs:union>
   </xs:simpleType>
 
