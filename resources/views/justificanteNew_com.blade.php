@@ -823,7 +823,7 @@
                                 <div style="text-align: right;">
                                     <b>SUPERFICIE TOTAL TERRENO: 
                                     @isset($infoAvaluo['Superficie_Total_Segun']['Totales']['Superficie_Total_Terreno'])
-                                    <span class="grises">$ {{$infoAvaluo['Superficie_Total_Segun']['Totales']['Superficie_Total_Terreno']}}</span>
+                                    <span class="grises">$ {{number_format($infoAvaluo['Superficie_Total_Segun']['Totales']['Superficie_Total_Terreno'],2)}}</span>
                                     @endisset                        
                                     </b>
                                 </div>
@@ -4103,7 +4103,7 @@
                                             <img src="data:image/png;base64,{{$value_inmuebleOA['Foto']}}" class="fotos"/>
                                         </div>
                                         <div class="container2">
-                                            <button class="pie_de_foto">Cuenta: <span class="grises">{{ $value_inmuebleOA['Cuenta_Catastral'] }}</span> '        ' @if($value_inmuebleOA['Interior_O_Exterior'] == 'E') Exterior @else Interior @endif</button> 
+                                            <button class="pie_de_foto">Cuenta: <span class="grises" style="padding-right: 15px;">{{ $value_inmuebleOA['Cuenta_Catastral'] }}</span>  @if($value_inmuebleOA['Interior_O_Exterior'] == 'E') Exterior @else Interior @endif</button> 
                                         </div>
                                     </td>
                                 @if(count($infoAvaluo['Inmueble_Objeto_Avaluo']) < 2)
@@ -4116,7 +4116,7 @@
                                             <img src="data:image/png;base64,{{$value_inmuebleOA['Foto']}}" class="fotos"/>
                                         </div>
                                         <div class="container2">
-                                            <button class="pie_de_foto">Cuenta: <span class="grises">{{ $value_inmuebleOA['Cuenta_Catastral'] }}</span> '        ' @if($value_inmuebleOA['Interior_O_Exterior'] == 'E') Exterior @else Interior @endif</button> 
+                                            <button class="pie_de_foto">Cuenta: <span class="grises" style="padding-right: 15px;">{{ $value_inmuebleOA['Cuenta_Catastral'] }}</span>  @if($value_inmuebleOA['Interior_O_Exterior'] == 'E') Exterior @else Interior @endif</button> 
                                         </div>
                                     </td>
                                 @if(count($infoAvaluo['Inmueble_Objeto_Avaluo']) < 2)
