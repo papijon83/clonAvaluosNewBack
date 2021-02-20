@@ -759,54 +759,67 @@ class BandejaEntradaNuevoController extends Controller
     }
     
     function esValidoEsquema($contents){
-        $relacionErrores = '';
-        //$arrRelacionErrores = array();
-        $arrContenoidoXML = explode("\r\n",$contents); //print_r($arrContenoidoXML); exit();
-        if(count($arrContenoidoXML) < 2){
-            $arrContenoidoXML = explode("\n",$contents);
-        }
-
-        $this->doc = new \DOMDocument('1.0', 'utf-8');
-        libxml_use_internal_errors(true);       
-        
-        //$xsd = 'EsquemaAvaluomio.xsd';
-        $arrXML = convierte_a_arreglo(simplexml_load_string($contents,'SimpleXMLElement', LIBXML_NOCDATA));
-        if(isset($arrXML['Comercial'])){
-            $elementoPrincipal = "Comercial";
-        }else{
-            $elementoPrincipal = "Catastral";
-        }
-        //error_log($elementoPrincipal);
-        if(isset($arrXML[$elementoPrincipal]['EnfoqueDeMercado']['Terrenos']['TerrenosDirectos']) && isset($arrXML[$elementoPrincipal]['EnfoqueDeMercado']['Terrenos']['TerrenosResidual'])){
-            $xsd = 'EsquemaAvaluoMixtoFinal.xsd';
-        }else{
-            $xsd = 'EsquemaAvaluoFinal.xsd';
-        }        
-        //error_log("EL XSD ".$xsd);
-        if (!file_exists($xsd)) {
-            //$relacionErrores[] = "Archivo <b>$xsd</b> no existe.";
-            return false;
-        }
-        $this->doc->loadXML($contents, LIBXML_NOBLANKS);
-        if (!$this->doc->schemaValidate($xsd)) {
-            //Recupera un array de errores
-            $this->errors = libxml_get_errors();  //print_r($this->errors);
-            foreach(convierte_a_arreglo($this->errors) as $elementoError){ //print_r($elementoError); echo 'arrContenoidoXML ';  print_r($arrContenoidoXML[$elementoError['line'] - 1])." FIN \n"; exit();
-                $pos = strpos($arrContenoidoXML[$elementoError['line'] - 1], "'");
-                if($pos === false){
-                    $arrRenglonXML = explode('"',$arrContenoidoXML[$elementoError['line'] - 1]); //print_r($arrRenglonXML); exit();
-                }else{
-                    $arrRenglonXML = explode("'",$arrContenoidoXML[$elementoError['line'] - 1]); //print_r($arrRenglonXML); exit();
-                }
-                
-                $relacionErrores = $relacionErrores.$arrRenglonXML[1]." - Línea ".$elementoError['line']." ".$elementoError['message']."<<>>";
-                                                              
+        try{
+            $xml = new \SimpleXMLElement($contents);
+            /*$rutaArchivos = getcwd();
+            $resEstructura = "xmllint --format ".$file." > ".$rutaArchivos."/resEstructura";
+            if(strpos($resEstructura,"parser error") != false){ error_log("ENTREEEEE "); 
+                return explode(":",system("xmllint --format ".$file));   
+            }*/
+            //$arrRelacionErrores = array();
+            $arrContenoidoXML = explode("\r\n",$contents); //print_r($arrContenoidoXML); exit();
+            if(count($arrContenoidoXML) < 2){
+                $arrContenoidoXML = explode("\n",$contents);
             }
-            //$arrRelacionErrores[] = $arrRenglonXML[1]." - Línea ".$elementoError['line']." ".$elementoError['message'];
-            $arrRelacionErrores = $this->traduce($relacionErrores);
-            return $arrRelacionErrores;        
+
+            $this->doc = new \DOMDocument('1.0', 'utf-8');
+            libxml_use_internal_errors(true);       
+            
+            //$xsd = 'EsquemaAvaluomio.xsd';
+            $arrXML = convierte_a_arreglo(simplexml_load_string($contents,'SimpleXMLElement', LIBXML_NOCDATA));
+            if(isset($arrXML['Comercial'])){
+                $elementoPrincipal = "Comercial";
+            }else{
+                $elementoPrincipal = "Catastral";
+            }
+            //error_log($elementoPrincipal);
+            if(isset($arrXML[$elementoPrincipal]['EnfoqueDeMercado']['Terrenos']['TerrenosDirectos']) && isset($arrXML[$elementoPrincipal]['EnfoqueDeMercado']['Terrenos']['TerrenosResidual'])){
+                $xsd = 'EsquemaAvaluoMixtoFinal.xsd';
+            }else{
+                $xsd = 'EsquemaAvaluoFinal.xsd';
+            }        
+            //error_log("EL XSD ".$xsd);
+            if (!file_exists($xsd)) {
+                //$relacionErrores[] = "Archivo <b>$xsd</b> no existe.";
+                return false;
+            }
+            $this->doc->loadXML($contents, LIBXML_NOBLANKS);
+            if (!$this->doc->schemaValidate($xsd)) {
+                //Recupera un array de errores
+                $this->errors = libxml_get_errors();  //print_r($this->errors);
+                foreach(convierte_a_arreglo($this->errors) as $elementoError){ //print_r($elementoError); echo 'arrContenoidoXML ';  print_r($arrContenoidoXML[$elementoError['line'] - 1])." FIN \n"; exit();
+                    $pos = strpos($arrContenoidoXML[$elementoError['line'] - 1], "'");
+                    if($pos === false){
+                        $arrRenglonXML = explode('"',$arrContenoidoXML[$elementoError['line'] - 1]); //print_r($arrRenglonXML); exit();
+                    }else{
+                        $arrRenglonXML = explode("'",$arrContenoidoXML[$elementoError['line'] - 1]); //print_r($arrRenglonXML); exit();
+                    }
+                    
+                    $relacionErrores = $relacionErrores.$arrRenglonXML[1]." - Línea ".$elementoError['line']." ".$elementoError['message']."<<>>";
+                                                                
+                }
+                //$arrRelacionErrores[] = $arrRenglonXML[1]." - Línea ".$elementoError['line']." ".$elementoError['message'];
+                $arrRelacionErrores = $this->traduce($relacionErrores);
+                return $arrRelacionErrores;        
+            }
+            return true;
+        }catch (\Throwable $th) {
+            Log::info($th);
+            //error_log($th);
+            //return response()->json(['mensaje' => 'Error al comprimir archivo'], 500);
+            return $th;
         }
-       return true;
+        
     }
 
     function traduce($relacionErrores){
@@ -1034,10 +1047,38 @@ class BandejaEntradaNuevoController extends Controller
             }
         } catch (\Throwable $th) {
             Log::info($th);
-            error_log($th);
-            return response()->json(['mensaje' => 'Error en el servidor'], 500);
+            error_log($th);    
+            if(strpos($th, "simplexml_load_string") != false){
+                $th = explode("\n",$th);
+                $arrError = array();
+                $arrError[] = $this->traduceErrorFormato($th[0]);
+                return response()->json(['mensaje' => $arrError], 500);
+            }else{
+                return response()->json(['mensaje' => 'Error al guardar el Avalúo'], 500);
+            }
         }
         
+    }
+
+    public function traduceErrorFormato($cadenaError){
+        $arrCadena = '';
+        if(strpos($cadenaError, "Opening and ending tag mismatch") != false){
+            
+            $cadenas = array("Opening and ending tag mismatch" => "No coinciden las etiquetas de apertura y final",
+                            "parser error" => "error del analizador",
+                            "line" => "línea",
+                            "and" => "y",
+                            " in" => "");
+            
+            foreach($cadenas as $en => $es){
+                $cadenaError = str_replace($en,$es,$cadenaError);
+            }
+            $arrCadena = explode(":",$cadenaError);
+            $subArray = explode("/",$arrCadena[6]);
+            $textoError = $arrCadena[0].": ".$arrCadena[3].": ".$arrCadena[4].": ".$arrCadena[5].": ".$subArray[0];
+        }
+        
+        return $textoError;
     }
 
     public function reordenaErrores($arrn){
