@@ -83,6 +83,7 @@ class BandejaEntradaNuevoController extends Controller
                 'RCON.RCON_PERITO.registro as perito',
                 'RCON.RCON_NOTARIO.NUMNOTARIO as notario',
                 'FEXAVA_AVALUO.proposito',
+                'FEXAVA_AVALUO.objeto',
                 'DOC.DOC_DOCUMENTODIGITAL.fecha as fecha_avaluo',
 
                 //'RCON.RCON_SOCIEDADVALUACION.registro as sociedad',
@@ -265,6 +266,7 @@ class BandejaEntradaNuevoController extends Controller
                 'RCON.RCON_PERITO.registro as perito',
                 'RCON.RCON_NOTARIO.NUMNOTARIO as notario',
                 'FEXAVA_AVALUO.proposito',
+                'FEXAVA_AVALUO.objeto',
                 'DOC.DOC_DOCUMENTODIGITAL.fecha as fecha_avaluo',
                 //'RCON.RCON_SOCIEDADVALUACION.registro as sociedad',
                 //'RCON.RCON_NOTARIO.NUMNOTARIO as notario',
