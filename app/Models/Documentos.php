@@ -443,7 +443,7 @@ class Documentos
         }
         else
         {
-            return "Sin especificar";
+            return $clave;
         }
 
         return $nombre;

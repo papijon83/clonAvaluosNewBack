@@ -192,8 +192,13 @@ class ReimpresionNuevo
         $infoReimpresion['Sociedad_Participa']['Valuador'] = $identificacion['ClaveValuador'];
         $infoReimpresion['Sociedad_Participa']['Fecha_del_Avaluo'] = $identificacion['FechaAvaluo'];
         $infoReimpresion['Sociedad_Participa']['Solicitante'] = array();
-        $infoReimpresion['Sociedad_Participa']['Solicitante']['Tipo_persona'] = isset($arrSolicitante['A.Paterno']) ? "Física" : "Moral";
-        $infoReimpresion['Sociedad_Participa']['Solicitante']['Nombre'] = $arrSolicitante['Nombre']." ".$arrSolicitante['A.Paterno']." ".$arrSolicitante['A.Materno'];
+        $infoReimpresion['Sociedad_Participa']['Solicitante']['Tipo_persona'] = !is_array($arrSolicitante['A.Paterno']) ? "Física" : "Moral";
+        if(!is_array($arrSolicitante['A.Paterno'])){
+            $infoReimpresion['Sociedad_Participa']['Solicitante']['Nombre'] = $arrSolicitante['Nombre']." ".$arrSolicitante['A.Paterno']." ".$arrSolicitante['A.Materno'];
+        }else{
+            $infoReimpresion['Sociedad_Participa']['Solicitante']['Nombre'] = $arrSolicitante['Nombre'];
+        }
+        
         $infoReimpresion['Sociedad_Participa']['Solicitante']['Calle'] = $arrSolicitante['Calle'];
         $infoReimpresion['Sociedad_Participa']['Solicitante']['No_Exterior'] = $arrSolicitante['NumeroExterior'];
         $infoReimpresion['Sociedad_Participa']['Solicitante']['No_Interior'] = $arrSolicitante['NumeroInterior'];
@@ -212,8 +217,13 @@ class ReimpresionNuevo
         $arrPropietario = array_map("convierte_a_arreglo",$propietario); //print_r($arrPropietario); exit();
 
         $infoReimpresion['Sociedad_Participa']['Propietario'] = array();
-        $infoReimpresion['Sociedad_Participa']['Propietario']['Tipo_persona'] = isset($arrPropietario['A.Paterno']) ? "Física" : "Moral";
-        $infoReimpresion['Sociedad_Participa']['Propietario']['Nombre'] = $arrPropietario['Nombre']." ".$arrPropietario['A.Paterno']." ".$arrPropietario['A.Materno'];
+        $infoReimpresion['Sociedad_Participa']['Propietario']['Tipo_persona'] = !is_array($arrPropietario['A.Paterno']) ? "Física" : "Moral";
+        if(!is_array($arrPropietario['A.Paterno'])){
+            $infoReimpresion['Sociedad_Participa']['Propietario']['Nombre'] = $arrPropietario['Nombre']." ".$arrPropietario['A.Paterno']." ".$arrPropietario['A.Materno'];
+        }else{
+            $infoReimpresion['Sociedad_Participa']['Propietario']['Nombre'] = $arrPropietario['Nombre'];
+        }
+        
         $infoReimpresion['Sociedad_Participa']['Propietario']['Calle'] = $arrPropietario['Calle'];
         $infoReimpresion['Sociedad_Participa']['Propietario']['No_Exterior'] = $arrPropietario['NumeroExterior'];
         $infoReimpresion['Sociedad_Participa']['Propietario']['No_Interior'] = $arrPropietario['NumeroInterior'];
@@ -1743,13 +1753,17 @@ class ReimpresionNuevo
         $infoReimpresion['Sociedad_Participa']['Fecha_del_Avaluo'] = $identificacion['FechaAvaluo'];
         $infoReimpresion['Sociedad_Participa']['Solicitante'] = array();
         $infoReimpresion['Sociedad_Participa']['Solicitante']['Tipo_persona'] = isset($arrSolicitante['A.Paterno']) ? "Física" : "Moral";
-        $infoReimpresion['Sociedad_Participa']['Solicitante']['Nombre'] = $arrSolicitante['Nombre']." ".$arrSolicitante['A.Paterno']." ".$arrSolicitante['A.Materno'];
+        if(!is_array($arrSolicitante['A.Paterno'])){
+            $infoReimpresion['Sociedad_Participa']['Solicitante']['Nombre'] = $arrSolicitante['Nombre']." ".$arrSolicitante['A.Paterno']." ".$arrSolicitante['A.Materno'];
+        }else{
+            $infoReimpresion['Sociedad_Participa']['Solicitante']['Nombre'] = $arrSolicitante['Nombre'];
+        }        
         $infoReimpresion['Sociedad_Participa']['Solicitante']['Calle'] = $arrSolicitante['Calle'];
         $infoReimpresion['Sociedad_Participa']['Solicitante']['No_Exterior'] = $arrSolicitante['NumeroExterior'];
         $infoReimpresion['Sociedad_Participa']['Solicitante']['No_Interior'] = $arrSolicitante['NumeroInterior'];
         $infoReimpresion['Sociedad_Participa']['Solicitante']['Colonia'] = $arrSolicitante['Colonia'];
         $infoReimpresion['Sociedad_Participa']['Solicitante']['CP'] = $arrSolicitante['CodigoPostal'];
-        $infoReimpresion['Sociedad_Participa']['Solicitante']['Delegacion'] = $this->modelDocumentos->ObtenerNombreDelegacionPorClave($arrSolicitante['Delegacion']);
+        $infoReimpresion['Sociedad_Participa']['Solicitante']['Delegacion'] = $this->modelDocumentos->ObtenerNombreDelegacionPorClave($arrSolicitante['Alcaldia']);
 
         $infoReimpresion['Sociedad_Participa']['inmuebleQueSeValua'] = $arrFexava['region']."-".$arrFexava['manzana']."-".$arrFexava['lote']."-".$arrFexava['unidadprivativa']." ".$arrFexava['digitoverificador'];
         $infoReimpresion['Sociedad_Participa']['regimenDePropiedad'] = $this->modelDocumentos->get_regimen_propiedad($arrFexava['codregimenpropiedad']);
@@ -1762,14 +1776,18 @@ class ReimpresionNuevo
         $arrPropietario = array_map("convierte_a_arreglo",$propietario); //print_r($arrPropietario); exit();
 
         $infoReimpresion['Sociedad_Participa']['Propietario'] = array();
-        $infoReimpresion['Sociedad_Participa']['Propietario']['Tipo_persona'] = isset($arrPropietario['A.Paterno']) ? "Física" : "Moral";
-        $infoReimpresion['Sociedad_Participa']['Propietario']['Nombre'] = $arrPropietario['Nombre']." ".$arrPropietario['A.Paterno']." ".$arrPropietario['A.Materno'];
+        $infoReimpresion['Sociedad_Participa']['Propietario']['Tipo_persona'] = !is_array($arrPropietario['A.Paterno']) ? "Física" : "Moral";
+        if(!is_array($arrPropietario['A.Paterno'])){
+            $infoReimpresion['Sociedad_Participa']['Propietario']['Nombre'] = $arrPropietario['Nombre']." ".$arrPropietario['A.Paterno']." ".$arrPropietario['A.Materno'];
+        }else{
+            $infoReimpresion['Sociedad_Participa']['Propietario']['Nombre'] = $arrPropietario['Nombre'];
+        }        
         $infoReimpresion['Sociedad_Participa']['Propietario']['Calle'] = $arrPropietario['Calle'];
         $infoReimpresion['Sociedad_Participa']['Propietario']['No_Exterior'] = $arrPropietario['NumeroExterior'];
         $infoReimpresion['Sociedad_Participa']['Propietario']['No_Interior'] = $arrPropietario['NumeroInterior'];
         $infoReimpresion['Sociedad_Participa']['Propietario']['Colonia'] = $arrPropietario['Colonia'];
         $infoReimpresion['Sociedad_Participa']['Propietario']['CP'] = $arrPropietario['CodigoPostal'];
-        $infoReimpresion['Sociedad_Participa']['Propietario']['Delegacion'] = $this->modelDocumentos->ObtenerNombreDelegacionPorClave($arrPropietario['Delegacion']);
+        $infoReimpresion['Sociedad_Participa']['Propietario']['Delegacion'] = $this->modelDocumentos->ObtenerNombreDelegacionPorClave($arrPropietario['Alcaldia']);
 
         $infoReimpresion['Sociedad_Participa']['Objeto_Avaluo'] = $arrFexava['objeto'];
         $infoReimpresion['Sociedad_Participa']['Proposito_Avaluo'] = $arrFexava['proposito'];
