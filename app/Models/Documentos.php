@@ -432,5 +432,21 @@ class Documentos
         }
         
     }
+
+    public function ObtenerNombreDelegacionPorClave($clave)
+    {        
+        $rowsDelegaciones = DB::select("SELECT nombre FROM CAS.CAS_DELEGACION WHERE CLAVE = '$clave'");
+
+        if (count($rowsDelegaciones) > 0)
+        {
+            $nombre = $rowsDelegaciones[0]->nombre;
+        }
+        else
+        {
+            return "Sin especificar";
+        }
+
+        return $nombre;
+    }
     
 }

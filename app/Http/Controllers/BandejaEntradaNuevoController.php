@@ -3959,8 +3959,8 @@ class BandejaEntradaNuevoController extends Controller
 
             $this->modelDocumentos = new Documentos();    //echo $numero_unico; exit();         
             $id_avaluo = $this->modelDocumentos->get_idavaluo_db($numero_unico);    
-            $this->modelReimpresion = new Reimpresion();
-            $infoAvaluo = $this->modelReimpresion->infoAvaluo($id_avaluo);
+            $this->modelReimpresionNuevo = new ReimpresionNuevo();
+            $infoAvaluo = $this->modelReimpresionNuevo->infoAvaluo($id_avaluo);
             if(!is_array($infoAvaluo)){
                 return $infoAvaluo;
             }
@@ -3982,7 +3982,7 @@ class BandejaEntradaNuevoController extends Controller
             /*$this->modelDocumentos = new Documentos();    //echo $numero_unico; exit();         
             $id_avaluo = $this->modelDocumentos->get_idavaluo_db($numero_unico);    
             $this->modelReimpresion = new ReimpresionNuevo();
-            $infoAvaluo = $this->modelReimpresion->infoAvaluoNuevo($id_avaluo);
+            $infoAvaluo = $this->modelReimpresion->infoAvaluo($id_avaluo);
             print_r($infoAvaluo); exit();*/
             //return response()->json($infoAvaluo, 200);
         }catch (\Throwable $th) {
@@ -4022,7 +4022,7 @@ class BandejaEntradaNuevoController extends Controller
             $id_avaluo = $this->modelDocumentos->get_idavaluo_db($numero_unico);    
             $this->modelReimpresion = new ReimpresionNuevo();
             $infoAvaluo = $this->modelReimpresion->infoAvaluoNuevo($id_avaluo);
-            print_r($infoAvaluo); exit(); */
+            print_r($infoAvaluo); exit();*/
             //return response()->json($infoAvaluo, 200);
         }catch (\Throwable $th) {
             //Log::info($th);
