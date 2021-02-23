@@ -1953,11 +1953,13 @@
                 <br>
                 <!-- 7.- Comparación de Mercado -->
                 <div class="pleca_verde"><b>VII. COMPARACIÓN DE MERCADO</b></div>
-                <h4 style="margin-top: 4%;">TERRENOS DIRECTOS</h4>
-                <h4 style="margin-top: 4%;">TERRENOS</h4>
-                <hr>
-                <span><b>Investigación productos comparables</b></span>
-
+                
+                @if(isset($infoAvaluo['Terrenos']['Terrenos_Directos']))
+                    <h4 style="margin-top: 4%;">TERRENOS DIRECTOS</h4>
+                    <h4 style="margin-top: 4%;">TERRENOS</h4>
+                    <hr>
+                    <span><b>Investigación productos comparables</b></span>
+                @endif
 
                 <!-- TABLA UNO TERRENOS DIRECTOS -->
                 @if(isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaUno']))
@@ -2240,40 +2242,46 @@
 
 
                 <!-- RESIDUALES -->
+                @if(isset($infoAvaluo['Terrenos']['Terrenos_Residuales']))
                 <h4 style="margin-top: 4%;">TERRENOS RESIDUALES</h4>
                 <hr>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td><b>Tipo de producto inmobilario propuesto</b></td>
-                            <td>
-                                @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Tipo_Producto_Inmoviliario_Propuesto'])
-                                    <span class="grises">{{ $infoAvaluo['Terrenos']['Terrenos_Residuales']['Tipo_Producto_Inmoviliario_Propuesto'] }}</span>
-                                @endisset
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><b>Número de unidades vendibles</b></td>
-                            <td>
-                                @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Numero_Unidades_Vendibles'])
-                                    <span class="grises">{{ $infoAvaluo['Terrenos']['Terrenos_Residuales']['Numero_Unidades_Vendibles'] }}</span>
-                                @endisset
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><b>Superficie vendible por unidad</b></td>
-                            <td>
-                                @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Superficie_Vendible_Unidad'])
-                                    <span class="grises">{{ $infoAvaluo['Terrenos']['Terrenos_Residuales']['Superficie_Vendible_Unidad'] }}</span>
-                                @endisset
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br>
-                <p><b>Investigación productos comparables</b></p>
+                @endif
 
+                @if(isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Tipo_Producto_Inmoviliario_Propuesto'])
+                    || isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Numero_Unidades_Vendibles'])
+                    || isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Superficie_Vendible_Unidad']))
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><b>Tipo de producto inmobilario propuesto</b></td>
+                                <td>
+                                    @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Tipo_Producto_Inmoviliario_Propuesto'])
+                                        <span class="grises">{{ $infoAvaluo['Terrenos']['Terrenos_Residuales']['Tipo_Producto_Inmoviliario_Propuesto'] }}</span>
+                                    @endisset
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Número de unidades vendibles</b></td>
+                                <td>
+                                    @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Numero_Unidades_Vendibles'])
+                                        <span class="grises">{{ $infoAvaluo['Terrenos']['Terrenos_Residuales']['Numero_Unidades_Vendibles'] }}</span>
+                                    @endisset
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Superficie vendible por unidad</b></td>
+                                <td>
+                                    @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Superficie_Vendible_Unidad'])
+                                        <span class="grises">{{ $infoAvaluo['Terrenos']['Terrenos_Residuales']['Superficie_Vendible_Unidad'] }}</span>
+                                    @endisset
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                @endif
+                <br>
                     @if(isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Investigacion_Productos_Comparables']))
+                    <p><b>Investigación productos comparables</b></p>
                         <table class="tabla_cabeza_gris">
                             <thead>
                                 <tr>
@@ -2392,133 +2400,146 @@
                             </tbody>
                         </table>
                     @endif
-
-
                 <br>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Conclusiones homologación comp. residuales</th>
-                            <th>     
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><b>Valor unitario promedio</b></td>
-                            <td>
-                                @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Promedio'])
-                                    <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Promedio']}}</span>
-                                @endisset
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><b>Valor unitario homologado</b></td>
-                            <td>
-                                @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Homologado'])
-                                    <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Homologado']}}</span>
-                                @endisset
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><b>Valor unitario sin homologar mínimo</b></td>
-                            <td>
-                                @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Sin_Homologar_Minimo'])
-                                    <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Sin_Homologar_Minimo']}}</span>
-                                @endisset
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><b>Valor unitario sin homologar máximo</b></td>
-                            <td>
-                                @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Sin_Homologar_Maximo'])
-                                    <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Sin_Homologar_Maximo']}}</span>
-                                @endisset
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><b>Valor unitario homologado mínimo</b></td>
-                            <td>
-                                @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Homologado_Minimo'])
-                                    <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Homologado_Minimo']}}</span>
-                                @endisset
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><b>Valor unitario homologado máximo</b></td>
-                            <td>
-                                @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Homologado_Maximo'])
-                                    <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Homologado_Maximo']}}</span>
-                                @endisset
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><b>Valor unitario aplicable al residual</b></td>
-                            <td>
-                                @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Aplicable_Residual'])
-                                    <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Aplicable_Residual']}}</span>
-                                @endisset
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                @if(isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Promedio'])
+                || isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Homologado'])
+                || isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Sin_Homologar_Minimo'])
+                || isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Sin_Homologar_Maximo'])
+                || isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Homologado_Minimo'])
+                || isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Homologado_Maximo'])
+                || isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Aplicable_Residual']))
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Conclusiones homologación comp. residuales</th>
+                                <th>     
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>Valor unitario promedio</b></td>
+                                <td>
+                                    @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Promedio'])
+                                        <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Promedio']}}</span>
+                                    @endisset
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Valor unitario homologado</b></td>
+                                <td>
+                                    @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Homologado'])
+                                        <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Homologado']}}</span>
+                                    @endisset
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Valor unitario sin homologar mínimo</b></td>
+                                <td>
+                                    @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Sin_Homologar_Minimo'])
+                                        <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Sin_Homologar_Minimo']}}</span>
+                                    @endisset
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Valor unitario sin homologar máximo</b></td>
+                                <td>
+                                    @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Sin_Homologar_Maximo'])
+                                        <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Sin_Homologar_Maximo']}}</span>
+                                    @endisset
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Valor unitario homologado mínimo</b></td>
+                                <td>
+                                    @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Homologado_Minimo'])
+                                        <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Homologado_Minimo']}}</span>
+                                    @endisset
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Valor unitario homologado máximo</b></td>
+                                <td>
+                                    @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Homologado_Maximo'])
+                                        <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Homologado_Maximo']}}</span>
+                                    @endisset
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Valor unitario aplicable al residual</b></td>
+                                <td>
+                                    @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Aplicable_Residual'])
+                                        <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Conclusiones_Homologacion_Comp_Residuales']['Valor_Unitario_Aplicable_Residual']}}</span>
+                                    @endisset
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                @endif                
                 <br>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Análisis residual</th>
-                            <th>  </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><b>Total de ingresos</b></td>
-                            <td>
-                                @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Analisis_Residual']['Total_Ingresos'])
-                                    <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Analisis_Residual']['Total_Ingresos']}}</span>
-                                @endisset
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><b>Total de egresos</b></td>
-                            <td>
-                                @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Analisis_Residual']['Total_Egresos'])
-                                    <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Analisis_Residual']['Total_Egresos']}}</span>
-                                @endisset
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><b>Utilidad propuesta</b></td>
-                            <td>
-                                @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Analisis_Residual']['Unidad_Propuesta'])
-                                    <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Analisis_Residual']['Unidad_Propuesta']}}</span>
-                                @endisset
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><b>Valor unitario de tierra resisdual</b></td>
-                            <td>
-                                @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Analisis_Residual']['Valor_Unitario_Tierra_Residual'])
-                                    <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Analisis_Residual']['Valor_Unitario_Tierra_Residual']}}</span>
-                                @endisset
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
+                @if(isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Analisis_Residual']['Total_Ingresos'])
+                || isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Analisis_Residual']['Total_Egresos'])
+                || isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Analisis_Residual']['Unidad_Propuesta'])
+                || isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Analisis_Residual']['Valor_Unitario_Tierra_Residual']))
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Análisis residual</th>
+                                <th>  </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>Total de ingresos</b></td>
+                                <td>
+                                    @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Analisis_Residual']['Total_Ingresos'])
+                                        <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Analisis_Residual']['Total_Ingresos']}}</span>
+                                    @endisset
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Total de egresos</b></td>
+                                <td>
+                                    @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Analisis_Residual']['Total_Egresos'])
+                                        <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Analisis_Residual']['Total_Egresos']}}</span>
+                                    @endisset
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Utilidad propuesta</b></td>
+                                <td>
+                                    @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Analisis_Residual']['Unidad_Propuesta'])
+                                        <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Analisis_Residual']['Unidad_Propuesta']}}</span>
+                                    @endisset
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Valor unitario de tierra resisdual</b></td>
+                                <td>
+                                    @isset($infoAvaluo['Terrenos']['Terrenos_Residuales']['Analisis_Residual']['Valor_Unitario_Tierra_Residual'])
+                                        <span class="grises">{{$infoAvaluo['Terrenos']['Terrenos_Residuales']['Analisis_Residual']['Valor_Unitario_Tierra_Residual']}}</span>
+                                    @endisset
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                @endif
+                
                 <!-- TIERRA DEL AVALUO -->
-                <table class="tabla_gris_valor">
-                    <thead>
-                        <tr>
-                            <th>VALOR UNITARIO DE TIERRA DEL AVALUO</th>
-                            <th>
-                            @isset($infoAvaluo['Terrenos']['Valor_Unitario_Tierra_Del_Avaluo'])
-                                <span class="grises">{{ $infoAvaluo['Terrenos']['Valor_Unitario_Tierra_Del_Avaluo'] }}
-                            @endisset
-                            </th>
-                        </tr>
-                    </thead> 
-                </table>
+                @if(isset($infoAvaluo['Terrenos']['Valor_Unitario_Tierra_Del_Avaluo']))
+                    <table class="tabla_gris_valor">
+                        <thead>
+                            <tr>
+                                <th>VALOR UNITARIO DE TIERRA DEL AVALUO</th>
+                                <th>
+                                @isset($infoAvaluo['Terrenos']['Valor_Unitario_Tierra_Del_Avaluo'])
+                                    <span class="grises">{{ $infoAvaluo['Terrenos']['Valor_Unitario_Tierra_Del_Avaluo'] }}
+                                @endisset
+                                </th>
+                            </tr>
+                        </thead> 
+                    </table>
+                @endif
 
                 <h4 style="margin-top: 4%;">CONSTRUCCIONES EN VENTA</h4>
                 <hr>
