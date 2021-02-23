@@ -1555,9 +1555,9 @@
                                                 @endisset
                                                 </td>
                                                 <td>
-                                                @isset($value_instalacionesEspeciales['Cantidad'])
+                                                @if(isset($value_instalacionesEspeciales['Cantidad']) && !is_array($value_instalacionesEspeciales['Cantidad']))
                                                     <span class="grises">{{$value_instalacionesEspeciales['Cantidad']}}</span>
-                                                @endisset
+                                                @endif
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -1579,9 +1579,9 @@
                                             @endisset
                                             </td>
                                             <td>
-                                            @isset($infoAvaluo['Instalaciones_Especiales']['Privativas']['Cantidad'])
+                                            @if(isset($infoAvaluo['Instalaciones_Especiales']['Privativas']['Cantidad']) && !is_array($infoAvaluo['Instalaciones_Especiales']['Privativas']['Cantidad']))
                                                 <span class="grises">{{$infoAvaluo['Instalaciones_Especiales']['Privativas']['Cantidad']}}</span>
-                                            @endisset
+                                            @endif
                                             </td>
                                         </tr>
                                     @endif
@@ -1622,9 +1622,9 @@
                                                 @endisset
                                                 </td>
                                                 <td>
-                                                @isset($value_instalacionesEspeciales['Cantidad'])
+                                                @if(isset($value_instalacionesEspeciales['Cantidad']) && !is_array($value_instalacionesEspeciales['Cantidad']))
                                                     <span class="grises">{{$value_instalacionesEspeciales['Cantidad']}}</span>
-                                                @endisset
+                                                @endif
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -1646,9 +1646,9 @@
                                             @endisset
                                             </td>
                                             <td>
-                                            @isset($infoAvaluo['Instalaciones_Especiales']['Comunes']['Cantidad'])
+                                            @if(isset($infoAvaluo['Instalaciones_Especiales']['Comunes']['Cantidad']) && !is_array($infoAvaluo['Instalaciones_Especiales']['Comunes']['Cantidad']))
                                                 <span class="grises">{{$infoAvaluo['Instalaciones_Especiales']['Comunes']['Cantidad']}}</span>
-                                            @endisset
+                                            @endif
                                             </td>
                                         </tr>
                                     @endif
@@ -1692,9 +1692,9 @@
                                             @endisset
                                             </td>
                                             <td>
-                                            @isset($value_elementoAccP['Cantidad'])
+                                            @if(isset($value_elementoAccP['Cantidad']) && !is_array($value_elementoAccP['Cantidad']))
                                                 <span class="grises">{{number_format($value_elementoAccP['Cantidad'],2)}}</span>
-                                            @endisset
+                                            @endif
                                             </td>
                                             <td>
                                             @isset($value_elementoAccP['Edad'])
@@ -1707,9 +1707,11 @@
                                             @endisset
                                             </td>
                                             <td>
-                                            @isset($value_elementoAccP['Costo_Unitario'])
+                                            @if(isset($value_elementoAccP['Costo_Unitario']))
+                                                @if(!is_array($value_elementoAccP['Costo_Unitario']))
                                                 <span class="grises">{{number_format($value_elementoAccP['Costo_Unitario'],2)}}</span>
-                                            @endisset
+                                                @endif
+                                            @endif
                                             </td>
                                         </tr>
                                     @endforeach
@@ -1731,9 +1733,9 @@
                                         @endisset
                                         </td>
                                         <td>
-                                        @isset($infoAvaluo['Elementos_Accesorios']['Privativas']['Cantidad'])
+                                        @if(isset($infoAvaluo['Elementos_Accesorios']['Privativas']['Cantidad']) && !is_array($infoAvaluo['Elementos_Accesorios']['Privativas']['Cantidad']))
                                             <span class="grises">{{number_format($infoAvaluo['Elementos_Accesorios']['Privativas']['Cantidad'],2)}}</span>
-                                        @endisset
+                                        @endif
                                         </td>
                                         <td>
                                         @isset($infoAvaluo['Elementos_Accesorios']['Privativas']['Edad'])
@@ -1746,9 +1748,11 @@
                                         @endisset
                                         </td>
                                         <td>
-                                        @isset($infoAvaluo['Elementos_Accesorios']['Privativas']['Costo_Unitario'])
-                                            <span class="grises">{{number_format($infoAvaluo['Elementos_Accesorios']['Privativas']['Costo_Unitario'])}}</span>
-                                        @endisset
+                                        @if(isset($infoAvaluo['Elementos_Accesorios']['Privativas']['Costo_Unitario']))
+                                            @if(!is_array($infoAvaluo['Elementos_Accesorios']['Privativas']['Costo_Unitario']))
+                                                <span class="grises">{{number_format($infoAvaluo['Elementos_Accesorios']['Privativas']['Costo_Unitario'])}}</span>
+                                            @endif
+                                        @endif
                                         </td>
                                     </tr>
                                 @endif    
@@ -1806,9 +1810,11 @@
                                             @endisset
                                             </td>
                                             <td>
-                                            @isset($value_elementoAccC['Costo_Unitario'])
-                                                <span class="grises">{{number_format($value_elementoAccC['Costo_Unitario'],2)}}</span>
-                                            @endisset
+                                            @if(isset($value_elementoAccC['Costo_Unitario']))
+                                                @if(!is_array($value_elementoAccC['Costo_Unitario']))
+                                                    <span class="grises">{{number_format($value_elementoAccC['Costo_Unitario'],2)}}</span>
+                                                @endif
+                                            @endif
                                             </td>
                                         </tr>
                                     @endforeach
@@ -1845,9 +1851,11 @@
                                         @endisset
                                         </td>
                                         <td>
-                                        @isset($infoAvaluo['Elementos_Accesorios']['Comunes']['Costo_Unitario'])
-                                            <span class="grises">{{number_format($infoAvaluo['Elementos_Accesorios']['Comunes']['Costo_Unitario'])}}</span>
-                                        @endisset
+                                        @if(isset($infoAvaluo['Elementos_Accesorios']['Comunes']['Costo_Unitario']))
+                                            @if(!is_array($infoAvaluo['Elementos_Accesorios']['Comunes']['Costo_Unitario']))
+                                                <span class="grises">{{number_format($infoAvaluo['Elementos_Accesorios']['Comunes']['Costo_Unitario'])}}</span>
+                                            @endif                                        
+                                        @endif
                                         </td>
                                     </tr>
                                 @endif    
@@ -1892,9 +1900,11 @@
                                             @endisset
                                             </td>
                                             <td>
-                                            @isset($value_obras['Cantidad'])
+                                            @if(isset($value_obras['Cantidad']))
+                                                @if(!is_array($value_obras['Cantidad']))                                            
                                                 <span class="grises">{{number_format($value_obras['Cantidad'],2)}}</span>
-                                            @endisset
+                                                @endif
+                                            @endif
                                             </td>
                                             <td>
                                             @isset($value_obras['Edad'])
@@ -1907,9 +1917,11 @@
                                             @endisset
                                             </td>
                                             <td>
-                                            @isset($value_obras['Costo_Unitario'])
-                                                <span class="grises">{{number_format($value_obras['Costo_Unitario'],2)}}</span>
-                                            @endisset
+                                            @if(isset($value_obras['Costo_Unitario']))
+                                                @if(!is_array($value_obras['Costo_Unitario']))
+                                                    <span class="grises">{{number_format($value_obras['Costo_Unitario'],2)}}</span>
+                                                @endif
+                                            @endif
                                             </td>
                                         </tr>
                                     @endforeach
@@ -1931,9 +1943,11 @@
                                         @endisset
                                         </td>
                                         <td>
-                                        @isset($infoAvaluo['Obras_Complementarias']['Privativas']['Cantidad'])
-                                            <span class="grises">{{number_format($infoAvaluo['Obras_Complementarias']['Privativas']['Cantidad'],2)}}</span>
-                                        @endisset
+                                        @if(isset($infoAvaluo['Obras_Complementarias']['Privativas']['Cantidad']))
+                                            @if(!is_array($infoAvaluo['Obras_Complementarias']['Privativas']['Cantidad']))
+                                                <span class="grises">{{number_format($infoAvaluo['Obras_Complementarias']['Privativas']['Cantidad'],2)}}</span>
+                                            @endif
+                                        @endif
                                         </td>
                                         <td>
                                         @isset($infoAvaluo['Obras_Complementarias']['Privativas']['Edad'])
@@ -1946,9 +1960,11 @@
                                         @endisset
                                         </td>
                                         <td>
-                                        @isset($infoAvaluo['Obras_Complementarias']['Privativas']['Costo_Unitario'])
-                                            <span class="grises">{{number_format($infoAvaluo['Obras_Complementarias']['Privativas']['Costo_Unitario'],2)}}</span>
-                                        @endisset
+                                        @if(isset($infoAvaluo['Obras_Complementarias']['Privativas']['Costo_Unitario']))
+                                            @if(!is_array($infoAvaluo['Obras_Complementarias']['Privativas']['Costo_Unitario']))
+                                                <span class="grises">{{number_format($infoAvaluo['Obras_Complementarias']['Privativas']['Costo_Unitario'],2)}}</span>
+                                            @endif
+                                        @endif
                                         </td>
                                     </tr>                                
                                 @endif
@@ -3516,14 +3532,18 @@
                                     @endisset
                                     </td>
                                     <td>
-                                    @isset($valueEA_tablaPri['Cantidad'])
+                                    @if(isset($valueEA_tablaPri['Cantidad']))
+                                        @if(!is_array($valueEA_tablaPri['Cantidad']))
                                         <span class="grises">{{ number_format($valueEA_tablaPri['Cantidad'],2) }}</span>
-                                    @endisset
+                                        @endif
+                                    @endif
                                     </td>
                                     <td>
-                                    @isset($valueEA_tablaPri['Costo_Unitario'])
+                                    @if(isset($valueEA_tablaPri['Costo_Unitario']))
+                                        @if(!is_array($valueEA_tablaPri['Costo_Unitario']))
                                         <span class="grises">{{ number_format($valueEA_tablaPri['Costo_Unitario'],2) }}</span>
-                                    @endisset
+                                        @endif
+                                    @endif
                                     </td>
                                     <td>
                                     @isset($valueEA_tablaPri['Edad'])
@@ -3555,14 +3575,18 @@
                                 @endisset
                                 </td>
                                 <td>
-                                @isset($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Cantidad'])
-                                    <span class="grises">{{ number_format($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Cantidad'],2) }}</span>
-                                @endisset
+                                @if(isset($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Cantidad']))
+                                    @if(!is_array($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Cantidad']))
+                                        <span class="grises">{{ number_format($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Cantidad'],2) }}</span>
+                                    @endif
+                                @endif
                                 </td>
                                 <td>
-                                @isset($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Costo_Unitario'])
-                                    <span class="grises">{{ number_format($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Costo_Unitario'],2) }}</span>
-                                @endisset
+                                @if(isset($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Costo_Unitario']))
+                                    @if(!is_array($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Costo_Unitario']))
+                                        <span class="grises">{{ number_format($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Costo_Unitario'],2) }}</span>
+                                    @endif
+                                @endif
                                 </td>
                                 <td>
                                 @isset($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Privativas']['Edad'])
