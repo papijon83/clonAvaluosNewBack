@@ -1116,17 +1116,35 @@ class ReimpresionNuevo
             }
 
             $infoReimpresion['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta'] = array();
-            $conclusionesHomologacionContruccionesVenta = $construccionesEnVenta['ConclusionesHomologacionConstruccionesEnVenta'];
+            if(isset($construccionesEnVenta['ConclusionesHomologacionConstruccionesEnVenta']) && !is_array($construccionesEnVenta['ConclusionesHomologacionConstruccionesEnVenta'])){
+                $conclusionesHomologacionContruccionesVenta = $construccionesEnVenta['ConclusionesHomologacionConstruccionesEnVenta'];
+            }   
 
-            $infoReimpresion['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Promedio'] = $conclusionesHomologacionContruccionesVenta['ValorUnitarioPromedio'];
-            $infoReimpresion['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Homologado'] = $conclusionesHomologacionContruccionesVenta['ValorUnitarioHomologado'];
-            $infoReimpresion['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Sin_Homolgar_Minimo'] = $conclusionesHomologacionContruccionesVenta['ValorUnitarioSinHomologarMinimo'];
-            $infoReimpresion['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Sin_Homolgar_Maximo'] = $conclusionesHomologacionContruccionesVenta['ValorUnitarioSinHomologarMaximo'];
-            $infoReimpresion['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Homologado_Minimo'] = $conclusionesHomologacionContruccionesVenta['ValorUnitarioHomologadoMinimo'];
-            $infoReimpresion['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Homologado_Maximo']  = $conclusionesHomologacionContruccionesVenta['ValorUnitarioHomologadoMaximo'];
-
-            $infoReimpresion['Construcciones_En_Venta']['Valor_Unitario_Aplicable_Avaluo'] = $conclusionesHomologacionContruccionesVenta['ValorUnitarioAplicableAlAvaluo'];
-            $infoReimpresion['Construcciones_En_Venta']['Valor_Mercado_Del_Inmueble'] = $enfoqueMercado['ValorDeMercadoDelInmueble'];
+            if(isset($conclusionesHomologacionContruccionesVenta['ValorUnitarioPromedio']) && !is_array($conclusionesHomologacionContruccionesVenta['ValorUnitarioPromedio'])){
+                $infoReimpresion['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Promedio'] = $conclusionesHomologacionContruccionesVenta['ValorUnitarioPromedio'];
+            }
+            if(isset($conclusionesHomologacionContruccionesVenta['ValorUnitarioHomologado']) && !is_array($conclusionesHomologacionContruccionesVenta['ValorUnitarioHomologado'])){
+                $infoReimpresion['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Homologado'] = $conclusionesHomologacionContruccionesVenta['ValorUnitarioHomologado'];
+            }
+            if(isset($conclusionesHomologacionContruccionesVenta['ValorUnitarioSinHomologarMinimo']) && !is_array($conclusionesHomologacionContruccionesVenta['ValorUnitarioSinHomologarMinimo'])){
+                $infoReimpresion['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Sin_Homolgar_Minimo'] = $conclusionesHomologacionContruccionesVenta['ValorUnitarioSinHomologarMinimo'];
+            }
+            if(isset($conclusionesHomologacionContruccionesVenta['ValorUnitarioSinHomologarMaximo']) && !is_array($conclusionesHomologacionContruccionesVenta['ValorUnitarioSinHomologarMaximo'])){
+                $infoReimpresion['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Sin_Homolgar_Maximo'] = $conclusionesHomologacionContruccionesVenta['ValorUnitarioSinHomologarMaximo'];
+            }
+            if(isset($conclusionesHomologacionContruccionesVenta['ValorUnitarioHomologadoMinimo']) && !is_array($conclusionesHomologacionContruccionesVenta['ValorUnitarioHomologadoMinimo'])){
+                $infoReimpresion['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Homologado_Minimo'] = $conclusionesHomologacionContruccionesVenta['ValorUnitarioHomologadoMinimo'];
+            }
+            if(isset($conclusionesHomologacionContruccionesVenta['ValorUnitarioHomologadoMaximo']) && !is_array($conclusionesHomologacionContruccionesVenta['ValorUnitarioHomologadoMaximo'])){
+                $infoReimpresion['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Homologado_Maximo']  = $conclusionesHomologacionContruccionesVenta['ValorUnitarioHomologadoMaximo'];
+            }
+            if(isset($conclusionesHomologacionContruccionesVenta['ValorUnitarioAplicableAlAvaluo']) && !is_array($conclusionesHomologacionContruccionesVenta['ValorUnitarioAplicableAlAvaluo'])){
+                $infoReimpresion['Construcciones_En_Venta']['Valor_Unitario_Aplicable_Avaluo'] = $conclusionesHomologacionContruccionesVenta['ValorUnitarioAplicableAlAvaluo'];
+            }
+            
+            if(isset($enfoqueMercado['ValorDeMercadoDelInmueble']) && !is_array($enfoqueMercado['ValorDeMercadoDelInmueble'])){
+                $infoReimpresion['Construcciones_En_Venta']['Valor_Mercado_Del_Inmueble'] = $enfoqueMercado['ValorDeMercadoDelInmueble'];
+            }            
 
             /************************************************************************************************************************************************************************/
 
@@ -1165,16 +1183,32 @@ class ReimpresionNuevo
 
                 $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta'] = array();
                 //Se usa ConclusionesHomologacionConstruccionesEnVenta porque asi llega en el XML
-                $conclusionesHomologacionContruccionesRenta = $construccionesEnRenta['ConclusionesHomologacionConstruccionesEnVenta'];
+                if(isset($construccionesEnRenta['ConclusionesHomologacionConstruccionesEnVenta']) && !is_array($construccionesEnRenta['ConclusionesHomologacionConstruccionesEnVenta'])){
+                    $conclusionesHomologacionContruccionesRenta = $construccionesEnRenta['ConclusionesHomologacionConstruccionesEnVenta'];
+                }
+                
+                if(isset($conclusionesHomologacionContruccionesRenta['ValorUnitarioPromedio']) && !is_array($conclusionesHomologacionContruccionesRenta['ValorUnitarioPromedio'])){
+                    $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Promedio'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioPromedio'];
+                }
+                if(isset($conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologado']) && !is_array($conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologado'])){
+                    $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologado'];
+                }
+                if(isset($conclusionesHomologacionContruccionesRenta['ValorUnitarioSinHomologarMinimo']) && !is_array($conclusionesHomologacionContruccionesRenta['ValorUnitarioSinHomologarMinimo'])){
+                    $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Sin_Homolgar_Minimo'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioSinHomologarMinimo'];
+                }
+                if(isset($conclusionesHomologacionContruccionesRenta['ValorUnitarioSinHomologarMaximo']) && !is_array($conclusionesHomologacionContruccionesRenta['ValorUnitarioSinHomologarMaximo'])){
+                    $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Sin_Homolgar_Maximo'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioSinHomologarMaximo'];
+                }
+                if(isset($conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologadoMinimo']) && !is_array($conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologadoMinimo'])){
+                    $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado_Minimo'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologadoMinimo'];
+                }
+                if(isset($conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologadoMaximo']) && !is_array($conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologadoMaximo'])){
+                    $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado_Maximo']  = $conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologadoMaximo'];
+                }
 
-                $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Promedio'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioPromedio'];
-                $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologado'];
-                $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Sin_Homolgar_Minimo'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioSinHomologarMinimo'];
-                $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Sin_Homolgar_Maximo'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioSinHomologarMaximo'];
-                $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado_Minimo'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologadoMinimo'];
-                $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado_Maximo']  = $conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologadoMaximo'];
-
-                $infoReimpresion['Construcciones_En_Renta']['Valor_Unitario_Aplicable_Avaluo'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioAplicableAlAvaluo'];
+                if(isset($conclusionesHomologacionContruccionesRenta['ValorUnitarioAplicableAlAvaluo']) && !is_array($conclusionesHomologacionContruccionesRenta['ValorUnitarioAplicableAlAvaluo'])){
+                    $infoReimpresion['Construcciones_En_Renta']['Valor_Unitario_Aplicable_Avaluo'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioAplicableAlAvaluo'];
+                }
 
             }        
 
@@ -2326,7 +2360,10 @@ class ReimpresionNuevo
         }
         
         $infoReimpresion['Indiviso'] = $terreno['Indiviso'] <= 1 ? $terreno['Indiviso'] * 100 : $terreno['Indiviso'];
-        $infoReimpresion['Vida_Util_Promedio_Inmueble'] = $descripcionInmueble['VidaUtilTotalPonderadaDelInmueble'];
+        if(isset($descripcionInmueble['VidaUtilTotalPonderadaDelInmueble']) && !is_array($descripcionInmueble['VidaUtilTotalPonderadaDelInmueble'])){
+            $infoReimpresion['Vida_Util_Promedio_Inmueble'] = $descripcionInmueble['VidaUtilTotalPonderadaDelInmueble'];
+        }    
+        
         if($tipoDeAvaluo ==  "Catastral"){
             $infoReimpresion['Edad_Aproximada_Construccion'] = $descripcionInmueble['EdadPonderadaDelInmueble'];
         }
@@ -2767,13 +2804,24 @@ class ReimpresionNuevo
             $conclusionesHomologacionContruccionesVenta = $construccionesEnVenta['ConclusionesHomologacionConstruccionesEnVenta'];
 
             $infoReimpresion['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Promedio'] = $conclusionesHomologacionContruccionesVenta['ValorUnitarioPromedio'];
-            $infoReimpresion['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Homologado'] = $conclusionesHomologacionContruccionesVenta['ValorUnitarioHomologadoPromedio'];
-            $infoReimpresion['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Sin_Homolgar_Minimo'] = $conclusionesHomologacionContruccionesVenta['ValorUnitarioSinHomologarMinimo'];
-            $infoReimpresion['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Sin_Homolgar_Maximo'] = $conclusionesHomologacionContruccionesVenta['ValorUnitarioSinHomologarMaximo'];
-            $infoReimpresion['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Homologado_Minimo'] = $conclusionesHomologacionContruccionesVenta['ValorUnitarioHomologadoMinimo'];
-            $infoReimpresion['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Homologado_Maximo']  = $conclusionesHomologacionContruccionesVenta['ValorUnitarioHomologadoMaximo'];
-
-            $infoReimpresion['Construcciones_En_Venta']['Valor_Unitario_Aplicable_Avaluo'] = $conclusionesHomologacionContruccionesVenta['ValorUnitarioAplicableAlAvaluo'];
+            if(isset($conclusionesHomologacionContruccionesVenta['ValorUnitarioHomologadoPromedio']) && !is_array($conclusionesHomologacionContruccionesVenta['ValorUnitarioHomologadoPromedio'])){
+                $infoReimpresion['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Homologado'] = $conclusionesHomologacionContruccionesVenta['ValorUnitarioHomologadoPromedio'];
+            }
+            if(isset($conclusionesHomologacionContruccionesVenta['ValorUnitarioSinHomologarMinimo']) && !is_array($conclusionesHomologacionContruccionesVenta['ValorUnitarioSinHomologarMinimo'])){
+                $infoReimpresion['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Sin_Homolgar_Minimo'] = $conclusionesHomologacionContruccionesVenta['ValorUnitarioSinHomologarMinimo'];
+            }
+            if(isset($conclusionesHomologacionContruccionesVenta['ValorUnitarioSinHomologarMaximo']) && !is_array($conclusionesHomologacionContruccionesVenta['ValorUnitarioSinHomologarMaximo'])){
+                $infoReimpresion['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Sin_Homolgar_Maximo'] = $conclusionesHomologacionContruccionesVenta['ValorUnitarioSinHomologarMaximo'];
+            }
+            if(isset($conclusionesHomologacionContruccionesVenta['ValorUnitarioHomologadoMinimo']) && !is_array($conclusionesHomologacionContruccionesVenta['ValorUnitarioHomologadoMinimo'])){
+                $infoReimpresion['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Homologado_Minimo'] = $conclusionesHomologacionContruccionesVenta['ValorUnitarioHomologadoMinimo'];
+            }
+            if(isset($conclusionesHomologacionContruccionesVenta['ValorUnitarioHomologadoMaximo']) && !is_array($conclusionesHomologacionContruccionesVenta['ValorUnitarioHomologadoMaximo'])){
+                $infoReimpresion['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta']['Valor_Unitario_Homologado_Maximo']  = $conclusionesHomologacionContruccionesVenta['ValorUnitarioHomologadoMaximo'];
+            }
+            if(isset($conclusionesHomologacionContruccionesVenta['ValorUnitarioAplicableAlAvaluo']) && !is_array($conclusionesHomologacionContruccionesVenta['ValorUnitarioAplicableAlAvaluo'])){
+                $infoReimpresion['Construcciones_En_Venta']['Valor_Unitario_Aplicable_Avaluo'] = $conclusionesHomologacionContruccionesVenta['ValorUnitarioAplicableAlAvaluo'];
+            }
             $infoReimpresion['Construcciones_En_Venta']['Valor_Mercado_Del_Inmueble'] = $enfoqueMercado['ValorDeMercadoDelInmueble'];
 
             /************************************************************************************************************************************************************************/
@@ -2816,13 +2864,25 @@ class ReimpresionNuevo
                 $conclusionesHomologacionContruccionesRenta = $construccionesEnRenta['ConclusionesHomologacionConstruccionesEnVenta'];
 
                 $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Promedio'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioPromedio'];
-                $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologadoPromedio'];
-                $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Sin_Homolgar_Minimo'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioSinHomologarMinimo'];
-                $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Sin_Homolgar_Maximo'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioSinHomologarMaximo'];
-                $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado_Minimo'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologadoMinimo'];
-                $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado_Maximo']  = $conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologadoMaximo'];
+                if(isset($conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologadoPromedio']) && !is_array($conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologadoPromedio'])){
+                    $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologadoPromedio'];
+                }
+                if(isset($conclusionesHomologacionContruccionesRenta['ValorUnitarioSinHomologarMinimo']) && !is_array($conclusionesHomologacionContruccionesRenta['ValorUnitarioSinHomologarMinimo'])){              
+                    $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Sin_Homolgar_Minimo'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioSinHomologarMinimo'];
+                }
+                if(isset($conclusionesHomologacionContruccionesRenta['ValorUnitarioSinHomologarMaximo']) && !is_array($conclusionesHomologacionContruccionesRenta['ValorUnitarioSinHomologarMaximo'])){
+                    $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Sin_Homolgar_Maximo'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioSinHomologarMaximo'];
+                }
+                if(isset($conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologadoMinimo']) && !is_array($conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologadoMinimo'])){
+                    $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado_Minimo'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologadoMinimo'];
+                }
+                if(isset($conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologadoMaximo']) && !is_array($conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologadoMaximo'])){
+                    $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado_Maximo']  = $conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologadoMaximo'];
+                }
 
-                $infoReimpresion['Construcciones_En_Renta']['Valor_Unitario_Aplicable_Avaluo'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioAplicableAlAvaluo'];
+                if(isset($conclusionesHomologacionContruccionesRenta['ValorUnitarioAplicableAlAvaluo']) && !is_array($conclusionesHomologacionContruccionesRenta['ValorUnitarioAplicableAlAvaluo'])){
+                    $infoReimpresion['Construcciones_En_Renta']['Valor_Unitario_Aplicable_Avaluo'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioAplicableAlAvaluo'];
+                }
 
             }        
 
