@@ -761,6 +761,69 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    @if(isset($infoAvaluo['Superficie_Total_Segun'][0]))
+                                        @foreach($infoAvaluo['Superficie_Total_Segun'] as $value_valorSuperficieTotal)
+                                            @if(!$loop->first)
+                                                <tr>
+                                                    <td class="centrado">
+                                                    @isset($value_valorSuperficieTotal['Ident_Fraccion'])
+                                                        <span class="grises">{{$value_valorSuperficieTotal['Ident_Fraccion']}}</span>
+                                                    @endisset
+                                                    </td>
+                                                    <td class="centrado">
+                                                    @isset($value_valorSuperficieTotal['Sup_Fraccion'])
+                                                        <span class="grises">{{$value_valorSuperficieTotal['Sup_Fraccion']}}</span>
+                                                    @endisset
+                                                    </td>
+                                                    <td class="centrado">
+                                                    @isset($value_valorSuperficieTotal['Factor1'])
+                                                        <span class="grises">{{$value_valorSuperficieTotal['Factor1']}}</span>
+                                                    @endisset
+                                                    </td>
+                                                    <td class="centrado">
+                                                    @isset($value_valorSuperficieTotal['Factor2'])
+                                                        <span class="grises">{{$value_valorSuperficieTotal['Factor2']}}</span>
+                                                    @endisset
+                                                    </td>
+                                                    <td class="centrado">
+                                                    @isset($value_valorSuperficieTotal['Factor3'])
+                                                        <span class="grises">{{$value_valorSuperficieTotal['Factor3']}}</span>
+                                                    @endisset
+                                                    </td>
+                                                    <td class="centrado">
+                                                    @isset($value_valorSuperficieTotal['Factor4'])
+                                                        <span class="grises">{{$value_valorSuperficieTotal['Factor4']}}</span>
+                                                    @endisset
+                                                    </td>
+                                                    <td class="centrado">
+                                                    @isset($value_valorSuperficieTotal['Factor5'])
+                                                        <span class="grises">{{$value_valorSuperficieTotal['Factor5']}}</span>
+                                                    @endisset
+                                                    </td>
+                                                    <td class="centrado">
+                                                    @isset($value_valorSuperficieTotal['Clave_Area_Valor'])
+                                                        <span class="grises">{{$value_valorSuperficieTotal['Clave_Area_Valor']}}</span>
+                                                    @endisset
+                                                    </td>
+                                                    <!-- <td class="centrado">
+                                                    @isset($value_valorSuperficieTotal['Valor'])
+                                                        <span class="grises">{{$value_valorSuperficieTotal['Valor']}}</span>
+                                                    @endisset
+                                                    </td>
+                                                    <td class="centrado">
+                                                    @isset($value_valorSuperficieTotal['Descripcion'])
+                                                        <span class="grises">{{$value_valorSuperficieTotal['Descripcion']}}</span>
+                                                    @endisset
+                                                    </td> -->
+                                                    <td class="centrado">
+                                                    @isset($value_valorSuperficieTotal['Fre'])
+                                                        <span class="grises">{{$value_valorSuperficieTotal['Fre']}}</span>
+                                                    @endisset
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                        @endforeach                                        
+                                    @else
                                         <tr>
                                             <td class="centrado">
                                             @isset($infoAvaluo['Superficie_Total_Segun']['Ident_Fraccion'])
@@ -818,6 +881,7 @@
                                             @endisset
                                             </td>
                                         </tr>
+                                    @endif
                                     </tbody>
                                 </table>
                                 <div style="text-align: right;">
