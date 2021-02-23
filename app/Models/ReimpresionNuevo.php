@@ -528,7 +528,9 @@ class ReimpresionNuevo
         /************************************************************************************************************************************************************************/
 
         $elementosConstruccion = $elementoPrincipal['ElementosDeLaConstruccion'];
-        $obraNegra = $elementosConstruccion['ObraNegra']; //print_r($elementosConstruccion); exit();
+        if(isset($elementosConstruccion['ObraNegra'])){
+            $obraNegra = $elementosConstruccion['ObraNegra']; //print_r($elementosConstruccion); exit();
+        }    
 
         $infoReimpresion['Obra_Negra_Gruesa'] = array();
 
@@ -565,7 +567,9 @@ class ReimpresionNuevo
         /************************************************************************************************************************************************************************/
 
         $infoReimpresion['Revestimientos_Acabados_Interiores'] = array();
-        $revestimientosAcabados = $elementosConstruccion['RevestimientosYAcabadosInteriores'];
+        if(isset($elementosConstruccion['RevestimientosYAcabadosInteriores'])){
+            $revestimientosAcabados = $elementosConstruccion['RevestimientosYAcabadosInteriores'];
+        }        
 
         if(isset($revestimientosAcabados['Aplanados']) && !is_array($revestimientosAcabados['Aplanados'])){
             $infoReimpresion['Revestimientos_Acabados_Interiores']['Aplanados'] = $revestimientosAcabados['Aplanados'];
@@ -601,7 +605,9 @@ class ReimpresionNuevo
         /************************************************************************************************************************************************************************/
 
         $infoReimpresion['Carpinteria'] = array();
-        $carpinteria = $elementosConstruccion['Carpinteria'];
+        if(isset($elementosConstruccion['Carpinteria'])){
+            $carpinteria = $elementosConstruccion['Carpinteria'];
+        }    
 
         if(isset($carpinteria['PuertasInteriores']) && !is_array($carpinteria['PuertasInteriores'])){
             $infoReimpresion['Carpinteria']['Puertas_Interiores'] = $carpinteria['PuertasInteriores'];
@@ -618,7 +624,9 @@ class ReimpresionNuevo
         /************************************************************************************************************************************************************************/
 
         $infoReimpresion['Instalaciones_Hidraulicas_Sanitrias'] = array();
-        $hidraulicasSanitarias = $elementosConstruccion['InstalacionesHidraulicasYSanitrias'];
+        if(isset($elementosConstruccion['InstalacionesHidraulicasYSanitrias'])){
+            $hidraulicasSanitarias = $elementosConstruccion['InstalacionesHidraulicasYSanitrias'];
+        }    
 
         if(isset($hidraulicasSanitarias['MueblesDeBanno']) && !is_array($hidraulicasSanitarias['MueblesDeBanno'])){
             $infoReimpresion['Instalaciones_Hidraulicas_Sanitrias']['Muebles_Banio'] = $hidraulicasSanitarias['MueblesDeBanno'];
@@ -639,7 +647,9 @@ class ReimpresionNuevo
         /************************************************************************************************************************************************************************/
 
         $infoReimpresion['Puertas_Ventaneria_Metalica'] = array();
-        $puertasVentaneria = $elementosConstruccion['PuertasYVentaneriaMetalica'];
+        if(isset($elementosConstruccion['PuertasYVentaneriaMetalica'])){
+            $puertasVentaneria = $elementosConstruccion['PuertasYVentaneriaMetalica'];
+        }    
 
         if(isset($puertasVentaneria['Herreria']) && !is_array($puertasVentaneria['Herreria'])){
             $infoReimpresion['Puertas_Ventaneria_Metalica']['Herreria'] = $puertasVentaneria['Herreria'];
