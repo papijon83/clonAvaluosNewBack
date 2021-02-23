@@ -247,7 +247,11 @@ class ReimpresionNuevo
         $infoReimpresion['Ubicacion_Inmueble']['Delegacion'] = isset($ubicacionInmueble['Delegacion']) ? $ubicacionInmueble['Delegacion'] : $ubicacionInmueble['Alcaldia'];
         $infoReimpresion['Ubicacion_Inmueble']['Edificio'] = "-";
         $infoReimpresion['Ubicacion_Inmueble']['Lote'] = 0;
-        $infoReimpresion['Ubicacion_Inmueble']['Cuenta_agua'] = $ubicacionInmueble['CuentaDeAgua'];
+        if(isset($ubicacionInmueble['CuentaDeAgua']) && !is_array($ubicacionInmueble['CuentaDeAgua'])){
+            $infoReimpresion['Ubicacion_Inmueble']['Cuenta_agua'] = $ubicacionInmueble['CuentaDeAgua'];
+        }else{
+            $infoReimpresion['Ubicacion_Inmueble']['Cuenta_agua'] = '';
+        }    
 
         $infoReimpresion['Clasificacion_de_la_zona'] = $this->modelDocumentos->get_clasificacion_zona($arrFexava['cucodclasificacionzona']);
         $infoReimpresion['Indice_Saturacion_Zona'] = $arrFexava['cuindicesaturacionzona'] <= 1 ? $arrFexava['cuindicesaturacionzona'] * 100 : $arrFexava['cuindicesaturacionzona'];
@@ -349,10 +353,10 @@ class ReimpresionNuevo
         $arrInfoSuperficie = array_map("convierte_a_arreglo",$infoSuperficie);
         $arrSuperficie = $arrInfoSuperficie[0];
         print_r($arrSuperficie); exit();*/
-        $superficieDelTerreno = $terreno['SuperficieDelTerreno']; //print_r($superficieDelTerreno); exit();
+        $superficieDelTerreno = $terreno['SuperficieDelTerreno']; 
         if(isset($superficieDelTerreno[0])){
             $control = 0;
-            foreach($superficieDelTerreno as $supDelTerreno){
+            foreach($superficieDelTerreno as $supDelTerreno){ //print_r($supDelTerreno); exit();
                 $infoReimpresion['Superficie_Total_Segun'][$control]['Ident_Fraccion'] = $supDelTerreno['IdentificadorFraccionN1'];
                 $infoReimpresion['Superficie_Total_Segun'][$control]['Sup_Fraccion'] = $supDelTerreno['SuperficieFraccionN1'];
                 if(isset($supDelTerreno['Fzo'])){
@@ -432,7 +436,7 @@ class ReimpresionNuevo
             }
         }    
 
-        $infoReimpresion['Superficie_Total_Segun']['Totales']['Superficie_Total_Terreno'] =  $terreno['SuperficieTotalDelTerreno'];
+        $infoReimpresion['Superficie_Total_Segun']['Totales']['Superficie_Total_Terreno'] =  $terreno['SuperficieTotalDelTerreno']; //print_r($infoReimpresion); exit();
 
         $infoReimpresion['Topografia_Configuracion'] = array();
         $infoReimpresion['Topografia_Configuracion']['Caracteristicas_Panoramicas'] = $arrFexava['tecaracteristicasparonamicas'];
@@ -524,49 +528,110 @@ class ReimpresionNuevo
         /************************************************************************************************************************************************************************/
 
         $elementosConstruccion = $elementoPrincipal['ElementosDeLaConstruccion'];
-        $obraNegra = $elementosConstruccion['ObraNegra'];
+        $obraNegra = $elementosConstruccion['ObraNegra']; //print_r($elementosConstruccion); exit();
 
         $infoReimpresion['Obra_Negra_Gruesa'] = array();
 
-        $infoReimpresion['Obra_Negra_Gruesa']['Cimientos'] = $obraNegra['Cimentacion'];
-        $infoReimpresion['Obra_Negra_Gruesa']['Estructura'] = $obraNegra['Estructura'];
-        $infoReimpresion['Obra_Negra_Gruesa']['Muros'] = $obraNegra['Muros'];
+        if(isset($obraNegra['Cimentacion']) && !is_array($obraNegra['Cimentacion'])){
+            $infoReimpresion['Obra_Negra_Gruesa']['Cimientos'] = $obraNegra['Cimentacion'];
+        }/*else{
+            $infoReimpresion['Obra_Negra_Gruesa']['Cimientos'] = '';
+        }*/
+        
+        if(isset($obraNegra['Estructura']) && !is_array($obraNegra['Estructura'])){
+            $infoReimpresion['Obra_Negra_Gruesa']['Estructura'] = $obraNegra['Estructura'];
+        }
+
+        if(isset($obraNegra['Muros']) && !is_array($obraNegra['Muros'])){
+            $infoReimpresion['Obra_Negra_Gruesa']['Muros'] = $obraNegra['Muros'];
+        }
+
+        if(isset($obraNegra['Entrepisos']) && !is_array($obraNegra['Entrepisos'])){
         $infoReimpresion['Obra_Negra_Gruesa']['Entrepiso'] = $obraNegra['Entrepisos'];
+        }
+
+        if(isset($obraNegra['Techos']) && !is_array($obraNegra['Techos'])){
         $infoReimpresion['Obra_Negra_Gruesa']['Techos'] = $obraNegra['Techos'];
+        }
+
+        if(isset($obraNegra['Azoteas']) && !is_array($obraNegra['Azoteas'])){
         $infoReimpresion['Obra_Negra_Gruesa']['Azoteas'] = $obraNegra['Azoteas'];
+        }
+
+        if(isset($obraNegra['Bardas']) && !is_array($obraNegra['Bardas'])){
         $infoReimpresion['Obra_Negra_Gruesa']['Bardas'] = $obraNegra['Bardas'];
+        }
 
         /************************************************************************************************************************************************************************/
 
         $infoReimpresion['Revestimientos_Acabados_Interiores'] = array();
         $revestimientosAcabados = $elementosConstruccion['RevestimientosYAcabadosInteriores'];
 
-        $infoReimpresion['Revestimientos_Acabados_Interiores']['Aplanados'] = $revestimientosAcabados['Aplanados'];
+        if(isset($revestimientosAcabados['Aplanados']) && !is_array($revestimientosAcabados['Aplanados'])){
+            $infoReimpresion['Revestimientos_Acabados_Interiores']['Aplanados'] = $revestimientosAcabados['Aplanados'];
+        }
+        
+        if(isset($revestimientosAcabados['Plafones']) && !is_array($revestimientosAcabados['Plafones'])){
         $infoReimpresion['Revestimientos_Acabados_Interiores']['Plafones'] = $revestimientosAcabados['Plafones'];
-        $infoReimpresion['Revestimientos_Acabados_Interiores']['Lambrines'] = $revestimientosAcabados['Lambrines'];
-        $infoReimpresion['Revestimientos_Acabados_Interiores']['Pisos'] = $revestimientosAcabados['Pisos'];
-        $infoReimpresion['Revestimientos_Acabados_Interiores']['Zoclos'] = $revestimientosAcabados['Zoclos'];
-        $infoReimpresion['Revestimientos_Acabados_Interiores']['Escaleras'] = $revestimientosAcabados['Escaleras'];
-        $infoReimpresion['Revestimientos_Acabados_Interiores']['Pintura'] = $revestimientosAcabados['Pintura'];
-        $infoReimpresion['Revestimientos_Acabados_Interiores']['Recubrimientos_Especiales'] = $revestimientosAcabados['RecubrimientosEspeciales'];
+        }
 
+        if(isset($revestimientosAcabados['Lambrines']) && !is_array($revestimientosAcabados['Lambrines'])){
+        $infoReimpresion['Revestimientos_Acabados_Interiores']['Lambrines'] = $revestimientosAcabados['Lambrines'];
+        }
+
+        if(isset($revestimientosAcabados['Pisos']) && !is_array($revestimientosAcabados['Pisos'])){
+        $infoReimpresion['Revestimientos_Acabados_Interiores']['Pisos'] = $revestimientosAcabados['Pisos'];
+        }
+
+        if(isset($revestimientosAcabados['Zoclos']) && !is_array($revestimientosAcabados['Zoclos'])){
+        $infoReimpresion['Revestimientos_Acabados_Interiores']['Zoclos'] = $revestimientosAcabados['Zoclos'];
+        }
+
+        if(isset($revestimientosAcabados['Escaleras']) && !is_array($revestimientosAcabados['Escaleras'])){
+            $infoReimpresion['Revestimientos_Acabados_Interiores']['Escaleras'] = $revestimientosAcabados['Escaleras'];
+        }
+
+        if(isset($revestimientosAcabados['Pintura']) && !is_array($revestimientosAcabados['Pintura'])){
+            $infoReimpresion['Revestimientos_Acabados_Interiores']['Pintura'] = $revestimientosAcabados['Pintura'];
+        }
+
+        if(isset($revestimientosAcabados['RecubrimientosEspeciales']) && !is_array($revestimientosAcabados['RecubrimientosEspeciales'])){
+            $infoReimpresion['Revestimientos_Acabados_Interiores']['Recubrimientos_Especiales'] = $revestimientosAcabados['RecubrimientosEspeciales'];
+        }
         /************************************************************************************************************************************************************************/
 
         $infoReimpresion['Carpinteria'] = array();
         $carpinteria = $elementosConstruccion['Carpinteria'];
 
-        $infoReimpresion['Carpinteria']['Puertas_Interiores'] = $carpinteria['PuertasInteriores'];
-        $infoReimpresion['Carpinteria']['Guardarropas'] = $carpinteria['Guardaropas'];
-        $infoReimpresion['Carpinteria']['Muebles_Empotrados'] = $carpinteria['MueblesEmpotradosOFijos'];
+        if(isset($carpinteria['PuertasInteriores']) && !is_array($carpinteria['PuertasInteriores'])){
+            $infoReimpresion['Carpinteria']['Puertas_Interiores'] = $carpinteria['PuertasInteriores'];
+        }
+        
+        if(isset($carpinteria['Guardaropas']) && !is_array($carpinteria['Guardaropas'])){
+            $infoReimpresion['Carpinteria']['Guardarropas'] = $carpinteria['Guardaropas'];
+        }
+
+        if(isset($carpinteria['MueblesEmpotradosOFijos']) && !is_array($carpinteria['MueblesEmpotradosOFijos'])){
+            $infoReimpresion['Carpinteria']['Muebles_Empotrados'] = $carpinteria['MueblesEmpotradosOFijos'];
+        }
 
         /************************************************************************************************************************************************************************/
 
         $infoReimpresion['Instalaciones_Hidraulicas_Sanitrias'] = array();
         $hidraulicasSanitarias = $elementosConstruccion['InstalacionesHidraulicasYSanitrias'];
 
-        $infoReimpresion['Instalaciones_Hidraulicas_Sanitrias']['Muebles_Banio'] = $hidraulicasSanitarias['MueblesDeBanno'];
-        $infoReimpresion['Instalaciones_Hidraulicas_Sanitrias']['Ramaleos_Hidraulicos'] = $hidraulicasSanitarias['RamaleosHidraulicos'];
-        $infoReimpresion['Instalaciones_Hidraulicas_Sanitrias']['Ramaleos_Sanitarios'] = $hidraulicasSanitarias['RamaleosSanitarios'];
+        if(isset($hidraulicasSanitarias['MueblesDeBanno']) && !is_array($hidraulicasSanitarias['MueblesDeBanno'])){
+            $infoReimpresion['Instalaciones_Hidraulicas_Sanitrias']['Muebles_Banio'] = $hidraulicasSanitarias['MueblesDeBanno'];
+        }
+        
+        if(isset($hidraulicasSanitarias['RamaleosHidraulicos']) && !is_array($hidraulicasSanitarias['RamaleosHidraulicos'])){
+            $infoReimpresion['Instalaciones_Hidraulicas_Sanitrias']['Ramaleos_Hidraulicos'] = $hidraulicasSanitarias['RamaleosHidraulicos'];
+        }
+
+        if(isset($hidraulicasSanitarias['RamaleosSanitarios']) && !is_array($hidraulicasSanitarias['RamaleosSanitarios'])){
+            $infoReimpresion['Instalaciones_Hidraulicas_Sanitrias']['Ramaleos_Sanitarios'] = $hidraulicasSanitarias['RamaleosSanitarios'];
+        }
+
         if(isset($elementosConstruccion['InstalacionesElectricasYAlumbrado'])){
             $infoReimpresion['Instalaciones_Electricas_Alumbrados'] = $elementosConstruccion['InstalacionesElectricasYAlumbrado'];
         }    
@@ -576,8 +641,13 @@ class ReimpresionNuevo
         $infoReimpresion['Puertas_Ventaneria_Metalica'] = array();
         $puertasVentaneria = $elementosConstruccion['PuertasYVentaneriaMetalica'];
 
-        $infoReimpresion['Puertas_Ventaneria_Metalica']['Herreria'] = $puertasVentaneria['Herreria'];
-        $infoReimpresion['Puertas_Ventaneria_Metalica']['Ventaneria'] = $puertasVentaneria['Ventaneria'];
+        if(isset($puertasVentaneria['Herreria']) && !is_array($puertasVentaneria['Herreria'])){
+            $infoReimpresion['Puertas_Ventaneria_Metalica']['Herreria'] = $puertasVentaneria['Herreria'];
+        }
+        
+        if(isset($puertasVentaneria['Ventaneria']) && !is_array($puertasVentaneria['Ventaneria'])){
+            $infoReimpresion['Puertas_Ventaneria_Metalica']['Ventaneria'] = $puertasVentaneria['Ventaneria'];
+        }        
 
         $infoReimpresion['Vidrieria'] = $elementosConstruccion['Vidreria'];
         $infoReimpresion['Cerrajeria'] = $elementosConstruccion['Cerrajeria'];
@@ -1514,7 +1584,10 @@ class ReimpresionNuevo
         
         if(isset($elementoPrincipal['ConsideracionesPreviasALaConclusion'])){
             $consideraciones = $elementoPrincipal['ConsideracionesPreviasALaConclusion'];
-            $infoReimpresion['Consideraciones'] = $consideraciones['ConsideracionesPreviasALaConclusion'];
+            if(isset($consideraciones['ConsideracionesPreviasALaConclusion']) && !is_array($consideraciones['ConsideracionesPreviasALaConclusion'])){
+                $infoReimpresion['Consideraciones'] = $consideraciones['ConsideracionesPreviasALaConclusion'];
+            }  
+            
         }
 
         $conclusionAvaluo = $elementoPrincipal['ConclusionDelAvaluo'];
