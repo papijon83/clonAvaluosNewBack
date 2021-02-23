@@ -192,8 +192,8 @@ class ReimpresionNuevo
         $infoReimpresion['Sociedad_Participa']['Valuador'] = $identificacion['ClaveValuador'];
         $infoReimpresion['Sociedad_Participa']['Fecha_del_Avaluo'] = $identificacion['FechaAvaluo'];
         $infoReimpresion['Sociedad_Participa']['Solicitante'] = array();
-        $infoReimpresion['Sociedad_Participa']['Solicitante']['Tipo_persona'] = !is_array($arrSolicitante['A.Paterno']) ? "Física" : "Moral";
-        if(!is_array($arrSolicitante['A.Paterno'])){
+        $infoReimpresion['Sociedad_Participa']['Solicitante']['Tipo_persona'] = isset($arrSolicitante['A.Paterno']) && !is_array($arrSolicitante['A.Paterno']) ? "Física" : "Moral";
+        if(isset($arrSolicitante['A.Paterno']) && !is_array($arrSolicitante['A.Paterno'])){
             $infoReimpresion['Sociedad_Participa']['Solicitante']['Nombre'] = $arrSolicitante['Nombre']." ".$arrSolicitante['A.Paterno']." ".$arrSolicitante['A.Materno'];
         }else{
             $infoReimpresion['Sociedad_Participa']['Solicitante']['Nombre'] = $arrSolicitante['Nombre'];
@@ -217,8 +217,8 @@ class ReimpresionNuevo
         $arrPropietario = array_map("convierte_a_arreglo",$propietario); //print_r($arrPropietario); exit();
 
         $infoReimpresion['Sociedad_Participa']['Propietario'] = array();
-        $infoReimpresion['Sociedad_Participa']['Propietario']['Tipo_persona'] = !is_array($arrPropietario['A.Paterno']) ? "Física" : "Moral";
-        if(!is_array($arrPropietario['A.Paterno'])){
+        $infoReimpresion['Sociedad_Participa']['Propietario']['Tipo_persona'] = isset($arrPropietario['A.Paterno']) && !is_array($arrPropietario['A.Paterno']) ? "Física" : "Moral";
+        if(isset($arrPropietario['A.Paterno']) && !is_array($arrPropietario['A.Paterno'])){
             $infoReimpresion['Sociedad_Participa']['Propietario']['Nombre'] = $arrPropietario['Nombre']." ".$arrPropietario['A.Paterno']." ".$arrPropietario['A.Materno'];
         }else{
             $infoReimpresion['Sociedad_Participa']['Propietario']['Nombre'] = $arrPropietario['Nombre'];
@@ -1989,8 +1989,8 @@ class ReimpresionNuevo
         $infoReimpresion['Sociedad_Participa']['Valuador'] = $identificacion['ClaveValuador'];
         $infoReimpresion['Sociedad_Participa']['Fecha_del_Avaluo'] = $identificacion['FechaAvaluo'];
         $infoReimpresion['Sociedad_Participa']['Solicitante'] = array();
-        $infoReimpresion['Sociedad_Participa']['Solicitante']['Tipo_persona'] = isset($arrSolicitante['A.Paterno']) ? "Física" : "Moral";
-        if(!is_array($arrSolicitante['A.Paterno'])){
+        $infoReimpresion['Sociedad_Participa']['Solicitante']['Tipo_persona'] = isset($arrSolicitante['A.Paterno']) && !is_array($arrSolicitante['A.Paterno']) ? "Física" : "Moral";
+        if(isset($arrSolicitante['A.Paterno']) && !is_array($arrSolicitante['A.Paterno'])){
             $infoReimpresion['Sociedad_Participa']['Solicitante']['Nombre'] = $arrSolicitante['Nombre']." ".$arrSolicitante['A.Paterno']." ".$arrSolicitante['A.Materno'];
         }else{
             $infoReimpresion['Sociedad_Participa']['Solicitante']['Nombre'] = $arrSolicitante['Nombre'];
@@ -2013,8 +2013,8 @@ class ReimpresionNuevo
         $arrPropietario = array_map("convierte_a_arreglo",$propietario); //print_r($arrPropietario); exit();
 
         $infoReimpresion['Sociedad_Participa']['Propietario'] = array();
-        $infoReimpresion['Sociedad_Participa']['Propietario']['Tipo_persona'] = !is_array($arrPropietario['A.Paterno']) ? "Física" : "Moral";
-        if(!is_array($arrPropietario['A.Paterno'])){
+        $infoReimpresion['Sociedad_Participa']['Propietario']['Tipo_persona'] = isset($arrPropietario['A.Paterno']) && !is_array($arrPropietario['A.Paterno']) ? "Física" : "Moral";
+        if(isset($arrPropietario['A.Paterno']) && !is_array($arrPropietario['A.Paterno'])){
             $infoReimpresion['Sociedad_Participa']['Propietario']['Nombre'] = $arrPropietario['Nombre']." ".$arrPropietario['A.Paterno']." ".$arrPropietario['A.Materno'];
         }else{
             $infoReimpresion['Sociedad_Participa']['Propietario']['Nombre'] = $arrPropietario['Nombre'];
