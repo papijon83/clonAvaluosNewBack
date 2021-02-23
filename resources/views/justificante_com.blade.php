@@ -1549,10 +1549,11 @@
                                                 @endisset
                                                 </td>
                                                 <td>
-                                                @if(isset($value_instalacionesEspeciales['Cantidad']) && !is_array($value_instalacionesEspeciales['Cantidad']))
-                                                    <span class="grises">{{$value_instalacionesEspeciales['Cantidad']}}</span>
+                                                @if(isset($value_instalacionesEspeciales['Cantidad']))
+                                                    @if(!is_array($value_instalacionesEspeciales['Cantidad']))
+                                                        <span class="grises">{{$value_instalacionesEspeciales['Cantidad']}}</span>
+                                                    @endif
                                                 @endif
-                                                
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -1574,8 +1575,10 @@
                                             @endisset
                                             </td>
                                             <td>
-                                            @if(isset($infoAvaluo['Instalaciones_Especiales']['Privativas']['Cantidad']) && !is_array($infoAvaluo['Instalaciones_Especiales']['Privativas']['Cantidad']))
-                                                <span class="grises">{{$infoAvaluo['Instalaciones_Especiales']['Privativas']['Cantidad']}}</span>
+                                            @if(isset($infoAvaluo['Instalaciones_Especiales']['Privativas']['Cantidad']))
+                                                @if(!is_array($infoAvaluo['Instalaciones_Especiales']['Privativas']['Cantidad']))
+                                                    <span class="grises">{{$infoAvaluo['Instalaciones_Especiales']['Privativas']['Cantidad']}}</span>
+                                                @endif
                                             @endif
                                             </td>
                                         </tr>
@@ -1617,8 +1620,10 @@
                                                 @endisset
                                                 </td>
                                                 <td>
-                                                @if(isset($value_instalacionesEspeciales['Cantidad']) && !is_array($value_instalacionesEspeciales['Cantidad']))
-                                                    <span class="grises">{{$value_instalacionesEspeciales['Cantidad']}}</span>
+                                                @if(isset($value_instalacionesEspeciales['Cantidad']))
+                                                    @if(!is_array($value_instalacionesEspeciales['Cantidad']))
+                                                        <span class="grises">{{$value_instalacionesEspeciales['Cantidad']}}</span>
+                                                    @endif
                                                 @endif
                                                 </td>
                                             </tr>
@@ -1641,8 +1646,10 @@
                                             @endisset
                                             </td>
                                             <td>
-                                            @if(isset($infoAvaluo['Instalaciones_Especiales']['Comunes']['Cantidad']) && !is_array($infoAvaluo['Instalaciones_Especiales']['Comunes']['Cantidad']))
-                                                <span class="grises">{{$infoAvaluo['Instalaciones_Especiales']['Comunes']['Cantidad']}}</span>
+                                            @if(isset($infoAvaluo['Instalaciones_Especiales']['Comunes']['Cantidad']))
+                                                @if(!is_array($infoAvaluo['Instalaciones_Especiales']['Comunes']['Cantidad']))
+                                                    <span class="grises">{{$infoAvaluo['Instalaciones_Especiales']['Comunes']['Cantidad']}}</span>
+                                                @endif
                                             @endif
                                             </td>
                                         </tr>
@@ -1687,8 +1694,10 @@
                                             @endisset
                                             </td>
                                             <td>
-                                            @if(isset($value_elementoAccP['Cantidad']) && !is_array($value_elementoAccP['Cantidad']))
-                                                <span class="grises">{{number_format($value_elementoAccP['Cantidad'],2)}}</span>
+                                            @if(isset($value_elementoAccP['Cantidad']))
+                                                @if(!is_array($value_elementoAccP['Cantidad']))
+                                                    <span class="grises">{{number_format($value_elementoAccP['Cantidad'],2)}}</span>
+                                                @endif
                                             @endif
                                             </td>
                                             <td>
@@ -1728,8 +1737,10 @@
                                         @endisset
                                         </td>
                                         <td>
-                                        @if(isset($infoAvaluo['Elementos_Accesorios']['Privativas']['Cantidad']) && !is_array($infoAvaluo['Elementos_Accesorios']['Privativas']['Cantidad']))
-                                            <span class="grises">{{number_format($infoAvaluo['Elementos_Accesorios']['Privativas']['Cantidad'],2)}}</span>
+                                        @if(isset($infoAvaluo['Elementos_Accesorios']['Privativas']['Cantidad']))
+                                            @if(!is_array($infoAvaluo['Elementos_Accesorios']['Privativas']['Cantidad']))
+                                                <span class="grises">{{number_format($infoAvaluo['Elementos_Accesorios']['Privativas']['Cantidad'],2)}}</span>
+                                            @endif
                                         @endif
                                         </td>
                                         <td>
