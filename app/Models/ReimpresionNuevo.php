@@ -193,8 +193,8 @@ class ReimpresionNuevo
         $infoReimpresion['Sociedad_Participa']['Fecha_del_Avaluo'] = $identificacion['FechaAvaluo'];
         $infoReimpresion['Sociedad_Participa']['Solicitante'] = array();
         $infoReimpresion['Sociedad_Participa']['Solicitante']['Tipo_persona'] = isset($arrSolicitante['A.Paterno']) && !is_array($arrSolicitante['A.Paterno']) ? "Física" : "Moral";
-        if(isset($arrSolicitante['A.Paterno']) && !is_array($arrSolicitante['A.Paterno'])){
-            $infoReimpresion['Sociedad_Participa']['Solicitante']['Nombre'] = $arrSolicitante['Nombre']." ".$arrSolicitante['A.Paterno']." ".$arrSolicitante['A.Materno'];
+        if(isset($arrSolicitante['A.Paterno']) && !is_array($arrSolicitante['A.Paterno']) && isset($arrSolicitante['A.Materno']) && !is_array($arrSolicitante['A.Materno'])){
+            $infoReimpresion['Sociedad_Participa']['Solicitante']['Nombre'] = $arrSolicitante['Nombre']." ".$arrSolicitante['A.Paterno']." ".isset($arrSolicitante['A.Materno']) && !is_array($arrSolicitante['A.Materno']) ? $arrSolicitante['A.Materno'] : '';
         }else{
             $infoReimpresion['Sociedad_Participa']['Solicitante']['Nombre'] = $arrSolicitante['Nombre'];
         }
@@ -219,7 +219,7 @@ class ReimpresionNuevo
         $infoReimpresion['Sociedad_Participa']['Propietario'] = array();
         $infoReimpresion['Sociedad_Participa']['Propietario']['Tipo_persona'] = isset($arrPropietario['A.Paterno']) && !is_array($arrPropietario['A.Paterno']) ? "Física" : "Moral";
         if(isset($arrPropietario['A.Paterno']) && !is_array($arrPropietario['A.Paterno'])){
-            $infoReimpresion['Sociedad_Participa']['Propietario']['Nombre'] = $arrPropietario['Nombre']." ".$arrPropietario['A.Paterno']." ".$arrPropietario['A.Materno'];
+            $infoReimpresion['Sociedad_Participa']['Propietario']['Nombre'] = $arrPropietario['Nombre']." ".$arrPropietario['A.Paterno']." ".isset($arrPropietario['A.Materno']) && !is_array($arrPropietario['A.Materno']) ? $arrPropietario['A.Materno'] : '';
         }else{
             $infoReimpresion['Sociedad_Participa']['Propietario']['Nombre'] = $arrPropietario['Nombre'];
         }
@@ -1041,9 +1041,15 @@ class ReimpresionNuevo
                 $infoReimpresion['Terrenos']['Terrenos_Residuales'] = array();                
                 $terrenosResidual = $terrenos['TerrenosResidual'];
 
-                $infoReimpresion['Terrenos']['Terrenos_Residuales']['Tipo_Producto_Inmoviliario_Propuesto'] = $terrenosResidual['TipoDeProductoInmobiliarioPropuesto'];
-                $infoReimpresion['Terrenos']['Terrenos_Residuales']['Numero_Unidades_Vendibles'] = $terrenosResidual['NumeroDeUnidadesVendibles'];
-                $infoReimpresion['Terrenos']['Terrenos_Residuales']['Superficie_Vendible_Unidad'] = $terrenosResidual['SuperficieVendiblePorUnidad'];
+                if(isset($terrenosResidual['TipoDeProductoInmobiliarioPropuesto']) && !is_array($terrenosResidual['TipoDeProductoInmobiliarioPropuesto'])){
+                    $infoReimpresion['Terrenos']['Terrenos_Residuales']['Tipo_Producto_Inmoviliario_Propuesto'] = $terrenosResidual['TipoDeProductoInmobiliarioPropuesto'];
+                }
+                if(isset($terrenosResidual['NumeroDeUnidadesVendibles']) && !is_array($terrenosResidual['NumeroDeUnidadesVendibles'])){
+                    $infoReimpresion['Terrenos']['Terrenos_Residuales']['Numero_Unidades_Vendibles'] = $terrenosResidual['NumeroDeUnidadesVendibles'];
+                }
+                if(isset($terrenosResidual['SuperficieVendiblePorUnidad']) && !is_array($terrenosResidual['SuperficieVendiblePorUnidad'])){
+                    $infoReimpresion['Terrenos']['Terrenos_Residuales']['Superficie_Vendible_Unidad'] = $terrenosResidual['SuperficieVendiblePorUnidad'];
+                }
 
                 $infoReimpresion['Terrenos']['Terrenos_Residuales']['Investigacion_Productos_Comparables'] = array();
                 $infoReimpresion['Terrenos']['Terrenos_Residuales']['Investigacion_Productos_Comparables_2'] = array();
@@ -1991,7 +1997,7 @@ class ReimpresionNuevo
         $infoReimpresion['Sociedad_Participa']['Solicitante'] = array();
         $infoReimpresion['Sociedad_Participa']['Solicitante']['Tipo_persona'] = isset($arrSolicitante['A.Paterno']) && !is_array($arrSolicitante['A.Paterno']) ? "Física" : "Moral";
         if(isset($arrSolicitante['A.Paterno']) && !is_array($arrSolicitante['A.Paterno'])){
-            $infoReimpresion['Sociedad_Participa']['Solicitante']['Nombre'] = $arrSolicitante['Nombre']." ".$arrSolicitante['A.Paterno']." ".$arrSolicitante['A.Materno'];
+            $infoReimpresion['Sociedad_Participa']['Solicitante']['Nombre'] = $arrSolicitante['Nombre']." ".$arrSolicitante['A.Paterno']." ".isset($arrSolicitante['A.Materno']) && !is_array($arrSolicitante['A.Materno']) ? $arrSolicitante['A.Materno'] : '';
         }else{
             $infoReimpresion['Sociedad_Participa']['Solicitante']['Nombre'] = $arrSolicitante['Nombre'];
         }        
@@ -2015,7 +2021,7 @@ class ReimpresionNuevo
         $infoReimpresion['Sociedad_Participa']['Propietario'] = array();
         $infoReimpresion['Sociedad_Participa']['Propietario']['Tipo_persona'] = isset($arrPropietario['A.Paterno']) && !is_array($arrPropietario['A.Paterno']) ? "Física" : "Moral";
         if(isset($arrPropietario['A.Paterno']) && !is_array($arrPropietario['A.Paterno'])){
-            $infoReimpresion['Sociedad_Participa']['Propietario']['Nombre'] = $arrPropietario['Nombre']." ".$arrPropietario['A.Paterno']." ".$arrPropietario['A.Materno'];
+            $infoReimpresion['Sociedad_Participa']['Propietario']['Nombre'] = $arrPropietario['Nombre']." ".$arrPropietario['A.Materno']." ".isset($arrPropietario['A.Materno']) && !is_array($arrPropietario['A.Materno']) ? $arrPropietario['A.Materno'] : '';
         }else{
             $infoReimpresion['Sociedad_Participa']['Propietario']['Nombre'] = $arrPropietario['Nombre'];
         }        
