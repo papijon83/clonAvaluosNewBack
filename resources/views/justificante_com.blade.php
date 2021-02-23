@@ -344,9 +344,9 @@
                         </tr>
                         <tr>
                             <td><b>CONTAMINACIÓN DEL MEDIO AMBIENTE:</b></td>
-                            <td>
+                            <td class="grises" style="word-wrap: break-word!important;">
                             @isset($infoAvaluo['Contaminacion_Medio_Ambiente'])
-                                <span class="grises">{{$infoAvaluo['Contaminacion_Medio_Ambiente']}}</span>
+                               {{$infoAvaluo['Contaminacion_Medio_Ambiente']}}
                             @endisset
                             </td>
                         </tr>
@@ -899,9 +899,9 @@
                         <table>
                             <tr>
                                 <td><b>CARACTERÍSTICAS PANORÁMICAS:</b></td>
-                                <td>
+                                <td class="grises" style="word-wrap: break-word!important;">
                                 @isset($infoAvaluo['Topografia_Configuracion']['Caracteristicas_Panoramicas'])
-                                    <span class="grises">{{$infoAvaluo['Topografia_Configuracion']['Caracteristicas_Panoramicas']}}</span>
+                                    {{$infoAvaluo['Topografia_Configuracion']['Caracteristicas_Panoramicas']}}
                                 @endisset
                                 </td>
                             </tr>
