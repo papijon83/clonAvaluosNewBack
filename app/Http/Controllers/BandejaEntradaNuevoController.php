@@ -4036,4 +4036,70 @@ class BandejaEntradaNuevoController extends Controller
         }    
     }
 
+    public function reimprimeSV(Request $request){
+        try{
+            $numero_unico = trim($request->query('no_unico'));
+            $fechaPresentacion = DB::select("SELECT to_char(FECHA_PRESENTACION,'YYYY-MM-DD') as FECHA_PRESENTACION FROM FEXAVA_AVALUO WHERE NUMEROUNICO = '".$numero_unico."'");
+            $arr_fechaPresentacion = convierte_a_arreglo($fechaPresentacion);
+            $dataFechaPresentacion = $arr_fechaPresentacion[0]['fecha_presentacion'];
+
+            $fechaPresentacionCompara = new Carbon($dataFechaPresentacion); 
+            $fechaCompara = new Carbon('2021-02-16');
+
+            $nuevo = 1; //var_dump($fechaPresentacionCompara->lt($fechaCompara)); exit();
+            if($fechaPresentacionCompara->lt($fechaCompara)){
+                $nuevo = 0;
+            }
+            //echo "SOY NUEVO ".$nuevo; exit();
+            if($nuevo == 0){
+                
+                $this->modelDocumentos = new Documentos();    //echo $numero_unico; exit();         
+                $id_avaluo = $this->modelDocumentos->get_idavaluo_db($numero_unico);    
+                $this->modelReimpresionNuevo = new ReimpresionNuevo();
+                $infoAvaluo = $this->modelReimpresionNuevo->infoAvaluo($id_avaluo);
+                if(!is_array($infoAvaluo)){
+                    return $infoAvaluo;
+                }
+
+                $tipo_avaluo = substr($infoAvaluo['Encabezado']['No_Unico'], 0, 5);
+                if($tipo_avaluo == 'A-CAT'){
+                    $formato = view('justificante', compact("infoAvaluo"))->render();
+                }else{
+                    $formato = view('justificante_com', compact("infoAvaluo"))->render();
+                }
+                $pdf = PDF::loadHTML($formato);
+                $pdf->setOptions(['chroot' => 'public']);
+
+                return $pdf->stream('formato.pdf');
+                
+            }else{
+                $numero_unico = trim($request->query('no_unico'));
+
+                $this->modelDocumentos = new Documentos();    //echo $numero_unico; exit();         
+                $id_avaluo = $this->modelDocumentos->get_idavaluo_db($numero_unico);    
+                $this->modelReimpresionNuevo = new ReimpresionNuevo();
+                $infoAvaluo = $this->modelReimpresionNuevo->infoAvaluoNuevo($id_avaluo);
+                if(!is_array($infoAvaluo)){
+                    return $infoAvaluo;
+                }                
+                $tipo_avaluo = substr($infoAvaluo['Encabezado']['No_Unico'], 0, 5);
+                if($tipo_avaluo == 'A-CAT'){
+                    $formato = view('justificanteNew', compact("infoAvaluo"))->render();
+                }else{
+                    $formato = view('justificanteNew_com', compact("infoAvaluo"))->render();
+                }
+                $pdf = PDF::loadHTML($formato);
+                $pdf->setOptions(['chroot' => 'public']);
+
+                return $pdf->stream('formato.pdf');   
+            }
+            
+                        
+        }catch (\Throwable $th) {
+            //Log::info($th);
+            error_log($th);
+            return response()->json(['mensaje' => 'Error al obtener la información del avalúo'], 500);
+        }    
+    }
+
 }
