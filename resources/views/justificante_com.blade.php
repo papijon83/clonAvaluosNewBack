@@ -761,8 +761,12 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    @php
+                                        $quitaTotales = 0;
+                                    @endphp
                                     @if(isset($infoAvaluo['Superficie_Total_Segun'][0]))
                                         @foreach($infoAvaluo['Superficie_Total_Segun'] as $value_valorSuperficieTotal)
+                                            @if($quitaTotales != 0)
                                             <tr>
                                                 <td class="centrado">
                                                 @isset($value_valorSuperficieTotal['Ident_Fraccion'])
@@ -820,6 +824,10 @@
                                                 @endisset
                                                 </td>
                                             </tr>
+                                            @endif
+                                            @php
+                                                $quitaTotales++;
+                                            @endphp
                                         @endforeach                                        
                                     @else
                                         <tr>
