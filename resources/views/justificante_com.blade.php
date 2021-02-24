@@ -3387,7 +3387,7 @@
                     </thead> 
                 </table>
                 
-                <p><b>c) DE LAS INSTALACIONES ESPECIALES, OBRAS COMPLEMENTARIOAS Y ELEMENTOS ACCESORIOS</b></p>
+                <p><b>c) DE LAS INSTALACIONES ESPECIALES, OBRAS COMPLEMENTARIAS Y ELEMENTOS ACCESORIOS</b></p>
                 <br>
                 <p><b>PRIVATIVAS:</b></p>
 
