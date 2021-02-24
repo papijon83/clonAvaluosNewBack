@@ -52,7 +52,7 @@
                         </tr>
                         <tr>
                             <!-- <td></td> -->
-                            <td><b>Avaluo:</b></td>
+                            <td><b>Avalúo:</b></td>
                             <td class="grises">
                                 @isset($infoAvaluo['Encabezado']['Avaluo_No'])
                                     {{$infoAvaluo['Encabezado']['Avaluo_No']}}
@@ -101,7 +101,7 @@
 
                     <table style="border-collapse: collapse; width: 100%;">
                         <tr>
-                            <td colspan="2">SOCIEDAD QUE PRACTICA EL AVALUO</td>
+                            <td colspan="2"><b>SOCIEDAD QUE PRACTICA EL AVALÚO</b></td>
                         </tr>
                         <tr>
                             <td><b>VALUADOR:</b></td>
@@ -887,7 +887,7 @@
                                 <div style="text-align: right;">
                                     <b>SUPERFICIE TOTAL TERRENO: 
                                     @isset($infoAvaluo['Superficie_Total_Segun']['Totales']['Superficie_Total_Terreno'])
-                                        $<span class="grises">{{$infoAvaluo['Superficie_Total_Segun']['Totales']['Superficie_Total_Terreno']}}</span>
+                                    <span class="grises">$ {{number_format($infoAvaluo['Superficie_Total_Segun']['Totales']['Superficie_Total_Terreno'],2)}}</span>
                                     @endisset                        
                                     </b>
                                 </div>
@@ -949,8 +949,8 @@
                                         <th>Puntaje</th>
                                         <th>Clase</th>
                                         <th>Edad</th>
-                                        <th>Vida Util Total Del Tipo</th>
-                                        <th>Vida Util Remanente</th>
+                                        <th>Vida Útil Total Del Tipo</th>
+                                        <th>Vida Útil Remanente</th>
                                         <th>Conservación</th>
                                         <th>Sup.</th>
                                     </tr>
@@ -1103,8 +1103,8 @@
                                         <th>Puntaje</th>
                                         <th>Clase</th>
                                         <th>Edad</th>
-                                        <th>Vida Util Total Del Tipo</th>
-                                        <th>Vida Util Remanente</th>
+                                        <th>Vida Útil Total Del Tipo</th>
+                                        <th>Vida Útil Remanente</th>
                                         <th>Conservación</th>
                                         <th>Sup.</th>
                                     </tr>
@@ -2530,7 +2530,7 @@
                     <table class="tabla_gris_valor">
                         <thead>
                             <tr>
-                                <th>VALOR UNITARIO DE TIERRA DEL AVALUO</th>
+                                <th>VALOR UNITARIO DE TIERRA DEL AVALÚO</th>
                                 <th>
                                 @isset($infoAvaluo['Terrenos']['Valor_Unitario_Tierra_Del_Avaluo'])
                                     <span class="grises">{{ $infoAvaluo['Terrenos']['Valor_Unitario_Tierra_Del_Avaluo'] }}
@@ -2727,7 +2727,7 @@
                 <table class="tabla_gris_valor">
                     <thead>
                         <tr>
-                            <th>VALOR UNITARIO APLICABLE AL AVALUO:</th>
+                            <th>VALOR UNITARIO APLICABLE AL AVALÚO:</th>
                             <th>
                             @isset($infoAvaluo['Construcciones_En_Venta']['Valor_Unitario_Aplicable_Avaluo'])
                                 <span class="grises">${{ number_format($infoAvaluo['Construcciones_En_Venta']['Valor_Unitario_Aplicable_Avaluo'],2) }}</span>
@@ -2937,7 +2937,7 @@
                 <table class="tabla_gris_valor">
                     <thead>
                         <tr>
-                            <th>VALOR UNITARIO APLICABLE AL AVALUO:</th>
+                            <th>VALOR UNITARIO APLICABLE AL AVALÚO:</th>
                             <th>
                             @isset($infoAvaluo['Construcciones_En_Renta']['Valor_Unitario_Aplicable_Avaluo'])
                                 ${{ number_format($infoAvaluo['Construcciones_En_Renta']['Valor_Unitario_Aplicable_Avaluo'],2) }}</span>
@@ -3094,7 +3094,7 @@
                     <br>
                     <p><b>Total superficie:<span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Totales']['Total_Superficie'],2) }}</span> '           'Valor del terreno total:<span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Totales']['Valor_Del_Terreno_Total'],2) }}</span> </b></p>
                     <br>
-                    <p>Indiviso de la unidad que se valua:<span class="grises">{{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Totales']['Indiviso_Unidad_Que_Se_Valua'] }}</span> %</p>
+                    <p>Indiviso de la unidad que se valúa:<span class="grises">{{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Totales']['Indiviso_Unidad_Que_Se_Valua'] }}</span> %</p>
                 @endif
 
                 <table class="tabla_gris_valor">
@@ -3526,7 +3526,7 @@
                     </tbody>
                 </table> -->
                 <br>
-                <p>Indiviso de la unidad que se Valua: 
+                <p>Indiviso de la unidad que se Valúa: 
                 @isset($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Totales']['Indiviso_Unidad_Que_Se_Valua'])
                     <span class="grises">{{ number_format($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Totales']['Indiviso_Unidad_Que_Se_Valua'],2) }}%</spn>
                 @endisset
@@ -3803,7 +3803,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <p><span>La tasa de capitalización aplicable aquí referida deberá ser justificada en el apartado de consideracinoes propias.</span></p>
+                <p><span>La tasa de capitalización aplicable aquí referida deberá ser justificada en el apartado de consideraciones propias.</span></p>
 
                 <table class="tabla_gris_valor">
                     <thead>
