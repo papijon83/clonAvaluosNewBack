@@ -843,6 +843,7 @@ class BandejaEntradaNuevoController extends Controller
         "is less than the minimum value allowed" => "es menor que el valor mínimo permitido",
         "{'F', 'M', 'f', 'm'}" => " F o M",
         "This element is not expected" => "Este elemento no se espera",
+        "Missing child element's'. Expected is" => "Falta el elemento secundario",
         "one of" => "uno de",
         "Character content other than whitespace is not allowed because the content type is 'element-only'" => "No se permite contenido de caracteres que no sean espacios en blanco porque el tipo de contenido es 'element-only'");
 

@@ -1715,7 +1715,17 @@ class ReimpresionNuevo
 
         $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Totales']['Indiviso_Unidad_Que_Se_Valua'] = $terreno['Indiviso'] <= 1 ? $terreno['Indiviso'] * 100 : $terreno['Indiviso'];
         if(isset($elementosConstruccion['ImporteTotalInstalacionesAccesoriosComplementariasPrivativas']) && isset($elementosConstruccion['ImporteTotalInstalacionesAccesoriosComplementariasComunes']) && !is_array($elementosConstruccion['ImporteTotalInstalacionesAccesoriosComplementariasPrivativas']) && !is_array($elementosConstruccion['ImporteTotalInstalacionesAccesoriosComplementariasComunes'])){
-            $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Totales']['Total_De_Las_Instalaciones'] = $elementosConstruccion['ImporteTotalInstalacionesAccesoriosComplementariasPrivativas'] + $elementosConstruccion['ImporteTotalInstalacionesAccesoriosComplementariasComunes'];
+
+            $sumatoria = 0;
+            if(isset($elementosConstruccion['ImporteTotalInstalacionesAccesoriosComplementariasPrivativas']) && isset($elementosConstruccion['ImporteTotalInstalacionesAccesoriosComplementariasComunes'])){
+                $sumatoria = $sumatoria + $elementosConstruccion['ImporteTotalInstalacionesAccesoriosComplementariasPrivativas'] + $elementosConstruccion['ImporteTotalInstalacionesAccesoriosComplementariasComunes'];
+            }
+
+            if(isset($elementosConstruccion['ImporteTotalInstalacionesEspecialesObrasComplementariasYElementosAccesoriosPrivativas']) && isset($elementosConstruccion['ImporteTotalInstalacionesEspecialesObrasComplementariasYElementosAccesoriosComunes'])){
+                $sumatoria = $sumatoria + $elementosConstruccion['ImporteTotalInstalacionesEspecialesObrasComplementariasYElementosAccesoriosPrivativas'] + $elementosConstruccion['ImporteTotalInstalacionesEspecialesObrasComplementariasYElementosAccesoriosPrivativas'];
+            }
+
+            $infoReimpresion['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Totales']['Total_De_Las_Instalaciones'] = $sumatoria;
         }    
 
         $enfoqueCostos = $elementoPrincipal['EnfoqueDeCostos'];
