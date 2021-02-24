@@ -4094,7 +4094,12 @@ class BandejaEntradaNuevoController extends Controller
                 $pdf = PDF::loadHTML($formato);
                 $pdf->setOptions(['chroot' => 'public']);
 
-                return $pdf->stream('formato.pdf');   
+                return $pdf->stream('formato.pdf');
+                /*$this->modelDocumentos = new Documentos();    //echo $numero_unico; exit();         
+            $id_avaluo = $this->modelDocumentos->get_idavaluo_db($numero_unico);    
+            $this->modelReimpresion = new ReimpresionNuevo();
+            $infoAvaluo = $this->modelReimpresion->infoAvaluoNuevo($id_avaluo);
+            print_r($infoAvaluo); exit();*/
             }
             
                         
