@@ -162,7 +162,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><b>INMUEBLE QUE SE EVALÚA:</b></td>
+                            <td><b>INMUEBLE QUE SE VALÚA:</b></td>
                             <td>
                             @isset($infoAvaluo['Sociedad_Participa']['inmuebleQueSeValua'])
                                 <span class="grises">{{$infoAvaluo['Sociedad_Participa']['inmuebleQueSeValua']}}</span>
@@ -3526,24 +3526,24 @@
                     </tbody>
                 </table> -->
                 <br>
-                <p>Indiviso de la unidad que se Valúa: 
+                <p>Indiviso de la unidad que se valúa: 
                 @isset($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Totales']['Indiviso_Unidad_Que_Se_Valua'])
                     <span class="grises">{{ number_format($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Totales']['Indiviso_Unidad_Que_Se_Valua'],2) }}%</spn>
                 @endisset
                 </p>
 
+                @isset($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Totales']['Total_De_Las_Instalaciones'])
                 <table class="tabla_gris_valor">
                     <thead>
                         <tr>
                             <th>TOTAL DE LAS INSTALACIONES:</th>
                             <th>
-                            @isset($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Totales']['Total_De_Las_Instalaciones'])
                                 <span class="grises">${{ number_format($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Totales']['Total_De_Las_Instalaciones'],2) }}</span>
-                            @endisset
                             </th>
                         </tr>
                     </thead> 
                 </table>
+                @endisset
 
                 <table class="tabla_gris_valor">
                     <thead>
