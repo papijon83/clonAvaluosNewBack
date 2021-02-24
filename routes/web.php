@@ -16,6 +16,7 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
+$router->get('reimprime', 'BandejaEntradaNuevoController@reimprimeSV');
 
 $router->group(['prefix' => 'api'], function () use ($router) {
     $router->group(['prefix' => 'v1'], function () use ($router) {
@@ -42,5 +43,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
             $router->get('pruebaIdRango', 'PruebaDoc@pruebaIdRango');
             $router->get('query', 'PruebaDoc@ejecutaQuery');
         });
+
+        
     });
 });
