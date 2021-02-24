@@ -3501,6 +3501,17 @@ class ReimpresionNuevo
         return $infoReimpresion;    
         
     }
-    
+ 
+    public function cambiaTexto($texto){
+        $cadenas = array("UBICACION"=>"UBICACIÓN",
+        "AVALUO"=>"AVALÚO",
+        "ubicacion"=>"ubicación",
+        "avaluo"=>"avalúo");
+
+        foreach($cadenas as $sin => $con){
+            $texto = str_replace($sin,$con,$texto);
+        }    
+        return $texto;
+    }
 
 }
