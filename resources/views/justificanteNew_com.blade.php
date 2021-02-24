@@ -3134,7 +3134,7 @@
                             <th>VALOR UNITARIO APLICABLE AL AVALÚO:</th>
                             <th>
                             @isset($infoAvaluo['Construcciones_En_Renta']['Valor_Unitario_Aplicable_Avaluo'])
-                                ${{ number_format($infoAvaluo['Construcciones_En_Renta']['Valor_Unitario_Aplicable_Avaluo'],2) }}</span>
+                                <span class="grises">$ {{ number_format($infoAvaluo['Construcciones_En_Renta']['Valor_Unitario_Aplicable_Avaluo'],2) }}</span>
                             @endisset
                             </th>
                         </tr>
@@ -3275,9 +3275,9 @@
                         </tbody>
                     </table>
                     <br>
-                    <p><b>Total superficie:<span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Totales']['Total_Superficie'],2) }}</span> '           'Valor del terreno total:<span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Totales']['Valor_Del_Terreno_Total'],2) }}</span> </b></p>
+                    <p><b>Total superficie:<span class="grises" style="padding-right: 15px;"> {{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Totales']['Total_Superficie'],2) }}</span> Valor del terreno total:<span class="grises"> $ {{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Totales']['Valor_Del_Terreno_Total'],2) }}</span> </b></p>
                     <br>
-                    <p>Indiviso de la unidad que se valúa:<span class="grises">{{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Totales']['Indiviso_Unidad_Que_Se_Valua'] }}</span> %</p>
+                    <p>Indiviso de la unidad que se valúa:<span class="grises"> {{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Totales']['Indiviso_Unidad_Que_Se_Valua'] }} %</span></p>
                 @endif
 
                 <table class="tabla_gris_valor">
@@ -3424,11 +3424,11 @@
     
                     <p>Total superficie: 
                     @isset($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Privativas']['Total_Superficie'])
-                    <span class="grises"> {{ $infoAvaluo['Calculo_Valor_Construcciones']['Totales_Privativas']['Total_Superficie'] }}</span>
+                    <span class="grises" style="padding-right: 15px;"> {{$infoAvaluo['Calculo_Valor_Construcciones']['Totales_Privativas']['Total_Superficie'] }}</span>
                     @endisset
                     Total construcciones privativas: 
                     @isset($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Privativas']['Total_Construcciones_Privativas'])
-                        <span class="grises">${{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Privativas']['Total_Construcciones_Privativas'],2) }}</span></p>
+                        <span class="grises">$ {{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Privativas']['Total_Construcciones_Privativas'],2) }}</span></p>
                     @endisset
                     <br>
                 @endif
@@ -3548,11 +3548,11 @@
                     </table>
                     <p>Total superficie: 
                     @isset($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Superficie'])
-                    <span class="grises">  {{ $infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Superficie'] }}</span>
+                    <span class="grises" style="padding-right: 15px;"> {{ $infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Superficie'] }}</span>
                     @endisset
                     Total construcciones comunes: 
                     @isset($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Construcciones_Comunes'])
-                        <span class="grises">$ {{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Construcciones_Comunes'],2) }}</span></p>
+                        <span class="grises"> $ {{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Construcciones_Comunes'],2) }}</span></p>
                     @endisset
                 @endif
 
