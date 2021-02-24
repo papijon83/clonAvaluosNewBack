@@ -159,7 +159,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><b>INMUEBLE QUE VALÚA:</b></td>
+                            <td><b>INMUEBLE QUE SE VALÚA:</b></td>
                             <td>
                             @isset($infoAvaluo['Sociedad_Participa']['inmuebleQueSeValua'])
                                 <span class="grises">{{$infoAvaluo['Sociedad_Participa']['inmuebleQueSeValua']}}</span>
