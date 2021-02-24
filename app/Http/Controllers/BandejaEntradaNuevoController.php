@@ -768,6 +768,7 @@ class BandejaEntradaNuevoController extends Controller
             if(strpos($resEstructura,"parser error") != false){ error_log("ENTREEEEE "); 
                 return explode(":",system("xmllint --format ".$file));   
             }*/
+            $relacionErrores = '';
             //$arrRelacionErrores = array();
             $arrContenoidoXML = explode("\r\n",$contents); //print_r($arrContenoidoXML); exit();
             if(count($arrContenoidoXML) < 2){
