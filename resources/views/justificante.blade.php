@@ -51,7 +51,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><b>Avaluo:</b></td>
+                            <td><b>Avalúo:</b></td>
                             <td class="grises">
                                 @isset($infoAvaluo['Encabezado']['Avaluo_No'])
                                     {{$infoAvaluo['Encabezado']['Avaluo_No']}}
@@ -835,8 +835,8 @@
                                     <th>Puntaje</th>
                                     <th>Clase</th>
                                     <th>Edad</th>
-                                    <th>Vida Util Total Del Tipo</th>
-                                    <th>Vida Util Remanente</th>
+                                    <th>Vida Útil Total Del Tipo</th>
+                                    <th>Vida Útil Remanente</th>
                                     <th>Conservación</th>
                                     <th>Sup.</th>
                                 </tr>
@@ -987,8 +987,8 @@
                                     <th>Puntaje</th>
                                     <th>Clase</th>
                                     <th>Edad</th>
-                                    <th>Vida Util Total Del Tipo</th>
-                                    <th>Vida Util Remanente</th>
+                                    <th>Vida Útil Total Del Tipo</th>
+                                    <th>Vida Útil Remanente</th>
                                     <th>Conservación</th>
                                     <th>Sup.</th>
                                 </tr>
@@ -1792,9 +1792,9 @@
                         </tbody>
                     </table>
                     <br>
-                    <p><b>Total superficie: <span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Totales']['Total_Superficie'],2) }}</span>  Valor del terreno total: <span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Totales']['Valor_Del_Terreno_Total'],2) }}</span> </b></p>
+                    <p><b>Total superficie: <span class="grises" style="padding-right: 15px;">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Totales']['Total_Superficie'],2) }}</span>  Valor del terreno total: <span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Totales']['Valor_Del_Terreno_Total'],2) }}</span> </b></p>
                     <br>
-                    <p>Indiviso de la unidad que se valua: <span class="grises">{{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Totales']['Indiviso_Unidad_Que_Se_Valua'] }}</span> %</p>
+                    <p>Indiviso de la unidad que se valúa: <span class="grises">{{ $infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Totales']['Indiviso_Unidad_Que_Se_Valua'] }}</span> %</p>
 
                     <table class="tabla_gris_valor">
                         <thead>
@@ -2459,7 +2459,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <p><span>La tasa de capitalización aplicable aquí referida deberá ser justificada en el apartado de consideracinoes propias.</span></p>
+                    <p><span>La tasa de capitalización aplicable aquí referida deberá ser justificada en el apartado de consideraciones propias.</span></p>
 
                     <table class="tabla_gris_valor">
                         <thead>
