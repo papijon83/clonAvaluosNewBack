@@ -5973,23 +5973,31 @@ class BandejaEntradaNuevoController extends Controller
 
     public function reimprimeSV(Request $request){
         try{
+
             $numero_unico = trim($request->query('no_unico'));
-            $fechaPresentacion = DB::select("SELECT to_char(FECHA_PRESENTACION,'YYYY-MM-DD') as FECHA_PRESENTACION FROM FEXAVA_AVALUO WHERE NUMEROUNICO = '".$numero_unico."'");
+
+            $this->modelDocumentos = new Documentos();    //echo $numero_unico; exit();         
+            $id_avaluo = $this->modelDocumentos->get_idavaluo_db($numero_unico);
+            
+            $fechaAvaluo = DB::select("SELECT to_char(FECHA,'YYYY-MM-DD') as FECHA_AVALUO FROM DOC.DOC_DOCUMENTODIGITAL WHERE IDDOCUMENTODIGITAL = '".$id_avaluo."'");
+            $arr_fechaAvaluo = convierte_a_arreglo($fechaAvaluo);
+            $dataFechaAvaluo = $arr_fechaAvaluo[0]['fecha_avaluo'];
+            $fechaAvaluoCompara = new Carbon($dataFechaAvaluo);
+
+            /*$fechaPresentacion = DB::select("SELECT to_char(FECHA_PRESENTACION,'YYYY-MM-DD') as FECHA_PRESENTACION FROM FEXAVA_AVALUO WHERE NUMEROUNICO = '".$numero_unico."'");
             $arr_fechaPresentacion = convierte_a_arreglo($fechaPresentacion);
             $dataFechaPresentacion = $arr_fechaPresentacion[0]['fecha_presentacion'];
+            $fechaPresentacionCompara = new Carbon($dataFechaPresentacion);*/
 
-            $fechaPresentacionCompara = new Carbon($dataFechaPresentacion); 
-            $fechaCompara = new Carbon('2021-02-16');
+            $fechaCompara = new Carbon('2021-01-01');
 
             $nuevo = 1; //var_dump($fechaPresentacionCompara->lt($fechaCompara)); exit();
-            if($fechaPresentacionCompara->lt($fechaCompara)){
+            if($fechaAvaluoCompara->lt($fechaCompara)){
                 $nuevo = 0;
             }
             //echo "SOY NUEVO ".$nuevo; exit();
-            if($nuevo == 0){
-                
-                $this->modelDocumentos = new Documentos();    //echo $numero_unico; exit();         
-                $id_avaluo = $this->modelDocumentos->get_idavaluo_db($numero_unico);    
+            if($nuevo == 0){                
+                   
                 $this->modelReimpresionNuevo = new ReimpresionNuevo();
                 $infoAvaluo = $this->modelReimpresionNuevo->infoAvaluo($id_avaluo);
                 if(!is_array($infoAvaluo)){
@@ -6006,12 +6014,15 @@ class BandejaEntradaNuevoController extends Controller
                 $pdf->setOptions(['chroot' => 'public']);
 
                 return $pdf->stream('formato.pdf');
+                    
+            /*$this->modelReimpresion = new ReimpresionNuevo();
+            $infoAvaluo = $this->modelReimpresion->infoAvaluo($id_avaluo);
+            print_r($infoAvaluo); exit();*/
                 
             }else{
                 $numero_unico = trim($request->query('no_unico'));
 
-                $this->modelDocumentos = new Documentos();    //echo $numero_unico; exit();         
-                $id_avaluo = $this->modelDocumentos->get_idavaluo_db($numero_unico);    
+                    
                 $this->modelReimpresionNuevo = new ReimpresionNuevo();
                 $infoAvaluo = $this->modelReimpresionNuevo->infoAvaluoNuevo($id_avaluo);
                 if(!is_array($infoAvaluo)){
