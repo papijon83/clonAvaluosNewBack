@@ -23,7 +23,8 @@
             "Database\\Seeders\\": "database/seeders/"
         },
         "files": [
-            "app/Helper/ValidaCamposNuevoAvaluo.php"
+            "app/Helper/ValidaCamposNuevoAvaluo.php",
+            "app/Helper/ValidaCamposAvaluo.php"
         ]
     },
     "autoload-dev": {

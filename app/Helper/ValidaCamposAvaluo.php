@@ -5,11 +5,11 @@ use Carbon\Carbon;
 use App\Models\Fis;
 use App\Models\DatosExtrasAvaluo;
 
-function convierte_a_arreglo($data){    
+function convierte_a_arregloV($data){    
     return json_decode( json_encode($data), true );
 }
 
-function limpiar_arreglo($arrIni){
+function limpiar_arregloV($arrIni){
     foreach($arrIni[0] as $etiqueta => $elemento){
         if(is_array($elemento) && count($elemento) == 1){
             if(isset($elemento['@attributes'])){
@@ -30,14 +30,14 @@ function limpiar_arreglo($arrIni){
      return $arrIni;        
 }
 
-function quitar_attributes($arrIni){
+function quitar_attributesV($arrIni){
     if(count($arrIni) == 1 && isset($arrIni[0]['@attributes'])){
         unset($arrIni[0]['@attributes']);       
     }   
     return $arrIni;        
 }
 
-function numero_datos($arrIni){ //print_r($arrIni); exit();
+function numero_datosV($arrIni){ //print_r($arrIni); exit();
     $numero = 0;
     foreach($arrIni as $elemento){
 
@@ -49,7 +49,7 @@ function numero_datos($arrIni){ //print_r($arrIni); exit();
     return $numero;
 }
 
-function define_validacion($tipo_validacion, $valor){
+function define_validacionV($tipo_validacion, $valor){
     $existeSeparador = strpos($tipo_validacion,'_');
     if($existeSeparador != FALSE){
         $arrValidaciones = explode('_',$tipo_validacion);
@@ -521,7 +521,7 @@ function define_validacion($tipo_validacion, $valor){
     }
 }
 
-function val_porcentaje_tipo($valor, $tipo){
+function val_porcentaje_tipoV($valor, $tipo){
     if($valor < 0 || $valor > 1){
         return "el porcentaje ".$valor." no corresponde a un valor entre 0 y 1";
     }
@@ -556,7 +556,7 @@ function val_porcentaje_tipo($valor, $tipo){
     return $estado;
 }
 
-function val_vacio_longitud($valor, $longitud){
+function val_vacio_longitudV($valor, $longitud){
     $estado = "correcto";
 
     if(is_array($valor)){
@@ -582,7 +582,7 @@ function val_vacio_longitud($valor, $longitud){
     return $estado;
 }
 
-function val_date($fecha){
+function val_dateV($fecha){
     $valores = explode('-', $fecha);
 	if(count($valores) == 3 && checkdate($valores[1], $valores[2], $valores[0])){
 		return "correcto";
@@ -590,7 +590,7 @@ function val_date($fecha){
 	return "no es una fecha valida";
 }
 
-function val_nullable_date($fecha){
+function val_nullable_dateV($fecha){
 
     if(val_null_string($fecha) == 'correcto'){
         return "correcto";
@@ -603,7 +603,7 @@ function val_nullable_date($fecha){
 	return "no es una fecha valida";
 }
 
-function val_longitud($valor, $longitud){
+function val_longitudV($valor, $longitud){
     $estado = "correcto";
    
     if(is_array($valor)){
@@ -624,7 +624,7 @@ function val_longitud($valor, $longitud){
     return $estado;
 }
 
-function val_cat_colonia($valor){    
+function val_cat_coloniaV($valor){    
     $estado = 'correcto';
     $res = val_vacio_longitud($valor, 50);    
     if($res != 'correcto'){
@@ -640,7 +640,7 @@ function val_cat_colonia($valor){
     return $estado;
 }
 
-function val_cat_delegacion($valor){
+function val_cat_delegacionV($valor){
     $estado = 'correcto';
     $res = val_vacio_longitud($valor, 50);    
     if($res != 'correcto'){
@@ -655,7 +655,7 @@ function val_cat_delegacion($valor){
     return $estado;
 }
 
-function val_cat_tipo_persona($valor){
+function val_cat_tipo_personaV($valor){
     $estado = 'correcto';      
     $valor = strtoupper($valor);
     $idTipoPersona = convierte_a_arreglo(DB::select("SELECT CODTIPOSPERSONA FROM RCON.RCON_CATTIPOSPERSONA WHERE CODTIPOSPERSONA = '$valor'"));
@@ -667,7 +667,7 @@ function val_cat_tipo_persona($valor){
     return $estado;
 }
 
-function val_cat_tipo_foto_inmueble($valor){
+function val_cat_tipo_foto_inmuebleV($valor){
     $estado = 'correcto';      
     $arrTipoFoto = array('I','E');
     if(in_array($valor,$arrTipoFoto)){
@@ -678,7 +678,7 @@ function val_cat_tipo_foto_inmueble($valor){
     
 }
 
-function val_nullable_region_manzana_localidad($valor){
+function val_nullable_region_manzana_localidadV($valor){
     
     $estado = 'correcto';
     
@@ -701,7 +701,7 @@ function val_nullable_region_manzana_localidad($valor){
     }
 }
 
-function val_region_manzana_localidad($valor){
+function val_region_manzana_localidadV($valor){
     $estado = 'correcto';
     $res = val_longitud($valor, 3);
 
@@ -717,7 +717,7 @@ function val_region_manzana_localidad($valor){
     }
 }
 
-function val_lote($valor){
+function val_loteV($valor){
     $estado = 'correcto';
     $res = val_longitud($valor, 2);
 
@@ -733,7 +733,7 @@ function val_lote($valor){
     }
 }
 
-function val_nullable_lote($valor){
+function val_nullable_loteV($valor){
     $estado = 'correcto';
 
     if(val_null_string($valor) == 'correcto'){
@@ -754,7 +754,7 @@ function val_nullable_lote($valor){
     }
 }
 
-function val_stringLength1($valor){
+function val_stringLength1V($valor){
     $estado = 'correcto';
     $res = val_longitud($valor, 1);
     if($res != 'correcto'){
@@ -763,7 +763,7 @@ function val_stringLength1($valor){
     return  $estado;
 }
 
-function val_nonNegativeInteger($valor){
+function val_nonNegativeIntegerV($valor){
     $estado = 'correcto';
     $valorInt = intval($valor);
     if($valorInt == $valor){
@@ -778,7 +778,7 @@ function val_nonNegativeInteger($valor){
     
 }
 
-function val_cat_regimen($valor){     
+function val_cat_regimenV($valor){     
     $estado = 'correcto';       
     $res = val_nonNegativeInteger($valor);   
     if($res == 'correcto'){
@@ -793,7 +793,7 @@ function val_cat_regimen($valor){
     
 }
 
-function val_cat_clasificacion_zona($valor){
+function val_cat_clasificacion_zonaV($valor){
     $estado = 'correcto';
     $res = val_nonNegativeInteger($valor);
     if($res == 'correcto'){
@@ -807,7 +807,7 @@ function val_cat_clasificacion_zona($valor){
     }
 }
 
-function val_decimal_positivo($valor){
+function val_decimal_positivoV($valor){
     $estado = 'correcto';
     $res = val_decimal($valor);
     if($res == 'correcto'){
@@ -822,7 +822,7 @@ function val_decimal_positivo($valor){
     
 }
 
-function val_cat_clases_construccion($valor){
+function val_cat_clases_construccionV($valor){
     $estado = 'correcto';
     $idClaseConstruccion = convierte_a_arreglo(DB::select("SELECT IDCLASES FROM FIS.FIS_CATCLASES WHERE CODCLASE = '$valor'"));        
     if(count($idClaseConstruccion) == 0){            
@@ -832,7 +832,7 @@ function val_cat_clases_construccion($valor){
     
 }
 
-function val_cat_densidad_poblacion($valor){
+function val_cat_densidad_poblacionV($valor){
     $estado = 'correcto';
     $res = val_nonNegativeInteger($valor);
     if($res == 'correcto'){
@@ -846,7 +846,7 @@ function val_cat_densidad_poblacion($valor){
     }
 }
 
-function val_cat_nivel_socioeconomico($valor){
+function val_cat_nivel_socioeconomicoV($valor){
     $estado = 'correcto';
     $res = val_nonNegativeInteger($valor);
     if($res == 'correcto'){
@@ -860,7 +860,7 @@ function val_cat_nivel_socioeconomico($valor){
     }
 }
 
-function val_decimal_positivo_tipo($valor, $tipo){
+function val_decimal_positivo_tipoV($valor, $tipo){
     $estado = 'correcto';
     $pos = strpos($valor, '.');
 
@@ -1068,7 +1068,7 @@ function val_decimal_positivo_tipo($valor, $tipo){
     
 }
 
-function val_vacio($valor){
+function val_vacioV($valor){
     $estado = 'correcto';
     if(trim($valor) == ''){
         return "no puede estar vacio";
@@ -1076,7 +1076,7 @@ function val_vacio($valor){
     return $estado;
 }
 
-function val_cat_agua_potable($valor){
+function val_cat_agua_potableV($valor){
     $estado = 'correcto';
     $idAguaPotable = convierte_a_arreglo(DB::select("SELECT CODAGUAPOTABLE FROM FEXAVA_CATAGUAPOTABLE WHERE CODAGUAPOTABLE = '$valor'"));    
     if(count($idAguaPotable) == 0){            
@@ -1085,7 +1085,7 @@ function val_cat_agua_potable($valor){
     return $estado;    
 }
 
-function val_cat_drenaje($valor){
+function val_cat_drenajeV($valor){
     $estado = 'correcto';
     $idDrenajeInmueble = convierte_a_arreglo(DB::select("SELECT CODDRENAJEINMUEBLE FROM FEXAVA_CATDRENAJEINMUEBLE WHERE CODDRENAJEINMUEBLE = '$valor'"));    
     if(count($idDrenajeInmueble) == 0){            
@@ -1094,7 +1094,7 @@ function val_cat_drenaje($valor){
     return $estado;
 }
 
-function val_cat_drenaje_pluvial($valor){
+function val_cat_drenaje_pluvialV($valor){
     $estado = 'correcto';
     $res = val_nonNegativeInteger($valor);
     if($res == 'correcto'){
@@ -1108,7 +1108,7 @@ function val_cat_drenaje_pluvial($valor){
     }
 }
 
-function val_cat_suministro_electrico($valor){
+function val_cat_suministro_electricoV($valor){
     $estado = 'correcto';
     $res = val_nonNegativeInteger($valor);
     if($res == 'correcto'){
@@ -1122,7 +1122,7 @@ function val_cat_suministro_electrico($valor){
     }
 }
 
-function val_cat_acometida_inmueble($valor){
+function val_cat_acometida_inmuebleV($valor){
     $estado = 'correcto';
     $res = val_nonNegativeInteger($valor);
     if($res == 'correcto'){
@@ -1136,7 +1136,7 @@ function val_cat_acometida_inmueble($valor){
     }
 }
 
-function val_cat_alumbrado_publico($valor){
+function val_cat_alumbrado_publicoV($valor){
     $estado = 'correcto';
     $res = val_nonNegativeInteger($valor);
     if($res == 'correcto'){
@@ -1150,7 +1150,7 @@ function val_cat_alumbrado_publico($valor){
     }
 }
 
-function val_cat_vialidades($valor){
+function val_cat_vialidadesV($valor){
     $estado = 'correcto';
     $res = val_nonNegativeInteger($valor);
     if($res == 'correcto'){
@@ -1164,7 +1164,7 @@ function val_cat_vialidades($valor){
     }
 }
 
-function val_cat_banquetas($valor){
+function val_cat_banquetasV($valor){
     $estado = 'correcto';
     $res = val_nonNegativeInteger($valor);
     if($res == 'correcto'){
@@ -1178,7 +1178,7 @@ function val_cat_banquetas($valor){
     }
 }
 
-function val_cat_guarniciones($valor){
+function val_cat_guarnicionesV($valor){
     $estado = 'correcto';
     $res = val_nonNegativeInteger($valor);
     if($res == 'correcto'){
@@ -1192,7 +1192,7 @@ function val_cat_guarniciones($valor){
     }
 }
 
-function val_cat_gas_natural($valor){
+function val_cat_gas_naturalV($valor){
     $estado = 'correcto';
     $res = val_nonNegativeInteger($valor);
     if($res == 'correcto'){
@@ -1206,7 +1206,7 @@ function val_cat_gas_natural($valor){
     }
 }
 
-function val_cat_suministro_telefonico($valor){
+function val_cat_suministro_telefonicoV($valor){
     $estado = 'correcto';
     $res = val_nonNegativeInteger($valor);
     if($res == 'correcto'){
@@ -1220,7 +1220,7 @@ function val_cat_suministro_telefonico($valor){
     }
 }
 
-function val_cat_senalizacion_vias($valor){
+function val_cat_senalizacion_viasV($valor){
     $estado = 'correcto';
     $res = val_nonNegativeInteger($valor);
     if($res == 'correcto'){
@@ -1234,7 +1234,7 @@ function val_cat_senalizacion_vias($valor){
     }
 }
 
-function val_cat_nomenclatura_calles($valor){
+function val_cat_nomenclatura_callesV($valor){
     $estado = 'correcto';
     $res = val_nonNegativeInteger($valor);
     if($res == 'correcto'){
@@ -1248,7 +1248,7 @@ function val_cat_nomenclatura_calles($valor){
     }
 }
 
-function val_cat_vigilancia_zona($valor){
+function val_cat_vigilancia_zonaV($valor){
     $estado = 'correcto';
     $res = val_nonNegativeInteger($valor);
     if($res == 'correcto'){
@@ -1262,7 +1262,7 @@ function val_cat_vigilancia_zona($valor){
     }
 }
 
-function val_cat_recoleccion_basura($valor){
+function val_cat_recoleccion_basuraV($valor){
     $estado = 'correcto';
     $res = val_nonNegativeInteger($valor);
     if($res == 'correcto'){
@@ -1276,7 +1276,7 @@ function val_cat_recoleccion_basura($valor){
     }
 }
 
-function val_boolean($valor){    
+function val_booleanV($valor){    
     $estado = 'correcto';    
     if(boolval($valor) || $valor == '0' || $valor == '1'){    
         return $estado;
@@ -1285,7 +1285,7 @@ function val_boolean($valor){
     }
 }
 
-function val_decimal($valor){
+function val_decimalV($valor){
     $estado = 'correcto';
     if(is_numeric($valor)){
         return $estado;
@@ -1294,7 +1294,7 @@ function val_decimal($valor){
     }        
 }
 
-function val_base64_binary($valor){
+function val_base64_binaryV($valor){
     $estado = 'correcto';
     try {
 
@@ -1313,7 +1313,7 @@ function val_base64_binary($valor){
     
 }
 
-function val_cat_topografia($valor){
+function val_cat_topografiaV($valor){
     $estado = 'correcto';
     $res = val_nonNegativeInteger($valor);
     if($res == 'correcto'){
@@ -1328,7 +1328,7 @@ function val_cat_topografia($valor){
     
 }
 
-function val_cat_densidad_habitacional($valor){
+function val_cat_densidad_habitacionalV($valor){
     $estado = 'correcto';
     $res = val_nonNegativeInteger($valor);
     if($res == 'correcto'){
@@ -1342,7 +1342,7 @@ function val_cat_densidad_habitacional($valor){
     }
 }
 
-function val_nullable_decimal_positivo($valor){
+function val_nullable_decimal_positivoV($valor){
     $estado = 'correcto';    
     if(val_null_string($valor) == 'correcto'){
         return $estado;
@@ -1354,7 +1354,7 @@ function val_nullable_decimal_positivo($valor){
     }
 }
 
-function val_nullable_decimal_positivop($valor){
+function val_nullable_decimal_positivopV($valor){
     $estado = 'correcto';       
     if(val_null_string($valor) == 'correcto'){
         return $estado;
@@ -1366,7 +1366,7 @@ function val_nullable_decimal_positivop($valor){
     }
 }
 
-function val_nullable_decimal($valor){
+function val_nullable_decimalV($valor){
     $estado = 'correcto';    
     if(val_null_string($valor) == 'correcto'){
         return $estado;
@@ -1378,7 +1378,7 @@ function val_nullable_decimal($valor){
     }
 }
 
-function val_nullable_decimal_positivo_tipo($valor, $tipo){
+function val_nullable_decimal_positivo_tipoV($valor, $tipo){
     $estado = 'correcto';
     if(val_null_string($valor) == 'correcto'){
         return $estado;
@@ -1389,13 +1389,13 @@ function val_nullable_decimal_positivo_tipo($valor, $tipo){
     }
 }
 
-function val_null_string($valor){
+function val_null_stringV($valor){
     if($valor === '' || $valor === null){
         return 'correcto';
     }
 }
 
-function val_usos_construcciones($valor){
+function val_usos_construccionesV($valor){
     $estado = 'correcto';  
     $idUsos = convierte_a_arreglo(DB::select("SELECT IDUSOS FROM FIS.FIS_CATUSOS WHERE CODUSO = '$valor'"));    
     if(count($idUsos) == 0){            
@@ -1404,7 +1404,7 @@ function val_usos_construcciones($valor){
     return $estado;    
 }
 
-function val_ejercicio($valor){
+function val_ejercicioV($valor){
     $estado = 'correcto';  
     $idUsos = convierte_a_arreglo(DB::select("SELECT IDUSOS FROM FIS.FIS_EJERCICIO WHERE CODUSO = '$valor'"));    
     if(count($idUsos) == 0){            
@@ -1413,7 +1413,7 @@ function val_ejercicio($valor){
     return $estado;    
 }
 
-function val_nullable_cat_rango_nivel_tgdf($valor){
+function val_nullable_cat_rango_nivel_tgdfV($valor){
     $estado = 'correcto';
     if(val_null_string($valor) == 'correcto'){
         return $estado;
@@ -1424,7 +1424,7 @@ function val_nullable_cat_rango_nivel_tgdf($valor){
     }
 }
 
-function val_cat_rango_nivel_tgdf($valor){
+function val_cat_rango_nivel_tgdfV($valor){
     $estado = 'correcto';
     $arrRangos = array('01','02','05','10','15','20','99','RU');   
     if(in_array($valor,$arrRangos)){
@@ -1434,7 +1434,7 @@ function val_cat_rango_nivel_tgdf($valor){
     }        
 }
 
-function val_nullable_cat_estado_conservacion($valor){
+function val_nullable_cat_estado_conservacionV($valor){
     $estado = 'correcto';
     $res = val_nonNegativeInteger($valor);
     if($res == 'correcto'){
@@ -1448,7 +1448,7 @@ function val_nullable_cat_estado_conservacion($valor){
     }
 }
 
-function val_cat_instalaciones_especiales($valor){
+function val_cat_instalaciones_especialesV($valor){
     $estado = 'correcto';
     $arrInstalacionesEspeciales = array('IE01','IE02','IE03','IE04','IE05','IE06','IE07','IE08','IE09','IE10','IE11','IE12','IE13','IE14','IE15','IE16','IE17','IE18','IE19','EA01','EA02','EA03','EA04','EA05','EA06','EA07','EA08','EA09','EA10','EA11','EA12','OC01','OC02','OC03','OC04','OC05','OC06','OC07','OC08','OC09','OC10','OC11','OC12','OC13','OC14','OC15','OC16','OC17');
     if(in_array($valor,$arrInstalacionesEspeciales)){
@@ -1460,7 +1460,7 @@ function val_cat_instalaciones_especiales($valor){
 
 /**************************************************************************************************************************************************************************/
 
-function valida_AvaluoIdentificacion($data){    
+function valida_AvaluoIdentificacionV($data){    
     //$elementos = array('NumeroDeAvaluo','FechaAvaluo','ClaveValuador','ClaveSociedad');
     $arrIDS = array('NumeroDeAvaluo' => 'a.1','FechaAvaluo' => 'a.2','ClaveValuador' => 'a.3','ClaveSociedad' => 'a.4');
     $validaciones = array('NumeroDeAvaluo' => 'nonEmptyString_30','FechaAvaluo' => 'date','ClaveValuador' => 'nonEmptyString_20','ClaveSociedad' => 'string_20');  
@@ -1487,24 +1487,24 @@ function valida_AvaluoIdentificacion($data){
     return $errores;
 }
 
-function valida_AvaluoAntecedentes($data, $elementoPrincipal){
-    $arrIDS = array('PropositoDelAvaluo' => 'b.4', 'ObjetoDelAvaluo' => 'b.5', 'RegimenDePropiedad' => 'b.6','A.Paterno' => 'b.1.1','A.Materno' => 'b.1.2','Nombre' => 'b.1.3','Calle' => 'b.1.4','NumeroInterior' => 'b.1.5', 'NumeroExterior' => 'b.1.6','Colonia' =>'b.1.7', 'CodigoPostal' => 'b.1.8', 'Alcaldia' => 'b.1.9','TipoPersona' => 'b.1.10',
-    'Calle' => 'b.3.1','NumeroInterior' => 'b.3.2','NumeroExterior' => 'b.3.3','Manzana' => 'b.3.4','Lote' => 'b.3.5', 'Edificio' => 'b.3.6','Colonia' =>'b.3.7', 'CodigoPostal' => 'b.3.8', 'Alcaldia' => 'b.3.9', 'CuentaCatastral' => 'b.3.10', 'CuentaDeAgua' => 'b.3.11',
+function valida_AvaluoAntecedentesV($data, $elementoPrincipal){
+    $arrIDS = array('PropositoDelAvaluo' => 'b.4', 'ObjetoDelAvaluo' => 'b.5', 'RegimenDePropiedad' => 'b.6','A.Paterno' => 'b.1.1','A.Materno' => 'b.1.2','Nombre' => 'b.1.3','Calle' => 'b.1.4','NumeroInterior' => 'b.1.5', 'NumeroExterior' => 'b.1.6','Colonia' =>'b.1.7', 'CodigoPostal' => 'b.1.8', 'Delegacion' => 'b.1.9','TipoPersona' => 'b.1.10',
+    'Calle' => 'b.3.1','NumeroInterior' => 'b.3.2','NumeroExterior' => 'b.3.3','Manzana' => 'b.3.4','Lote' => 'b.3.5', 'Edificio' => 'b.3.6','Colonia' =>'b.3.7', 'CodigoPostal' => 'b.3.8', 'Delegacion' => 'b.3.9', 'CuentaCatastral' => 'b.3.10', 'CuentaDeAgua' => 'b.3.11',
     'Region' => 'b.3.10.1', 'Manzana' => 'b.3.10.2', 'Lote' => 'b.3.10.3', 'Localidad' => 'b.3.10.4', 'DigitoVerificador' => 'b.3.10.5');
 
-    $arrIDSb2 = array('A.Paterno' => 'b.2.1','A.Materno' => 'b.2.2','Nombre' => 'b.2.3','Calle' => 'b.2.4','NumeroInterior' => 'b.2.5', 'NumeroExterior' => 'b.2.6','Colonia' =>'b.2.7', 'CodigoPostal' => 'b.2.8', 'Alcaldia' => 'b.2.9','TipoPersona' => 'b.2.10');
+    $arrIDSb2 = array('A.Paterno' => 'b.2.1','A.Materno' => 'b.2.2','Nombre' => 'b.2.3','Calle' => 'b.2.4','NumeroInterior' => 'b.2.5', 'NumeroExterior' => 'b.2.6','Colonia' =>'b.2.7', 'CodigoPostal' => 'b.2.8', 'Delegacion' => 'b.2.9','TipoPersona' => 'b.2.10');
 
     if($elementoPrincipal == '//Comercial'){
         $validacionesb = array('PropositoDelAvaluo' => 'nonEmptyString_70', 'ObjetoDelAvaluo' => 'nonEmptyString_70', 'RegimenDePropiedad' => 'catRegimen');    
-        $validacionesb1 = array('A.Paterno' => 'string_35','A.Materno' => 'string_35','Nombre' => 'nonEmptyString_50','Calle' => 'nonEmptyString_50','NumeroInterior' => 'nonEmptyString_30', 'NumeroExterior' => 'nonEmptyString_25','Colonia' =>'catColonia', 'CodigoPostal' => 'nonEmptyString_5', 'Alcaldia' => 'catDelegacion','TipoPersona' => 'subTipoPersona');
-        $validacionesb2 = array('A.Paterno' => 'string_35','A.Materno' => 'string_35','Nombre' => 'nonEmptyString_50','Calle' => 'nonEmptyString_50','NumeroInterior' => 'nonEmptyString_30', 'NumeroExterior' => 'nonEmptyString_25','Colonia' =>'catColonia', 'CodigoPostal' => 'nonEmptyString_5', 'Alcaldia' => 'catDelegacion','TipoPersona' => 'subTipoPersona');
-        $validacionesb3 = array('Calle' => 'nonEmptyString_50','NumeroInterior' => 'nonEmptyString_30','NumeroExterior' => 'nonEmptyString_25','Manzana' => 'string_50','Lote' => 'string_50', 'Edificio' => 'string_50','Colonia' =>'catColonia', 'CodigoPostal' => 'nonEmptyString_5', 'Alcaldia' => 'catDelegacion', 'CuentaCatastral' => 'validacionesb310', 'CuentaDeAgua' => '');
+        $validacionesb1 = array('A.Paterno' => 'string_35','A.Materno' => 'string_35','Nombre' => 'nonEmptyString_50','Calle' => 'nonEmptyString_50','NumeroInterior' => 'nonEmptyString_30', 'NumeroExterior' => 'nonEmptyString_25','Colonia' =>'catColonia', 'CodigoPostal' => 'nonEmptyString_5', 'Delegacion' => 'catDelegacion','TipoPersona' => 'subTipoPersona');
+        $validacionesb2 = array('A.Paterno' => 'string_35','A.Materno' => 'string_35','Nombre' => 'nonEmptyString_50','Calle' => 'nonEmptyString_50','NumeroInterior' => 'nonEmptyString_30', 'NumeroExterior' => 'nonEmptyString_25','Colonia' =>'catColonia', 'CodigoPostal' => 'nonEmptyString_5', 'Delegacion' => 'catDelegacion','TipoPersona' => 'subTipoPersona');
+        $validacionesb3 = array('Calle' => 'nonEmptyString_50','NumeroInterior' => 'nonEmptyString_30','NumeroExterior' => 'nonEmptyString_25','Manzana' => 'string_50','Lote' => 'string_50', 'Edificio' => 'string_50','Colonia' =>'catColonia', 'CodigoPostal' => 'nonEmptyString_5', 'Delegacion' => 'catDelegacion', 'CuentaCatastral' => 'validacionesb310', 'CuentaDeAgua' => '');
         $validacionesb310 = array('Region' => 'regionManzanaUp', 'Manzana' => 'regionManzanaUp', 'Lote' => 'lote', 'Localidad' => 'regionManzanaUp', 'DigitoVerificador' => 'digitoVerificador');
     }else{
         $validacionesb = array('PropositoDelAvaluo' => 'nonEmptyString_70', 'ObjetoDelAvaluo' => 'nonEmptyString_70', 'RegimenDePropiedad' => 'catRegimen');
-        $validacionesb1 = array('A.Paterno' => 'string_35','A.Materno' => 'string_35','Nombre' => 'nonEmptyString_50','Calle' => 'nonEmptyString_50','NumeroInterior' => 'nonEmptyString_30', 'NumeroExterior' => 'nonEmptyString_25','Colonia' =>'catColonia', 'CodigoPostal' => 'nonEmptyString_5', 'Alcaldia' => 'catDelegacion','TipoPersona' => 'subTipoPersona');
-        $validacionesb2 = array('A.Paterno' => 'string_35','A.Materno' => 'string_35','Nombre' => 'nonEmptyString_50','Calle' => 'nonEmptyString_50','NumeroInterior' => 'nonEmptyString_30', 'NumeroExterior' => 'nonEmptyString_25','Colonia' =>'catColonia', 'CodigoPostal' => 'nonEmptyString_5', 'Alcaldia' => 'catDelegacion','TipoPersona' => 'subTipoPersonaProp');
-        $validacionesb3 = array('Calle' => 'nonEmptyString_50','NumeroInterior' => 'nonEmptyString_30','NumeroExterior' => 'nonEmptyString_25','Manzana' => 'string_50','Lote' => 'string_50', 'Edificio' => 'string_50','Colonia' =>'catColonia', 'CodigoPostal' => 'nonEmptyString_5', 'Alcaldia' => 'catDelegacion', 'CuentaCatastral' => 'validacionesb310', 'CuentaDeAgua' => '');
+        $validacionesb1 = array('A.Paterno' => 'string_35','A.Materno' => 'string_35','Nombre' => 'nonEmptyString_50','Calle' => 'nonEmptyString_50','NumeroInterior' => 'nonEmptyString_30', 'NumeroExterior' => 'nonEmptyString_25','Colonia' =>'catColonia', 'CodigoPostal' => 'nonEmptyString_5', 'Delegacion' => 'catDelegacion','TipoPersona' => 'subTipoPersona');
+        $validacionesb2 = array('A.Paterno' => 'string_35','A.Materno' => 'string_35','Nombre' => 'nonEmptyString_50','Calle' => 'nonEmptyString_50','NumeroInterior' => 'nonEmptyString_30', 'NumeroExterior' => 'nonEmptyString_25','Colonia' =>'catColonia', 'CodigoPostal' => 'nonEmptyString_5', 'Delegacion' => 'catDelegacion','TipoPersona' => 'subTipoPersonaProp');
+        $validacionesb3 = array('Calle' => 'nonEmptyString_50','NumeroInterior' => 'nonEmptyString_30','NumeroExterior' => 'nonEmptyString_25','Manzana' => 'string_50','Lote' => 'string_50', 'Edificio' => 'string_50','Colonia' =>'catColonia', 'CodigoPostal' => 'nonEmptyString_5', 'Delegacion' => 'catDelegacion', 'CuentaCatastral' => 'validacionesb310', 'CuentaDeAgua' => '');
         $validacionesb310 = array('Region' => 'regionManzanaUp', 'Manzana' => 'regionManzanaUp', 'Lote' => 'lote', 'Localidad' => 'regionManzanaUp', 'DigitoVerificador' => 'digitoVerificador');
     }
     
@@ -1581,7 +1581,7 @@ function valida_AvaluoAntecedentes($data, $elementoPrincipal){
     return $errores;
 }
 
-function valida_Calculos_e($data, $dataextra = false, $dataextrados = false, $b_6){
+function valida_Calculos_eV($data, $dataextra = false, $dataextrados = false, $b_6){
     
         $mensajese = array();
         $datab6 = array_map("convierte_a_arreglo",$b_6);
@@ -1594,7 +1594,7 @@ function valida_Calculos_e($data, $dataextra = false, $dataextrados = false, $b_
                 $e_2_1_n_8 = $elemento['VidaUtilTotalDelTipo'];
                 $e_2_1_n_7 = $elemento['Edad'];
                 $calc_e_2_1_n_9 = $e_2_1_n_8 - $e_2_1_n_7;
-                if(truncate($e_2_1_n_9,2) != truncate($calc_e_2_1_n_9,2)){ //echo "COIMPARACION ".truncate($e_2_1_n_9,2)." != ".truncate($calc_e_2_1_n_9,2)."\n";
+                if(truncate($e_2_1_n_9,2) != truncate($calc_e_2_1_n_9,2)){ //error_log(truncate($e_2_1_n_9,2)." != ".truncate($calc_e_2_1_n_9,2));
                     $mensajese[] = "e.2.1.n.9 - El cálculo de VidaUtilRemanente es erróneo ";
                 }
 
@@ -1627,7 +1627,7 @@ function valida_Calculos_e($data, $dataextra = false, $dataextrados = false, $b_
                 if(isset($elemento['FactorResultante'])){
                     $e_2_1_n_14 = $elemento['FactorResultante'];
                     $e_2_1_n_10 = $elemento['ClaveConservacion'];
-                    $calc_e_2_1_n_14 = $e_2_1_n_13 * $e_2_1_n_10; //echo "OPERACION  ".truncate($e_2_1_n_14,2)." != ".truncate($calc_e_2_1_n_14,2)."\n";
+                    $calc_e_2_1_n_14 = $e_2_1_n_13 * $e_2_1_n_10; //error_log(truncate($e_2_1_n_14,2)." != ".truncate($calc_e_2_1_n_14,2));
                     if((truncate($e_2_1_n_14,2) != truncate($calc_e_2_1_n_14,2)) || $e_2_1_n_14 < 0.6){
                         $mensajese[] =  "e.2.1.n.14 - El cálculo de FactorResultante es erróneo ";
                     }
@@ -1672,7 +1672,7 @@ function valida_Calculos_e($data, $dataextra = false, $dataextrados = false, $b_
                     $e_2_1_n_8 = $data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['VidaUtilTotalDelTipo'];
                     $e_2_1_n_7 = $data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['Edad'];
                     $calc_e_2_1_n_9 = $e_2_1_n_8 - $e_2_1_n_7; 
-                    if(truncate($e_2_1_n_9,2) != truncate($calc_e_2_1_n_9,2)){ //echo "OPERACION ".truncate($e_2_1_n_9,2)." != ".truncate($calc_e_2_1_n_9,2)."\n";
+                    if(truncate($e_2_1_n_9,2) != truncate($calc_e_2_1_n_9,2)){ //error_log(truncate($e_2_1_n_9,2)." != ".truncate($calc_e_2_1_n_9,2));
                         $mensajese[] =  "e.2.1.n.9 - El cálculo de VidaUtilRemanente es erróneo ";
                     }
 
@@ -1716,7 +1716,7 @@ function valida_Calculos_e($data, $dataextra = false, $dataextrados = false, $b_
                         $e_2_1_n_14 = $data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['FactorResultante'];
                         $e_2_1_n_10 = $data[0]['TiposDeConstruccion']['ConstruccionesPrivativas']['ClaveConservacion'];
                         $calc_e_2_1_n_14 = $e_2_1_n_13 * $e_2_1_n_10; 
-                        if((truncate($e_2_1_n_14,2) != truncate($calc_e_2_1_n_14,2)) || $e_2_1_n_14 < 0.6){ //echo "OPERACION  ".truncate($e_2_1_n_14,2)." != ".truncate($calc_e_2_1_n_14,2)."\n";
+                        if((truncate($e_2_1_n_14,2) != truncate($calc_e_2_1_n_14,2)) || $e_2_1_n_14 < 0.6){ //error_log(truncate($e_2_1_n_14,2)." != ".truncate($calc_e_2_1_n_14,2));
                             $mensajese[] =  "e.2.1.n.14 - El cálculo de FactorResultante es erróneo ";
                         }
                     }
@@ -1762,7 +1762,7 @@ function valida_Calculos_e($data, $dataextra = false, $dataextrados = false, $b_
         }
 
         $e_2_3 = $data[0]['TiposDeConstruccion']['ValorTotalDeConstruccionesPrivativas'];
-        if(truncate($sumatoria_e_2_1_n_15,2) != truncate($e_2_3,2)){ //echo "OPERACION ".truncate($sumatoria_e_2_1_n_15,2)." != ".truncate($e_2_3,2)."\n";
+        if(truncate($sumatoria_e_2_1_n_15,2) != truncate($e_2_3,2)){ error_log(truncate($sumatoria_e_2_1_n_15,2)." != ".truncate($e_2_3,2));
             $mensajese[] =  "e.2.3 - El cálculo de ValorTotalDeConstruccionesPrivativas es erróneo ";
         }
         /************************************************************************************************************************************************/
@@ -1779,7 +1779,7 @@ function valida_Calculos_e($data, $dataextra = false, $dataextrados = false, $b_
                     $e_2_5_n_8 = $elemento['VidaUtilTotalDelTipo'];
                     $e_2_5_n_7 = $elemento['Edad'];
                     $calc_e_2_5_n_9 = $e_2_5_n_8 - $e_2_5_n_7;
-                    if(truncate($e_2_5_n_9,2) != truncate($calc_e_2_5_n_9,2)){ //echo "OPERACION ".truncate($e_2_5_n_9,2)." != ".truncate($calc_e_2_5_n_9,2)."\n";
+                    if(truncate($e_2_5_n_9,2) != truncate($calc_e_2_5_n_9,2)){ //error_log(truncate($e_2_5_n_9,2)." != ".truncate($calc_e_2_5_n_9,2));
                         $mensajese[] =  "e.2.5.n.9 - El cálculo de VidaUtilRemanente es erróneo ";
                     }
 
@@ -1802,7 +1802,7 @@ function valida_Calculos_e($data, $dataextra = false, $dataextrados = false, $b_
                     if(isset($elemento['FactorResultante'])){
                         $e_2_5_n_14 = $elemento['FactorResultante'];
                         $e_2_5_n_10 = $elemento['ClaveConservacion'];
-                        $calc_e_2_5_n_14 = $e_2_5_n_13 * $e_2_5_n_10; //echo "OPERACION  ".truncate($e_2_5_n_14,2)." != ".truncate($calc_e_2_5_n_14,2)."\n";
+                        $calc_e_2_5_n_14 = $e_2_5_n_13 * $e_2_5_n_10; error_log(truncate($e_2_5_n_14,2)." != ".truncate($calc_e_2_5_n_14,2));
                         if(truncate($e_2_5_n_14,2) != truncate($calc_e_2_5_n_14,2)){
                             $mensajese[] =  "e.2.5.n.14 - El cálculo de FactorResultante es erróneo ";
                         }
@@ -1824,10 +1824,10 @@ function valida_Calculos_e($data, $dataextra = false, $dataextrados = false, $b_
                             $e_2_5_n_11 = $elemento['Superficie'];
                             $calc_e_2_5_n_15 = ($e_2_5_n_16 * $e_2_5_n_17) * $e_2_5_n_11;
                         }
-                        //echo "COMPARACION ValorDeLaFraccionN ".truncate($e_2_5_n_15,2)." != ".truncate($calc_e_2_5_n_15,2)."\n";
+                        //error_log(truncate($e_2_5_n_15,2)." != ".truncate($calc_e_2_5_n_15,2));
                         $sumatoria_e_2_5_n_11 = $sumatoria_e_2_5_n_11 + $e_2_5_n_11;
                         $sumatoria_e_2_5_n_15 = $sumatoria_e_2_5_n_15 + $e_2_5_n_15;                    
-                        if(truncate($e_2_5_n_15,2) != truncate($calc_e_2_5_n_15,2)){
+                        if(truncate($e_2_5_n_15,2) != truncate($calc_e_2_5_n_15,2)){ //error_log(truncate($e_2_5_n_15,2)." != ".truncate($calc_e_2_5_n_15,2));
                             $mensajese[] =  "e.2.5.n.15 - El cálculo de ValorDeLaFraccionN es erróneo ";
                         }
                     }
@@ -1847,7 +1847,7 @@ function valida_Calculos_e($data, $dataextra = false, $dataextrados = false, $b_
                         $e_2_5_n_9 = $data[0]['TiposDeConstruccion']['ConstruccionesComunes']['VidaUtilRemanente'];
                         $e_2_5_n_8 = $data[0]['TiposDeConstruccion']['ConstruccionesComunes']['VidaUtilTotalDelTipo'];
                         $e_2_5_n_7 = $data[0]['TiposDeConstruccion']['ConstruccionesComunes']['Edad'];
-                        $calc_e_2_5_n_9 = $e_2_5_n_8 - $e_2_5_n_7; //echo "OPERACION ".truncate($e_2_5_n_9,2)." != ".truncate($calc_e_2_5_n_9,2)."\n";
+                        $calc_e_2_5_n_9 = $e_2_5_n_8 - $e_2_5_n_7; //error_log(truncate($e_2_5_n_9,2)." != ".truncate($calc_e_2_5_n_9,2));
                         if(truncate($e_2_5_n_9,2) != truncate($calc_e_2_5_n_9,2)){
                             $mensajese[] =  "e.2.5.n.9 - El cálculo de VidaUtilRemanente es erróneo ";
                         }
@@ -1863,15 +1863,15 @@ function valida_Calculos_e($data, $dataextra = false, $dataextrados = false, $b_
                             }else{
                                 $calc_e_2_5_n_13 = ((0.1 * $e_2_5_n_8) + (0.9 * ($e_2_5_n_8 - $e_2_5_n_7))) / $e_2_5_n_8;
                             } 
-                            if(truncate($e_2_5_n_13,2) != truncate($calc_e_2_5_n_13,2)){
-                                $mensajese[] =  "El cálculo de FactorDeEdad es erróneo ";
+                            if(truncate($e_2_5_n_13,2) != truncate($calc_e_2_5_n_13,2)){ //error_log(truncate($e_2_5_n_13,2)." != ".truncate($calc_e_2_5_n_13,2));
+                                $mensajese[] =  "e.2.5.n.13 - El cálculo de FactorDeEdad es erróneo ";
                             }
                         }
 
                         if(isset($data[0]['TiposDeConstruccion']['ConstruccionesComunes']['FactorResultante'])){
                             $e_2_5_n_14 = $data[0]['TiposDeConstruccion']['ConstruccionesComunes']['FactorResultante'];
                             $e_2_5_n_10 = $data[0]['TiposDeConstruccion']['ConstruccionesComunes']['ClaveConservacion'];
-                            $calc_e_2_5_n_14 = $e_2_5_n_13 * $e_2_5_n_10; //echo "OPERACION  ".truncate($e_2_5_n_14,2)." != ".truncate($calc_e_2_5_n_14,2)."\n";
+                            $calc_e_2_5_n_14 = $e_2_5_n_13 * $e_2_5_n_10; //error_log(truncate($e_2_5_n_14,2)." != ".truncate($calc_e_2_5_n_14,2));
                             if(truncate($e_2_5_n_14,2) != truncate($calc_e_2_5_n_14,2)){
                                 $mensajese[] =  "e.2.5.n.14 - El cálculo de FactorResultante es erróneo ";
                             }
@@ -1894,9 +1894,8 @@ function valida_Calculos_e($data, $dataextra = false, $dataextrados = false, $b_
                                 $calc_e_2_5_n_15 = ($e_2_5_n_16 * $e_2_5_n_17) * $e_2_5_n_11;
                             }
                             $sumatoria_e_2_5_n_11 = $sumatoria_e_2_5_n_11 + $e_2_5_n_11;
-                            $sumatoria_e_2_5_n_15 = $sumatoria_e_2_5_n_15 + $e_2_5_n_15;
-                            
-                            if(truncate($e_2_5_n_15,2) != truncate($calc_e_2_5_n_15,2)){
+                            $sumatoria_e_2_5_n_15 = $sumatoria_e_2_5_n_15 + $e_2_5_n_15;                            
+                            if(truncate($e_2_5_n_15,2) != truncate($calc_e_2_5_n_15,2)){ //error_log(truncate($e_2_5_n_15,2)." != ".truncate($calc_e_2_5_n_15,2));
                                 $mensajese[] =  "e.2.5.n.15 - El cálculo de ValorDeLaFraccionN es erróneo ";
                             }
                         }
@@ -1921,7 +1920,7 @@ function valida_Calculos_e($data, $dataextra = false, $dataextrados = false, $b_
             }
 
             $e_2_7 = $data[0]['TiposDeConstruccion']['ValorTotalDeConstruccionesComunes'];
-            if(truncate($sumatoria_e_2_5_n_15,2) != truncate($e_2_7,2)){ //echo "OPERACION ".truncate($sumatoria_e_2_5_n_15,2)." != ".truncate($e_2_7,2)."\n";
+            if(truncate($sumatoria_e_2_5_n_15,2) != truncate($e_2_7,2)){ //error_log(truncate($sumatoria_e_2_5_n_15,2)." != ".truncate($e_2_7,2));
                 $mensajese[] =  "e.2.7 - El cálculo de ValorTotalDeConstruccionesComunes es erróneo ";
             }
 
@@ -1929,7 +1928,7 @@ function valida_Calculos_e($data, $dataextra = false, $dataextrados = false, $b_
             $d_6 = $dataextrados[0]['Indiviso'];
             $calc_e_2_8 = $b_6 == 2 ? $para_e_2_8 : $e_2_7 * $d_6;
             //$calc_e_2_8 = $e_2_7 * $d_6;
-            if(truncate($calc_e_2_8,2) != truncate($e_2_8,2)){//echo "OPERACION ".truncate($calc_e_2_8,2)." != ".truncate($e_2_8,2)."\n";
+            if(truncate($calc_e_2_8,2) != truncate($e_2_8,2)){ //error_log(truncate($calc_e_2_8,2)." != ".truncate($e_2_8,2));
                 $mensajese[] =  "e.2.8 - El cálculo de ValorTotalDeLasConstruccionesComunesProIndiviso es erróneo ";
             }
         }        
@@ -1943,7 +1942,7 @@ function valida_Calculos_e($data, $dataextra = false, $dataextrados = false, $b_
     
 }
 
-function valida_Calculos($data, $letra, $dataextra = false, $dataextrados = false){    
+function valida_CalculosV($data, $letra, $dataextra = false, $dataextrados = false){    
     if($letra == 'c'){
         if(isset($data[0]['UsoDelSuelo'])){
             $c_6_4 = $data[0]['UsoDelSuelo']['CoeficienteDeUsoDelSuelo'];
@@ -1959,41 +1958,82 @@ function valida_Calculos($data, $letra, $dataextra = false, $dataextrados = fals
     if($letra == 'd'){
         $mensajesd = array();
         if(isset($data[0]['SuperficieDelTerreno'])){
-            if(isset($data[0]['SuperficieDelTerreno']['Fre']) && trim($data[0]['SuperficieDelTerreno']['Fre']) != ''){
-                $d_5_n_10 = $data[0]['SuperficieDelTerreno']['Fre'];
-                if(isset($data[0]['SuperficieDelTerreno']['Fot']['Valor']) && trim($data[0]['SuperficieDelTerreno']['Fot']['Valor']) != ''){
-                    $calc_d_5_n_10 = $data[0]['SuperficieDelTerreno']['Fzo'] * $data[0]['SuperficieDelTerreno']['Fub'] * $data[0]['SuperficieDelTerreno']['FFr'] * $data[0]['SuperficieDelTerreno']['Ffo'] * $data[0]['SuperficieDelTerreno']['Fsu'] * $data[0]['SuperficieDelTerreno']['Fot']['Valor'];
-                }else{
-                    $calc_d_5_n_10 = $data[0]['SuperficieDelTerreno']['Fzo'] * $data[0]['SuperficieDelTerreno']['Fub'] * $data[0]['SuperficieDelTerreno']['FFr'] * $data[0]['SuperficieDelTerreno']['Ffo'] * $data[0]['SuperficieDelTerreno']['Fsu'];
-                }
-                if(truncate($d_5_n_10,2) > truncate($calc_d_5_n_10,2)){
-                    $mensajesd[] =  "d.5.n.10 - El cálculo de Fre es erróneo ";
-                }
-            }
-            
-            if(isset($dataextra) && $dataextra != false){
-                $d_5_n_10 = $data[0]['SuperficieDelTerreno']['Fre'];
-                $dataextra = array_map("convierte_a_arreglo",$dataextra);
-                $h_1_4 = $dataextra[0]['Terrenos']['ValorUnitarioDeTierraAplicableAlAvaluo'];
-                $calc_d_5_n_11 = $h_1_4 * $data[0]['SuperficieDelTerreno']['SuperficieFraccionN1'] * $d_5_n_10;
-                $d_5_n_11 = $data[0]['SuperficieDelTerreno']['ValorDeLaFraccionN']; //error_log($h_1_4." * ".$data[0]['SuperficieDelTerreno']['SuperficieFraccionN1']." * ".$d_5_n_10); error_log($calc_d_5_n_11." != ".$d_5_n_11); error_log(truncate($calc_d_5_n_11,2)." != ".truncate($d_5_n_11,2));
-                if(truncate($calc_d_5_n_11,2) != truncate($d_5_n_11,2)){
-                    $mensajesd[] =  "d.5.n.11 - El cálculo de ValorDeLaFraccionN es erróneo ";
-                }
-            }
-        }
 
-        if(isset($data[0]['SuperficieTotalDelTerreno'])){
-            if(truncate($data[0]['SuperficieTotalDelTerreno'],2) != truncate($data[0]['SuperficieDelTerreno']['SuperficieFraccionN1'],2)){
-                $mensajesd[] =  "d.11 - El cálculo de SuperficieTotalDelTerreno es erróneo ";
-            }
-        }
+            $sumatoriaSuperficieFraccionN1 = 0;
+            $sumatoriaValorDeLaFraccionN = 0;
 
-        if(isset($data[0]['ValorTotalDelTerreno'])){
-            if(truncate($data[0]['ValorTotalDelTerreno'],2) != truncate($data[0]['SuperficieDelTerreno']['ValorDeLaFraccionN'],2)){
-                $mensajesd[] =  "d.12 - El cálculo de ValorTotalDelTerreno es erróneo ";
+            if(isset($data[0]['SuperficieDelTerreno'][0])){
+                foreach($data[0]['SuperficieDelTerreno'] as $elementoSuperficieDelTerreno){
+
+                    if(isset($elementoSuperficieDelTerreno['Fre']) && trim($elementoSuperficieDelTerreno['Fre']) != ''){
+                        $d_5_n_10 = $elementoSuperficieDelTerreno['Fre'];
+                        if(isset($elementoSuperficieDelTerreno['Fot']['Valor']) && trim($elementoSuperficieDelTerreno['Fot']['Valor']) != ''){
+                            $calc_d_5_n_10 = $elementoSuperficieDelTerreno['Fzo'] * $elementoSuperficieDelTerreno['Fub'] * $elementoSuperficieDelTerreno['FFr'] * $elementoSuperficieDelTerreno['Ffo'] * $elementoSuperficieDelTerreno['Fsu'] * $elementoSuperficieDelTerreno['Fot']['Valor'];
+                        }else{
+                            $calc_d_5_n_10 = $elementoSuperficieDelTerreno['Fzo'] * $elementoSuperficieDelTerreno['Fub'] * $elementoSuperficieDelTerreno['FFr'] * $elementoSuperficieDelTerreno['Ffo'] * $elementoSuperficieDelTerreno['Fsu'];
+                        }
+                        if(truncate($d_5_n_10,2) > truncate($calc_d_5_n_10,2)){
+                            $mensajesd[] =  "d.5.n.10 - El cálculo de Fre es erróneo ";
+                        }
+                    }
+                    
+                    if(isset($dataextra) && $dataextra != false){
+                        $d_5_n_10 = $elementoSuperficieDelTerreno['Fre'];
+                        $dataextra = array_map("convierte_a_arreglo",$dataextra);
+                        $h_1_4 = $dataextra[0]['Terrenos']['ValorUnitarioDeTierraAplicableAlAvaluo'];
+                        $calc_d_5_n_11 = $h_1_4 * $elementoSuperficieDelTerreno['SuperficieFraccionN1'] * $d_5_n_10;
+                        $d_5_n_11 = $elementoSuperficieDelTerreno['ValorDeLaFraccionN'];
+                        if(truncate($calc_d_5_n_11,2) != truncate($d_5_n_11,2)){
+                            $mensajesd[] =  "d.5.n.11 - El cálculo de ValorDeLaFraccionN es erróneo ";
+                        }
+                    }
+                }
+
+                $sumatoriaSuperficieFraccionN1 = $sumatoriaSuperficieFraccionN1 + $elementoSuperficieDelTerreno['SuperficieFraccionN1'];
+                $sumatoriaValorDeLaFraccionN = $sumatoriaValorDeLaFraccionN + $elementoSuperficieDelTerreno['ValorDeLaFraccionN'];
+                
+            }else{
+                if(isset($data[0]['SuperficieDelTerreno']['Fre']) && trim($data[0]['SuperficieDelTerreno']['Fre']) != ''){
+                    $d_5_n_10 = $data[0]['SuperficieDelTerreno']['Fre'];
+                    if(isset($data[0]['SuperficieDelTerreno']['Fot']['Valor']) && trim($data[0]['SuperficieDelTerreno']['Fot']['Valor']) != ''){
+                        $calc_d_5_n_10 = $data[0]['SuperficieDelTerreno']['Fzo'] * $data[0]['SuperficieDelTerreno']['Fub'] * $data[0]['SuperficieDelTerreno']['FFr'] * $data[0]['SuperficieDelTerreno']['Ffo'] * $data[0]['SuperficieDelTerreno']['Fsu'] * $data[0]['SuperficieDelTerreno']['Fot']['Valor'];
+                    }else{
+                        $calc_d_5_n_10 = $data[0]['SuperficieDelTerreno']['Fzo'] * $data[0]['SuperficieDelTerreno']['Fub'] * $data[0]['SuperficieDelTerreno']['FFr'] * $data[0]['SuperficieDelTerreno']['Ffo'] * $data[0]['SuperficieDelTerreno']['Fsu'];
+                    }
+                    if(truncate($d_5_n_10,2) > truncate($calc_d_5_n_10,2)){
+                        $mensajesd[] =  "d.5.n.10 - El cálculo de Fre es erróneo ";
+                    }
+                }
+                
+                if(isset($dataextra) && $dataextra != false){
+                    $d_5_n_10 = $data[0]['SuperficieDelTerreno']['Fre'];
+                    $dataextra = array_map("convierte_a_arreglo",$dataextra);
+                    $h_1_4 = $dataextra[0]['Terrenos']['ValorUnitarioDeTierraAplicableAlAvaluo'];
+                    $calc_d_5_n_11 = $h_1_4 * $data[0]['SuperficieDelTerreno']['SuperficieFraccionN1'] * $d_5_n_10;
+                    $d_5_n_11 = $data[0]['SuperficieDelTerreno']['ValorDeLaFraccionN']; //error_log($h_1_4." * ".$data[0]['SuperficieDelTerreno']['SuperficieFraccionN1']." * ".$d_5_n_10); error_log($calc_d_5_n_11." != ".$d_5_n_11); error_log(truncate($calc_d_5_n_11,2)." != ".truncate($d_5_n_11,2));
+                    if(truncate($calc_d_5_n_11,2) != truncate($d_5_n_11,2)){
+                        $mensajesd[] =  "d.5.n.11 - El cálculo de ValorDeLaFraccionN es erróneo ";
+                    }
+                }
+                
+                $sumatoriaSuperficieFraccionN1 = $sumatoriaSuperficieFraccionN1 + $data[0]['SuperficieDelTerreno']['SuperficieFraccionN1'];
+                $sumatoriaValorDeLaFraccionN = $sumatoriaValorDeLaFraccionN + $data[0]['SuperficieDelTerreno']['ValorDeLaFraccionN'];
             }
-        }
+        }        
+
+            if(isset($data[0]['SuperficieTotalDelTerreno'])){
+                if(truncate($data[0]['SuperficieTotalDelTerreno'],2) != truncate($sumatoriaSuperficieFraccionN1,2)){
+                    $mensajesd[] =  "d.11 - El cálculo de SuperficieTotalDelTerreno es erróneo ";
+                }
+            }
+    
+            if(isset($data[0]['ValorTotalDelTerreno'])){
+                if(truncate($data[0]['ValorTotalDelTerreno'],2) != truncate($sumatoriaValorDeLaFraccionN,2)){
+                    $mensajesd[] =  "d.12 - El cálculo de ValorTotalDelTerreno es erróneo ";
+                }
+            }
+        
+        
 
         if(isset($data[0]['ValorTotalDelTerrenoProporcional'])){
             $d_13 = trim($data[0]['ValorTotalDelTerrenoProporcional']);
@@ -2511,7 +2551,7 @@ function valida_Calculos($data, $letra, $dataextra = false, $dataextrados = fals
         if(isset($data[0]['ImporteIndivisoInstalacionesEspecialesObrasComplementariasYElementosAccesoriosPrivativas'])){
             $f_15 = $data[0]['ImporteIndivisoInstalacionesEspecialesObrasComplementariasYElementosAccesoriosPrivativas'];
             $calc_f_15 = $data[0]['ImporteTotalInstalacionesAccesoriosComplementariasPrivativas'] * $dataextra[0]['Indiviso'];
-            if(truncate($f_15,2) != truncate($calc_f_15,2)){ //echo truncate($f_15,2)." != ".truncate($calc_f_15,2)."\n";
+            if(truncate($f_15,2) != truncate($calc_f_15,2)){ //error_log(truncate($f_15,2)." != ".truncate($calc_f_15,2));
                 $mensajesf[] =  "f.15 - El cálculo de ImporteIndivisoInstalacionesEspecialesObrasComplementariasYElementosAccesoriosPrivativas es erróneo ";
             }
         }
@@ -2634,7 +2674,7 @@ function valida_Calculos($data, $letra, $dataextra = false, $dataextrados = fals
     return "Correcto";
 }
 
-function truncate($number, $decimals)
+function truncateV($number, $decimals)
 {       
      $point_index = strrpos($number, '.');
      if($point_index === false){
@@ -2650,7 +2690,7 @@ function truncate($number, $decimals)
      }     
 }
 
-function valida_Calculos_i($data,$letra, $datad13, $datae2, $dataf12, $dataf14){
+function valida_Calculos_iV($data,$letra, $datad13, $datae2, $dataf12, $dataf14){
     $datad13 = array_map("convierte_a_arreglo",$datad13);
     $datae2 = array_map("convierte_a_arreglo",$datae2);
     $dataf12 = array_map("convierte_a_arreglo",$dataf12);
@@ -2663,7 +2703,7 @@ function valida_Calculos_i($data,$letra, $datad13, $datae2, $dataf12, $dataf14){
     $i_6 = $data[0]['ImporteTotalDelEnfoqueDeCostos'];
     $calc_i_6 = $d_13 + $e_2_3 + $e_2_8 + $f_12 + $f_14;
 
-    if((String)(truncate($i_6,2)) != (String)(truncate($calc_i_6,2))){ //error_log(truncate($i_6,2)." != ".truncate($calc_i_6,2));
+    if((String)(truncate($i_6,2)) != (String)(truncate($calc_i_6,2))){ error_log(truncate($i_6,2)." != ".truncate($calc_i_6,2));
         return  "i.6 - El cálculo de ImporteTotalDelEnfoqueDeCostos es erróneo ";
     }
 
@@ -2671,7 +2711,7 @@ function valida_Calculos_i($data,$letra, $datad13, $datae2, $dataf12, $dataf14){
 
 }
 
-function valida_Calculos_j($data, $letra, $datae23, $datae27, $datab6, $datad6, $datad13, $existef9, $existef10, $existef11){
+function valida_Calculos_jV($data, $letra, $datae23, $datae27, $datab6, $datad6, $datad13, $existef9, $existef10, $existef11){
     $mensajesj = array();
     $datae23 = array_map("convierte_a_arreglo",$datae23);
     $datae27 = array_map("convierte_a_arreglo",$datae27);
@@ -2726,7 +2766,7 @@ function valida_Calculos_j($data, $letra, $datae23, $datae27, $datab6, $datad6, 
     
 }
 
-function valida_AvaluoCaracteristicasUrbanas($data){
+function valida_AvaluoCaracteristicasUrbanasV($data){
     $arrIDS = array('ContaminacionAmbientalEnLaZona' => 'c.0','ClasificacionDeLaZona' => 'c.1','IndiceDeSaturacionDeLaZona' => 'c.2','ClaseGeneralDeInmueblesDeLaZona' => 'c.3', 'DensidadDePoblacion' => 'c.4', 'NivelSocioeconomicoDeLaZona' => 'c.5',
                     'UsoDelSuelo' => 'c.6.1', 'AreaLibreObligatoria' => 'c.6.2', 'NumeroMaximoDeNivelesAConstruir' => 'c.6.3', 'CoeficienteDeUsoDelSuelo' => 'c.6.4', 'ViasDeAccesoEImportancia' => 'c.7',
                     'RedDeDistribucionAguaPotable' => 'c.8.1', 'RedDeRecoleccionDeAguasResiduales' => 'c.8.2', 'RedDeDrenajeDeAguasPluvialesEnLaCalle' => 'c.8.3', 'RedDeDrenajeDeAguasPluvialesEnLaZona' => 'c.8.4', 'SistemaMixto' => 'c.8.5', 'SuministroElectrico' => 'c.8.7', 'AcometidaAlInmueble' => 'c.8.8', 'AlumbradoPublico' => 'c.8.9', 'Vialidades' => 'c.8.10', 'Banquetas' => 'c.8.11', 'Guarniciones' => 'c.8.12', 'NivelDeInfraestructuraEnLaZona' => 'c.8.13', 'GasNatural' => 'c.8.14', 'TelefonosSuministro' => 'c.8.15', 'AcometidaAlInmuebleTel' => 'c.8.16', 'SennalizacionDeVias' => 'c.8.17', 'NomenclaturaDeCalles' => 'c.8.18', 'DistanciaTranporteUrbano' => 'c.8.19', 'FrecuenciaTransporteUrbano' => 'c.8.20', 'DistanciaTransporteSuburbano' => 'c.8.21', 'FrecuenciaTransporteSuburbano' => 'c.8.22', 'Vigilancia' => 'c.8.23', 'RecoleccionDeBasura' => 'c.8.24', 'Templo' => 'c.8.25', 'Mercados' => 'c.8.26', 'PlazasPublicas' => 'c.8.27', 'ParquesYJardines' => 'c.8.28', 'Escuelas' => 'c.8.29', 'Hospitales' => 'c.8.30', 'Bancos' => 'c.8.31', 'EstacionDeTransporte' => 'c.8.32', 'NivelDeEquipamientoUrbano' => 'c.8.33');        
@@ -2737,7 +2777,7 @@ function valida_AvaluoCaracteristicasUrbanas($data){
     $validacionesc8 = array('RedDeDistribucionAguaPotable' => 'catAguaPotable', 'RedDeRecoleccionDeAguasResiduales' => 'catDrenaje', 'RedDeDrenajeDeAguasPluvialesEnLaCalle' => 'catDrenajePluvial', 'RedDeDrenajeDeAguasPluvialesEnLaZona' => 'catDrenajePluvial', 'SistemaMixto' => 'catDrenaje', 'SuministroElectrico' => 'catSuministroElectrico', 'AcometidaAlInmueble' => 'catAcometidaInmueble', 'AlumbradoPublico' => 'catAlumbradoPublico', 'Vialidades' => 'catVialidades', 'Banquetas' => 'catBanquetas', 'Guarniciones' => 'catGuarniciones', 'NivelDeInfraestructuraEnLaZona' => 'porcentaje_04', 'GasNatural' => 'catGasNatural', 'TelefonosSuministro' => 'catSuministroTelefonico', 'AcometidaAlInmuebleTel' => 'catAcometidaInmueble', 'SennalizacionDeVias' => 'catSenalizacionVias', 'NomenclaturaDeCalles' => 'catNomenclaturaCalles', 'DistanciaTranporteUrbano' => 'decimalPositivo', 'FrecuenciaTransporteUrbano' => 'decimalPositivo', 'DistanciaTransporteSuburbano' => 'decimalPositivo', 'FrecuenciaTransporteSuburbano' => 'decimalPositivo', 'Vigilancia' => 'catVigilanciaZona', 'RecoleccionDeBasura' => 'catRecoleccionBasura', 'Templo' => 'boolean', 'Mercados' => 'boolean', 'PlazasPublicas' => 'boolean', 'ParquesYJardines' => 'boolean', 'Escuelas' => 'boolean', 'Hospitales' => 'boolean', 'Bancos' => 'boolean', 'EstacionDeTransporte' => 'boolean', 'NivelDeEquipamientoUrbano' => 'decimal');
     $errores = array();
     $data = array_map("convierte_a_arreglo",$data);
-    $resValidaCalculo = valida_Calculos($data,'c');
+    $resValidaCalculo = valida_CalculosV($data,'c');
     if($resValidaCalculo != "Correcto"){
         $errores[] = $resValidaCalculo;
     }    
@@ -2793,7 +2833,7 @@ function valida_AvaluoCaracteristicasUrbanas($data){
     return $errores;
 }
 
-function valida_AvaluoTerreno($data, $elementoPrincipal, $datah = false){   
+function valida_AvaluoTerrenoV($data, $elementoPrincipal, $datah = false){   
     if($elementoPrincipal == '//Comercial'){
         $validacionesd = array('CallesTransversalesLimitrofesYOrientacion' => 'nonEmptyString', 'CroquisMicroLocalizacion' => 'base64Binary', 'CroquisMacroLocalizacion' => 'base64Binary', 'Indiviso' => 'porcentaje_10', 'TopografiaYConfiguracion' => 'catTopografia', 'CaracteristicasPanoramicas' => 'nonEmptyString_250', 'DensidadHabitacional' => 'catDensidadHabitacional', 'ServidumbresORestricciones' => 'nonEmptyString_250', 'SuperficieTotalDelTerreno' => 'decimalPositivo', 'ValorTotalDelTerreno' => 'decimalPositivo', 'ValorTotalDelTerrenoProporcional' => 'decimalPositivo');
         $validacionesd411 = array('NumeroDeEscritura' => 'decimalPositivo', 'NumeroDeVolumen' => 'nonEmptyString_7', 'FechaEscritura' => 'date', 'NumeroNotaria' => 'decimalPositivo', 'NombreDelNotario' => 'nonEmptyString_50', 'DistritoJudicialNotario' => 'nonEmptyString_50');
@@ -2816,7 +2856,7 @@ function valida_AvaluoTerreno($data, $elementoPrincipal, $datah = false){
     
     $errores = array();
     $data = array_map("convierte_a_arreglo",$data);   
-    $resValidaCalculo = valida_Calculos($data,'d',$datah);
+    $resValidaCalculo = valida_CalculosV($data,'d',$datah);
     if($resValidaCalculo != "Correcto"){
         $errores[] = $resValidaCalculo;
     }    
@@ -2954,7 +2994,7 @@ function valida_AvaluoTerreno($data, $elementoPrincipal, $datah = false){
     return $errores;    
 }
 
-function valida_AvaluoDescripcionImueble($data, $elementoPrincipal, $datad = false, $b_6 = false){
+function valida_AvaluoDescripcionImuebleV($data, $elementoPrincipal, $datad = false, $b_6 = false){
 
     if($elementoPrincipal == '//Comercial'){
         //$validacionese = array('UsoActual' => 'nonEmptyString_2000', 'VidaUtilTotalPonderadaDelInmueble' => 'nullableDecimalPositivo', 'EdadPonderadaDelInmueble' => 'nullableDecimalPositivo', 'VidaUtilRemanentePonderadaDelInmueble' => 'nullableDecimalPositivo');
@@ -2981,7 +3021,7 @@ function valida_AvaluoDescripcionImueble($data, $elementoPrincipal, $datad = fal
     $data = limpiar_arreglo($data);
 
     $datad = array_map("convierte_a_arreglo",$datad);
-    $resValidaCalculo = valida_Calculos_e($data,$elementoPrincipal, $datad, $b_6);
+    $resValidaCalculo = valida_Calculos_eV($data,$elementoPrincipal, $datad, $b_6);
     if($resValidaCalculo != "Correcto"){
         $errores[] = $resValidaCalculo;
     }
@@ -3399,7 +3439,7 @@ function valida_AvaluoDescripcionImueble($data, $elementoPrincipal, $datad = fal
 }
 
 
-function valida_AvaluoElementosDeLaConstruccion($data, $elementoPrincipal, $datad = false, $b_6 = false){
+function valida_AvaluoElementosDeLaConstruccionV($data, $elementoPrincipal, $datad = false, $b_6 = false){
     
     if($elementoPrincipal == '//Comercial'){
         $validacionesf = array('InstalacionesElectricasYAlumbrado' => 'string_250', 'Vidreria' => 'string_250', 'Cerrajeria' => 'string_250', 'Fachadas' => 'string_250', 'ImporteTotalInstalacionesAccesoriosComplementariasPrivativas' => 'SUB-ImporteTotalInstalacionesAccesoriosComplementariasPrivativas', 'ImporteTotalInstalacionesAccesoriosComplementariasComunes' => 'SUB-ImporteTotalInstalacionesAccesoriosComplementariasComunes', 'ImporteIndivisoInstalacionesEspecialesObrasComplementariasYElementosAccesoriosComunes' => 'SUB-ImporteIndivisoInstalacionesEspecialesObrasComplementariasYElementosAccesoriosComunes', 'ImporteIndivisoInstalacionesEspecialesObrasComplementariasYElementosAccesoriosPrivativas' => 'SUB-ImporteIndivisoInstalacionesEspecialesObrasComplementariasYElementosAccesoriosPrivativas');
@@ -3454,7 +3494,7 @@ function valida_AvaluoElementosDeLaConstruccion($data, $elementoPrincipal, $data
 
     $datad = array_map("convierte_a_arreglo",$datad);
 
-    $resValidaCalculo = valida_Calculos($data,'f',$datad, $b_6);
+    $resValidaCalculo = valida_CalculosV($data,'f',$datad, $b_6);
     if($resValidaCalculo != "Correcto"){
         $errores[] = $resValidaCalculo;
     }
@@ -3870,7 +3910,7 @@ function valida_AvaluoElementosDeLaConstruccion($data, $elementoPrincipal, $data
     return $errores;
 }
 
-function valida_ConsideracionesPreviasAlAvaluo($data){
+function valida_ConsideracionesPreviasAlAvaluoV($data){
 
     $validacionesg = array('ConsideracionesPreviasAlAvaluo' => 'string_2000');
     $errores = array(); 
@@ -3890,7 +3930,7 @@ function valida_ConsideracionesPreviasAlAvaluo($data){
     return $errores;
 }
 
-function valida_AvaluoEnfoqueMercado($data){
+function valida_AvaluoEnfoqueMercadoV($data){
 
     $validacionesh = array('ValorDeMercadoDelInmueble' => 'SUB-ValorDeMercadoDelInmueble');
 
@@ -3929,7 +3969,7 @@ function valida_AvaluoEnfoqueMercado($data){
     $errores = array(); 
     $data = array_map("convierte_a_arreglo",$data);
 
-    $resValidaCalculo = valida_Calculos($data,'h');
+    $resValidaCalculo = valida_CalculosV($data,'h');
     if($resValidaCalculo != "Correcto"){
         $errores[] = $resValidaCalculo;
     }
@@ -4320,13 +4360,13 @@ function valida_AvaluoEnfoqueMercado($data){
     return $errores;
 }
 
-    function valida_AvaluoEnfoqueCostosComercial($data, $elementoPrincipal, $datad13, $datae2, $dataf12, $dataf14){
+    function valida_AvaluoEnfoqueCostosComercialV($data, $elementoPrincipal, $datad13, $datae2, $dataf12, $dataf14){
 
         $validacionesi = array('ImporteTotalDelEnfoqueDeCostos' => 'SUB-ImporteTotalDelEnfoqueDeCostos');    
         $errores = array();       
         $data = array_map("convierte_a_arreglo",$data);
 
-        $resValidaCalculo = valida_Calculos_i($data,'i', $datad13, $datae2, $dataf12, $dataf14);
+        $resValidaCalculo = valida_Calculos_iV($data,'i', $datad13, $datae2, $dataf12, $dataf14);
         if($resValidaCalculo != "Correcto"){
             $errores[] = $resValidaCalculo;
         }
@@ -4344,14 +4384,14 @@ function valida_AvaluoEnfoqueMercado($data){
         return $errores;
     }
 
-function valida_AvaluoEnfoqueCostosCatastral($data, $elementoPrincipal, $datae23, $datae27, $datab6, $datad6, $datad13, $existef9, $existef10, $existef11){
+function valida_AvaluoEnfoqueCostosCatastralV($data, $elementoPrincipal, $datae23, $datae27, $datab6, $datad6, $datad13, $existef9, $existef10, $existef11){
     
     $validacionesj = array('ImporteInstalacionesEspeciales' => 'SUB-ImporteInstalacionesEspeciales', 'ImporteTotalValorCatastral' => 'SUB-ImporteTotalValorCatastral', 'AvanceDeObra' => 'porcentaje_10', 'ImporteTotalValorCatastralObraEnProceso' => 'SUB-ImporteTotalValorCatastralObraEnProceso');        
 
     $errores = array(); 
     $data = array_map("convierte_a_arreglo",$data);
 
-    $resValidaCalculo = valida_Calculos_j($data,'j', $datae23, $datae27, $datab6, $datad6, $datad13, $existef9, $existef10, $existef11);
+    $resValidaCalculo = valida_Calculos_jV($data,'j', $datae23, $datae27, $datab6, $datad6, $datad13, $existef9, $existef10, $existef11);
     if($resValidaCalculo != "Correcto"){
         $errores[] = $resValidaCalculo;
     }
@@ -4369,7 +4409,7 @@ function valida_AvaluoEnfoqueCostosCatastral($data, $elementoPrincipal, $datae23
     return $errores;
 }
 
-function valida_AvaluoEnfoqueIngresos($data, $elementoPrincipal){
+function valida_AvaluoEnfoqueIngresosV($data, $elementoPrincipal){
     if($elementoPrincipal == '//Comercial'){
         $validacionesk = array('RentaBrutaMensual' => 'nullableDecimalPositivo', 'ProductoLiquidoAnual' => 'nullableDecimalPositivo', 'TasaDeCapitalizacionAplicable' => 'porcentaje_10', 'ImporteEnfoqueDeIngresos' => 'SUB-ImporteEnfoqueDeIngresos');
         $validacionesk2 = array('Vacios' => 'decimalPositivo', 'ImpuestoPredial' => 'decimalPositivo', 'ServicioDeAgua' => 'decimalPositivo', 'ConservacionYMantenimiento' => 'decimalPositivo', 'ServicioEnergiaElectrica' => 'decimalPositivo', 'Administracion' => 'decimalPositivo', 'Seguros' => 'decimalPositivo', 'DepreciacionFiscal' => 'decimalPositivo', 'Otros' => 'decimalPositivo', 'DeduccionesFiscales' => 'decimalPositivo', 'ImpuestoSobreLaRenta' => 'decimalPositivo', 'DeduccionesMensuales' => 'decimalPositivo', 'PorcentajeDeduccionesMensuales' => 'porcentaje_04');
@@ -4379,7 +4419,7 @@ function valida_AvaluoEnfoqueIngresos($data, $elementoPrincipal){
     $errores = array(); 
     $data = array_map("convierte_a_arreglo",$data);
 
-    $resValidaCalculo = valida_Calculos($data,'k');
+    $resValidaCalculo = valida_CalculosV($data,'k');
     if($resValidaCalculo != "Correcto"){
         $errores[] = $resValidaCalculo;
     } 
@@ -4411,7 +4451,7 @@ function valida_AvaluoEnfoqueIngresos($data, $elementoPrincipal){
     
 }
     
-function valida_AvaluoConsideracionesPreviasALaConclusion($data, $elementoPrincipal){
+function valida_AvaluoConsideracionesPreviasALaConclusionV($data, $elementoPrincipal){
     $validacionesn = array('ConsideracionesPreviasALaConclusion' => 'string_2000');
 
     $errores = array(); 
@@ -4431,7 +4471,7 @@ function valida_AvaluoConsideracionesPreviasALaConclusion($data, $elementoPrinci
     return $errores;
 }
 
-function valida_AvaluoConclusionDelAvaluoComercial($data, $elementoPrincipal){
+function valida_AvaluoConclusionDelAvaluoComercialV($data, $elementoPrincipal){
     $validacioneso = array('ValorComercialDelInmueble' => 'decimalPositivo');
     //print_r($data); exit();
     $errores = array(); 
@@ -4451,7 +4491,7 @@ function valida_AvaluoConclusionDelAvaluoComercial($data, $elementoPrincipal){
     return $errores;
 }
 
-function valida_AvaluoConclusionDelAvaluoCatastral($data, $elementoPrincipal){
+function valida_AvaluoConclusionDelAvaluoCatastralV($data, $elementoPrincipal){
     $validacioneso = array('ValorCatastralDelInmueble' => 'decimalPositivo');
 
     $errores = array(); 
@@ -4471,13 +4511,13 @@ function valida_AvaluoConclusionDelAvaluoCatastral($data, $elementoPrincipal){
     return $errores;
 }
 
-function valida_AvaluoValorReferido($data, $elementoPrincipal, $datao1){
+function valida_AvaluoValorReferidoV($data, $elementoPrincipal, $datao1){
     $validacionesp = array('FechaDeValorReferido' => 'nullableDate', 'IndiceAntiguo' => 'nullableDecimal', 'IndiceActual' => 'nullableDecimalPositivo', 'FactorDeConversion' => 'nullableDecimalPositivo', 'ValorReferido' => 'nullableDecimalPositivo');
 
     $errores = array(); 
     $data = array_map("convierte_a_arreglo",$data);
     
-    $resValidaCalculo = valida_Calculos($data,'p', $datao1);
+    $resValidaCalculo = valida_CalculosV($data,'p', $datao1);
     if($resValidaCalculo != "Correcto"){
         $errores[] = $resValidaCalculo;
     } 
@@ -4520,7 +4560,7 @@ function valida_AvaluoValorReferido($data, $elementoPrincipal, $datao1){
 }
 
 
-function valida_AvaluoAnexoFotografico($data, $elementoPrincipal){ //print_r($data); exit();
+function valida_AvaluoAnexoFotograficoV($data, $elementoPrincipal){ //print_r($data); exit();
     if($elementoPrincipal == '//Comercial'){
         $validacionesq11 = array('Region' => 'regionManzanaUp', 'Manzana' => 'regionManzanaUp', 'Lote' => 'lote', 'Localidad' => 'regionManzanaUp');
         $validacionesq12 = array('Foto' => 'base64Binary', 'InteriorOExterior' => 'catTipoFotoInmueble');
@@ -4699,7 +4739,7 @@ function valida_AvaluoAnexoFotografico($data, $elementoPrincipal){ //print_r($da
 
 }
 
-function existeCatUsoEjercicio($codUso,$fecha){ //echo $codUso." ".$fecha; exit();
+function existeCatUsoEjercicioV($codUso,$fecha){ //echo $codUso." ".$fecha; exit();
     if(estaEnCatClaseUso($codUso) == true && estaEnCatEjercicio($fecha) == true){
         $modelDatosExtrasAvaluo = new DatosExtrasAvaluo();
         //$idUsoEjercicio = $modelDatosExtrasAvaluo->solicitarObtenerIdUsosByCodeAndAno($fecha, $codUso); //COMENTADO PORQUE NO FUNCIONA EL PKG CON ESTA INFO
@@ -4710,7 +4750,7 @@ function existeCatUsoEjercicio($codUso,$fecha){ //echo $codUso." ".$fecha; exit(
     }
 }
 
-function existeCatRangoNivelesEjercicio($codRangoNiveles,$fecha){
+function existeCatRangoNivelesEjercicioV($codRangoNiveles,$fecha){
     if(estaEnCatClaseRangoNiveles($codRangoNiveles) == true && estaEnCatEjercicio($fecha) == true){
         $modelDatosExtrasAvaluo = new DatosExtrasAvaluo();
         $res = $modelDatosExtrasAvaluo->SolicitarObtenerIdRangoNivelesByCodeAndAno($fecha,$codRangoNiveles);
@@ -4721,7 +4761,7 @@ function existeCatRangoNivelesEjercicio($codRangoNiveles,$fecha){
     }
 }
 
-function existeCatClaseEjercicio($codClase, $fecha){
+function existeCatClaseEjercicioV($codClase, $fecha){
     if(estaEnCatClaseConstruccion($codClase) == true && estaEnCatEjercicio($fecha) == true){
         $modelDatosExtrasAvaluo = new DatosExtrasAvaluo();
         //return $modelFis->solicitarObtenerIdClasesByCodeAndAno($fecha,intval($codRangoNiveles)); //COMENTADO PORQUE ES LO MISMO QUE EL DE ABAJO
@@ -4731,7 +4771,7 @@ function existeCatClaseEjercicio($codClase, $fecha){
     }
 }
 
-function estaEnCatClaseConstruccion($elem){
+function estaEnCatClaseConstruccionV($elem){
     $resul = false;
     if(val_cat_clases_construccion($elem) == 'correcto'){
         $resul = true;
@@ -4739,7 +4779,7 @@ function estaEnCatClaseConstruccion($elem){
     return $resul;
 }
 
-function estaEnCatClaseUso($elem){
+function estaEnCatClaseUsoV($elem){
     $resul = false;
     if(val_usos_construcciones($elem) == 'correcto'){
         $resul = true;
@@ -4747,7 +4787,7 @@ function estaEnCatClaseUso($elem){
     return $resul;
 }
 
-function estaEnCatEjercicio($date){
+function estaEnCatEjercicioV($date){
     $resultado = false;
     $date = strtotime(formateaFecha($date));
     $infoEjercicios = infoCat('FIS_EJERCICIO');
@@ -4768,7 +4808,7 @@ function estaEnCatEjercicio($date){
     return $resultado;   
 }
 
-function estaEnCatClaseRangoNiveles($codRangoNiveles){
+function estaEnCatClaseRangoNivelesV($codRangoNiveles){
     $resultado = false;    
     $catRangoNiveles = infoCat('FIS_CATRANGONIVELES',"CODRANGONIVELES = '".$codRangoNiveles."'");
     if(count($catRangoNiveles) > 0){
@@ -4777,7 +4817,7 @@ function estaEnCatClaseRangoNiveles($codRangoNiveles){
     return $resultado;
 }
 
-function validarCatUsoClase($codUso, $codClase, $vidaUtilTotalDelTipo, $fecha){
+function validarCatUsoClaseV($codUso, $codClase, $vidaUtilTotalDelTipo, $fecha){
     $modelFis = new Fis();
     //$idClaseEjercicio = existeCatClaseEjercicio($codClase, $fecha);    
     //$idusoEjercicio = existeCatUsoEjercicio($codUso, $fecha);
@@ -4802,7 +4842,7 @@ function validarCatUsoClase($codUso, $codClase, $vidaUtilTotalDelTipo, $fecha){
     
 }
 
-function validarCatUsoClase5($codUso, $codClase, $vidaUtilTotalDelTipo, $fecha){
+function validarCatUsoClase5V($codUso, $codClase, $vidaUtilTotalDelTipo, $fecha){
     $modelFis = new Fis();    
     $estaEnEjercicio = estaEnCatEjercicio($fecha);
 
@@ -4822,7 +4862,7 @@ function validarCatUsoClase5($codUso, $codClase, $vidaUtilTotalDelTipo, $fecha){
     
 }
 
-function comprobarEdadUtilTipo($idUsoEjercicio, $idClaseEjercicio, $vidaUtilTotalDelTipo){
+function comprobarEdadUtilTipoV($idUsoEjercicio, $idClaseEjercicio, $vidaUtilTotalDelTipo){
     $modelDatosExtrasAvaluo = new DatosExtrasAvaluo();
     $dseCatClaseUso = $modelDatosExtrasAvaluo->select_catClaseUsoId_p($idUsoEjercicio, $idClaseEjercicio);
     if(count($dseCatClaseUso) > 0){
@@ -4837,14 +4877,14 @@ function comprobarEdadUtilTipo($idUsoEjercicio, $idClaseEjercicio, $vidaUtilTota
     }
 }
 
-function formateaFecha($date){
+function formateaFechaV($date){
     //$fecha = new Carbon($date);
     //return $fecha->format('Y-m-d');    
     return str_replace('/','-',$date);
 }
 
 
-function infoCat($cat, $where = false){
+function infoCatV($cat, $where = false){
     $arrRes = array();
     if($where != false){
         $query = "SELECT * FROM $cat WHERE $where";
@@ -4868,7 +4908,7 @@ function infoCat($cat, $where = false){
 }
 
 
-function esFechaValida($fecha){
+function esFechaValidaV($fecha){
     try{
         list($anio,$mes,$dia) = explode('-',$fecha);
         if(checkdate($mes,$dia,$anio) == true){
@@ -4883,19 +4923,19 @@ function esFechaValida($fecha){
     }  
 }
 
-function darFormatoFechaXML($fecha){
+function darFormatoFechaXMLV($fecha){
     list($anio,$mes,$dia) = explode('-',$fecha);
     $fechaXML = $dia."/".$mes."/".$anio;
     return $fechaXML;
 }
 
-function existeClaseUsoEjercicio($idClaseejercicio, $idUsoejercicio){
+function existeClaseUsoEjercicioV($idClaseejercicio, $idUsoejercicio){
     return true;
 }
 
 
 
-function tofloat($num) {
+function tofloatV($num) {
     $dotPos = strrpos($num, '.');
     $commaPos = strrpos($num, ',');
     $sep = (($dotPos > $commaPos) && $dotPos) ? $dotPos :

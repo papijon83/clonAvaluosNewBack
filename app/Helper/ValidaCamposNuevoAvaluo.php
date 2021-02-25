@@ -2969,6 +2969,7 @@ function valida_AvaluoTerreno($data, $elementoPrincipal, $datah = false){
     return $errores;    
 }
 
+
 function valida_AvaluoDescripcionImueble($data, $elementoPrincipal, $datad = false, $b_6 = false){
 
     if($elementoPrincipal == '//Comercial'){
