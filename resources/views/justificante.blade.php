@@ -533,7 +533,7 @@
                                 <td><b>Distancia transporte suburbano:</b></td>
                                 <td>
                                 @isset($infoAvaluo['Servicios_Publicos_Equipamiento']['Distancia_Transporte_Suburbano'])
-                                    <span class="grises">{number_format({$infoAvaluo['Servicios_Publicos_Equipamiento']['Distancia_Transporte_Suburbano'],2)}}</span>
+                                    <span class="grises">{{number_format({$infoAvaluo['Servicios_Publicos_Equipamiento']['Distancia_Transporte_Suburbano'],2)}}</span>
                                 @endisset
                                 </td>
                             </tr>
