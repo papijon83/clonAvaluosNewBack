@@ -2404,6 +2404,17 @@
       </xs:element>
       <xs:element name="PropositoDelAvaluo">
         <xs:complexType>
+            <xs:sequence>
+                <xs:element>
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="catPropositoDelAvaluo">
+                                <xs:attribute fixed="b.4.1" name="id" type="xs:string" use="required" />
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
           <xs:simpleContent>
             <xs:extension  base="NonEmptyString70">
               <xs:attribute fixed="b.4" name="id" type="xs:string" use="required" />
