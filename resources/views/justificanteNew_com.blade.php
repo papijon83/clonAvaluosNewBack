@@ -749,11 +749,11 @@
                                         <tr>
                                             <th>Ident. Fracción</th>
                                             <th>Sup Fracción</th>
-                                            <th>Factor 1</th>
-                                            <th>Factor 2</th>
-                                            <th>Factor 3</th>
-                                            <th>Factor 4</th>
-                                            <th>Factor 5</th>
+                                            <th>{{$infoAvaluo['Superficie_Total_Segun']['Factor1']['Titulo']}}</th>
+                                            <th>{{$infoAvaluo['Superficie_Total_Segun']['Factor2']['Titulo']}}</th>
+                                            <th>{{$infoAvaluo['Superficie_Total_Segun']['Factor3']['Titulo']}}</th>
+                                            <th>{{$infoAvaluo['Superficie_Total_Segun']['Factor4']['Titulo']}}</th>
+                                            <th>{{$infoAvaluo['Superficie_Total_Segun']['Factor5']['Titulo']}}</th>
                                             <th>Clave Area De Valor</th>
                                             <!-- <th>Valor</th>
                                             <th>Descripción</th> -->
@@ -777,27 +777,27 @@
                                                     </td>
                                                     <td class="centrado">
                                                     @isset($value_valorSuperficieTotal['Factor1'])
-                                                        <span class="grises">{{$value_valorSuperficieTotal['Factor1']}}</span>
+                                                        <span class="grises">{{$value_valorSuperficieTotal['Factor1']['Valor']}}</span>
                                                     @endisset
                                                     </td>
                                                     <td class="centrado">
                                                     @isset($value_valorSuperficieTotal['Factor2'])
-                                                        <span class="grises">{{$value_valorSuperficieTotal['Factor2']}}</span>
+                                                        <span class="grises">{{$value_valorSuperficieTotal['Factor2']['Valor']}}</span>
                                                     @endisset
                                                     </td>
                                                     <td class="centrado">
                                                     @isset($value_valorSuperficieTotal['Factor3'])
-                                                        <span class="grises">{{$value_valorSuperficieTotal['Factor3']}}</span>
+                                                        <span class="grises">{{$value_valorSuperficieTotal['Factor3']['Valor']}}</span>
                                                     @endisset
                                                     </td>
                                                     <td class="centrado">
                                                     @isset($value_valorSuperficieTotal['Factor4'])
-                                                        <span class="grises">{{$value_valorSuperficieTotal['Factor4']}}</span>
+                                                        <span class="grises">{{$value_valorSuperficieTotal['Factor4']['Valor']}}</span>
                                                     @endisset
                                                     </td>
                                                     <td class="centrado">
                                                     @isset($value_valorSuperficieTotal['Factor5'])
-                                                        <span class="grises">{{$value_valorSuperficieTotal['Factor5']}}</span>
+                                                        <span class="grises">{{$value_valorSuperficieTotal['Factor5']['Valor']}}</span>
                                                     @endisset
                                                     </td>
                                                     <td class="centrado">
@@ -837,27 +837,27 @@
                                             </td>
                                             <td class="centrado">
                                             @isset($infoAvaluo['Superficie_Total_Segun']['Factor1'])
-                                                <span class="grises">{{$infoAvaluo['Superficie_Total_Segun']['Factor1']}}</span>
+                                                <span class="grises">{{$infoAvaluo['Superficie_Total_Segun']['Factor1']['Valor']}}</span>
                                             @endisset
                                             </td>
                                             <td class="centrado">
                                             @isset($infoAvaluo['Superficie_Total_Segun']['Factor2'])
-                                                <span class="grises">{{$infoAvaluo['Superficie_Total_Segun']['Factor2']}}</span>
+                                                <span class="grises">{{$infoAvaluo['Superficie_Total_Segun']['Factor2']['Valor']}}</span>
                                             @endisset
                                             </td>
                                             <td class="centrado">
                                             @isset($infoAvaluo['Superficie_Total_Segun']['Factor3'])
-                                                <span class="grises">{{$infoAvaluo['Superficie_Total_Segun']['Factor3']}}</span>
+                                                <span class="grises">{{$infoAvaluo['Superficie_Total_Segun']['Factor3']['Valor']}}</span>
                                             @endisset
                                             </td>
                                             <td class="centrado">
                                             @isset($infoAvaluo['Superficie_Total_Segun']['Factor4'])
-                                                <span class="grises">{{$infoAvaluo['Superficie_Total_Segun']['Factor4']}}</span>
+                                                <span class="grises">{{$infoAvaluo['Superficie_Total_Segun']['Factor4']['Valor']}}</span>
                                             @endisset
                                             </td>
                                             <td class="centrado">
                                             @isset($infoAvaluo['Superficie_Total_Segun']['Factor5'])
-                                                <span class="grises">{{$infoAvaluo['Superficie_Total_Segun']['Factor5']}}</span>
+                                                <span class="grises">{{$infoAvaluo['Superficie_Total_Segun']['Factor5']['Valor']}}</span>
                                             @endisset
                                             </td>
                                             <td class="centrado">
@@ -2254,11 +2254,11 @@
                                 <th>No.</th>
                                 <th>F. Negociación</th>
                                 <th>Superficie</th>
-                                <th>Factor 1</th>
-                                <th>Factor 2</th>
-                                <th>Factor 3</th>
-                                <th>Factor 4</th>
-                                <th>Factor 5</th>
+                                <th>{{$infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos'][0]['Factor1']['Titulo']}}</th>
+                                <th>{{$infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos'][0]['Factor2']['Titulo']}}</th>
+                                <th>{{$infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos'][0]['Factor3']['Titulo']}}</th>
+                                <th>{{$infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos'][0]['Factor4']['Titulo']}}</th>
+                                <th>{{$infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos'][0]['Factor5']['Titulo']}}</th>
                                 <th>Fre</th>
                                 <th>Precio solicitado</th>
                             </tr>
@@ -2283,27 +2283,27 @@
                                     </td>
                                     <td>
                                     @isset($value_tablaDos['Factor1'])
-                                        <span class="grises">{{ $value_tablaDos['Factor1'] }}</span>
+                                        <span class="grises">{{ $value_tablaDos['Factor1']['Valor'] }}</span>
                                     @endisset
                                     </td>
                                     <td>
                                     @isset($value_tablaDos['Factor2'])
-                                        <span class="grises">{{ $value_tablaDos['Factor2'] }}</span>
+                                        <span class="grises">{{ $value_tablaDos['Factor2']['Valor'] }}</span>
                                     @endisset
                                     </td>
                                     <td>
                                     @isset($value_tablaDos['Factor3'])
-                                        <span class="grises">{{ $value_tablaDos['Factor3'] }}</span>
+                                        <span class="grises">{{ $value_tablaDos['Factor3']['Valor'] }}</span>
                                     @endisset
                                     </td>
                                     <td>
                                     @isset($value_tablaDos['Factor4'])
-                                        <span class="grises">{{ $value_tablaDos['Factor4'] }}</span>
+                                        <span class="grises">{{ $value_tablaDos['Factor4']['Valor'] }}</span>
                                     @endisset
                                     </td>
                                     <td>
                                     @isset($value_tablaDos['Factor5'])
-                                        <span class="grises">{{ $value_tablaDos['Factor5'] }}</span>
+                                        <span class="grises">{{ $value_tablaDos['Factor5']['Valor'] }}</span>
                                     @endisset
                                     </td>
                                     <td>
@@ -2337,27 +2337,27 @@
                                 </td>
                                 <td>
                                 @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Factor1'])
-                                    <span class="grises">{{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Factor1'] }}</span>
+                                    <span class="grises">{{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Factor1']['Valor'] }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Factor2'])
-                                    <span class="grises">{{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Factor2'] }}</span>
+                                    <span class="grises">{{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Factor2']['Valor'] }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Factor3'])
-                                    <span class="grises">{{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Factor3'] }}</span>
+                                    <span class="grises">{{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Factor3']['Valor'] }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Factor4'])
-                                    <span class="grises">{{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Factor4'] }}</span>
+                                    <span class="grises">{{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Factor4']['Valor'] }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Factor5'])
-                                    <span class="grises">{{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Factor5'] }}</span>
+                                    <span class="grises">{{ $infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Factor5']['Valor'] }}</span>
                                 @endisset
                                 </td>
                                 <td>
@@ -3153,11 +3153,11 @@
                                 <th>Fracc.</th>
                                 <th>Área de valor</th>
                                 <th>Superficie (m2)</th>
-                                <th>Factor 1</th>
-                                <th>Factor 2</th>
-                                <th>Factor 3</th>
-                                <th>Factor4</th>
-                                <th>Factor5</th>
+                                <th>{{$infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor1']['Titulo']}}</th>
+                                <th>{{$infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor2']['Titulo']}}</th>
+                                <th>{{$infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor3']['Titulo']}}</th>
+                                <th>{{$infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor4']['Titulo']}}</th>
+                                <th>{{$infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor5']['Titulo']}}</th>
                                 <th>F. Resultante</th>
                                 <th>VALOR FRACCIÓN</th>
                             </tr>
@@ -3183,27 +3183,27 @@
                                     </td>
                                     <td>
                                     @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor1'])
-                                        <span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor1'],2) }}</span>
+                                        <span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor1']['Valor'],2) }}</span>
                                     @endisset
                                     </td>
                                     <td>
                                     @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor2'])
-                                        <span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor2'],2) }}</span>
+                                        <span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor2']['Valor'],2) }}</span>
                                     @endisset
                                     </td>
                                     <td>
                                     @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor3'])
-                                        <span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor3'],2) }}</span>
+                                        <span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor3']['Valor'],2) }}</span>
                                     @endisset
                                     </td>
                                     <td>
                                     @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor4'])
-                                        <span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor4'],2) }}</span>
+                                        <span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor4']['Valor'],2) }}</span>
                                     @endisset
                                     </td>
                                     <td>
                                     @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor5'])
-                                        <span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor5'],2) }}</span>
+                                        <span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor5']['Valor'],2) }}</span>
                                     @endisset
                                     </td>
                                     <td>
@@ -3237,27 +3237,27 @@
                                 </td>
                                 <td>
                                 @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor1'])
-                                    <span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor1'],2) }}</span>
+                                    <span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor1']['Valor'],2) }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor2'])
-                                    <span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor2'],2) }}</span>
+                                    <span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor2']['Valor'],2) }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor3'])
-                                    <span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor3'],2) }}</span>
+                                    <span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor3']['Valor'],2) }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor4'])
-                                    <span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor4'],2) }}</span>
+                                    <span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor4']['Valor'],2) }}</span>
                                 @endisset
                                 </td>
                                 <td>
                                 @isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor5'])
-                                    <span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor5'],2) }}</span>
+                                    <span class="grises">{{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor5']['Valor'],2) }}</span>
                                 @endisset
                                 </td>
                                 <td>

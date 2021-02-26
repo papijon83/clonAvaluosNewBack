@@ -883,13 +883,13 @@ class BandejaEntradaNuevoController extends Controller
     function guardarAvaluo(Request $request){
         try{
 
-            /*$authToken = $request->header('Authorization');
+            $authToken = $request->header('Authorization');
             if (!$authToken) {
                 return response()->json(['mensaje' => 'Sin acceso a la aplicación'], 403);
             } 
             $resToken = Crypt::decrypt($authToken);
             
-            $idPersona = empty($resToken['id_anterior']) ? $resToken['id_usuario']: $resToken['id_anterior'];*/ $idPersona = 264;
+            $idPersona = empty($resToken['id_anterior']) ? $resToken['id_usuario']: $resToken['id_anterior']; //$idPersona = 264;
 
             $file = $request->file('files');
 
@@ -1137,7 +1137,7 @@ class BandejaEntradaNuevoController extends Controller
             $camposFexavaAvaluo['IDAVALUO'] = $idDocumentoDigital;
 
             $camposFexavaAvaluo = $this->guardarAvaluoTerrenoV($xml, $camposFexavaAvaluo,$elementoPrincipal,$idDocumentoDigital);
-            
+               
             $camposFexavaAvaluo = $this->guardarAvaluoDescripcionImuebleV($xml, $camposFexavaAvaluo,$elementoPrincipal);
             $this->guardaAvance($nombreArchivo,15);
             $camposFexavaAvaluo = $this->guardarAvaluoElementosConstruccionV($xml, $camposFexavaAvaluo,$elementoPrincipal);
@@ -1366,7 +1366,7 @@ class BandejaEntradaNuevoController extends Controller
         }
         //$errores = array(0 => "LOS IDS ".$idPersona." ".$this->modelDatosExtrasAvaluo->IdPeritoSociedadByRegistro($arrIdentificacion['ClaveValuador'], '',true)); $camposFexavaAvaluo['ERRORES'][] = $errores; return $camposFexavaAvaluo;
         if($idPersona != $this->modelDatosExtrasAvaluo->IdPeritoSociedadByRegistro($arrIdentificacion['ClaveValuador'], '',true)){
-            //$errores = array(0 => "LOS IDS ".$idPersona." ".$this->modelDatosExtrasAvaluo->IdPeritoSociedadByRegistro($arrIdentificacion['ClaveValuador'], '',true)); 
+            $errores = array(0 => "LOS IDS ".$idPersona." ".$this->modelDatosExtrasAvaluo->IdPeritoSociedadByRegistro($arrIdentificacion['ClaveValuador'], '',true)); 
             $camposFexavaAvaluo['ERRORES'][] = $errores;
             $errores = array(0 => 'Un perito no puede subir avalúos a nombre de otro perito');
             $camposFexavaAvaluo['ERRORES'][] = $errores;
@@ -2260,7 +2260,7 @@ class BandejaEntradaNuevoController extends Controller
             }
         }else{
 
-            if(isset($arrIdsSuperficieDelTerreno['d.5.n.1']) && isset($SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.1']])){
+            if(isset($SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.1']])){
                 $camposFexavaAvaluo['FEXAVA_SUPERFICIE'] = array();
                 $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['IDENTIFICADORFRACCION'] = $SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.1']][0];
                 $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['CODTIPO'] = "P";
@@ -2268,22 +2268,22 @@ class BandejaEntradaNuevoController extends Controller
             if(isset($arrIdsSuperficieDelTerreno['d.5.n.2'])){
                 $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['SUPERFICIEFRACCION'] = $SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.2']][0];
             }
-            if(isset($arrIdsSuperficieDelTerreno['d.5.n.3']) && isset($SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.3']])){
+            if(isset($SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.3']])){
                 $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['FZO'] = $SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.3']]['Valor'];
             }
-            if(isset($arrIdsSuperficieDelTerreno['d.5.n.4']) && isset($SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.4']])){
+            if(isset($SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.4']])){
                 $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['FUB'] = $SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.4']]['Valor'];
             }
-            if(isset($arrIdsSuperficieDelTerreno['d.5.n.5']) && isset($SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.5']])){
+            if(isset($SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.5']])){
                 $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['FFR'] = $SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.5']]['Valor'];
             }
-            if(isset($arrIdsSuperficieDelTerreno['d.5.n.6']) && isset($SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.6']])){
+            if(isset($SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.6']])){
                 $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['FFO'] = $SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.6']]['Valor'];
             }
-            if(isset($arrIdsSuperficieDelTerreno['d.5.n.7']) && isset($SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.7']])){
+            if(isset($SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.7']])){
                 $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['FSU'] = $SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.7']]['Valor'];
             }
-            if(isset($arrIdsSuperficieDelTerreno['d.5.n.11']) && isset($SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.11']])){
+            if(isset($SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.11']])){
                 $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['VALCATASTRALTIERRA'] = $SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.11']][0];
             }
 
@@ -2577,10 +2577,10 @@ class BandejaEntradaNuevoController extends Controller
                 if(isset($arrIdsSuperficieDelTerreno['d.5.n.7'])){
                     $camposFexavaAvaluo['FEXAVA_SUPERFICIE'][$control]['FSU'] = $arrSuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.7']][0];
                 }
-                if(isset($arrIdsSuperficieDelTerreno['d.5.n.9']) && isset($SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.9']])){
+                if(isset($SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.9']])){
                     $camposFexavaAvaluo['FEXAVA_SUPERFICIE'][$control]['FOTVALOR'] = $SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.9']]['Valor'];
                 }
-                if(isset($arrIdsSuperficieDelTerreno['d.5.n.9']) && isset($SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.9']])){
+                if(isset($SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.9']])){
                     $camposFexavaAvaluo['FEXAVA_SUPERFICIE'][$control]['FOTDESCRIPCION'] = $SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.9']]['Descripcion'];
                 }
                 if(isset($arrIdsSuperficieDelTerreno['d.5.n.11'])){
@@ -2588,9 +2588,9 @@ class BandejaEntradaNuevoController extends Controller
                 }
                 $control = $control + 1;
             } //print_r($camposFexavaAvaluo['FEXAVA_SUPERFICIE']); exit();
-        }else{ //echo print_r($arrIdsSuperficieDelTerreno); exit();
-            //print_r($SuperficieDelTerreno); exit();
-            if(isset($arrIdsSuperficieDelTerreno['d.5.n.1']) && isset($SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.1']])){
+        }else{
+            
+            if(isset($SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.1']])){
                 $camposFexavaAvaluo['FEXAVA_SUPERFICIE'] = array();
                 $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['IDENTIFICADORFRACCION'] = $SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.1']][0];
                 $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['CODTIPO'] = "P";
@@ -2598,34 +2598,34 @@ class BandejaEntradaNuevoController extends Controller
             if(isset($arrIdsSuperficieDelTerreno['d.5.n.2'])){
                 $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['SUPERFICIEFRACCION'] = $SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.2']][0];
             }
-            if(isset($arrIdsSuperficieDelTerreno['d.5.n.3']) && isset($SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.3']])){
+            if(isset($SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.3']])){
                 $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['FZO'] = $SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.3']][0];
             }
-            if(isset($arrIdsSuperficieDelTerreno['d.5.n.4']) && isset($SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.4']])){
+            if(isset($SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.4']])){
                 $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['FUB'] = $SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.4']][0];
             }
-            if(isset($arrIdsSuperficieDelTerreno['d.5.n.5']) && isset($SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.5']])){
+            if(isset($SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.5']])){
                 $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['FFR'] = $SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.5']][0];
             }
-            if(isset($arrIdsSuperficieDelTerreno['d.5.n.6']) && isset($SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.6']])){
+            if(isset($SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.6']])){
                 $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['FFO'] = $SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.6']][0];
             }
-            if(isset($arrIdsSuperficieDelTerreno['d.5.n.7']) && isset($SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.7']])){
+            if(isset($SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.7']])){
                 $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['FSU'] = $SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.7']][0];
             }
-            if(isset($arrIdsSuperficieDelTerreno['d.5.n.9']) && isset($SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.9']])){
+            if(isset($SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.9']])){
                 $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['FOTVALOR'] = $SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.9']]['Valor'];
             }
-            if(isset($arrIdsSuperficieDelTerreno['d.5.n.9']) && isset($SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.9']])){
+            if(isset($SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.9']])){
                 $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['FOTDESCRIPCION'] = $SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.9']]['Descripcion'];
             }
-            if(isset($arrIdsSuperficieDelTerreno['d.5.n.11']) && isset($SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.11']])){
+            if(isset($SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.11']])){
                 $camposFexavaAvaluo['FEXAVA_SUPERFICIE']['VALCATASTRALTIERRA'] = $SuperficieDelTerreno[$arrIdsSuperficieDelTerreno['d.5.n.11']][0];
             }    
             
 
         }
-        //print_r($camposFexavaAvaluo['FEXAVA_SUPERFICIE']); exit();
+
         /**********************************************Superficie del terreno (Comunes)*****************************************/
             
         /*if(isset($arrIdsSuperficieDelTerreno['d.5.2'])){
@@ -2760,25 +2760,21 @@ class BandejaEntradaNuevoController extends Controller
                $arrConstruccionesPrivativas = $this->obtenElementos($construccionesPrivativas);
               
                 for($i=0;$i<count($construccionesPrivativas);$i++){
-                    
-                    if(!isset($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.2']]) || trim($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.2']]) == ''){
-                        $usoNoBaldioConSuper = false;
-                    }else{
-                        if((String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.2']]) == 'W'){
-                            if(trim((String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.11']])) != ''){
-                                $superficie = trim((String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.11']]));
-                                if($superficie == 0){
-                                    $usoNoBaldioConSuper = false;
-                                }else{
-                                    $usoNoBaldioConSuper = true;
-                                }
-                            }else{
+
+                    if((String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.2']]) == 'W'){
+                        if(trim((String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.11']])) != ''){
+                            $superficie = trim((String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.11']]));
+                            if($superficie == 0){
                                 $usoNoBaldioConSuper = false;
+                            }else{
+                                $usoNoBaldioConSuper = true;
                             }
                         }else{
-                            $usoNoBaldioConSuper = true;
+                            $usoNoBaldioConSuper = false;
                         }
-                    }    
+                    }else{
+                        $usoNoBaldioConSuper = true;
+                    }
 
                     $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i] = array();
 
@@ -2891,11 +2887,8 @@ class BandejaEntradaNuevoController extends Controller
                                 $periodo = 1;
     
                                 $descripcion = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.1']]);                        
-                                
-                                $fechaCarbon = new Carbon($fechaAvaluo);
-                                $anioValorUnitario = Carbon::parse($fechaCarbon)->format('Y');
-                                              
-                                $infoValorUnitarioConstruccion = $this->modelFis->getDataByObtenerValorUnitarioConstruccion($codUso,$codClase,$codRangoNiveles,$numeroNiveles,$anioValorUnitario,$periodo);                            
+    
+                                $infoValorUnitarioConstruccion = $this->modelFis->getDataByObtenerValorUnitarioConstruccion($codUso,$codClase,$codRangoNiveles,$numeroNiveles,$periodo);                            
                                 //echo $valorUnitarioCatastral." != ".$infoValorUnitarioConstruccion." && ".$valorUnitarioCatastral." != ".($infoValorUnitarioConstruccion + 0.01)." && ".$valorUnitarioCatastral." != ".($infoValorUnitarioConstruccion - 0.01); exit();
                                 if($valorUnitarioCatastral != $infoValorUnitarioConstruccion && $valorUnitarioCatastral != ($infoValorUnitarioConstruccion + 0.01) && $valorUnitarioCatastral != ($infoValorUnitarioConstruccion - 0.01)){
                                     $camposFexavaAvaluo['ERRORES'][] = array("e.2.1.n.16 - El valor unitario de construcción no es correcto para: Uso: ".$codUso.", Rango niveles: ".$codRangoNiveles.", Clase:  ".$codClase.", descripción: ".$descripcion.". El valor ESPERADO es: ".$infoValorUnitarioConstruccion);
@@ -2925,25 +2918,20 @@ class BandejaEntradaNuevoController extends Controller
                 
                 for($i=0;$i<count($construccionesComunes);$i++){
 
-                    if(trim($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.2']]) == ''){
-                        $usoNoBaldioConSuper = false;
-                    }else{
-                        if((String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.2']]) == 'W'){
-                            if(trim((String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.11']])) != ''){
-                                $superficie = trim((String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.11']]));
-                                if($superficie == 0){
-                                    $usoNoBaldioConSuper = false;
-                                }else{
-                                    $usoNoBaldioConSuper = true;
-                                }
-                            }else{
+                    if((String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.2']]) == 'W'){
+                        if(trim((String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.11']])) != ''){
+                            $superficie = trim((String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.11']]));
+                            if($superficie == 0){
                                 $usoNoBaldioConSuper = false;
+                            }else{
+                                $usoNoBaldioConSuper = true;
                             }
                         }else{
-                            $usoNoBaldioConSuper = true;
+                            $usoNoBaldioConSuper = false;
                         }
-                    } 
-                    
+                    }else{
+                        $usoNoBaldioConSuper = true;
+                    }
                     
                     $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento] = array();
 
@@ -3173,24 +3161,20 @@ class BandejaEntradaNuevoController extends Controller
               
                 for($i=0;$i<count($construccionesPrivativas);$i++){
 
-                    if(!isset($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.2']]) || trim($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.2']]) == ''){
-                        $usoNoBaldioConSuper = false;
-                    }else{
-                        if((String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.2']]) == 'W'){
-                            if(trim((String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.11']])) != ''){
-                                $superficie = trim((String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.11']]));
-                                if($superficie == 0){
-                                    $usoNoBaldioConSuper = false;
-                                }else{
-                                    $usoNoBaldioConSuper = true;
-                                }
-                            }else{
+                    if((String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.2']]) == 'W'){
+                        if(trim((String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.11']])) != ''){
+                            $superficie = trim((String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.11']]));
+                            if($superficie == 0){
                                 $usoNoBaldioConSuper = false;
+                            }else{
+                                $usoNoBaldioConSuper = true;
                             }
                         }else{
-                            $usoNoBaldioConSuper = true;
+                            $usoNoBaldioConSuper = false;
                         }
-                    }                    
+                    }else{
+                        $usoNoBaldioConSuper = true;
+                    }
 
                     $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$i] = array();
 
@@ -3303,11 +3287,8 @@ class BandejaEntradaNuevoController extends Controller
                                 $periodo = 1;
     
                                 $descripcion = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.1']]);                        
-                                
-                                $fechaCarbon = new Carbon($fechaAvaluo);
-                                $anioValorUnitario = Carbon::parse($fechaCarbon)->format('Y');
-                                                                
-                                $infoValorUnitarioConstruccion = $this->modelFis->getDataByObtenerValorUnitarioConstruccion($codUso,$codClase,$codRangoNiveles,$numeroNiveles,$anioValorUnitario,$periodo);                            
+    
+                                $infoValorUnitarioConstruccion = $this->modelFis->getDataByObtenerValorUnitarioConstruccion($codUso,$codClase,$codRangoNiveles,$numeroNiveles,$periodo);                            
                                 //echo $valorUnitarioCatastral." != ".$infoValorUnitarioConstruccion." && ".$valorUnitarioCatastral." != ".($infoValorUnitarioConstruccion + 0.01)." && ".$valorUnitarioCatastral." != ".($infoValorUnitarioConstruccion - 0.01); exit();
                                 if($valorUnitarioCatastral != $infoValorUnitarioConstruccion && $valorUnitarioCatastral != ($infoValorUnitarioConstruccion + 0.01) && $valorUnitarioCatastral != ($infoValorUnitarioConstruccion - 0.01)){
                                     $camposFexavaAvaluo['ERRORES'][] = array("e.2.1.n.16 - El valor unitario de construcción no es correcto para: Uso: ".$codUso.", Rango niveles: ".$codRangoNiveles.", Clase:  ".$codClase.", descripción: ".$descripcion.". El valor ESPERADO es: ".$infoValorUnitarioConstruccion);
@@ -3336,24 +3317,21 @@ class BandejaEntradaNuevoController extends Controller
                 }                       
                 
                 for($i=0;$i<count($construccionesComunes);$i++){
-                    if(trim($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.2']]) == ''){
-                        $usoNoBaldioConSuper = false;
-                    }else{
-                        if((String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.2']]) == 'W'){
-                            if(trim((String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.11']])) != ''){
-                                $superficie = trim((String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.11']]));
-                                if($superficie == 0){
-                                    $usoNoBaldioConSuper = false;
-                                }else{
-                                    $usoNoBaldioConSuper = true;
-                                }
-                            }else{
+
+                    if((String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.2']]) == 'W'){
+                        if(trim((String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.11']])) != ''){
+                            $superficie = trim((String)($arrConstruccionesComunes['arrElementos'][$i][$arrConstruccionesComunes['arrIds'][$i]['e.2.5.n.11']]));
+                            if($superficie == 0){
                                 $usoNoBaldioConSuper = false;
+                            }else{
+                                $usoNoBaldioConSuper = true;
                             }
                         }else{
-                            $usoNoBaldioConSuper = true;
+                            $usoNoBaldioConSuper = false;
                         }
-                    }                    
+                    }else{
+                        $usoNoBaldioConSuper = true;
+                    }
                     
                     $camposFexavaAvaluo['FEXAVA_TIPOCONSTRUCCION'][$controlElemento] = array();
 
@@ -6062,8 +6040,8 @@ class BandejaEntradaNuevoController extends Controller
                 return $pdf->stream('formato.pdf');
                 /*$this->modelDocumentos = new Documentos();    //echo $numero_unico; exit();         
             $id_avaluo = $this->modelDocumentos->get_idavaluo_db($numero_unico);    
-            $this->modelReimpresionNuevo = new ReimpresionNuevo();
-            $infoAvaluo = $this->modelReimpresionNuevo->infoAvaluoNuevo($id_avaluo);
+            $this->modelReimpresion = new ReimpresionNuevo();
+            $infoAvaluo = $this->modelReimpresion->infoAvaluoNuevo($id_avaluo);
             print_r($infoAvaluo); exit();*/
             }
             
