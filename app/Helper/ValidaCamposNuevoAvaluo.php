@@ -2721,7 +2721,7 @@ function valida_Calculos_j($data, $letra, $datae23, $datae27, $datab6, $datad6, 
         $calc_j_5 = $d_13 + $e_2_3 + $e_2_7 + $j_4;
     }
 
-    if(truncate($j_5,2) !== truncate($calc_j_5,2)){ echo "OPERACION ".truncate($j_5,2)." != ".truncate($calc_j_5,2)."\n";
+    if(truncate($j_5,2) !== truncate($calc_j_5,2)){ //echo "OPERACION ".truncate($j_5,2)." != ".truncate($calc_j_5,2)."\n";
         $mensajesj[] =  "j.5 - El cálculo de ImporteTotalValorCatastral es erróneo ";
     }
     
