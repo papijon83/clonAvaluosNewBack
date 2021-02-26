@@ -883,13 +883,13 @@ class BandejaEntradaNuevoController extends Controller
     function guardarAvaluo(Request $request){
         try{
 
-            $authToken = $request->header('Authorization');
+            /*$authToken = $request->header('Authorization');
             if (!$authToken) {
                 return response()->json(['mensaje' => 'Sin acceso a la aplicación'], 403);
             } 
             $resToken = Crypt::decrypt($authToken);
             
-            $idPersona = empty($resToken['id_anterior']) ? $resToken['id_usuario']: $resToken['id_anterior']; //$idPersona = 264;
+            $idPersona = empty($resToken['id_anterior']) ? $resToken['id_usuario']: $resToken['id_anterior'];*/ $idPersona = 264;
 
             $file = $request->file('files');
 
@@ -6062,8 +6062,8 @@ class BandejaEntradaNuevoController extends Controller
                 return $pdf->stream('formato.pdf');
                 /*$this->modelDocumentos = new Documentos();    //echo $numero_unico; exit();         
             $id_avaluo = $this->modelDocumentos->get_idavaluo_db($numero_unico);    
-            $this->modelReimpresion = new ReimpresionNuevo();
-            $infoAvaluo = $this->modelReimpresion->infoAvaluoNuevo($id_avaluo);
+            $this->modelReimpresionNuevo = new ReimpresionNuevo();
+            $infoAvaluo = $this->modelReimpresionNuevo->infoAvaluoNuevo($id_avaluo);
             print_r($infoAvaluo); exit();*/
             }
             

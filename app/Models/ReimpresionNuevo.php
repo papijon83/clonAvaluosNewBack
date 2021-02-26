@@ -2243,23 +2243,33 @@ class ReimpresionNuevo
                 $infoReimpresion['Superficie_Total_Segun'][$control]['Ident_Fraccion'] = $supDelTerreno['IdentificadorFraccionN1'];
                 $infoReimpresion['Superficie_Total_Segun'][$control]['Sup_Fraccion'] = $supDelTerreno['SuperficieFraccionN1'];
                 if(isset($supDelTerreno['Factor1'])){
-                    $infoReimpresion['Superficie_Total_Segun'][$control]['Factor1'] = $supDelTerreno['Factor1']['Valor'];
+                    $infoReimpresion['Superficie_Total_Segun'][$control]['Factor1'] = array();
+                    $infoReimpresion['Superficie_Total_Segun'][$control]['Factor1']['Titulo'] = $supDelTerreno['Factor1']['Siglas'];
+                    $infoReimpresion['Superficie_Total_Segun'][$control]['Factor1']['Valor'] = $supDelTerreno['Factor1']['Valor'];
                 }
                 
                 if(isset($supDelTerreno['Factor2'])){
-                    $infoReimpresion['Superficie_Total_Segun'][$control]['Factor2'] = $supDelTerreno['Factor2']['Valor'];
+                    $infoReimpresion['Superficie_Total_Segun'][$control]['Factor2'] = array();
+                    $infoReimpresion['Superficie_Total_Segun'][$control]['Factor2']['Titulo'] = $supDelTerreno['Factor2']['Siglas'];
+                    $infoReimpresion['Superficie_Total_Segun'][$control]['Factor2']['Valor'] = $supDelTerreno['Factor2']['Valor'];
                 }
 
                 if(isset($supDelTerreno['Factor3'])){
-                    $infoReimpresion['Superficie_Total_Segun'][$control]['Factor3'] = $supDelTerreno['Factor3']['Valor'];
+                    $infoReimpresion['Superficie_Total_Segun'][$control]['Factor3'] = array();
+                    $infoReimpresion['Superficie_Total_Segun'][$control]['Factor3']['Titulo'] = $supDelTerreno['Factor3']['Siglas'];
+                    $infoReimpresion['Superficie_Total_Segun'][$control]['Factor3']['Valor'] = $supDelTerreno['Factor3']['Valor'];
                 }
 
                 if(isset($supDelTerreno['Factor4'])){
-                    $infoReimpresion['Superficie_Total_Segun'][$control]['Factor4'] = $supDelTerreno['Factor4']['Valor'];
+                    $infoReimpresion['Superficie_Total_Segun'][$control]['Factor4'] = array();
+                    $infoReimpresion['Superficie_Total_Segun'][$control]['Factor4']['Titulo'] = $supDelTerreno['Factor4']['Siglas'];
+                    $infoReimpresion['Superficie_Total_Segun'][$control]['Factor4']['Valor'] = $supDelTerreno['Factor4']['Valor'];
                 }
 
                 if(isset($supDelTerreno['Factor5'])){
-                    $infoReimpresion['Superficie_Total_Segun'][$control]['Factor5'] = $supDelTerreno['Factor5']['Valor'];
+                    $infoReimpresion['Superficie_Total_Segun'][$control]['Factor5'] = array();
+                    $infoReimpresion['Superficie_Total_Segun'][$control]['Factor5']['Titulo'] = $supDelTerreno['Factor5']['Siglas'];
+                    $infoReimpresion['Superficie_Total_Segun'][$control]['Factor5']['Valor'] = $supDelTerreno['Factor5']['Valor'];
                 }
 
                 if($tipoDeAvaluo == 'Catastral'){
@@ -2280,23 +2290,33 @@ class ReimpresionNuevo
             $infoReimpresion['Superficie_Total_Segun']['Ident_Fraccion'] = $superficieDelTerreno['IdentificadorFraccionN1'];
             $infoReimpresion['Superficie_Total_Segun']['Sup_Fraccion'] = $superficieDelTerreno['SuperficieFraccionN1'];
             if(isset($superficieDelTerreno['Factor1'])){
-                $infoReimpresion['Superficie_Total_Segun']['Factor1'] = $superficieDelTerreno['Factor1']['Valor'];
+                $infoReimpresion['Superficie_Total_Segun']['Factor1'] = array();
+                $infoReimpresion['Superficie_Total_Segun']['Factor1']['Titulo'] = $superficieDelTerreno['Factor1']['Siglas'];
+                $infoReimpresion['Superficie_Total_Segun']['Factor1']['Valor'] = $superficieDelTerreno['Factor1']['Valor'];
             }
             
             if(isset($superficieDelTerreno['Factor2'])){
-                $infoReimpresion['Superficie_Total_Segun']['Factor2'] = $superficieDelTerreno['Factor2']['Valor'];
+                $infoReimpresion['Superficie_Total_Segun']['Factor2'] = array();
+                $infoReimpresion['Superficie_Total_Segun']['Factor2']['Titulo'] = $superficieDelTerreno['Factor2']['Siglas'];
+                $infoReimpresion['Superficie_Total_Segun']['Factor2']['Valor'] = $superficieDelTerreno['Factor2']['Valor'];
             }
 
             if(isset($superficieDelTerreno['Factor3'])){
-                $infoReimpresion['Superficie_Total_Segun']['Factor3'] = $superficieDelTerreno['Factor3']['Valor'];
+                $infoReimpresion['Superficie_Total_Segun']['Factor3'] = array();
+                $infoReimpresion['Superficie_Total_Segun']['Factor3']['Titulo'] = $superficieDelTerreno['Factor3']['Siglas'];
+                $infoReimpresion['Superficie_Total_Segun']['Factor3']['Valor'] = $superficieDelTerreno['Factor3']['Valor'];
             }
 
             if(isset($superficieDelTerreno['Factor4'])){
-                $infoReimpresion['Superficie_Total_Segun']['Factor4'] = $superficieDelTerreno['Factor4']['Valor'];
+                $infoReimpresion['Superficie_Total_Segun']['Factor4'] = array();
+                $infoReimpresion['Superficie_Total_Segun']['Factor4']['Titulo'] = $superficieDelTerreno['Factor4']['Siglas'];
+                $infoReimpresion['Superficie_Total_Segun']['Factor4']['Valor'] = $superficieDelTerreno['Factor4']['Valor'];
             }
 
             if(isset($superficieDelTerreno['Factor5'])){
-                $infoReimpresion['Superficie_Total_Segun']['Factor5'] = $superficieDelTerreno['Factor5']['Valor'];
+                $infoReimpresion['Superficie_Total_Segun']['Factor5'] = array();
+                $infoReimpresion['Superficie_Total_Segun']['Factor5']['Titulo'] = $superficieDelTerreno['Factor5']['Siglas'];
+                $infoReimpresion['Superficie_Total_Segun']['Factor5']['Valor'] = $superficieDelTerreno['Factor5']['Valor'];
             }
 
             if($tipoDeAvaluo == 'Catastral'){
@@ -2747,11 +2767,21 @@ class ReimpresionNuevo
 
                     $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['F_Negociacion'] = $terrenoDirecto['FactorDeNegociacion'];
                     $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Superficie'] = $terrenoDirecto['Superficie'];
-                    $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Factor1'] = $terrenoDirecto['Factor1']['Valor'];
-                    $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Factor2'] = $terrenoDirecto['Factor2']['Valor'];;
-                    $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Factor3'] = $terrenoDirecto['Factor3']['Valor'];;
-                    $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Factor4'] = $terrenoDirecto['Factor4']['Valor'];;
-                    $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Factor5'] = $terrenoDirecto['Factor5']['Valor'];;
+                    $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Factor1'] = array();
+                    $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Factor1']['Titulo'] = $terrenoDirecto['Factor1']['Siglas'];
+                    $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Factor1']['Valor'] = $terrenoDirecto['Factor1']['Valor'];
+                    $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Factor2'] = array();
+                    $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Factor2']['Titulo'] = $terrenoDirecto['Factor2']['Siglas'];
+                    $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Factor2']['Valor'] = $terrenoDirecto['Factor2']['Valor'];
+                    $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Factor3'] = array();
+                    $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Factor3']['Titulo'] = $terrenoDirecto['Factor3']['Siglas'];
+                    $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Factor3']['Valor'] = $terrenoDirecto['Factor3']['Valor'];
+                    $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Factor4'] = array();
+                    $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Factor4']['Titulo'] = $terrenoDirecto['Factor4']['Siglas'];
+                    $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Factor4']['Valor'] = $terrenoDirecto['Factor4']['Valor'];
+                    $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Factor5'] = array();
+                    $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Factor5']['Titulo'] = $terrenoDirecto['Factor5']['Siglas'];
+                    $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Factor5']['Valor'] = $terrenoDirecto['Factor5']['Valor'];
                     /*if(isset($terrenoDirecto['Fot'])){
                         $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['F_otro'] = $terrenoDirecto['Fot']['Valor'];                    
                     }else{
@@ -2773,11 +2803,21 @@ class ReimpresionNuevo
 
                     $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['F_Negociacion'] = $terrenosDirectos['FactorDeNegociacion'];
                     $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Superficie'] = $terrenosDirectos['Superficie'];
-                    $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Factor1'] = $terrenosDirectos['Factor1']['Valor'];
-                    $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Factor2'] = $terrenosDirectos['Factor2']['Valor'];;
-                    $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Factor3'] = $terrenosDirectos['Factor3']['Valor'];;
-                    $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Factor4'] = $terrenosDirectos['Factor4']['Valor'];;
-                    $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Factor5'] = $terrenosDirectos['Factor5']['Valor'];;
+                    $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Factor1'] = array();
+                    $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Factor1']['Titulo'] = $terrenosDirectos['Factor1']['Siglas'];
+                    $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Factor1']['Valor'] = $terrenosDirectos['Factor1']['Valor'];
+                    $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Factor2'] = array();
+                    $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Factor2']['Titulo'] = $terrenosDirectos['Factor2']['Siglas'];
+                    $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Factor2']['Valor'] = $terrenosDirectos['Factor2']['Valor'];
+                    $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Factor3'] = array();
+                    $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Factor3']['Titulo'] = $terrenosDirectos['Factor3']['Siglas'];
+                    $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Factor3']['Valor'] = $terrenosDirectos['Factor3']['Valor'];
+                    $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Factor4'] = array();
+                    $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Factor4']['Titulo'] = $terrenosDirectos['Factor4']['Siglas'];
+                    $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Factor4']['Valor'] = $terrenosDirectos['Factor4']['Valor'];
+                    $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Factor5'] = array();
+                    $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Factor5']['Titulo'] = $terrenosDirectos['Factor5']['Siglas'];
+                    $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['Factor5']['Valor'] = $terrenosDirectos['Factor5']['Valor'];
                     /*if(isset($terrenoDirecto['Fot'])){
                         $infoReimpresion['Terrenos']['Terrenos_Directos']['TablaDos'][$control]['F_otro'] = $terrenoDirecto['Fot']['Valor'];                    
                     }else{
@@ -2977,19 +3017,29 @@ class ReimpresionNuevo
                 $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Clave_Area_Valor'] = $supDelTerreno['ClaveDeAreaDeValor'];
                 $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Superficie_m2'] = $supDelTerreno['SuperficieFraccionN1'];
                 if(isset($supDelTerreno['Factor1'])){
-                    $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Factor1'] = $supDelTerreno['Factor1']['Valor'];
+                    $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Factor1'] = array();
+                    $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Factor1']['Titulo'] = $supDelTerreno['Factor1']['Siglas'];
+                    $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Factor1']['Valor'] = $supDelTerreno['Factor1']['Valor'];
                 }        
                 if(isset($supDelTerreno['Factor2'])){
-                    $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Factor2'] = $supDelTerreno['Factor2']['Valor'];
+                    $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Factor2'] = array();
+                    $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Factor2']['Titulo'] = $supDelTerreno['Factor2']['Siglas'];
+                    $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Factor2']['Valor'] = $supDelTerreno['Factor2']['Valor'];
                 }
                 if(isset($supDelTerreno['Factor3'])){
-                    $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Factor3'] = $supDelTerreno['Factor3']['Valor'];
+                    $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Factor3'] = array();
+                    $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Factor3']['Titulo'] = $supDelTerreno['Factor3']['Siglas'];
+                    $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Factor3']['Valor'] = $supDelTerreno['Factor3']['Valor'];
                 }
                 if(isset($supDelTerreno['Factor4'])){
-                    $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Factor4'] = $supDelTerreno['Factor4']['Valor'];
+                    $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Factor4'] = array();
+                    $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Factor4']['Titulo'] = $supDelTerreno['Factor4']['Siglas'];
+                    $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Factor4']['Valor'] = $supDelTerreno['Factor4']['Valor'];
                 }
                 if(isset($supDelTerreno['Factor5'])){
-                    $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Factor5'] = $supDelTerreno['Factor5']['Valor'];            
+                    $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Factor5'] = array();
+                    $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Factor5']['Titulo'] = $supDelTerreno['Factor5']['Siglas'];            
+                    $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Factor5']['Valor'] = $supDelTerreno['Factor5']['Valor'];
                 }
                 /*if(isset($superficieDelTerreno['Fot'])){
                     $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Fot'] = $superficieDelTerreno['Fot']['Valor'] === '1' ? $superficieDelTerreno['Fot']['Valor'].".00"." ".$superficieDelTerreno['Fot']['Descripcion'] : $superficieDelTerreno['Fot']['Valor']." ".$superficieDelTerreno['Fot']['Descripcion'];
@@ -3011,19 +3061,29 @@ class ReimpresionNuevo
             $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Clave_Area_Valor'] = $superficieDelTerreno['ClaveDeAreaDeValor'];
             $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Superficie_m2'] = $superficieDelTerreno['SuperficieFraccionN1'];
             if(isset($superficieDelTerreno['Factor1'])){
-                $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Factor1'] = $superficieDelTerreno['Factor1']['Valor'];
+                $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Factor1'] = array();
+                $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Factor1']['Titulo'] = $superficieDelTerreno['Factor1']['Siglas'];
+                $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Factor1']['Valor'] = $superficieDelTerreno['Factor1']['Valor'];
             }        
             if(isset($superficieDelTerreno['Factor2'])){
-                $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Factor2'] = $superficieDelTerreno['Factor2']['Valor'];
+                $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Factor2'] = array();
+                $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Factor2']['Titulo'] = $superficieDelTerreno['Factor2']['Siglas'];
+                $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Factor2']['Valor'] = $superficieDelTerreno['Factor2']['Valor'];
             }
             if(isset($superficieDelTerreno['Factor3'])){
-                $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Factor3'] = $superficieDelTerreno['Factor3']['Valor'];
+                $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Factor3'] = array();
+                $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Factor3']['Titulo'] = $superficieDelTerreno['Factor3']['Siglas'];
+                $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Factor3']['Valor'] = $superficieDelTerreno['Factor3']['Valor'];
             }
             if(isset($superficieDelTerreno['Factor4'])){
-                $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Factor4'] = $superficieDelTerreno['Factor4']['Valor'];
+                $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Factor4'] = array();
+                $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Factor4']['Titulo'] = $superficieDelTerreno['Factor4']['Siglas'];
+                $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Factor4']['Valor'] = $superficieDelTerreno['Factor4']['Valor'];
             }
             if(isset($superficieDelTerreno['Factor5'])){
-                $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Factor5'] = $superficieDelTerreno['Factor5']['Valor'];            
+                $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Factor5'] = array();
+                $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Factor5']['Titulo'] = $superficieDelTerreno['Factor5']['Siglas'];
+                $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Factor5']['Valor'] = $superficieDelTerreno['Factor5']['Valor'];            
             }
             /*if(isset($superficieDelTerreno['Fot'])){
                 $infoReimpresion['Calculo_Del_Valor_Del_Terreno']['Fot'] = $superficieDelTerreno['Fot']['Valor'] === '1' ? $superficieDelTerreno['Fot']['Valor'].".00"." ".$superficieDelTerreno['Fot']['Descripcion'] : $superficieDelTerreno['Fot']['Valor']." ".$superficieDelTerreno['Fot']['Descripcion'];
