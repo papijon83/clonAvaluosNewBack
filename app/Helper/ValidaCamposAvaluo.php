@@ -1762,7 +1762,7 @@ function valida_Calculos_eV($data, $dataextra = false, $dataextrados = false, $b
         }
 
         $e_2_3 = $data[0]['TiposDeConstruccion']['ValorTotalDeConstruccionesPrivativas'];
-        if(truncate($sumatoria_e_2_1_n_15,2) != truncate($e_2_3,2)){ error_log(truncate($sumatoria_e_2_1_n_15,2)." != ".truncate($e_2_3,2));
+        if(truncate($sumatoria_e_2_1_n_15,2) != truncate($e_2_3,2)){ //error_log(truncate($sumatoria_e_2_1_n_15,2)." != ".truncate($e_2_3,2));
             $mensajese[] =  "e.2.3 - El cálculo de ValorTotalDeConstruccionesPrivativas es erróneo ";
         }
         /************************************************************************************************************************************************/
@@ -1802,7 +1802,7 @@ function valida_Calculos_eV($data, $dataextra = false, $dataextrados = false, $b
                     if(isset($elemento['FactorResultante'])){
                         $e_2_5_n_14 = $elemento['FactorResultante'];
                         $e_2_5_n_10 = $elemento['ClaveConservacion'];
-                        $calc_e_2_5_n_14 = $e_2_5_n_13 * $e_2_5_n_10; error_log(truncate($e_2_5_n_14,2)." != ".truncate($calc_e_2_5_n_14,2));
+                        $calc_e_2_5_n_14 = $e_2_5_n_13 * $e_2_5_n_10; //error_log(truncate($e_2_5_n_14,2)." != ".truncate($calc_e_2_5_n_14,2));
                         if(truncate($e_2_5_n_14,2) != truncate($calc_e_2_5_n_14,2)){
                             $mensajese[] =  "e.2.5.n.14 - El cálculo de FactorResultante es erróneo ";
                         }
@@ -2703,7 +2703,7 @@ function valida_Calculos_iV($data,$letra, $datad13, $datae2, $dataf12, $dataf14)
     $i_6 = $data[0]['ImporteTotalDelEnfoqueDeCostos'];
     $calc_i_6 = $d_13 + $e_2_3 + $e_2_8 + $f_12 + $f_14;
 
-    if((String)(truncate($i_6,2)) != (String)(truncate($calc_i_6,2))){ error_log(truncate($i_6,2)." != ".truncate($calc_i_6,2));
+    if((String)(truncate($i_6,2)) != (String)(truncate($calc_i_6,2))){ //error_log(truncate($i_6,2)." != ".truncate($calc_i_6,2));
         return  "i.6 - El cálculo de ImporteTotalDelEnfoqueDeCostos es erróneo ";
     }
 
@@ -2746,7 +2746,7 @@ function valida_Calculos_jV($data, $letra, $datae23, $datae27, $datab6, $datad6,
         $calc_j_5 = $d_13 + $e_2_3 + $e_2_7 + $j_4;
     }
 
-    if(truncate($j_5,2) !== truncate($calc_j_5,2)){ echo "OPERACION ".truncate($j_5,2)." != ".truncate($calc_j_5,2)."\n";
+    if(truncate($j_5,2) !== truncate($calc_j_5,2)){ //echo "OPERACION ".truncate($j_5,2)." != ".truncate($calc_j_5,2)."\n";
         $mensajesj[] =  "j.5 - El cálculo de ImporteTotalValorCatastral es erróneo ";
     }
     
