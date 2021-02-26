@@ -2145,7 +2145,7 @@ function valida_CalculosV($data, $letra, $dataextra = false, $dataextrados = fal
                         if(isset($elemento['id']) && $elemento['id'] == 'f.9.2'){
                             $f_9_2_n_8 = $data[0]['InstalacionesEspeciales']['Comunes']['FactorDeEdadInstalacionEspecial'];
                             $calc_f_9_2_n_8 = 1-($data[0]['InstalacionesEspeciales']['Comunes']['EdadInstalacionEspecial'] / $data[0]['InstalacionesEspeciales']['Comunes']['VidaUtilTotalInstalacionEspecial']);
-                            if(truncate($calc_f_9_2_n_8,2) != truncate($f_9_2_n_8,2)){ echo truncate($calc_f_9_2_n_8,2)." != ".truncate($f_9_2_n_8,2)."\n";
+                            if(truncate($calc_f_9_2_n_8,2) != truncate($f_9_2_n_8,2)){ //echo truncate($calc_f_9_2_n_8,2)." != ".truncate($f_9_2_n_8,2)."\n";
                                 $mensajesf[] =  "f.9.2.n.8 - El cálculo de FactorDeEdadInstalacionEspecial es erróneo ";
                             }
                             
