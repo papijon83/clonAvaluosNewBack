@@ -2891,9 +2891,11 @@ class BandejaEntradaNuevoController extends Controller
                                 $periodo = 1;
     
                                 $descripcion = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.1']]);                        
+                                
                                 $fechaCarbon = new Carbon($fechaAvaluo);
-                                //$anioValorUnitario = $fechaCarbon->Year; echo "EL AÑO PARA VALOR UNITARIO ".$anioValorUnitario; exit();
-                                $infoValorUnitarioConstruccion = $this->modelFis->getDataByObtenerValorUnitarioConstruccion($codUso,$codClase,$codRangoNiveles,$numeroNiveles,$periodo);                            
+                                $anioValorUnitario = Carbon::parse($fechaCarbon)->format('Y');
+                                              
+                                $infoValorUnitarioConstruccion = $this->modelFis->getDataByObtenerValorUnitarioConstruccion($codUso,$codClase,$codRangoNiveles,$numeroNiveles,$anioValorUnitario,$periodo);                            
                                 //echo $valorUnitarioCatastral." != ".$infoValorUnitarioConstruccion." && ".$valorUnitarioCatastral." != ".($infoValorUnitarioConstruccion + 0.01)." && ".$valorUnitarioCatastral." != ".($infoValorUnitarioConstruccion - 0.01); exit();
                                 if($valorUnitarioCatastral != $infoValorUnitarioConstruccion && $valorUnitarioCatastral != ($infoValorUnitarioConstruccion + 0.01) && $valorUnitarioCatastral != ($infoValorUnitarioConstruccion - 0.01)){
                                     $camposFexavaAvaluo['ERRORES'][] = array("e.2.1.n.16 - El valor unitario de construcción no es correcto para: Uso: ".$codUso.", Rango niveles: ".$codRangoNiveles.", Clase:  ".$codClase.", descripción: ".$descripcion.". El valor ESPERADO es: ".$infoValorUnitarioConstruccion);
@@ -3301,9 +3303,11 @@ class BandejaEntradaNuevoController extends Controller
                                 $periodo = 1;
     
                                 $descripcion = (String)($arrConstruccionesPrivativas['arrElementos'][$i][$arrConstruccionesPrivativas['arrIds'][$i]['e.2.1.n.1']]);                        
+                                
                                 $fechaCarbon = new Carbon($fechaAvaluo);
-                                //$anioValorUnitario = $fechaCarbon->Year; echo "EL AÑO PARA VALOR UNITARIO ".$anioValorUnitario; exit();
-                                $infoValorUnitarioConstruccion = $this->modelFis->getDataByObtenerValorUnitarioConstruccion($codUso,$codClase,$codRangoNiveles,$numeroNiveles,$periodo);                            
+                                $anioValorUnitario = Carbon::parse($fechaCarbon)->format('Y');
+                                                                
+                                $infoValorUnitarioConstruccion = $this->modelFis->getDataByObtenerValorUnitarioConstruccion($codUso,$codClase,$codRangoNiveles,$numeroNiveles,$anioValorUnitario,$periodo);                            
                                 //echo $valorUnitarioCatastral." != ".$infoValorUnitarioConstruccion." && ".$valorUnitarioCatastral." != ".($infoValorUnitarioConstruccion + 0.01)." && ".$valorUnitarioCatastral." != ".($infoValorUnitarioConstruccion - 0.01); exit();
                                 if($valorUnitarioCatastral != $infoValorUnitarioConstruccion && $valorUnitarioCatastral != ($infoValorUnitarioConstruccion + 0.01) && $valorUnitarioCatastral != ($infoValorUnitarioConstruccion - 0.01)){
                                     $camposFexavaAvaluo['ERRORES'][] = array("e.2.1.n.16 - El valor unitario de construcción no es correcto para: Uso: ".$codUso.", Rango niveles: ".$codRangoNiveles.", Clase:  ".$codClase.", descripción: ".$descripcion.". El valor ESPERADO es: ".$infoValorUnitarioConstruccion);

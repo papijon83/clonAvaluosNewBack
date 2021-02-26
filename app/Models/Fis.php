@@ -8,10 +8,10 @@ use Log;
 class Fis
 {
 
-    public function getDataByObtenerValorUnitarioConstruccion($codUso,$codClase,$codRangoNiveles,$numeroNiveles,$periodo){
+    public function getDataByObtenerValorUnitarioConstruccion($codUso,$codClase,$codRangoNiveles,$numeroNiveles,$anio,$periodo){
         
         try{
-            $anio = date('Y');
+            //$anio = date('Y');
             $valUno = '1';
             $procedure = 'BEGIN
             FIS.FIS_VUC_PKG.fis_select_valorunitario_p(
