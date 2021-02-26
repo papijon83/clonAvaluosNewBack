@@ -102,11 +102,14 @@ class BandejaEntradaNuevoController extends Controller
                 if(isset($vigencia) &&  $vigencia == 2){
                     $year = Carbon::today()->subYear();
                     if(isset($fi) && $year->lt($fi)){
+                        $ff = $ff->addDays(1);
                         $table->whereBetween('FEXAVA_AVALUO.fecha_presentacion', [$fi->format('Y-m-d'), $ff->format('Y-m-d')]);
                     }else{
+                        $year = $year->addDays(1);
                         $table->whereBetween('FEXAVA_AVALUO.fecha_presentacion', [$fi->format('Y-m-d'), $year->format('Y-m-d')]);
                     }
                 }else{
+                    $ff = $ff->addDays(1);
                     $table->whereBetween('FEXAVA_AVALUO.fecha_presentacion', [$fi->format('Y-m-d'), $ff->format('Y-m-d')]);  
                 }                
                 
@@ -284,11 +287,14 @@ class BandejaEntradaNuevoController extends Controller
                 if(isset($vigencia) &&  $vigencia == 2){
                     $year = Carbon::today()->subYear();
                     if(isset($fi) && $year->lt($fi)){
+                        $ff = $ff->addDays(1);
                         $table->whereBetween('FEXAVA_AVALUO.fecha_presentacion', [$fi->format('Y-m-d'), $ff->format('Y-m-d')]);
                     }else{
+                        $year = $year->addDays(1);
                         $table->whereBetween('FEXAVA_AVALUO.fecha_presentacion', [$fi->format('Y-m-d'), $year->format('Y-m-d')]);
                     }
                 }else{
+                    $ff = $ff->addDays(1);
                     $table->whereBetween('FEXAVA_AVALUO.fecha_presentacion', [$fi->format('Y-m-d'), $ff->format('Y-m-d')]);  
                 }                
                 
@@ -322,7 +328,7 @@ class BandejaEntradaNuevoController extends Controller
                     if ($idSociedad) {
                         $table->where('FEXAVA_AVALUO.idpersonasociedad', $idSociedad);
                     }
-                    $table->orWhere('FEXAVA_AVALUO.fecha_presentacion','>',$year->format('Y-m-d'));
+                    $table->orWhere('FEXAVAA_AVALUO.fecha_presentacion','>',$year->format('Y-m-d'));
                     $table->where('FEXAVA_AVALUO.fecha_presentacion','<=',$ff->format('Y-m-d'));
                     $table->where('FEXAVA_AVALUO.codestadoavaluo',2);
                 }else{                                      

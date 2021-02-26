@@ -2405,11 +2405,20 @@
       <xs:element name="PropositoDelAvaluo">
         <xs:complexType>
             <xs:sequence>
-                <xs:element>
+                <xs:element name='Codigo' minOccurs="1" maxOccurs="1">
                     <xs:complexType>
                         <xs:simpleContent>
-                            <xs:extension base="catPropositoDelAvaluo">
+                            <xs:extension base="Cat-PropositoAvaluo">
                                 <xs:attribute fixed="b.4.1" name="id" type="xs:string" use="required" />
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name='Otro' minOccurs="0" maxOccurs="1">
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="xs:string">
+                                <xs:attribute fixed="b.4.2" name="id" type="xs:string" use="required" />
                             </xs:extension>
                         </xs:simpleContent>
                     </xs:complexType>
