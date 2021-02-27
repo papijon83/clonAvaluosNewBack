@@ -1879,7 +1879,7 @@ class ReimpresionNuevo
         foreach($fotosInmuebleAvaluo as $fotoInmuebleAvaluo){
             $foto = $this->modelDocumentos->get_fichero_foto($fotoInmuebleAvaluo['Foto']);           
             //$infoReimpresion['Inmueble_Objeto_Avaluo'][$control]['Foto'] = $foto == base64_encode(base64_decode($foto)) ? $foto : base64_encode($foto);
-            $infoReimpresion['Inmueble_Objeto_Avaluo'][$control]['Foto'] = $foto;
+            $infoReimpresion['Inmueble_Objeto_Avaluo'][$control]['Foto'] = substr($foto,0,4) == '/9j/' ? $foto : base64_encode($foto);
             $infoReimpresion['Inmueble_Objeto_Avaluo'][$control]['Cuenta_Catastral'] = $cuentaAvaluo;
             $infoReimpresion['Inmueble_Objeto_Avaluo'][$control]['Interior_O_Exterior'] = $fotoInmuebleAvaluo['InteriorOExterior'];
             $control = $control + 1;
@@ -1896,7 +1896,7 @@ class ReimpresionNuevo
                         foreach($fotoVenta['FotosInmuebleAvaluo'] as $fVenta){
                             $foto = $this->modelDocumentos->get_fichero_foto($fVenta['Foto']);
                             //$infoReimpresion['Inmueble_Venta'][$control]['Foto'] = $foto == base64_encode(base64_decode($foto)) ? $foto : base64_encode($foto);
-                            $infoReimpresion['Inmueble_Venta'][$control]['Foto'] = $foto;
+                            $infoReimpresion['Inmueble_Venta'][$control]['Foto'] = substr($foto,0,4) == '/9j/' ? $foto : base64_encode($foto);
                             if(isset($fVenta['CuentaCatastral'])){
                                 $infoReimpresion['Inmueble_Venta'][$control]['Cuenta_Catastral'] = $fVenta['CuentaCatastral']['Region']."-".$fVenta['CuentaCatastral']['Manzana']."-".$fVenta['CuentaCatastral']['Lote']."-".$fVenta['CuentaCatastral']['Localidad'];
                             }else{
@@ -1908,7 +1908,7 @@ class ReimpresionNuevo
                     }else{
                         $foto = $this->modelDocumentos->get_fichero_foto($fotoVenta['FotosInmuebleAvaluo']['Foto']);
                         //$infoReimpresion['Inmueble_Venta'][$control]['Foto'] = $foto == base64_encode(base64_decode($foto)) ? $foto : base64_encode($foto);
-                        $infoReimpresion['Inmueble_Venta'][$control]['Foto'] = $foto;
+                        $infoReimpresion['Inmueble_Venta'][$control]['Foto'] = substr($foto,0,4) == '/9j/' ? $foto : base64_encode($foto);
                         if(isset($fotoVenta['CuentaCatastral'])){
                             $infoReimpresion['Inmueble_Venta'][$control]['Cuenta_Catastral'] = $fotoVenta['CuentaCatastral']['Region']."-".$fotoVenta['CuentaCatastral']['Manzana']."-".$fotoVenta['CuentaCatastral']['Lote']."-".$fotoVenta['CuentaCatastral']['Localidad'];
                         }else{
@@ -1922,7 +1922,7 @@ class ReimpresionNuevo
             }else{
                 $foto = $this->modelDocumentos->get_fichero_foto($fotosVenta['FotosInmuebleAvaluo']['Foto']);
                 //$infoReimpresion['Inmueble_Venta'][0]['Foto'] = $foto == base64_encode(base64_decode($foto)) ? $foto : base64_encode($foto);
-                $infoReimpresion['Inmueble_Venta'][0]['Foto'] = $foto;
+                $infoReimpresion['Inmueble_Venta'][0]['Foto'] = substr($foto,0,4) == '/9j/' ? $foto : base64_encode($foto);
                 if(isset($fotosVenta['CuentaCatastral'])){
                     $infoReimpresion['Inmueble_Venta'][0]['Cuenta_Catastral'] = $fotosVenta['CuentaCatastral']['Region']."-".$fotosVenta['CuentaCatastral']['Manzana']."-".$fotosVenta['CuentaCatastral']['Lote']."-".$fotosVenta['CuentaCatastral']['Localidad'];
                 }else{
@@ -1944,7 +1944,7 @@ class ReimpresionNuevo
                             foreach($fotoRenta['FotosInmuebleAvaluo'] as $fRenta){
                                 $foto = $this->modelDocumentos->get_fichero_foto($fRenta['Foto']);
                                 //$infoReimpresion['Inmueble_Renta'][$control]['Foto'] = $foto == base64_encode(base64_decode($foto)) ? $foto : base64_encode($foto);
-                                $infoReimpresion['Inmueble_Renta'][$control]['Foto'] = $foto;
+                                $infoReimpresion['Inmueble_Renta'][$control]['Foto'] = substr($foto,0,4) == '/9j/' ? $foto : base64_encode($foto);
                                 if(isset($fRenta['CuentaCatastral'])){
                                     $infoReimpresion['Inmueble_Renta'][$control]['Cuenta_Catastral'] = $fRenta['CuentaCatastral']['Region']."-".$fRenta['CuentaCatastral']['Manzana']."-".$fRenta['CuentaCatastral']['Lote']."-".$fRenta['CuentaCatastral']['Localidad'];
                                 }else{
@@ -1957,7 +1957,7 @@ class ReimpresionNuevo
                         }else{
                             $foto = $this->modelDocumentos->get_fichero_foto($fotoRenta['FotosInmuebleAvaluo']['Foto']);
                             //$infoReimpresion['Inmueble_Renta'][$control]['Foto'] = $foto == base64_encode(base64_decode($foto)) ? $foto : base64_encode($foto);
-                            $infoReimpresion['Inmueble_Renta'][$control]['Foto'] = $foto;
+                            $infoReimpresion['Inmueble_Renta'][$control]['Foto'] = substr($foto,0,4) == '/9j/' ? $foto : base64_encode($foto);
                             if(isset($fotoRenta['CuentaCatastral'])){
                                 $infoReimpresion['Inmueble_Renta'][$control]['Cuenta_Catastral'] = $fotoRenta['CuentaCatastral']['Region']."-".$fotoRenta['CuentaCatastral']['Manzana']."-".$fotoRenta['CuentaCatastral']['Lote']."-".$fotoRenta['CuentaCatastral']['Localidad'];
                             }else{
@@ -1972,7 +1972,7 @@ class ReimpresionNuevo
                 }else{
                     $foto = $this->modelDocumentos->get_fichero_foto($fotosRenta['FotosInmuebleAvaluo']['Foto']);
                     //$infoReimpresion['Inmueble_Renta'][0]['Foto'] = $foto == base64_encode(base64_decode($foto)) ? $foto : base64_encode($foto);
-                    $infoReimpresion['Inmueble_Renta'][0]['Foto'] = $foto;
+                    $infoReimpresion['Inmueble_Renta'][0]['Foto'] = substr($foto,0,4) == '/9j/' ? $foto : base64_encode($foto);
                     if(isset($fotosRenta['CuentaCatastral'])){
                         $infoReimpresion['Inmueble_Renta'][0]['Cuenta_Catastral'] = $fotosRenta['CuentaCatastral']['Region']."-".$fotosRenta['CuentaCatastral']['Manzana']."-".$fotosRenta['CuentaCatastral']['Lote']."-".$fotosRenta['CuentaCatastral']['Localidad'];
                     }else{
