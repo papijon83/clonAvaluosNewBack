@@ -5940,12 +5940,12 @@ class BandejaEntradaNuevoController extends Controller
             }else{
                 $formato = view('justificante_com', compact("infoAvaluo"))->render();
             }
-            // $pdf = PDF::loadHTML($formato);
-            // $pdf->setOptions(['chroot' => 'public']);
-            // Storage::put('formato.pdf', $pdf->output());
-            // return response()->json(['pdfbase64' => base64_encode(Storage::get('formato.pdf')), 'nombre' =>  $numero_unico . '.pdf'], 200);
+            $pdf = PDF::loadHTML($formato);
+            $pdf->setOptions(['chroot' => 'public']);
+            Storage::put('formato.pdf', $pdf->output());
+            return response()->json(['pdfbase64' => base64_encode(Storage::get('formato.pdf')), 'nombre' =>  $numero_unico . '.pdf'], 200);
             
-            print_r($infoAvaluo);
+            //print_r($infoAvaluo);
 
             /* $this->modelDocumentos = new Documentos();    //echo $numero_unico; exit();         
             $id_avaluo = $this->modelDocumentos->get_idavaluo_db($numero_unico);    
@@ -5979,12 +5979,12 @@ class BandejaEntradaNuevoController extends Controller
             }else{
                 $formato = view('justificanteNew_com', compact("infoAvaluo"))->render();
             }
-            // $pdf = PDF::loadHTML($formato);
-            // $pdf->setOptions(['chroot' => 'public']);
-            // Storage::put('formato.pdf', $pdf->output());
-            // return response()->json(['pdfbase64' => base64_encode(Storage::get('formato.pdf')), 'nombre' =>  $numero_unico . '.pdf'], 200);
+            $pdf = PDF::loadHTML($formato);
+            $pdf->setOptions(['chroot' => 'public']);
+            Storage::put('formato.pdf', $pdf->output());
+            return response()->json(['pdfbase64' => base64_encode(Storage::get('formato.pdf')), 'nombre' =>  $numero_unico . '.pdf'], 200);
             
-            print_r($infoAvaluo);
+            //print_r($infoAvaluo);
 
             /*$this->modelDocumentos = new Documentos();    //echo $numero_unico; exit();         
             $id_avaluo = $this->modelDocumentos->get_idavaluo_db($numero_unico);    
