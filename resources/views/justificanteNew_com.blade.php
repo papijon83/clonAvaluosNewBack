@@ -2152,7 +2152,7 @@
 
                 <p class="letras_pequenas">
                     @isset($infoAvaluo['Consideraciones_Previas_Al_Avaluo'])
-                        <span class="grises">{{$infoAvaluo['Consideraciones_Previas_Al_Avaluo']}}</span>
+                        <span class="grises">{!!$infoAvaluo['Consideraciones_Previas_Al_Avaluo']!!}</span>
                     @endisset
                 </p>
 
