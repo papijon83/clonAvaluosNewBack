@@ -86,6 +86,9 @@ class FormatosController extends Controller
             $data = $this->acuseAvaluoSV($request->input('no_unico'));  //print_r($data); exit();
             //$data = json_decode($dataJson); print_r($data); exit();
             //$data = decrypt($token);
+            if($data == "INE"){
+                return response()->json(['mensaje' => 'Información no encontrada'], 500);
+            }
             $no_unico = $request->input('no_unico');
 
             $datosPDF = [];
@@ -147,6 +150,10 @@ class FormatosController extends Controller
             $infoAcuse = $this->modelReimpresionNuevo->infoAcuse($id_avaluo);
             //$token_infoAcuse = Crypt::encrypt($infoAcuse); 
             //return response()->json([$infoAcuse, $token_infoAcuse], 200);
+            if(count($infoAcuse)){
+                return "INE";
+            } 
+            //error_log(json_encode($infoAcuse));
             return $infoAcuse;
         }catch (\Throwable $th) {
             //Log::info($th);
