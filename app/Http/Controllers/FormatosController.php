@@ -150,10 +150,10 @@ class FormatosController extends Controller
             $infoAcuse = $this->modelReimpresionNuevo->infoAcuse($id_avaluo);
             //$token_infoAcuse = Crypt::encrypt($infoAcuse); 
             //return response()->json([$infoAcuse, $token_infoAcuse], 200);
-            if(count($infoAcuse)){
+            if(count($infoAcuse) == 0){
                 return "INE";
             } 
-            //error_log(json_encode($infoAcuse));
+            Log::info(json_encode($infoAcuse));
             return $infoAcuse;
         }catch (\Throwable $th) {
             //Log::info($th);
