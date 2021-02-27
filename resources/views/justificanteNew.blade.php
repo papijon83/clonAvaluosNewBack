@@ -836,8 +836,6 @@
                                     <th>Clase</th>
                                     <th>Edad</th>
                                     <th>Vida Útil Total Del Tipo</th>
-                                    <th>Vida Útil Remanente</th>
-                                    <th>Conservación</th>
                                     <th>Sup.</th>
                                 </tr>
                             </thead>
@@ -889,16 +887,6 @@
                                         <td class="centrado">
                                         @isset($value_construccionesP['Vida_Util_Total_Tipo'])
                                             <span class="grises">{{$value_construccionesP['Vida_Util_Total_Tipo']}}</span>
-                                        @endisset
-                                        </td>
-                                        <td class="centrado">
-                                        @isset($value_construccionesP['Vida_Util_Remanente'])
-                                            <span class="grises">{{$value_construccionesP['Vida_Util_Remanente']}}</span>
-                                        @endisset
-                                        </td>
-                                        <td class="centrado">
-                                        @isset($value_construccionesP['Conservacion'])
-                                            <span class="grises">{{$value_construccionesP['Conservacion']}}</span>
                                         @endisset
                                         </td>
                                         <td class="centrado">
@@ -954,16 +942,6 @@
                                         @endisset
                                         </td>
                                         <td class="centrado">
-                                        @isset($infoAvaluo['Construcciones_Privativas']['Vida_Util_Remanente'])
-                                            <span class="grises">{{$infoAvaluo['Construcciones_Privativas']['Vida_Util_Remanente']}}</span>
-                                        @endisset
-                                        </td>
-                                        <td class="centrado">
-                                        @isset($infoAvaluo['Construcciones_Privativas']['Conservacion'])
-                                            <span class="grises">{{$infoAvaluo['Construcciones_Privativas']['Conservacion']}}</span>
-                                        @endisset
-                                        </td>
-                                        <td class="centrado">
                                         @isset($infoAvaluo['Construcciones_Privativas']['Sup'])
                                             <span class="grises">{{number_format($infoAvaluo['Construcciones_Privativas']['Sup'],2)}}</span>
                                         @endisset
@@ -988,8 +966,6 @@
                                     <th>Clase</th>
                                     <th>Edad</th>
                                     <th>Vida Útil Total Del Tipo</th>
-                                    <th>Vida Útil Remanente</th>
-                                    <th>Conservación</th>
                                     <th>Sup.</th>
                                 </tr>
                             </thead>
@@ -1044,16 +1020,6 @@
                                         @endisset
                                         </td>
                                         <td class="centrado">
-                                        @isset($value_construccionesC['Vida_Util_Remanente'])
-                                            <span class="grises">{{$value_construccionesC['Vida_Util_Remanente']}}</span>
-                                        @endisset
-                                        </td>
-                                        <td class="centrado">
-                                        @isset($value_construccionesC['Conservacion'])
-                                            <span class="grises">{{$value_construccionesC['Conservacion']}}</span>
-                                        @endisset
-                                        </td>
-                                        <td class="centrado">
                                         @isset($value_construccionesC['Sup'])
                                             <span class="grises">{{$value_construccionesC['Sup']}}</span>
                                         @endisset
@@ -1105,16 +1071,6 @@
                                     <td class="centrado">
                                     @isset($infoAvaluo['Construcciones_Comunes']['Vida_Util_Total_Tipo'])
                                         <span class="grises">{{$infoAvaluo['Construcciones_Comunes']['Vida_Util_Total_Tipo']}}</span>
-                                    @endisset
-                                    </td>
-                                    <td class="centrado">
-                                    @isset($infoAvaluo['Construcciones_Comunes']['Vida_Util_Remanente'])
-                                        <span class="grises">{{$infoAvaluo['Construcciones_Comunes']['Vida_Util_Remanente']}}</span>
-                                    @endisset
-                                    </td>
-                                    <td class="centrado">
-                                    @isset($infoAvaluo['Construcciones_Comunes']['Conservacion'])
-                                        <span class="grises">{{$infoAvaluo['Construcciones_Comunes']['Conservacion']}}</span>
                                     @endisset
                                     </td>
                                     <td class="centrado">
