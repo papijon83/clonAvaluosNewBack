@@ -1983,7 +1983,7 @@ class ReimpresionNuevo
                 
             }
         }  catch (\Throwable $th) {
-            //Log::info($th);
+            Log::info($th);
             error_log($th);
             return response()->json(['mensaje' => 'Error al obtener Información del avalúo'], 500);
         }//exit();      
@@ -3665,7 +3665,7 @@ class ReimpresionNuevo
             }
             }
         }  catch (\Throwable $th) {
-            //Log::info($th);
+            Log::info($th);
             error_log($th);
             return response()->json(['mensaje' => 'Error al obtener Información del avalúo'], 500);
         }//exit();      
