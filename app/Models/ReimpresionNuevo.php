@@ -3479,11 +3479,34 @@ class ReimpresionNuevo
                 if(is_array($consideraciones['ConsideracionesPreviasAlAvaluo']['Consideraciones'])){
 
                 }else{
-                    $infoReimpresion['Consideraciones_Previas_Al_Avaluo'] = $consideraciones['ConsideracionesPreviasAlAvaluo']['Consideraciones']."<br><br>".
+                    $infoReimpresion['Consideraciones_Previas_Al_Avaluo'] = '';
+
+                    if(isset($consideraciones['ConsideracionesPreviasAlAvaluo']['Consideraciones']) && !is_array($consideraciones['ConsideracionesPreviasAlAvaluo']['Consideraciones'])){
+                        $infoReimpresion['Consideraciones_Previas_Al_Avaluo'] = $infoReimpresion['Consideraciones_Previas_Al_Avaluo'].$consideraciones['ConsideracionesPreviasAlAvaluo']['Consideraciones'];
+                    }
+
+                    if(isset($consideraciones['ConsideracionesPreviasAlAvaluo']['MemoriaTecnicaExposicionDeMotivos']) && !is_array($consideraciones['ConsideracionesPreviasAlAvaluo']['MemoriaTecnicaExposicionDeMotivos'])){
+                        $infoReimpresion['Consideraciones_Previas_Al_Avaluo'] = $infoReimpresion['Consideraciones_Previas_Al_Avaluo']."<br><br>".$consideraciones['ConsideracionesPreviasAlAvaluo']['MemoriaTecnicaExposicionDeMotivos'];
+                    }
+
+                    if(isset($consideraciones['ConsideracionesPreviasAlAvaluo']['MemoriaTecnicaDesgloceDeInformacion']) && !is_array($consideraciones['ConsideracionesPreviasAlAvaluo']['MemoriaTecnicaDesgloceDeInformacion'])){
+                        $infoReimpresion['Consideraciones_Previas_Al_Avaluo'] = $infoReimpresion['Consideraciones_Previas_Al_Avaluo']."<br><br>".$consideraciones['ConsideracionesPreviasAlAvaluo']['MemoriaTecnicaDesgloceDeInformacion'];
+                    }
+
+                    if(isset($consideraciones['ConsideracionesPreviasAlAvaluo']['MemoriaTecnicaDescripcionDeCalculosRealizados']) && !is_array($consideraciones['ConsideracionesPreviasAlAvaluo']['MemoriaTecnicaDescripcionDeCalculosRealizados'])){
+                        $infoReimpresion['Consideraciones_Previas_Al_Avaluo'] = $infoReimpresion['Consideraciones_Previas_Al_Avaluo']."<br><br>".$consideraciones['ConsideracionesPreviasAlAvaluo']['MemoriaTecnicaDescripcionDeCalculosRealizados'];
+                    }
+
+                    if(isset($consideraciones['ConsideracionesPreviasAlAvaluo']['MemoriaTecnicaOtrosParaSustento']) && !is_array($consideraciones['ConsideracionesPreviasAlAvaluo']['MemoriaTecnicaOtrosParaSustento'])){
+                        $infoReimpresion['Consideraciones_Previas_Al_Avaluo'] = $infoReimpresion['Consideraciones_Previas_Al_Avaluo']."<br><br>".$consideraciones['ConsideracionesPreviasAlAvaluo']['MemoriaTecnicaOtrosParaSustento'];
+                    }
+
+
+                    /*$infoReimpresion['Consideraciones_Previas_Al_Avaluo'] = $consideraciones['ConsideracionesPreviasAlAvaluo']['Consideraciones']."<br><br>".
                                                           $consideraciones['ConsideracionesPreviasAlAvaluo']['MemoriaTecnicaExposicionDeMotivos']."<br><br>".
                                                           $consideraciones['ConsideracionesPreviasAlAvaluo']['MemoriaTecnicaDesgloceDeInformacion']."<br><br>".
                                                           $consideraciones['ConsideracionesPreviasAlAvaluo']['MemoriaTecnicaDescripcionDeCalculosRealizados']."<br><br>".
-                                                          $consideraciones['ConsideracionesPreviasAlAvaluo']['MemoriaTecnicaOtrosParaSustento'];
+                                                          $consideraciones['ConsideracionesPreviasAlAvaluo']['MemoriaTecnicaOtrosParaSustento'];*/
                 }                
             }    
         }
