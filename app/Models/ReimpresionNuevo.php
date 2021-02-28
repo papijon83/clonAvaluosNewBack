@@ -1215,7 +1215,7 @@ class ReimpresionNuevo
 
                 $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta'] = array();
                 //Se usa ConclusionesHomologacionConstruccionesEnVenta porque asi llega en el XML
-                if(isset($construccionesEnRenta['ConclusionesHomologacionConstruccionesEnRenta']) && !is_array($construccionesEnRenta['ConclusionesHomologacionConstruccionesEnRenta'])){
+                if(isset($construccionesEnRenta['ConclusionesHomologacionConstruccionesEnRenta'])){
                     $conclusionesHomologacionContruccionesRenta = $construccionesEnRenta['ConclusionesHomologacionConstruccionesEnRenta'];
                 }
                 
@@ -2974,7 +2974,7 @@ class ReimpresionNuevo
 
                 $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta'] = array();
                 //Se usa ConclusionesHomologacionConstruccionesEnVenta porque asi llega en el XML
-                $conclusionesHomologacionContruccionesRenta = $construccionesEnRenta['ConclusionesHomologacionConstruccionesEnVenta'];
+                $conclusionesHomologacionContruccionesRenta = $construccionesEnRenta['ConclusionesHomologacionConstruccionesEnRenta'];
 
                 $infoReimpresion['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Promedio'] = $conclusionesHomologacionContruccionesRenta['ValorUnitarioPromedio'];
                 if(isset($conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologadoPromedio']) && !is_array($conclusionesHomologacionContruccionesRenta['ValorUnitarioHomologadoPromedio'])){
