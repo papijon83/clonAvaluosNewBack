@@ -126,9 +126,9 @@
         <br>
         <strong>IV. UBICACIÓN DEL INMUEBLE QUE SE ADQUIERE</strong>
         <div class="ubicacion_inmueble">
-            <strong>Calle</strong><span class="col-md-1"></span><span class="gris">{{$datosPDF['inmueble']['calle']}}</span>
+            <strong>Tipo Inmueble</strong><span class="col-md-1"></span><span class="gris">{{$datosPDF['inmueble']['tipoinmueble']}}</span>
             <br>
-            <strong>Manzana</strong><span class="col-md-1"></span><span class="gris">{{$datosPDF['inmueble']['manzana']}}</span><span class="col-md-1"></span>
+            <strong>Calle</strong><span class="col-md-1"></span><span class="gris">{{$datosPDF['inmueble']['calle']}}</span><span class="col-md-1"></span>
             <strong>Lote</strong><span class="col-md-1"></span><span class="gris">{{$datosPDF['inmueble']['lote']}}</span><span class="col-md-1"></span>
             <strong>No. Exterior</strong><span class="col-md-1"></span><span class="gris">{{$datosPDF['inmueble']['numeroexterior']}}</span><span class="col-md-1"></span>
             <strong>No. Interior</strong><span class="col-md-1"></span><span class="gris">{{$datosPDF['inmueble']['numerointerior']}}</span>
