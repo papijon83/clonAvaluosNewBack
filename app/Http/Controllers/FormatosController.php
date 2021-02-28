@@ -145,7 +145,8 @@ class FormatosController extends Controller
     public function acuseAvaluoSV($numero_unico){
         try{
             //$numero_unico = trim($request->query('no_unico'));
-            $this->modelDocumentos = new Documentos();    //echo $numero_unico; exit();         
+            $this->modelDocumentos = new Documentos();    //echo $numero_unico; exit();
+                    
             $id_avaluo = $this->modelDocumentos->get_idavaluo_db($numero_unico);           
             $this->modelReimpresionNuevo = new ReimpresionNuevo();
             $infoAcuse = $this->modelReimpresionNuevo->infoAcuse($id_avaluo);

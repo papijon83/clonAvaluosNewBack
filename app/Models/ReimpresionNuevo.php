@@ -12,8 +12,8 @@ class ReimpresionNuevo
     protected $modelDocumentos;
     protected $modelFis;
 
-    public function infoAcuse($idavaluo){
-
+    public function infoAcuse($idavaluo){        
+        //echo "SELECT NOMBRE, BINARIODATOS FROM DOC.DOC_FICHERODOCUMENTO WHERE IDDOCUMENTODIGITAL = $idavaluo AND NOMBRE LIKE 'Avaluo_%'"; exit();
         $infoArchivo = DB::select("SELECT NOMBRE, BINARIODATOS FROM DOC.DOC_FICHERODOCUMENTO WHERE IDDOCUMENTODIGITAL = $idavaluo AND NOMBRE LIKE 'Avaluo_%'");
         //$arrInfoArchivo = convierte_a_arreglo($infoArchivo);
         $rutaArchivos = getcwd();
@@ -61,11 +61,11 @@ class ReimpresionNuevo
             $elementoPrincipal = $arrXML['Catastral'];
             $tipoDeAvaluo =  "Catastral";
         }
-
+        //print($elementoPrincipal); exit();
         
-        $arrInfoAcuse = array();
+        $arrInfoAcuse = array(); //echo "SELECT NUMEROUNICO FROM FEXAVA_AVALUO WHERE IDAVALUO = $idavaluo"; exit();
         $numeroUnico = DB::select("SELECT NUMEROUNICO FROM FEXAVA_AVALUO WHERE IDAVALUO = $idavaluo");
-        $arrInfoAcuse['numeroUnico'] = $numeroUnico[0]->numerounico;
+        $arrInfoAcuse['numeroUnico'] = $numeroUnico[0]->numerounico; //print_r($arrInfoAcuse); exit();
         $camposCuentaCatastral = array('region','manzana','lote','unidadprivativa','digitoverificador');
         $infoCuentaCatastral = array();
         foreach($camposCuentaCatastral as $campoBuscar){
@@ -99,14 +99,24 @@ class ReimpresionNuevo
 
         
         $infoEscritura = DB::select("SELECT * FROM FEXAVA_ESCRITURA WHERE IDAVALUO = $idavaluo");
-        $arrInfoEscritura = array_map("convierte_a_arreglo",$infoEscritura);
-        $arrInfoAcuse['escritura'] = $arrInfoEscritura[0];
-
+        if(count($infoEscritura) > 0){
+            $arrInfoEscritura = array_map("convierte_a_arreglo",$infoEscritura);
+            $arrInfoAcuse['escritura'] = $arrInfoEscritura[0];
+        }else{
+            $arrInfoAcuse['escritura']['idavaluo'] = $idavaluo;
+            $arrInfoAcuse['escritura']['numescritura'] = '';
+            $arrInfoAcuse['escritura']['numvolumen'] = '';
+            $arrInfoAcuse['escritura']['numnotario'] = '';
+            $arrInfoAcuse['escritura']['nombrenotario'] = '';
+            $arrInfoAcuse['escritura']['distritojudicialnotario'] = '';
+        } 
+        //print_r($arrInfoAcuse); exit();
         $infoFuenteInformacion = DB::select("SELECT * FROM FEXAVA_FUENTEINFORMACIONLEG WHERE IDAVALUO = $idavaluo");
         $arrinfoFuenteInformacion = array_map("convierte_a_arreglo",$infoFuenteInformacion);
-        $arrInfoAcuse['fuenteInformacionLegal'] = $arrinfoFuenteInformacion[0];
+        $arrInfoAcuse['fuenteInformacionLegal'] = $arrinfoFuenteInformacion[0];        
         $arrInfoAcuse['tipoDeInmueble'] = $elementoPrincipal['Antecedentes']['TipoDeInmueble'];
-        
+        //print_r($arrInfoAcuse); exit();
+
         return $arrInfoAcuse;        
     }
 
