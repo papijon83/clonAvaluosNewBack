@@ -6052,8 +6052,7 @@ class BandejaEntradaNuevoController extends Controller
 
                     
                 $this->modelReimpresionNuevo = new ReimpresionNuevo();
-                $infoAvaluo = $this->modelReimpresionNuevo->infoAvaluoNuevo($id_avaluo);
-                Log::info(json_encode($infoAvaluo));
+                $infoAvaluo = $this->modelReimpresionNuevo->infoAvaluoNuevo($id_avaluo);                
                 if(!is_array($infoAvaluo)){
                     return $infoAvaluo;
                 }                
@@ -6061,6 +6060,7 @@ class BandejaEntradaNuevoController extends Controller
                 if($tipo_avaluo == 'A-CAT'){
                     $formato = view('justificanteNew', compact("infoAvaluo"))->render();
                 }else{
+                    Log::info(json_encode($infoAvaluo));
                     $formato = view('justificanteNew_com', compact("infoAvaluo"))->render();
                 }
                 $pdf = PDF::loadHTML($formato);
