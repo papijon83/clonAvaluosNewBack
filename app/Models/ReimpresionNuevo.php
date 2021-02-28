@@ -2514,9 +2514,15 @@ class ReimpresionNuevo
         $infoReimpresion['Carpinteria'] = array();
         $carpinteria = $elementosConstruccion['Carpinteria'];
 
-        $infoReimpresion['Carpinteria']['Puertas_Interiores'] = $carpinteria['PuertasInteriores'];
+        if(isset($carpinteria['PuertasInteriores']) && !is_array($carpinteria['PuertasInteriores'])){
+            $infoReimpresion['Carpinteria']['Puertas_Interiores'] = $carpinteria['PuertasInteriores'];
+        }
+        if(isset($carpinteria['Guardaropas']) && !is_array($carpinteria['Guardaropas'])){
         $infoReimpresion['Carpinteria']['Guardarropas'] = $carpinteria['Guardaropas'];
+        }
+        if(isset($carpinteria['MueblesEmpotradosOFijos']) && !is_array($carpinteria['MueblesEmpotradosOFijos'])){
         $infoReimpresion['Carpinteria']['Muebles_Empotrados'] = $carpinteria['MueblesEmpotradosOFijos'];
+        }
 
         /************************************************************************************************************************************************************************/
 
