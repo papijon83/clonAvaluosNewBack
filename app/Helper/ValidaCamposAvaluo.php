@@ -2197,20 +2197,24 @@ function valida_CalculosV($data, $letra, $dataextra = false, $dataextrados = fal
 
                 foreach($data[0]['ElementosAccesorios']['Privativas'] as $idElemento => $elemento){
                     if(isset($elemento['@attributes']['id']) && $elemento['@attributes']['id'] == 'f.10.1'){
-                        $f_10_1_n_8 = $elemento['FactorDeEdadElementoAccesorio'];
-                        $calc_f_10_1_n_8 = 1-($elemento['EdadElementoAccesorio'] / $elemento['VidaUtilTotalElementoAccesorio']);
+                        if(isset($elemento['FactorDeEdadElementoAccesorio'])){
+                            $f_10_1_n_8 = $elemento['FactorDeEdadElementoAccesorio'];
+                            $calc_f_10_1_n_8 = 1-($elemento['EdadElementoAccesorio'] / $elemento['VidaUtilTotalElementoAccesorio']);
 
-                        if((truncate($calc_f_10_1_n_8,2) != truncate($f_10_1_n_8,2)) || $f_10_1_n_8 < 0.6){ //echo truncate($calc_f_10_1_n_8,2)." != ".truncate($f_10_1_n_8,2)."\n";
-                            $mensajesf[] =  "f.10.1.n.8 - El cálculo de FactorDeEdadElementoAccesorio es erróneo ";
+                            if((truncate($calc_f_10_1_n_8,2) != truncate($f_10_1_n_8,2)) || $f_10_1_n_8 < 0.6){ //echo truncate($calc_f_10_1_n_8,2)." != ".truncate($f_10_1_n_8,2)."\n";
+                                $mensajesf[] =  "f.10.1.n.8 - El cálculo de FactorDeEdadElementoAccesorio es erróneo ";
+                            }
                         }
+                        
+                        if(isset($elemento['ImporteElementoAccesorio'])){
+                            $f_10_1_n_9 = $elemento['ImporteElementoAccesorio'];
+                            $calc_f_10_1_n_9 = $elemento['CantidadElementoAccesorio'] * $elemento['ValorUnitarioElementoAccesorio'] * $f_10_1_n_8;
+                            $sumatoriaf_10_1_n_9 = $sumatoriaf_10_1_n_9 + $f_10_1_n_9;
 
-                        $f_10_1_n_9 = $elemento['ImporteElementoAccesorio'];
-                        $calc_f_10_1_n_9 = $elemento['CantidadElementoAccesorio'] * $elemento['ValorUnitarioElementoAccesorio'] * $f_10_1_n_8;
-                        $sumatoriaf_10_1_n_9 = $sumatoriaf_10_1_n_9 + $f_10_1_n_9;
-
-                        if(truncate($calc_f_10_1_n_9,2) != truncate($f_10_1_n_9,2)){
-                            $mensajesf[] =  "f.10.1.n.9 - El cálculo de ImporteElementoAccesorio es erróneo ";
-                        }
+                            if(truncate($calc_f_10_1_n_9,2) != truncate($f_10_1_n_9,2)){
+                                $mensajesf[] =  "f.10.1.n.9 - El cálculo de ImporteElementoAccesorio es erróneo ";
+                            }
+                        }    
 
                     }else{
                         if(isset($elemento['id']) && $elemento['id'] == 'f.10.1'){
