@@ -2118,9 +2118,7 @@ class ReimpresionNuevo
         $infoReimpresion['Sociedad_Participa']['Propietario']['No_Interior'] = $arrPropietario['NumeroInterior'];
         $infoReimpresion['Sociedad_Participa']['Propietario']['Colonia'] = $arrPropietario['Colonia'];
         $infoReimpresion['Sociedad_Participa']['Propietario']['CP'] = $arrPropietario['CodigoPostal'];
-        $infoReimpresion['Sociedad_Participa']['Propietario']['Delegacion'] = $this->modelDocumentos->ObtenerNombreDelegacionPorClave($arrPropietario['Alcaldia']);
-        
-        Log::info(json_encode($infoReimpresion['Sociedad_Participa']));
+        $infoReimpresion['Sociedad_Participa']['Propietario']['Delegacion'] = $this->modelDocumentos->ObtenerNombreDelegacionPorClave($arrPropietario['Alcaldia']);        
 
         $infoReimpresion['Sociedad_Participa']['Objeto_Avaluo'] = $arrFexava['objeto'];
         $infoReimpresion['Sociedad_Participa']['Proposito_Avaluo'] = $arrFexava['proposito'];
@@ -2193,7 +2191,7 @@ class ReimpresionNuevo
         $terreno = $elementoPrincipal['Terreno'];
 
         $infoReimpresion['Calles_Transversales_Limitrofes'] = $terreno['CallesTransversalesLimitrofesYOrientacion'];
-        
+        Log::info(json_encode($infoReimpresion['Servicios_Publicos_Equipamiento']));
         /************************************************************************************************************************************************************************/
         
         $infoReimpresion['Croquis_Localizacion'] = array(); //echo var_dump(base64_decode($this->modelDocumentos->get_fichero_documento($terreno['CroquisMicroLocalizacion']))); exit();
