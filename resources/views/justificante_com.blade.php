@@ -2530,7 +2530,7 @@
                     <table class="tabla_gris_valor">
                         <thead>
                             <tr>
-                                <th>VALOR UNITARIO DE TIERRA DEL AVALÚO</th>
+                                <th style="width: 80%;">VALOR UNITARIO DE TIERRA DEL AVALÚO</th>
                                 <th>
                                 @isset($infoAvaluo['Terrenos']['Valor_Unitario_Tierra_Del_Avaluo'])
                                     <span class="grises">{{ $infoAvaluo['Terrenos']['Valor_Unitario_Tierra_Del_Avaluo'] }}
@@ -2727,7 +2727,7 @@
                 <table class="tabla_gris_valor">
                     <thead>
                         <tr>
-                            <th>VALOR UNITARIO APLICABLE AL AVALÚO:</th>
+                            <th style="width: 80%;">VALOR UNITARIO APLICABLE AL AVALÚO:</th>
                             <th>
                             @isset($infoAvaluo['Construcciones_En_Venta']['Valor_Unitario_Aplicable_Avaluo'])
                                 <span class="grises">${{ number_format($infoAvaluo['Construcciones_En_Venta']['Valor_Unitario_Aplicable_Avaluo'],2) }}</span>
@@ -2740,7 +2740,7 @@
                 <table class="tabla_gris_valor">
                     <thead>
                         <tr>
-                            <th>VALOR DE MERCADO DEL INMUEBLE:</th>
+                            <th style="width: 80%;">VALOR DE MERCADO DEL INMUEBLE:</th>
                             <th>
                             @isset($infoAvaluo['Construcciones_En_Venta']['Valor_Mercado_Del_Inmueble'])
                                 <span class="grises">${{ number_format($infoAvaluo['Construcciones_En_Venta']['Valor_Mercado_Del_Inmueble'],2) }}</span>
@@ -3100,7 +3100,7 @@
                 <table class="tabla_gris_valor">
                     <thead>
                         <tr>
-                            <th>VALOR TOTAL DEL TERRENO PROPORCIONAL:</th>
+                            <th style="width: 80%;">VALOR TOTAL DEL TERRENO PROPORCIONAL:</th>
                             <th><span class="grises">$ {{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Totales']['Valor_Total_Del_Terreno_Proporcional'],2) }}</span></th> 
                         </tr>
                     </thead> 
@@ -3377,7 +3377,7 @@
                 <table class="tabla_gris_valor">
                     <thead>
                         <tr>
-                            <th>VALOR TOTAL DE LAS CONTRUCCIONES:</th>
+                            <th style="width: 80%;">VALOR TOTAL DE LAS CONTRUCCIONES:</th>
                             <th>
                             @isset($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Valor_Total_De_Las_Construcciones'])
                                 <span class="grises">$ {{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Valor_Total_De_Las_Construcciones'],2) }}</span>
@@ -3536,7 +3536,7 @@
                 <table class="tabla_gris_valor">
                     <thead>
                         <tr>
-                            <th>TOTAL DE LAS INSTALACIONES:</th>
+                            <th style="width: 80%;">TOTAL DE LAS INSTALACIONES:</th>
                             <th>
                                 <span class="grises">${{ number_format($infoAvaluo['Instalaciones_Especiales_Obras_Complementarias_Elementos_Accesorios']['Totales']['Total_De_Las_Instalaciones'],2) }}</span>
                             </th>
@@ -3548,7 +3548,7 @@
                 <table class="tabla_gris_valor">
                     <thead>
                         <tr>
-                            <th>ÍNDICE FÍSICO DIRECTO (Importe total de enfoque de costos):</th>
+                            <th style="width: 80%;">ÍNDICE FÍSICO DIRECTO (Importe total de enfoque de costos):</th>
                             <th>
                             @isset($infoAvaluo['Indice_Fisico_Directo'])
                                 <span class="grises">${{ number_format($infoAvaluo['Indice_Fisico_Directo'],2) }}</span>
@@ -3808,7 +3808,7 @@
                 <table class="tabla_gris_valor">
                     <thead>
                         <tr>
-                            <th>RESULTADO DE LA APLICACIÓN DEL ENFOQUE DE INGRESOS (VALOR POR CAPITALIZACIÓN DE RENTAS):</th>
+                            <th style="width: 80%;">RESULTADO DE LA APLICACIÓN DEL ENFOQUE DE INGRESOS (VALOR POR CAPITALIZACIÓN DE RENTAS):</th>
                             <th>
                             @isset($infoAvaluo['Resultado_Aplicacion_Enfoque_Ingresos'])                                
                                 <span class="grises">${{ number_format($infoAvaluo['Resultado_Aplicacion_Enfoque_Ingresos'],2) }}</span>
@@ -3825,7 +3825,7 @@
                 <table class="tabla_gris_valor">
                     <thead>
                         <tr>
-                            <th>ÍNDICE FÍSICO DIRECTO:</th>
+                            <th style="width: 80%;">ÍNDICE FÍSICO DIRECTO:</th>
                             <th>
                             @isset($infoAvaluo['Indice_Fisico_Directo'])
                                 <span class="grises">${{ number_format($infoAvaluo['Indice_Fisico_Directo'],2) }}</span>
@@ -3838,7 +3838,7 @@
                 <table class="tabla_gris_valor">
                     <thead>
                         <tr>
-                            <th>VALOR POR CAPITALIZACIÓN DE RENTAS:</th>
+                            <th style="width: 80%;">VALOR POR CAPITALIZACIÓN DE RENTAS:</th>
                             <th>
                             @isset($infoAvaluo['Valor_Capitalizacion_Rentas'])
                                 <span class="grises">${{ number_format($infoAvaluo['Valor_Capitalizacion_Rentas'],2) }}</span>
@@ -3851,7 +3851,7 @@
                 <table class="tabla_gris_valor">
                     <thead>
                         <tr>
-                            <th>VALOR DE MERCADO DE LAS CONSTRUCCIONES:</th>
+                            <th style="width: 80%;">VALOR DE MERCADO DE LAS CONSTRUCCIONES:</th>
                             <th>
                             @isset($infoAvaluo['Valor_Mercado_Construcciones'])
                                 <span class="grises">${{ number_format($infoAvaluo['Valor_Mercado_Construcciones'],2) }}</span>
@@ -3878,7 +3878,7 @@
                 <table class="tabla_gris_valor">
                     <thead>
                         <tr>
-                            <th>CONSIDERAMOS QUE EL VALOR COMERCIAL CORRESPONDE A:</th>
+                            <th style="width: 80%;">CONSIDERAMOS QUE EL VALOR COMERCIAL CORRESPONDE A:</th>
                             <th>
                             @isset($infoAvaluo['Consideramos_Que_Valor_Comercial_Corresponde'])
                                 <span class="grises">${{ number_format($infoAvaluo['Consideramos_Que_Valor_Comercial_Corresponde'],2) }}</span>

@@ -1915,181 +1915,151 @@
                 <br>
                 @endif
 
-                <!-- COMUNES -->
-                @if(isset($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']) && !empty($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']))
-                    <p><b>COMUNES: </b></p>
-                    <table class="tabla_cabeza_gris">
-                        <thead>
-                            <tr>
-                                <th>Tipo.</th>
-                                <th>Descripción</th>
-                                <th>Uso</th>
-                                <th>N° Niveles Del Tipo</th>
-                                <th>Clave Rango De Niveles</th>
-                                <th>Clase</th>
-                                <th>Valor Unitario Cat.</th>
-                                <th>Depreciación por Edad</th>
-                                <th>Valor</th>
-                                <th>Sup.</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        @if(isset($infoAvaluo['Calculo_Valor_Construcciones']['Comunes'][0]))
-                            @foreach($infoAvaluo['Calculo_Valor_Construcciones']['Comunes'] as $value_valorConstruccionesC)
-                                <tr>
-                                    <td>
-                                    @isset($value_valorConstruccionesC['Tipo'])
-                                        <span class="grises">{{ $value_valorConstruccionesC['Tipo'] }}</span>
-                                    @endisset
-                                    </td>
-                                    <td>
-                                    @isset($value_valorConstruccionesC['Descripcion'])
-                                        <span class="grises">{{ $value_valorConstruccionesC['Descripcion'] }}</span>
-                                    @endisset
-                                    </td>
-                                    <td>
-                                    @isset($value_valorConstruccionesC['Uso'])
-                                        <span class="grises">{{ $value_valorConstruccionesC['Uso'] }}</span>
-                                    @endisset
-                                    </td>
-                                    <td>
-                                    @isset($value_valorConstruccionesC['Numero_Niveles_Tipo'])
-                                        <span class="grises">{{ $value_valorConstruccionesC['Numero_Niveles_Tipo'] }}</span>
-                                    @endisset
-                                    </td>
-                                    <td>
-                                    @isset($value_valorConstruccionesC['Clave_Rango_Niveles'])
-                                        <span class="grises">{{ $value_valorConstruccionesC['Clave_Rango_Niveles'] }}</span>
-                                    @endisset
-                                    </td>
-                                    <td>
-                                    @isset($value_valorConstruccionesC['Clase'])
-                                        <span class="grises">{{ $value_valorConstruccionesC['Clase'] }}</span>
-                                    @endisset
-                                    </td>
-                                    <td>
-                                    @isset($value_valorConstruccionesC['Valor_Unitario'])
-                                        <span class="grises">{{ number_format($value_valorConstruccionesC['Valor_Unitario'],2) }}</span>
-                                    @endisset
-                                    </td>
-                                    <td>
-                                    @isset($value_valorConstruccionesC['Depreciacion_Por_Edad'])
-                                        <span class="grises">{{ number_format($value_valorConstruccionesC['Depreciacion_Por_Edad'],2) }}</span>
-                                    @endisset
-                                    </td>
-                                    <td>
-                                    @isset($value_valorConstruccionesC['Costo'])
-                                        <span class="grises">{{ number_format($value_valorConstruccionesC['Costo'],2) }}</span>
-                                    @endisset
-                                    </td>
-                                    <td>
-                                    @isset($value_valorConstruccionesC['Sup'])
-                                        <span class="grises">{{ number_format($value_valorConstruccionesC['Sup'],2) }}</span>
-                                    @endisset
-                                    </td>
-                                </tr>
-                            @endforeach
-                        @else
-                            <tr>
-                                <td>
-                                @isset($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Tipo'])
-                                    <span class="grises">{{ $infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Tipo'] }}</span>
-                                @endisset
-                                </td>
-                                <td>
-                                @isset($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Descripcion'])
-                                    <span class="grises">{{ $infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Descripcion'] }}</span>
-                                @endisset
-                                </td>
-                                <td>
-                                @isset($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Uso'])
-                                    <span class="grises">{{ $infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Uso'] }}</span>
-                                @endisset
-                                </td>
-                                <td>
-                                @isset($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Numero_Niveles_Tipo'])
-                                    <span class="grises">{{ $infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Numero_Niveles_Tipo'] }}</span>
-                                @endisset
-                                </td>
-                                <td>
-                                @isset($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Clave_Rango_Niveles'])
-                                    <span class="grises">{{ $infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Clave_Rango_Niveles'] }}</span>
-                                @endisset
-                                </td>
-                                <td>
-                                @isset($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Clase'])
-                                    <span class="grises">{{ $infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Clase'] }}</span>
-                                @endisset
-                                </td>
-                                <td>
-                                @isset($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Valor_Unitario'])
-                                    <span class="grises">{{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Valor_Unitario'],2) }}</span>
-                                @endisset
-                                </td>
-                                <td>
-                                @isset($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Depreciacion_Por_Edad'])
-                                    <span class="grises">{{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Depreciacion_Por_Edad'],2) }}</span>
-                                @endisset
-                                </td>
-                                <td>
-                                @isset($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Costo'])
-                                    <span class="grises">{{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Costo'],2) }}</span>
-                                @endisset
-                                </td>
-                                <td>
-                                @isset($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Sup'])
-                                    <span class="grises">{{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Sup'],2) }}</span>
-                                @endisset
-                                </td>
-                            </tr>
-                        @endif
-                        </tbody>
-                    </table>
-                    <p>Total superficie: 
-                    @isset($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Superficie'])
-                        <span class="grises" style="padding-right: 15px;">{{ $infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Superficie'] }}</span>
-                    @endisset
-                    Total construcciones comunes: 
-                    @isset($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Construcciones_Comunes'])
-                        <span class="grises">$ {{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Construcciones_Comunes'],2) }}</span></p>
-                    @endisset
-                    <table class="tabla_gris_valor">
-                        <thead>
-                            <tr>
-                                <th style="width: 80%;">VALOR TOTAL DE LAS CONTRUCCIONES:</th>
-                                <th>
-                                @isset($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Construcciones_Comunes_Por_Indiviso'])
-                                    <span class="grises">$ {{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Construcciones_Comunes_Por_Indiviso'],2) }}</span>
-                                @endisset
-                                </th>
-                            </tr>
-                        </thead> 
-                    </table>
-                @endif
+                
+                    
                 
                 <p><b>c) CÁLCULO DEL VALOR DE LAS CONSTRUCCIONES COMUNES</b></p>
                 <br>
                 @if(isset($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']))
-                    <p><b>COMUNES: </b></p>
-                    <!-- <table class="tabla_cabeza_gris">
-                        <thead>
-                            <tr>
-                                <th>Fracc.</th>
-                                <th>Descripción</th>
-                                <th>Uso</th>
-                                <th>Clase</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>dato</td>
-                                <td>dato</td>
-                                <td>dato</td>
-                                <td>dato</td>
-                            </tr>
-                        </tbody>
-                    </table> -->
-                    <br>
+                    <!-- COMUNES -->
+                    @if(isset($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']) && !empty($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']))
+                        <p><b>COMUNES: </b></p>
+                        <table class="tabla_cabeza_gris">
+                            <thead>
+                                <tr>
+                                    <th>Tipo.</th>
+                                    <th>Descripción</th>
+                                    <th>Uso</th>
+                                    <th>N° Niveles Del Tipo</th>
+                                    <th>Clave Rango De Niveles</th>
+                                    <th>Clase</th>
+                                    <th>Valor Unitario Cat.</th>
+                                    <th>Depreciación por Edad</th>
+                                    <th>Valor</th>
+                                    <th>Sup.</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @if(isset($infoAvaluo['Calculo_Valor_Construcciones']['Comunes'][0]))
+                                @foreach($infoAvaluo['Calculo_Valor_Construcciones']['Comunes'] as $value_valorConstruccionesC)
+                                    <tr>
+                                        <td>
+                                        @isset($value_valorConstruccionesC['Tipo'])
+                                            <span class="grises">{{ $value_valorConstruccionesC['Tipo'] }}</span>
+                                        @endisset
+                                        </td>
+                                        <td>
+                                        @isset($value_valorConstruccionesC['Descripcion'])
+                                            <span class="grises">{{ $value_valorConstruccionesC['Descripcion'] }}</span>
+                                        @endisset
+                                        </td>
+                                        <td>
+                                        @isset($value_valorConstruccionesC['Uso'])
+                                            <span class="grises">{{ $value_valorConstruccionesC['Uso'] }}</span>
+                                        @endisset
+                                        </td>
+                                        <td>
+                                        @isset($value_valorConstruccionesC['Numero_Niveles_Tipo'])
+                                            <span class="grises">{{ $value_valorConstruccionesC['Numero_Niveles_Tipo'] }}</span>
+                                        @endisset
+                                        </td>
+                                        <td>
+                                        @isset($value_valorConstruccionesC['Clave_Rango_Niveles'])
+                                            <span class="grises">{{ $value_valorConstruccionesC['Clave_Rango_Niveles'] }}</span>
+                                        @endisset
+                                        </td>
+                                        <td>
+                                        @isset($value_valorConstruccionesC['Clase'])
+                                            <span class="grises">{{ $value_valorConstruccionesC['Clase'] }}</span>
+                                        @endisset
+                                        </td>
+                                        <td>
+                                        @isset($value_valorConstruccionesC['Valor_Unitario'])
+                                            <span class="grises">{{ number_format($value_valorConstruccionesC['Valor_Unitario'],2) }}</span>
+                                        @endisset
+                                        </td>
+                                        <td>
+                                        @isset($value_valorConstruccionesC['Depreciacion_Por_Edad'])
+                                            <span class="grises">{{ number_format($value_valorConstruccionesC['Depreciacion_Por_Edad'],2) }}</span>
+                                        @endisset
+                                        </td>
+                                        <td>
+                                        @isset($value_valorConstruccionesC['Costo'])
+                                            <span class="grises">{{ number_format($value_valorConstruccionesC['Costo'],2) }}</span>
+                                        @endisset
+                                        </td>
+                                        <td>
+                                        @isset($value_valorConstruccionesC['Sup'])
+                                            <span class="grises">{{ number_format($value_valorConstruccionesC['Sup'],2) }}</span>
+                                        @endisset
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @else
+                                <tr>
+                                    <td>
+                                    @isset($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Tipo'])
+                                        <span class="grises">{{ $infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Tipo'] }}</span>
+                                    @endisset
+                                    </td>
+                                    <td>
+                                    @isset($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Descripcion'])
+                                        <span class="grises">{{ $infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Descripcion'] }}</span>
+                                    @endisset
+                                    </td>
+                                    <td>
+                                    @isset($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Uso'])
+                                        <span class="grises">{{ $infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Uso'] }}</span>
+                                    @endisset
+                                    </td>
+                                    <td>
+                                    @isset($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Numero_Niveles_Tipo'])
+                                        <span class="grises">{{ $infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Numero_Niveles_Tipo'] }}</span>
+                                    @endisset
+                                    </td>
+                                    <td>
+                                    @isset($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Clave_Rango_Niveles'])
+                                        <span class="grises">{{ $infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Clave_Rango_Niveles'] }}</span>
+                                    @endisset
+                                    </td>
+                                    <td>
+                                    @isset($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Clase'])
+                                        <span class="grises">{{ $infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Clase'] }}</span>
+                                    @endisset
+                                    </td>
+                                    <td>
+                                    @isset($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Valor_Unitario'])
+                                        <span class="grises">{{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Valor_Unitario'],2) }}</span>
+                                    @endisset
+                                    </td>
+                                    <td>
+                                    @isset($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Depreciacion_Por_Edad'])
+                                        <span class="grises">{{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Depreciacion_Por_Edad'],2) }}</span>
+                                    @endisset
+                                    </td>
+                                    <td>
+                                    @isset($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Costo'])
+                                        <span class="grises">{{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Costo'],2) }}</span>
+                                    @endisset
+                                    </td>
+                                    <td>
+                                    @isset($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Sup'])
+                                        <span class="grises">{{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Sup'],2) }}</span>
+                                    @endisset
+                                    </td>
+                                </tr>
+                            @endif
+                                <tr>
+                                    <td colspan="10" style="text-align: right; padding-right: 10px;">
+                                    @isset($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Superficie'])
+                                        SUPERFICIE TOTAL DE LAS CONSTRUCCIONES COMUNES: <span class="grises">{{ $infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Total_Superficie'] }}</span>
+                                    @endisset
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br>
+                    @endif
                     <table class="tabla_gris_valor">
                         <thead>
                             <tr>
