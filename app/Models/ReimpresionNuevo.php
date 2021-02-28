@@ -114,13 +114,13 @@ class ReimpresionNuevo
         $infoFuenteInformacion = DB::select("SELECT * FROM FEXAVA_FUENTEINFORMACIONLEG WHERE IDAVALUO = $idavaluo");
         $arrinfoFuenteInformacion = array_map("convierte_a_arreglo",$infoFuenteInformacion);
         $arrInfoAcuse['fuenteInformacionLegal'] = $arrinfoFuenteInformacion[0];
+        /*
         if(isset($elementoPrincipal['Antecedentes']['TipoDeInmueble'])) {
             $arrInfoAcuse['tipoDeInmueble'] = $this->cat_tipo_inmueble($elementoPrincipal['Antecedentes']['TipoDeInmueble']);
         } else{
             $arrInfoAcuse['tipoDeInmueble'] = '';
-        }         
-        //print_r($arrInfoAcuse); exit();
-
+        } */         
+        
         return $arrInfoAcuse;        
     }
 
@@ -2175,10 +2175,17 @@ class ReimpresionNuevo
         $infoReimpresion['Sociedad_Participa']['Objeto_Avaluo'] = $arrFexava['objeto'];
         $infoReimpresion['Sociedad_Participa']['Proposito_Avaluo'] = $arrFexava['proposito'];
 
+        $tipoDeInmueble = $elementoPrincipal['Antecedentes']['TipoDeInmueble'];
+        if(isset($tipoDeInmueble) && !is_array($tipoDeInmueble)) {
+            $arrInfoAcuse['Sociedad_Participa']['tipoDeInmueble'] = $this->cat_tipo_inmueble($tipoDeInmueble);
+        }else{
+            $arrInfoAcuse['Sociedad_Participa']['tipoDeInmueble'] = '';
+        }
+
         /************************************************************************************************************************************************************************/
 
         $infoReimpresion['Ubicacion_Inmueble'] = array();
-        $ubicacionInmueble = $elementoPrincipal['Antecedentes']['InmuebleQueSeValua'];
+        $ubicacionInmueble = $elementoPrincipal['Antecedentes']['InmuebleQueSeValua'];        
 
         $infoReimpresion['Ubicacion_Inmueble']['Calle'] = $ubicacionInmueble['Calle'];
         $infoReimpresion['Ubicacion_Inmueble']['No_Exterior'] = $ubicacionInmueble['NumeroExterior'];
