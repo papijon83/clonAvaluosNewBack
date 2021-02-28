@@ -111,8 +111,8 @@ class FormatosController extends Controller
             $datosPDF['propietario']['codigopostal'] = trim($data['propietario']['codigopostal']);
             $datosPDF['propietario']['entidad'] = trim("DISTRITO FEDERAL");
             $datosPDF['propietario']['telefono'] = trim("");
+            $datosPDF['inmueble']['tipoinmueble'] = trim($data['tipoDeInmueble']);
             $datosPDF['inmueble']['calle'] = trim($data['Ubicacion_Inmueble']['Calle']);
-            $datosPDF['inmueble']['manzana'] = trim("1111");
             $datosPDF['inmueble']['lote'] = trim($data['Ubicacion_Inmueble']['Lote']);
             $datosPDF['inmueble']['numeroexterior'] = trim($data['Ubicacion_Inmueble']['No_Exterior']);
             $datosPDF['inmueble']['numerointerior'] = trim($data['Ubicacion_Inmueble']['No_Interior']);
@@ -195,8 +195,8 @@ class FormatosController extends Controller
             $datosPDF['propietario']['codigopostal'] = trim($data['propietario']['codigopostal']);
             $datosPDF['propietario']['entidad'] = trim("DISTRITO FEDERAL");
             $datosPDF['propietario']['telefono'] = trim("");
+            $datosPDF['inmueble']['tipoinmueble'] = trim($data['tipoDeInmueble']);
             $datosPDF['inmueble']['calle'] = trim($data['Ubicacion_Inmueble']['Calle']);
-            $datosPDF['inmueble']['manzana'] = trim("1111");
             $datosPDF['inmueble']['lote'] = trim($data['Ubicacion_Inmueble']['Lote']);
             $datosPDF['inmueble']['numeroexterior'] = trim($data['Ubicacion_Inmueble']['No_Exterior']);
             $datosPDF['inmueble']['numerointerior'] = trim($data['Ubicacion_Inmueble']['No_Interior']);
