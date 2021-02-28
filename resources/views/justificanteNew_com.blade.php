@@ -2865,7 +2865,7 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Conclusiones homologación comp. residuales</th>
+                            <th>Conclusiones homologación construcciones en venta</th>
                             <th>  </th>
                         </tr>
                     </thead>

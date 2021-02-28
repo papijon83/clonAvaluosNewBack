@@ -5934,18 +5934,18 @@ class BandejaEntradaNuevoController extends Controller
             }
             // $datosPDF = [];
             // $datosPDF['no_unico'] =  $numero_unico;
-            $tipo_avaluo = substr($infoAvaluo['Encabezado']['No_Unico'], 0, 5);
-            if($tipo_avaluo == 'A-CAT'){
-                $formato = view('justificante', compact("infoAvaluo"))->render();
-            }else{
-                $formato = view('justificante_com', compact("infoAvaluo"))->render();
-            }
-            $pdf = PDF::loadHTML($formato);
-            $pdf->setOptions(['chroot' => 'public']);
-            Storage::put('formato.pdf', $pdf->output());
-            return response()->json(['pdfbase64' => base64_encode(Storage::get('formato.pdf')), 'nombre' =>  $numero_unico . '.pdf'], 200);
+            // $tipo_avaluo = substr($infoAvaluo['Encabezado']['No_Unico'], 0, 5);
+            // if($tipo_avaluo == 'A-CAT'){
+            //     $formato = view('justificante', compact("infoAvaluo"))->render();
+            // }else{
+            //     $formato = view('justificante_com', compact("infoAvaluo"))->render();
+            // }
+            // $pdf = PDF::loadHTML($formato);
+            // $pdf->setOptions(['chroot' => 'public']);
+            // Storage::put('formato.pdf', $pdf->output());
+            // return response()->json(['pdfbase64' => base64_encode(Storage::get('formato.pdf')), 'nombre' =>  $numero_unico . '.pdf'], 200);
             
-            //print_r($infoAvaluo);
+            print_r($infoAvaluo);
 
             /* $this->modelDocumentos = new Documentos();    //echo $numero_unico; exit();         
             $id_avaluo = $this->modelDocumentos->get_idavaluo_db($numero_unico);    
@@ -5973,18 +5973,18 @@ class BandejaEntradaNuevoController extends Controller
             }
             // $datosPDF = [];
             // $datosPDF['no_unico'] =  $numero_unico;
-            $tipo_avaluo = substr($infoAvaluo['Encabezado']['No_Unico'], 0, 5);
-            if($tipo_avaluo == 'A-CAT'){
-                $formato = view('justificanteNew', compact("infoAvaluo"))->render();
-            }else{
-                $formato = view('justificanteNew_com', compact("infoAvaluo"))->render();
-            }
-            $pdf = PDF::loadHTML($formato);
-            $pdf->setOptions(['chroot' => 'public']);
-            Storage::put('formato.pdf', $pdf->output());
-            return response()->json(['pdfbase64' => base64_encode(Storage::get('formato.pdf')), 'nombre' =>  $numero_unico . '.pdf'], 200);
+            // $tipo_avaluo = substr($infoAvaluo['Encabezado']['No_Unico'], 0, 5);
+            // if($tipo_avaluo == 'A-CAT'){
+            //     $formato = view('justificanteNew', compact("infoAvaluo"))->render();
+            // }else{
+            //     $formato = view('justificanteNew_com', compact("infoAvaluo"))->render();
+            // }
+            // $pdf = PDF::loadHTML($formato);
+            // $pdf->setOptions(['chroot' => 'public']);
+            // Storage::put('formato.pdf', $pdf->output());
+            // return response()->json(['pdfbase64' => base64_encode(Storage::get('formato.pdf')), 'nombre' =>  $numero_unico . '.pdf'], 200);
             
-            //print_r($infoAvaluo);
+            print_r($infoAvaluo);
 
             /*$this->modelDocumentos = new Documentos();    //echo $numero_unico; exit();         
             $id_avaluo = $this->modelDocumentos->get_idavaluo_db($numero_unico);    
