@@ -6040,7 +6040,7 @@ class BandejaEntradaNuevoController extends Controller
                 }
                 $pdf = PDF::loadHTML($formato);
                 $pdf->setOptions(['chroot' => 'public']);
-
+                
                 return $pdf->stream('formato.pdf');
                     
             /*$this->modelReimpresion = new ReimpresionNuevo();
@@ -6066,6 +6066,7 @@ class BandejaEntradaNuevoController extends Controller
                 $pdf->setOptions(['chroot' => 'public']);
 
                 return $pdf->stream('formato.pdf');
+                
                 /*$this->modelDocumentos = new Documentos();    //echo $numero_unico; exit();         
             $id_avaluo = $this->modelDocumentos->get_idavaluo_db($numero_unico);    
             $this->modelReimpresionNuevo = new ReimpresionNuevo();
@@ -6124,7 +6125,8 @@ class BandejaEntradaNuevoController extends Controller
                 $pdf = PDF::loadHTML($formato);
                 $pdf->setOptions(['chroot' => 'public']);
 
-                return $pdf->stream('formato.pdf');
+                //return $pdf->stream('formato.pdf');
+                return $pdf->download('formato.pdf');
                     
             /*$this->modelReimpresion = new ReimpresionNuevo();
             $infoAvaluo = $this->modelReimpresion->infoAvaluo($id_avaluo);
@@ -6148,7 +6150,9 @@ class BandejaEntradaNuevoController extends Controller
                 $pdf = PDF::loadHTML($formato);
                 $pdf->setOptions(['chroot' => 'public']);
 
-                return $pdf->stream('formato.pdf');
+                //return $pdf->stream('formato.pdf');
+                return $pdf->download('formato.pdf');
+
                 /*$this->modelDocumentos = new Documentos();    //echo $numero_unico; exit();         
             $id_avaluo = $this->modelDocumentos->get_idavaluo_db($numero_unico);    
             $this->modelReimpresionNuevo = new ReimpresionNuevo();
