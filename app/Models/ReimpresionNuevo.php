@@ -3482,7 +3482,12 @@ class ReimpresionNuevo
 
                     if($tipoDeAvaluo ==  "Catastral"){
 
-                        $infoReimpresion['Consideraciones_Previas_Al_Avaluo'] = $consideraciones['ConsideracionesPreviasAlAvaluo'];
+                        if(isset($consideraciones['ConsideracionesPreviasAlAvaluo']['Consideraciones']) && !is_array($consideraciones['ConsideracionesPreviasAlAvaluo']['Consideraciones'])){
+                            $infoReimpresion['Consideraciones_Previas_Al_Avaluo'] = $consideraciones['ConsideracionesPreviasAlAvaluo']['Consideraciones'];
+                        }else{
+                            $infoReimpresion['Consideraciones_Previas_Al_Avaluo'] = $consideraciones['ConsideracionesPreviasAlAvaluo'];
+                        }
+                        
 
                     }else{
 
