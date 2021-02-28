@@ -3484,35 +3484,35 @@ class ReimpresionNuevo
                     if(isset($consideraciones['ConsideracionesPreviasAlAvaluo']['Consideraciones']) && !is_array($consideraciones['ConsideracionesPreviasAlAvaluo']['Consideraciones'])){
                         $control = $control + 1;
                         $infoReimpresion['Consideraciones_Previas_Al_Avaluo'][$control] = array();
-                        $infoReimpresion['Consideraciones_Previas_Al_Avaluo'][$control]['Titulo'] = "Consideraciones_Previas_Al_Avaluo"; 
+                        $infoReimpresion['Consideraciones_Previas_Al_Avaluo'][$control]['Titulo'] = "Consideraciones Previas Al Avalúo"; 
                         $infoReimpresion['Consideraciones_Previas_Al_Avaluo'][$control]['Texto'] = $consideraciones['ConsideracionesPreviasAlAvaluo']['Consideraciones'];
                     }
 
                     if(isset($consideraciones['ConsideracionesPreviasAlAvaluo']['MemoriaTecnicaExposicionDeMotivos']) && !is_array($consideraciones['ConsideracionesPreviasAlAvaluo']['MemoriaTecnicaExposicionDeMotivos'])){
                         $control = $control + 1;
                         $infoReimpresion['Consideraciones_Previas_Al_Avaluo'][$control] = array();
-                        $infoReimpresion['Consideraciones_Previas_Al_Avaluo'][$control]['Titulo'] = "Memoria_Tecnica_Exposicion_De_Motivos"; 
+                        $infoReimpresion['Consideraciones_Previas_Al_Avaluo'][$control]['Titulo'] = "Memoria Técnica Exposición De Motivos"; 
                         $infoReimpresion['Consideraciones_Previas_Al_Avaluo'][$control]['Texto'] = $consideraciones['ConsideracionesPreviasAlAvaluo']['MemoriaTecnicaExposicionDeMotivos'];
                     }
 
                     if(isset($consideraciones['ConsideracionesPreviasAlAvaluo']['MemoriaTecnicaDesgloceDeInformacion']) && !is_array($consideraciones['ConsideracionesPreviasAlAvaluo']['MemoriaTecnicaDesgloceDeInformacion'])){
                         $control = $control + 1;
                         $infoReimpresion['Consideraciones_Previas_Al_Avaluo'][$control] = array();
-                        $infoReimpresion['Consideraciones_Previas_Al_Avaluo'][$control]['Titulo'] = "Memoria_Tecnica_Desgloce_De_Informacion";
+                        $infoReimpresion['Consideraciones_Previas_Al_Avaluo'][$control]['Titulo'] = "Memoria Técnica Desgloce De Información";
                         $infoReimpresion['Consideraciones_Previas_Al_Avaluo'][$control]['Texto'] = $consideraciones['ConsideracionesPreviasAlAvaluo']['MemoriaTecnicaDesgloceDeInformacion'];
                     }
 
                     if(isset($consideraciones['ConsideracionesPreviasAlAvaluo']['MemoriaTecnicaDescripcionDeCalculosRealizados']) && !is_array($consideraciones['ConsideracionesPreviasAlAvaluo']['MemoriaTecnicaDescripcionDeCalculosRealizados'])){
                         $control = $control + 1;
                         $infoReimpresion['Consideraciones_Previas_Al_Avaluo'][$control] = array();
-                        $infoReimpresion['Consideraciones_Previas_Al_Avaluo'][$control]['Titulo'] = "Memoria_Tecnica_Descripcion_De_Calculos_Realizados"; 
+                        $infoReimpresion['Consideraciones_Previas_Al_Avaluo'][$control]['Titulo'] = "Memoria Técnica Descripción De Célculos Realizados"; 
                         $infoReimpresion['Consideraciones_Previas_Al_Avaluo'][$control]['Texto'] = $consideraciones['ConsideracionesPreviasAlAvaluo']['MemoriaTecnicaDescripcionDeCalculosRealizados'];
                     }
 
                     if(isset($consideraciones['ConsideracionesPreviasAlAvaluo']['MemoriaTecnicaOtrosParaSustento']) && !is_array($consideraciones['ConsideracionesPreviasAlAvaluo']['MemoriaTecnicaOtrosParaSustento'])){
                         $control = $control + 1;
                         $infoReimpresion['Consideraciones_Previas_Al_Avaluo'][$control] = array();
-                        $infoReimpresion['Consideraciones_Previas_Al_Avaluo'][$control]['Titulo'] = "Memoria_Tecnica_Otros_Para_Sustento";
+                        $infoReimpresion['Consideraciones_Previas_Al_Avaluo'][$control]['Titulo'] = "Memoria Técnica Otros Para Sustento";
                         $infoReimpresion['Consideraciones_Previas_Al_Avaluo'][$control]['Texto'] = $consideraciones['ConsideracionesPreviasAlAvaluo']['MemoriaTecnicaOtrosParaSustento'];
                     }
 
