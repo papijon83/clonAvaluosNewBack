@@ -5954,7 +5954,7 @@ class BandejaEntradaNuevoController extends Controller
             print_r($infoAvaluo); exit(); */
             //return response()->json($infoAvaluo, 200);
         }catch (\Throwable $th) {
-            //Log::info($th);
+            Log::info($th);
             error_log($th);
             return response()->json(['mensaje' => 'Error al obtener la información del avalúo'], 500);
         }    
@@ -5993,7 +5993,7 @@ class BandejaEntradaNuevoController extends Controller
             print_r($infoAvaluo); exit();*/
             //return response()->json($infoAvaluo, 200);
         }catch (\Throwable $th) {
-            //Log::info($th);
+            Log::info($th);
             error_log($th);
             return response()->json(['mensaje' => 'Error al obtener la información del avalúo'], 500);
         }    
@@ -6060,7 +6060,7 @@ class BandejaEntradaNuevoController extends Controller
                 if($tipo_avaluo == 'A-CAT'){
                     $formato = view('justificanteNew', compact("infoAvaluo"))->render();
                 }else{
-                    Log::info(json_encode($infoAvaluo));                    
+                    //Log::info(json_encode($infoAvaluo));                    
                     $formato = view('justificanteNew_com', compact("infoAvaluo"))->render();
                     Log::info(json_encode("ABAJO DE VIEW"));
                 }
@@ -6164,7 +6164,7 @@ class BandejaEntradaNuevoController extends Controller
             
                         
         }catch (\Throwable $th) {
-            //Log::info($th);
+            Log::info($th);
             error_log($th);
             return response()->json(['mensaje' => 'Error al obtener la información del avalúo'], 500);
         }    
