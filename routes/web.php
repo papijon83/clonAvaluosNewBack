@@ -17,6 +17,7 @@ $router->get('/', function () use ($router) {
 });
 
 $router->get('reimprime', 'BandejaEntradaNuevoController@reimprimeSV');
+$router->post('reimprime', 'BandejaEntradaNuevoController@reimprimeSVPost');
 $router->get('acuse', 'FormatosController@generaAcusePDFSV');
 
 $router->group(['prefix' => 'api'], function () use ($router) {
