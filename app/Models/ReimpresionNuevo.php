@@ -2338,8 +2338,7 @@ class ReimpresionNuevo
                 $infoReimpresion['Superficie_Total_Segun']['Fre'] = $superficieDelTerreno['Fre'];
             }
 
-        }
-        Log::info(json_encode($infoReimpresion['Superficie_Total_Segun']));       
+        }           
 
         $infoReimpresion['Superficie_Total_Segun']['Totales']['Superficie_Total_Terreno'] =  $terreno['SuperficieTotalDelTerreno'];
 
@@ -3704,6 +3703,7 @@ class ReimpresionNuevo
                 $control = $control + 1;
             }
             }
+            Log::info(json_encode($infoReimpresion));
         }  catch (\Throwable $th) {
             Log::info($th);
             error_log($th);
