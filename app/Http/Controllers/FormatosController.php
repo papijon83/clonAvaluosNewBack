@@ -129,8 +129,8 @@ class FormatosController extends Controller
             $pdf = PDF::loadHTML($formato);
             $pdf->setOptions(['chroot' => 'public']);
             
-            //return $pdf->stream('formato.pdf');
-            return $pdf->download('formato.pdf');
+            return $pdf->stream('formato.pdf');
+            //return $pdf->download('formato.pdf');
 
             /*Storage::put('formato.pdf', $pdf->output());
 

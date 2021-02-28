@@ -6040,7 +6040,7 @@ class BandejaEntradaNuevoController extends Controller
                 }
                 $pdf = PDF::loadHTML($formato);
                 $pdf->setOptions(['chroot' => 'public']);
-
+                
                 return $pdf->stream('formato.pdf');
                     
             /*$this->modelReimpresion = new ReimpresionNuevo();
