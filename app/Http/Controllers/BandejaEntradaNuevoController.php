@@ -6060,7 +6060,7 @@ class BandejaEntradaNuevoController extends Controller
                 if($tipo_avaluo == 'A-CAT'){
                     $formato = view('justificanteNew', compact("infoAvaluo"))->render();
                 }else{
-                    Log::info(json_encode("ARRIBA DE VIEW"));                    
+                    Log::info(json_encode($infoAvaluo));                    
                     $formato = view('justificanteNew_com', compact("infoAvaluo"))->render();
                     Log::info(json_encode("ABAJO DE VIEW"));
                 }
