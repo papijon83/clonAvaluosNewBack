@@ -6053,6 +6053,7 @@ class BandejaEntradaNuevoController extends Controller
                     
                 $this->modelReimpresionNuevo = new ReimpresionNuevo();
                 $infoAvaluo = $this->modelReimpresionNuevo->infoAvaluoNuevo($id_avaluo);
+                Log::info(json_encode($infoAvaluo));
                 if(!is_array($infoAvaluo)){
                     return $infoAvaluo;
                 }                

@@ -3702,9 +3702,8 @@ class ReimpresionNuevo
                 $infoReimpresion['Inmueble_Renta'][$control]['Interior_O_Exterior'] = $fotoRenta['FotosInmuebleAvaluo']['InteriorOExterior'];
                 $control = $control + 1;
             }
-            }
-            Log::info(json_encode($infoReimpresion));
-            return $infoReimpresion;
+            }        
+            
         }  catch (\Throwable $th) {
             Log::info($th);
             error_log($th);
