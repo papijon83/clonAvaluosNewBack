@@ -6078,7 +6078,7 @@ class BandejaEntradaNuevoController extends Controller
             
                         
         }catch (\Throwable $th) {
-            //Log::info($th);
+            Log::info($th);
             error_log($th);
             return response()->json(['mensaje' => 'Error al obtener la información del avalúo'], 500);
         }    
