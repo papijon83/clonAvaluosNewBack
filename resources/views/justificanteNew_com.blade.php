@@ -2153,8 +2153,8 @@
                 <p class="letras_pequenas">
                     @isset($infoAvaluo['Consideraciones_Previas_Al_Avaluo'])
                         @foreach($infoAvaluo['Consideraciones_Previas_Al_Avaluo'] as $cpaa)
-                            <p><span class="grises">{{ $cpaa['Titulo']}}</span></p>
-                            <p>{{ $cpaa['Texto']}}</p>
+                            <h3 class="grises">{{ $cpaa['Titulo']}}</h3>
+                            <p span class="grises" style="margin: 0 0 10px 0;">{{ $cpaa['Texto']}}</p>
                         @endforeach
                     @endisset
                 </p>
