@@ -2111,14 +2111,16 @@ class ReimpresionNuevo
             }
         }else{
             $infoReimpresion['Sociedad_Participa']['Propietario']['Nombre'] = $arrPropietario['Nombre'];
-        } 
-        Log::info($infoReimpresion['Sociedad_Participa']['Propietario']['Nombre']);       
+        }
+              
         $infoReimpresion['Sociedad_Participa']['Propietario']['Calle'] = $arrPropietario['Calle'];
         $infoReimpresion['Sociedad_Participa']['Propietario']['No_Exterior'] = $arrPropietario['NumeroExterior'];
         $infoReimpresion['Sociedad_Participa']['Propietario']['No_Interior'] = $arrPropietario['NumeroInterior'];
         $infoReimpresion['Sociedad_Participa']['Propietario']['Colonia'] = $arrPropietario['Colonia'];
         $infoReimpresion['Sociedad_Participa']['Propietario']['CP'] = $arrPropietario['CodigoPostal'];
         $infoReimpresion['Sociedad_Participa']['Propietario']['Delegacion'] = $this->modelDocumentos->ObtenerNombreDelegacionPorClave($arrPropietario['Alcaldia']);
+        
+        Log::info(json_encode($infoReimpresion['Sociedad_Participa']));
 
         $infoReimpresion['Sociedad_Participa']['Objeto_Avaluo'] = $arrFexava['objeto'];
         $infoReimpresion['Sociedad_Participa']['Proposito_Avaluo'] = $arrFexava['proposito'];
