@@ -2105,7 +2105,10 @@ class ReimpresionNuevo
         $infoReimpresion['Sociedad_Participa']['Propietario']['Tipo_persona'] = isset($arrPropietario['A.Paterno']) && !is_array($arrPropietario['A.Paterno']) ? "Física" : "Moral";
         
         if(isset($arrPropietario['A.Paterno']) && !is_array($arrPropietario['A.Paterno'])){
-            $infoReimpresion['Sociedad_Participa']['Propietario']['Nombre'] = $arrPropietario['Nombre']." ".$arrPropietario['A.Paterno']." ".isset($arrPropietario['A.Materno']) && !is_array($arrPropietario['A.Materno']) ? $arrPropietario['A.Materno'] : '';
+            $infoReimpresion['Sociedad_Participa']['Propietario']['Nombre'] = $arrPropietario['Nombre']." ".$arrPropietario['A.Paterno'];
+            if(isset($arrPropietario['A.Materno']) && !is_array($arrPropietario['A.Materno'])){
+                $infoReimpresion['Sociedad_Participa']['Propietario']['Nombre'] = $infoReimpresion['Sociedad_Participa']['Propietario']['Nombre']." ".$arrPropietario['A.Materno'];
+            }
         }else{
             $infoReimpresion['Sociedad_Participa']['Propietario']['Nombre'] = $arrPropietario['Nombre'];
         } 
