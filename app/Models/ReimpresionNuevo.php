@@ -151,7 +151,7 @@ class ReimpresionNuevo
         $xml = simplexml_load_string($contenidoArchivo,'SimpleXMLElement', LIBXML_NOCDATA);
         $comandoRmDefault = "rm ".$rutaArchivos."/default";
         shell_exec($comandoRmDefault);
-        $arrXML = convierte_a_arreglo($xml); //echo $contenidoArchivo; exit();
+        $arrXML = convierte_a_arreglo($xml); echo $contenidoArchivo; exit();
 
         $infoFexava = DB::select("SELECT * FROM FEXAVA_AVALUO WHERE IDAVALUO = $idAvaluo");
         $arrInfoFexava = array_map("convierte_a_arreglo",$infoFexava);
@@ -1148,7 +1148,7 @@ class ReimpresionNuevo
             }
 
             $infoReimpresion['Construcciones_En_Venta']['Conclusion_Homologacion_Contrucciones_Venta'] = array();
-            if(isset($construccionesEnVenta['ConclusionesHomologacionConstruccionesEnVenta']) && !is_array($construccionesEnVenta['ConclusionesHomologacionConstruccionesEnVenta'])){
+            if(isset($construccionesEnVenta['ConclusionesHomologacionConstruccionesEnVenta'])){
                 $conclusionesHomologacionContruccionesVenta = $construccionesEnVenta['ConclusionesHomologacionConstruccionesEnVenta'];
             }   
 
