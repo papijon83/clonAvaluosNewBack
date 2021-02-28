@@ -6059,9 +6059,10 @@ class BandejaEntradaNuevoController extends Controller
                 $tipo_avaluo = substr($infoAvaluo['Encabezado']['No_Unico'], 0, 5);
                 if($tipo_avaluo == 'A-CAT'){
                     $formato = view('justificanteNew', compact("infoAvaluo"))->render();
-                }else{                    
+                }else{
+                    Log::info(json_encode("ARRIBA DE VIEW"));                    
                     $formato = view('justificanteNew_com', compact("infoAvaluo"))->render();
-                    Log::info(json_encode($infoAvaluo));
+                    Log::info(json_encode("ABAJO DE VIEW"));
                 }
                 $pdf = PDF::loadHTML($formato);
                 $pdf->setOptions(['chroot' => 'public']);
