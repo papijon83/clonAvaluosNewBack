@@ -746,6 +746,7 @@
 
                                 <table class="tabla_cabeza_gris">
                                     <thead>
+                                    @if(isset($infoAvaluo['Superficie_Total_Segun'][0]))
                                         <tr>
                                             <th>Ident. Fracción</th>
                                             <th>Sup Fracción</th>
@@ -759,6 +760,21 @@
                                             <th>Descripción</th> -->
                                             <th>Fre</th>
                                         </tr>
+                                    @else
+                                        <tr>
+                                            <th>Ident. Fracción</th>
+                                            <th>Sup Fracción</th>
+                                            <th>{{$infoAvaluo['Superficie_Total_Segun']['Factor1']['Titulo']}}</th>
+                                            <th>{{$infoAvaluo['Superficie_Total_Segun']['Factor2']['Titulo']}}</th>
+                                            <th>{{$infoAvaluo['Superficie_Total_Segun']['Factor3']['Titulo']}}</th>
+                                            <th>{{$infoAvaluo['Superficie_Total_Segun']['Factor4']['Titulo']}}</th>
+                                            <th>{{$infoAvaluo['Superficie_Total_Segun']['Factor5']['Titulo']}}</th>
+                                            <th>Clave Area De Valor</th>
+                                            <!-- <th>Valor</th>
+                                            <th>Descripción</th> -->
+                                            <th>Fre</th>
+                                        </tr>
+                                    @endif
                                     </thead>
                                     <tbody>
                                     @if(isset($infoAvaluo['Superficie_Total_Segun'][0]))
@@ -2253,18 +2269,33 @@
                 @if(isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']))
                     <table class="tabla_cabeza_gris">
                         <thead>
-                            <tr>
-                                <th>No.</th>
-                                <th>F. Negociación</th>
-                                <th>Superficie</th>
-                                <th>{{$infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos'][0]['Factor1']['Titulo']}}</th>
-                                <th>{{$infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos'][0]['Factor2']['Titulo']}}</th>
-                                <th>{{$infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos'][0]['Factor3']['Titulo']}}</th>
-                                <th>{{$infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos'][0]['Factor4']['Titulo']}}</th>
-                                <th>{{$infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos'][0]['Factor5']['Titulo']}}</th>
-                                <th>Fre</th>
-                                <th>Precio solicitado</th>
-                            </tr>
+                            @if(isset($infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos'][0]))
+                                <tr>
+                                    <th>No.</th>
+                                    <th>F. Negociación</th>
+                                    <th>Superficie</th>
+                                    <th>{{$infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos'][0]['Factor1']['Titulo']}}</th>
+                                    <th>{{$infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos'][0]['Factor2']['Titulo']}}</th>
+                                    <th>{{$infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos'][0]['Factor3']['Titulo']}}</th>
+                                    <th>{{$infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos'][0]['Factor4']['Titulo']}}</th>
+                                    <th>{{$infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos'][0]['Factor5']['Titulo']}}</th>
+                                    <th>Fre</th>
+                                    <th>Precio solicitado</th>
+                                </tr>
+                            @else
+                                <tr>
+                                    <th>No.</th>
+                                    <th>F. Negociación</th>
+                                    <th>Superficie</th>
+                                    <th>{{$infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Factor1']['Titulo']}}</th>
+                                    <th>{{$infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Factor2']['Titulo']}}</th>
+                                    <th>{{$infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Factor3']['Titulo']}}</th>
+                                    <th>{{$infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Factor4']['Titulo']}}</th>
+                                    <th>{{$infoAvaluo['Terrenos']['Terrenos_Directos']['TablaDos']['Factor5']['Titulo']}}</th>
+                                    <th>Fre</th>
+                                    <th>Precio solicitado</th>
+                                </tr>
+                            @endif
                         </thead>
                         <tbody>
                         @php
@@ -3157,18 +3188,33 @@
                 @if(isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno']))
                     <table class="tabla_cabeza_gris">
                         <thead>
-                            <tr>
-                                <th>Fracc.</th>
-                                <th>Área de valor</th>
-                                <th>Superficie (m2)</th>
-                                <th>{{$infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor1']['Titulo']}}</th>
-                                <th>{{$infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor2']['Titulo']}}</th>
-                                <th>{{$infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor3']['Titulo']}}</th>
-                                <th>{{$infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor4']['Titulo']}}</th>
-                                <th>{{$infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor5']['Titulo']}}</th>
-                                <th>F. Resultante</th>
-                                <th>VALOR FRACCIÓN</th>
-                            </tr>
+                            @if(isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno'][0]))
+                                <tr>
+                                    <th>Fracc.</th>
+                                    <th>Área de valor</th>
+                                    <th>Superficie (m2)</th>
+                                    <th>{{$infoAvaluo['Calculo_Del_Valor_Del_Terreno'][0]['Factor1']['Titulo']}}</th>
+                                    <th>{{$infoAvaluo['Calculo_Del_Valor_Del_Terreno'][0]['Factor2']['Titulo']}}</th>
+                                    <th>{{$infoAvaluo['Calculo_Del_Valor_Del_Terreno'][0]['Factor3']['Titulo']}}</th>
+                                    <th>{{$infoAvaluo['Calculo_Del_Valor_Del_Terreno'][0]['Factor4']['Titulo']}}</th>
+                                    <th>{{$infoAvaluo['Calculo_Del_Valor_Del_Terreno'][0]['Factor5']['Titulo']}}</th>
+                                    <th>F. Resultante</th>
+                                    <th>VALOR FRACCIÓN</th>
+                                </tr>
+                            @else
+                                <tr>
+                                    <th>Fracc.</th>
+                                    <th>Área de valor</th>
+                                    <th>Superficie (m2)</th>
+                                    <th>{{$infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor1']['Titulo']}}</th>
+                                    <th>{{$infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor2']['Titulo']}}</th>
+                                    <th>{{$infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor3']['Titulo']}}</th>
+                                    <th>{{$infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor4']['Titulo']}}</th>
+                                    <th>{{$infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Factor5']['Titulo']}}</th>
+                                    <th>F. Resultante</th>
+                                    <th>VALOR FRACCIÓN</th>
+                                </tr>
+                            @endif
                         </thead>
                         <tbody>
                         @if(isset($infoAvaluo['Calculo_Del_Valor_Del_Terreno'][0]))
