@@ -114,12 +114,35 @@ class ReimpresionNuevo
         $infoFuenteInformacion = DB::select("SELECT * FROM FEXAVA_FUENTEINFORMACIONLEG WHERE IDAVALUO = $idavaluo");
         $arrinfoFuenteInformacion = array_map("convierte_a_arreglo",$infoFuenteInformacion);
         $arrInfoAcuse['fuenteInformacionLegal'] = $arrinfoFuenteInformacion[0];        
-        $arrInfoAcuse['tipoDeInmueble'] = $elementoPrincipal['Antecedentes']['TipoDeInmueble'];
+        $arrInfoAcuse['tipoDeInmueble'] = $this->cat_tipo_inmueble($elementoPrincipal['Antecedentes']['TipoDeInmueble']);
         //print_r($arrInfoAcuse); exit();
 
         return $arrInfoAcuse;        
     }
 
+    public function cat_tipo_inmueble($id){
+        $cat = array("1" => "BODEGA",
+        "2"=>"CAJÓN DE ESTACIONAMIENTO" ,
+        "3"=>"CASA HABITACION",
+        "4"=>"CASA HABITACION EN CONDOMINIO",
+        "5"=>"CENTRO COMERCIAL",
+        "6"=>"DEPARTAMENTO EN CONDOMINIO",
+        "7"=>"EDIFICIO DE DEPARTAMENTOS",
+        "8"=>"EDIFICIO DE ESTACIONAMIENTO",
+        "9"=>"EDIFICIO DE PRODUCTOS",
+        "10"=>"ESCUELA",
+        "11"=>"HOSPITAL",
+        "12"=>"HOTEL",
+        "13"=>"LOCAL COMERCIAL",
+        "14"=>"NAVE INDUSTRIAL",
+        "15"=>"OFICINA AISLADA",
+        "16"=>"OFICINA EN CONDOMINIO",
+        "17"=>"TERRENO CON USO COMERCIAL",
+        "18"=>"TERRENO HABITACIONAL",
+        "19"=>"OTRO");
+        return $cat[$id];
+
+    }
     
     public function infoAvaluo($idAvaluo){
 
