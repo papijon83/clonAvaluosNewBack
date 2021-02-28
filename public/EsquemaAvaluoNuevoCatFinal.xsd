@@ -2405,7 +2405,7 @@
       <xs:element name="PropositoDelAvaluo">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name='Proposito' minOccurs="1" maxOccurs="1">
+                <xs:element name='PropositoDelAvaluo' minOccurs="1" maxOccurs="1">
                     <xs:complexType>
                         <xs:simpleContent>
                             <xs:extension base="Cat-PropositoAvaluo">
