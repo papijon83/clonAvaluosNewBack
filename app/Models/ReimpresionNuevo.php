@@ -125,6 +125,7 @@ class ReimpresionNuevo
     }
 
     public function cat_tipo_inmueble($id){
+        $id = intval($id);
         $cat = array("1" => "BODEGA",
         "2"=>"CAJÓN DE ESTACIONAMIENTO" ,
         "3"=>"CASA HABITACION",
@@ -144,6 +145,7 @@ class ReimpresionNuevo
         "17"=>"TERRENO CON USO COMERCIAL",
         "18"=>"TERRENO HABITACIONAL",
         "19"=>"OTRO");
+
         return $cat[$id];
 
     }
