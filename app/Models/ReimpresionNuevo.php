@@ -3703,7 +3703,8 @@ class ReimpresionNuevo
                 $control = $control + 1;
             }
             }
-            Log::info(json_encode($infoReimpresion));
+            //Log::info(json_encode($infoReimpresion));
+            return $infoReimpresion;
         }  catch (\Throwable $th) {
             Log::info($th);
             error_log($th);
