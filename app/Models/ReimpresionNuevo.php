@@ -2190,8 +2190,7 @@ class ReimpresionNuevo
 
         $terreno = $elementoPrincipal['Terreno'];
 
-        $infoReimpresion['Calles_Transversales_Limitrofes'] = $terreno['CallesTransversalesLimitrofesYOrientacion'];
-        Log::info(json_encode($infoReimpresion['Servicios_Publicos_Equipamiento']));
+        $infoReimpresion['Calles_Transversales_Limitrofes'] = $terreno['CallesTransversalesLimitrofesYOrientacion'];        
         /************************************************************************************************************************************************************************/
         
         $infoReimpresion['Croquis_Localizacion'] = array(); //echo var_dump(base64_decode($this->modelDocumentos->get_fichero_documento($terreno['CroquisMicroLocalizacion']))); exit();
@@ -2339,7 +2338,8 @@ class ReimpresionNuevo
                 $infoReimpresion['Superficie_Total_Segun']['Fre'] = $superficieDelTerreno['Fre'];
             }
 
-        }        
+        }
+        Log::info(json_encode($infoReimpresion['Superficie_Total_Segun']));       
 
         $infoReimpresion['Superficie_Total_Segun']['Totales']['Superficie_Total_Terreno'] =  $terreno['SuperficieTotalDelTerreno'];
 
