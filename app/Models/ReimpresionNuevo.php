@@ -2473,13 +2473,27 @@ class ReimpresionNuevo
 
         $infoReimpresion['Obra_Negra_Gruesa'] = array();
 
-        $infoReimpresion['Obra_Negra_Gruesa']['Cimientos'] = $obraNegra['Cimentacion'];
+        if(isset($obraNegra['Cimentacion']) && !is_array($obraNegra['Cimentacion'])){
+            $infoReimpresion['Obra_Negra_Gruesa']['Cimientos'] = $obraNegra['Cimentacion'];
+        }
+        if(isset($obraNegra['Estructura']) && !is_array($obraNegra['Estructura'])){
         $infoReimpresion['Obra_Negra_Gruesa']['Estructura'] = $obraNegra['Estructura'];
+        }
+        if(isset($obraNegra['Muros']) && !is_array($obraNegra['Muros'])){
         $infoReimpresion['Obra_Negra_Gruesa']['Muros'] = $obraNegra['Muros'];
+        }
+        if(isset($obraNegra['Entrepisos']) && !is_array($obraNegra['Entrepisos'])){
         $infoReimpresion['Obra_Negra_Gruesa']['Entrepiso'] = $obraNegra['Entrepisos'];
+        }
+        if(isset($obraNegra['Techos']) && !is_array($obraNegra['Techos'])){
         $infoReimpresion['Obra_Negra_Gruesa']['Techos'] = $obraNegra['Techos'];
+        }
+        if(isset($obraNegra['Azoteas']) && !is_array($obraNegra['Azoteas'])){
         $infoReimpresion['Obra_Negra_Gruesa']['Azoteas'] = $obraNegra['Azoteas'];
+        }
+        if(isset($obraNegra['Bardas']) && !is_array($obraNegra['Bardas'])){
         $infoReimpresion['Obra_Negra_Gruesa']['Bardas'] = $obraNegra['Bardas'];
+        }
 
         /************************************************************************************************************************************************************************/
 
