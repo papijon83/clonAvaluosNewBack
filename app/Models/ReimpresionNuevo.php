@@ -2541,12 +2541,22 @@ class ReimpresionNuevo
         $infoReimpresion['Puertas_Ventaneria_Metalica'] = array();
         $puertasVentaneria = $elementosConstruccion['PuertasYVentaneriaMetalica'];
 
-        $infoReimpresion['Puertas_Ventaneria_Metalica']['Herreria'] = $puertasVentaneria['Herreria'];
-        $infoReimpresion['Puertas_Ventaneria_Metalica']['Ventaneria'] = $puertasVentaneria['Ventaneria'];
+        if(isset($puertasVentaneria['Herreria']) && !is_array($puertasVentaneria['Herreria'])){
+            $infoReimpresion['Puertas_Ventaneria_Metalica']['Herreria'] = $puertasVentaneria['Herreria'];
+        }
+        if(isset($puertasVentaneria['Ventaneria']) && !is_array($puertasVentaneria['Ventaneria'])){
+            $infoReimpresion['Puertas_Ventaneria_Metalica']['Ventaneria'] = $puertasVentaneria['Ventaneria'];
+        }
 
-        $infoReimpresion['Vidrieria'] = $elementosConstruccion['Vidreria'];
+        if(isset($elementosConstruccion['Vidreria']) && !is_array($elementosConstruccion['Vidreria'])){
+            $infoReimpresion['Vidrieria'] = $elementosConstruccion['Vidreria'];
+        }
+        if(isset($elementosConstruccion['Cerrajeria']) && !is_array($elementosConstruccion['Cerrajeria'])){
         $infoReimpresion['Cerrajeria'] = $elementosConstruccion['Cerrajeria'];
+        }
+        if(isset($elementosConstruccion['Fachadas']) && !is_array($elementosConstruccion['Fachadas'])){
         $infoReimpresion['Fachadas'] = $elementosConstruccion['Fachadas'];
+        }
 
         /************************************************************************************************************************************************************************/
         if(isset($elementosConstruccion['InstalacionesEspeciales'])){
