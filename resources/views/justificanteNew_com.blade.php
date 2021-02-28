@@ -749,11 +749,11 @@
                                         <tr>
                                             <th>Ident. Fracción</th>
                                             <th>Sup Fracción</th>
-                                            <th>{{$infoAvaluo['Superficie_Total_Segun']['Factor1']['Titulo']}}</th>
-                                            <th>{{$infoAvaluo['Superficie_Total_Segun']['Factor2']['Titulo']}}</th>
-                                            <th>{{$infoAvaluo['Superficie_Total_Segun']['Factor3']['Titulo']}}</th>
-                                            <th>{{$infoAvaluo['Superficie_Total_Segun']['Factor4']['Titulo']}}</th>
-                                            <th>{{$infoAvaluo['Superficie_Total_Segun']['Factor5']['Titulo']}}</th>
+                                            <th>{{$infoAvaluo['Superficie_Total_Segun'][0]['Factor1']['Titulo']}}</th>
+                                            <th>{{$infoAvaluo['Superficie_Total_Segun'][0]['Factor2']['Titulo']}}</th>
+                                            <th>{{$infoAvaluo['Superficie_Total_Segun'][0]['Factor3']['Titulo']}}</th>
+                                            <th>{{$infoAvaluo['Superficie_Total_Segun'][0]['Factor4']['Titulo']}}</th>
+                                            <th>{{$infoAvaluo['Superficie_Total_Segun'][0]['Factor5']['Titulo']}}</th>
                                             <th>Clave Area De Valor</th>
                                             <!-- <th>Valor</th>
                                             <th>Descripción</th> -->
