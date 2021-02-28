@@ -61,6 +61,7 @@ class ReimpresionNuevo
             $elementoPrincipal = $arrXML['Catastral'];
             $tipoDeAvaluo =  "Catastral";
         }
+
         
         $arrInfoAcuse = array();
         $numeroUnico = DB::select("SELECT NUMEROUNICO FROM FEXAVA_AVALUO WHERE IDAVALUO = $idavaluo");
@@ -104,6 +105,8 @@ class ReimpresionNuevo
         $infoFuenteInformacion = DB::select("SELECT * FROM FEXAVA_FUENTEINFORMACIONLEG WHERE IDAVALUO = $idavaluo");
         $arrinfoFuenteInformacion = array_map("convierte_a_arreglo",$infoFuenteInformacion);
         $arrInfoAcuse['fuenteInformacionLegal'] = $arrinfoFuenteInformacion[0];
+        $arrInfoAcuse['tipoDeInmueble'] = $elementoPrincipal['Antecedentes']['TipoDeInmueble'];
+        
         return $arrInfoAcuse;        
     }
 
