@@ -113,8 +113,12 @@ class ReimpresionNuevo
         //print_r($arrInfoAcuse); exit();
         $infoFuenteInformacion = DB::select("SELECT * FROM FEXAVA_FUENTEINFORMACIONLEG WHERE IDAVALUO = $idavaluo");
         $arrinfoFuenteInformacion = array_map("convierte_a_arreglo",$infoFuenteInformacion);
-        $arrInfoAcuse['fuenteInformacionLegal'] = $arrinfoFuenteInformacion[0];        
-        $arrInfoAcuse['tipoDeInmueble'] = $this->cat_tipo_inmueble($elementoPrincipal['Antecedentes']['TipoDeInmueble']);
+        $arrInfoAcuse['fuenteInformacionLegal'] = $arrinfoFuenteInformacion[0];
+        if(isset($elementoPrincipal['Antecedentes']['TipoDeInmueble'])) {
+            $arrInfoAcuse['tipoDeInmueble'] = $this->cat_tipo_inmueble($elementoPrincipal['Antecedentes']['TipoDeInmueble']);
+        } else{
+            $arrInfoAcuse['tipoDeInmueble'] = '';
+        }         
         //print_r($arrInfoAcuse); exit();
 
         return $arrInfoAcuse;        
