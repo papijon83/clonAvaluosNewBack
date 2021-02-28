@@ -2533,7 +2533,7 @@
                     @endisset
                 </table>
                 <br>
-                <div class="pleca_gris"><b>ANEXO FOTOGRÁFICO COMPARABLES</b></div>
+                <!-- <div class="pleca_gris"><b>ANEXO FOTOGRÁFICO COMPARABLES</b></div>
                 <h5 class="subtitulo_anexo_fotografico"><b>INMUEBLES EN VENTA</b></h5>
                 <table style="width: 100%" style="border-collapse: separate; border-spacing: 10px 5px; margin-top: 5%;">
                 @isset($infoAvaluo['Inmueble_Venta'])    
@@ -2569,8 +2569,8 @@
                         @endif
                     @endforeach
                 @endisset
-                </table>
-                <h5 class="subtitulo_anexo_fotografico"><b>INMUEBLES EN RENTA</b></h5>
+                </table> -->
+                <!-- <h5 class="subtitulo_anexo_fotografico"><b>INMUEBLES EN RENTA</b></h5>
                 <table style="width: 100%" style="border-collapse: separate; border-spacing: 10px 5px; margin-top: 5%;">
                 @isset($infoAvaluo['Inmueble_Renta'])    
                     @foreach($infoAvaluo['Inmueble_Renta'] as $value_inmuebleR)
@@ -2605,7 +2605,7 @@
                         @endif
                     @endforeach
                 @endisset
-                </table>
+                </table> -->
             </div>
         </div> 
         <!-- Fin de CONTENIDO -->
