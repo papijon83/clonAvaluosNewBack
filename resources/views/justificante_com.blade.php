@@ -2874,79 +2874,84 @@
                     </table>
                 @endif
                 <br>
+                @if( isset($infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Promedio'])
+                || isset($infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado'])
+                || isset($infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Sin_Homolgar_Minimo'])
+                || isset($infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Sin_Homolgar_Maximo'])
+                || isset($infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado_Minimo'])
+                || isset($infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado_Maximo']))
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Conclusiones homologación construcciones en renta</th>
+                                <th>  </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>Valor unitario promedio</b></td>
+                                <td>
+                                @isset($infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Promedio'])
+                                    <span class="grises">{{ $infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Promedio'] }}
+                                @endisset
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Valor unitario homologado</b></td>
+                                <td>
+                                @isset($infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado'])
+                                    <span class="grises">{{ $infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado'] }}
+                                @endisset
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Valor unitario sin homologar mínimo</b></td>
+                                <td>
+                                @isset($infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Sin_Homolgar_Minimo'])
+                                    <span class="grises">{{ $infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Sin_Homolgar_Minimo'] }}</span>
+                                @endisset
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Valor unitario sin homologar máximo</b></td>
+                                <td>
+                                @isset($infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Sin_Homolgar_Maximo'])
+                                    <span class="grises">{{ $infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Sin_Homolgar_Maximo'] }}</span>
+                                @endisset
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Valor unitario homologado mínimo</b></td>
+                                <td>
+                                @isset($infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado_Minimo'])
+                                    <span class="grises">{{ $infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado_Minimo'] }}</span>
+                                @endisset
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Valor unitario homologado máximo</b></td>
+                                <td>
+                                @isset($infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado_Maximo'])
+                                    <span class="grises">{{ $infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado_Maximo'] }}</span>
+                                @endisset
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
 
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Conclusiones homologación construcciones en renta</th>
-                            <th>  </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><b>Valor unitario promedio</b></td>
-                            <td>
-                            @isset($infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Promedio'])
-                                <span class="grises">{{ $infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Promedio'] }}
-                            @endisset
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><b>Valor unitario homologado</b></td>
-                            <td>
-                            @isset($infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado'])
-                                <span class="grises">{{ $infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado'] }}
-                            @endisset
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><b>Valor unitario sin homologar mínimo</b></td>
-                            <td>
-                            @isset($infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Sin_Homolgar_Minimo'])
-                                <span class="grises">{{ $infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Sin_Homolgar_Minimo'] }}</span>
-                            @endisset
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><b>Valor unitario sin homologar máximo</b></td>
-                            <td>
-                            @isset($infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Sin_Homolgar_Maximo'])
-                                <span class="grises">{{ $infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Sin_Homolgar_Maximo'] }}</span>
-                            @endisset
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><b>Valor unitario homologado mínimo</b></td>
-                            <td>
-                            @isset($infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado_Minimo'])
-                                <span class="grises">{{ $infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado_Minimo'] }}</span>
-                            @endisset
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><b>Valor unitario homologado máximo</b></td>
-                            <td>
-                            @isset($infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado_Maximo'])
-                                <span class="grises">{{ $infoAvaluo['Construcciones_En_Renta']['Conclusion_Homologacion_Contrucciones_Renta']['Valor_Unitario_Homologado_Maximo'] }}</span>
-                            @endisset
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <table class="tabla_gris_valor">
-                    <thead>
-                        <tr>
-                            <th>VALOR UNITARIO APLICABLE AL AVALÚO:</th>
-                            <th>
-                            @isset($infoAvaluo['Construcciones_En_Renta']['Valor_Unitario_Aplicable_Avaluo'])
-                                <span class="grises">$ {{ number_format($infoAvaluo['Construcciones_En_Renta']['Valor_Unitario_Aplicable_Avaluo'],2) }}</span>
-                            @endisset
-                            </th>
-                        </tr>
-                    </thead> 
-                </table>
-                
+                    <table class="tabla_gris_valor">
+                        <thead>
+                            <tr>
+                                <th>VALOR UNITARIO APLICABLE AL AVALÚO:</th>
+                                <th>
+                                @isset($infoAvaluo['Construcciones_En_Renta']['Valor_Unitario_Aplicable_Avaluo'])
+                                    <span class="grises">$ {{ number_format($infoAvaluo['Construcciones_En_Renta']['Valor_Unitario_Aplicable_Avaluo'],2) }}</span>
+                                @endisset
+                                </th>
+                            </tr>
+                        </thead> 
+                    </table>
+                @endif                
 
                 <!-- 8.- Índice Físico o Directo -->
                 <div class="pleca_verde"><b>VIII.- ÍNDICE FÍSICO O DIRECTO</b></div>
