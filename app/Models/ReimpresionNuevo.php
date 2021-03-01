@@ -2176,14 +2176,14 @@ class ReimpresionNuevo
 
         $infoReimpresion['Sociedad_Participa']['Objeto_Avaluo'] = $arrFexava['objeto'];
         $infoReimpresion['Sociedad_Participa']['Proposito_Avaluo'] = $arrFexava['proposito'];
-
-        $tipoDeInmueble = $elementoPrincipal['Antecedentes']['TipoDeInmueble'];
-        if(isset($tipoDeInmueble) && !is_array($tipoDeInmueble)) {
-            $arrInfoAcuse['Sociedad_Participa']['tipoDeInmueble'] = $this->cat_tipo_inmueble($tipoDeInmueble);
+        
+        if(isset($elementoPrincipal['Antecedentes']['TipoDeInmueble']) && !is_array($elementoPrincipal['Antecedentes']['TipoDeInmueble'])) {
+            //$tipoDeInmueble = $elementoPrincipal['Antecedentes']['TipoDeInmueble'];
+            $infoReimpresion['Sociedad_Participa']['tipoDeInmueble'] = $this->cat_tipo_inmueble($elementoPrincipal['Antecedentes']['TipoDeInmueble']);
         }else{
-            $arrInfoAcuse['Sociedad_Participa']['tipoDeInmueble'] = '';
+            $infoReimpresion['Sociedad_Participa']['tipoDeInmueble'] = '';
         }
-
+        //print_r($infoReimpresion); exit();
         /************************************************************************************************************************************************************************/
 
         $infoReimpresion['Ubicacion_Inmueble'] = array();
