@@ -805,7 +805,11 @@ class BandejaEntradaNuevoController extends Controller
                 if(isset($arrXML[$elementoPrincipal]['EnfoqueDeMercado']['Terrenos']['TerrenosDirectos']) && isset($arrXML[$elementoPrincipal]['EnfoqueDeMercado']['Terrenos']['TerrenosResidual'])){
                     $xsd = 'EsquemaAvaluoNuevoMixtoFinal.xsd';
                 }else{
-                    $xsd = 'EsquemaAvaluoNuevoFinal.xsd';
+                    if(is_array($arrXML[$elementoPrincipal]['Antecedentes']['PropositoDelAvaluo']) && isset($arrXML[$elementoPrincipal]['Antecedentes']['PropositoDelAvaluo']['Otro']) && $arrXML[$elementoPrincipal]['Antecedentes']['PropositoDelAvaluo']['PropositoDelAvaluo'] == '4'){
+                        $xsd = 'EsquemaAvaluoNuevoCatFinal.xsd';
+                    }else{
+                        $xsd = 'EsquemaAvaluoNuevoFinal.xsd';
+                    }    
                 }
             }          
                     
