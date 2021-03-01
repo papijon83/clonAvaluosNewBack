@@ -237,6 +237,14 @@
                             </td>
                         </tr>
                         <tr>
+                            <td><b>TIPO DE INMUEBLE:</b></td>
+                            <td>
+                            @isset($infoAvaluo['Sociedad_Participa']['tipoDeInmueble'])
+                                <span class="grises">{{$infoAvaluo['Sociedad_Participa']['tipoDeInmueble']}}</span>
+                            @endisset
+                            </td>
+                        </tr>
+                        <tr>
                             <td colspan="2" style="border: 1px solid #B5B5B5; padding: 8px;">
                                 <table style="width: 100%;">
                                     <tr>
@@ -327,7 +335,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><b>DENSISAD DE LA POBLACIÓN:</b></td>
+                            <td><b>DENSIDAD DE LA POBLACIÓN:</b></td>
                             <td>
                             @isset($infoAvaluo['Densidad_Poblacion'])
                                 <span class="grises">{{$infoAvaluo['Densidad_Poblacion']}}</span>

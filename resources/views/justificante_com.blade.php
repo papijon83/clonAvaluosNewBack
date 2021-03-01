@@ -327,7 +327,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><b>DENSISAD DE LA POBLACIÓN:</b></td>
+                            <td><b>DENSIDAD DE LA POBLACIÓN:</b></td>
                             <td>
                             @isset($infoAvaluo['Densidad_Poblacion'])
                                 <span class="grises">{{$infoAvaluo['Densidad_Poblacion']}}</span>
