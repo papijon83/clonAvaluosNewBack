@@ -324,28 +324,29 @@ class GuardaenBD
     }
 
     public function insertFexavaInvestSuperficieAux($par_identificadorFraccion,$par_superficiefraccion,$par_fzo,$par_fub,$par_ffr,$par_ffo,$par_fsu,$par_idavaluo,$par_fotvalor,$par_fotdescripcion,$par_valcatastraltierra,$par_codtipo){
-        
-        $par_identificadorFraccion = $par_identificadorFraccion == null ? 'null' : $par_identificadorFraccion;
-        $par_superficiefraccion = $par_superficiefraccion == null ? 'null' : (String)($par_superficiefraccion);
-        $par_fzo = $par_fzo == null ? 'null' : $par_fzo;
-        $par_fub = $par_fub == null ? 'null' : $par_fub;
-        $par_ffr = $par_ffr == null ? 'null' : $par_ffr;
-        $par_ffo = $par_ffo == null ? 'null' : $par_ffo;
-        $par_fsu = $par_fsu == null ? 'null' : $par_fsu;
-        $par_idavaluo = $par_idavaluo == null ? 'null' : $par_idavaluo;
-        $par_fotvalor = $par_fotvalor == null ? 'null' : $par_fotvalor;
-        $par_fotdescripcion = $par_fotdescripcion == null ? 'null' : $par_fotdescripcion;
-        $par_valcatastraltierra = $par_valcatastraltierra == null ? 'null' : $par_valcatastraltierra;
-        $par_codtipo = $par_codtipo == null ? 'null' : $par_codtipo;
+        $cursor = null;
+        try {
+            $par_identificadorFraccion = $par_identificadorFraccion == null ? 'null' : $par_identificadorFraccion;
+            $par_superficiefraccion = $par_superficiefraccion == null ? 'null' : $par_superficiefraccion;
+            $par_fzo = $par_fzo == null ? null : $par_fzo;
+            $par_fub = $par_fub == null ? null : $par_fub;
+            $par_ffr = $par_ffr == null ? null : $par_ffr;
+            $par_ffo = $par_ffo == null ? null : $par_ffo;
+            $par_fsu = $par_fsu == null ? null : $par_fsu;
+            $par_idavaluo = $par_idavaluo == null ? null : $par_idavaluo;
+            $par_fotvalor = $par_fotvalor == null ? null : $par_fotvalor;
+            $par_fotdescripcion = $par_fotdescripcion == null ? null : (String)($par_fotdescripcion);
+            $par_valcatastraltierra = $par_valcatastraltierra == null ? null : $par_valcatastraltierra;
+            $par_codtipo = $par_codtipo == null ? null : (String)($par_codtipo);
 
 
-        //echo $par_identificadorFraccion.", ".$par_superficiefraccion.", ".$par_fzo.", ".$par_fub.", ".$par_ffr.", ".$par_ffo.", ".$par_fsu.", ".$par_fotvalor.", ".$par_fotdescripcion.", ".$par_idavaluo.", ".$par_valcatastraltierra.", ".$par_codtipo;
-        //exit();
+            //echo $par_identificadorFraccion.", ".$par_superficiefraccion.", ".$par_fzo.", ".$par_fub.", ".$par_ffr.", ".$par_ffo.", ".$par_fsu.", ".$par_fotvalor.", ".$par_fotdescripcion.", ".$par_idavaluo.", ".$par_valcatastraltierra.", ".$par_codtipo;
+            //exit();
 
-        //print_r($arrElementos['calle']); exit();
-        try {            
+            //print_r($arrElementos['calle']); exit();
+                    
             $procedure = 'BEGIN
-            FEXAVA.fexava_datosestadisticos_pkg.FEXAVA_INSERT_SUPERFICIEAUX_P(
+            FEXAVA.FEXAVA_DATOSESTADISTICOS_PKG.FEXAVA_INSERT_SUPERFICIEAUX_PN(
                 :PAR_IDENTIFICADORFRACCION,
                 :PAR_SUPERFICIEFRACCION,
                 :PAR_FZO,
@@ -357,24 +358,25 @@ class GuardaenBD
                 :PAR_FOTVALOR,
                 :PAR_FOTDESCRIPCION,
                 :PAR_VALCATASTRALTIERRA,
-                :PAR_CODTIPO,        
+                :PAR_CODTIPO,
                 :C_AVALUO
             ); END;';
 
             $conn = oci_connect(env("DB_USERNAME"), env("DB_PASSWORD"), env("DB_TNS"));
-            $stmt = oci_parse($conn, $procedure);
-            oci_bind_by_name($stmt, ':PAR_IDENTIFICADORFRACCION',$par_identificadorFraccion);
-            oci_bind_by_name($stmt, ':PAR_SUPERFICIEFRACCION',$par_superficiefraccion);
-            oci_bind_by_name($stmt, ':PAR_FZO',$par_fzo);
-            oci_bind_by_name($stmt, ':PAR_FUB',$par_fub);
-            oci_bind_by_name($stmt, ':PAR_FFR',$par_ffr);
-            oci_bind_by_name($stmt, ':PAR_FFO',$par_ffo);
-            oci_bind_by_name($stmt, ':PAR_FSU',$par_fsu);
-            oci_bind_by_name($stmt, ':PAR_IDAVALUO',$par_idavaluo);
-            oci_bind_by_name($stmt, ':PAR_FOTVALOR',$par_fotvalor);
-            oci_bind_by_name($stmt, ':PAR_FOTDESCRIPCION',$par_fotdescripcion);        
-            oci_bind_by_name($stmt, ':PAR_VALCATASTRALTIERRA',$par_valcatastraltierra);
-            oci_bind_by_name($stmt, ':PAR_CODTIPO',$par_codtipo);        
+            oci_execute(oci_parse($conn,"ALTER SESSION SET NLS_NUMERIC_CHARACTERS = '.,'"));
+            $stmt = oci_parse($conn, $procedure);            
+            oci_bind_by_name($stmt, ':PAR_IDENTIFICADORFRACCION',$par_identificadorFraccion,200);
+            oci_bind_by_name($stmt, ':PAR_SUPERFICIEFRACCION',$par_superficiefraccion,24);
+            oci_bind_by_name($stmt, ':PAR_FZO',$par_fzo,5);
+            oci_bind_by_name($stmt, ':PAR_FUB',$par_fub,5);
+            oci_bind_by_name($stmt, ':PAR_FFR',$par_ffr,5);
+            oci_bind_by_name($stmt, ':PAR_FFO',$par_ffo,5);
+            oci_bind_by_name($stmt, ':PAR_FSU',$par_fsu,5);
+            oci_bind_by_name($stmt, ':PAR_IDAVALUO',$par_idavaluo,200);
+            oci_bind_by_name($stmt, ':PAR_FOTVALOR',$par_fotvalor,5);
+            oci_bind_by_name($stmt, ':PAR_FOTDESCRIPCION',$par_fotdescripcion,200);        
+            oci_bind_by_name($stmt, ':PAR_VALCATASTRALTIERRA',$par_valcatastraltierra,200);
+            oci_bind_by_name($stmt, ':PAR_CODTIPO',$par_codtipo,2);        
             $cursor = oci_new_cursor($conn);
             oci_bind_by_name($stmt, ":C_AVALUO", $cursor, -1, OCI_B_CURSOR);
             oci_execute($stmt, OCI_COMMIT_ON_SUCCESS);
