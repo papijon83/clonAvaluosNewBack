@@ -6011,17 +6011,17 @@ class BandejaEntradaNuevoController extends Controller
             $this->modelDocumentos = new Documentos();    //echo $numero_unico; exit();         
             $id_avaluo = $this->modelDocumentos->get_idavaluo_db($numero_unico);
             
-            $fechaAvaluo = DB::select("SELECT to_char(FECHA,'YYYY-MM-DD') as FECHA_AVALUO FROM DOC.DOC_DOCUMENTODIGITAL WHERE IDDOCUMENTODIGITAL = '".$id_avaluo."'");
+            /*$fechaAvaluo = DB::select("SELECT to_char(FECHA,'YYYY-MM-DD') as FECHA_AVALUO FROM DOC.DOC_DOCUMENTODIGITAL WHERE IDDOCUMENTODIGITAL = '".$id_avaluo."'");
             $arr_fechaAvaluo = convierte_a_arreglo($fechaAvaluo);
             $dataFechaAvaluo = $arr_fechaAvaluo[0]['fecha_avaluo'];
-            $fechaAvaluoCompara = new Carbon($dataFechaAvaluo);
+            $fechaAvaluoCompara = new Carbon($dataFechaAvaluo);*/
 
-            /*$fechaPresentacion = DB::select("SELECT to_char(FECHA_PRESENTACION,'YYYY-MM-DD') as FECHA_PRESENTACION FROM FEXAVA_AVALUO WHERE NUMEROUNICO = '".$numero_unico."'");
+            $fechaPresentacion = DB::select("SELECT to_char(FECHA_PRESENTACION,'YYYY-MM-DD') as FECHA_PRESENTACION FROM FEXAVA_AVALUO WHERE NUMEROUNICO = '".$numero_unico."'");
             $arr_fechaPresentacion = convierte_a_arreglo($fechaPresentacion);
             $dataFechaPresentacion = $arr_fechaPresentacion[0]['fecha_presentacion'];
-            $fechaPresentacionCompara = new Carbon($dataFechaPresentacion);*/
+            $fechaAvaluoCompara = new Carbon($dataFechaPresentacion);
 
-            $fechaCompara = new Carbon('2021-01-01');
+            $fechaCompara = new Carbon('2021-03-03');
 
             $nuevo = 1; //var_dump($fechaPresentacionCompara->lt($fechaCompara)); exit();
             if($fechaAvaluoCompara->lt($fechaCompara)){
@@ -6097,24 +6097,24 @@ class BandejaEntradaNuevoController extends Controller
             $this->modelDocumentos = new Documentos();    //echo $numero_unico; exit();         
             $id_avaluo = $this->modelDocumentos->get_idavaluo_db($numero_unico);
             
-            $fechaAvaluo = DB::select("SELECT to_char(FECHA,'YYYY-MM-DD') as FECHA_AVALUO FROM DOC.DOC_DOCUMENTODIGITAL WHERE IDDOCUMENTODIGITAL = '".$id_avaluo."'");
+            /*$fechaAvaluo = DB::select("SELECT to_char(FECHA,'YYYY-MM-DD') as FECHA_AVALUO FROM DOC.DOC_DOCUMENTODIGITAL WHERE IDDOCUMENTODIGITAL = '".$id_avaluo."'");
             $arr_fechaAvaluo = convierte_a_arreglo($fechaAvaluo);
             $dataFechaAvaluo = $arr_fechaAvaluo[0]['fecha_avaluo'];
-            $fechaAvaluoCompara = new Carbon($dataFechaAvaluo);
+            $fechaAvaluoCompara = new Carbon($dataFechaAvaluo);*/
 
-            /*$fechaPresentacion = DB::select("SELECT to_char(FECHA_PRESENTACION,'YYYY-MM-DD') as FECHA_PRESENTACION FROM FEXAVA_AVALUO WHERE NUMEROUNICO = '".$numero_unico."'");
+            $fechaPresentacion = DB::select("SELECT to_char(FECHA_PRESENTACION,'YYYY-MM-DD') as FECHA_PRESENTACION FROM FEXAVA_AVALUO WHERE NUMEROUNICO = '".$numero_unico."'");
             $arr_fechaPresentacion = convierte_a_arreglo($fechaPresentacion);
             $dataFechaPresentacion = $arr_fechaPresentacion[0]['fecha_presentacion'];
-            $fechaPresentacionCompara = new Carbon($dataFechaPresentacion);*/
+            $fechaAvaluoCompara = new Carbon($dataFechaPresentacion);
 
-            $fechaCompara = new Carbon('2021-01-01');
+            $fechaCompara = new Carbon('2021-03-03');
 
             $nuevo = 1; //var_dump($fechaPresentacionCompara->lt($fechaCompara)); exit();
             if($fechaAvaluoCompara->lt($fechaCompara)){
                 $nuevo = 0;
             }
             //echo "SOY NUEVO ".$nuevo; exit();
-            if($nuevo == 0){                
+            if($nuevo == 0){             
                    
                 $this->modelReimpresionNuevo = new ReimpresionNuevo();
                 $infoAvaluo = $this->modelReimpresionNuevo->infoAvaluo($id_avaluo);
@@ -6172,6 +6172,26 @@ class BandejaEntradaNuevoController extends Controller
             error_log($th);
             return response()->json(['mensaje' => 'Error al obtener la información del avalúo'], 500);
         }    
+    }
+
+    public function obtenXML(Request $request){
+        $numero_unico = trim($request->input('no_unico'));
+          
+
+            $this->modelDocumentos = new Documentos();            
+            $id_avaluo = $this->modelDocumentos->get_idavaluo_db($numero_unico);
+            
+            $fechaAvaluo = DB::select("SELECT to_char(FECHA,'YYYY-MM-DD') as FECHA_AVALUO FROM DOC.DOC_DOCUMENTODIGITAL WHERE IDDOCUMENTODIGITAL = '".$id_avaluo."'");
+            $arr_fechaAvaluo = convierte_a_arreglo($fechaAvaluo);
+            $dataFechaAvaluo = $arr_fechaAvaluo[0]['fecha_avaluo'];
+            $fechaAvaluoCompara = new Carbon($dataFechaAvaluo);
+
+            $fechaCompara = new Carbon('2021-01-01');
+
+            $nuevo = 1; 
+            if($fechaAvaluoCompara->lt($fechaCompara)){
+                $nuevo = 0;
+            }
     }
 
 }
