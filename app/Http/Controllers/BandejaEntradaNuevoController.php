@@ -997,7 +997,7 @@ class BandejaEntradaNuevoController extends Controller
 
             $idUsuario = $request->query('idUsuario'); //echo $idUsuario; exit();
 
-            $file = $request->query('file');
+            $file = $request->query('files');
             $contents = base64_decode($file);
 
             /*$file = $request->file('files');
