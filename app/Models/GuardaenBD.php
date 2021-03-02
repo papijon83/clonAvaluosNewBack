@@ -325,18 +325,18 @@ class GuardaenBD
 
     public function insertFexavaInvestSuperficieAux($par_identificadorFraccion,$par_superficiefraccion,$par_fzo,$par_fub,$par_ffr,$par_ffo,$par_fsu,$par_idavaluo,$par_fotvalor,$par_fotdescripcion,$par_valcatastraltierra,$par_codtipo){
         
-        $par_identificadorFraccion = $par_identificadorFraccion == null ? NULL : $par_identificadorFraccion;
-        $par_superficiefraccion = $par_superficiefraccion == null ? NULL : $par_superficiefraccion;
-        $par_fzo = $par_fzo == null ? NULL : $par_fzo;
-        $par_fub = $par_fub == null ? NULL : $par_fub;
-        $par_ffr = $par_ffr == null ? NULL : $par_ffr;
-        $par_ffo = $par_ffo == null ? NULL : $par_ffo;
-        $par_fsu = $par_fsu == null ? NULL : $par_fsu;
-        $par_idavaluo = $par_idavaluo == null ? NULL : $par_idavaluo;
-        $par_fotvalor = $par_fotvalor == null ? NULL : $par_fotvalor;
-        $par_fotdescripcion = $par_fotdescripcion == null ? NULL : $par_fotdescripcion;
-        $par_valcatastraltierra = $par_valcatastraltierra == null ? NULL : $par_valcatastraltierra;
-        $par_codtipo = $par_codtipo == null ? NULL : $par_codtipo;
+        $par_identificadorFraccion = $par_identificadorFraccion == null ? 'null' : $par_identificadorFraccion;
+        $par_superficiefraccion = $par_superficiefraccion == null ? 'null' : (String)($par_superficiefraccion);
+        $par_fzo = $par_fzo == null ? 'null' : $par_fzo;
+        $par_fub = $par_fub == null ? 'null' : $par_fub;
+        $par_ffr = $par_ffr == null ? 'null' : $par_ffr;
+        $par_ffo = $par_ffo == null ? 'null' : $par_ffo;
+        $par_fsu = $par_fsu == null ? 'null' : $par_fsu;
+        $par_idavaluo = $par_idavaluo == null ? 'null' : $par_idavaluo;
+        $par_fotvalor = $par_fotvalor == null ? 'null' : $par_fotvalor;
+        $par_fotdescripcion = $par_fotdescripcion == null ? 'null' : $par_fotdescripcion;
+        $par_valcatastraltierra = $par_valcatastraltierra == null ? 'null' : $par_valcatastraltierra;
+        $par_codtipo = $par_codtipo == null ? 'null' : $par_codtipo;
 
 
         //echo $par_identificadorFraccion.", ".$par_superficiefraccion.", ".$par_fzo.", ".$par_fub.", ".$par_ffr.", ".$par_ffo.", ".$par_fsu.", ".$par_fotvalor.", ".$par_fotdescripcion.", ".$par_idavaluo.", ".$par_valcatastraltierra.", ".$par_codtipo;

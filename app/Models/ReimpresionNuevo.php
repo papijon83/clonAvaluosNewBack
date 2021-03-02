@@ -2190,7 +2190,7 @@ class ReimpresionNuevo
         $comandoRmDefault = "rm ".$rutaArchivos."/default";
         shell_exec($comandoRmDefault);
         
-        echo $contenidoArchivo;
+        return $contenidoArchivo;
     }
 
     public function infoAvaluoNuevo($idAvaluo){

@@ -995,15 +995,15 @@ class BandejaEntradaNuevoController extends Controller
     function guardarAvaluoPNet(Request $request){
         try{
 
-            $idUsuario = $request->input('idUsuario'); //echo $idUsuario; exit();
+            $idUsuario = $request->query('idUsuario'); //echo $idUsuario; exit();
 
-            /*$file = $request->input('file');
-            $contents = base64_decode($file);*/
+            $file = $request->query('file');
+            $contents = base64_decode($file);
 
-            $file = $request->file('files');
+            /*$file = $request->file('files');
             $myfile = fopen($file, "r");
             $contents = fread($myfile, filesize($file));    
-            fclose($myfile);
+            fclose($myfile);*/
 
             //echo $contents; exit();
             $xml = simplexml_load_string($contents,'SimpleXMLElement', LIBXML_NOCDATA);          
@@ -6144,12 +6144,44 @@ class BandejaEntradaNuevoController extends Controller
             $dataFechaPresentacion = $arr_fechaPresentacion[0]['fecha_presentacion'];
             $fechaAvaluoCompara = new Carbon($dataFechaPresentacion);*/
 
-            $fechaCompara = new Carbon('2021-02-28');
+            //$fechaCompara = new Carbon('2021-02-28');
+            $anioCompara = Carbon::parse($fechaAvaluoCompara)->format('Y'); //echo "SOY AÑO COMPARA ".$anioCompara; exit();
 
-            $nuevo = 1; //var_dump($fechaPresentacionCompara->lt($fechaCompara)); exit();
+            $contenido = $this->obtenXMLSV($numero_unico);
+
+            $xml = simplexml_load_string($contenido,'SimpleXMLElement', LIBXML_NOCDATA);
+            $arrXML = convierte_a_arreglo($xml);
+
+            if(isset($arrXML['Comercial'])){
+                $elementoPrincipal = $arrXML['Comercial'];
+                $tipoDeAvaluo =  "Comercial";
+            }
+    
+            if(isset($arrXML['Catastral'])){
+                $elementoPrincipal = $arrXML['Catastral'];
+                $tipoDeAvaluo =  "Catastral";
+            }
+
+            if(isset($elementoPrincipal['Antecedentes']['Solicitante']['Alcaldia'])){
+                $tieneAlcaldia = true;
+                //echo "SOY ALCALDIA ".$elementoPrincipal['Antecedentes']['Solicitante']['Alcaldia'];
+            }
+            if(isset($elementoPrincipal['Antecedentes']['Solicitante']['Delegacion'])){
+                $tieneDelegacion = true;
+                //echo "SOY DELEGACION ".$elementoPrincipal['Antecedentes']['Solicitante']['Delegacion'];
+            }            
+            
+
+            /*$nuevo = 1; //var_dump($fechaPresentacionCompara->lt($fechaCompara)); exit();
             if($fechaAvaluoCompara->lte($fechaCompara)){
                 $nuevo = 0;
+            }*/
+            if($anioCompara == 2021 && $tieneAlcaldia == true){
+                $nuevo = 1;
+            }else{
+                $nuevo = 0;
             }
+
             //echo "SOY NUEVO ".$nuevo; exit();
             if($nuevo == 0){                
                    
@@ -6230,12 +6262,52 @@ class BandejaEntradaNuevoController extends Controller
             $dataFechaPresentacion = $arr_fechaPresentacion[0]['fecha_presentacion'];
             $fechaAvaluoCompara = new Carbon($dataFechaPresentacion);*/
 
-            $fechaCompara = new Carbon('2021-02-28');
+            /*$fechaCompara = new Carbon('2021-02-28');
+
+            $contenido = $this->obtenXMLSV($numero_unico);
 
             $nuevo = 1; //var_dump($fechaPresentacionCompara->lt($fechaCompara)); exit();
             if($fechaAvaluoCompara->lte($fechaCompara)){
                 $nuevo = 0;
+            }*/
+
+            $anioCompara = Carbon::parse($fechaAvaluoCompara)->format('Y'); //echo "SOY AÑO COMPARA ".$anioCompara; exit();
+
+            $contenido = $this->obtenXMLSV($numero_unico);
+
+            $xml = simplexml_load_string($contenido,'SimpleXMLElement', LIBXML_NOCDATA);
+            $arrXML = convierte_a_arreglo($xml);
+
+            if(isset($arrXML['Comercial'])){
+                $elementoPrincipal = $arrXML['Comercial'];
+                $tipoDeAvaluo =  "Comercial";
             }
+    
+            if(isset($arrXML['Catastral'])){
+                $elementoPrincipal = $arrXML['Catastral'];
+                $tipoDeAvaluo =  "Catastral";
+            }
+
+            if(isset($elementoPrincipal['Antecedentes']['Solicitante']['Alcaldia'])){
+                $tieneAlcaldia = true;
+                //echo "SOY ALCALDIA ".$elementoPrincipal['Antecedentes']['Solicitante']['Alcaldia'];
+            }
+            if(isset($elementoPrincipal['Antecedentes']['Solicitante']['Delegacion'])){
+                $tieneDelegacion = true;
+                //echo "SOY DELEGACION ".$elementoPrincipal['Antecedentes']['Solicitante']['Delegacion'];
+            }            
+            
+
+            /*$nuevo = 1; //var_dump($fechaPresentacionCompara->lt($fechaCompara)); exit();
+            if($fechaAvaluoCompara->lte($fechaCompara)){
+                $nuevo = 0;
+            }*/
+            if($anioCompara == 2021 && $tieneAlcaldia == true){
+                $nuevo = 1;
+            }else{
+                $nuevo = 0;
+            }
+
             //echo "SOY NUEVO ".$nuevo; exit();
             if($nuevo == 0){             
                    
@@ -6297,6 +6369,17 @@ class BandejaEntradaNuevoController extends Controller
         }    
     }
 
+    public function obtenXMLSV($numero_unico){
+        //$numero_unico = trim($request->input('no_unico'));
+        
+        $this->modelDocumentos = new Documentos();            
+        $id_avaluo = $this->modelDocumentos->get_idavaluo_db($numero_unico);
+        $this->modelReimpresionNuevo = new ReimpresionNuevo();
+        $infoAvaluo = $this->modelReimpresionNuevo->obtenXML($id_avaluo);    
+        return $infoAvaluo;
+             
+    }
+
     public function obtenXML(Request $request){
         $numero_unico = trim($request->input('no_unico'));
         
@@ -6304,7 +6387,8 @@ class BandejaEntradaNuevoController extends Controller
         $id_avaluo = $this->modelDocumentos->get_idavaluo_db($numero_unico);
         $this->modelReimpresionNuevo = new ReimpresionNuevo();
         $infoAvaluo = $this->modelReimpresionNuevo->obtenXML($id_avaluo);    
-            
+        return $infoAvaluo;
+
     } 
     
     public function insertSuperficieAuxPNet(Request $request){
