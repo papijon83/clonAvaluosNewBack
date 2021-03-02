@@ -6081,7 +6081,7 @@ class BandejaEntradaNuevoController extends Controller
             print_r($infoAvaluo); exit(); */
             //return response()->json($infoAvaluo, 200);
         }catch (\Throwable $th) {
-            Log::info($th);
+            Log::info("n° unico: ".$numero_unico."\nerror: ".$th->getMessage()."\narchivo: ".$th->getFile()."\nlinea: ".$th->getLine());
             error_log($th);
             return response()->json(['mensaje' => 'Error al obtener la información del avalúo'], 500);
         }    
@@ -6120,7 +6120,7 @@ class BandejaEntradaNuevoController extends Controller
             print_r($infoAvaluo); exit();*/
             //return response()->json($infoAvaluo, 200);
         }catch (\Throwable $th) {
-            Log::info($th);
+            Log::info("n° unico: ".$numero_unico."\nerror: ".$th->getMessage()."\narchivo: ".$th->getFile()."\nlinea: ".$th->getLine());
             error_log($th);
             return response()->json(['mensaje' => 'Error al obtener la información del avalúo'], 500);
         }    
@@ -6237,7 +6237,7 @@ class BandejaEntradaNuevoController extends Controller
             
                         
         }catch (\Throwable $th) {
-            Log::info($th);
+            Log::info("n° unico: ".$numero_unico."\nerror: ".$th->getMessage()."\narchivo: ".$th->getFile()."\nlinea: ".$th->getLine());
             error_log($th);
             return response()->json(['mensaje' => 'Error al obtener la información del avalúo'], 500);
         }    
@@ -6363,7 +6363,7 @@ class BandejaEntradaNuevoController extends Controller
             
                         
         }catch (\Throwable $th) {
-            Log::info($th);
+            Log::info("n° unico: ".$numero_unico."\nerror: ".$th->getMessage()."\narchivo: ".$th->getFile()."\nlinea: ".$th->getLine());
             error_log($th);
             return response()->json(['mensaje' => 'Error al obtener la información del avalúo'], 500);
         }    
