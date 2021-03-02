@@ -228,6 +228,7 @@ class ReimpresionNuevo
         /************************************************************************************************************************************************************************/
 
         $infoReimpresion['Sociedad_Participa'] = array();
+        $identificacion['ClaveSociedad'] = 'S-0283';
 
         if(isset($identificacion['ClaveSociedad']) && !is_array($identificacion['ClaveSociedad'])){
             $infoReimpresion['Sociedad_Participa']['Sociedad_Que_Practica_Avaluo'] = $identificacion['ClaveSociedad'];
