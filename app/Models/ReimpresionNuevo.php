@@ -98,7 +98,7 @@ class ReimpresionNuevo
         if(isset($ubicacionInmueble['CuentaDeAgua']) && !is_array($ubicacionInmueble['CuentaDeAgua'])){
             $arrInfoAcuse['Ubicacion_Inmueble']['Cuenta_agua'] = $ubicacionInmueble['CuentaDeAgua'];
         }else{
-            $arrInfoAcuse['Ubicacion_Inmueble']['Cuenta_agua'] = '';
+            $arrInfoAcuse['Ubicacion_Inmueble']['Cuenta_agua'] = 'NO SE PROPORCIONO.';
         }
         
 
