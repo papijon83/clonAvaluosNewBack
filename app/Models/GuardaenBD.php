@@ -345,7 +345,7 @@ class GuardaenBD
         //print_r($arrElementos['calle']); exit();
         try {            
             $procedure = 'BEGIN
-            FEXAVA.FEXAVA_DATOSESTADISTICOS_PKG.FEXAVA_INSERT_SUPERFICIEAUX_P(
+            FEXAVA.fexava_datosestadisticos_pkg.FEXAVA_INSERT_SUPERFICIEAUX_P(
                 :PAR_IDENTIFICADORFRACCION,
                 :PAR_SUPERFICIEFRACCION,
                 :PAR_FZO,
