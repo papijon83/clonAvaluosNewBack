@@ -228,6 +228,11 @@ class ReimpresionNuevo
         /************************************************************************************************************************************************************************/
 
         $infoReimpresion['Sociedad_Participa'] = array();
+
+        if(isset($identificacion['ClaveSociedad']) && !is_array($identificacion['ClaveSociedad'])){
+            $infoReimpresion['Sociedad_Participa']['Sociedad_Que_Practica_Avaluo'] = $identificacion['ClaveSociedad'];
+        }
+
         $antecedentes = $elementoPrincipal['Antecedentes'];
         $solicitante = $antecedentes['Solicitante']; 
         $arrSolicitante = array_map("convierte_a_arreglo",$solicitante); //print_r($arrSolicitante); exit();    
@@ -2011,7 +2016,13 @@ class ReimpresionNuevo
             }            
         }
 
-        $infoReimpresion['Perito_Valuador'] = $this->modelDocumentos->get_nombre_perito($identificacion['ClaveValuador']);
+        if(isset($identificacion['ClaveSociedad']) && !is_array($identificacion['ClaveSociedad'])){
+            $infoReimpresion['Registro_TDF'] = $identificacion['ClaveSociedad']." ".$this->modelDocumentos->get_nombre_sociedad($identificacion['ClaveSociedad']);
+        }
+
+        if(isset($identificacion['ClaveValuador']) && !is_array($identificacion['ClaveValuador'])){
+            $infoReimpresion['Perito_Valuador'] = $identificacion['ClaveValuador']." ".$this->modelDocumentos->get_nombre_perito($identificacion['ClaveValuador']);
+        }  
 
         $anexoFotogrfico = $elementoPrincipal['AnexoFotografico'];
         $sujeto = $anexoFotogrfico['Sujeto'];
@@ -2266,6 +2277,11 @@ class ReimpresionNuevo
         /************************************************************************************************************************************************************************/
 
         $infoReimpresion['Sociedad_Participa'] = array();
+
+        if(isset($identificacion['ClaveSociedad']) && !is_array($identificacion['ClaveSociedad'])){
+            $infoReimpresion['Sociedad_Participa']['Sociedad_Que_Practica_Avaluo'] = $identificacion['ClaveSociedad'];
+        }
+
         $antecedentes = $elementoPrincipal['Antecedentes'];
         $solicitante = $antecedentes['Solicitante']; 
         $arrSolicitante = array_map("convierte_a_arreglo",$solicitante); //print_r($arrSolicitante); exit();    
@@ -3977,7 +3993,13 @@ class ReimpresionNuevo
             }            
         }
 
-        $infoReimpresion['Perito_Valuador'] = $this->modelDocumentos->get_nombre_perito($identificacion['ClaveValuador']);
+        if(isset($identificacion['ClaveSociedad']) && !is_array($identificacion['ClaveSociedad'])){
+            $infoReimpresion['Registro_TDF'] = $identificacion['ClaveSociedad']." ".$this->modelDocumentos->get_nombre_sociedad($identificacion['ClaveSociedad']);
+        }
+
+        if(isset($identificacion['ClaveValuador']) && !is_array($identificacion['ClaveValuador'])){
+            $infoReimpresion['Perito_Valuador'] = $identificacion['ClaveValuador']." ".$this->modelDocumentos->get_nombre_perito($identificacion['ClaveValuador']);
+        } 
 
         $anexoFotogrfico = $elementoPrincipal['AnexoFotografico'];
         $sujeto = $anexoFotogrfico['Sujeto'];

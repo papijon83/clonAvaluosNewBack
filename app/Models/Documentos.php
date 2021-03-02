@@ -440,6 +440,23 @@ class Documentos
         
     }
 
+    public function get_nombre_sociedad($claveSociedad){ //echo "SELECT IDPERSONA FROM RCON.RCON_PERITO WHERE REGISTRO = '$claveValuador'"; exit();
+        $info = DB::select("SELECT IDPERSONA FROM RCON.RCON_SOCIEDADVALUACION WHERE REGISTRO = '$claveSociedad'");
+        $arrInfo = convierte_a_arreglo($info); //print_r($arrInfo->binariodatos); exit();
+        
+        if(count($arrInfo) > 0){
+            $idpersona = $arrInfo[0]['idpersona'];
+            $infoNombre = DB::select("SELECT NOMBRE FROM RCON.RCON_PERSONAMORAL WHERE IDPERSONA = $idpersona");
+            $arrInfoPersona = convierte_a_arreglo($infoNombre); //print_r($arrInfo->binariodatos); exit();
+            $nombrePerito = $arrInfoPersona[0]['nombre'];
+            return $nombrePerito;
+        }else{
+            //Esto puede suceder debido a que en algunos XML ya cargados la clave del valuador tiene ceros de mas o ceros de menos comparadas con las claves que estan en la BD
+            return '';
+        }
+        
+    }
+
     public function ObtenerNombreDelegacionPorClave($clave)
     {        
         $rowsDelegaciones = DB::select("SELECT nombre FROM CAS.CAS_DELEGACION WHERE CLAVE = '$clave'");
