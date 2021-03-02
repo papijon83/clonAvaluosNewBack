@@ -290,7 +290,13 @@ class ReimpresionNuevo
         $infoReimpresion['Sociedad_Participa']['Propietario']['No_Interior'] = $arrPropietario['NumeroInterior'];
         $infoReimpresion['Sociedad_Participa']['Propietario']['Colonia'] = $arrPropietario['Colonia'];
         $infoReimpresion['Sociedad_Participa']['Propietario']['CP'] = $arrPropietario['CodigoPostal'];
-        $infoReimpresion['Sociedad_Participa']['Propietario']['Delegacion'] = $this->modelDocumentos->ObtenerNombreDelegacionPorClave($arrPropietario['Delegacion']);
+        if(isset($arrPropietario['Delegacion']) && !is_array($arrPropietario['Delegacion'])){
+            $infoReimpresion['Sociedad_Participa']['Propietario']['Delegacion'] = $this->modelDocumentos->ObtenerNombreDelegacionPorClave($arrPropietario['Delegacion']);
+        }
+        if(isset($arrPropietario['Alcaldia']) && !is_array($arrPropietario['Alcaldia'])){
+            $infoReimpresion['Sociedad_Participa']['Propietario']['Delegacion'] = $this->modelDocumentos->ObtenerNombreDelegacionPorClave($arrPropietario['Alcaldia']);
+        }
+        
 
         $infoReimpresion['Sociedad_Participa']['Objeto_Avaluo'] = $arrFexava['objeto'];
         $infoReimpresion['Sociedad_Participa']['Proposito_Avaluo'] = $arrFexava['proposito'];
