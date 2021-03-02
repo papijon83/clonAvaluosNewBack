@@ -4927,4 +4927,11 @@ function tofloat($num) {
     );
 }
 
+function getPropositoAvaluo($id){
+    $arr = array('1'=>'Establecer la base gravable para el pago de Impuesto sobre adquisición de inmuebles.',
+                '2'=>'Establecer la base gravable para el pago de Impuesto predial.',
+                '3'=>'Establecer la base gravable para el pago de derechos y contribuciones inmobiliarias.');
+    return $arr[$id];
+}
+
 ?>

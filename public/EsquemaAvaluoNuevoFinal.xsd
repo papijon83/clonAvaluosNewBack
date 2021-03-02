@@ -505,7 +505,7 @@
   <xs:simpleType name="Cat-PropositoAvaluo">
     <xs:restriction base="xs:nonNegativeInteger">
       <xs:minInclusive value="1"/>
-      <xs:maxInclusive value="4"/>
+      <xs:maxInclusive value="3"/>
     </xs:restriction>
   </xs:simpleType>
 

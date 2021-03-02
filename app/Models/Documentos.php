@@ -40,34 +40,41 @@ class Documentos
     }*/
 
     public function tran_InsertAvaluo($descripcion,$tipoDocumentoDigital,$fecha,$idUsuario){
-        
-        $idDocumentoDigital = 0;
-        //$descripcion = "Avaluo_".$cuentaCatastral;
-        $fecha_hoy = new Carbon($fecha);
-        $fecha = $fecha_hoy->format('Y/m/d');
-        //echo "SOY FECHA ".$fecha; exit();
-        $procedure = 'BEGIN
-        DOC.DOC_DOCUMENTOS_DIGITALES_PCKG.DOC_INSERTDOCUMENTODIGITAL_P(
-            :P_DESCRIPCION,
-            :P_IDTIPODOCUMENTODIGITAL,
-            :P_FECHA,
-            :P_IDUSUARIO,
-            :P_IDDOCUMENTODIGITAL
-        ); END;';
-        $pdo = DB::getPdo();
-        $stmt = $pdo->prepare($procedure);
-        $stmt->bindParam(':P_DESCRIPCION', $descripcion, \PDO::PARAM_STR);
-        $stmt->bindParam(':P_IDTIPODOCUMENTODIGITAL',$tipoDocumentoDigital, \PDO::PARAM_INT);
-        $stmt->bindParam(':P_FECHA',$fecha,\PDO::PARAM_STR);
-        $stmt->bindParam(':P_IDUSUARIO',$idUsuario,\PDO::PARAM_INT);
-        $stmt->bindParam(':P_IDDOCUMENTODIGITAL',$idDocumentoDigital,\PDO::PARAM_INT);
-        $stmt->execute();
-        $stmt->closeCursor();
-        $pdo->commit();
-        $pdo->close();
-        DB::commit();
-        DB::reconnect();
-        return $idDocumentoDigital ? $idDocumentoDigital : 0;    
+        try{
+            $idDocumentoDigital = 0;
+            //$descripcion = "Avaluo_".$cuentaCatastral;
+            $fecha_hoy = new Carbon($fecha);
+            $fecha = $fecha_hoy->format('Y/m/d');
+            //echo $descripcion." ".$tipoDocumentoDigital." ".$fecha." ".$idUsuario; exit();
+            //echo "SOY FECHA ".$fecha; exit();
+            $procedure = 'BEGIN
+            DOC.DOC_DOCUMENTOS_DIGITALES_PCKG.DOC_INSERTDOCUMENTODIGITAL_P(
+                :P_DESCRIPCION,
+                :P_IDTIPODOCUMENTODIGITAL,
+                :P_FECHA,
+                :P_IDUSUARIO,
+                :P_IDDOCUMENTODIGITAL
+            ); END;';
+            $pdo = DB::getPdo();
+            $stmt = $pdo->prepare($procedure);
+            $stmt->bindParam(':P_DESCRIPCION', $descripcion, \PDO::PARAM_STR);
+            $stmt->bindParam(':P_IDTIPODOCUMENTODIGITAL',$tipoDocumentoDigital, \PDO::PARAM_INT);
+            $stmt->bindParam(':P_FECHA',$fecha,\PDO::PARAM_STR);
+            $stmt->bindParam(':P_IDUSUARIO',$idUsuario,\PDO::PARAM_INT);
+            $stmt->bindParam(':P_IDDOCUMENTODIGITAL',$idDocumentoDigital,\PDO::PARAM_INT);
+            $stmt->execute();
+            $stmt->closeCursor();
+            $pdo->commit();
+            $pdo->close();
+            DB::commit();
+            DB::reconnect();
+            return $idDocumentoDigital ? $idDocumentoDigital : 0; 
+        }catch (\Throwable $th) {
+            Log::info($th);
+            error_log($th);
+            return response()->json(['mensaje' => 'Error en el servidor'], 500);
+        }
+           
 
     }
 

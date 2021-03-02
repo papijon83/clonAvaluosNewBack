@@ -323,6 +323,75 @@ class GuardaenBD
         return TRUE;
     }
 
+    public function insertFexavaInvestSuperficieAux($par_identificadorFraccion,$par_superficiefraccion,$par_fzo,$par_fub,$par_ffr,$par_ffo,$par_fsu,$par_idavaluo,$par_fotvalor,$par_fotdescripcion,$par_valcatastraltierra,$par_codtipo){
+        
+        $par_identificadorFraccion = $par_identificadorFraccion == null ? NULL : $par_identificadorFraccion;
+        $par_superficiefraccion = $par_superficiefraccion == null ? NULL : $par_superficiefraccion;
+        $par_fzo = $par_fzo == null ? NULL : $par_fzo;
+        $par_fub = $par_fub == null ? NULL : $par_fub;
+        $par_ffr = $par_ffr == null ? NULL : $par_ffr;
+        $par_ffo = $par_ffo == null ? NULL : $par_ffo;
+        $par_fsu = $par_fsu == null ? NULL : $par_fsu;
+        $par_idavaluo = $par_idavaluo == null ? NULL : $par_idavaluo;
+        $par_fotvalor = $par_fotvalor == null ? NULL : $par_fotvalor;
+        $par_fotdescripcion = $par_fotdescripcion == null ? NULL : $par_fotdescripcion;
+        $par_valcatastraltierra = $par_valcatastraltierra == null ? NULL : $par_valcatastraltierra;
+        $par_codtipo = $par_codtipo == null ? NULL : $par_codtipo;
+
+
+        //echo $par_identificadorFraccion.", ".$par_superficiefraccion.", ".$par_fzo.", ".$par_fub.", ".$par_ffr.", ".$par_ffo.", ".$par_fsu.", ".$par_fotvalor.", ".$par_fotdescripcion.", ".$par_idavaluo.", ".$par_valcatastraltierra.", ".$par_codtipo;
+        //exit();
+
+        //print_r($arrElementos['calle']); exit();
+        try {            
+            $procedure = 'BEGIN
+            FEXAVA.FEXAVA_DATOSESTADISTICOS_PKG.FEXAVA_INSERT_SUPERFICIEAUX_P(
+                :PAR_IDENTIFICADORFRACCION,
+                :PAR_SUPERFICIEFRACCION,
+                :PAR_FZO,
+                :PAR_FUB,
+                :PAR_FFR,
+                :PAR_FFO,
+                :PAR_FSU,
+                :PAR_IDAVALUO,
+                :PAR_FOTVALOR,
+                :PAR_FOTDESCRIPCION,
+                :PAR_VALCATASTRALTIERRA,
+                :PAR_CODTIPO,        
+                :C_AVALUO
+            ); END;';
+
+            $conn = oci_connect(env("DB_USERNAME"), env("DB_PASSWORD"), env("DB_TNS"));
+            $stmt = oci_parse($conn, $procedure);
+            oci_bind_by_name($stmt, ':PAR_IDENTIFICADORFRACCION',$par_identificadorFraccion);
+            oci_bind_by_name($stmt, ':PAR_SUPERFICIEFRACCION',$par_superficiefraccion);
+            oci_bind_by_name($stmt, ':PAR_FZO',$par_fzo);
+            oci_bind_by_name($stmt, ':PAR_FUB',$par_fub);
+            oci_bind_by_name($stmt, ':PAR_FFR',$par_ffr);
+            oci_bind_by_name($stmt, ':PAR_FFO',$par_ffo);
+            oci_bind_by_name($stmt, ':PAR_FSU',$par_fsu);
+            oci_bind_by_name($stmt, ':PAR_IDAVALUO',$par_idavaluo);
+            oci_bind_by_name($stmt, ':PAR_FOTVALOR',$par_fotvalor);
+            oci_bind_by_name($stmt, ':PAR_FOTDESCRIPCION',$par_fotdescripcion);        
+            oci_bind_by_name($stmt, ':PAR_VALCATASTRALTIERRA',$par_valcatastraltierra);
+            oci_bind_by_name($stmt, ':PAR_CODTIPO',$par_codtipo);        
+            $cursor = oci_new_cursor($conn);
+            oci_bind_by_name($stmt, ":C_AVALUO", $cursor, -1, OCI_B_CURSOR);
+            oci_execute($stmt, OCI_COMMIT_ON_SUCCESS);
+            oci_execute($cursor, OCI_COMMIT_ON_SUCCESS);
+            oci_free_statement($stmt);
+            oci_close($conn);
+            oci_fetch_all($cursor, $resInsertFexsuperficie, 0, -1, OCI_FETCHSTATEMENT_BY_ROW + OCI_ASSOC);
+            oci_free_cursor($cursor);
+            //print_r($resInsertFexava); exit();
+            return $resInsertFexsuperficie;
+        }catch (\Throwable $th) {
+            error_log($th);
+            Log::info($th);
+            return 'Error al insertar con FEXAVA_INSERT_SUPERFICIEAUX_P';
+        }
+    }
+
     public function insertFexavaInvestProductosComp($arrElementos){
         //print_r($arrElementos['calle']); exit();
         try {            

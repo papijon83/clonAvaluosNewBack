@@ -756,6 +756,24 @@ class BandejaEntradaNuevoController extends Controller
         
     }
 
+    function comprimirNet($archivo,$nombreArchivo){
+        try{    
+            
+            $ext = pathinfo($nombreArchivo, PATHINFO_EXTENSION);
+    
+            $nombreComprimido = $nombreArchivo.".7z";
+            
+            $xmlComprimido = shell_exec("7z a $nombreComprimido $archivo");
+    
+           return $nombreComprimido;
+        } catch (\Throwable $th) {
+            //Log::info($th);
+            error_log($th);
+            return response()->json(['mensaje' => 'Error al comprimir archivo'], 500);
+        }
+        
+    }
+
     function validarTamanioFichero($bytesXmlAvaluo)
     {
         $tamanioMaximo = 4194304;
@@ -803,9 +821,13 @@ class BandejaEntradaNuevoController extends Controller
                 }
             }else{
                 if(isset($arrXML[$elementoPrincipal]['EnfoqueDeMercado']['Terrenos']['TerrenosDirectos']) && isset($arrXML[$elementoPrincipal]['EnfoqueDeMercado']['Terrenos']['TerrenosResidual'])){
-                    $xsd = 'EsquemaAvaluoNuevoMixtoFinal.xsd';
+                    if(is_array($arrXML[$elementoPrincipal]['Antecedentes']['PropositoDelAvaluo']) && isset($arrXML[$elementoPrincipal]['Antecedentes']['PropositoDelAvaluo']['Otro'])){                        
+                        $xsd = 'EsquemaAvaluoNuevoCatMixtoFinal.xsd';
+                    }else{
+                        $xsd = 'EsquemaAvaluoNuevoMixtoFinal.xsd';
+                    }                    
                 }else{
-                    if(is_array($arrXML[$elementoPrincipal]['Antecedentes']['PropositoDelAvaluo']) && isset($arrXML[$elementoPrincipal]['Antecedentes']['PropositoDelAvaluo']['Otro']) && $arrXML[$elementoPrincipal]['Antecedentes']['PropositoDelAvaluo']['PropositoDelAvaluo'] == '4'){
+                    if(is_array($arrXML[$elementoPrincipal]['Antecedentes']['PropositoDelAvaluo']) && isset($arrXML[$elementoPrincipal]['Antecedentes']['PropositoDelAvaluo']['Otro'])){
                         $xsd = 'EsquemaAvaluoNuevoCatFinal.xsd';
                     }else{
                         $xsd = 'EsquemaAvaluoNuevoFinal.xsd';
@@ -893,13 +915,13 @@ class BandejaEntradaNuevoController extends Controller
     function guardarAvaluo(Request $request){
         try{
 
-            $authToken = $request->header('Authorization');
+            /* $authToken = $request->header('Authorization');
             if (!$authToken) {
                 return response()->json(['mensaje' => 'Sin acceso a la aplicación'], 403);
             } 
             $resToken = Crypt::decrypt($authToken);
             
-            $idPersona = empty($resToken['id_anterior']) ? $resToken['id_usuario']: $resToken['id_anterior']; //$idPersona = 264;
+            $idPersona = empty($resToken['id_anterior']) ? $resToken['id_usuario']: $resToken['id_anterior']; */ $idPersona = 264;
 
             $file = $request->file('files');
 
@@ -968,6 +990,100 @@ class BandejaEntradaNuevoController extends Controller
                 return response()->json(['mensaje' => 'Error al guardar el Avalúo'], 500);
             }
         }
+    }
+
+    function guardarAvaluoPNet(Request $request){
+        try{
+
+            $idUsuario = $request->input('idUsuario'); //echo $idUsuario; exit();
+
+            /*$file = $request->input('file');
+            $contents = base64_decode($file);*/
+
+            $file = $request->file('files');
+            $myfile = fopen($file, "r");
+            $contents = fread($myfile, filesize($file));    
+            fclose($myfile);
+
+            //echo $contents; exit();
+            $xml = simplexml_load_string($contents,'SimpleXMLElement', LIBXML_NOCDATA);          
+            //$this->fileXML = $xml;
+
+                $esComercial = $xml->xpath('//Comercial');
+                if(count($esComercial) > 0){
+                    $esComercial = true;
+                    $tipoTramite = 1;
+                    $elementoPrincipal = '//Comercial';            
+                }else{
+                    $esComercial = false;
+                    $tipoTramite = 2;
+                    $elementoPrincipal = '//Catastral';            
+                }
+
+                $elementoFecha = $xml->xpath($elementoPrincipal.'//Identificacion//FechaAvaluo[@id="a.2"]');
+                $fechaAvaluo = $elementoFecha[0];
+
+                $infoXmlCuentaCatastral = $xml->xpath($elementoPrincipal.'//Antecedentes[@id="b"]//InmuebleQueSeValua[@id="b.3"]//CuentaCatastral[@id="b.3.10"]');
+                $camposFexavaAvaluo['FEXAVA_DATOSPERSONAS']['CuentaCatastral'] = array();
+                foreach($infoXmlCuentaCatastral[0] as $llave => $elemento){
+                    $arrCuentaCatastral[$llave] = (String)($elemento);
+                }
+                
+                if(trim($arrCuentaCatastral['Region'] != '')){
+                    $region = $arrCuentaCatastral['Region'];
+                }
+        
+                if(trim($arrCuentaCatastral['Manzana'] != '')){
+                    $manzana = $arrCuentaCatastral['Manzana'];
+                }
+        
+                if(trim($arrCuentaCatastral['Lote'] != '')){
+                    $lote = $arrCuentaCatastral['Lote'];
+                }
+        
+                if(trim($arrCuentaCatastral['Localidad'] != '')){
+                    $localidad = $arrCuentaCatastral['Localidad'];
+                }
+        
+                if(trim($arrCuentaCatastral['DigitoVerificador'] != '')){
+                    $digitoVerificador = $arrCuentaCatastral['DigitoVerificador'];
+                }
+
+                $this->modelDocumentos =  new Documentos();
+
+            $camposFexavaAvaluo['IDAVALUO'] = 0;    
+                $cuentaCat = $region.'-'.
+                            $manzana.'-'.
+                            $lote.'-'.
+                            $localidad;
+                $nombreXMLAvaluo = $this->crearNombreDocumentoAv($cuentaCat,$elementoPrincipal);
+                $descripcionXMLAvaluo = $this->crearDescripcionDocumentoAv($cuentaCat);
+                if($elementoPrincipal == "//Catastral"){
+                    $idDocumentoDigital = $this->modelDocumentos->tran_InsertAvaluo($descripcionXMLAvaluo,2,$fechaAvaluo,$idUsuario);
+                }else{
+                    //echo $descripcionXMLAvaluo." 13 ".$fechaAvaluo." ".$idUsuario; exit();
+                    $idDocumentoDigital = $this->modelDocumentos->tran_InsertAvaluo($descripcionXMLAvaluo,13,$fechaAvaluo,$idUsuario);
+                }
+
+                $rutaArchivos = getcwd();
+                $nombreArchivoNet = $rutaArchivos.'/default';
+                $mynewfile = fopen($nombreArchivoNet, "w");
+                $fwrite = fwrite($mynewfile, $contents);    
+                fclose($mynewfile);               
+                //exit();
+                
+                $archivoComprimido = $this->comprimirNet($rutaArchivos.'/default',$nombreXMLAvaluo);
+                //var_dump($archivoComprimido); exit();
+                shell_exec("rm -f ".$rutaArchivos.'/default');
+                $ficheroAvaluo = $this->modelDocumentos->tran_InsertFicheroAvaluo($idDocumentoDigital, $nombreXMLAvaluo, null, $archivoComprimido);                
+            //return $idDocumentoDigital;
+            return response()->json(['IDDOCUMENTODIGITAL' => $idDocumentoDigital], 200);
+        }    
+        catch (\Throwable $th) {
+            Log::info($th);
+            error_log($th);
+            return response()->json(['mensaje' => 'Error en el servidor'], 500);
+        } 
     }
 
     function guardarAvaluoN($file,$infoXmlIdentificacion, $camposFexavaAvaluo, $idPersona,$elementoPrincipal,$xml,$fechaAvaluo){
@@ -1601,8 +1717,15 @@ class BandejaEntradaNuevoController extends Controller
         /************************************************************/
 
         $infoXmlPropositoDelAvaluo = $infoXmlAntecedentes->xpath($elementoPrincipal.'//Antecedentes[@id="b"]//PropositoDelAvaluo[@id="b.4"]');
-        $camposFexavaAvaluo['PROPOSITO'] = (String)($infoXmlPropositoDelAvaluo[0]);        
-
+        $infoXmlPropositoDelAvaluo = convierte_a_arreglo($infoXmlPropositoDelAvaluo); //print_r($infoXmlPropositoDelAvaluo); exit();
+        if(isset($infoXmlPropositoDelAvaluo[0]['PropositoDelAvaluo']) && $infoXmlPropositoDelAvaluo[0]['PropositoDelAvaluo'] == 4){
+            $camposFexavaAvaluo['PROPOSITO'] = $infoXmlPropositoDelAvaluo[0]['Otro'];
+        }else{
+            $camposFexavaAvaluo['PROPOSITO'] = getPropositoAvaluo($infoXmlPropositoDelAvaluo[0][0]);
+            //$camposFexavaAvaluo['PROPOSITO'] = (String)($infoXmlPropositoDelAvaluo[0]);
+        }
+                
+        print_r($camposFexavaAvaluo); exit();
         /************************************************************/
 
         $infoXmlObjetoDelAvaluo = $infoXmlAntecedentes->xpath($elementoPrincipal.'//Antecedentes[@id="b"]//ObjetoDelAvaluo[@id="b.5"]');        
@@ -6011,17 +6134,17 @@ class BandejaEntradaNuevoController extends Controller
             $this->modelDocumentos = new Documentos();    //echo $numero_unico; exit();         
             $id_avaluo = $this->modelDocumentos->get_idavaluo_db($numero_unico);
             
-            /*$fechaAvaluo = DB::select("SELECT to_char(FECHA,'YYYY-MM-DD') as FECHA_AVALUO FROM DOC.DOC_DOCUMENTODIGITAL WHERE IDDOCUMENTODIGITAL = '".$id_avaluo."'");
+            $fechaAvaluo = DB::select("SELECT to_char(FECHA,'YYYY-MM-DD') as FECHA_AVALUO FROM DOC.DOC_DOCUMENTODIGITAL WHERE IDDOCUMENTODIGITAL = '".$id_avaluo."'");
             $arr_fechaAvaluo = convierte_a_arreglo($fechaAvaluo);
             $dataFechaAvaluo = $arr_fechaAvaluo[0]['fecha_avaluo'];
-            $fechaAvaluoCompara = new Carbon($dataFechaAvaluo);*/
+            $fechaAvaluoCompara = new Carbon($dataFechaAvaluo);
 
-            $fechaPresentacion = DB::select("SELECT to_char(FECHA_PRESENTACION,'YYYY-MM-DD') as FECHA_PRESENTACION FROM FEXAVA_AVALUO WHERE NUMEROUNICO = '".$numero_unico."'");
+            /*$fechaPresentacion = DB::select("SELECT to_char(FECHA_PRESENTACION,'YYYY-MM-DD') as FECHA_PRESENTACION FROM FEXAVA_AVALUO WHERE NUMEROUNICO = '".$numero_unico."'");
             $arr_fechaPresentacion = convierte_a_arreglo($fechaPresentacion);
             $dataFechaPresentacion = $arr_fechaPresentacion[0]['fecha_presentacion'];
-            $fechaAvaluoCompara = new Carbon($dataFechaPresentacion);
+            $fechaAvaluoCompara = new Carbon($dataFechaPresentacion);*/
 
-            $fechaCompara = new Carbon('2021-03-03');
+            $fechaCompara = new Carbon('2021-02-28');
 
             $nuevo = 1; //var_dump($fechaPresentacionCompara->lt($fechaCompara)); exit();
             if($fechaAvaluoCompara->lt($fechaCompara)){
@@ -6097,17 +6220,17 @@ class BandejaEntradaNuevoController extends Controller
             $this->modelDocumentos = new Documentos();    //echo $numero_unico; exit();         
             $id_avaluo = $this->modelDocumentos->get_idavaluo_db($numero_unico);
             
-            /*$fechaAvaluo = DB::select("SELECT to_char(FECHA,'YYYY-MM-DD') as FECHA_AVALUO FROM DOC.DOC_DOCUMENTODIGITAL WHERE IDDOCUMENTODIGITAL = '".$id_avaluo."'");
+            $fechaAvaluo = DB::select("SELECT to_char(FECHA,'YYYY-MM-DD') as FECHA_AVALUO FROM DOC.DOC_DOCUMENTODIGITAL WHERE IDDOCUMENTODIGITAL = '".$id_avaluo."'");
             $arr_fechaAvaluo = convierte_a_arreglo($fechaAvaluo);
             $dataFechaAvaluo = $arr_fechaAvaluo[0]['fecha_avaluo'];
-            $fechaAvaluoCompara = new Carbon($dataFechaAvaluo);*/
+            $fechaAvaluoCompara = new Carbon($dataFechaAvaluo);
 
-            $fechaPresentacion = DB::select("SELECT to_char(FECHA_PRESENTACION,'YYYY-MM-DD') as FECHA_PRESENTACION FROM FEXAVA_AVALUO WHERE NUMEROUNICO = '".$numero_unico."'");
+            /*$fechaPresentacion = DB::select("SELECT to_char(FECHA_PRESENTACION,'YYYY-MM-DD') as FECHA_PRESENTACION FROM FEXAVA_AVALUO WHERE NUMEROUNICO = '".$numero_unico."'");
             $arr_fechaPresentacion = convierte_a_arreglo($fechaPresentacion);
             $dataFechaPresentacion = $arr_fechaPresentacion[0]['fecha_presentacion'];
-            $fechaAvaluoCompara = new Carbon($dataFechaPresentacion);
+            $fechaAvaluoCompara = new Carbon($dataFechaPresentacion);*/
 
-            $fechaCompara = new Carbon('2021-03-03');
+            $fechaCompara = new Carbon('2021-02-28');
 
             $nuevo = 1; //var_dump($fechaPresentacionCompara->lt($fechaCompara)); exit();
             if($fechaAvaluoCompara->lt($fechaCompara)){
@@ -6176,22 +6299,33 @@ class BandejaEntradaNuevoController extends Controller
 
     public function obtenXML(Request $request){
         $numero_unico = trim($request->input('no_unico'));
-          
-
-            $this->modelDocumentos = new Documentos();            
-            $id_avaluo = $this->modelDocumentos->get_idavaluo_db($numero_unico);
+        
+        $this->modelDocumentos = new Documentos();            
+        $id_avaluo = $this->modelDocumentos->get_idavaluo_db($numero_unico);
+        $this->modelReimpresionNuevo = new ReimpresionNuevo();
+        $infoAvaluo = $this->modelReimpresionNuevo->obtenXML($id_avaluo);    
             
-            $fechaAvaluo = DB::select("SELECT to_char(FECHA,'YYYY-MM-DD') as FECHA_AVALUO FROM DOC.DOC_DOCUMENTODIGITAL WHERE IDDOCUMENTODIGITAL = '".$id_avaluo."'");
-            $arr_fechaAvaluo = convierte_a_arreglo($fechaAvaluo);
-            $dataFechaAvaluo = $arr_fechaAvaluo[0]['fecha_avaluo'];
-            $fechaAvaluoCompara = new Carbon($dataFechaAvaluo);
+    } 
+    
+    public function insertSuperficieAuxPNet(Request $request){
+        //print_r($request->query); exit();     
+        $par_identificadorFraccion = $request->query('par_identificadorFraccion') == 'null' ? null : $request->query('par_identificadorFraccion');
+        $par_superficiefraccion = $request->query('par_superficiefraccion') == 'null' ? null : $request->query('par_superficiefraccion');
+        $par_fzo = $request->query('par_fzo') == 'null' ? null : $request->query('par_fzo');
+        $par_fub = $request->query('par_fub') == 'null' ? null : $request->query('par_fub');
+        $par_ffr = $request->query('par_ffr') == 'null' ? null : $request->query('par_ffr');
+        $par_ffo = $request->query('par_ffo') == 'null' ? null : $request->query('par_ffo');
+        $par_fsu = $request->query('par_fsu') == 'null' ? null : $request->query('par_fsu');
+        $par_idavaluo = $request->query('par_idavaluo') == 'null' ? null : $request->query('par_idavaluo');
+        $par_fotvalor = $request->query('par_fotvalor') == 'null' ? null : $request->query('par_fotvalor');
+        $par_fotdescripcion = $request->query('par_fotdescripcion') == 'null' ? null : $request->query('par_fotdescripcion');
+        $par_valcatastraltierra = $request->query('par_valcatastraltierra') == 'null' ? null : $request->query('par_valcatastraltierra');
+        $par_codtipo = $request->query('par_codtipo') == 'null' ? null : $request->query('par_codtipo');
 
-            $fechaCompara = new Carbon('2021-01-01');
+        $this->modelGuardaenBD = new GuardaenBD();
+        $resInsertSuperficie = $this->modelGuardaenBD->insertFexavaInvestSuperficieAux($par_identificadorFraccion,$par_superficiefraccion,$par_fzo,$par_fub,$par_ffr,$par_ffo,$par_fsu,$par_idavaluo,$par_fotvalor,$par_fotdescripcion,$par_valcatastraltierra,$par_codtipo);
 
-            $nuevo = 1; 
-            if($fechaAvaluoCompara->lt($fechaCompara)){
-                $nuevo = 0;
-            }
+        return response()->json(['IDDOCUMENTODIGITAL' => $resInsertSuperficie], 200);        
     }
 
 }
