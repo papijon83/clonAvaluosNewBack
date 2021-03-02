@@ -64,7 +64,7 @@ class DatosExtrasAvaluo
         $sociedadPerito = convierte_a_arreglo($resSociedad);
         return $sociedadPerito[0];*/
         
-    }    
+    }       
 
     public function ObtenerIdDelegacionPorNombre($nombreDelegacion)
     {
