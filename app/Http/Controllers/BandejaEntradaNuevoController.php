@@ -6176,7 +6176,7 @@ class BandejaEntradaNuevoController extends Controller
             if($fechaAvaluoCompara->lte($fechaCompara)){
                 $nuevo = 0;
             }*/
-            if($anioCompara == 2021 && $tieneAlcaldia == true){
+            if($anioCompara == 2021 && isset($tieneAlcaldia) && $tieneAlcaldia == true){
                 $nuevo = 1;
             }else{
                 $nuevo = 0;
