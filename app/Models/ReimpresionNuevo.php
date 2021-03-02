@@ -95,7 +95,12 @@ class ReimpresionNuevo
         $arrInfoAcuse['Ubicacion_Inmueble']['Delegacion'] = isset($ubicacionInmueble['Delegacion']) ? $ubicacionInmueble['Delegacion'] : $ubicacionInmueble['Alcaldia'];
         $arrInfoAcuse['Ubicacion_Inmueble']['Edificio'] = "-";
         $arrInfoAcuse['Ubicacion_Inmueble']['Lote'] = 0;
-        $arrInfoAcuse['Ubicacion_Inmueble']['Cuenta_agua'] = $ubicacionInmueble['CuentaDeAgua'];
+        if(isset($ubicacionInmueble['CuentaDeAgua'])){
+            $arrInfoAcuse['Ubicacion_Inmueble']['Cuenta_agua'] = $ubicacionInmueble['CuentaDeAgua'];
+        }else{
+            $arrInfoAcuse['Ubicacion_Inmueble']['Cuenta_agua'] = '';
+        }
+        
 
         
         $infoEscritura = DB::select("SELECT * FROM FEXAVA_ESCRITURA WHERE IDAVALUO = $idavaluo");
@@ -2042,7 +2047,50 @@ class ReimpresionNuevo
         
     }
 
+    public function obtenXML($idAvaluo){
 
+        $this->modelFis = new Fis();
+        $this->modelDocumentos = new Documentos();
+        //echo "EL QUE LLEGA "."SELECT NOMBRE, BINARIODATOS FROM DOC.DOC_FICHERODOCUMENTO WHERE IDDOCUMENTODIGITAL = $idAvaluo"; exit();
+        $infoArchivo = DB::select("SELECT NOMBRE, BINARIODATOS FROM DOC.DOC_FICHERODOCUMENTO WHERE IDDOCUMENTODIGITAL = $idAvaluo AND NOMBRE LIKE 'Avaluo_%'");
+        //$arrInfoArchivo = convierte_a_arreglo($infoArchivo);
+        $rutaArchivos = getcwd();
+        $nombreArchivo = $infoArchivo[0]->nombre;
+        $archivoComprimido = $infoArchivo[0]->binariodatos;
+        $myfile = fopen($rutaArchivos."/".$nombreArchivo, "a+");
+        fwrite($myfile,$archivoComprimido);
+        fclose($myfile);
+        $comandoNombre = "7z l ".$rutaArchivos."/".$nombreArchivo;
+        $datosNombre = shell_exec($comandoNombre);
+        $comandoDescomprimir = "7z e ".$rutaArchivos."/".$nombreArchivo;   
+        shell_exec($comandoDescomprimir);
+        $comandoRm = "rm ".$rutaArchivos."/".$nombreArchivo;
+        shell_exec($comandoRm);
+        if(file_exists($rutaArchivos."/default") === TRUE){    
+            $myfile = fopen($rutaArchivos."/default", "r");
+            $contenidoArchivo = fread($myfile, filesize($rutaArchivos."/default"));
+            fclose($myfile);  
+
+        }else{
+
+            $comandols = "ls php*";
+            $archphp = shell_exec($comandols);
+            if(substr(trim($archphp),0,3) == 'php'){
+                $comandoMv = "mv ".$rutaArchivos."/"."php* ".$rutaArchivos."/"."default";
+                system($comandoMv);
+            }
+
+            $myfile = fopen($rutaArchivos."/default", "r");
+            $contenidoArchivo = fread($myfile, filesize($rutaArchivos."/default"));
+            fclose($myfile);
+        }
+
+        $xml = simplexml_load_string($contenidoArchivo,'SimpleXMLElement', LIBXML_NOCDATA);
+        $comandoRmDefault = "rm ".$rutaArchivos."/default";
+        shell_exec($comandoRmDefault);
+        
+        echo $contenidoArchivo;
+    }
 
     public function infoAvaluoNuevo($idAvaluo){
 
