@@ -6147,7 +6147,7 @@ class BandejaEntradaNuevoController extends Controller
             $fechaCompara = new Carbon('2021-02-28');
 
             $nuevo = 1; //var_dump($fechaPresentacionCompara->lt($fechaCompara)); exit();
-            if($fechaAvaluoCompara->lt($fechaCompara)){
+            if($fechaAvaluoCompara->lte($fechaCompara)){
                 $nuevo = 0;
             }
             //echo "SOY NUEVO ".$nuevo; exit();
@@ -6233,7 +6233,7 @@ class BandejaEntradaNuevoController extends Controller
             $fechaCompara = new Carbon('2021-02-28');
 
             $nuevo = 1; //var_dump($fechaPresentacionCompara->lt($fechaCompara)); exit();
-            if($fechaAvaluoCompara->lt($fechaCompara)){
+            if($fechaAvaluoCompara->lte($fechaCompara)){
                 $nuevo = 0;
             }
             //echo "SOY NUEVO ".$nuevo; exit();
