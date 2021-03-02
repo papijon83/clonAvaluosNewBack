@@ -95,7 +95,7 @@ class ReimpresionNuevo
         $arrInfoAcuse['Ubicacion_Inmueble']['Delegacion'] = isset($ubicacionInmueble['Delegacion']) ? $ubicacionInmueble['Delegacion'] : $ubicacionInmueble['Alcaldia'];
         $arrInfoAcuse['Ubicacion_Inmueble']['Edificio'] = "-";
         $arrInfoAcuse['Ubicacion_Inmueble']['Lote'] = 0;
-        if(isset($ubicacionInmueble['CuentaDeAgua'])){
+        if(isset($ubicacionInmueble['CuentaDeAgua']) && !is_array($ubicacionInmueble['CuentaDeAgua'])){
             $arrInfoAcuse['Ubicacion_Inmueble']['Cuenta_agua'] = $ubicacionInmueble['CuentaDeAgua'];
         }else{
             $arrInfoAcuse['Ubicacion_Inmueble']['Cuenta_agua'] = '';
