@@ -98,13 +98,18 @@
 
                     <table style="border-collapse: collapse; width: 100%;">
                         <tr>
-                            <td colspan="2"><b>SOCIEDAD QUE PRACTICA EL AVALÚO</b></td>
+                            <td><b>SOCIEDAD QUE PRACTICA EL AVALÚO</b></td>
+                            <td>
+                            @isset($infoAvaluo['Sociedad_Participa']['Sociedad_Que_Practica_Avaluo'])
+                                <span class="grises">{{$infoAvaluo['Sociedad_Participa']['Sociedad_Que_Practica_Avaluo']}}</span>
+                            @endisset
+                            </td>
                         </tr>
                         <tr>
                             <td><b>VALUADOR:</b></td>
                             <td>
                             @isset($infoAvaluo['Sociedad_Participa']['Valuador'])
-                            <span class="grises">{{$infoAvaluo['Sociedad_Participa']['Valuador']}}</span>
+                                <span class="grises">{{$infoAvaluo['Sociedad_Participa']['Valuador']}}</span>
                             @endisset
                             </td>
                         </tr>
@@ -2497,7 +2502,11 @@
                             @endisset
                             </th>
                             <th style="width: 5%;"></th>
-                            <th style="border-top: 2px solid #000;">Registro T.D.F.:</th>
+                            <th style="border-top: 2px solid #000;">Registro T.D.F.:
+                            @isset($infoAvaluo['Registro_TDF'])
+                                <span class="grises">{{ $infoAvaluo['Registro_TDF'] }}</span>
+                            @endisset
+                            </th>
                         </tr>
                     </thead>
                 </table>
