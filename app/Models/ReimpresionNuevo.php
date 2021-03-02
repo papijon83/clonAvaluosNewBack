@@ -652,10 +652,18 @@ class ReimpresionNuevo
             }
         }
         
-        $infoReimpresion['Indiviso'] = $terreno['Indiviso'] <= 1 ? $terreno['Indiviso'] * 100 : $terreno['Indiviso'];
-        $infoReimpresion['Vida_Util_Promedio_Inmueble'] = $descripcionInmueble['VidaUtilTotalPonderadaDelInmueble'];
-        $infoReimpresion['Edad_Aproximada_Construccion'] = $descripcionInmueble['EdadPonderadaDelInmueble'];
-        $infoReimpresion['Vida_Util_Remanente'] = $descripcionInmueble['VidaUtilRemanentePonderadaDelInmueble'];
+        if(isset($terreno['Indiviso']) && !is_array($terreno['Indiviso'])){
+            $infoReimpresion['Indiviso'] = $terreno['Indiviso'] <= 1 ? $terreno['Indiviso'] * 100 : $terreno['Indiviso'];
+        }        
+        if(isset($descripcionInmueble['VidaUtilTotalPonderadaDelInmueble']) && !is_array($descripcionInmueble['VidaUtilTotalPonderadaDelInmueble'])){
+            $infoReimpresion['Vida_Util_Promedio_Inmueble'] = $descripcionInmueble['VidaUtilTotalPonderadaDelInmueble'];
+        }
+        if(isset($descripcionInmueble['EdadPonderadaDelInmueble']) && !is_array($descripcionInmueble['EdadPonderadaDelInmueble'])){
+            $infoReimpresion['Edad_Aproximada_Construccion'] = $descripcionInmueble['EdadPonderadaDelInmueble'];
+        }
+        if(isset($descripcionInmueble['VidaUtilRemanentePonderadaDelInmueble']) && !is_array($descripcionInmueble['VidaUtilRemanentePonderadaDelInmueble'])){
+            $infoReimpresion['Vida_Util_Remanente'] = $descripcionInmueble['VidaUtilRemanentePonderadaDelInmueble'];
+        }
 
         /************************************************************************************************************************************************************************/
 
