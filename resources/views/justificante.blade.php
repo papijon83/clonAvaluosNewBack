@@ -2008,7 +2008,7 @@
                                         </td>
                                         <td>
                                         @isset($value_valorConstruccionesC['Clave_Rango_Niveles'])
-                                            <span class="grises">{{ number_format($value_valorConstruccionesC['Clave_Rango_Niveles'],2) }}</span>
+                                            <span class="grises">{{ $value_valorConstruccionesC['Clave_Rango_Niveles'] }}</span>
                                         @endisset
                                         </td>
                                         <td>
@@ -2062,7 +2062,7 @@
                                     </td>
                                     <td>
                                     @isset($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Clave_Rango_Niveles'])
-                                        <span class="grises">{{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Clave_Rango_Niveles'],2) }}</span>
+                                        <span class="grises">{{ $infoAvaluo['Calculo_Valor_Construcciones']['Comunes']['Clave_Rango_Niveles'] }}</span>
                                     @endisset
                                     </td>
                                     <td>
