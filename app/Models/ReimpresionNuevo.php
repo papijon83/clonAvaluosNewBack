@@ -255,7 +255,13 @@ class ReimpresionNuevo
         $infoReimpresion['Sociedad_Participa']['Solicitante']['No_Interior'] = $arrSolicitante['NumeroInterior'];
         $infoReimpresion['Sociedad_Participa']['Solicitante']['Colonia'] = $arrSolicitante['Colonia'];
         $infoReimpresion['Sociedad_Participa']['Solicitante']['CP'] = $arrSolicitante['CodigoPostal'];
-        $infoReimpresion['Sociedad_Participa']['Solicitante']['Delegacion'] = $this->modelDocumentos->ObtenerNombreDelegacionPorClave($arrSolicitante['Delegacion']);
+        if(isset($arrSolicitante['Delegacion']) && !is_array($arrSolicitante['Delegacion'])){
+            $infoReimpresion['Sociedad_Participa']['Solicitante']['Delegacion'] = $this->modelDocumentos->ObtenerNombreDelegacionPorClave($arrSolicitante['Delegacion']);
+        }
+        
+        if(isset($arrSolicitante['Alcaldia']) && !is_array($arrSolicitante['Alcaldia'])){
+            $infoReimpresion['Sociedad_Participa']['Solicitante']['Delegacion'] = $this->modelDocumentos->ObtenerNombreDelegacionPorClave($arrSolicitante['Alcaldia']);
+        }
 
         $infoReimpresion['Sociedad_Participa']['inmuebleQueSeValua'] = $arrFexava['region']."-".$arrFexava['manzana']."-".$arrFexava['lote']."-".$arrFexava['unidadprivativa']." ".$arrFexava['digitoverificador'];
         $infoReimpresion['Sociedad_Participa']['regimenDePropiedad'] = $this->modelDocumentos->get_regimen_propiedad($arrFexava['codregimenpropiedad']);
