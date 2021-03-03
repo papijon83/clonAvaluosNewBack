@@ -239,6 +239,9 @@
                             </td>
                         </tr>
                         <tr>
+                            <td colspan="2" style="heigth: 10px;"></td>
+                        </tr>
+                        <tr>
                             <td colspan="2" style="border: 1px solid #B5B5B5; padding: 8px;">
                                 <table style="width: 100%;">
                                     <tr>
@@ -2451,7 +2454,7 @@
                     <table class="tabla_gris_valor">
                         <thead>
                             <tr>
-                                <th>RESULTADO DE LA APLICACIÓN DEL ENFOQUE DE INGRESOS (VALOR POR CAPITALIZACIÓN DE RENTAS):</th>
+                                <th style="width: 80%; font-size: 10px!important;">RESULTADO DE LA APLICACIÓN DEL ENFOQUE DE INGRESOS (VALOR POR CAPITALIZACIÓN DE RENTAS):</th>
                                 <th>
                                 @isset($infoAvaluo['Resultado_Aplicacion_Enfoque_Ingresos'])                                
                                     <span class="grises">$ number_format($infoAvaluo['Resultado_Aplicacion_Enfoque_Ingresos'],2) }}</span>
