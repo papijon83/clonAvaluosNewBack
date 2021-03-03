@@ -250,6 +250,9 @@
                             </td>
                         </tr>
                         <tr>
+                            <td colspan="2" style="heigth: 10px;"></td>
+                        </tr>
+                        <tr>
                             <td colspan="2" style="border: 1px solid #B5B5B5; padding: 8px;">
                                 <table style="width: 100%;">
                                     <tr>
@@ -2487,7 +2490,7 @@
                 <table class="tabla_gris_valor">
                     <thead>
                         <tr>
-                            <th>VALOR UNITARIO DE TIERRA DEL AVALÚO</th>
+                            <th style="width: 80%;">VALOR UNITARIO DE TIERRA DEL AVALÚO</th>
                             <th>
                             @isset($infoAvaluo['Terrenos']['Valor_Unitario_Tierra_Del_Avaluo'])
                                 <span class="grises">{{ $infoAvaluo['Terrenos']['Valor_Unitario_Tierra_Del_Avaluo'] }}
@@ -3182,7 +3185,7 @@
                     <table class="tabla_gris_valor">
                         <thead>
                             <tr>
-                                <th>VALOR UNITARIO APLICABLE AL AVALÚO:</th>
+                                <th style="width: 80%;">VALOR UNITARIO APLICABLE AL AVALÚO:</th>
                                 <th>
                                 @isset($infoAvaluo['Construcciones_En_Renta']['Valor_Unitario_Aplicable_Avaluo'])
                                     <span class="grises">$ {{ number_format($infoAvaluo['Construcciones_En_Renta']['Valor_Unitario_Aplicable_Avaluo'],2) }}</span>
@@ -3350,7 +3353,7 @@
                 <table class="tabla_gris_valor">
                     <thead>
                         <tr>
-                            <th>VALOR TOTAL DEL TERRENO PROPORCIONAL:</th>
+                            <th style="width: 80%;">VALOR TOTAL DEL TERRENO PROPORCIONAL:</th>
                             <th><span class="grises">${{ number_format($infoAvaluo['Calculo_Del_Valor_Del_Terreno']['Totales']['Valor_Total_Del_Terreno_Proporcional'],2) }}</span></th>
                         </tr>
                     </thead> 
@@ -3627,7 +3630,7 @@
                 <table class="tabla_gris_valor">
                     <thead>
                         <tr>
-                            <th>VALOR TOTAL DE LAS CONTRUCCIONES:</th>
+                            <th style="width: 80%;">VALOR TOTAL DE LAS CONTRUCCIONES:</th>
                             <th>
                             @isset($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Valor_Total_De_Las_Construcciones'])
                                 <span class="grises">$ {{ number_format($infoAvaluo['Calculo_Valor_Construcciones']['Totales_Comunes']['Valor_Total_De_Las_Construcciones'],2) }}</span>
