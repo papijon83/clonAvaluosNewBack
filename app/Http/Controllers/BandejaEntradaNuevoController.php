@@ -1,4 +1,5 @@
 <?php
+//SIMONA LA CACARISA 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\PeritoSociedad;
