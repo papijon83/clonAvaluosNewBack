@@ -98,7 +98,7 @@
 
                     <table style="border-collapse: collapse; width: 100%;">
                         <tr>
-                            <td><b>SOCIEDAD QUE PRACTICA EL AVALÚO</b></td>
+                            <td><b>SOCIEDAD QUE PRACTICA EL AVALÚO:</b></td>
                             <td>
                             @isset($infoAvaluo['Sociedad_Participa']['Sociedad_Que_Practica_Avaluo'])
                                 <span class="grises">{{$infoAvaluo['Sociedad_Participa']['Sociedad_Que_Practica_Avaluo']}}</span>
