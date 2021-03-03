@@ -3237,7 +3237,7 @@ class BandejaEntradaNuevoController extends Controller
         }
 
         if(isset($arrIdsDescripcionDelInmueble['e.5'])){
-            $vidaUtilRemanentePonderadaDelInmueble = $infoXmlTerreno->xpath($elementoPrincipal.'//DescripcionDelInmueble[@id="e"]//VidaUtilRemanentePonderadaDelInmueble[@id="e.5"]');
+            $vidaUtilRemanentePonderadaDelInmueble = $infoXmlTerreno->xpath($elementoPrincipal.'//DescripcionDelInmueble[@id="e"]//VidaMinimaRemanentePonderadaDelInmueble[@id="e.5"]');
             
             if(trim($vidaUtilRemanentePonderadaDelInmueble[0]) != ''){
                 $camposFexavaAvaluo['DIVIDAUTILREMANENTEPONDERADA'] = (String)($vidaUtilRemanentePonderadaDelInmueble[0]);

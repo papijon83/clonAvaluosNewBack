@@ -2738,7 +2738,7 @@ class ReimpresionNuevo
         if($tipoDeAvaluo ==  "Catastral"){
             $infoReimpresion['Edad_Aproximada_Construccion'] = $descripcionInmueble['EdadPonderadaDelInmueble'];
         }
-        $infoReimpresion['Vida_Util_Remanente'] = $descripcionInmueble['VidaUtilRemanentePonderadaDelInmueble'];
+        $infoReimpresion['Vida_Util_Remanente'] = $descripcionInmueble['VidaMinimaRemanentePonderadaDelInmueble'];
 
         /************************************************************************************************************************************************************************/
 
